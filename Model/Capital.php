@@ -1,59 +1,71 @@
 <?php
-	class Capital extends DB {
+class Capital extends DB {
 
-		private $id;
-		private $monto;
-        private $descripcion;
+    private $idMovimientoCapital;
+    private $monto;
+    private $descripcion;
+    private $fecha;
 
-		function __construct($id=null, $descripcion=null, $monto=null){
-			DB::__construct();
-			$this->id = $id;
-			$this->monto = $monto;
-            $this->descripcion = $descripcion;
-		}
+    function __construct($idMovimientoCapital = null, $monto = null, $descripcion = null, $fecha = null) {
+        DB::__construct();
+        $this->idMovimientoCapital = $idMovimientoCapital;
+        $this->monto = $monto;
+        $this->descripcion = $descripcion;
+        $this->fecha = $fecha;
+    }
 
-        function agregar($usuario) {
-            $query = $this->conn->prepare("INSERT INTO movimientos_capital (monto, descripcion) VALUES(:monto, :descripcion)");
-            $query->bindParam(':monto', $this->monto);
-            $query->bindParam(':descripcion', $this->descripcion);
-            $query->execute();
-            $this->add_bitacora($usuario,"movimientos_capital","Registrar","Capital Cambiado");
+    function agregar($usuario) {
+        $query = $this->conn->prepare("INSERT INTO movimientoscapital (monto, descripcion, fecha) VALUES (:monto, :descripcion, :fecha)");
+        $query->bindParam(':monto', $this->monto, PDO::PARAM_INT);
+        $query->bindParam(':descripcion', $this->descripcion, PDO::PARAM_STR);
+        $query->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
+        $query->execute();
+        $this->add_bitacora($usuario, "movimientosCapital", "Nodificación", "Capital Cambiado");
+    }
+
+    function search($n = 0, $limite = 100) {
+        $query = "SELECT 
+                        a.idMC, 
+                        a.monto, 
+                        a.descripcion, 
+                        a.fecha
+                        FROM movimientoscapital as a 
+                        WHERE 1";
+
+        $lista = [];
+
+        if ($this->idMovimientoCapital != null) {
+            array_push($lista, 'idMC');
         }
-        function search($n=0,$limite=100){
-            // Al igual que la clase anterior, puede buscar segun muchos valores o solo algunos
-            $query = "SELECT * FROM movimientos_capital WHERE 1";
 
-			$lista = [];
-
-            if ($this->id){
-            	array_push($lista,'id');
+        if ($lista) {
+            foreach ($lista as $e) {
+                $query .= ' AND a.' . $e . ' = :' . $e;
             }
-            if ($lista) {
-            	foreach ($lista as $e){
-            		$query .= ' AND a.'.$e.'=:'.$e;
-            	}
-            }
-            $n = $n*$limite;
-
-            $query = $query . " LIMIT :l OFFSET :n";
-
-            $consulta = $this->conn->prepare($query);
-
-            $consulta->bindParam(':l',$limite, PDO::PARAM_INT);
-            $consulta->bindParam(':n',$n, PDO::PARAM_INT);
-            if ($this->id != null){
-                $consulta->bindParam(':id',$this->id, PDO::PARAM_INT);
-            }    
-            $consulta->execute();
-            return $consulta->fetchAll();
         }
-        function detallesCapital(){
-            $query = $this->conn->prepare('SELECT * FROM detalles_capital;');
-            $query->execute();
-            return $query->fetchAll();
 
-	}
-    function COUNT(){
+        $n = $n * $limite;
+        $query .= " ORDER BY a.fecha DESC LIMIT :l OFFSET :n";
+
+        $consulta = $this->conn->prepare($query);
+        $consulta->bindParam(':l', $limite, PDO::PARAM_INT);
+        $consulta->bindParam(':n', $n, PDO::PARAM_INT);
+
+        if ($this->idMovimientoCapital != null) {
+            $consulta->bindParam(':idMC', $this->idMovimientoCapital, PDO::PARAM_INT);
+        }
+
+        $consulta->execute();
+        return $consulta->fetchAll();
+    }
+
+    function detallesCapital() {
+        $query = $this->conn->prepare('SELECT SUM(monto) AS total_ingresos, SUM(CASE WHEN monto < 0 THEN monto ELSE 0 END) AS total_egresos FROM movimientos_capital;');
+        $query->execute();
+        return $query->fetchAll();
+    }
+
+    function COUNT() {
         return $this->conn->query("SELECT COUNT(*) 'total' FROM movimientos_capital")->fetch()['total'];
     }
 }

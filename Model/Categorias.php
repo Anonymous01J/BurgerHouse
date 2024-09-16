@@ -1,62 +1,69 @@
 <?php
-	class Categoria extends DB {
+class Categoria extends DB {
 
-		private $id;
-		private $nombre;
+    private $idCategoria;
+    private $nombre;
+    private $tipo;
+    private $active;
 
-		function __construct($id=null, $nombre=null){
-			DB::__construct();
-			$this->id = $id;
-			$this->nombre = $nombre;
-		}
+    function __construct($idCategoria=null, $nombre=null, $tipo=null, $active=null){
+        DB::__construct();
+        $this->idCategoria = $idCategoria;
+        $this->nombre = $nombre;
+        $this->tipo = $tipo;
+        $this->active = $active;
+    }
 
-        function agregar($usuario){
-            $query = $this->conn->prepare("INSERT INTO categoria VALUES(null, :nombre)");
-            $query->bindParam(':nombre',$this->nombre);
-            $query->execute();
-			$this->add_bitacora($usuario,"Categorias","Registrar","Categoria Registrada");
+    function agregar($usuario){
+        $query = $this->conn->prepare("INSERT INTO categorias (nombre, tipo, active) VALUES (:nombre, :tipo, :active)");
+        $query->bindParam(':nombre',$this->nombre);
+        $query->bindParam(':tipo',$this->tipo);
+        $query->bindParam(':active',$this->active);
+        $query->execute();
+        $this->add_bitacora($usuario,"Categorias","Registrar","Categoria Registrada");
+    }
+
+    function search($n=0,$limite=100){
+        $query = "SELECT * FROM categorias";
+
+        if ($this->idCategoria != null){
+            $query = $query." WHERE idCategoria=:idCategoria";
         }
+        $n = $n*$limite;
 
-        function search($n=0,$limite=100){
-            // Al igual que la clase anterior, puede buscar segun muchos valores o solo algunos
-            $query = "SELECT * FROM categoria";
+        $query = $query . " LIMIT :l OFFSET :n";
 
-            if ($this->id != null){
-                $query = $query." WHERE id=:id";
-            }
-            $n = $n*$limite;
+        $consulta = $this->conn->prepare($query);
 
-            $query = $query . " LIMIT :l OFFSET :n";
+        $consulta->bindParam(':l',$limite, PDO::PARAM_INT);
+        $consulta->bindParam(':n',$n, PDO::PARAM_INT);
+        if ($this->idCategoria != null){
+            $consulta->bindParam(':idCategoria',$this->idCategoria, PDO::PARAM_INT);
+        }    
+        $consulta->execute();
+        return $consulta->fetchAll();
+    }
 
-            $consulta = $this->conn->prepare($query);
+    function borrar($usuario){
+        $query = $this->conn->prepare('DELETE FROM categorias WHERE idCategoria = :idCategoria');
+        $query->bindParam(':idCategoria',$this->idCategoria);
+        $query->execute();
+        $this->add_bitacora($usuario,"Categorias","Eliminar","Categoria".$this->idCategoria." Eliminada");
+    }
 
-            $consulta->bindParam(':l',$limite, PDO::PARAM_INT);
-            $consulta->bindParam(':n',$n, PDO::PARAM_INT);
-            if ($this->id != null){
-                $consulta->bindParam(':id',$this->id, PDO::PARAM_INT);
-            }    
-            $consulta->execute();
-            return $consulta->fetchAll();
-        }
+    function actualizar($usuario){
+        $query = 'UPDATE categorias SET nombre=:nombre, tipo=:tipo, active=:active WHERE idCategoria=:idCategoria';
+        $query = $this->conn->prepare($query);
+        $query->bindParam(':nombre',$this->nombre);
+        $query->bindParam(':tipo',$this->tipo);
+        $query->bindParam(':active',$this->active);
+        $query->bindParam(':idCategoria',$this->idCategoria);
+        $query->execute(); 
+        $this->add_bitacora($usuario,"Categorias","Modificar","Categoria ".$this->idCategoria." Modificada");
+    }
 
-        function borrar($usuario){
-            $query = $this->conn->prepare('DELETE FROM categoria WHERE id = :id');
-            $query->bindParam(':id',$this->id);
-            $query->execute();
-			$this->add_bitacora($usuario,"Categorias","Eliminar","Categoria".$this->id." Eliminada");
-        }
-
-        function actualizar($usuario){
-            $query = 'UPDATE categoria SET nombre=:nombre WHERE id=:id';
-            $query = $this->conn->prepare($query);
-            $query->bindParam(':nombre',$this->nombre);
-            $query->bindParam(':id',$this->id);
-            $query->execute(); 
-			$this->add_bitacora($usuario,"Categorias","Modificar","Categoria ".$this->id." Modificada");
-        }
-
-        function COUNT(){
-            return $this->conn->query("SELECT COUNT(*) 'total' FROM usuarios")->fetch()['total'];
-        }
-	}
+    function COUNT(){
+        return $this->conn->query("SELECT COUNT(*) 'total' FROM categorias")->fetch()['total'];
+    }
+}
 ?>

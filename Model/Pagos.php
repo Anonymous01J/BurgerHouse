@@ -1,69 +1,74 @@
 <?php
 	class Pago extends DB {
-		private $id;
-		private $id_venta;
-		private $id_metodo_pago;
-		private $monto;
-		function __construct($id=null, $id_venta=null, $id_metodo_pago=null, $monto=null){
-			DB::__construct();
-			$this->id = $id;
-			$this->id_venta = $id_venta;
-			$this->id_metodo_pago = $id_metodo_pago;
-			$this->monto = $monto;
-		}
-		
-		function search($n=0, $limite=9, $order=' p.id DESC '){
-			$query = "SELECT
-			p.monto as monto,
-			mp.nombre as metodo
-			FROM pagos as p
-			JOIN metodo_pago as mp ON mp.id=p.id_metodo_pago
-			WHERE 1
-			"; 
-	
-			$lista = [];
-	
-			if ($this->id != null){
-				array_push($lista,'id');
-			}
-			if ($this->id_metodo_pago != null){
-				array_push($lista, 'id_metodo_pago');
-			}
-			if ($this->id_venta != null){
-				array_push($lista, 'id_venta');
-			}
-			if ($lista) {
-				foreach ($lista as $e){
-					$query .= ' AND p.'.$e.'=:'.$e;
-				}
-			}
-			$query .= " ORDER BY $order  LIMIT :l OFFSET :n";
-			$query = $this->conn->prepare($query);
-	
-            $n = $n*$limite;
-			$query->bindParam(':l', $limite, PDO::PARAM_INT);
-			$query->bindParam(':n', $n, PDO::PARAM_INT);
-			if ($this->id != null) {
-				$query->bindParam(':id', $this->id, PDO::PARAM_INT);
-			}
-			if ($this->id_metodo_pago != null){
-				$query->bindParam(':id_metodo_pago', $this->id_metodo_pago, PDO::PARAM_INT);
-			}
-			if ($this->id_venta != null){
-				$query->bindParam(':id_venta', $this->id_venta, PDO::PARAM_INT);
-			}
-	
-			$query->execute();
-			return $query->fetchAll();
-		}
+	    private $idPagos;
+	    private $idRegistroVentas;
+	    private $idMetodoPago;
+	    private $monto;
+	    private $fecha;
 
-		function agregar($usuario){
-            $query = $this->conn->prepare('INSERT INTO pagos (id_venta,id_metodo_pago,monto) VALUES (:id_venta,:id_metodo_pago,:monto)');
-            $query->bindParam(':id_venta',$this->id_venta);
-            $query->bindParam(':id_metodo_pago',$this->id_metodo_pago);
-            $query->bindParam(':monto',$this->monto);
-            $query->execute();
-        }
-		
+	    function __construct($idPagos=null, $idRegistroVentas=null, $idMetodoPago=null, $monto=null, $fecha=null){
+	        DB::__construct();
+	        $this->idPagos = $idPagos;
+	        $this->idRegistroVentas = $idRegistroVentas;
+	        $this->idMetodoPago = $idMetodoPago;
+	        $this->monto = $monto;
+	        $this->fecha = $fecha;
+	    }
+
+	    function agregar($usuario){
+	        $query = $this->conn->prepare('INSERT INTO pagos (idRegistroVentas,idMetodoPago,monto,fecha) VALUES (:idRegistroVentas,:idMetodoPago,:monto,:fecha)');
+	        $query->bindParam(':idRegistroVentas',$this->idRegistroVentas);
+	        $query->bindParam(':idMetodoPago',$this->idMetodoPago);
+	        $query->bindParam(':monto',$this->monto);
+	        $query->bindParam(':fecha',$this->fecha);
+	        $query->execute();
+	    }
+
+	    function search($n=0, $limite=9, $order=' p.idPagos DESC '){
+	        $query = "SELECT
+	        p.monto as monto,
+	        mp.nombre as metodo,
+	        rv.fecha as fecha_pago
+	        FROM pagos as p
+	        JOIN metodo_pago as mp ON mp.idMetodoPago=p.idMetodoPago
+	        JOIN registroventas as rv ON rv.idRegistroVentas=p.idRegistroVentas
+	        WHERE 1
+	        "; 
+
+	        $lista = [];
+
+	        if ($this->idPagos != null){
+	            array_push($lista,'idPagos');
+	        }
+	        if ($this->idMetodoPago != null){
+	            array_push($lista, 'idMetodoPago');
+	        }
+	        if ($this->idRegistroVentas != null){
+	            array_push($lista, 'idRegistroVentas');
+	        }
+	        if ($lista) {
+	            foreach ($lista as $e){
+	                $query .= ' AND p.'.$e.'=:'.$e;
+	            }
+	        }
+	        $query .= " ORDER BY $order  LIMIT :l OFFSET :n";
+	        $query = $this->conn->prepare($query);
+
+	        $n = $n*$limite;
+	        $query->bindParam(':l', $limite, PDO::PARAM_INT);
+	        $query->bindParam(':n', $n, PDO::PARAM_INT);
+	        if ($this->idPagos != null) {
+	            $query->bindParam(':idPagos', $this->idPagos, PDO::PARAM_INT);
+	        }
+	        if ($this->idMetodoPago != null){
+	            $query->bindParam(':idMetodoPago', $this->idMetodoPago, PDO::PARAM_INT);
+	        }
+	        if ($this->idRegistroVentas != null){
+	            $query->bindParam(':idRegistroVentas', $this->idRegistroVentas, PDO::PARAM_INT);
+	        }
+
+	        $query->execute();
+	        return $query->fetchAll();
+	    }
 	}
 ?>

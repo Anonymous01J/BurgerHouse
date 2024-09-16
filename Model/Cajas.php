@@ -1,41 +1,50 @@
 <?php
-class Caja extends DB{
+class Caja extends DB {
 
-    private $id;
+    private $idCaja;
     private $usuario;
-    private $monto_inicial;
-    private $estado;
+    private $montoInicial;
+    private $montoFinal;
+    private $fecha;
+    private $montoCredito;
+    private $totalVentas;
 
-    function __construct($id = null, $usuario = null, $monto_inicial = null, $estado = null){
+    function __construct($idCaja = null, $usuario = null, $montoInicial = null, $montoFinal = null, $fecha = null, $montoCredito = null, $totalVentas = null) {
         DB::__construct();
-        $this->id = $id;
+        $this->idCaja = $idCaja;
         $this->usuario = $usuario;
-        $this->monto_inicial = $monto_inicial;
-        $this->estado = $estado;
+        $this->montoInicial = $montoInicial;
+        $this->montoFinal = $montoFinal;
+        $this->fecha = $fecha;
+        $this->montoCredito = $montoCredito;
+        $this->totalVentas = $totalVentas;
     }
 
-    function abrir(){
-        $query = $this->conn->prepare("INSERT INTO caja(usuario,monto_inicial,monto_final,estado) VALUES(:usuario, :monto_inicial, 0, 0)");
+    function abrir() {
+        $query = $this->conn->prepare("INSERT INTO caja (usuario, montoInicial, montoFinal, fecha, montoCredito, totalVentas) VALUES (:usuario, :montoInicial, :montoFinal, :fecha, :montoCredito, :totalVentas)");
         $query->bindParam(':usuario', $this->usuario, PDO::PARAM_INT);
-        $query->bindParam(':monto_inicial', $this->monto_inicial, PDO::PARAM_INT);
+        $query->bindParam(':montoInicial', $this->montoInicial, PDO::PARAM_INT);
+        $query->bindParam(':montoFinal', $this->montoFinal, PDO::PARAM_INT);
+        $query->bindParam(':fecha', $this->fecha, PDO::PARAM_STR);
+        $query->bindParam(':montoCredito', $this->montoCredito, PDO::PARAM_INT);
+        $query->bindParam(':totalVentas', $this->totalVentas, PDO::PARAM_INT);
         $query->execute();
         $this->add_bitacora($this->usuario, "Caja", "Abriendo", "Caja abierta");
     }
 
-    function search($n = 0, $limite = 100, $order = ' id DESC '){
+    function search($n = 0, $limite = 100, $order = ' idCaja DESC ') {
         $query = "SELECT 
-                        a.id, 
+                        a.idCaja, 
                         b.nombre, 
-                        a.monto_final, 
-                        a.monto_inicial, 
-                        a.estado, 
+                        a.montoFinal, 
+                        a.montoInicial, 
                         a.fecha,
                         a.fecha_cierre,
-                        a.total_ventas as total_ventas,
-                        (SELECT SUM(rv.monto_final) FROM registro_ventas rv WHERE rv.id_caja=a.id) as total_cierre,
-                        a.monto_credito as monto_credito
+                        a.totalVentas as totalVentas,
+                        (SELECT SUM(rv.montoFinal) FROM registro_ventas rv WHERE rv.id_caja=a.idCaja) as total_cierre,
+                        a.montoCredito as montoCredito
                         FROM caja as a 
-                        INNER JOIN usuarios as b ON b.id = a.usuario
+                        INNER JOIN usuarios as b ON b.usuario = a.usuario
                         WHERE 1";
 
         $lista = [];
@@ -60,8 +69,8 @@ class Caja extends DB{
         $consulta->bindParam(':l', $limite, PDO::PARAM_INT);
         $consulta->bindParam(':n', $n, PDO::PARAM_INT);
 
-        if ($this->id != null) {
-            $consulta->bindParam(':id', $this->id, PDO::PARAM_INT);
+        if ($this->idCaja != null) {
+            $consulta->bindParam(':idCaja', $this->idCaja, PDO::PARAM_INT);
         }
         if ($this->usuario != null) {
             $consulta->bindParam(':usuario', $this->usuario, PDO::PARAM_INT);
@@ -74,24 +83,23 @@ class Caja extends DB{
         return $consulta->fetchAll();
     }
 
-    function cerrar(){
-
-        $caja = new Caja(id: $this->id, estado: 0);
+    function cerrar() {
+        $caja = new Caja(idCaja: $this->idCaja, estado: 0);
         $caja = $this->search()[0];
         if (count($caja) == 0) {
             return [];
         }
-        $stmt = $this->conn->prepare('CALL AsignarTotalVentasDia(:id)');
-        $stmt->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $stmt = $this->conn->prepare('CALL AsignarTotalVentasDia(:idCaja)');
+        $stmt->bindParam(':idCaja', $this->idCaja, PDO::PARAM_INT);
         $stmt->execute();
-        // $query = $this->conn->prepare('UPDATE caja SET monto_final=:mf, estado=0 WHERE id = :id');
-        // $query->bindParam(':id',$caja->id);
-        // $query->bindParam(':mf',$this->monto_final);
-        // $query->execute();
-        // $this->add_bitacora($this->usuario,"Caja","Cerrar","Caja cerrada");
+        $query = $this->conn->prepare('UPDATE caja SET montoFinal=:mf, fecha_cierre = CURRENT_TIMESTAMP, estado = 1, totalVentas = (SELECT COUNT(rv2.idRegistroVentas) FROM registro_ventas rv2 WHERE rv2.id_caja = :idCaja) WHERE idCaja = :idCaja AND estado = 0');
+        $query->bindParam(':idCaja', $this->idCaja, PDO::PARAM_INT);
+        $query->bindParam(':mf', $this->montoFinal, PDO::PARAM_INT);
+        $query->execute();
+        $this->add_bitacora($this->usuario, "Caja", "Cerrar", "Caja cerrada");
     }
 
-    function buscar_ultima(){
+    function buscar_ultima() {
         $consulta = $this->conn->prepare('SELECT * FROM caja WHERE estado=0 AND usuario=:usuario');
         $consulta->bindParam(':usuario', $this->usuario, PDO::PARAM_INT);
         $consulta->execute();
@@ -100,29 +108,26 @@ class Caja extends DB{
         if (count($result) < 1) {
             return [];
         }
-        // $caja = new Caja(null, $this->usuario, null, 0);
-        // $result = $caja->search();
         return $result[0];
     }
 
-
-    function totalMetodosPago(){
+    function totalMetodosPago() {
         $consulta = $this->conn->prepare('SELECT 
                                         mp.nombre AS nombre,
                                         COALESCE(SUM(sub.monto), 0) AS monto
                                         FROM metodo_pago mp
                                         LEFT JOIN (SELECT p.id_metodo_pago,p.monto
                                         FROM pagos p
-                                        JOIN registro_ventas rv ON p.id_venta = rv.id
-                                        WHERE rv.id_caja = :id) sub ON mp.id = sub.id_metodo_pago
+                                        JOIN registro_ventas rv ON p.id_venta = rv.idRegistroVentas
+                                        WHERE rv.id_caja = :idCaja) sub ON mp.idMetodoPago = sub.id_metodo_pago
                                         GROUP BY mp.nombre');
-        $consulta->bindParam(':id', $this->id, PDO::PARAM_INT);
+        $consulta->bindParam(':idCaja', $this->idCaja, PDO::PARAM_INT);
         $consulta->execute();
         return $consulta->fetchAll();
     }
 
-    function COUNT(){
+    function COUNT() {
         return $this->conn->query("SELECT COUNT(*) 'total' FROM caja")->fetch()['total'];
     }
-
 }
+?>
