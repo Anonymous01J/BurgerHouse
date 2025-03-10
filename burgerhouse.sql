@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 16-09-2024 a las 04:17:45
--- Versión del servidor: 10.4.21-MariaDB
--- Versión de PHP: 8.0.11
+-- Tiempo de generación: 10-03-2025 a las 07:11:10
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,17 +18,48 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `burgerhouse`
+-- Base de datos: `burger_house`
 --
 
 DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `AsignarTotalVentasDia` (IN `id_caja` INT(250))  BEGIN
+CREATE DEFINER=`root`@`localhost` PROCEDURE `AsignarTotalVentasDia` (IN `id_caja` INT(250))   BEGIN
     DECLARE asignar_total_ventas FLOAT;
 	SELECT SUM(rv.monto_final) INTO asignar_total_ventas FROM registro_ventas rv WHERE rv.id_caja = id_caja;
 	UPDATE caja c SET c.monto_final=(asignar_total_ventas+c.monto_inicial), c.fecha_cierre = CURRENT_TIMESTAMP, c.estado = 1, c.total_ventas = (SELECT COUNT(rv2.id) FROM registro_ventas rv2 WHERE rv2.id_caja = c.id) WHERE c.id = id_caja AND c.estado = 0;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `DescontarIngredientes` (IN `p_idProducto` INT, IN `p_cantidad` INT)   BEGIN
+    DECLARE v_idMateriaPrima INT;
+    DECLARE v_cantidad_necesaria DECIMAL(10,3);
+    DECLARE done INT DEFAULT FALSE;
+    
+    -- Cursor para recorrer los ingredientes del producto
+    DECLARE cur_ingredientes CURSOR FOR 
+        SELECT idMateriaPrima, cantidad_necesaria 
+        FROM producto_ingredientes 
+        WHERE idProducto = p_idProducto;
+        
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+    
+    OPEN cur_ingredientes;
+    
+    loop_ingredientes:LOOP
+        FETCH cur_ingredientes INTO v_idMateriaPrima, v_cantidad_necesaria;
+        IF done THEN
+            LEAVE loop_ingredientes;
+        END IF;
+        
+        -- Descontar el stock
+        UPDATE materiaprima 
+        SET stock = stock - (v_cantidad_necesaria * p_cantidad)
+        WHERE idMateriaPrima = v_idMateriaPrima;
+        
+    END LOOP;
+    
+    CLOSE cur_ingredientes;
 END$$
 
 DELIMITER ;
@@ -38,14 +69,16 @@ DELIMITER ;
 --
 -- Estructura de tabla para la tabla `bitacora`
 --
+-- Creación: 10-03-2025 a las 04:05:37
+--
 
 CREATE TABLE `bitacora` (
   `idBitacora` int(11) NOT NULL,
-  `Usuario` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `tabla` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `accion` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `Usuario` varchar(20) NOT NULL,
+  `tabla` varchar(20) NOT NULL,
+  `accion` varchar(20) NOT NULL,
   `fecha` datetime NOT NULL,
-  `detalles` text COLLATE utf8mb4_spanish_ci NOT NULL
+  `detalles` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -53,10 +86,12 @@ CREATE TABLE `bitacora` (
 --
 -- Estructura de tabla para la tabla `caja`
 --
+-- Creación: 10-03-2025 a las 04:04:50
+--
 
 CREATE TABLE `caja` (
   `idCaja` int(11) NOT NULL,
-  `usuario` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `usuario` varchar(20) NOT NULL,
   `montoInicial` float NOT NULL,
   `montoFinal` float NOT NULL,
   `fecha` datetime NOT NULL,
@@ -68,6 +103,8 @@ CREATE TABLE `caja` (
 
 --
 -- Estructura de tabla para la tabla `capital`
+--
+-- Creación: 10-03-2025 a las 04:04:56
 --
 
 CREATE TABLE `capital` (
@@ -81,11 +118,13 @@ CREATE TABLE `capital` (
 --
 -- Estructura de tabla para la tabla `categorias`
 --
+-- Creación: 10-03-2025 a las 04:04:58
+--
 
 CREATE TABLE `categorias` (
   `idCategoria` int(11) NOT NULL,
-  `nombre` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `tipo` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `tipo` varchar(20) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -94,12 +133,14 @@ CREATE TABLE `categorias` (
 --
 -- Estructura de tabla para la tabla `clientes`
 --
+-- Creación: 10-03-2025 a las 04:05:00
+--
 
 CREATE TABLE `clientes` (
   `idCliente` int(11) NOT NULL,
-  `nombre` text COLLATE utf8mb4_spanish_ci NOT NULL,
-  `cedula` varchar(11) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `telefono` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` text NOT NULL,
+  `cedula` varchar(11) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -119,6 +160,8 @@ CREATE TABLE `clientesfrecuentes` (
 
 --
 -- Estructura de tabla para la tabla `configuraciones`
+--
+-- Creación: 10-03-2025 a las 04:05:01
 --
 
 CREATE TABLE `configuraciones` (
@@ -154,6 +197,8 @@ CREATE TABLE `costo_entradas_mensuales` (
 --
 -- Estructura de tabla para la tabla `credito`
 --
+-- Creación: 10-03-2025 a las 04:05:41
+--
 
 CREATE TABLE `credito` (
   `idCredito` int(11) NOT NULL,
@@ -182,6 +227,8 @@ CREATE TABLE `detalles_capital` (
 --
 -- Estructura de tabla para la tabla `entradasmp`
 --
+-- Creación: 10-03-2025 a las 05:28:07
+--
 
 CREATE TABLE `entradasmp` (
   `idEntradasMP` int(11) NOT NULL,
@@ -191,14 +238,27 @@ CREATE TABLE `entradasmp` (
   `fechaCompra` datetime NOT NULL DEFAULT current_timestamp(),
   `fechaVencimiento` datetime NOT NULL,
   `precioCompra` float NOT NULL,
-  `precioCompraDivisa` float NOT NULL,
-  `existencia` int(11) NOT NULL
+  `precioCompraDivisa` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Disparadores `entradasmp`
+--
+DELIMITER $$
+CREATE TRIGGER `actualizar_stock_entrada` AFTER INSERT ON `entradasmp` FOR EACH ROW BEGIN
+    UPDATE materiaprima 
+    SET stock = stock + NEW.cantidad 
+    WHERE idMateriaPrima = NEW.idMateriaPrima;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `facturas`
+--
+-- Creación: 10-03-2025 a las 04:15:38
 --
 
 CREATE TABLE `facturas` (
@@ -206,9 +266,19 @@ CREATE TABLE `facturas` (
   `idRegistroVentas` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `descripción` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `descripción` text NOT NULL,
   `costeTotal` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Disparadores `facturas`
+--
+DELIMITER $$
+CREATE TRIGGER `after_insert_factura` AFTER INSERT ON `facturas` FOR EACH ROW BEGIN
+    CALL DescontarIngredientes(NEW.idProducto, NEW.cantidad);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -236,17 +306,33 @@ CREATE TABLE `ganacias_mensuales` (
 --
 -- Estructura de tabla para la tabla `materiaprima`
 --
+-- Creación: 10-03-2025 a las 05:55:14
+-- Última actualización: 10-03-2025 a las 05:55:14
+--
 
 CREATE TABLE `materiaprima` (
   `idMateriaPrima` int(11) NOT NULL,
   `idCategoria` int(11) NOT NULL,
   `idUnidad` int(11) NOT NULL,
-  `valorUnidad` float NOT NULL,
-  `nombre` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `stock` decimal(10,3) NOT NULL DEFAULT 0.000,
+  `nombre` text NOT NULL,
   `stockMIn` int(6) NOT NULL,
   `stockMax` int(6) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Disparadores `materiaprima`
+--
+DELIMITER $$
+CREATE TRIGGER `before_update_materiaprima` BEFORE UPDATE ON `materiaprima` FOR EACH ROW BEGIN
+    IF NEW.stock < 0 THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Stock no puede ser negativo';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -265,10 +351,12 @@ CREATE TABLE `maxventas` (
 --
 -- Estructura de tabla para la tabla `metodopago`
 --
+-- Creación: 10-03-2025 a las 04:05:07
+--
 
 CREATE TABLE `metodopago` (
   `idMetodoPago` int(11) NOT NULL,
-  `nombre` varchar(25) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(25) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -289,11 +377,13 @@ CREATE TABLE `minventas` (
 --
 -- Estructura de tabla para la tabla `movimientoscapital`
 --
+-- Creación: 10-03-2025 a las 04:05:08
+--
 
 CREATE TABLE `movimientoscapital` (
   `idMC` int(11) NOT NULL,
   `monto` float NOT NULL,
-  `descripcion` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `descripcion` text NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -302,12 +392,14 @@ CREATE TABLE `movimientoscapital` (
 --
 -- Estructura de tabla para la tabla `notificaciones`
 --
+-- Creación: 10-03-2025 a las 04:05:59
+--
 
 CREATE TABLE `notificaciones` (
   `idNotificaciones` int(11) NOT NULL,
-  `usuario` varchar(25) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `usuario` varchar(25) NOT NULL,
   `status` tinyint(1) NOT NULL,
-  `mensaje` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `mensaje` text NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -315,6 +407,8 @@ CREATE TABLE `notificaciones` (
 
 --
 -- Estructura de tabla para la tabla `pagos`
+--
+-- Creación: 10-03-2025 a las 04:06:01
 --
 
 CREATE TABLE `pagos` (
@@ -341,13 +435,15 @@ DELIMITER ;
 --
 -- Estructura de tabla para la tabla `productos`
 --
+-- Creación: 10-03-2025 a las 04:06:08
+--
 
 CREATE TABLE `productos` (
   `idProducto` int(11) NOT NULL,
   `idCategoria` int(11) NOT NULL,
-  `nombre` varchar(25) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `detalles` text COLLATE utf8mb4_spanish_ci NOT NULL,
-  `imagen` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(25) NOT NULL,
+  `detalles` text NOT NULL,
+  `imagen` varchar(500) NOT NULL,
   `precio` float NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -355,16 +451,32 @@ CREATE TABLE `productos` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `producto_ingredientes`
+--
+-- Creación: 10-03-2025 a las 05:18:20
+--
+
+CREATE TABLE `producto_ingredientes` (
+  `idProducto` int(11) NOT NULL,
+  `idMateriaPrima` int(11) NOT NULL,
+  `cantidad_necesaria` decimal(10,3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `proveedores`
+--
+-- Creación: 10-03-2025 a las 04:05:22
 --
 
 CREATE TABLE `proveedores` (
   `idProvedor` int(11) NOT NULL,
-  `nombre` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `razonSocial` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `rif` varchar(15) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `telefono` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `correo` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `razonSocial` varchar(50) NOT NULL,
+  `rif` varchar(15) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
+  `correo` text NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -372,6 +484,8 @@ CREATE TABLE `proveedores` (
 
 --
 -- Estructura de tabla para la tabla `registroventas`
+--
+-- Creación: 10-03-2025 a las 04:06:12
 --
 
 CREATE TABLE `registroventas` (
@@ -384,9 +498,9 @@ CREATE TABLE `registroventas` (
   `montoDivisa` float NOT NULL,
   `tasa` float NOT NULL,
   `fecha` datetime NOT NULL,
-  `referenciaPago` varchar(6) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `comprobantePago` text COLLATE utf8mb4_spanish_ci NOT NULL,
-  `direccion` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `referenciaPago` varchar(6) NOT NULL,
+  `comprobantePago` text NOT NULL,
+  `direccion` text NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -395,10 +509,12 @@ CREATE TABLE `registroventas` (
 --
 -- Estructura de tabla para la tabla `roles`
 --
+-- Creación: 10-03-2025 a las 04:05:28
+--
 
 CREATE TABLE `roles` (
   `idRol` int(11) NOT NULL,
-  `nombre` varchar(25) COLLATE utf8mb4_spanish_ci NOT NULL
+  `nombre` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -406,10 +522,12 @@ CREATE TABLE `roles` (
 --
 -- Estructura de tabla para la tabla `unidades`
 --
+-- Creación: 10-03-2025 a las 04:05:33
+--
 
 CREATE TABLE `unidades` (
   `idUnidad` int(11) NOT NULL,
-  `nombre` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL
+  `nombre` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -417,14 +535,17 @@ CREATE TABLE `unidades` (
 --
 -- Estructura de tabla para la tabla `usuario`
 --
+-- Creación: 10-03-2025 a las 04:24:17
+--
 
 CREATE TABLE `usuario` (
-  `usuario` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `idUsuario` int(11) NOT NULL,
+  `usuario` varchar(20) NOT NULL,
   `idRol` int(11) NOT NULL,
-  `hash` text COLLATE utf8mb4_spanish_ci NOT NULL,
-  `nombre` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `preguntaS` text COLLATE utf8mb4_spanish_ci NOT NULL,
-  `respuestaS` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `hash` text NOT NULL,
+  `nombre` varchar(50) NOT NULL,
+  `preguntaS` text NOT NULL,
+  `respuestaS` text NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -453,7 +574,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `detalles_capital`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detalles_capital`  AS SELECT (select coalesce(round(sum(case when `m`.`monto` like '-%' then `m`.`monto` else 0 end),2),0) from `movimientoscapital` `m`) AS `Gastos`, (select coalesce(round(sum(case when `m`.`monto`  not like '-%' then `m`.`monto` else 0 end),2),0) from `movimientoscapital` `m`) AS `Ingresos`, (select coalesce(round(sum(`p`.`monto`),2),0) from `pagos` `p`) AS `Ventas`, (select coalesce(`capital`.`monto`,0) from `capital` limit 1) AS `capital` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `detalles_capital`  AS SELECT (select coalesce(round(sum(case when `m`.`monto` like '-%' then `m`.`monto` else 0 end),2),0) from `movimientoscapital` `m`) AS `Gastos`, (select coalesce(round(sum(case when `m`.`monto` not like '-%' then `m`.`monto` else 0 end),2),0) from `movimientoscapital` `m`) AS `Ingresos`, (select coalesce(round(sum(`p`.`monto`),2),0) from `pagos` `p`) AS `Ventas`, (select coalesce(`capital`.`monto`,0) from `capital` limit 1) AS `capital` ;
 
 -- --------------------------------------------------------
 
@@ -462,7 +583,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `ganacias_mensuales`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ganacias_mensuales`  AS SELECT (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 1),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 1) AS `Enero`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 2),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 2) AS `Febrero`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 3),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 3) AS `Marzo`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 4),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 4) AS `Abril`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 5),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 5) AS `Mayo`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 6),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 6) AS `Junio`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 7),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 7) AS `Julio`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 8),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 8) AS `Agosto`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 9),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 9) AS `Septiembre`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 10),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 10) AS `Octubre`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 11),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 11) AS `Noviembre`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 12),2),0) from `movimientoscapital` `m` where `m`.`monto`  not like '-%' and month(`m`.`fecha`) = 12) AS `Diciembre` FROM `movimientoscapital` AS `m` WHERE year(`m`.`fecha`) = year(current_timestamp()) LIMIT 0, 1 ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ganacias_mensuales`  AS SELECT (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 1),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 1) AS `Enero`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 2),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 2) AS `Febrero`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 3),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 3) AS `Marzo`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 4),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 4) AS `Abril`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 5),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 5) AS `Mayo`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 6),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 6) AS `Junio`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 7),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 7) AS `Julio`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 8),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 8) AS `Agosto`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 9),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 9) AS `Septiembre`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 10),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 10) AS `Octubre`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 11),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 11) AS `Noviembre`, (select coalesce(round(sum(`m`.`monto`) + (select sum(`m`.`monto`) from `movimientoscapital` `m` where `m`.`monto` like '-%' and month(`m`.`fecha`) = 12),2),0) from `movimientoscapital` `m` where `m`.`monto` not like '-%' and month(`m`.`fecha`) = 12) AS `Diciembre` FROM `movimientoscapital` AS `m` WHERE year(`m`.`fecha`) = year(current_timestamp()) LIMIT 0, 1 ;
 
 -- --------------------------------------------------------
 
@@ -590,6 +711,13 @@ ALTER TABLE `productos`
   ADD KEY `idCategoria` (`idCategoria`);
 
 --
+-- Indices de la tabla `producto_ingredientes`
+--
+ALTER TABLE `producto_ingredientes`
+  ADD PRIMARY KEY (`idProducto`,`idMateriaPrima`),
+  ADD KEY `idMateriaPrima` (`idMateriaPrima`);
+
+--
 -- Indices de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
@@ -619,7 +747,7 @@ ALTER TABLE `unidades`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`usuario`),
+  ADD PRIMARY KEY (`idUsuario`),
   ADD KEY `idRol` (`idRol`);
 
 --
@@ -741,6 +869,12 @@ ALTER TABLE `unidades`
   MODIFY `idUnidad` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- Restricciones para tablas volcadas
 --
 
@@ -762,6 +896,13 @@ ALTER TABLE `credito`
 ALTER TABLE `entradasmp`
   ADD CONSTRAINT `entradasmp_ibfk_1` FOREIGN KEY (`idProvedor`) REFERENCES `proveedores` (`idProvedor`),
   ADD CONSTRAINT `entradasmp_ibfk_2` FOREIGN KEY (`idMateriaPrima`) REFERENCES `materiaprima` (`idMateriaPrima`);
+
+--
+-- Filtros para la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD CONSTRAINT `facturas_ibfk_1` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`),
+  ADD CONSTRAINT `facturas_ibfk_2` FOREIGN KEY (`idRegistroVentas`) REFERENCES `registroventas` (`idRegistroVentas`);
 
 --
 -- Filtros para la tabla `materiaprima`
@@ -788,6 +929,13 @@ ALTER TABLE `pagos`
 --
 ALTER TABLE `productos`
   ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`idCategoria`) REFERENCES `categorias` (`idCategoria`);
+
+--
+-- Filtros para la tabla `producto_ingredientes`
+--
+ALTER TABLE `producto_ingredientes`
+  ADD CONSTRAINT `producto_ingredientes_ibfk_1` FOREIGN KEY (`idProducto`) REFERENCES `productos` (`idProducto`),
+  ADD CONSTRAINT `producto_ingredientes_ibfk_2` FOREIGN KEY (`idMateriaPrima`) REFERENCES `materiaprima` (`idMateriaPrima`);
 
 --
 -- Filtros para la tabla `registroventas`
