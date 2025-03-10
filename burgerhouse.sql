@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2025 a las 07:11:10
+-- Tiempo de generación: 10-03-2025 a las 07:35:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -81,6 +81,12 @@ CREATE TABLE `bitacora` (
   `detalles` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- RELACIONES PARA LA TABLA `bitacora`:
+--   `Usuario`
+--       `usuario` -> `usuario`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -99,6 +105,10 @@ CREATE TABLE `caja` (
   `totalVentas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- RELACIONES PARA LA TABLA `caja`:
+--
+
 -- --------------------------------------------------------
 
 --
@@ -112,6 +122,10 @@ CREATE TABLE `capital` (
   `monto` float NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- RELACIONES PARA LA TABLA `capital`:
+--
 
 -- --------------------------------------------------------
 
@@ -128,6 +142,10 @@ CREATE TABLE `categorias` (
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- RELACIONES PARA LA TABLA `categorias`:
+--
+
 -- --------------------------------------------------------
 
 --
@@ -143,6 +161,10 @@ CREATE TABLE `clientes` (
   `telefono` varchar(20) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- RELACIONES PARA LA TABLA `clientes`:
+--
 
 -- --------------------------------------------------------
 
@@ -170,6 +192,10 @@ CREATE TABLE `configuraciones` (
   `montoDolarParalelo` float NOT NULL,
   `montoTasa` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- RELACIONES PARA LA TABLA `configuraciones`:
+--
 
 -- --------------------------------------------------------
 
@@ -209,6 +235,12 @@ CREATE TABLE `credito` (
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- RELACIONES PARA LA TABLA `credito`:
+--   `idRegistroVentas`
+--       `registroventas` -> `idRegistroVentas`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -242,6 +274,14 @@ CREATE TABLE `entradasmp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
+-- RELACIONES PARA LA TABLA `entradasmp`:
+--   `idProvedor`
+--       `proveedores` -> `idProvedor`
+--   `idMateriaPrima`
+--       `materiaprima` -> `idMateriaPrima`
+--
+
+--
 -- Disparadores `entradasmp`
 --
 DELIMITER $$
@@ -271,11 +311,33 @@ CREATE TABLE `facturas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
+-- RELACIONES PARA LA TABLA `facturas`:
+--   `idProducto`
+--       `productos` -> `idProducto`
+--   `idRegistroVentas`
+--       `registroventas` -> `idRegistroVentas`
+--
+
+--
 -- Disparadores `facturas`
 --
 DELIMITER $$
 CREATE TRIGGER `after_insert_factura` AFTER INSERT ON `facturas` FOR EACH ROW BEGIN
     CALL DescontarIngredientes(NEW.idProducto, NEW.cantidad);
+END
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `before_insert_factura` BEFORE INSERT ON `facturas` FOR EACH ROW BEGIN
+    DECLARE v_stock_actual DECIMAL(10,3);
+    SELECT stock INTO v_stock_actual 
+    FROM materiaprima 
+    WHERE idMateriaPrima = (SELECT idMateriaPrima FROM producto_ingredientes WHERE idProducto = NEW.idProducto);
+    
+    IF v_stock_actual < (NEW.cantidad * producto_ingredientes.cantidad_necesaria) THEN
+        SIGNAL SQLSTATE '45000'
+        SET MESSAGE_TEXT = 'Stock insuficiente';
+    END IF;
 END
 $$
 DELIMITER ;
@@ -322,6 +384,14 @@ CREATE TABLE `materiaprima` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
+-- RELACIONES PARA LA TABLA `materiaprima`:
+--   `idUnidad`
+--       `unidades` -> `idUnidad`
+--   `idCategoria`
+--       `categorias` -> `idCategoria`
+--
+
+--
 -- Disparadores `materiaprima`
 --
 DELIMITER $$
@@ -360,6 +430,10 @@ CREATE TABLE `metodopago` (
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- RELACIONES PARA LA TABLA `metodopago`:
+--
+
 -- --------------------------------------------------------
 
 --
@@ -387,6 +461,10 @@ CREATE TABLE `movimientoscapital` (
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- RELACIONES PARA LA TABLA `movimientoscapital`:
+--
+
 -- --------------------------------------------------------
 
 --
@@ -402,6 +480,12 @@ CREATE TABLE `notificaciones` (
   `mensaje` text NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- RELACIONES PARA LA TABLA `notificaciones`:
+--   `usuario`
+--       `usuario` -> `usuario`
+--
 
 -- --------------------------------------------------------
 
@@ -420,11 +504,19 @@ CREATE TABLE `pagos` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
+-- RELACIONES PARA LA TABLA `pagos`:
+--   `idMetodoPago`
+--       `metodopago` -> `idMetodoPago`
+--   `idRegistroVentas`
+--       `registroventas` -> `idRegistroVentas`
+--
+
+--
 -- Disparadores `pagos`
 --
 DELIMITER $$
 CREATE TRIGGER `movimientos_pagos` AFTER INSERT ON `pagos` FOR EACH ROW BEGIN
-    INSERT INTO movimientos_capital (monto, descripcion)
+    INSERT INTO movimientoscapital (monto, descripcion)
     VALUES (NEW.monto, "Ingreso por facturacion");
 END
 $$
@@ -448,19 +540,33 @@ CREATE TABLE `productos` (
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- RELACIONES PARA LA TABLA `productos`:
+--   `idCategoria`
+--       `categorias` -> `idCategoria`
+--
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `producto_ingredientes`
 --
--- Creación: 10-03-2025 a las 05:18:20
+-- Creación: 10-03-2025 a las 06:23:46
 --
 
 CREATE TABLE `producto_ingredientes` (
   `idProducto` int(11) NOT NULL,
   `idMateriaPrima` int(11) NOT NULL,
   `cantidad_necesaria` decimal(10,3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish2_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- RELACIONES PARA LA TABLA `producto_ingredientes`:
+--   `idProducto`
+--       `productos` -> `idProducto`
+--   `idMateriaPrima`
+--       `materiaprima` -> `idMateriaPrima`
+--
 
 -- --------------------------------------------------------
 
@@ -479,6 +585,10 @@ CREATE TABLE `proveedores` (
   `correo` text NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- RELACIONES PARA LA TABLA `proveedores`:
+--
 
 -- --------------------------------------------------------
 
@@ -504,6 +614,14 @@ CREATE TABLE `registroventas` (
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- RELACIONES PARA LA TABLA `registroventas`:
+--   `idCliente`
+--       `clientes` -> `idCliente`
+--   `idCaja`
+--       `caja` -> `idCaja`
+--
+
 -- --------------------------------------------------------
 
 --
@@ -517,6 +635,10 @@ CREATE TABLE `roles` (
   `nombre` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- RELACIONES PARA LA TABLA `roles`:
+--
+
 -- --------------------------------------------------------
 
 --
@@ -529,6 +651,10 @@ CREATE TABLE `unidades` (
   `idUnidad` int(11) NOT NULL,
   `nombre` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- RELACIONES PARA LA TABLA `unidades`:
+--
 
 -- --------------------------------------------------------
 
@@ -548,6 +674,12 @@ CREATE TABLE `usuario` (
   `respuestaS` text NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- RELACIONES PARA LA TABLA `usuario`:
+--   `idRol`
+--       `roles` -> `idRol`
+--
 
 -- --------------------------------------------------------
 
