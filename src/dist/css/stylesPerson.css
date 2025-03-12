@@ -1,0 +1,20 @@
+.login_page{
+    display: flex;
+    transition: display .7s, transform .7s, opacity .7s;
+    transition-behavior: allow-discrete;
+}
+.captcha_page{
+    display: flex;
+    transition: display .7s, transform .7s, opacity .7s;
+    transition-behavior: allow-discrete;
+}
+
+.hide{
+    transform: translateX(-200%);
+    display: none;
+}
+
+.hide2{
+    transform: translateX(200%);
+    display: none;
+}

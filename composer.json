@@ -1,0 +1,15 @@
+{
+    "name": "shtch/burgerhouse",
+    "description": "proyecto con base de composer",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Shtch\\Burgerhouse\\": "src/"
+        }
+    },
+    "minimum-stability": "beta",
+    "require": {
+        "setasign/fpdf": "^1.8"
+    }
+}
