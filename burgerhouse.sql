@@ -665,13 +665,11 @@ CREATE TABLE `unidades` (
 --
 
 CREATE TABLE `usuario` (
-  `idUsuario` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `usuario` varchar(20) NOT NULL,
-  `idRol` int(11) NOT NULL,
+  `id_rol` int(11) NOT NULL,
   `hash` text NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `preguntaS` text NOT NULL,
-  `respuestaS` text NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
