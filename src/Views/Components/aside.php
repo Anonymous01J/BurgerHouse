@@ -17,7 +17,7 @@
                 <li class="nav-small-cap"><span class="hide-menu">Aplicaciones</span></li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ticket-list.html"
+                    <a class="sidebar-link" href="../Views/ticket-list.php"
                         aria-expanded="false">
                         <i data-feather="truck" class="feather-icon"></i>
                         <span class="hide-menu">Pedidos y entregas</span>
@@ -42,7 +42,7 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="app-chat.html"
+                    <a class="sidebar-link sidebar-link" href="../Views/chat.php"
                         aria-expanded="false">
                         <i data-feather="message-square" class="feather-icon"></i>
                         <span class="hide-menu">Chat</span>
@@ -50,7 +50,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                    <a class="sidebar-link sidebar-link" href="../Views/calendar.php"
                         aria-expanded="false">
                         <i data-feather="calendar" class="feather-icon"></i>
                         <span class="hide-menu">Calendario</span>

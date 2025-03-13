@@ -18,3 +18,56 @@
     transform: translateX(200%);
     display: none;
 }
+
+.toggle-switch {
+    position: relative;
+    width: 40px;
+    height: 20px;
+    --light: #d8dbe0;
+    --dark: #28292c;
+  }
+  
+  .switch-label {
+    position: absolute;
+    width: 115%;
+    height: 23px;
+    background-color: var(--dark);
+    border-radius: 10px;
+    cursor: pointer;
+    border: 2px solid var(--dark);
+  }
+  
+  .checkbox {
+    position: absolute;
+    display: none;
+  }
+  
+  .slider {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transition: 0.3s;
+  }
+  
+  .checkbox:checked ~ .slider {
+    background-color: var(--light);
+  }
+  
+  .slider::before {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    box-shadow: inset 6px -2px 0 0 var(--light);
+    background-color: var(--dark);
+    transition: 0.3s;
+  }
+  
+  .checkbox:checked ~ .slider::before {
+    transform: translateX(20px);
+    box-shadow: none;
+  }

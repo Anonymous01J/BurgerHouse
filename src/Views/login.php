@@ -16,15 +16,8 @@
 
 <body>
     <div class="main-wrapper">
-        <!-- ============================================================== -->
-        <!-- Preloader - style you can find in spinners.css -->
-        <!-- ============================================================== -->
-        <div class="preloader">
-            <div class="lds-ripple">
-                <div class="lds-pos"></div>
-                <div class="lds-pos"></div>
-            </div>
-        </div>
+   
+        <?php require_once('./Components/preloader.php') ; ?>
 
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative overflow-hidden"
             style="background:url(../assets/images/big/auth-bg.jpg) no-repeat center center;">
