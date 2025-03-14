@@ -16,11 +16,37 @@
 
                 <li class="nav-small-cap"><span class="hide-menu">Aplicaciones</span></li>
 
+
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="../Views/ticket-list.php"
+                    <a class="sidebar-link has-arrow" href="javascript:void(0)"
                         aria-expanded="false">
                         <i data-feather="truck" class="feather-icon"></i>
                         <span class="hide-menu">Pedidos y entregas</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                        <li class="sidebar-item">
+                            <a href="../Views/ticket-list.php" class="sidebar-link">
+                                <span
+                                    class="hide-menu">Ordenes
+                                </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="form-input-grid.html" class="sidebar-link">
+                                <span
+                                    class="hide-menu"> Delivery
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="#"
+                        aria-expanded="false">
+                        <i data-feather="coffee" class="feather-icon"></i>
+                        <span class="hide-menu">Cocina</span>
                     </a>
                 </li>
 
@@ -41,13 +67,13 @@
                 </li>
 
 
-                <li class="sidebar-item">
+                <!-- <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="../Views/chat.php"
                         aria-expanded="false">
                         <i data-feather="message-square" class="feather-icon"></i>
                         <span class="hide-menu">Chat</span>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="../Views/calendar.php"
@@ -93,7 +119,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="form-inputs.html" class="sidebar-link">
+                            <a href="../Views/combos.php" class="sidebar-link">
                                 <span
                                     class="hide-menu">Combo
                                 </span>

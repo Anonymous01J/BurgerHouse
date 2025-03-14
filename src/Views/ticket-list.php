@@ -91,7 +91,7 @@
                                             <th>Fecha</th>
                                             <th>Nro Comprobante</th>
                                             <th>Comprobante</th>
-                                            <th>Cancelar</th>
+                                            <th>Accion</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -106,7 +106,12 @@
                                             <td class="fs-6">2560</td>
                                             <td>ver</td>
                                             <td>
-                                                <button class="btn btn-secondary bh_5">Confirmar</button>
+                                                <div class="btn btn-success rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
+                                                    <i data-feather="check-circle" class="text-white"></i>
+                                                </div>
+                                                <div class="btn btn-danger rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
+                                                    <i data-feather="x-circle" class="text-white"></i>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
