@@ -48,10 +48,10 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div id="calendar-events" class="">
-                                                    <div class="calendar-events mb-3" data-class="bg-info"><i
-                                                            class="fa fa-circle text-info me-2"></i>Eventos</div>
+                                                    <div class="calendar-events mb-3"><i
+                                                            class="fa fa-circle me-2" style="color: #FFB200;"></i>Eventos</div>
                                                     <div class="calendar-events mb-3" data-class="bg-success"><i
-                                                            class="fa fa-circle text-success me-2"></i>Reservaciones
+                                                            class="fa fa-circle me-2" style="color: #FF4B00;"></i>Reservaciones
                                                     </div>
                                                 
                                                 </div>

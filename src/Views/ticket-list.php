@@ -45,7 +45,7 @@
                                 <!-- Column -->
                                 <div class="col-md-6 col-lg-3 col-xlg-3">
                                     <div class="card card-hover">
-                                        <div class="p-2 bg-primary text-center">
+                                        <div class="p-2 bh_1 text-center">
                                             <h1 class="font-light text-white">2,064</h1>
                                             <h6 class="text-white">Ordenes Totales</h6>
                                         </div>
@@ -54,7 +54,7 @@
                                 <!-- Column -->
                                 <div class="col-md-6 col-lg-3 col-xlg-3">
                                     <div class="card card-hover">
-                                        <div class="p-2 bg-cyan text-center">
+                                        <div class="p-2 bh_2 text-center">
                                             <h1 class="font-light text-white">1,738</h1>
                                             <h6 class="text-white">Por Verificar</h6>
                                         </div>
@@ -63,7 +63,7 @@
                                 <!-- Column -->
                                 <div class="col-md-6 col-lg-3 col-xlg-3">
                                     <div class="card card-hover">
-                                        <div class="p-2 bg-success text-center">
+                                        <div class="p-2 bh_4 text-center">
                                             <h1 class="font-light text-white">1100</h1>
                                             <h6 class="text-white">Por Despachar</h6>
                                         </div>
@@ -72,7 +72,7 @@
                                 <!-- Column -->
                                 <div class="col-md-6 col-lg-3 col-xlg-3">
                                     <div class="card card-hover">
-                                        <div class="p-2 bg-secondary text-center">
+                                        <div class="p-2 bh_5 text-center">
                                             <h1 class="font-light text-white">964</h1>
                                             <h6 class="text-white">Despachadas</h6>
                                         </div>
@@ -103,10 +103,10 @@
                                             <td><span class="fs-6">6419619819</span></td>
                                             <td>Jose Escalona</td>
                                             <td>13-3-2025</td>
-                                            <td>2560</td>
+                                            <td class="fs-6">2560</td>
                                             <td>ver</td>
                                             <td>
-                                                <button class="btn btn-secondary">Confirmar</button>
+                                                <button class="btn btn-secondary bh_5">Confirmar</button>
                                             </td>
                                         </tr>
                                     </tbody>

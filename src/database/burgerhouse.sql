@@ -74,7 +74,7 @@ DELIMITER ;
 
 CREATE TABLE `bitacora` (
   `idBitacora` int(11) NOT NULL,
-  `Usuario` varchar(20) NOT NULL,
+  `Usuario` int(11) NOT NULL,
   `tabla` varchar(20) NOT NULL,
   `accion` varchar(20) NOT NULL,
   `fecha` datetime NOT NULL,
@@ -475,7 +475,7 @@ CREATE TABLE `movimientoscapital` (
 
 CREATE TABLE `notificaciones` (
   `idNotificaciones` int(11) NOT NULL,
-  `usuario` varchar(25) NOT NULL,
+  `usuario` int(11) NOT NULL,
   `status` tinyint(1) NOT NULL,
   `mensaje` text NOT NULL,
   `fecha` datetime NOT NULL
@@ -666,7 +666,6 @@ CREATE TABLE `unidades` (
 
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
-  `usuario` varchar(20) NOT NULL,
   `id_rol` int(11) NOT NULL,
   `hash` text NOT NULL,
   `nombre` varchar(50) NOT NULL,
@@ -877,8 +876,8 @@ ALTER TABLE `unidades`
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`idUsuario`),
-  ADD KEY `idRol` (`idRol`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idRol` (`id_rol`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -1002,7 +1001,7 @@ ALTER TABLE `unidades`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -1012,7 +1011,7 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  ADD CONSTRAINT `bitacora_ibfk_1` FOREIGN KEY (`Usuario`) REFERENCES `usuario` (`usuario`);
+  ADD CONSTRAINT `bitacora_ibfk_1` FOREIGN KEY (`Usuario`) REFERENCES `usuario` (`id`);
 
 --
 -- Filtros para la tabla `credito`
@@ -1045,7 +1044,7 @@ ALTER TABLE `materiaprima`
 -- Filtros para la tabla `notificaciones`
 --
 ALTER TABLE `notificaciones`
-  ADD CONSTRAINT `notificaciones_ibfk_1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`usuario`);
+  ADD CONSTRAINT `notificaciones_ibfk_1` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`id`);
 
 --
 -- Filtros para la tabla `pagos`
@@ -1078,7 +1077,7 @@ ALTER TABLE `registroventas`
 -- Filtros para la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idRol`) REFERENCES `roles` (`idRol`);
+  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`idRol`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

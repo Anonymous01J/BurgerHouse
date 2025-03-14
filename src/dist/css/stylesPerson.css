@@ -71,3 +71,20 @@
     transform: translateX(20px);
     box-shadow: none;
   }
+
+
+.bh_1{
+  background-color: #FF4B00;
+}
+.bh_2{
+  background-color: #FFB200;
+}
+.bh_3{
+  background-color: #FFFFFF;
+}
+.bh_4{
+  background-color: #AA7861;
+}
+.bh_5{
+  background-color: #0B1B21;
+}
