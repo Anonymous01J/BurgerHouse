@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-03-2025 a las 07:35:28
+-- Tiempo de generación: 15-03-2025 a las 04:19:07
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `burger_house`
+-- Base de datos: `burgerhouse`
 --
 
 DELIMITER $$
@@ -69,8 +69,6 @@ DELIMITER ;
 --
 -- Estructura de tabla para la tabla `bitacora`
 --
--- Creación: 10-03-2025 a las 04:05:37
---
 
 CREATE TABLE `bitacora` (
   `idBitacora` int(11) NOT NULL,
@@ -81,18 +79,10 @@ CREATE TABLE `bitacora` (
   `detalles` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- RELACIONES PARA LA TABLA `bitacora`:
---   `Usuario`
---       `usuario` -> `usuario`
---
-
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `caja`
---
--- Creación: 10-03-2025 a las 04:04:50
 --
 
 CREATE TABLE `caja` (
@@ -105,16 +95,10 @@ CREATE TABLE `caja` (
   `totalVentas` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- RELACIONES PARA LA TABLA `caja`:
---
-
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `capital`
---
--- Creación: 10-03-2025 a las 04:04:56
 --
 
 CREATE TABLE `capital` (
@@ -123,35 +107,36 @@ CREATE TABLE `capital` (
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- RELACIONES PARA LA TABLA `capital`:
---
-
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `categorias`
---
--- Creación: 10-03-2025 a las 04:04:58
+-- Estructura de tabla para la tabla `categorias_productos`
 --
 
-CREATE TABLE `categorias` (
+CREATE TABLE `categorias_productos` (
   `idCategoria` int(11) NOT NULL,
   `nombre` varchar(20) NOT NULL,
   `tipo` varchar(20) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+-- --------------------------------------------------------
+
 --
--- RELACIONES PARA LA TABLA `categorias`:
+-- Estructura de tabla para la tabla `categoria_mp`
 --
+
+CREATE TABLE `categoria_mp` (
+  `idCategoria` int(11) NOT NULL,
+  `nombre` varchar(20) NOT NULL,
+  `tipo` varchar(20) NOT NULL,
+  `active` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `clientes`
---
--- Creación: 10-03-2025 a las 04:05:00
 --
 
 CREATE TABLE `clientes` (
@@ -161,10 +146,6 @@ CREATE TABLE `clientes` (
   `telefono` varchar(20) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- RELACIONES PARA LA TABLA `clientes`:
---
 
 -- --------------------------------------------------------
 
@@ -183,8 +164,6 @@ CREATE TABLE `clientesfrecuentes` (
 --
 -- Estructura de tabla para la tabla `configuraciones`
 --
--- Creación: 10-03-2025 a las 04:05:01
---
 
 CREATE TABLE `configuraciones` (
   `idConfiguraciones` int(11) NOT NULL,
@@ -192,10 +171,6 @@ CREATE TABLE `configuraciones` (
   `montoDolarParalelo` float NOT NULL,
   `montoTasa` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- RELACIONES PARA LA TABLA `configuraciones`:
---
 
 -- --------------------------------------------------------
 
@@ -223,8 +198,6 @@ CREATE TABLE `costo_entradas_mensuales` (
 --
 -- Estructura de tabla para la tabla `credito`
 --
--- Creación: 10-03-2025 a las 04:05:41
---
 
 CREATE TABLE `credito` (
   `idCredito` int(11) NOT NULL,
@@ -234,12 +207,6 @@ CREATE TABLE `credito` (
   `montoFinal` float NOT NULL,
   `status` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- RELACIONES PARA LA TABLA `credito`:
---   `idRegistroVentas`
---       `registroventas` -> `idRegistroVentas`
---
 
 -- --------------------------------------------------------
 
@@ -259,8 +226,6 @@ CREATE TABLE `detalles_capital` (
 --
 -- Estructura de tabla para la tabla `entradasmp`
 --
--- Creación: 10-03-2025 a las 05:28:07
---
 
 CREATE TABLE `entradasmp` (
   `idEntradasMP` int(11) NOT NULL,
@@ -272,14 +237,6 @@ CREATE TABLE `entradasmp` (
   `precioCompra` float NOT NULL,
   `precioCompraDivisa` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- RELACIONES PARA LA TABLA `entradasmp`:
---   `idProvedor`
---       `proveedores` -> `idProvedor`
---   `idMateriaPrima`
---       `materiaprima` -> `idMateriaPrima`
---
 
 --
 -- Disparadores `entradasmp`
@@ -298,8 +255,6 @@ DELIMITER ;
 --
 -- Estructura de tabla para la tabla `facturas`
 --
--- Creación: 10-03-2025 a las 04:15:38
---
 
 CREATE TABLE `facturas` (
   `idFactura` int(11) NOT NULL,
@@ -309,14 +264,6 @@ CREATE TABLE `facturas` (
   `descripción` text NOT NULL,
   `costeTotal` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- RELACIONES PARA LA TABLA `facturas`:
---   `idProducto`
---       `productos` -> `idProducto`
---   `idRegistroVentas`
---       `registroventas` -> `idRegistroVentas`
---
 
 --
 -- Disparadores `facturas`
@@ -368,9 +315,6 @@ CREATE TABLE `ganacias_mensuales` (
 --
 -- Estructura de tabla para la tabla `materiaprima`
 --
--- Creación: 10-03-2025 a las 05:55:14
--- Última actualización: 10-03-2025 a las 05:55:14
---
 
 CREATE TABLE `materiaprima` (
   `idMateriaPrima` int(11) NOT NULL,
@@ -382,14 +326,6 @@ CREATE TABLE `materiaprima` (
   `stockMax` int(6) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- RELACIONES PARA LA TABLA `materiaprima`:
---   `idUnidad`
---       `unidades` -> `idUnidad`
---   `idCategoria`
---       `categorias` -> `idCategoria`
---
 
 --
 -- Disparadores `materiaprima`
@@ -421,18 +357,12 @@ CREATE TABLE `maxventas` (
 --
 -- Estructura de tabla para la tabla `metodopago`
 --
--- Creación: 10-03-2025 a las 04:05:07
---
 
 CREATE TABLE `metodopago` (
   `idMetodoPago` int(11) NOT NULL,
   `nombre` varchar(25) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- RELACIONES PARA LA TABLA `metodopago`:
---
 
 -- --------------------------------------------------------
 
@@ -451,8 +381,6 @@ CREATE TABLE `minventas` (
 --
 -- Estructura de tabla para la tabla `movimientoscapital`
 --
--- Creación: 10-03-2025 a las 04:05:08
---
 
 CREATE TABLE `movimientoscapital` (
   `idMC` int(11) NOT NULL,
@@ -461,16 +389,10 @@ CREATE TABLE `movimientoscapital` (
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- RELACIONES PARA LA TABLA `movimientoscapital`:
---
-
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `notificaciones`
---
--- Creación: 10-03-2025 a las 04:05:59
 --
 
 CREATE TABLE `notificaciones` (
@@ -481,18 +403,10 @@ CREATE TABLE `notificaciones` (
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- RELACIONES PARA LA TABLA `notificaciones`:
---   `usuario`
---       `usuario` -> `usuario`
---
-
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `pagos`
---
--- Creación: 10-03-2025 a las 04:06:01
 --
 
 CREATE TABLE `pagos` (
@@ -502,14 +416,6 @@ CREATE TABLE `pagos` (
   `monto` float NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- RELACIONES PARA LA TABLA `pagos`:
---   `idMetodoPago`
---       `metodopago` -> `idMetodoPago`
---   `idRegistroVentas`
---       `registroventas` -> `idRegistroVentas`
---
 
 --
 -- Disparadores `pagos`
@@ -527,8 +433,6 @@ DELIMITER ;
 --
 -- Estructura de tabla para la tabla `productos`
 --
--- Creación: 10-03-2025 a las 04:06:08
---
 
 CREATE TABLE `productos` (
   `idProducto` int(11) NOT NULL,
@@ -540,18 +444,10 @@ CREATE TABLE `productos` (
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- RELACIONES PARA LA TABLA `productos`:
---   `idCategoria`
---       `categorias` -> `idCategoria`
---
-
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `producto_ingredientes`
---
--- Creación: 10-03-2025 a las 06:23:46
 --
 
 CREATE TABLE `producto_ingredientes` (
@@ -560,20 +456,10 @@ CREATE TABLE `producto_ingredientes` (
   `cantidad_necesaria` decimal(10,3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- RELACIONES PARA LA TABLA `producto_ingredientes`:
---   `idProducto`
---       `productos` -> `idProducto`
---   `idMateriaPrima`
---       `materiaprima` -> `idMateriaPrima`
---
-
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `proveedores`
---
--- Creación: 10-03-2025 a las 04:05:22
 --
 
 CREATE TABLE `proveedores` (
@@ -586,16 +472,10 @@ CREATE TABLE `proveedores` (
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- RELACIONES PARA LA TABLA `proveedores`:
---
-
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `registroventas`
---
--- Creación: 10-03-2025 a las 04:06:12
 --
 
 CREATE TABLE `registroventas` (
@@ -614,20 +494,10 @@ CREATE TABLE `registroventas` (
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- RELACIONES PARA LA TABLA `registroventas`:
---   `idCliente`
---       `clientes` -> `idCliente`
---   `idCaja`
---       `caja` -> `idCaja`
---
-
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `roles`
---
--- Creación: 10-03-2025 a las 04:05:28
 --
 
 CREATE TABLE `roles` (
@@ -635,16 +505,10 @@ CREATE TABLE `roles` (
   `nombre` varchar(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- RELACIONES PARA LA TABLA `roles`:
---
-
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `unidades`
---
--- Creación: 10-03-2025 a las 04:05:33
 --
 
 CREATE TABLE `unidades` (
@@ -652,16 +516,10 @@ CREATE TABLE `unidades` (
   `nombre` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
---
--- RELACIONES PARA LA TABLA `unidades`:
---
-
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `usuario`
---
--- Creación: 10-03-2025 a las 04:24:17
 --
 
 CREATE TABLE `usuario` (
@@ -671,12 +529,6 @@ CREATE TABLE `usuario` (
   `nombre` varchar(50) NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- RELACIONES PARA LA TABLA `usuario`:
---   `idRol`
---       `roles` -> `idRol`
---
 
 -- --------------------------------------------------------
 
@@ -757,9 +609,15 @@ ALTER TABLE `capital`
   ADD PRIMARY KEY (`idCapital`);
 
 --
--- Indices de la tabla `categorias`
+-- Indices de la tabla `categorias_productos`
 --
-ALTER TABLE `categorias`
+ALTER TABLE `categorias_productos`
+  ADD PRIMARY KEY (`idCategoria`);
+
+--
+-- Indices de la tabla `categoria_mp`
+--
+ALTER TABLE `categoria_mp`
   ADD PRIMARY KEY (`idCategoria`);
 
 --
@@ -902,9 +760,9 @@ ALTER TABLE `capital`
   MODIFY `idCapital` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `categorias`
+-- AUTO_INCREMENT de la tabla `categoria_mp`
 --
-ALTER TABLE `categorias`
+ALTER TABLE `categoria_mp`
   MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -1038,7 +896,7 @@ ALTER TABLE `facturas`
 --
 ALTER TABLE `materiaprima`
   ADD CONSTRAINT `materiaprima_ibfk_1` FOREIGN KEY (`idUnidad`) REFERENCES `unidades` (`idUnidad`),
-  ADD CONSTRAINT `materiaprima_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categorias` (`idCategoria`);
+  ADD CONSTRAINT `materiaprima_ibfk_2` FOREIGN KEY (`idCategoria`) REFERENCES `categoria_mp` (`idCategoria`);
 
 --
 -- Filtros para la tabla `notificaciones`
@@ -1057,7 +915,7 @@ ALTER TABLE `pagos`
 -- Filtros para la tabla `productos`
 --
 ALTER TABLE `productos`
-  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`idCategoria`) REFERENCES `categorias` (`idCategoria`);
+  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`idCategoria`) REFERENCES `categorias_productos` (`idCategoria`);
 
 --
 -- Filtros para la tabla `producto_ingredientes`
