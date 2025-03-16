@@ -1,7 +1,7 @@
 {
     "name": "shtch/burgerhouse",
-    "description": "Proyecto De burguer house, hecho en php y HTML5",
-    "type": "library",
+    "description": "Proyecto de burguer house, hecho en php y HTML5",
+    "type": "project",
     "license": "MIT",
     "autoload": {
         "psr-4": {
@@ -9,7 +9,5 @@
         }
     },
     "minimum-stability": "beta",
-    "require": {
-        "setasign/fpdf": "^1.8"
-    }
+    "require": {}
 }

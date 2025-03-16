@@ -9,12 +9,12 @@
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <title>Inicio</title>
-    <link href="src/assets/extra-libs/c3/c3.min.css" rel="stylesheet">
-    <link href="src/assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link href="src/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
-    <link href="src/assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
-    <link href="src/dist/css/style.css" rel="stylesheet">
-    <link href="src/dist/css/stylesPerson.css" rel="stylesheet">
+    <link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+    <link href="../assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <link href="../assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+    <link href="../dist/css/style.css" rel="stylesheet">
+    <link href="../dist/css/stylesPerson.css" rel="stylesheet">
 
 </head>
 
