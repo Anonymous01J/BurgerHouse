@@ -1,5 +1,5 @@
-<?php require_once("./Components/header.php") ?>
-<?php require_once("./Components/preloader.php") ?>
+<?php require_once("src/Views/Components/header.php") ?>
+<?php require_once("src/Views/Components/preloader.php") ?>
 
 
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
