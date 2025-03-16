@@ -18,7 +18,8 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
                                 <li class="breadcrumb-item"><a href="index.html" class="text-muted">Aplicaciones</a></li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Ticket List</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Pedidos y entregas</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Ordenes</li>
                             </ol>
                         </nav>
                     </div>
@@ -36,6 +37,7 @@
         </div>
 
         <div class="container-fluid">
+            
 
             <div class="row">
                 <div class="col-12">
@@ -89,6 +91,7 @@
                                             <th>Nro Orden</th>
                                             <th>Cliente</th>
                                             <th>Fecha</th>
+                                            <th>Hora</th>
                                             <th>Nro Comprobante</th>
                                             <th>Comprobante</th>
                                             <th>Accion</th>
@@ -103,13 +106,14 @@
                                             <td><span class="fs-6">6419619819</span></td>
                                             <td>Jose Escalona</td>
                                             <td>13-3-2025</td>
+                                            <td>13:40</td>
                                             <td class="fs-6">2560</td>
                                             <td>ver</td>
                                             <td>
-                                                <div class="btn btn-success rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
+                                                <div class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
                                                     <i data-feather="check-circle" class="text-white"></i>
                                                 </div>
-                                                <div class="btn btn-danger rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
+                                                <div class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
                                                     <i data-feather="x-circle" class="text-white"></i>
                                                 </div>
                                             </td>

@@ -17,7 +17,8 @@
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
-                                <li class="breadcrumb-item"><a href="index.html" class="text-muted">Combos</a></li>
+                                <li class="breadcrumb-item"><a href="index.html" class="text-muted">Modulos</a></li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Combos</li>
                                 <li class="breadcrumb-item text-muted active" aria-current="page">Combo</li>
                             </ol>
                         </nav>

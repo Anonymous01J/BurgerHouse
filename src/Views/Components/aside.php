@@ -32,7 +32,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="form-input-grid.html" class="sidebar-link">
+                            <a href="../Views/delivery.php" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Delivery
                                 </span>
@@ -43,7 +43,7 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="#"
+                    <a class="sidebar-link" href="../Views/kitchen.php"
                         aria-expanded="false">
                         <i data-feather="coffee" class="feather-icon"></i>
                         <span class="hide-menu">Cocina</span>
