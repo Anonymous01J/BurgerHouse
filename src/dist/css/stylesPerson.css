@@ -76,6 +76,11 @@
 .bh_1{
   background-color: #FF4B00;
 }
+
+.bh_1:hover{
+  background-color: #ff753a;
+}
+
 .bh_2{
   background-color: #FFB200;
 }
@@ -87,4 +92,7 @@
 }
 .bh_5{
   background-color: #0B1B21;
+}
+.bh_5:hover{
+  background-color: #21343c;
 }
