@@ -1,43 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Purple Admin</title>
-   <link rel="stylesheet" href="../assets/libs/bootstrap/dist/css/bootstrap.css">
-   
-  </head>
-  <body>
-    <div class="container-scroller">
-      <div class="container-fluid page-body-wrapper full-page-wrapper">
-        <div class="content-wrapper d-flex align-items-center text-center error-page bg-primary">
-          <div class="row flex-grow">
-            <div class="col-lg-7 mx-auto text-white">
-              <div class="row align-items-center d-flex flex-row">
-                <div class="col-lg-6 text-lg-right pr-lg-4">
-                  <h1 class="display-1 mb-0">404</h1>
-                </div>
-                <div class="col-lg-6 error-page-divider text-lg-left pl-lg-4">
-                  <h2>SORRY!</h2>
-                  <h3 class="font-weight-light">The page you’re looking for was not found.</h3>
-                </div>
-              </div>
-              <div class="row mt-5">
-                <div class="col-12 text-center mt-xl-2">
-                  <a class="text-white font-weight-medium" href="../../index.html">Back to home</a>
-                </div>
-              </div>
-              <div class="row mt-5">
-                <div class="col-12 mt-xl-2">
-                  <p class="text-white font-weight-medium text-center">Copyright &copy; 2021 All rights reserved.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 Not Found</title>
+  <link rel="stylesheet" href="./assets/libs/libs/bootstrap/dist/css/bootstrap.css">
+
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #FFFF00, #FFD700, #FFA500, #FF8C00, #FF4500);
+      color: #fff;
+      text-align: center;
+    }
+
+    .error-container {
+      max-width: 800px;
+    }
+
+    .error-code {
+      font-size: 10rem;
+      font-weight: bold;
+    }
+
+    .error-message {
+      font-size: 1.5rem;
+      min-width: 400px;
+    }
+
+    a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="error-container">
+    <div class="d-flex align-items-center justify-content-center gap-xl-5 flex-wrap">
+      <div class="error-code">404</div>
+      <div class="error-message w-50">
+        <h2>LO SIENTO!</h2>
+        <p>No se ha encontrado la página que buscabas.</p>
       </div>
     </div>
+    <a href="home" class="d-block mt-4">Ir al inicio</a>
+    <p class="mt-5">Copyright &copy; 2025 Todos los derechos reservados.</p>
+  </div>
+</body>
 
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
 </html>

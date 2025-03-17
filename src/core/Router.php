@@ -1,9 +1,12 @@
 <?php
+
 namespace Shtch\Burgerhouse\core;
 
-class Router {
+class Router
+{
 
-    public function run() {
+    public function run()
+    {
         $url = $this->parseUrl();
 
         $controllerName = !empty($url[0]) ? ucfirst($url[0]) . 'Controller' : 'HomeController';
@@ -22,12 +25,14 @@ class Router {
                 echo "Método <strong>{$methodName}</strong> no encontrado en <strong>{$controllerName}</strong>";
             }
         } else {
-            header("HTTP/1.0 404 Not Found");
-            echo "Controlador <strong>{$controllerName}</strong> no encontrado";
+            // header("HTTP/1.0 404 Not Found");
+            header("Location: Error404");
+            // echo "Controlador <strong>{$controllerName}</strong> no encontrado";
         }
     }
 
-    private function parseUrl() {
+    private function parseUrl()
+    {
         $uri = $_SERVER['REQUEST_URI'];
         $uri = parse_url($uri, PHP_URL_PATH);
         $uri = str_replace('/BurgerHouse', '', $uri);
