@@ -7,14 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon.png">
     <title>Inicio</title>
-    <link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
-    <link href="../assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link href="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
-    <link href="../assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
-    <link href="../dist/css/style.css" rel="stylesheet">
-    <link href="../dist/css/stylesPerson.css" rel="stylesheet">
+    <link href="./assets/libs/extra-libs/c3/c3.min.css" rel="stylesheet">
+    <link href="./assets/libs/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <link href="./assets/libs/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
+    <link href="./assets/libs/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+    <link href="./assets/css/style.css" rel="stylesheet">
+    <link href="./assets/css/stylesPerson.css" rel="stylesheet">
 
 </head>
 

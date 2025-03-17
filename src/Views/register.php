@@ -7,28 +7,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon.png">
     <title>Registrarse</title>
-    <link href="../dist/css/style.css" rel="stylesheet">
+    <link href="./assets/css/style.css" rel="stylesheet">
 
 </head>
 
 <body>
     <div class="main-wrapper">
 
-        <?php require_once('./Components/preloader.php'); ?>
+        <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
+
 
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative"
-            style="background:url(../assets/images/big/auth-bg.jpg) no-repeat center center;">
+            style="background:url(./assets/img/big/auth-bg.jpg) no-repeat center center;">
 
 
             <div class="auth-box row">
-                <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url(../assets/images/big/banner_register.png);">
+                <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url(./assets/img/big/banner_register.png);">
                 </div>
                 <div class="col-lg-5 col-md-7 bg-white">
                     <div class="p-3">
                         <div class="text-center">
-                            <img class="" src="../assets/images/bh_logo.png" alt="wrapkit" width="70">
+                            <img class="" src="./assets/img/bh_logo.png" alt="wrapkit" width="70">
                         </div>
                         <h2 class="mt-3 text-center">Regístrate</h2>
                         <form class="mt-4">
@@ -65,7 +66,7 @@
                                     <button type="button" class="btn w-100 btn-dark">Registrarse</button>
                                 </div>
                                 <div class="col-lg-12 text-center mt-4">
-                                    ¿Ya tienes una cuenta? <a href="../Views/login.php" class="text-danger">Inicia sesión</a>
+                                    ¿Ya tienes una cuenta? <a href="login" class="text-danger">Inicia sesión</a>
                                 </div>
                             </div>
                         </form>
@@ -75,20 +76,13 @@
 
 
         </div>
-        <!-- ============================================================== -->
-        <!-- Login box.scss -->
-        <!-- ============================================================== -->
+      
     </div>
-    <!-- ============================================================== -->
-    <!-- All Required js -->
-    <!-- ============================================================== -->
-    <script src="../assets/libs/jquery/dist/jquery.min.js "></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="../assets/libs/popper.js/dist/umd/popper.min.js "></script>
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js "></script>
-    <!-- ============================================================== -->
-    <!-- This page plugin js -->
-    <!-- ============================================================== -->
+    
+    <script src="./assets/libs/libs/jquery/dist/jquery.min.js "></script>
+    <script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js "></script>
+    <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.min.js "></script>
+    
     <script>
         $(".preloader ").fadeOut();
     </script>

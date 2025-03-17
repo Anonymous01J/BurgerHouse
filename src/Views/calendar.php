@@ -1,14 +1,14 @@
-<?php require_once("./Components/header.php") ?>
-<?php require_once("./Components/preloader.php") ?>
+<?php include_once __DIR__ . '/../Views/Components/header.php' ?>
+<?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
 
-    <?php require_once("./Components/topBar.php") ?>
+    <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
 
-    <?php require_once("./Components/aside.php") ?>
+    <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
 
     <div class="page-wrapper">
-        
+
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-       
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -53,7 +53,7 @@
                                                     <div class="calendar-events mb-3" data-class="bg-success"><i
                                                             class="fa fa-circle me-2" style="color: #FF4B00;"></i>Reservaciones
                                                     </div>
-                                                
+
                                                 </div>
                                             </div>
                                         </div>
@@ -70,24 +70,23 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
-   
+
 </div>
 
-<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="../assets/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js"></script>
-<script src="../assets/extra-libs/taskboard/js/jquery-ui.min.js"></script>
-<script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
-<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<!-- apps -->
-<script src="../dist/js/app-style-switcher.js"></script>
-<script src="../dist/js/feather.min.js"></script>
-<script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-<script src="../dist/js/sidebarmenu.js"></script>
-<script src="../dist/js/custom.min.js"></script>
-<script src="../assets/libs/moment/min/moment.min.js"></script>
-<script src="../assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
-<script src="../dist/js/pages/calendar/cal-init.js"></script>
+<script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
+<script src="./assets/libs/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js"></script>
+<script src="./assets/libs/extra-libs/taskboard/js/jquery-ui.min.js"></script>
+<script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/js/app-style-switcher.js"></script>
+<script src="./assets/js/feather.min.js"></script>
+<script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="./assets/js/sidebarmenu.js"></script>
+<script src="./assets/js/custom.min.js"></script>
+<script src="./assets/libs/libs/moment/min/moment.min.js"></script>
+<script src="./assets/libs/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="./assets/js/pages/calendar/cal-init.js"></script>
 
-<?php require_once("./Components/footer.php") ?>
+<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

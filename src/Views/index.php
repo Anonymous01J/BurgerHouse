@@ -1,13 +1,14 @@
-<?php require_once("../Views/Components/header.php") ?>
-<?php require_once("../Views/Components/preloader.php") ?>
+<?php include_once __DIR__ . '/../Views/Components/header.php' ?>
+<?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
 
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
 
-    <?php require_once("./Components/topBar.php") ?>
+    <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
 
-    <?php require_once("./Components/aside.php") ?>
+    <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
+
 
     <div class="page-wrapper">
 
@@ -344,7 +345,7 @@
                                             <td class="border-top-0 px-2 py-4">
                                                 <div class="d-flex no-block align-items-center">
                                                     <div class="me-3"><img
-                                                            src="../assets/images/users/widget-table-pic1.jpg"
+                                                            src="./assets/img/users/widget-table-pic1.jpg"
                                                             alt="user" class="rounded-circle" width="45"
                                                             height="45" /></div>
                                                     <div class="">
@@ -382,7 +383,7 @@
                                             <td class="px-2 py-4">
                                                 <div class="d-flex no-block align-items-center">
                                                     <div class="me-3"><img
-                                                            src="../assets/images/users/widget-table-pic2.jpg"
+                                                            src="./assets/img/users/widget-table-pic2.jpg"
                                                             alt="user" class="rounded-circle" width="45"
                                                             height="45" /></div>
                                                     <div class="">
@@ -415,7 +416,7 @@
                                             <td class="px-2 py-4">
                                                 <div class="d-flex no-block align-items-center">
                                                     <div class="me-3"><img
-                                                            src="../assets/images/users/widget-table-pic3.jpg"
+                                                            src="./assets/img/users/widget-table-pic3.jpg"
                                                             alt="user" class="rounded-circle" width="45"
                                                             height="45" /></div>
                                                     <div class="">
@@ -450,7 +451,7 @@
                                             <td class="border-bottom-0 px-2 py-4">
                                                 <div class="d-flex no-block align-items-center">
                                                     <div class="me-3"><img
-                                                            src="../assets/images/users/widget-table-pic4.jpg"
+                                                            src="./assets/img/users/widget-table-pic4.jpg"
                                                             alt="user" class="rounded-circle" width="45"
                                                             height="45" /></div>
                                                     <div class="">
@@ -496,22 +497,23 @@
 
 
 
-<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
+<script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="../dist/js/app-style-switcher.js"></script>
-<script type="module" src="../dist/js/funtionGeneral.js"></script>
-<script src="../dist/js/feather.min.js"></script>
-<script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-<script src="../dist/js/sidebarmenu.js"></script>
-<script src="../dist/js/custom.min.js"></script>
-<script src="../assets/extra-libs/c3/d3.min.js"></script>
-<script src="../assets/extra-libs/c3/c3.min.js"></script>
-<script src="../assets/libs/chartist/dist/chartist.min.js"></script>
-<script src="../assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<script src="../assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
-<script src="../assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
-<script src="../dist/js/pages/dashboards/dashboard1.min.js"></script>
+<script src="./assets/js/app-style-switcher.js"></script>
+<script type="module" src="./assets/js/funtionGeneral.js"></script>
+<script src="./assets/js/feather.min.js"></script>
+<script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="./assets/js/sidebarmenu.js"></script>
+<script src="./assets/js/custom.min.js"></script>
+<script src="./assets/libs/extra-libs/c3/d3.min.js"></script>
+<script src="./assets/libs/extra-libs/c3/c3.min.js"></script>
+<script src="./assets/libs/libs/chartist/dist/chartist.min.js"></script>
+<script src="./assets/libs/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
+<script src="./assets/libs/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
+<script src="./assets/libs/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
+<script src="./assets/js/pages/dashboards/dashboard1.min.js"></script>
 
 
-<?php require_once("./Components/footer.php") ?>
+
+<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

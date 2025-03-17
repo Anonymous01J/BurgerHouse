@@ -5,8 +5,8 @@
                     class="ti-menu ti-close"></i></a>
 
             <div class="navbar-brand justify-content-center">
-                <a href="../Views/index.php">
-                    <img src="../assets/images/logo_letras.svg" alt="" class="img-fluid items-center">
+                <a href="home">
+                    <img src="./assets/img/logo_letras.svg" alt="" class="img-fluid items-center">
                 </a>
             </div>
 
@@ -128,7 +128,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
+                        <img src="./assets/img/users/profile-pic.jpg" alt="user" class="rounded-circle"
                             width="40">
                         <span class="ms-2 d-none d-lg-inline-block"><span>Hola,</span> <span
                                 class="text-dark">Felix Dominguez</span> <i data-feather="chevron-down"
@@ -140,7 +140,7 @@
                             Mi perfil</a>
 
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="../Views/login.php"><i data-feather="power"
+                        <a class="dropdown-item" href="login"><i data-feather="power"
                                 class="svg-icon me-2 ms-1"></i>
                             Logout</a>
                     </div>

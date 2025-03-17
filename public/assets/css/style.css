@@ -16899,7 +16899,7 @@ strong {
 }
 
 .custom-select {
-  background: url(../../assets/images/custom-select.png) right 1.1rem center no-repeat;
+  background: url('../img/custom-select.png') right 1.1rem center no-repeat;
   -moz-appearance: none;
   -webkit-appearance: none;
   -o-appearance: none;

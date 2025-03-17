@@ -7,28 +7,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon.png">
     <title>Iniciar Sesión</title>
-    <link href="../dist/css/style.css" rel="stylesheet">
-    <link href="../dist/css/stylesPerson.css" rel="stylesheet">
+    <link href="./assets/css/style.css" rel="stylesheet">
+    <link href="./assets/css/stylesPerson.css" rel="stylesheet">
 
 </head>
 
 <body>
     <div class="main-wrapper">
-   
-        <?php require_once('./Components/preloader.php') ; ?>
+        <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
+
 
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative overflow-hidden"
-            style="background:url(../assets/images/big/auth-bg.jpg) no-repeat center center;">
+            style="background:url(./assets/img/big/auth-bg.jpg) no-repeat center center;">
 
             <div class="auth-box row login_page">
-                <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url(../assets/images/big/banner_login.png);">
+                <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url(./assets/img/big/banner_login.png);">
                 </div>
                 <div class="col-lg-5 col-md-7 bg-white">
                     <div class="p-3">
                         <div class="text-center">
-                            <img src="../assets/images/bh_logo.png" alt="wrapkit" width="70">
+                            <img src="./assets/img/bh_logo.png" alt="wrapkit" width="70">
                         </div>
                         <h2 class="mt-3 text-center">Ingresar</h2>
                         <p class="text-center">Ingrese su dirección de correo electrónico y contraseña para acceder al panel de administración.</p>
@@ -52,10 +52,10 @@
                                     <button type="button" class="btn w-100 btn-dark btn_login_1">Ingresar</button>
                                 </div>
                                 <div class="col-lg-12 text-center mt-4">
-                                    <a href="../Views/recuperar_password.php" class="text-info">¿Olvidaste tu contraseña?</a>
+                                    <a href="Changepass" class="text-info">¿Olvidaste tu contraseña?</a>
                                 </div>
                                 <div class="col-lg-12 text-center mt-3">
-                                    ¿No tienes una cuenta? <a href="../Views/register.php" class="text-danger">Registrate</a>
+                                    ¿No tienes una cuenta? <a href="register" class="text-danger">Registrate</a>
                                 </div>
                             </div>
                         </form>
@@ -64,12 +64,12 @@
             </div>
 
             <div class="auth-box row hide2 captcha_page">
-                <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url(../assets/images/big/banner_captcha.png);">
+                <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url(./assets/img/big/banner_captcha.png);">
                 </div>
                 <div class="col-lg-5 col-md-7 bg-white">
                     <div class="p-3">
                         <div class="text-center">
-                            <img src="../assets/images/bh_logo.png" alt="wrapkit" width="70">
+                            <img src="./assets/img/bh_logo.png" alt="wrapkit" width="70">
                         </div>
                         <h2 class="mt-3 text-center">Verificar</h2>
                         <p class="text-center">Ingrese el codido de verificación</p>
@@ -96,7 +96,7 @@
                                     <button type="button" class="btn w-100 btn-warning btn_regresar">Regresar</button>
                                 </div>
                                 <div class="col-lg-12 text-center mt-5">
-                                    ¿No tienes una cuenta? <a href="../Views/register.php" class="text-danger">Registrate</a>
+                                    ¿No tienes una cuenta? <a href="register" class="text-danger">Registrate</a>
                                 </div>
                             </div>
                         </form>
@@ -107,10 +107,10 @@
 
     </div>
 
-    <script src="../assets/libs/jquery/dist/jquery.min.js "></script>
-    <script src="../assets/libs/popper.js/dist/umd/popper.min.js "></script>
-    <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js "></script>
-    <script src="../dist/js/pages/login/login.js"></script>
+    <script src="./assets/libs/libs/jquery/dist/jquery.min.js "></script>
+    <script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js "></script>
+    <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.min.js "></script>
+    <script src="./assets/js/pages/login/login.js"></script>
 
 
     <script>
