@@ -1,0 +1,134 @@
+# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
+17/3/2025
+
+Cambios:
+ - Base de datos:
+ - - Bitacora:
+1) Cambiado idBitacora por id
+2) Cambiado Usuario por id_usuario
+3) Cambiado detalle por description
+4) Set description como nullable
+
+ - - Productos:
+1) Cambiado idProducto por id
+2) Cambiado idCategoria por id_categoria
+3) columnas cambiadas de lugar
+
+ - - Caja:
+1) Cambiado idCaja por id
+2) Cambiado usuario por id_usuario
+3) Cambiado montoInicial por monto_inicial
+4) Cambiado montoFinal por monto_final
+5) Cambiado fecha por fecha_apertura
+6) Delete MontoCredito
+7) Delete TotalVentas
+
+ - - Capital:
+1) Cambiado idCapital por id
+
+ - - Categoria_mp:
+1) Cambiado el nombre a Categoria_materia_prima
+2) Cambiado idCategoria por id
+
+ - - Categorias_productos:
+1) Cambiado idCategorias por id
+
+ - - Clientes:
+1) Cambiado idCliente por id
+2) Agregado direccion.
+3) Set telefono como nullable
+4) Set direccion como nullable
+
+ - - Configuraciones:
+1) Cambiado idConfiguraciones por id
+2) Eliminado montoDolarBCV
+3) Eliminado montoDolarParalelo
+4) Eliminado montoTasa
+5) Agregado llave
+6) Agregado valor
+
+ - - Credito:
+1) Cambiado idCredito por id
+2) Cambiado idRegistroVentas por id_venta
+3) Cambiado fechaLimite por fecha
+4) Cambiado montoCredito por monto_credito
+5) Cambiado montoFinal por monto_final
+6) Cambiado status por estado
+
+ - - entradas_mp -> entradas_materia_prima:
+1) Cambiado idEntradasMP por id
+2) Eliminado idMateriaPrima
+3) Cambiado idProvedor por id_provedor
+4) Eliminado cantidad
+5) Cambiado fechaCompra por fecha_compra
+6) Eliminado fechaVencimiento
+7) Cambiado precioCompra por precio_compra
+8) Eliminado precioCompraDivisa
+9) Añadido referencia nullable
+
+ - - detalle_entradas(nuevo):
+1) Agregado id
+2) Agregado id_materia_prima
+3) Agregado cantidad
+4) Agregado precio_total
+5) Agregado restante
+6) Agregado fecha_vencimiento (optional)
+
+ - - materiaprima -> materia_prima:
+1) Cambiado idMateriaPrima por id
+2) Cambiado idCategoria por id_categoria
+3) Cambiado idUnidad por id_unidad
+4) Eliminado stock
+5) Cambiado stockMin por stock_min
+6) Cambiado stockMax por stock_max
+
+ - - metoopago -> metodo_pago:
+1) Cambiado idMetoPago por id
+
+ - - movimientoscapital -> movimientos_capital:
+1) Cambiado idMovimientosCapital por id
+
+ - - notificaciones:
+1) Cambiado idNotificaciones por id
+2) Cambiado usuario por id_usuario
+
+ - - pagos:
+1) Cambiado idPagos por id
+2) Cambiado idRegistroVentas por id_venta
+3) Cambiado idMetoPago por id_metodo_pago
+4) Agregado tasa
+5) Agregado comprobante
+
+ - - productos_ingrediente -> ingredientes_producto:
+1) Cambiado idProducto por id_producto
+2) Cambiado idMateriaPrima por id_materia_prima
+3) Agregado id
+4) Cambiado cantidad_necesaria por cantidad
+
+ - - Proveedores:
+1) Cambiado idProvedor por id
+
+ - - registroventas -> ventas:
+1) Cambiado idRegistroVentas por id
+2) Cambiado idCliente por id_cliente
+3) Cambiado idCaja por id_caja
+4) Cambiado montoFinal por monto_final
+5) Cambiado fecha por fecha
+6) Delete comprobantePago
+7) Delete referenciaPago
+8) Delete tasa
+9) Delete montoDivisa
+10) Delete IGTF
+11) algo me habra faltado, con esa tuve mucho problema
+
+ - - unidades:
+1) Cambiado idUnidades por id
+
+
+ - - permisos:
+1) Nuevo, no cuenta como cambio V:
+
+ - -  permisos_rol:
+1) Nuevo tambien, asi que se añadio todo lo que tenga
+
+# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
