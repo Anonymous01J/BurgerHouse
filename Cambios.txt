@@ -2,6 +2,14 @@
 17/3/2025
 
 Cambios:
+ - todos los archivos de controlladores ya tienen la nomenclatura requerida, C_.
+ - tambien algunas views tienen nombres distintos.
+ 
+
+# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
+17/3/2025
+
+Cambios:
  - Base de datos:
  - - Bitacora:
 1) Cambiado idBitacora por id

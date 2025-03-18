@@ -43,7 +43,7 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="kitchen"
+                    <a class="sidebar-link" href="cocina"
                         aria-expanded="false">
                         <i data-feather="coffee" class="feather-icon"></i>
                         <span class="hide-menu">Cocina</span>
@@ -51,7 +51,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ticket-list.html"
+                    <a class="sidebar-link" href="ordenes"
                         aria-expanded="false">
                         <i data-feather="file-minus" class="feather-icon"></i>
                         <span class="hide-menu">Reportes</span>
@@ -59,7 +59,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ticket-list.html"
+                    <a class="sidebar-link" href="estadisticas"
                         aria-expanded="false">
                         <i data-feather="bar-chart" class="feather-icon"></i>
                         <span class="hide-menu">Estadisticas</span>
@@ -76,7 +76,7 @@
                 </li> -->
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="calendar"
+                    <a class="sidebar-link sidebar-link" href="calendario"
                         aria-expanded="false">
                         <i data-feather="calendar" class="feather-icon"></i>
                         <span class="hide-menu">Calendario</span>
@@ -119,7 +119,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="combo" class="sidebar-link">
+                            <a href="combos" class="sidebar-link">
                                 <span
                                     class="hide-menu">Combo
                                 </span>
