@@ -313,15 +313,15 @@
    
 </div>
 
-<script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-<script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
-<script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/BurgerHouse/public/assets/libs/libs/jquery/dist/jquery.min.js"></script>
+<script src="/BurgerHouse/public/assets/libs/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="/BurgerHouse/public/assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-<script src="../dist/js/app-style-switcher.js"></script>
-<script src="../dist/js/feather.min.js"></script>
-<script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-<script src="../dist/js/sidebarmenu.js"></script>
-<script src="../dist/js/custom.min.js"></script>
+<script src="/BurgerHouse/public/assets/js/app-style-switcher.js"></script>
+<script src="/BurgerHouse/public/assets/js/feather.min.js"></script>
+<script src="/BurgerHouse/public/assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="/BurgerHouse/public/assets/js/sidebarmenu.js"></script>
+<script src="/BurgerHouse/public/assets/js/custom.min.js"></script>
 <script>
     $(function() {
         $(document).on('keypress', "#textarea1", function(e) {

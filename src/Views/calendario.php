@@ -75,18 +75,18 @@
 
 </div>
 
-<script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
-<script src="./assets/libs/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js"></script>
-<script src="./assets/libs/extra-libs/taskboard/js/jquery-ui.min.js"></script>
-<script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js"></script>
-<script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./assets/js/app-style-switcher.js"></script>
-<script src="./assets/js/feather.min.js"></script>
-<script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-<script src="./assets/js/sidebarmenu.js"></script>
-<script src="./assets/js/custom.min.js"></script>
-<script src="./assets/libs/libs/moment/min/moment.min.js"></script>
-<script src="./assets/libs/libs/fullcalendar/dist/fullcalendar.min.js"></script>
-<script src="./assets/js/pages/calendar/cal-init.js"></script>
+<script src="/BurgerHouse/public/assets/libs/libs/jquery/dist/jquery.min.js"></script>
+<script src="/BurgerHouse/public/assets/libs/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js"></script>
+<script src="/BurgerHouse/public/assets/libs/extra-libs/taskboard/js/jquery-ui.min.js"></script>
+<script src="/BurgerHouse/public/assets/libs/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="/BurgerHouse/public/assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/BurgerHouse/public/assets/js/app-style-switcher.js"></script>
+<script src="/BurgerHouse/public/assets/js/feather.min.js"></script>
+<script src="/BurgerHouse/public/assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="/BurgerHouse/public/assets/js/sidebarmenu.js"></script>
+<script src="/BurgerHouse/public/assets/js/custom.min.js"></script>
+<script src="/BurgerHouse/public/assets/libs/libs/moment/min/moment.min.js"></script>
+<script src="/BurgerHouse/public/assets/libs/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="/BurgerHouse/public/assets/js/pages/calendar/cal-init.js"></script>
 
 <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

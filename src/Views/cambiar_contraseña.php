@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/BurgerHouse/public/assets/img/favicon.png">
     <title>Recuperar Contraseña</title>
-    <link href="./assets/css/style.css" rel="stylesheet">
+    <link href="/BurgerHouse/public/assets/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -75,9 +75,9 @@
         </div>
 
 
-        <script src="./assets/libs/libs/jquery/dist/jquery.min.js "></script>
-        <script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js "></script>
-        <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.min.js "></script>
+        <script src="/BurgerHouse/public/assets/libs/libs/jquery/dist/jquery.min.js "></script>
+        <script src="/BurgerHouse/public/assets/libs/libs/popper.js/dist/umd/popper.min.js "></script>
+        <script src="/BurgerHouse/public/assets/libs/libs/bootstrap/dist/js/bootstrap.min.js "></script>
 
         <script>
             $(".preloader ").fadeOut();

@@ -165,12 +165,12 @@
 
 
 
-    <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
-    <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/app-style-switcher.js"></script>
-    <script type="module" src="./assets/js/funtionGeneral.js"></script>
-    <script src="./assets/js/feather.min.js"></script>
-    <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="./assets/js/sidebarmenu.js"></script>
-    <script src="./assets/js/custom.min.js"></script>
-    <script src="./assets/js/pages/dashboards/dashboard1.min.js"></script>
+    <script src="/BurgerHouse/public/assets/libs/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/BurgerHouse/public/assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/BurgerHouse/public/assets/js/app-style-switcher.js"></script>
+    <script type="module" src="/BurgerHouse/public/assets/js/funtionGeneral.js"></script>
+    <script src="/BurgerHouse/public/assets/js/feather.min.js"></script>
+    <script src="/BurgerHouse/public/assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/BurgerHouse/public/assets/js/sidebarmenu.js"></script>
+    <script src="/BurgerHouse/public/assets/js/custom.min.js"></script>
+    <script src="/BurgerHouse/public/assets/js/pages/dashboards/dashboard1.min.js"></script>
