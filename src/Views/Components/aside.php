@@ -6,7 +6,7 @@
             <ul id="sidebarnav">
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="BurgerHouse/home"
+                    <a class="sidebar-link sidebar-link" href="/"
                         aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                             class="hide-menu">Dashboard</span>
                     </a>
