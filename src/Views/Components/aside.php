@@ -6,7 +6,7 @@
             <ul id="sidebarnav">
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="/"
+                    <a class="sidebar-link sidebar-link" href="home"
                         aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                             class="hide-menu">Dashboard</span>
                     </a>
@@ -25,14 +25,14 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="/BurgerHouse/order" class="sidebar-link">
+                            <a href="order" class="sidebar-link">
                                 <span
                                     class="hide-menu">Ordenes
                                 </span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="/BurgerHouse/delivery" class="sidebar-link">
+                            <a href="delivery" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Delivery
                                 </span>
@@ -43,7 +43,7 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/BurgerHouse/cocina"
+                    <a class="sidebar-link" href="kitchen"
                         aria-expanded="false">
                         <i data-feather="coffee" class="feather-icon"></i>
                         <span class="hide-menu">Cocina</span>
@@ -51,7 +51,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/BurgerHouse/ordenes"
+                    <a class="sidebar-link" href="ticket-list.html"
                         aria-expanded="false">
                         <i data-feather="file-minus" class="feather-icon"></i>
                         <span class="hide-menu">Reportes</span>
@@ -59,7 +59,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/BurgerHouse/estadisticas"
+                    <a class="sidebar-link" href="ticket-list.html"
                         aria-expanded="false">
                         <i data-feather="bar-chart" class="feather-icon"></i>
                         <span class="hide-menu">Estadisticas</span>
@@ -76,7 +76,7 @@
                 </li> -->
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="/BurgerHouse/calendario"
+                    <a class="sidebar-link sidebar-link" href="calendar"
                         aria-expanded="false">
                         <i data-feather="calendar" class="feather-icon"></i>
                         <span class="hide-menu">Calendario</span>
@@ -119,7 +119,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="/BurgerHouse/combos" class="sidebar-link">
+                            <a href="combo" class="sidebar-link">
                                 <span
                                     class="hide-menu">Combo
                                 </span>

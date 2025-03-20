@@ -5,8 +5,8 @@
                     class="ti-menu ti-close"></i></a>
 
             <div class="navbar-brand justify-content-center">
-                <a href="/BurgerHouse/home">
-                    <img src="/BurgerHouse/public/assets/img/logo_letras.svg" alt="" class="img-fluid items-center">
+                <a href="home">
+                    <img src="./assets/img/logo_letras.svg" alt="" class="img-fluid items-center">
                 </a>
             </div>
 
@@ -128,7 +128,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <img src="/BurgerHouse/public/assets/img/users/profile-pic.jpg" alt="user" class="rounded-circle"
+                        <img src="./assets/img/users/profile-pic.jpg" alt="user" class="rounded-circle"
                             width="40">
                         <span class="ms-2 d-none d-lg-inline-block"><span>Hola,</span> <span
                                 class="text-dark">Felix Dominguez</span> <i data-feather="chevron-down"

@@ -19,8 +19,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
                                 <li class="breadcrumb-item"><a href="index.html" class="text-muted">Aplicaciones</a></li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Pedidos y entregas</li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Delivery</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Cocina</li>
                             </ol>
                         </nav>
                     </div>
@@ -44,7 +43,7 @@
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Pendientes</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Entregados</button>
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Preparados</button>
                 </li>
             </ul>
 
@@ -84,13 +83,9 @@
                                                         <div>Cliente</div>
                                                         <div class="fs-6">Jose Escalona</div>
                                                     </div>
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="text-start">Direccion</div>
-                                                        <div class=" text-end fs-6 w-50 text-truncate">Una direccion cualquiera detras de algo</div>
-                                                    </div>
                                                     <div class="d-flex justify-content-around pt-3 border-top">
-                                                        <button class="btn btn-sm bh_1" style="color: #fff;">Aceptar Entrega</button>
-                                                        <button class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
+                                                        <button class="btn bh_1" style="color: #fff;">Preparar</button>
+                                                        <button class="btn bh_5" style="color: #fff;">Detalles</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -139,12 +134,9 @@
                                                     <div>Cliente</div>
                                                     <div class="fs-6">Jose Escalona</div>
                                                 </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="text-start">Direccion</div>
-                                                    <div class=" text-end fs-6 w-50 text-truncate">Una direccion cualquiera detras de algo</div>
-                                                </div>
+
                                                 <div class="d-flex justify-content-center pt-3 border-top">
-                                                    <button class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
+                                                    <button class="btn bh_5" style="color: #fff;">Detalles</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -159,8 +151,6 @@
 
             </div>
         </div>
-        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
-
     </div>
 
 
@@ -173,4 +163,6 @@
     <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
-    <script src="./assets/js/pages/dashboards/dashboard1.min.js"></script>
+
+
+    <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
