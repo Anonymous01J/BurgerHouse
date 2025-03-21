@@ -84,7 +84,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                    <a class="sidebar-link sidebar-link" href="binnacle"
                         aria-expanded="false">
                         <i data-feather="book-open" class="feather-icon"></i>
                         <span class="hide-menu">Bitacora</span>
@@ -92,7 +92,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                    <a class="sidebar-link sidebar-link" href="capital"
                         aria-expanded="false">
                         <i data-feather="credit-card" class="feather-icon"></i>
                         <span class="hide-menu">Capital</span>
@@ -100,7 +100,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                    <a class="sidebar-link sidebar-link" href="money"
                         aria-expanded="false">
                         <i data-feather="dollar-sign" class="feather-icon"></i>
                         <span class="hide-menu">Moneda</span>
@@ -144,7 +144,7 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="supplier"
                         aria-expanded="false">
                         <i data-feather="bookmark" class="feather-icon"></i>
                         <span
@@ -155,7 +155,7 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="clients"
                         aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>
                         <span
@@ -166,7 +166,7 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="cash"
                         aria-expanded="false">
                         <i data-feather="inbox" class="feather-icon"></i>
                         <span
@@ -202,7 +202,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="units"
                         aria-expanded="false">
                         <i data-feather="flag" class="feather-icon"></i>
                         <span
@@ -212,7 +212,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="brand"
                         aria-expanded="false">
                         <i data-feather="flag" class="feather-icon"></i>
                         <span
@@ -222,7 +222,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="category"
                         aria-expanded="false">
                         <i data-feather="flag" class="feather-icon"></i>
                         <span
@@ -247,7 +247,7 @@
                 <li class="nav-small-cap"><span class="hide-menu">Autenticación</span></li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="authentication-login1.html"
+                    <a class="sidebar-link sidebar-link" href="permissions"
                         aria-expanded="false">
                         <i data-feather="lock" class="feather-icon"></i>
                         <span

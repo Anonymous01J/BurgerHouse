@@ -14,7 +14,7 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Ticket List</h4>
+                    <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Ordenes</h4>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
@@ -25,15 +25,9 @@
                         </nav>
                     </div>
                 </div>
-                <div class="col-5 align-self-center">
-                    <div class="customize-input float-end">
-                        <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
-                            <option selected>Aug 23</option>
-                            <option value="1">July 23</option>
-                            <option value="2">Jun 23</option>
-                        </select>
-                    </div>
-                </div>
+                
+                <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
+                
             </div>
         </div>
 
@@ -119,12 +113,12 @@
                                             <td class="fs-6">2560</td>
                                             <td>ver</td>
                                             <td>
-                                                <div class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
+                                                <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
                                                     <i data-feather="check-circle" class="text-white"></i>
-                                                </div>
-                                                <div class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
+                                                </button>
+                                                <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
                                                     <i data-feather="x-circle" class="text-white"></i>
-                                                </div>
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -150,6 +144,8 @@
         </div>
 
     </div>
+    
+    <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
 
 </div>
 

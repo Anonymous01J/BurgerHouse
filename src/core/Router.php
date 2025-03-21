@@ -26,8 +26,8 @@ class Router
             }
         } else {
             // header("HTTP/1.0 404 Not Found");
-            header("Location: Error404");
-            // echo "Controlador <strong>{$controllerName}</strong> no encontrado";
+            // header("Location: Error404");
+            echo "Controlador <strong>{$controllerName}</strong> no encontrado";
         }
     }
 
