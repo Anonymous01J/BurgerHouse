@@ -24,15 +24,9 @@
                         </nav>
                     </div>
                 </div>
-                <div class="col-5 align-self-center">
-                    <div class="customize-input float-end">
-                        <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
-                            <option selected>Aug 23</option>
-                            <option value="1">July 23</option>
-                            <option value="2">Jun 23</option>
-                        </select>
-                    </div>
-                </div>
+                
+                <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
+
             </div>
         </div>
 
@@ -42,7 +36,9 @@
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <img src="./assets/img/boton.png" style="width: 50px;">
+                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+                    <i data-feather="plus" class="svg-icon"></i>
+                </button>
             </div>
 
             <div class="row">
@@ -140,7 +136,6 @@
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <script src="./assets/js/app-style-switcher.js"></script>
-<script type="module" src="./assets/js/funtionGeneral.js"></script>
 <script src="./assets/js/feather.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>

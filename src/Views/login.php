@@ -54,9 +54,6 @@
                                 <div class="col-lg-12 text-center mt-4">
                                     <a href="Changepass" class="text-info">¿Olvidaste tu contraseña?</a>
                                 </div>
-                                <div class="col-lg-12 text-center mt-3">
-                                    ¿No tienes una cuenta? <a href="register" class="text-danger">Registrate</a>
-                                </div>
                             </div>
                         </form>
                     </div>
@@ -94,9 +91,6 @@
                                 </div>
                                 <div class="col-lg-12 text-center mt-4">
                                     <button type="button" class="btn w-100 btn-warning btn_regresar">Regresar</button>
-                                </div>
-                                <div class="col-lg-12 text-center mt-5">
-                                    ¿No tienes una cuenta? <a href="register" class="text-danger">Registrate</a>
                                 </div>
                             </div>
                         </form>
