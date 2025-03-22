@@ -43,7 +43,15 @@
 
             </ul>
             <div class="tab-content" id="myTabContent">
+
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+
+                    <div class="row g-3 align-items-center mb-5 mt-3">
+                        <div class="col-auto">
+                            <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                        </div>
+                    </div>
+
                     <div class="row mt-4">
                         <div class="col-md-4 col-lg-3 ">
                             <div class="position-relative">
@@ -85,9 +93,11 @@
                                         <!-- Column -->
                                         <div class="col-md-6 col-lg-3 col-xlg-3">
                                             <div class="mb-3">
+                                                <label class="form-label text-dark" for="uname">Nombre</label>
                                                 <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre" aria-describedby="emailHelp">
                                             </div>
                                             <div class="mb-3">
+                                                <label class="form-label text-dark" for="uname">Descripcion</label>
                                                 <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descripcion" rows="12"></textarea>
                                             </div>
                                             <div class="mb-4">
@@ -96,45 +106,53 @@
                                         </div>
                                         <!-- Column -->
                                         <div class="col-md-6 col-lg-9 col-xlg-3">
-                                            <table class="table table-striped">
-                                                <thead>
-                                                    <tr>
-                                                        <th>MODULO</th>
-                                                        <th>CONSULTAR</th>
-                                                        <th>AGREGAR</th>
-                                                        <th>MODIFICAR</th>
-                                                        <th>ELIMINAR</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php for ($i = 0; $i < 15; $i++) { ?>
-                                                        <tr>
-                                                            <td>PRODUCTOS</td>
-                                                            <td>
-                                                                <div class="form-check form-switch">
-                                                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-check form-switch">
-                                                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-check form-switch">
-                                                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-check form-switch">
-                                                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-                                                                </div>
-                                                            </td>
+                                            <div class="form-check form-check-reverse mb-4">
+                                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                <label class="form-check-label" for="reverseCheck1">Seleccionar Todos</label>
+                                            </div>
 
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>MODULO</th>
+                                                            <th>CONSULTAR</th>
+                                                            <th>AGREGAR</th>
+                                                            <th>MODIFICAR</th>
+                                                            <th>ELIMINAR</th>
                                                         </tr>
-                                                    <?php } ?>
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php for ($i = 0; $i < 15; $i++) { ?>
+                                                            <tr>
+                                                                <td>PRODUCTOS</td>
+                                                                <td>
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                    </div>
+                                                                </td>
+
+                                                            </tr>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

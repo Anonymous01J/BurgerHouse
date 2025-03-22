@@ -126,7 +126,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="form-input-grid.html" class="sidebar-link">
+                            <a href="rawmaterial" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Materia Prima
                                 </span>
@@ -185,14 +185,14 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="form-inputs.html" class="sidebar-link">
+                            <a href="invoice" class="sidebar-link">
                                 <span
                                     class="hide-menu">Facturas
                                 </span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="form-input-grid.html" class="sidebar-link">
+                            <a href="credit" class="sidebar-link">
                                 <span
                                     class="hide-menu">Credito
                                 </span>
@@ -257,7 +257,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="authentication-login1.html"
+                    <a class="sidebar-link sidebar-link" href="users"
                         aria-expanded="false">
                         <i data-feather="user" class="feather-icon"></i>
                         <span

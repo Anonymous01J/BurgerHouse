@@ -14,12 +14,13 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Delivery</h3>
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Facturas</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
-                                <li class="breadcrumb-item"><a href="home" class="text-muted">Modulos</a></li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Proveedores</li>
+                                <li class="breadcrumb-item"><a href="index.html" class="text-muted">Modulos</a></li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Facturacion</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Facturas</li>
                             </ol>
                         </nav>
                     </div>
@@ -32,12 +33,15 @@
 
         <div class="container-fluid">
 
-            <div class="row g-3 align-items-center mb-5">
+            <div class="row gap-2 align-items-center mb-5">
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
                 <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
-                    <i data-feather="plus" class="svg-icon"></i>
+                    <i data-feather="filter" class="svg-icon"></i>
+                </button>
+                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+                    <i data-feather="file-plus" class="svg-icon"></i>
                 </button>
             </div>
 
@@ -45,37 +49,41 @@
                 <div class="col-md-4 col-lg-3 ">
                     <div class="position-relative">
                         <span class="badge bh_1 d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;">
-                            <span><i style="font-size: 20px;" data-feather="bookmark" class="svg-icon"></i></span>
+                            <span><i style="font-size: 20px;" data-feather="clipboard" class="svg-icon"></i></span>
                         </span>
                         <div class="card">
                             <div class="card-body">
                                 <div class="mb-3 border-bottom">
                                     <div class="d-flex justify-content-between ">
-                                        <h5 class="card-title">Montecarmelo</h5>
+                                        <h5 class="card-title">Nro Factura</h5>
                                         <div>
-                                            <p class="fs-6">J-582679</p>
+                                            <p class="fs-6">454558</p>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <p class="fw-lighter fs-6">Nombre</p>
-                                        <p class="fw-lighter fs-6">Jose Perez</p>
+                                        <p class="fw-lighter fs-6">Fecha: 15/3/2025</p>
+                                        <p class="fw-lighter fs-6">Hora: 13:40</p>
                                     </div>
                                 </div>
 
 
                                 <div class="row gap-3">
-                                    <div class="d-flex flex-column gap-4">
-                                        <div class="text-start">
-                                            <h4>Telefono</h4>
-                                            <div class="fs-6">0412568935</div>
+                                    <div class="d-flex flex-column gap-3">
+                                        <div class="d-flex align-item-center justify-content-between text-start">
+                                            <div>Cliente</div>
+                                            <div class="fs-6">Jose Escalona</div>
                                         </div>
-                                        <div class="">
-                                            <h4>Direccion</h4>
-                                            <div class="fs-6">Una direccion cualquiera detras de algo</div>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="text-start">Vendedor</div>
+                                            <div class=" text-end fs-6 w-50 text-truncate">Kevin</div>
                                         </div>
-                                        <div class="d-flex justify-content-end gap-3 border-top pt-3">
-                                            <i data-feather="edit"></i>
-                                            <i data-feather="trash-2"></i>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="text-start">Total</div>
+                                            <div class=" text-end fs-6 w-50 text-truncate">756 Bs</div>
+                                        </div>
+                                        <span class="badge text-bg-success badge-pill">Pagado</span>
+                                        <div class="d-flex justify-content-center pt-3 border-top">
+                                            <button class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
                                         </div>
                                     </div>
                                 </div>
@@ -84,8 +92,6 @@
                     </div>
                 </div>
             </div>
-
-
 
         </div>
 
@@ -104,4 +110,3 @@
     <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
-    <script src="./assets/js/pages/dashboards/dashboard1.min.js"></script>

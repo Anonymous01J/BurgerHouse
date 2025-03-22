@@ -78,6 +78,10 @@
                                                         <div>Cliente</div>
                                                         <div class="fs-6">Jose Escalona</div>
                                                     </div>
+                                                    <div class="d-flex align-item-center justify-content-between text-start">
+                                                        <div>Nro de contacto</div>
+                                                        <div class="fs-6">04126742231</div>
+                                                    </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div class="text-start">Direccion</div>
                                                         <div class=" text-end fs-6 w-50 text-truncate">Una direccion cualquiera detras de algo</div>

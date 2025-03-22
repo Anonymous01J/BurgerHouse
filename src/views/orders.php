@@ -25,9 +25,9 @@
                         </nav>
                     </div>
                 </div>
-                
+
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-                
+
             </div>
         </div>
 
@@ -86,56 +86,121 @@
                                 </div>
                             </div>
 
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered no-wrap">
-                                    <thead>
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>Nro Orden</th>
-                                            <th>Cliente</th>
-                                            <th>Fecha</th>
-                                            <th>Hora</th>
-                                            <th>Nro Comprobante</th>
-                                            <th>Comprobante</th>
-                                            <th>Accion</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <span class="badge text-bg-success badge-pill">ENTREGADO</span>
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Pendientes</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Procesadas</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                    <div class="table-responsive mt-4">
+                                        <table class="table table-striped table-bordered no-wrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Nro Orden</th>
+                                                    <th>Cliente</th>
+                                                    <th>Fecha</th>
+                                                    <th>Hora</th>
+                                                    <th>Nro Comprobante</th>
+                                                    <th>Comprobante</th>
+                                                    <th>Accion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="badge text-bg-success badge-pill">ENTREGADO</span>
 
-                                            </td>
-                                            <td><span class="fs-6">6419619819</span></td>
-                                            <td>Jose Escalona</td>
-                                            <td>13-3-2025</td>
-                                            <td>13:40</td>
-                                            <td class="fs-6">2560</td>
-                                            <td>ver</td>
-                                            <td>
-                                                <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
-                                                    <i data-feather="check-circle" class="text-white"></i>
-                                                </button>
-                                                <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
-                                                    <i data-feather="x-circle" class="text-white"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <ul class="pagination float-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
+                                                    </td>
+                                                    <td><span class="fs-6">6419619819</span></td>
+                                                    <td>Jose Escalona</td>
+                                                    <td>13-3-2025</td>
+                                                    <td>13:40</td>
+                                                    <td class="fs-6">2560</td>
+                                                    <td>ver</td>
+                                                    <td>
+                                                        <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
+                                                            <i data-feather="check-circle" class="text-white"></i>
+                                                        </button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
+                                                            <i data-feather="x-circle" class="text-white"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <ul class="pagination float-end">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                    <div class="table-responsive mt-4">
+                                        <table class="table table-striped table-bordered no-wrap">
+                                            <thead>
+                                                <tr>
+                                                    <th>Status</th>
+                                                    <th>Nro Orden</th>
+                                                    <th>Cliente</th>
+                                                    <th>Fecha</th>
+                                                    <th>Hora</th>
+                                                    <th>Nro Comprobante</th>
+                                                    <th>Comprobante</th>
+                                                    <th>Accion</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <span class="badge text-bg-success badge-pill">ENTREGADO</span>
+
+                                                    </td>
+                                                    <td><span class="fs-6">6419619819</span></td>
+                                                    <td>Jose Escalona</td>
+                                                    <td>13-3-2025</td>
+                                                    <td>13:40</td>
+                                                    <td class="fs-6">2560</td>
+                                                    <td>ver</td>
+                                                    <td>
+                                                        <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
+                                                            <i data-feather="check-circle" class="text-white"></i>
+                                                        </button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
+                                                            <i data-feather="x-circle" class="text-white"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <ul class="pagination float-end">
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="#">Next</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -144,7 +209,7 @@
         </div>
 
     </div>
-    
+
     <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
 
 </div>

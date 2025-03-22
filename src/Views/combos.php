@@ -36,7 +36,9 @@
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <img src="./assets/img/boton.png" style="width: 50px;">
+                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+                    <i data-feather="plus" class="svg-icon"></i>
+                </button>
             </div>
 
             <div class="row">

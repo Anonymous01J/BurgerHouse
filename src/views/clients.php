@@ -32,17 +32,20 @@
 
         <div class="container-fluid">
 
-            <div class="row g-3 align-items-center mb-4">
+            <div class="row g-3 align-items-center mb-5">
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
+                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+                    <i data-feather="plus" class="svg-icon"></i>
+                </button>
             </div>
 
             <div class="row">
                 <div class="col-md-4 col-lg-3 ">
                     <div class="position-relative">
                         <span class="badge bh_1 d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;">
-                            <span><i style="font-size: 24px;" data-feather="user" class="svg-icon"></i></span>
+                            <span><i style="font-size: 20px;" data-feather="user" class="svg-icon"></i></span>
                         </span>
                         <div class="card">
                             <div class="card-body">
