@@ -14,7 +14,7 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Delivery</h3>
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Proveedores</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
@@ -36,7 +36,7 @@
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+                <button data-bs-toggle="modal" data-bs-target="#register-supplier" style="color: #fff;" type="button" class="btn bh_1 btn-circle">
                     <i data-feather="plus" class="svg-icon"></i>
                 </button>
             </div>
@@ -74,8 +74,8 @@
                                             <div class="fs-6">Una direccion cualquiera detras de algo</div>
                                         </div>
                                         <div class="d-flex justify-content-end gap-3 border-top pt-3">
-                                            <i data-feather="edit"></i>
-                                            <i data-feather="trash-2"></i>
+                                            <i style="cursor: pointer;" data-feather="edit"></i>
+                                            <i style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#confirmAction" data-feather="trash-2"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -90,7 +90,7 @@
         </div>
 
         <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
-
+        <?php include_once __DIR__ . '/../Views/Components/modals/supplier/modal.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
 
     </div>
@@ -104,4 +104,3 @@
     <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
-    <script src="./assets/js/pages/dashboards/dashboard1.min.js"></script>

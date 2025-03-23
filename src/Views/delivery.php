@@ -88,7 +88,7 @@
                                                     </div>
                                                     <div class="d-flex justify-content-around pt-3 border-top">
                                                         <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn btn-sm bh_1" style="color: #fff;">Aceptar Entrega</button>
-                                                        <button class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -142,7 +142,7 @@
                                                     <div class=" text-end fs-6 w-50 text-truncate">Una direccion cualquiera detras de algo</div>
                                                 </div>
                                                 <div class="d-flex justify-content-center pt-3 border-top">
-                                                    <button class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
+                                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -159,7 +159,7 @@
         </div>
 
         <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
-
+        <?php include_once __DIR__ . '/../Views/Components/modals/delivery-kitchen/modal.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
 
     </div>

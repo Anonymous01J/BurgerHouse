@@ -36,7 +36,7 @@
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+                <button data-bs-toggle="modal" data-bs-target="#register-client" style="color: #fff;" type="button" class="btn bh_1 btn-circle">
                     <i data-feather="plus" class="svg-icon"></i>
                 </button>
             </div>
@@ -70,8 +70,8 @@
                                             <div class="fs-6">Una direccion cualquiera detras de algo</div>
                                         </div>
                                         <div class="d-flex justify-content-end gap-3 border-top pt-3">
-                                            <i data-feather="edit"></i>
-                                            <i data-feather="trash-2"></i>
+                                            <i style="cursor: pointer;" data-feather="edit"></i>
+                                            <i style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#confirmAction" data-feather="trash-2"></i>
                                         </div>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
         </div>
 
         <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
-
+        <?php include_once __DIR__ . '/../Views/Components/modals/client/modal.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
 
     </div>

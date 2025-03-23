@@ -13,7 +13,7 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Bienvenido, Felix!</h3>
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Combo</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
@@ -36,12 +36,17 @@
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+                <button type="button" class="btn bh_1 btn-circle text-white" data-bs-toggle="modal" data-bs-target="#register-combo">
                     <i data-feather="plus" class="svg-icon"></i>
                 </button>
             </div>
 
             <div class="row">
+
+            <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
+            <?php include_once __DIR__ . '/../Views/Components/modals/combo/modal.php' ?>
+
+
                 <div class="col-md-12 col-lg-4">
                     <div class="card">
                         <div class="card-body">

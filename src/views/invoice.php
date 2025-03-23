@@ -37,12 +37,39 @@
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+                <button type="button" class="btn bh_1 btn-circle text-white" data-bs-toggle="dropdown" aria-expanded="false">
                     <i data-feather="filter" class="svg-icon"></i>
                 </button>
-                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+
+                <button type="button" class="btn bh_1 btn-circle text-white">
                     <i data-feather="file-plus" class="svg-icon"></i>
                 </button>
+
+                <div class="dropdown">
+                    <ul class="dropdown-menu p-4">
+                        <div class="row g-3 align-items-center mb-3">
+                            <div class="col-auto">
+                                <label for="inputPassword6" class="col-form-label">Desde</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                            </div>
+                        </div>
+                        <div class="row g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="inputPassword6" class="col-form-label">Hasta</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                            </div>
+                        </div>
+                        <div class="row g-3 align-items-center justify-content-center mt-3">
+                            <div class="col-auto">
+                                <button class="btn bh_5 text-white">Aplicar</button>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
             </div>
 
             <div class="row">

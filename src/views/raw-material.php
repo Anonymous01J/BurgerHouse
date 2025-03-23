@@ -47,7 +47,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <button type="button" class="btn bh_1 text-white mt-3">
+                                    <button data-bs-toggle="modal" data-bs-target="#register-rawMaterial" type="button" class="btn bh_1 text-white mt-3">
                                         <i class="fas fa-plus"></i>
                                         Materia Prima
                                     </button>
@@ -66,11 +66,11 @@
                                                     <td>Carne de res</td>
                                                     <td>Carne</td>
                                                     <td>
-                                                        <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
-                                                            <i data-feather="check-circle" class="text-white"></i>
+                                                        <button class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
+                                                            <i data-feather="edit" class="text-white"></i>
                                                         </button>
                                                         <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
-                                                            <i data-feather="x-circle" class="text-white"></i>
+                                                            <i data-feather="trash" class="text-white"></i>
                                                         </button>
                                                     </td>
                                                 </tr>
@@ -148,7 +148,7 @@
                                             </div>
                                         </div>
                                         <div class="mb-4">
-                                            <button type="button" class="btn bh_1 text-white mt-3">
+                                            <button data-bs-toggle="modal" data-bs-target="#register-entrys" type="button" class="btn bh_1 text-white mt-3">
                                                 <i class="fas fa-plus"></i>
                                                 Entrada
                                             </button>
@@ -183,6 +183,7 @@
                                                             <th>Cantidad</th>
                                                             <th>Existencia</th>
                                                             <th>P.COMPRA</th>
+                                                            <th>Comprobante</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -195,6 +196,7 @@
                                                             <td>3 kg</td>
                                                             <td>1 kg</td>
                                                             <td class="fs-6">130 Bs</td>
+                                                            <td class="fs-6">img</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -226,6 +228,7 @@
                                                             <th>Cantidad</th>
                                                             <th>Existencia</th>
                                                             <th>P.COMPRA</th>
+                                                            <th>Comprobante</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -238,6 +241,7 @@
                                                             <td>3 kg</td>
                                                             <td>1 kg</td>
                                                             <td class="fs-6">130 Bs</td>
+                                                            <td class="fs-6">img</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -269,6 +273,7 @@
                                                             <th>Cantidad</th>
                                                             <th>Existencia</th>
                                                             <th>P.COMPRA</th>
+                                                            <th>Comprobante</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -281,6 +286,7 @@
                                                             <td>3 kg</td>
                                                             <td>1 kg</td>
                                                             <td class="fs-6">130 Bs</td>
+                                                            <td class="fs-6">img</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -312,6 +318,7 @@
                                                             <th>Cantidad</th>
                                                             <th>Existencia</th>
                                                             <th>P.COMPRA</th>
+                                                            <th>Comprobante</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -324,6 +331,7 @@
                                                             <td>3 kg</td>
                                                             <td>1 kg</td>
                                                             <td class="fs-6">130 Bs</td>
+                                                            <td class="fs-6">img</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -357,6 +365,8 @@
     </div>
 
     <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
+    <?php include_once __DIR__ . '/../Views/Components/modals/raw_material/entrysModal.php' ?>
+    <?php include_once __DIR__ . '/../Views/Components/modals/raw_material/raw-materialModal.php' ?>
 
 </div>
 

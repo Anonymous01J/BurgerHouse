@@ -14,13 +14,13 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Facturas</h3>
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Creditos</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
                                 <li class="breadcrumb-item"><a href="index.html" class="text-muted">Modulos</a></li>
                                 <li class="breadcrumb-item text-muted active" aria-current="page">Facturacion</li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Facturas</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Credito</li>
                             </ol>
                         </nav>
                     </div>
@@ -37,12 +37,41 @@
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+                
+                <button type="button" class="btn bh_1 btn-circle text-white" data-bs-toggle="dropdown" aria-expanded="false">
                     <i data-feather="filter" class="svg-icon"></i>
                 </button>
+
                 <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
                     <i data-feather="file-plus" class="svg-icon"></i>
                 </button>
+
+                <div class="dropdown">
+                    <ul class="dropdown-menu p-4">
+                        <div class="row g-3 align-items-center mb-3">
+                            <div class="col-auto">
+                                <label for="inputPassword6" class="col-form-label">Desde</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                            </div>
+                        </div>
+                        <div class="row g-3 align-items-center">
+                            <div class="col-auto">
+                                <label for="inputPassword6" class="col-form-label">Hasta</label>
+                            </div>
+                            <div class="col-auto">
+                                <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                            </div>
+                        </div>
+                        <div class="row g-3 align-items-center justify-content-center mt-3">
+                            <div class="col-auto">
+                                <button class="btn bh_5 text-white">Aplicar</button>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+
             </div>
 
             <div class="row">
@@ -82,7 +111,8 @@
                                             <div class=" text-end fs-6 w-50 text-truncate">756 Bs</div>
                                         </div>
                                         <span class="badge text-bg-secondary badge-pill">A credito</span>
-                                        <div class="d-flex justify-content-center pt-3 border-top">
+                                        <div class="d-flex justify-content-center gap-4 pt-3 border-top">
+                                            <button class="btn btn-sm bh_1" style="color: #fff;">Pagar</button>
                                             <button class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
                                         </div>
                                     </div>

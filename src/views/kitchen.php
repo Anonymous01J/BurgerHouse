@@ -78,7 +78,7 @@
                                                     </div>
                                                     <div class="d-flex justify-content-around pt-3 border-top">
                                                         <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_1" style="color: #fff;">Preparar</button>
-                                                        <button class="btn bh_5" style="color: #fff;">Detalles</button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn bh_5" style="color: #fff;">Detalles</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -129,7 +129,7 @@
                                                 </div>
                                                 
                                                 <div class="d-flex justify-content-center pt-3 border-top">
-                                                    <button class="btn bh_5" style="color: #fff;">Detalles</button>
+                                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn bh_5" style="color: #fff;">Detalles</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -142,6 +142,7 @@
                 </div>
                 
                 <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
+                <?php include_once __DIR__ . '/../Views/Components/modals/delivery-kitchen/modal.php' ?>
                 
             </div>
         </div>

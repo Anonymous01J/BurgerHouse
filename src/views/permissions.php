@@ -43,7 +43,6 @@
 
             </ul>
             <div class="tab-content" id="myTabContent">
-
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
 
                     <div class="row g-3 align-items-center mb-5 mt-3">
@@ -73,8 +72,8 @@
                                                     <div class="fs-6">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, itaque earum nihil neque aliquam odit impedit odio.</div>
                                                 </div>
                                                 <div class="d-flex justify-content-end gap-3 border-top pt-3">
-                                                    <i data-feather="edit"></i>
-                                                    <i data-feather="trash-2"></i>
+                                                    <i style="cursor: pointer;" data-feather="edit"></i>
+                                                    <i style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#confirmAction" data-feather="trash-2"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -84,6 +83,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                     <div class="row">
                         <div class="col-12">
@@ -101,7 +101,7 @@
                                                 <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descripcion" rows="12"></textarea>
                                             </div>
                                             <div class="mb-4">
-                                                <button type="submit" class="btn bh_5" style="color: #fff;">Guardar</button>
+                                                <button data-bs-toggle="modal" data-bs-target="#confirmAction" type="button" class="btn bh_5 text-white">Guardar</button>
                                             </div>
                                         </div>
                                         <!-- Column -->
