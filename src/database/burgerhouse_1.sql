@@ -293,15 +293,16 @@ DROP TABLE IF EXISTS `facturas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `facturas` (
-  `idFactura` int NOT NULL AUTO_INCREMENT,
-  `idRegistroVentas` int NOT NULL,
-  `idProducto` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_venta` int NOT NULL,
+  `id_producto` int NOT NULL,
   `cantidad` int NOT NULL,
-  `descripción` text COLLATE utf8mb4_spanish_ci NOT NULL,
-  `costeTotal` float NOT NULL,
-  PRIMARY KEY (`idFactura`),
-  KEY `idRegistroVentas` (`idRegistroVentas`),
-  KEY `idProducto` (`idProducto`)
+  `monto` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idProducto` (`id_producto`),
+  KEY `idRegistroVentas` (`id_venta`) /*!80000 INVISIBLE */,
+  CONSTRAINT `id_producto(facturas)` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `id_venta(facturas)` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -708,4 +709,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-17 14:22:41
+-- Dump completed on 2025-03-24 13:36:09
