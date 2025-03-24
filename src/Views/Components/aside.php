@@ -6,7 +6,7 @@
             <ul id="sidebarnav">
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="/BurgerHouse/home"
+                    <a class="sidebar-link sidebar-link" href="home"
                         aria-expanded="false"><i data-feather="home" class="feather-icon"></i><span
                             class="hide-menu">Dashboard</span>
                     </a>
@@ -25,14 +25,14 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="/BurgerHouse/order" class="sidebar-link">
+                            <a href="order" class="sidebar-link">
                                 <span
                                     class="hide-menu">Ordenes
                                 </span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="/BurgerHouse/delivery" class="sidebar-link">
+                            <a href="delivery" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Delivery
                                 </span>
@@ -43,7 +43,7 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/BurgerHouse/cocina"
+                    <a class="sidebar-link" href="kitchen"
                         aria-expanded="false">
                         <i data-feather="coffee" class="feather-icon"></i>
                         <span class="hide-menu">Cocina</span>
@@ -51,7 +51,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/BurgerHouse/ordenes"
+                    <a class="sidebar-link" href="ordenes"
                         aria-expanded="false">
                         <i data-feather="file-minus" class="feather-icon"></i>
                         <span class="hide-menu">Reportes</span>
@@ -59,7 +59,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="/BurgerHouse/estadisticas"
+                    <a class="sidebar-link" href="estadisticas"
                         aria-expanded="false">
                         <i data-feather="bar-chart" class="feather-icon"></i>
                         <span class="hide-menu">Estadisticas</span>
@@ -76,7 +76,7 @@
                 </li> -->
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="/BurgerHouse/calendario"
+                    <a class="sidebar-link sidebar-link" href="calendar"
                         aria-expanded="false">
                         <i data-feather="calendar" class="feather-icon"></i>
                         <span class="hide-menu">Calendario</span>
@@ -84,7 +84,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                    <a class="sidebar-link sidebar-link" href="binnacle"
                         aria-expanded="false">
                         <i data-feather="book-open" class="feather-icon"></i>
                         <span class="hide-menu">Bitacora</span>
@@ -92,7 +92,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                    <a class="sidebar-link sidebar-link" href="capital"
                         aria-expanded="false">
                         <i data-feather="credit-card" class="feather-icon"></i>
                         <span class="hide-menu">Capital</span>
@@ -100,7 +100,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="app-calendar.html"
+                    <a class="sidebar-link sidebar-link" href="money"
                         aria-expanded="false">
                         <i data-feather="dollar-sign" class="feather-icon"></i>
                         <span class="hide-menu">Moneda</span>
@@ -119,21 +119,21 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="/BurgerHouse/combos" class="sidebar-link">
+                            <a href="combo" class="sidebar-link">
                                 <span
                                     class="hide-menu">Combo
                                 </span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="form-input-grid.html" class="sidebar-link">
+                            <a href="raw-material" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Materia Prima
                                 </span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="form-checkbox-radio.html" class="sidebar-link">
+                            <a href="#" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Recetas
                                 </span>
@@ -144,7 +144,7 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="supplier"
                         aria-expanded="false">
                         <i data-feather="bookmark" class="feather-icon"></i>
                         <span
@@ -155,7 +155,7 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="clients"
                         aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>
                         <span
@@ -166,7 +166,7 @@
 
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="cash"
                         aria-expanded="false">
                         <i data-feather="inbox" class="feather-icon"></i>
                         <span
@@ -185,14 +185,14 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="form-inputs.html" class="sidebar-link">
+                            <a href="invoice" class="sidebar-link">
                                 <span
                                     class="hide-menu">Facturas
                                 </span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="form-input-grid.html" class="sidebar-link">
+                            <a href="credit" class="sidebar-link">
                                 <span
                                     class="hide-menu">Credito
                                 </span>
@@ -202,7 +202,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="units"
                         aria-expanded="false">
                         <i data-feather="flag" class="feather-icon"></i>
                         <span
@@ -212,7 +212,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="brand"
                         aria-expanded="false">
                         <i data-feather="flag" class="feather-icon"></i>
                         <span
@@ -222,7 +222,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="category"
                         aria-expanded="false">
                         <i data-feather="flag" class="feather-icon"></i>
                         <span
@@ -232,7 +232,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="#"
                         aria-expanded="false">
                         <i data-feather="award" class="feather-icon"></i>
                         <span
@@ -247,7 +247,7 @@
                 <li class="nav-small-cap"><span class="hide-menu">Autenticación</span></li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="authentication-login1.html"
+                    <a class="sidebar-link sidebar-link" href="permissions"
                         aria-expanded="false">
                         <i data-feather="lock" class="feather-icon"></i>
                         <span
@@ -257,7 +257,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="authentication-login1.html"
+                    <a class="sidebar-link sidebar-link" href="users"
                         aria-expanded="false">
                         <i data-feather="user" class="feather-icon"></i>
                         <span
@@ -272,7 +272,7 @@
                 <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="../Views/login.php"
+                    <a class="sidebar-link sidebar-link" href="login"
                         aria-expanded="false">
                         <i data-feather="log-out" class="feather-icon"></i>
                         <span class="hide-menu">Logout</span>
