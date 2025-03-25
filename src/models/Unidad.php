@@ -8,7 +8,7 @@ class Unidad extends Db_base {
     private $nombre;
 
     public function __construct($id = null, $nombre = null) {
-        parent::__construct($id, "unidades");
+        parent::__construct("unidades");
         $this->id = $id;
         $this->nombre = $nombre;
 

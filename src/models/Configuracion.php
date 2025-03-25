@@ -1,51 +1,24 @@
 <?php
     namespace Shtch\Burgerhouse\models;
+    use Shtch\Burgerhouse\models\Db_base;
     use PDO;
 
-	class Configuracion extends Conexion {
+	class Configuracion extends Db_base {
+        private $id;
         private $value;
         private $key;
-		function __construct($key=null,$value=null) {
-			Conexion::__construct();
+		function __construct($id=null, $key=null,$value=null) {
+			parent::__construct("configuraciones");
 
-            $this->value = $value;
-            $this->key = $key;
+            $this->id = $id;
+            $this->add_variables([
+                "a.id" => $this->id,
+                "a.valor" => $this->value,
+                "a.llave" => $this->key
+            ]);
+            $this->add_variables_like([
+                "a.valor" => $this->value
+            ]);
 		}
-
-        function actualizar() {
-            
-            $query = "UPDATE configuraciones SET valor=:valor WHERE llave=:llave";
-            $query = $this->conn->prepare($query);
-            $query->bindValue(':valor',$this->value, PDO::PARAM_STR);
-            $query->bindValue(':llave',$this->key, PDO::PARAM_STR);
-            $query->execute();
-
-        }
-        function search($n=0, $limite=9) {
-            
-            $query = "SELECT * FROM configuraciones ";
-            if ($this->key != null) {
-                $query = $query." WHERE llave=:llave";
-            }
-            
-			$query .= " LIMIT :l OFFSET :n";
-            $query = $this->conn->prepare($query);
-
-            
-            $n = $n*$limite;
-			$query->bindValue(':l', $limite, PDO::PARAM_INT);
-			$query->bindValue(':n', $n, PDO::PARAM_INT);
-            if ($this->key != null) {
-                $query->bindValue(':llave',$this->key, PDO::PARAM_INT);
-            }
-            $query->execute();
-            $result = $query->fetchAll();
-            return $result;
-        }
-        function COUNT() {
-            $query = $this->conn->prepare("SELECT COUNT(*) as 'total' FROM configuraciones ");
-            $query->execute();
-            return $query->fetch()['total'];
-        }
 	}
 ?>

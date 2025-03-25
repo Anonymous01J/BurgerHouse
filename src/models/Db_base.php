@@ -39,15 +39,13 @@
         //     INNER JOIN unidades c ON c.id = a.id_unidad
         //     INNER JOIN marcas m ON m.id = a.id_marca 
         // ';
-        private $id;
         private $variables;
         private $variables_like;
         public $tabla;
         public $joins;
         public $select_query;
         public $variables_interval;
-        public function __construct($id=null, $tabla=""){
-            $this->id = $id;
+        public function __construct($tabla=""){
             $this->variables = array();
             $this->tabla = $tabla;
             $this->variables_like = array();

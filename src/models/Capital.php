@@ -1,7 +1,7 @@
 <?php
-namespace Shtechnologyx\Pt3\Model;
+namespace Shtch\Burgerhouse\models;
 
-use Shtechnologyx\Pt3\Model\Db_base;
+use Shtch\Burgerhouse\models\Db_base;
 
 class Capital extends Db_base {
     private $id;
@@ -13,7 +13,7 @@ class Capital extends Db_base {
         $monto = null,
         $fecha = null
     ) {
-        parent::__construct($id, "capital");
+        parent::__construct("capital");
         
         $this->id = $id;
         $this->monto = $monto;

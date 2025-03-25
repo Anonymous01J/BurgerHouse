@@ -15,7 +15,7 @@ class Proveedores extends Db_base {
         $razon_social = null,
         $rif = null
     ) {
-        parent::__construct($id, "proveedores");
+        parent::__construct("proveedores");
         
         $this->id = $id;
         $this->nombre = $nombre;

@@ -10,7 +10,7 @@
         private $session_id;
 
         function __construct($id=null, $nombre=null,$hash=null,$id_rol=null,$active=null,$session_id=null){
-            parent::__construct($id, "usuario");
+            parent::__construct("usuario");
             $this->id = $id;
             $this->nombre = $nombre;
             $this->hash = $hash;

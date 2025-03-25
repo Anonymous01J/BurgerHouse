@@ -1,7 +1,7 @@
 <?php
-namespace Shtechnologyx\Pt3\Model;
+namespace Shtch\Burgerhouse\models;
 
-use Shtechnologyx\Pt3\Model\Db_base;
+use Shtch\Burgerhouse\models\Db_base;
 
 class Caja extends Db_base {
     private $id;
@@ -21,7 +21,7 @@ class Caja extends Db_base {
         $monto_credito = null,
         $total_ventas = null
     ) {
-        parent::__construct($id, "caja");
+        parent::__construct("caja");
         
         $this->id = $id;
         $this->usuario = $usuario;

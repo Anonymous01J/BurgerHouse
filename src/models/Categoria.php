@@ -1,7 +1,7 @@
 <?php
-namespace Shtechnologyx\Pt3\Model;
+namespace Shtch\Burgerhouse\models;
 
-use Shtechnologyx\Pt3\Model\Db_base;
+use Shtch\Burgerhouse\models\Db_base;
 
 class Categorias extends Db_base {
     private $id;
@@ -15,7 +15,7 @@ class Categorias extends Db_base {
         $tipo = null,
         $active = null
     ) {
-        parent::__construct($id, "categorias");
+        parent::__construct("categorias");
         
         $this->id = $id;
         $this->nombre = $nombre;

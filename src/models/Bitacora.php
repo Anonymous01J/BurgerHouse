@@ -1,7 +1,7 @@
 <?php
-namespace Shtechnologyx\Pt3\Model;
+namespace Shtch\Burgerhouse\models;
 
-use Shtechnologyx\Pt3\Model\Db_base;
+use Shtch\Burgerhouse\models\Db_base;
 
 class Bitacora extends Db_base {
     private $id;
@@ -19,7 +19,7 @@ class Bitacora extends Db_base {
         $fecha = null,
         $detalles = null
     ) {
-        parent::__construct($id, "bitacora");
+        parent::__construct("bitacora");
         
         $this->id = $id;
         $this->usuario = $usuario;

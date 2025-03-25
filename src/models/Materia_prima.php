@@ -1,7 +1,7 @@
 <?php
-namespace Shtechnologyx\Pt3\Model;
+namespace Shtch\Burgerhouse\models;
 
-use Shtechnologyx\Pt3\Model\Db_base;
+use Shtch\Burgerhouse\models\Db_base;
 
 class Materia_prima extends Db_base {
     private $id;
@@ -15,7 +15,7 @@ class Materia_prima extends Db_base {
         $id_unidad = null,
         $stock = null
     ) {
-        parent::__construct($id, "materiaprima");
+        parent::__construct("materia_prima");
         
         $this->id = $id;
         $this->id_categoria = $id_categoria;
