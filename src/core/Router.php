@@ -2,11 +2,10 @@
 
 namespace Shtch\Burgerhouse\core;
 
-class Router
-{
+class Router{
 
-    public function run()
-    {
+    public function run(){
+        require_once __DIR__ . '/../config/config.php';
         $url = $this->parseUrl();
 
         $controllerName = !empty($url[0]) ? ucfirst($url[0]) . 'Controller' : 'HomeController';
@@ -29,6 +28,9 @@ class Router
             // header("Location: Error404");
             echo "Controlador <strong>{$controllerName}</strong> no encontrado";
         }
+
+        $controller = new $controller_class();
+        $controller->$methodName(...array_slice($url, 2), ...$_GET);
     }
 
     private function parseUrl()

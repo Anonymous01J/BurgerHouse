@@ -1,0 +1,27 @@
+http://localhost/BurgerHouse/unidades/get_all/ # la url base para obtener informacion
+
+tambien se le pueden pasar parametros por POST que determinan los filtros.
+ademas de incluir los parametros de limitacion y ordenamiento en la url
+
+Ejemplo de parametros POST:
+
+{
+    "id": 1,
+    "nombre": "Unidad 1",
+    "descripcion": "Descripcion de la unidad 1" # no tiene descripcion, pero bueno sirve como ejemplop
+}
+
+Ejemplo de limitacion y ordenamiento:
+
+
+http://localhost/BurgerHouse/unidades/get_all/0/9/nombre/ASC
+
+Donde:
+0: numero de pagina
+9: limite de registros
+nombre: columna por la que se ordena
+ASC: direccion del ordenamiento
+
+Notas:
+ - Se pueden incluir tanto GET como POST en la misma peticion.
+ - Cualquier parametro o filtro obviado se considera NULL, y se usara el valor por defecto que se le da en el controlador.

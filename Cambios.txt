@@ -1,4 +1,20 @@
 # ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
+24/3/2025
+
+Novedades:
+ - Memento base de datos:
+ - - para las unidades ya se puede usar la base de datos, detalles en el archivo API_usage.txt.
+
+Correcciones:
+ - Algunas url de modelos en los modelos.
+ - Añadido session_id y recovery_token a la tabla usuarios.
+
+Cosas Nuevas:
+ - Añadida API para obtener informacion de la base de datos, detallada en el archivo API_usage.txt.
+ - Añadidos los parametros globales en un archivo config.php.
+ - Añadido controlador y modelo para Unidades y usuarios.
+
+# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
 17/3/2025
 
 Cambios:

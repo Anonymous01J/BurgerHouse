@@ -1,5 +1,5 @@
 <?php
-    namespace Shtechnologyx\Pt3\Model;
+    namespace Shtch\Burgerhouse\models;
     use PDO;
 
     class Conexion{
