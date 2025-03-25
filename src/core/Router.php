@@ -5,6 +5,7 @@ namespace Shtch\Burgerhouse\core;
 class Router{
 
     public function run(){
+        require_once __DIR__ . '/../config/config.php';
         $url = $this->parseUrl();
 
         $controllerName = !empty($url[0]) ? "C_".ucfirst($url[0]) : 'C_Home';
@@ -18,7 +19,7 @@ class Router{
         }
 
         $controller = new $controller_class();
-        $controller->$methodName(...array_slice($url, 2));
+        $controller->$methodName(...array_slice($url, 2), ...$_GET);
     }
 
     private function parseUrl(){
