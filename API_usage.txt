@@ -17,11 +17,12 @@ Ejemplo de limitacion y ordenamiento:
 http://localhost/BurgerHouse/unidades/get_all/0/9/nombre/ASC
 
 Donde:
-0: numero de pagina
-9: limite de registros
-nombre: columna por la que se ordena
-ASC: direccion del ordenamiento
+0(n): numero de pagina
+9(limite): limite de registros
+nombre(order_by): columna por la que se ordena
+ASC(order_type): direccion del ordenamiento
 
 Notas:
  - Se pueden incluir tanto GET como POST en la misma peticion.
  - Cualquier parametro o filtro obviado se considera NULL, y se usara el valor por defecto que se le da en el controlador.
+ - Los parametros de limitacion y ordenamiento se pueden enviar por GET en vez de la url, pero hay que usar el nombre que esta asignado en la funcion de php .
