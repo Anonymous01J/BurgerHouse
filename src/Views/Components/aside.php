@@ -25,7 +25,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="order" class="sidebar-link">
+                            <a href="ordenes" class="sidebar-link">
                                 <span
                                     class="hide-menu">Ordenes
                                 </span>
@@ -51,7 +51,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ticket-list.html"
+                    <a class="sidebar-link" href="ordenes"
                         aria-expanded="false">
                         <i data-feather="file-minus" class="feather-icon"></i>
                         <span class="hide-menu">Reportes</span>
