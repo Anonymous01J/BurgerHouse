@@ -379,6 +379,9 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
+<script type="module" src="./assets/js/pages/raw-material/raw_material.js"></script>
+<script type="module" src="./assets/js/pages/raw-material/entrys.js"></script>
+
 
 
 <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

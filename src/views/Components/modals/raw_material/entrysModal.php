@@ -62,7 +62,7 @@
                         <label for="inputEmail4" class="form-label">Precio de compra</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text">$</span>
-                            <input type="text" class="form-control" placeholder="Precio">
+                            <input type="text" class="form-control" placeholder="Precio" input_price>
                         </div>
                     </div>
 
