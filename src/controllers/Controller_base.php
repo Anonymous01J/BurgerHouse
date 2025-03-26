@@ -1,19 +1,18 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
 
+use Shtch\Burgerhouse\models\Db_base;
 
 class Controller_base {
     public $module_name;
     public $table_name;
-    public $db;
+    public Db_base $db;
 
     public function __construct($module_name, $table_name = null) {
         $this->module_name = $module_name;
         if ($table_name) {
             $this->table_name = "Shtch\\Burgerhouse\\models\\".$table_name;
             $this->db = new $this->table_name(...$_POST);
-        } else {
-            $this->db = null;
         }
     }
 
@@ -26,12 +25,14 @@ class Controller_base {
         echo json_encode($this->db->search(...$args));
     }
 
-    public function check() {
+    public function check(...$args) {
         echo "<pre>";
         echo "POST:";
         print_r($_POST);
         echo "GET:";
         print_r($_GET);
+        echo "</pre>";
+        print_r($args);
         echo "</pre>";
     }
 }

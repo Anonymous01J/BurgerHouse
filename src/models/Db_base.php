@@ -1,6 +1,7 @@
 <?php
     namespace Shtch\Burgerhouse\models;
     use Shtch\Burgerhouse\models\Conexion;
+
     use PDO;
     abstract class Db_base extends Conexion{
         // Ejemplo
@@ -39,15 +40,13 @@
         //     INNER JOIN unidades c ON c.id = a.id_unidad
         //     INNER JOIN marcas m ON m.id = a.id_marca 
         // ';
-        private $id;
         private $variables;
         private $variables_like;
         public $tabla;
         public $joins;
         public $select_query;
         public $variables_interval;
-        public function __construct($id=null, $tabla=""){
-            $this->id = $id;
+        public function __construct($tabla=""){
             $this->variables = array();
             $this->tabla = $tabla;
             $this->variables_like = array();
@@ -124,7 +123,7 @@
             $query->bindValue(':id',$this->variables['a.id'], PDO::PARAM_INT);
             $query->execute();
         }
-        public function search($n=0,$limite=9, $order_by='id', $order_type='ASC') : Array{
+        public function search($n=0,$limite=9, string $order_by='id', string $order_type='ASC') : Array{
             $query = "SELECT $this->select_query FROM $this->tabla AS a $this->joins WHERE 1";
             foreach ($this->variables_like as $key => $value){
                 $query .= ' AND '.$key.' LIKE :like'.$this->normalizeKey($key);
@@ -135,14 +134,21 @@
             foreach ($this->variables_interval as $key => $value){
                 $query .= ' AND '.$key.' BETWEEN :'.$this->normalizeKey($key).' AND :'.$this->normalizeKey($key).'2';
             }
-            $query .= " ORDER BY $order_by $order_type ";
+
+            // $order_by = $this->conn->quote($order_by, PDO::PARAM_STR);
+            // $order_type = $this->conn->quote($order_type, PDO::PARAM_STR);
+            
+            if (str_contains($this->select_query, $order_by) && in_array(strtoupper($order_type), ['ASC', 'DESC'])) {
+                $query .= " ORDER BY $order_by $order_type";
+            }
+
             $query .= " LIMIT :l OFFSET :n ";
             
-            // print_r("\n");
-            // print_r($query);
+            print_r("\n");
+            print_r($query);
+            print_r("\n");
             // Creamos la consulta
             $consulta = $this->conn->prepare($query);
-            
             // Asignamos los parametros   
             foreach ($this->variables as $key => $value){
                 $consulta->bindValue(':'.$this->normalizeKey($key),$value);

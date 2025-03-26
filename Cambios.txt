@@ -1,6 +1,13 @@
 # ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
 24/3/2025
 
+Correcciones:
+ - Realmente la Db_Base no necesita recibir el id aparte.
+ - Corregido el modelo de configuraciones para usar Db_Base.
+
+# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
+24/3/2025
+
 Novedades:
  - Memento base de datos:
  - - para las unidades ya se puede usar la base de datos, detalles en el archivo API_usage.txt.
