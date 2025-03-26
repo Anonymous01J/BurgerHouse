@@ -9,12 +9,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="/BurgerHouse/public/assets/images/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
     <title>Freedash Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
-    <link href="/BurgerHouse/public/assets/css/style.min.css" rel="stylesheet">
+    <link href="../dist/css/style.min.css" rel="stylesheet">
     <!-- This Page CSS -->
-    <link href="/BurgerHouse/public/assets/libs/morris.js/morris.css" rel="stylesheet">
+    <link href="../assets/libs/morris.js/morris.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -52,7 +52,7 @@
                     <div class="navbar-brand">
                         <!-- Logo icon -->
                         <a href="index.html">
-                            <img src="/BurgerHouse/public/assets/images/freedashDark.svg" alt="" class="img-fluid">
+                            <img src="../assets/images/freedashDark.svg" alt="" class="img-fluid">
                         </a>
                     </div>
                     <!-- ============================================================== -->
@@ -203,7 +203,7 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                <img src="/BurgerHouse/public/assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
+                                <img src="../assets/images/users/profile-pic.jpg" alt="user" class="rounded-circle"
                                     width="40">
                                 <span class="ms-2 d-none d-lg-inline-block"><span>Hello,</span> <span
                                         class="text-dark">Jason Doe</span> <i data-feather="chevron-down"
@@ -632,28 +632,28 @@
     <!-- ============================================================== -->
     <!-- All Jquery -->
     <!-- ============================================================== -->
-    <script src="/BurgerHouse/public/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="/BurgerHouse/public/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="/BurgerHouse/public/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- apps -->
     <!-- apps -->
-    <script src="/BurgerHouse/public/assets/js/app-style-switcher.js"></script>
-    <script src="/BurgerHouse/public/assets/js/feather.min.js"></script>
+    <script src="../dist/js/app-style-switcher.js"></script>
+    <script src="../dist/js/feather.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="/BurgerHouse/public/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="/BurgerHouse/public/assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
     <!--Wave Effects -->
     <!-- themejs -->
     <!--Menu sidebar -->
-    <script src="/BurgerHouse/public/assets/js/sidebarmenu.js"></script>
+    <script src="../dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
-    <script src="/BurgerHouse/public/assets/js/custom.min.js"></script>
+    <script src="../dist/js/custom.min.js"></script>
     <!-- This Page JS -->
     <!--Morris JavaScript -->
-    <script src="/BurgerHouse/public/assets/libs/raphael/raphael.min.js"></script>
-    <script src="/BurgerHouse/public/assets/libs/morris.js/morris.min.js"></script>
-    <script src="/BurgerHouse/public/assets/dist/js/pages/morris/morris-data.js"></script>
+    <script src="../assets/libs/raphael/raphael.min.js"></script>
+    <script src="../assets/libs/morris.js/morris.min.js"></script>
+    <script src="../dist/js/pages/morris/morris-data.js"></script>
 </body>
 
 </html>

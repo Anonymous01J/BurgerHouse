@@ -24,24 +24,6 @@ Cosas Nuevas:
 # ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
 17/3/2025
 
-Correcciones:
- - Arregadas la mayorias de rutas, que estaban puestas relativas al archivo, ahora son absolutas desde la raiz hasta el archivo en si.
-
-Cosas Nuevas:
- - Añadido el controlador de las estadisticas, falta arreglar las rutas de esa view, nose porque tanta carpeta wtf.
- 
-
-# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
-17/3/2025
-
-Cambios:
- - todos los archivos de controlladores ya tienen la nomenclatura requerida, C_.
- - tambien algunas views tienen nombres distintos.
-
-
-# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
-17/3/2025
-
 Cambios:
  - Base de datos:
  - - Bitacora:

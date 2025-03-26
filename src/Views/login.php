@@ -107,10 +107,10 @@
 
     </div>
 
-    <script src="/BurgerHouse/public/assets/libs/libs/jquery/dist/jquery.min.js "></script>
-    <script src="/BurgerHouse/public/assets/libs/libs/popper.js/dist/umd/popper.min.js "></script>
-    <script src="/BurgerHouse/public/assets/libs/libs/bootstrap/dist/js/bootstrap.min.js "></script>
-    <script src="/BurgerHouse/public/assets/js/pages/login/login.js"></script>
+    <script src="./assets/libs/libs/jquery/dist/jquery.min.js "></script>
+    <script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js "></script>
+    <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.min.js "></script>
+    <script src="./assets/js/pages/login/login.js"></script>
 
 
     <script>
