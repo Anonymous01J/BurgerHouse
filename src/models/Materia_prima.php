@@ -29,11 +29,6 @@ class Materia_prima extends Db_base {
             "a.stock" => $this->stock
         ]);
 
-        $this->add_variables_like([
-            "a.id" => $this->id,
-            "a.id_categoria" => $this->id_categoria
-        ]);
-
         $this->select_query = "
             a.id,
             a.id_categoria,

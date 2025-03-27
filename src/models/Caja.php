@@ -41,11 +41,6 @@ class Caja extends Db_base {
             "a.total_ventas" => $this->total_ventas
         ]);
 
-        $this->add_variables_like([
-            "a.id" => $this->id,
-            "a.usuario" => $this->usuario
-        ]);
-
         $this->select_query = "
             a.id,
             a.usuario,

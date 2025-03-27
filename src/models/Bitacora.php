@@ -37,13 +37,6 @@ class Bitacora extends Db_base {
             "a.detalles" => $this->detalles
         ]);
 
-        $this->add_variables_like([
-            "a.id" => $this->id,
-            "a.usuario" => $this->usuario,
-            "a.tabla" => $this->tabla_str,
-            "a.accion" => $this->accion
-        ]);
-
         $this->select_query = "
             a.id,
             a.usuario,

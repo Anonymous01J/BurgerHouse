@@ -3,19 +3,14 @@ namespace Shtch\Burgerhouse\models;
 
 use Shtch\Burgerhouse\models\Db_base;
 
-class Categorias extends Db_base {
+class Categoria_materia_prima extends Db_base {
     private $id;
     private $nombre;
     private $tipo;
     private $active;
 
-    public function __construct(
-        $id = null,
-        $nombre = null,
-        $tipo = null,
-        $active = null
-    ) {
-        parent::__construct("categorias");
+    public function __construct($id = null, $nombre = null, $tipo = null, $active = null) {
+        parent::__construct("categoria_materia_prima");
         
         $this->id = $id;
         $this->nombre = $nombre;
@@ -28,13 +23,7 @@ class Categorias extends Db_base {
             "a.tipo" => $this->tipo,
             "a.active" => $this->active
         ]);
-
-        $this->add_variables_like([
-            "a.id" => $this->id,
-            "a.nombre" => $this->nombre,
-            "a.tipo" => $this->tipo
-        ]);
-
+        
         $this->select_query = "
             a.id,
             a.nombre,

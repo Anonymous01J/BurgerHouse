@@ -3,38 +3,37 @@ namespace Shtch\Burgerhouse\models;
 
 use Shtch\Burgerhouse\models\Db_base;
 
-class Proveedor extends Db_base {
+class Categoria_producto extends Db_base {
     private $id;
     private $nombre;
-    private $razon_social;
-    private $rif;
+    private $tipo;
+    private $active;
 
     public function __construct(
         $id = null,
         $nombre = null,
-        $razon_social = null,
-        $rif = null
+        $tipo = null,
+        $active = null
     ) {
-        parent::__construct("proveedores");
+        parent::__construct("categorias_productos");
         
         $this->id = $id;
         $this->nombre = $nombre;
-        $this->razon_social = $razon_social;
-        $this->rif = $rif;
+        $this->tipo = $tipo;
+        $this->active = $active;
 
         $this->add_variables([
             "a.id" => $this->id,
             "a.nombre" => $this->nombre,
-            "a.razon_social" => $this->razon_social,
-            "a.rif" => $this->rif
+            "a.tipo" => $this->tipo,
+            "a.active" => $this->active
         ]);
-
 
         $this->select_query = "
             a.id,
             a.nombre,
-            a.razon_social,
-            a.rif
+            a.tipo,
+            a.active
         ";
     }
 }

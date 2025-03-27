@@ -1,14 +1,16 @@
 <?php
 namespace Shtch\Burgerhouse\models;
 
-use Shtch\Burgerhouse\models;
-
-class Unidad extends Db_base {
+class Permiso extends Db_base {
     private $id;
     private $nombre;
 
-    public function __construct($id = null, $nombre = null) {
-        parent::__construct("unidades");
+    public function __construct(
+        $id = null,
+        $nombre = null
+    ) {
+        parent::__construct("permisos");
+        
         $this->id = $id;
         $this->nombre = $nombre;
 
@@ -16,10 +18,5 @@ class Unidad extends Db_base {
             "a.id" => $this->id,
             "a.nombre" => $this->nombre
         ]);
-
-        $this->select_query = "
-            a.id,
-            a.nombre
-        ";
     }
 }
