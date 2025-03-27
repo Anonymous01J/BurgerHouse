@@ -3,7 +3,6 @@
 namespace Shtch\Burgerhouse\core;
 
 class Router{
-
     public function run(){
         require_once __DIR__ . '/../config/config.php';
         $url = $this->parseUrl();

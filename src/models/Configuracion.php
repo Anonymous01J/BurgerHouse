@@ -16,9 +16,6 @@
                 "a.valor" => $this->value,
                 "a.llave" => $this->key
             ]);
-            $this->add_variables_like([
-                "a.valor" => $this->value
-            ]);
 		}
 	}
 ?>

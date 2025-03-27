@@ -1,4 +1,34 @@
 # ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
+27/3/2025
+
+Nuevos controladores y modelos para:
+ - Bitacora
+ - Caja
+ - Categoria_materia_prima
+ - Categorias_productos
+ - Configuraciones
+ - Clientes
+ - Credito
+ - Entradas_materia_prima
+ - Ingredientes_producto
+ - Movimientos_capital
+ - Notificaciones
+ - Pagos
+ - Productos
+ - Proveedores
+ - Usuarios
+ - Unidades
+ - Ventas
+ - Roles
+ - Permiso
+ - Permiso_rol
+ - Metodo de pago
+
+Ya se puede enviar peticiones a la API para consultar los datos de la base de datos con "get_all".
+"http://localhost/BurgerHouse/usuarios/get_all"
+asi que ya el frontend puede ir rellenando las paginas con datos.
+
+# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
 24/3/2025
 
 Correcciones:

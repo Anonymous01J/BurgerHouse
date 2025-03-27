@@ -25,6 +25,7 @@ class Controller_base {
         echo json_encode($this->db->search(...$args));
     }
 
+
     public function check(...$args) {
         echo "<pre>";
         echo "POST:";

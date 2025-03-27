@@ -3,11 +3,12 @@ namespace Shtch\Burgerhouse\models;
 
 use Shtch\Burgerhouse\models\Db_base;
 
-class Clientes extends Db_base {
+class Cliente extends Db_base {
     private $id;
     private $nombre;
     private $cedula;
     private $telefono;
+    private $direccion;
     private $active;
 
     public function __construct(
@@ -15,6 +16,7 @@ class Clientes extends Db_base {
         $nombre = null,
         $cedula = null,
         $telefono = null,
+        $direccion = null,
         $active = null
     ) {
         parent::__construct("clientes");
@@ -23,6 +25,7 @@ class Clientes extends Db_base {
         $this->nombre = $nombre;
         $this->cedula = $cedula;
         $this->telefono = $telefono;
+        $this->direccion = $direccion;
         $this->active = $active;
 
         $this->add_variables([
@@ -30,13 +33,8 @@ class Clientes extends Db_base {
             "a.nombre" => $this->nombre,
             "a.cedula" => $this->cedula,
             "a.telefono" => $this->telefono,
+            "a.direccion" => $this->direccion,
             "a.active" => $this->active
-        ]);
-
-        $this->add_variables_like([
-            "a.id" => $this->id,
-            "a.nombre" => $this->nombre,
-            "a.cedula" => $this->cedula
         ]);
 
         $this->select_query = "
@@ -44,6 +42,7 @@ class Clientes extends Db_base {
             a.nombre,
             a.cedula,
             a.telefono,
+            a.direccion,
             a.active
         ";
     }

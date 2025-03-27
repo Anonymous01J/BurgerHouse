@@ -144,9 +144,9 @@
 
             $query .= " LIMIT :l OFFSET :n ";
             
-            print_r("\n");
-            print_r($query);
-            print_r("\n");
+            // print_r("\n");
+            // print_r($query);
+            // print_r("\n");
             // Creamos la consulta
             $consulta = $this->conn->prepare($query);
             // Asignamos los parametros   

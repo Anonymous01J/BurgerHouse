@@ -25,13 +25,6 @@
                 "a.active" => $this->active,
                 "a.session_id" => $this->session_id
             ]);
-            $this->add_variables_like([
-                "a.id" => $this->id,
-                "a.id_rol" => $this->id_rol,
-                "a.nombre" => $this->nombre
-            ]);
-            $this->add_variables_interval([
-            ]);
             $this->select_query = "
                 a.id,
                 a.nombre,
