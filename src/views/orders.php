@@ -119,7 +119,7 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive mt-2">
-                                                <table class="table no-wrap table-order-domicilio-pendientes">
+                                                <table class="table no-wrap table-order-domicilio-pendientes table-dark-mode">
                                                     <thead>
                                                         <tr>
                                                             <th>Status</th>
@@ -171,7 +171,7 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive mt-2">
-                                                <table class="table no-wrap table-order-domicilio-procesadas">
+                                                <table class="table no-wrap table-order-domicilio-procesadas table-dark-mode">
                                                     <thead>
                                                         <tr>
                                                             <th>Status</th>
@@ -225,6 +225,7 @@
 
         </div>
 
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
 
     <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
@@ -244,5 +245,3 @@
 <script src="./assets/js/custom.min.js"></script>
 <script src="./assets/js/pages/order/order.js"></script>
 
-
-<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

@@ -2,7 +2,7 @@
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
 
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
 
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
@@ -51,7 +51,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">Actividad reciente</h4>
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered no-wrap">
+                                        <table class="table no-wrap table-dark-mode">
                                             <thead>
                                                 <tr>
                                                     <th>Usuario</th>
@@ -159,13 +159,6 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
-<script src="./assets/libs/extra-libs/c3/d3.min.js"></script>
-<script src="./assets/libs/extra-libs/c3/c3.min.js"></script>
-<script src="./assets/libs/libs/chartist/dist/chartist.min.js"></script>
-<script src="./assets/libs/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<script src="./assets/libs/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
-<script src="./assets/libs/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
-<script src="./assets/js/pages/dashboards/dashboard1.min.js"></script>
 
 
 

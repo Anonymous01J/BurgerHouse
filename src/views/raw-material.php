@@ -53,7 +53,7 @@
                                     </button>
 
                                     <div class="table-responsive mt-3">
-                                        <table class="table table-striped no-wrap">
+                                        <table class="table table-dark-mode no-wrap">
                                             <thead>
                                                 <tr>
                                                     <th>Nombre</th>
@@ -172,7 +172,7 @@
                                     <div class="tab-content" id="myTabContent">
                                         <div class="tab-pane fade show active" id="vigentes-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                             <div class="table-responsive mt-4">
-                                                <table class="table table-striped no-wrap">
+                                                <table class="table table-dark-mode no-wrap">
                                                     <thead>
                                                         <tr>
                                                             <th>Codigo</th>
@@ -217,7 +217,7 @@
                                         </div>
                                         <div class="tab-pane fade" id="porVencer-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                             <div class="table-responsive mt-4">
-                                                <table class="table table-striped no-wrap">
+                                                <table class="table table-dark-mode no-wrap">
                                                     <thead>
                                                         <tr>
                                                             <th>Codigo</th>
@@ -262,7 +262,7 @@
                                         </div>
                                         <div class="tab-pane fade" id="vencidos-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                             <div class="table-responsive mt-4">
-                                                <table class="table table-striped no-wrap">
+                                                <table class="table table-dark-mode no-wrap">
                                                     <thead>
                                                         <tr>
                                                             <th>Codigo</th>
@@ -307,7 +307,7 @@
                                         </div>
                                         <div class="tab-pane fade" id="sinStock-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                             <div class="table-responsive mt-4">
-                                                <table class="table table-striped no-wrap">
+                                                <table class="table table-dark-mode no-wrap">
                                                     <thead>
                                                         <tr>
                                                             <th>Codigo</th>

@@ -97,7 +97,7 @@
                             <div class="mt-4">
                                 <h2 class="mb-4">Movientos de capital</h2>
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-bordered no-wrap">
+                                    <table class="table no-wrap table-dark-mode">
                                         <thead>
                                             <tr>
                                                 <th>Descripcion</th>
