@@ -99,7 +99,8 @@
                     </a>
                 </li>
 
-                <!-- <li class="sidebar-item">
+                <!--
+                <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="money"
                         aria-expanded="false">
                         <i data-feather="dollar-sign" class="feather-icon"></i>
@@ -142,6 +143,7 @@
                         </li>
                         <li class="sidebar-item">
                             <a href="drink" class="sidebar-link">
+                            <a href="rawmaterial" class="sidebar-link">
                                 <span
                                     class="hide-menu">Bebida
                                 </span>
