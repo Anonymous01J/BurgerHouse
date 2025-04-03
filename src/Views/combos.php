@@ -13,7 +13,7 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Bienvenido, Felix!</h3>
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Combo</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
@@ -24,15 +24,9 @@
                         </nav>
                     </div>
                 </div>
-                <div class="col-5 align-self-center">
-                    <div class="customize-input float-end">
-                        <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
-                            <option selected>Aug 23</option>
-                            <option value="1">July 23</option>
-                            <option value="2">Jun 23</option>
-                        </select>
-                    </div>
-                </div>
+                
+                <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
+
             </div>
         </div>
 
@@ -42,10 +36,17 @@
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <img src="./assets/img/boton.png" style="width: 50px;">
+                <button type="button" class="btn bh_1 btn-circle text-white" data-bs-toggle="modal" data-bs-target="#register-combo">
+                    <i data-feather="plus" class="svg-icon"></i>
+                </button>
             </div>
 
             <div class="row">
+
+            <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
+            <?php include_once __DIR__ . '/../Views/Components/modals/combo/modal.php' ?>
+
+
                 <div class="col-md-12 col-lg-4">
                     <div class="card">
                         <div class="card-body">
@@ -138,13 +139,14 @@
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/libs/libs/validatejs/validate.min.js"></script>
 
 <script src="./assets/js/app-style-switcher.js"></script>
-<script type="module" src="./assets/js/funtionGeneral.js"></script>
 <script src="./assets/js/feather.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
+<script type="module" src="./assets/js/pages/combo/combo.js"></script>
 
 
 

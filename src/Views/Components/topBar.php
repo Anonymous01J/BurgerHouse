@@ -94,11 +94,11 @@
                         </ul>
                     </div>
                 </li>
-              
+
 
                 <li class="nav-item" data-bs-toggle="tooltip" data-bs-title="Ayuda Interactiva" data-bs-placement="top">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i data-feather="info" class="svg-icon"></i>
                     </a>
                 </li>
@@ -113,16 +113,28 @@
                         </div>
                     </a>
                 </li>
-                <!-- <li class="nav-item" style="display: flex; align-items: center">
-                    <div class="toggle-switch ">
-                        <label class="switch-label">
-                            <input type="checkbox" class="checkbox dark_light_mode">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                </li> -->
+                <li class="nav-item" style="display: flex; align-items: center">
+                    <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" type="checkbox">
+                        <input type="checkbox" checked id="themeToggle" class="themeToggleInput" />
+                        <svg width="18" height="18" viewBox=" 0 0 20 20" fill="currentColor" stroke="none">
+                            <mask id="moon-mask">
+                                <rect x="0" y="0" width="20" height="20" fill="white"></rect>
+                                <circle cx="11" cy="3" r="8" fill="black"></circle>
+                            </mask>
+                            <circle class="sunMoon" cx="10" cy="10" r="8" mask="url(#moon-mask)"></circle>
+                            <g>
+                                <circle class="sunRay sunRay1" cx="18" cy="10" r="1.5"></circle>
+                                <circle class="sunRay sunRay2" cx="14" cy="16.928" r="1.5"></circle>
+                                <circle class="sunRay sunRay3" cx="6" cy="16.928" r="1.5"></circle>
+                                <circle class="sunRay sunRay4" cx="2" cy="10" r="1.5"></circle>
+                                <circle class="sunRay sunRay5" cx="6" cy="3.1718" r="1.5"></circle>
+                                <circle class="sunRay sunRay6" cx="14" cy="3.1718" r="1.5"></circle>
+                            </g>
+                        </svg>
+                    </label>
+                </li>
             </ul>
-          
+
             <ul class="navbar-nav float-end">
 
                 <li class="nav-item dropdown">
@@ -135,7 +147,7 @@
                                 class="svg-icon"></i></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
-                        <a class="dropdown-item" href="javascript:void(0)"><i data-feather="user"
+                        <a class="dropdown-item" href="profile"><i data-feather="user"
                                 class="svg-icon me-2 ms-1"></i>
                             Mi perfil</a>
 

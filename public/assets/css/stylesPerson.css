@@ -1,113 +1,268 @@
-.login_page{
-    display: flex;
-    transition: display .7s, transform .7s, opacity .7s;
-    transition-behavior: allow-discrete;
-}
-.captcha_page{
-    display: flex;
-    transition: display .7s, transform .7s, opacity .7s;
-    transition-behavior: allow-discrete;
+.login_page {
+  display: flex;
+  transition: display .7s, transform .7s, opacity .7s;
+  transition-behavior: allow-discrete;
 }
 
-.hide{
-    transform: translateX(-200%);
-    display: none;
+.captcha_page {
+  display: flex;
+  transition: display .7s, transform .7s, opacity .7s;
+  transition-behavior: allow-discrete;
 }
 
-.hide2{
-    transform: translateX(200%);
-    display: none;
+.hide {
+  transform: translateX(-200%);
+  display: none;
 }
 
-.toggle-switch {
-    position: relative;
-    width: 40px;
-    height: 20px;
-    --light: #d8dbe0;
-    --dark: #28292c;
-  }
-  
-  .switch-label {
-    position: absolute;
-    width: 115%;
-    height: 23px;
-    background-color: var(--dark);
-    border-radius: 10px;
-    cursor: pointer;
-    border: 2px solid var(--dark);
-  }
-  
-  .checkbox {
-    position: absolute;
-    display: none;
-  }
-  
-  .slider {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    transition: 0.3s;
-  }
-  
-  .checkbox:checked ~ .slider {
-    background-color: var(--light);
-  }
-  
-  .slider::before {
-    content: "";
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    box-shadow: inset 6px -2px 0 0 var(--light);
-    background-color: var(--dark);
-    transition: 0.3s;
-  }
-  
-  .checkbox:checked ~ .slider::before {
-    transform: translateX(20px);
-    box-shadow: none;
-  }
-
-
-.bh_1{
-  background-color: #FF4B00;
+.hide2 {
+  transform: translateX(200%);
+  display: none;
 }
-.bh_1BG{
+
+.bh_1 {
   background-color: #FF4B00;
 }
 
-.bh_1:hover{
+.bh_1BG {
+  background-color: #FF4B00;
+}
+
+.bh_1:hover {
   background-color: #ff753a;
 }
 
-.bh_2{
+.bh_1:disabled {
+  opacity: 0.5;
+  background-color: #FF4B00;
+  border: none;
+}
+
+
+
+.bh_2 {
   background-color: #FFB200;
 }
-.bh_2BG{
+
+.bh_2BG {
   background-color: #FFB200;
 }
-.bh_3{
+
+.bh_3 {
   background-color: #FFFFFF;
 }
-.bh_3BG{
+
+.bh_3BG {
   background-color: #FFFFFF;
 }
-.bh_4{
+
+.bh_4 {
   background-color: #AA7861;
 }
-.bh_4BG{
+
+.bh_4BG {
   background-color: #AA7861;
 }
-.bh_5{
+
+.bh_5 {
   background-color: #0B1B21;
 }
-.bh_5BG{
+
+.bh_5BG {
   background-color: #0B1B21;
 }
-.bh_5:hover{
+
+.bh_5:hover {
   background-color: #21343c;
+}
+.bh_5:disabled {
+  opacity: 0.5;
+  background-color: #0B1B21;
+  border: none;
+}
+
+
+/* From Uiverse.io by Type-Delta */ 
+/* a clone from joshwcomeau.com 
+ * but this version runs on pure CSS
+ */
+
+ .themeToggle {
+  color: #bbb;
+  width: 3em;
+}
+
+.st-sunMoonThemeToggleBtn {
+  position: relative;
+  cursor: pointer;
+}
+
+.st-sunMoonThemeToggleBtn .themeToggleInput {
+  opacity: 0;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.st-sunMoonThemeToggleBtn svg {
+  position: absolute;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  transition: transform 0.4s ease;
+  transform: rotate(40deg);
+}
+
+.st-sunMoonThemeToggleBtn svg .sunMoon {
+  transform-origin: center center;
+  transition: inherit;
+  transform: scale(1);
+}
+
+.st-sunMoonThemeToggleBtn svg .sunRay {
+  transform-origin: center center;
+  transform: scale(0);
+}
+
+.st-sunMoonThemeToggleBtn svg mask > circle {
+  transition: transform 0.64s cubic-bezier(0.41, 0.64, 0.32, 1.575);
+  transform: translate(0px, 0px);
+}
+
+.st-sunMoonThemeToggleBtn svg .sunRay2 {
+  animation-delay: 0.05s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay3 {
+  animation-delay: 0.1s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay4 {
+  animation-delay: 0.17s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay5 {
+  animation-delay: 0.25s !important;
+}
+.st-sunMoonThemeToggleBtn svg .sunRay5 {
+  animation-delay: 0.29s !important;
+}
+
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg {
+  transform: rotate(90deg);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg mask > circle {
+  transform: translate(16px, -3px);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg .sunMoon {
+  transform: scale(0.55);
+}
+.st-sunMoonThemeToggleBtn .themeToggleInput:checked + svg .sunRay {
+  animation: showRay1832 0.4s ease 0s 1 forwards;
+}
+
+@keyframes showRay1832 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+
+/* -------------Dark Mode------------- */
+
+.dark-mode {
+  --bg-primary: #0B1B21;
+  --bg-secondary: #060F12;
+  --bg-modal: #132A32;
+  --text-primary: #FFFFFF;
+  --border-color: #FFFFFF;
+}
+
+/* Estructura principal */
+.dark-mode .left-sidebar {
+  background-color: var(--bg-primary) !important;
+}
+
+.dark-mode .topbar {
+  background-color: var(--bg-secondary) !important;
+}
+
+.dark-mode .navbar-header {
+  background-color: var(--bg-primary) !important;
+}
+
+.dark-mode .page-wrapper {
+  background-color: var(--bg-secondary) !important;
+}
+
+/* Componentes */
+.dark-mode .card {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+.dark-mode .hide-menu {
+  color: var(--text-primary) !important;
+}
+
+.dark-mode .has-arrow {
+  border-color: var(--border-color) !important;
+}
+
+.dark-mode .has-arrow::after {
+  border-color: var(--border-color) !important;
+}
+
+.dark-mode .feather-icon {
+  color: var(--text-primary) !important;
+}
+
+.dark-mode .list-divider {
+  background-color: var(--border-color) !important;
+}
+
+.dark-mode .base-level-line {
+  border-color: var(--border-color) !important;
+}
+
+.dark-mode .modal-content {
+  background-color: var(--bg-modal) !important;
+}
+
+.dark-mode .dropdown-menu {
+  background-color: var(--bg-primary) !important;
+}
+
+.dark-mode .c3-tooltip-container{
+  color: #000 !important;
+}
+/* Tipografía */
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode h4,
+.dark-mode h5,
+.dark-mode label {
+  color: var(--text-primary) !important;
+}
+
+.dark-mode .table-dark-mode th, 
+.dark-mode .table-dark-mode td {
+  color: var(--text-primary) !important;
+}
+
+/* Elementos de formulario */
+.dark-mode input {
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
+
+.dark-mode input:focus {
+  border-color: var(--border-color) !important;
+  outline-color: var(--border-color) !important;
+}
+
+/* Utilidades */
+.dark-mode .text-dark {
+  color: var(--text-primary) !important;
 }

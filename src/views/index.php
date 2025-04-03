@@ -19,17 +19,15 @@
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
-                                <li class="breadcrumb-item"><a href="./index.php">Dashboard</a>
+                                <li class="breadcrumb-item"><a href="home">Dashboard</a>
                                 </li>
                             </ol>
                         </nav>
                     </div>
                 </div>
-                <div class="col-5 align-self-center">
-                    <div class="float-end d-flex align-items-center gap-3">
-                        <span class="btn btn-success rounded-circle btn-circle"><i data-feather="inbox" data-bs-toggle="tooltip" data-bs-title="Estado de caja" data-bs-placement="top"></i></span>
-                    </div>
-                </div>
+                
+                <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
+
             </div>
         </div>
 
@@ -491,7 +489,8 @@
             </div>
 
         </div>
-
+        
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
 </div>
 
@@ -499,9 +498,8 @@
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="./assets/js/prueba.js"></script>
 <script src="./assets/js/app-style-switcher.js"></script>
-<script type="module" src="./assets/js/funtionGeneral.js"></script>
 <script src="./assets/js/feather.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
@@ -515,5 +513,3 @@
 <script src="./assets/js/pages/dashboards/dashboard1.min.js"></script>
 
 
-
-<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

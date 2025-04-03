@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="en" >
 
 <head>
     <meta charset="utf-8">
@@ -8,12 +8,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon.png">
-    <title>Inicio</title>
+    <title id="titlePage">Inicio</title>
     <link href="./assets/libs/extra-libs/c3/c3.min.css" rel="stylesheet">
     <link href="./assets/libs/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="./assets/libs/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />
     <link href="./assets/libs/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
     <link href="./assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/libs/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="./assets/libs/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css">
     <link href="./assets/css/stylesPerson.css" rel="stylesheet">
 
 </head>
