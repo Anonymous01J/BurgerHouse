@@ -14,7 +14,7 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Bienvenido, Felix!</h3>
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Cocina</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
@@ -24,15 +24,8 @@
                         </nav>
                     </div>
                 </div>
-                <div class="col-5 align-self-center">
-                    <div class="customize-input float-end">
-                        <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
-                            <option selected>Aug 23</option>
-                            <option value="1">July 23</option>
-                            <option value="2">Jun 23</option>
-                        </select>
-                    </div>
-                </div>
+                <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
+
             </div>
         </div>
 
@@ -84,8 +77,8 @@
                                                         <div class="fs-6">Jose Escalona</div>
                                                     </div>
                                                     <div class="d-flex justify-content-around pt-3 border-top">
-                                                        <button class="btn bh_1" style="color: #fff;">Preparar</button>
-                                                        <button class="btn bh_5" style="color: #fff;">Detalles</button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_1" style="color: #fff;">Preparar</button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn bh_5" style="color: #fff;">Detalles</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -134,9 +127,9 @@
                                                     <div>Cliente</div>
                                                     <div class="fs-6">Jose Escalona</div>
                                                 </div>
-
+                                                
                                                 <div class="d-flex justify-content-center pt-3 border-top">
-                                                    <button class="btn bh_5" style="color: #fff;">Detalles</button>
+                                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn bh_5" style="color: #fff;">Detalles</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -145,12 +138,15 @@
                             </div>
                         </div>
                     </div>
-
+                    
                 </div>
-
-
+                
+                <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
+                <?php include_once __DIR__ . '/../Views/Components/modals/delivery-kitchen/modal.php' ?>
+                
             </div>
         </div>
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
 
 
@@ -158,11 +154,8 @@
     <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
     <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/app-style-switcher.js"></script>
-    <script type="module" src="./assets/js/funtionGeneral.js"></script>
     <script src="./assets/js/feather.min.js"></script>
     <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
 
-
-    <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

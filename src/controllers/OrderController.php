@@ -11,7 +11,7 @@ class OrderController {
             echo json_encode(['mensaje' => 'Bienvenido al Home (AJAX)']);
         } else {
             // Para peticiones normales se carga la vista
-            include_once __DIR__ . '/../views/ticket-list.php';
+            include_once __DIR__ . '/../views/orders.php';
         }
     }
 }
