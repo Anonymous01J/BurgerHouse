@@ -24,7 +24,7 @@ export default function functionGeneral() {
         const horaFormateada = `${horas12}:${minutos < 10 ? `0${minutos}` : minutos} ${periodo}`;
         return horaFormateada
     }
-    
+
     function fecha(f) {
         const fecha = new Date(f);
         const dia = fecha.getDate();
@@ -32,12 +32,12 @@ export default function functionGeneral() {
         const anio = fecha.getFullYear();
         const fechaFormateada = `${dia}/${mes}/${anio}`;
         return fechaFormateada
-    }     
+    }
 
     function setValidationStyles(input, errorMessage) {
         const inputElement = document.getElementById(input);
         const errorElement = document.getElementById("error-" + input);
-    
+
         if (errorMessage) {
             inputElement.classList.add("is-invalid");
             inputElement.classList.remove("is-valid");
@@ -48,19 +48,19 @@ export default function functionGeneral() {
             errorElement.textContent = "";
         }
     }
-    
+
     function validateField(event, rules) {
         const field = event.target;
         const fieldName = field.name;
         const fieldValue = field.value;
-    
+
         const errors = validate({ [fieldName]: fieldValue }, { [fieldName]: rules[fieldName] });
         setValidationStyles(field.id, errors ? errors[fieldName][0] : null);
     }
 
     function SelectOption() {
         document.querySelectorAll(".dropdown-item").forEach(item => {
-            item.addEventListener("click", ()=>{
+            item.addEventListener("click", () => {
                 let input = item.parentElement.parentElement.firstElementChild.value
                 let option = item.textContent
                 item.parentElement.parentElement.firstElementChild.value = option
@@ -70,6 +70,25 @@ export default function functionGeneral() {
             })
         })
     }
-    
-    return { InputPrice, hora, fecha, setValidationStyles, validateField, SelectOption }
+
+    function viewImage(inputs) {
+        document.querySelectorAll(inputs).forEach(image=>{
+            image.addEventListener("change", function (event) {
+                const file = event.target.files[0]; // Obtiene el archivo seleccionado
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const img = image.nextElementSibling.nextElementSibling
+                        img.src = e.target.result; // Asigna el resultado de la lectura al src de la imagen
+                        img.style.display = "block"; // Muestra la imagen
+                    };
+                    reader.readAsDataURL(file); // Convierte el archivo en una URL de datos
+                }
+            });
+        })
+    }
+
+
+
+    return { InputPrice, hora, fecha, setValidationStyles, validateField, SelectOption, viewImage }
 }

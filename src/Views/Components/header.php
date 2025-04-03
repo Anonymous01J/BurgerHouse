@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="ltr" lang="en" >
+<html dir="ltr" lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -17,6 +17,9 @@
     <link rel="stylesheet" href="./assets/libs/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="./assets/libs/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css">
     <link href="./assets/css/stylesPerson.css" rel="stylesheet">
+
+    <script src="./assets/libs/libs/validatejs/validate.min.js"></script>
+
 
 </head>
 

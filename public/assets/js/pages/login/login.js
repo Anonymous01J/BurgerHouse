@@ -1,17 +1,21 @@
-let btn_login_1 = document.querySelector('.btn_login_1')
-let btn_regresar = document.querySelector('.btn_regresar')
+let login_form = document.getElementById("login_form")
 
-btn_login_1.addEventListener('click', () => {
-    let containerLogin = btn_login_1.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement
-    containerLogin.classList.toggle("hide")
-    setTimeout(() => {
-        btn_regresar.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.toggle("hide2")
-    }, 500)
-})
+login_form.addEventListener("submit", async (e)=>{
+    e.preventDefault()
+    let data = new FormData()
 
-btn_regresar.addEventListener('click', () => {
-    btn_regresar.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.toggle("hide2")
-    setTimeout(() => {
-        btn_login_1.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.classList.toggle("hide")
-    }, 500)
+    data.append("correo", document.getElementById("login_correo").value)
+    data.append("password", document.getElementById("login_password").value)
+    data.append("token", document.querySelector('.cf-turnstile input[name="cf-turnstile-response"]').value)
+
+   let validate = await fetch("login", {
+        method: "POST",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest"
+        },
+        body: data
+      })
+
+      let result = await validate.json()
+      console.log(result);
 })
