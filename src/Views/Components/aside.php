@@ -11,7 +11,7 @@
                             class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-                
+
                 <li class="list-divider"></li>
 
                 <li class="nav-small-cap"><span class="hide-menu">Aplicaciones</span></li>
@@ -50,13 +50,13 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                <!-- <li class="sidebar-item">
                     <a class="sidebar-link" href="ticket-list.html"
                         aria-expanded="false">
                         <i data-feather="file-minus" class="feather-icon"></i>
                         <span class="hide-menu">Reportes</span>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="ticket-list.html"
@@ -99,11 +99,20 @@
                     </a>
                 </li>
 
+                <!--
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="money"
                         aria-expanded="false">
                         <i data-feather="dollar-sign" class="feather-icon"></i>
                         <span class="hide-menu">Moneda</span>
+                    </a>
+                </li> -->
+
+                  <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="money"
+                        aria-expanded="false">
+                        <i data-feather="trash-2" class="feather-icon"></i>
+                        <span class="hide-menu">Papelera</span>
                     </a>
                 </li>
 
@@ -119,9 +128,24 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
+                            <a href="recipe" class="sidebar-link">
+                                <span
+                                    class="hide-menu"> Recetas
+                                </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
                             <a href="combo" class="sidebar-link">
                                 <span
                                     class="hide-menu">Combo
+                                </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="drink" class="sidebar-link">
+                            <a href="rawmaterial" class="sidebar-link">
+                                <span
+                                    class="hide-menu">Bebida
                                 </span>
                             </a>
                         </li>
@@ -132,13 +156,7 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a href="form-checkbox-radio.html" class="sidebar-link">
-                                <span
-                                    class="hide-menu"> Recetas
-                                </span>
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
 

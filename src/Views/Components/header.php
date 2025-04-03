@@ -18,6 +18,9 @@
     <link rel="stylesheet" href="./assets/libs/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css">
     <link href="./assets/css/stylesPerson.css" rel="stylesheet">
 
+    <script src="./assets/libs/libs/validatejs/validate.min.js"></script>
+
+
 </head>
 
 <body>

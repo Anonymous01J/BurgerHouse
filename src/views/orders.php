@@ -96,6 +96,7 @@
                                         </div>
                                     </div>
 
+                                    <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#domicile">
                                     <button type="button" class="btn bh_1 text-white mb-3">
                                         <i class="fas fa-plus"></i>
                                         Orden
@@ -229,6 +230,7 @@
     </div>
 
     <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
+    <?php include_once __DIR__ . '/../Views/Components/modals/order/domicile.php' ?>
 
 </div>
 
