@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-03-2025 a las 05:17:58
--- Versión del servidor: 10.4.32-MariaDB
+-- Tiempo de generación: 01-04-2025 a las 00:52:15
+-- Versión del servidor: 8.0.34
 -- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `burgerhouse`
+-- Base de datos: `burger_house`
 --
 
 -- --------------------------------------------------------
@@ -28,12 +28,12 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `bitacora` (
-  `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `tabla` varchar(20) NOT NULL,
-  `accion` varchar(20) NOT NULL,
+  `id` int NOT NULL,
+  `id_usuario` int NOT NULL,
+  `tabla` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `accion` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `fecha` datetime NOT NULL,
-  `descripcion` text DEFAULT NULL
+  `descripcion` text COLLATE utf8mb4_spanish_ci
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -43,8 +43,8 @@ CREATE TABLE `bitacora` (
 --
 
 CREATE TABLE `caja` (
-  `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_usuario` int NOT NULL,
   `monto_inicial` float NOT NULL,
   `monto_final` float NOT NULL,
   `fecha_apertura` datetime NOT NULL
@@ -57,7 +57,7 @@ CREATE TABLE `caja` (
 --
 
 CREATE TABLE `capital` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `monto` float NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -69,10 +69,10 @@ CREATE TABLE `capital` (
 --
 
 CREATE TABLE `categorias_productos` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(20) NOT NULL,
-  `tipo` varchar(20) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
+  `id` int NOT NULL,
+  `nombre` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `tipo` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
@@ -96,10 +96,10 @@ INSERT INTO `categorias_productos` (`id`, `nombre`, `tipo`, `active`) VALUES
 --
 
 CREATE TABLE `categoria_materia_prima` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(30) NOT NULL,
-  `tipo` varchar(20) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
+  `id` int NOT NULL,
+  `nombre` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `tipo` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
@@ -121,12 +121,12 @@ INSERT INTO `categoria_materia_prima` (`id`, `nombre`, `tipo`, `active`) VALUES
 --
 
 CREATE TABLE `clientes` (
-  `id` int(11) NOT NULL,
-  `nombre` text NOT NULL,
-  `cedula` varchar(11) NOT NULL,
-  `telefono` varchar(20) DEFAULT NULL,
-  `direccion` varchar(500) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
+  `id` int NOT NULL,
+  `nombre` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `cedula` varchar(11) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `telefono` varchar(20) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `direccion` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -136,9 +136,9 @@ CREATE TABLE `clientes` (
 --
 
 CREATE TABLE `configuraciones` (
-  `id` int(11) NOT NULL,
-  `llave` varchar(500) NOT NULL,
-  `valor` varchar(500) NOT NULL
+  `id` int NOT NULL,
+  `llave` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `valor` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -148,8 +148,8 @@ CREATE TABLE `configuraciones` (
 --
 
 CREATE TABLE `credito` (
-  `id` int(11) NOT NULL,
-  `id_venta` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_venta` int NOT NULL,
   `fecha` datetime NOT NULL,
   `monto_credito` float NOT NULL,
   `monto_final` float NOT NULL,
@@ -159,14 +159,28 @@ CREATE TABLE `credito` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `detalles_orden`
+--
+
+CREATE TABLE `detalles_orden` (
+  `Id` int NOT NULL,
+  `Id_Orden` int NOT NULL,
+  `Id_producto` int NOT NULL,
+  `detalles_producto` text NOT NULL,
+  `cantidad` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `detalle_entrada`
 --
 
 CREATE TABLE `detalle_entrada` (
-  `id` int(11) NOT NULL,
-  `id_materia_prima` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `restante` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_materia_prima` int NOT NULL,
+  `cantidad` int NOT NULL,
+  `restante` int NOT NULL,
   `fecha_vencimiento` datetime DEFAULT NULL,
   `precio_total` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -178,11 +192,11 @@ CREATE TABLE `detalle_entrada` (
 --
 
 CREATE TABLE `entradas_materia_prima` (
-  `id` int(11) NOT NULL,
-  `id_provedor` int(11) NOT NULL,
-  `fecha_compra` datetime NOT NULL DEFAULT current_timestamp(),
+  `id` int NOT NULL,
+  `id_provedor` int NOT NULL,
+  `fecha_compra` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `precio_compra` float NOT NULL,
-  `referencia` varchar(500) DEFAULT NULL
+  `referencia` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -192,12 +206,11 @@ CREATE TABLE `entradas_materia_prima` (
 --
 
 CREATE TABLE `facturas` (
-  `idFactura` int(11) NOT NULL,
-  `idRegistroVentas` int(11) NOT NULL,
-  `idProducto` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `descripción` text NOT NULL,
-  `costeTotal` float NOT NULL
+  `Id_factura` int NOT NULL,
+  `Id_orden` int NOT NULL,
+  `Id_caja` int NOT NULL,
+  `Monto_total` int NOT NULL,
+  `Monto_total_divisa` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -207,12 +220,12 @@ CREATE TABLE `facturas` (
 --
 
 CREATE TABLE `materia_prima` (
-  `id` int(11) NOT NULL,
-  `id_categoria` int(11) NOT NULL,
-  `id_unidad` int(11) NOT NULL,
-  `stock_min` text NOT NULL,
-  `stock_max` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
+  `id` int NOT NULL,
+  `id_categoria` int NOT NULL,
+  `id_unidad` int NOT NULL,
+  `stock_min` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `stock_max` int NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -222,11 +235,11 @@ CREATE TABLE `materia_prima` (
 --
 
 CREATE TABLE `metodo_pago` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(25) NOT NULL,
-  `descripcion` text NOT NULL,
-  `imagen` text NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
+  `id` int NOT NULL,
+  `nombre` varchar(25) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `descripcion` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `imagen` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
@@ -246,9 +259,9 @@ INSERT INTO `metodo_pago` (`id`, `nombre`, `descripcion`, `imagen`, `active`) VA
 --
 
 CREATE TABLE `movimientos_capital` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL,
   `monto` float NOT NULL,
-  `descripcion` text NOT NULL,
+  `descripcion` text COLLATE utf8mb4_spanish_ci NOT NULL,
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -259,12 +272,28 @@ CREATE TABLE `movimientos_capital` (
 --
 
 CREATE TABLE `notificaciones` (
-  `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL,
-  `mensaje` text NOT NULL,
+  `id` int NOT NULL,
+  `id_usuario` int NOT NULL,
+  `mensaje` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
   `fecha` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `orden`
+--
+
+CREATE TABLE `orden` (
+  `Id` int NOT NULL,
+  `Nro_Orden` int NOT NULL,
+  `Id_cliente` int NOT NULL,
+  `fecha` timestamp NOT NULL,
+  `Referencia` int NOT NULL,
+  `Comprobante` text NOT NULL,
+  `Status` int NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -273,13 +302,13 @@ CREATE TABLE `notificaciones` (
 --
 
 CREATE TABLE `pagos` (
-  `id` int(11) NOT NULL,
-  `id_venta` int(11) NOT NULL,
-  `id_metodo_pago` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_venta` int NOT NULL,
+  `id_metodo_pago` int NOT NULL,
   `monto` float NOT NULL,
   `fecha` datetime NOT NULL,
   `tasa` float NOT NULL,
-  `comprobante` varchar(500) DEFAULT NULL
+  `comprobante` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -289,8 +318,8 @@ CREATE TABLE `pagos` (
 --
 
 CREATE TABLE `permisos` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(45) DEFAULT NULL
+  `id` int NOT NULL,
+  `nombre` varchar(45) COLLATE utf8mb4_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -300,9 +329,9 @@ CREATE TABLE `permisos` (
 --
 
 CREATE TABLE `permiso_rol` (
-  `id` int(11) NOT NULL,
-  `id_rol` int(11) NOT NULL,
-  `id_permiso` int(11) NOT NULL
+  `id` int NOT NULL,
+  `id_rol` int NOT NULL,
+  `id_permiso` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -312,13 +341,13 @@ CREATE TABLE `permiso_rol` (
 --
 
 CREATE TABLE `productos` (
-  `id` int(11) NOT NULL,
-  `id_categoria` int(11) NOT NULL,
-  `nombre` text NOT NULL,
-  `imagen` varchar(500) NOT NULL,
+  `id` int NOT NULL,
+  `id_categoria` int NOT NULL,
+  `nombre` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `imagen` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
   `precio` float NOT NULL,
-  `detalles` text NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
+  `detalles` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
@@ -360,13 +389,13 @@ INSERT INTO `productos` (`id`, `id_categoria`, `nombre`, `imagen`, `precio`, `de
 --
 
 CREATE TABLE `proveedores` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `razonSocial` varchar(50) NOT NULL,
-  `rif` varchar(15) NOT NULL,
-  `telefono` varchar(20) NOT NULL,
-  `correo` text NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
+  `id` int NOT NULL,
+  `nombre` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `razonSocial` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `rif` varchar(15) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `telefono` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `correo` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -376,9 +405,9 @@ CREATE TABLE `proveedores` (
 --
 
 CREATE TABLE `recetas` (
-  `id` int(11) NOT NULL,
-  `id_producto` int(11) NOT NULL,
-  `id_materia_prima` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_producto` int NOT NULL,
+  `id_materia_prima` int NOT NULL,
   `cantidad` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -389,8 +418,8 @@ CREATE TABLE `recetas` (
 --
 
 CREATE TABLE `roles` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(25) NOT NULL
+  `id` int NOT NULL,
+  `nombre` varchar(25) COLLATE utf8mb4_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
@@ -402,7 +431,8 @@ INSERT INTO `roles` (`id`, `nombre`) VALUES
 (2, 'Cajero'),
 (3, 'Mesero'),
 (4, 'Delivery'),
-(5, 'Cocinero');
+(5, 'Cocinero'),
+(6, 'Usuario');
 
 -- --------------------------------------------------------
 
@@ -411,8 +441,8 @@ INSERT INTO `roles` (`id`, `nombre`) VALUES
 --
 
 CREATE TABLE `unidades` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(10) NOT NULL
+  `id` int NOT NULL,
+  `nombre` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -422,10 +452,10 @@ CREATE TABLE `unidades` (
 --
 
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
-  `id_rol` int(11) NOT NULL,
-  `hash` text NOT NULL,
-  `nombre` varchar(50) NOT NULL,
+  `id` int NOT NULL,
+  `id_rol` int NOT NULL,
+  `hash` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -436,13 +466,13 @@ CREATE TABLE `usuario` (
 --
 
 CREATE TABLE `ventas` (
-  `id` int(11) NOT NULL,
-  `id_caja` int(11) NOT NULL,
-  `id_cliente` int(11) NOT NULL,
+  `id` int NOT NULL,
+  `id_caja` int NOT NULL,
+  `id_cliente` int NOT NULL,
   `IVA` float NOT NULL,
   `monto_final` float NOT NULL,
   `fecha` datetime NOT NULL,
-  `direccion` varchar(500) NOT NULL,
+  `direccion` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -502,6 +532,14 @@ ALTER TABLE `credito`
   ADD KEY `idRegistroVentas` (`id_venta`);
 
 --
+-- Indices de la tabla `detalles_orden`
+--
+ALTER TABLE `detalles_orden`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Id_Orden` (`Id_Orden`),
+  ADD KEY `Id_producto` (`Id_producto`);
+
+--
 -- Indices de la tabla `detalle_entrada`
 --
 ALTER TABLE `detalle_entrada`
@@ -519,9 +557,9 @@ ALTER TABLE `entradas_materia_prima`
 -- Indices de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  ADD PRIMARY KEY (`idFactura`),
-  ADD KEY `idRegistroVentas` (`idRegistroVentas`),
-  ADD KEY `idProducto` (`idProducto`);
+  ADD PRIMARY KEY (`Id_factura`),
+  ADD KEY `Id_orden` (`Id_orden`),
+  ADD KEY `Id_caja` (`Id_caja`);
 
 --
 -- Indices de la tabla `materia_prima`
@@ -549,6 +587,15 @@ ALTER TABLE `movimientos_capital`
 ALTER TABLE `notificaciones`
   ADD PRIMARY KEY (`id`),
   ADD KEY `usuario` (`id_usuario`);
+
+--
+-- Indices de la tabla `orden`
+--
+ALTER TABLE `orden`
+  ADD PRIMARY KEY (`Id`),
+  ADD KEY `Id_cliente` (`Id_cliente`),
+  ADD KEY `idx_cliente` (`Id_cliente`),
+  ADD KEY `idx_fecha` (`fecha`);
 
 --
 -- Indices de la tabla `pagos`
@@ -628,127 +675,139 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `bitacora`
 --
 ALTER TABLE `bitacora`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `caja`
 --
 ALTER TABLE `caja`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `capital`
 --
 ALTER TABLE `capital`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias_productos`
 --
 ALTER TABLE `categorias_productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria_materia_prima`
 --
 ALTER TABLE `categoria_materia_prima`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `configuraciones`
 --
 ALTER TABLE `configuraciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `credito`
 --
 ALTER TABLE `credito`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `detalles_orden`
+--
+ALTER TABLE `detalles_orden`
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `entradas_materia_prima`
 --
 ALTER TABLE `entradas_materia_prima`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  MODIFY `idFactura` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_factura` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `materia_prima`
 --
 ALTER TABLE `materia_prima`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `metodo_pago`
 --
 ALTER TABLE `metodo_pago`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `movimientos_capital`
 --
 ALTER TABLE `movimientos_capital`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `notificaciones`
 --
 ALTER TABLE `notificaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `orden`
+--
+ALTER TABLE `orden`
+  MODIFY `Id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `unidades`
 --
 ALTER TABLE `unidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `ventas`
 --
 ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -773,6 +832,13 @@ ALTER TABLE `credito`
   ADD CONSTRAINT `credito_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`);
 
 --
+-- Filtros para la tabla `detalles_orden`
+--
+ALTER TABLE `detalles_orden`
+  ADD CONSTRAINT `Id_orden_ibfk_1` FOREIGN KEY (`Id_Orden`) REFERENCES `orden` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`Id_producto`) REFERENCES `productos` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+--
 -- Filtros para la tabla `detalle_entrada`
 --
 ALTER TABLE `detalle_entrada`
@@ -783,6 +849,12 @@ ALTER TABLE `detalle_entrada`
 --
 ALTER TABLE `entradas_materia_prima`
   ADD CONSTRAINT `id_proveedor` FOREIGN KEY (`id_provedor`) REFERENCES `proveedores` (`id`);
+
+--
+-- Filtros para la tabla `facturas`
+--
+ALTER TABLE `facturas`
+  ADD CONSTRAINT `id_caja_ibfk_1` FOREIGN KEY (`Id_caja`) REFERENCES `caja` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Filtros para la tabla `materia_prima`
@@ -796,6 +868,12 @@ ALTER TABLE `materia_prima`
 --
 ALTER TABLE `notificaciones`
   ADD CONSTRAINT `notificaciones_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+
+--
+-- Filtros para la tabla `orden`
+--
+ALTER TABLE `orden`
+  ADD CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`Id_cliente`) REFERENCES `clientes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 --
 -- Filtros para la tabla `pagos`
