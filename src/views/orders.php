@@ -97,7 +97,6 @@
                                     </div>
 
                                     <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#domicile">
-                                    <button type="button" class="btn bh_1 text-white mb-3">
                                         <i class="fas fa-plus"></i>
                                         Orden
                                     </button>

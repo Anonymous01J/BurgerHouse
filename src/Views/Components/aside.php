@@ -143,7 +143,6 @@
                         </li>
                         <li class="sidebar-item">
                             <a href="drink" class="sidebar-link">
-                            <a href="rawmaterial" class="sidebar-link">
                                 <span
                                     class="hide-menu">Bebida
                                 </span>
