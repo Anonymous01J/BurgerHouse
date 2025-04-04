@@ -37,8 +37,8 @@ class Controller_base {
     public function add_many() {
         header('Content-Type: application/json');
         try {
-            for ($i = 0; $i < count($_POST); $i++) {
-                $this->db->add_variables(...$_POST[$i]);
+            for ($i = 0; $i < count($_POST['combo']); $i++) {
+                $this->db->add_variables(...$_POST['combo'][$i]);
                 echo json_encode($this->db->agregar());
             }
         } catch (Exception $e) {
