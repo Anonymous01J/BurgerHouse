@@ -339,17 +339,15 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
   if (!formHasError) {
     alert("Todos los productos fueron validados correctamente");
     // Aquí enviarías los datos al servidor
-    fetch("combo/add_many", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(combo),
+    $.ajax({
+      type: "POST",
+      url: "combo/add_many",
+      data: { combo },
+      success: function (response) {
+        console.log(response);
+       
+      }
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log("Success:", data);
-      })
   }
 });
 
