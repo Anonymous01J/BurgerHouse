@@ -341,8 +341,8 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
     // Aquí enviarías los datos al servidor
     $.ajax({
       type: "POST",
-      url: "combo/add_many",
-      data: { combo },
+      url: "combo/check",
+      data: {lista: combo},
       success: function (response) {
         console.log(response);
        
