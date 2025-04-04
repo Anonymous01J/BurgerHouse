@@ -25,7 +25,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="ordenes" class="sidebar-link">
+                            <a href="order" class="sidebar-link">
                                 <span
                                     class="hide-menu">Ordenes
                                 </span>
@@ -50,13 +50,13 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                <!-- <li class="sidebar-item">
                     <a class="sidebar-link" href="ordenes"
                         aria-expanded="false">
                         <i data-feather="file-minus" class="feather-icon"></i>
                         <span class="hide-menu">Reportes</span>
                     </a>
-                </li>
+                </li> -->
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="estadisticas"
@@ -99,11 +99,19 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                <!-- <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="money"
                         aria-expanded="false">
                         <i data-feather="dollar-sign" class="feather-icon"></i>
                         <span class="hide-menu">Moneda</span>
+                    </a>
+                </li> -->
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link sidebar-link" href="#"
+                        aria-expanded="false">
+                        <i data-feather="dollar-sign" class="feather-icon"></i>
+                        <span class="hide-menu">Papelera</span>
                     </a>
                 </li>
 
@@ -133,7 +141,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
+                            <a href="recipe" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Recetas
                                 </span>
@@ -211,15 +219,6 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="brand"
-                        aria-expanded="false">
-                        <i data-feather="flag" class="feather-icon"></i>
-                        <span
-                            class="hide-menu">Marcas
-                        </span>
-                    </a>
-                </li>
 
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="category"
@@ -281,7 +280,5 @@
 
             </ul>
         </nav>
-        <!-- End Sidebar navigation -->
     </div>
-    <!-- End Sidebar scroll-->
 </aside>
