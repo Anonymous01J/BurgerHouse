@@ -11,6 +11,7 @@
     <title>Iniciar Sesión</title>
     <link href="./assets/css/style.css" rel="stylesheet">
     <link href="./assets/css/stylesPerson.css" rel="stylesheet">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 </head>
 
@@ -32,22 +33,24 @@
                         </div>
                         <h2 class="mt-3 text-center">Ingresar</h2>
                         <p class="text-center">Ingrese su dirección de correo electrónico y contraseña para acceder al panel de administración.</p>
-                        <form class="mt-4">
+                        <form  id="login_form" autocomplete="off" class="mt-4">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="form-group mb-3">
                                         <label class="form-label text-dark" for="uname">Correo</label>
-                                        <input class="form-control" id="uname" type="text"
-                                            placeholder="enter your username">
+                                        <input autocomplete="off" class="form-control" id="login_correo" type="email"
+                                            placeholder="Ingrese su correo electronico">
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="form-group mb-3">
                                         <label class="form-label text-dark" for="pwd">Contraseña</label>
-                                        <input class="form-control" id="pwd" type="password"
-                                            placeholder="enter your password">
+                                        <input autocomplete="new-password" class="form-control" id="login_password" type="password"
+                                            placeholder="ingrese su contraseña">
                                     </div>
                                 </div>
+                                <div class="col-lg-12 d-flex justify-content-center mb-3">
+                                    <div class="cf-turnstile" data-sitekey="0x4AAAAAABDYzFakhjOmzEUX" data-theme="light" data-lenguage="es"></div>
                                 <div class="col-lg-12 text-center">
                                     <button type="button" class="btn w-100 btn-dark btn_login_1">Ingresar</button>
                                 </div>
@@ -87,9 +90,10 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12 text-center">
-                                    <button type="button" class="btn w-100 btn-dark">Ingresar</button>
+                                    <button type="submit" class="btn w-100 btn-dark">Ingresar</button>
                                 </div>
                                 <div class="col-lg-12 text-center mt-4">
+                                    <a href="Changepass" class="text-info">¿Olvidaste tu contraseña?</a>
                                     <button type="button" class="btn w-100 btn-warning btn_regresar">Regresar</button>
                                 </div>
                             </div>
@@ -113,3 +117,4 @@
 </body>
 
 </html>
+
