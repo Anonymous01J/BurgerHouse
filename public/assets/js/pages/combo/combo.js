@@ -238,6 +238,9 @@ function addProduct() {
     document.getElementById("products-container").insertAdjacentHTML('beforeend', productHTML);
     feather.replace();
     viewImage(".input-image")
+    InputPrice("[input_price]");
+    SelectOption()
+
 
 
     // Asigna validación a los nuevos inputs
@@ -307,6 +310,7 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
     e.preventDefault();
     const products = document.querySelectorAll(".product");
     let formHasError = false;
+    let combo = []
 
     products.forEach((product, i) => {
         const index = i + 1;
@@ -318,6 +322,7 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
             descripcion: product.querySelector(`textarea[name="descripcion"]`) ? product.querySelector(`textarea[name="descripcion"]`).value : "",
             img: product.querySelector(`input[name="img"]`) ? product.querySelector(`input[name="img"]`).value : ""
         };
+        combo.push(data)
 
         const errors = validate(data, rules);
         setValidationStyles(`input-name-combo-${index}`, errors?.nombre ? errors.nombre[0] : null);
@@ -334,6 +339,7 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
     if (!formHasError) {
         alert("Todos los productos fueron validados correctamente");
         // Aquí enviarías los datos al servidor
+        console.log(combo);
     }
 });
 
