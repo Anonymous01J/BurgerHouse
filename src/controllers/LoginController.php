@@ -3,7 +3,6 @@
 namespace Shtch\Burgerhouse\controllers;
 use Shtch\Burgerhouse\controllers\Controller_base;
 
-use Shtch\Burgerhouse\controllers\Controller_base;
 use Shtch\Burgerhouse\models\Usuario;
 
 class LoginController extends Controller_base{
