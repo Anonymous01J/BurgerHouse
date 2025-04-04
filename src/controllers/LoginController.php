@@ -2,13 +2,14 @@
 
 namespace Shtch\Burgerhouse\controllers;
 
+use Shtch\Burgerhouse\controllers\Controller_base;
 use Shtch\Burgerhouse\models\Usuario;
 
 class LoginController extends Controller_base{
     public $db;
     public function __construct(){
         parent::__construct('login');
-        $this->db = new Usuario($_POST['email'], $_POST['password']);
+        $this->db = new Usuario();
     }
 
     public function login()    {

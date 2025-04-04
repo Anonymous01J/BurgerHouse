@@ -5,7 +5,7 @@ use Shtch\Burgerhouse\controllers\Controller_base;
 use Shtch\Burgerhouse\models\Unidad;
 
 class UnitsController extends Controller_base {
-
+    public $db;
     public function __construct(){
         parent::__construct('units');
         $this->db = new Unidad();
