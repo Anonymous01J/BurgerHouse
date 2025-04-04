@@ -154,7 +154,7 @@
                 $consulta->bindValue(':'.$this->normalizeKey($key),$value);
             }
             foreach ($this->variables_like as $key => $value){
-                $value2 = $value.'%';
+                $value2 = '%'.$value.'%';
                 $consulta->bindValue(':like'.$this->normalizeKey($key),$value2, PDO::PARAM_STR);
             }
             foreach ($this->variables_interval as $key => $value){
