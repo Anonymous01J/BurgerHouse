@@ -6,7 +6,7 @@ login_form.addEventListener("submit", async (e)=>{
     
     let data = new FormData()
 
-    data.append("correo", document.getElementById("login_correo").value)
+    data.append("nombre", document.getElementById("login_correo").value)
     data.append("password", document.getElementById("login_password").value)
     data.append("token", document.querySelector('.cf-turnstile input[name="cf-turnstile-response"]').value)
 
