@@ -34,6 +34,28 @@
                         </div>
                         <div class="text-danger mt-1 fs-6" id="error-input-category-rawMaterial"></div>
                     </div>
+                    <div class="col-md-6 ">
+                        <label for="inputCity" class="form-label">Unidad</label>
+                        <div class="dropdown">
+                            <div class="dropdown">
+                                <div class="btn-group w-100" bis_skin_checked="1">
+                                    <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-unit-rawMaterial" name="unidad">
+                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <span> <i data-feather="chevron-down"></i></span>
+                                    </button>
+                                    <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                        <div>
+                                            <input class="form-control" type="text" placeholder="Buscar">
+                                        </div>
+                                        <a class="dropdown-item">Action</a>
+                                        <a class="dropdown-item">Another action</a>
+                                        <a class="dropdown-item">Something else here</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-danger mt-1 fs-6" id="error-input-category-rawMaterial"></div>
+                    </div>
                     <input type="submit" class="d-none" id="submit-rawMaterial">
                 </form>
             </div>

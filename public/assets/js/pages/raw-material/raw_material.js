@@ -9,7 +9,7 @@ SelectOption()
 // ------------------Validaciones---------------------------
 
 
-validate.validators.validateCategory = function (value, options, key, attributes) {
+validate.validators.validateCategoryAndUnit = function (value, options, key, attributes) {
     if (!value) {
         return options.message || "es requerido";
     }
@@ -57,6 +57,13 @@ const rules = {
         },
         validateCategoryAndRecipe: { message: "^es requerido" }
     },
+    unidad: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerida"
+        },
+        validateCategoryAndUnit: { message: "^es requerido" }
+    },
 };
 
 document.querySelector("#form-submit-rawMaterial input[type='text']").addEventListener("keyup",(e)=>{validateField(e, rules)})
@@ -68,12 +75,14 @@ document.getElementById("form-submit-rawMaterial").addEventListener("submit", (e
     let data = {
         nombre: document.getElementById("input-name-rawMaterial").value,
         categoria: document.getElementById("input-category-rawMaterial").value,
+        unidad: document.getElementById("input-unit-rawMaterial").value,
     }
 
     const errors = validate(data, rules);
 
     setValidationStyles("input-name-rawMaterial", errors?.nombre ? errors.nombre[0] : null);
     setValidationStyles("input-category-rawMaterial", errors?.categoria ? errors.categoria[0] : null);
+    setValidationStyles("input-unit-rawMaterial", errors?.categoria ? errors.categoria[0] : null);
 
     if (!errors) {
         alert("Formulario enviado correctamente");
