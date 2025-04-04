@@ -99,7 +99,7 @@
             return $this->conn->lastInsertId();
         }
         public function actualizar() : bool {
-            if (!isset($this->variables['a.id']) or $this->variables['a.id'] == null){
+            if (!isset($this->variables['id']) or $this->variables['id'] == null){
                 return false;
             }
             $lista_vars = array();
