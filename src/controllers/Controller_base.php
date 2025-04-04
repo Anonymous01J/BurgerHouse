@@ -38,7 +38,8 @@ class Controller_base {
         header('Content-Type: application/json');
         try {
             for ($i = 0; $i < count($_POST); $i++) {
-                echo json_encode($this->db->agregar(...$_POST[$i]));
+                $this->db->add_variables(...$_POST[$i]);
+                echo json_encode($this->db->agregar());
             }
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
