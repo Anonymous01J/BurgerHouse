@@ -43,5 +43,8 @@ class Controller_base {
         echo "</pre>";
         print_r($args);
         echo "</pre>";
+        echo "Session";
+        print_r($_SESSION);
+        echo "</pre>";
     }
 }
