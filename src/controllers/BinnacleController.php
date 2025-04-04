@@ -1,7 +1,9 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
+use Shtch\Burgerhouse\controllers\Controller_base;
 
-class BinnacleController {
+
+class BinnacleController extends Controller_base {
 
     public function index() {
         if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {

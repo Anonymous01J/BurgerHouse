@@ -1,7 +1,9 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
+use Shtch\Burgerhouse\controllers\Controller_base;
 
-class OrderController {
+
+class OrderController extends Controller_base {
 
     public function index() {
         // Verifica si la petición es AJAX

@@ -1,7 +1,8 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
+use Shtch\Burgerhouse\controllers\Controller_base;
 
-class SupplierController {
+class SupplierController extends Controller_base {
 
     public function index() {
         if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {

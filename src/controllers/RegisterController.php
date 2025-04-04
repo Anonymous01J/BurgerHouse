@@ -1,8 +1,9 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
+use Shtch\Burgerhouse\controllers\Controller_base;
 
 
-class RegisterController {
+class RegisterController extends Controller_base {
 
     public function index() {
         // Verifica si la petición es AJAX

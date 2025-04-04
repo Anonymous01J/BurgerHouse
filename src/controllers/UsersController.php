@@ -1,7 +1,9 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
+use Shtch\Burgerhouse\controllers\Controller_base;
 
-class UsersController {
+
+class UsersController extends Controller_base {
 
     public function index() {
         if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
@@ -10,5 +12,10 @@ class UsersController {
         } else {
             include_once __DIR__ . '/../views/users.php';
         }
+    }
+    public function __construct() {
+        parent::__construct();
+        // $this->db = new Unidad;
+
     }
 }
