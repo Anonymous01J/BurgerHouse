@@ -127,9 +127,9 @@
                                                 <div>
                                                     <input class="form-control" type="text" placeholder="Buscar">
                                                 </div>
-                                                <a class="dropdown-item">Action</a>
-                                                <a class="dropdown-item">Another action</a>
-                                                <a class="dropdown-item">Something else here</a>
+                                                <a class="dropdown-item">1</a>
+                                                <a class="dropdown-item">2</a>
+                                                <a class="dropdown-item">3</a>
                                             </div>
                                         </div>
                                     </div>
@@ -149,9 +149,9 @@
                                                 <div>
                                                     <input class="form-control" type="text" placeholder="Buscar">
                                                 </div>
-                                                <a class="dropdown-item">Action</a>
-                                                <a class="dropdown-item">Another action</a>
-                                                <a class="dropdown-item">Something else here</a>
+                                                <a class="dropdown-item">1</a>
+                                                <a class="dropdown-item">2</a>
+                                                <a class="dropdown-item">3</a>
                                             </div>
                                         </div>
                                     </div>
