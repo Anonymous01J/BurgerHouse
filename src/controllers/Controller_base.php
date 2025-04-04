@@ -28,7 +28,8 @@ class Controller_base {
     public function add() {
         header('Content-Type: application/json');
         try {
-            echo json_encode($this->db->agregar(...$_POST));
+            $this->db->add_variables($_POST);
+            echo json_encode(['last_id' => $this->db->agregar()]);
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
