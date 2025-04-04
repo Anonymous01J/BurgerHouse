@@ -1,7 +1,13 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
 
-class HomeController {
+use Shtch\Burgerhouse\controllers\Controller_base;
+
+class HomeController extends Controller_base {
+
+    public function __construct(){
+        parent::__construct('index');
+    }
 
     public function index() {
         // Verifica si la petición es AJAX

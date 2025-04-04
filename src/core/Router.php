@@ -11,7 +11,7 @@ class Router
         $url = $this->parseUrl();
 
         $controllerName = !empty($url[0]) ? ucfirst($url[0]) . 'Controller' : 'HomeController';
-        $methodName = isset($url[1]) ? $url[1] : 'index';
+        $methodName = isset($url[1]) ? $url[1] : 'view';
 
         // $controllerClass = 'Shtch\\Burgerhouse\\controllers\\' . $controllerName;
         $controller_class = 'Shtch\\Burgerhouse\\controllers\\' . $controllerName;
