@@ -181,7 +181,7 @@ function addProduct() {
           <div class="dropdown">
             <div class="dropdown">
               <div class="btn-group w-100" bis_skin_checked="1">
-                <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-combo-${productCount}" name="categoria">
+                <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-combo-${productCount}" name="id_categoria">
                 <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span><i data-feather="chevron-down"></i></span>
                 </button>
@@ -189,9 +189,9 @@ function addProduct() {
                   <div>
                     <input class="form-control" type="text" placeholder="Buscar">
                   </div>
-                  <a class="dropdown-item">Action</a>
-                  <a class="dropdown-item">Another action</a>
-                  <a class="dropdown-item">Something else here</a>
+                  <a class="dropdown-item">1</a>
+                  <a class="dropdown-item">2</a>
+                  <a class="dropdown-item">3</a>
                 </div>
               </div>
             </div>
@@ -203,7 +203,7 @@ function addProduct() {
           <div class="dropdown">
             <div class="dropdown">
               <div class="btn-group w-100" bis_skin_checked="1">
-                <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-recipe-combo-${productCount}" name="receta">
+                <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-recipe-combo-${productCount}" name="id_receta">
                 <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <span><i data-feather="chevron-down"></i></span>
                 </button>
@@ -211,9 +211,9 @@ function addProduct() {
                   <div>
                     <input class="form-control" type="text" placeholder="Buscar">
                   </div>
-                  <a class="dropdown-item">Action</a>
-                  <a class="dropdown-item">Another action</a>
-                  <a class="dropdown-item">Something else here</a>
+                  <a class="dropdown-item">1</a>
+                  <a class="dropdown-item">2</a>
+                  <a class="dropdown-item">3</a>
                 </div>
               </div>
             </div>
@@ -222,13 +222,13 @@ function addProduct() {
         </div>
         <div class="col-12">
           <label for="input-description-combo-${productCount}" class="form-label">Descripcion</label>
-          <textarea placeholder="Descripcion" class="form-control" id="input-description-combo-${productCount}" rows="5" name="descripcion"></textarea>
-          <div class="text-danger mt-1 fs-6" id="error-input-description-combo-${productCount}"></div>
+          <textarea placeholder="Detalles" class="form-control" id="input-details-combo-${productCount}" rows="5" name="detalles"></textarea>
+          <div class="text-danger mt-1 fs-6" id="error-input-details-combo-${productCount}"></div>
         </div>
         <div class="col-12">
           <label for="input-img-combo-${productCount}" class="form-label">Imagen</label>
-          <input class="form-control input-image" type="file" id="input-img-combo-${productCount}" name="img">
-          <div class="text-danger mt-1 fs-6" id="error-input-img-combo-${productCount}"></div>
+          <input class="form-control input-image" type="file" id="input-image-combo-${productCount}" name="imagen">
+          <div class="text-danger mt-1 fs-6" id="error-input-image-combo-${productCount}"></div>
           <img src="" alt="Vista previa" style="max-width: 200px; display: none;">
         </div>
         <div class="bg-secondary my-5" style="font-size: 1px;"> 2</div>
@@ -316,21 +316,21 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
     const index = i + 1;
     const data = {
       nombre: product.querySelector(`input[name="nombre"]`).value,
-      precio: product.querySelector(`input[name="precio"]`).value,
-      categoria: product.querySelector(`input[name="categoria"]`) ? product.querySelector(`input[name="categoria"]`).value : "",
-      receta: product.querySelector(`input[name="receta"]`) ? product.querySelector(`input[name="receta"]`).value : "",
-      descripcion: product.querySelector(`textarea[name="descripcion"]`) ? product.querySelector(`textarea[name="descripcion"]`).value : "",
-      img: product.querySelector(`input[name="img"]`) ? product.querySelector(`input[name="img"]`).value : ""
+      precio: product.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
+      id_categoria: product.querySelector(`input[name="id_categoria"]`) ? product.querySelector(`input[name="id_categoria"]`).value : "",
+      id_receta: product.querySelector(`input[name="id_receta"]`) ? product.querySelector(`input[name="id_receta"]`).value : "",
+      detalles: product.querySelector(`textarea[name="detalles"]`) ? product.querySelector(`textarea[name="detalles"]`).value : "",
+      imagen: product.querySelector(`input[name="imagen"]`) ? product.querySelector(`input[name="imagen"]`).value : ""
     };
     combo.push(data)
 
     const errors = validate(data, rules);
     setValidationStyles(`input-name-combo-${index}`, errors?.nombre ? errors.nombre[0] : null);
     setValidationStyles(`input-price-combo-${index}`, errors?.precio ? errors.precio[0] : null);
-    setValidationStyles(`input-category-combo-${index}`, errors?.categoria ? errors.categoria[0] : null);
-    setValidationStyles(`input-recipe-combo-${index}`, errors?.receta ? errors.receta[0] : null);
-    setValidationStyles(`input-description-combo-${index}`, errors?.descripcion ? errors.descripcion[0] : null);
-    setValidationStyles(`input-img-combo-${index}`, errors?.img ? errors.img[0] : null);
+    setValidationStyles(`input-category-combo-${index}`, errors?.id_categoria ? errors.id_categoria[0] : null);
+    setValidationStyles(`input-recipe-combo-${index}`, errors?.id_receta ? errors.id_receta[0] : null);
+    setValidationStyles(`input-details-combo-${index}`, errors?.detalles ? errors.detalles[0] : null);
+    setValidationStyles(`input-image-combo-${index}`, errors?.imagen ? errors.imagen[0] : null);
     if (errors) {
       formHasError = true;
     }
@@ -341,7 +341,7 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
     // Aquí enviarías los datos al servidor
     $.ajax({
       type: "POST",
-      url: "combo/check",
+      url: "combo/add_many",
       data: {lista: combo},
       success: function (response) {
         console.log(response);
@@ -412,21 +412,21 @@ const rules = {
     },
     precio: { message: "^debe ser un número mayor a 0" }
   },
-  categoria: {
+  id_categoria: {
     presence: {
       allowEmpty: false,
       message: "^es requerida"
     },
     validateCategoryAndRecipe: { message: "^es requerido" }
   },
-  receta: {
+  id_receta: {
     presence: {
       allowEmpty: false,
       message: "^es requerida"
     },
     validateCategoryAndRecipe: { message: "^es requerido" }
   },
-  descripcion: {
+  detalles: {
     presence: {
       allowEmpty: false,
       message: "^es requerido"
@@ -436,7 +436,7 @@ const rules = {
       message: "^debe tener al menos 15 caracteres"
     }
   },
-  img: {
+  imagen: {
     presence: {
       allowEmpty: false,
       message: "^es requerido"
