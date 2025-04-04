@@ -6,6 +6,7 @@ use Shtch\Burgerhouse\models\Db_base;
 class Controller_base {
     public $module_name;
     public $table_name;
+    public $db;
 
     public function __construct($module_name) {
         $this->module_name = $module_name;
