@@ -37,9 +37,9 @@ class Controller_base {
     public function add_many() {
         header('Content-Type: application/json');
         try {
-            for ($i = 0; $i < count($_POST['combo']); $i++) {
-                $this->db->add_variables(...$_POST['combo'][$i]);
-                echo json_encode($this->db->agregar());
+            for ($i = 0; $i < count($_POST['lista']); $i++) {
+                $this->db->add_variables(...$_POST['lista'][$i]);
+                echo json_encode(['last_id' => $this->db->agregar()]);
             }
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
