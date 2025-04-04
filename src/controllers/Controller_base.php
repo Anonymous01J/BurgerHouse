@@ -38,14 +38,6 @@ class Controller_base {
         // header('Content-Type: application/json');
         try {
             for ($i = 0; $i < count($_POST['lista']); $i++) {
-                if ($this->table_name == 'combo') {
-                    $_POST['lista'][$i]['id_categoria'] = $_POST['categoria'];
-                    $_POST['lista'][$i]['id_receta'] = $_POST['receta'];
-                    unset($_POST['categoria']);
-                    unset($_POST['receta']);
-                    unset($_POST['lista'][$i]['categoria']);
-                    unset($_POST['lista'][$i]['receta']);
-                }
                 $this->db->add_variables($_POST['lista'][$i]);
                 echo json_encode(['last_id' => $this->db->agregar()]);
             }

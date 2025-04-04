@@ -119,7 +119,7 @@
                                 <div class="dropdown">
                                     <div class="dropdown">
                                         <div class="btn-group w-100" bis_skin_checked="1">
-                                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-combo-1" name="categoria">
+                                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-combo-1" name="id_categoria">
                                             <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span> <i data-feather="chevron-down"></i></span>
                                             </button>
@@ -141,7 +141,7 @@
                                 <div class="dropdown">
                                     <div class="dropdown">
                                         <div class="btn-group w-100" bis_skin_checked="1">
-                                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-recipe-combo-1" name="receta">
+                                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-recipe-combo-1" name="id_receta">
                                             <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span> <i data-feather="chevron-down"></i></span>
                                             </button>
@@ -159,14 +159,14 @@
                                 <div class="text-danger mt-1 fs-6" id="error-input-recipe-combo-1"></div>
                             </div>
                             <div class="col-12">
-                                <label for="inputAddress2" class="form-label">Descripcion</label>
-                                <textarea placeholder="Descripcion" class="form-control" id="input-description-combo-1" rows="5" name="descripcion"></textarea>
-                                <div class="text-danger mt-1 fs-6" id="error-input-description-combo-1"></div>
+                                <label for="inputAddress2" class="form-label">Detalles</label>
+                                <textarea placeholder="Detalles" class="form-control" id="input-details-combo-1" rows="5" name="detalles"></textarea>
+                                <div class="text-danger mt-1 fs-6" id="error-input-details-combo-1"></div>
                             </div>
                             <div class="col-12">
                                 <label for="inputZip" class="form-label">Imagen</label>
-                                <input class="form-control input-image" type="file" id="input-img-combo-1" name="img">
-                                <div class="text-danger mt-1 fs-6" id="error-input-img-combo-1"></div>
+                                <input class="form-control input-image" type="file" id="input-image-combo-1" name="imagen">
+                                <div class="text-danger mt-1 fs-6" id="error-input-image-combo-1"></div>
                                 <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
                             </div>
                             <div class="bg-secondary my-5" style="font-size: 1px;"> 2</div>
