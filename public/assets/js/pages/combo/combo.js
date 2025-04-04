@@ -444,3 +444,12 @@ const rules = {
   },
 };
 
+$.ajax({
+  type: "POST",
+  url: "combo/update",
+  data: {id: 29, active: 0},
+  success: function (response) {
+    console.log(response);
+   
+  }
+})
