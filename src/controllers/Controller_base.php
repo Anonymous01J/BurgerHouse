@@ -57,7 +57,18 @@ class Controller_base {
     public function delete() {
         header('Content-Type: application/json');
         try {
-            echo json_encode($this->db->borrar(...$_POST));
+            $this->db->add_variables($_POST);
+            echo json_encode($this->db->borrar());
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function update() {
+        header('Content-Type: application/json');
+        try {
+            $this->db->add_variables($_POST);
+            echo json_encode($this->db->actualizar());
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
