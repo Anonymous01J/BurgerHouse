@@ -1,7 +1,5 @@
 <!-- <div class="modal fade p-0" id="register-combo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
-<div class="modal fade" id="register-combo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar Combo</h1>
@@ -11,13 +9,11 @@
                 <form class="row g-2" id="form-submit-combo">
                     <h2>1</h2>
                     <div class="col-md-3">
-                    <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">Nombre</label>
                         <input type="text" class="form-control" placeholder="Nombre" id="input-name-combo" name="nombre">
                         <div class="text-danger mt-1 fs-6" id="error-input-name-combo"></div>
                     </div>
                     <div class="col-md-3">
-                    <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">Precio</label>
                         <div class="input-group">
                             <span class="input-group-text">$</span>
@@ -26,7 +22,6 @@
                         </div>
                     </div>
                     <div class="col-md-3 ">
-                    <div class="col-md-6 ">
                         <label for="inputCity" class="form-label">Categoria</label>
                         <div class="dropdown">
                             <div class="dropdown">
@@ -49,7 +44,6 @@
                         <div class="text-danger mt-1 fs-6" id="error-input-category-combo"></div>
                     </div>
                     <div class="col-md-3 ">
-                    <div class="col-md-6 ">
                         <label for="inputCity" class="form-label">Receta</label>
                         <div class="dropdown">
                             <div class="dropdown">
@@ -180,8 +174,6 @@
                         </div>
                     </div>
                     <button type="button" id="add-product-btn" class="btn btn-secondary mt-3">Agregar Producto</button>
-                </form>
-                    <input type="submit" class="d-none" id="submit-combo">
                 </form>
             </div>
             <div class="modal-footer">

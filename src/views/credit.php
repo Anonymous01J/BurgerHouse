@@ -42,10 +42,6 @@
                     <i data-feather="filter" class="svg-icon"></i>
                 </button>
 
-                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
-                    <i data-feather="file-plus" class="svg-icon"></i>
-                </button>
-
                 <div class="dropdown">
                     <ul class="dropdown-menu p-4">
                         <div class="row g-3 align-items-center mb-3">
