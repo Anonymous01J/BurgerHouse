@@ -8,12 +8,8 @@ class Controller_base {
     public $table_name;
     public Db_base $db;
 
-    public function __construct($module_name, $table_name = null) {
+    public function __construct($module_name) {
         $this->module_name = $module_name;
-        if ($table_name) {
-            $this->table_name = "Shtch\\Burgerhouse\\models\\".$table_name;
-            $this->db = new $this->table_name(...$_POST);
-        }
     }
 
     public function view() {
