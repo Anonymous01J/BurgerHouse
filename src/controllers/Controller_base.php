@@ -60,7 +60,7 @@ class Controller_base {
         header('Content-Type: application/json');
         try {
             $this->db->add_variables($_POST);
-            echo json_encode($this->db->actualizar());
+            echo json_encode(['success' => $this->db->actualizar()]);
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }

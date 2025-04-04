@@ -98,9 +98,9 @@
             $query->execute($lista_vars);
             return $this->conn->lastInsertId();
         }
-        public function actualizar() : void {
+        public function actualizar() : bool {
             if (!isset($this->variables['a.id']) or $this->variables['a.id'] == null){
-                return;
+                return false;
             }
             $lista_vars = array();
             foreach ($this->variables as $key => $value){
@@ -116,7 +116,7 @@
             $sql = substr($sql, 0, -2);
             $sql .= " WHERE id=:id";
             $query = $this->conn->prepare($sql);
-            $query->execute($lista_vars);
+            return $query->execute($lista_vars);
         }
         public function borrar() : void {
             $query = $this->conn->prepare("DELETE FROM $this->tabla WHERE id=:id");
