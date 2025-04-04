@@ -489,7 +489,8 @@
             </div>
 
         </div>
-
+        
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
 </div>
 
@@ -512,5 +513,3 @@
 <script src="./assets/js/pages/dashboards/dashboard1.min.js"></script>
 
 
-
-<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

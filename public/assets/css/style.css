@@ -2514,7 +2514,7 @@ progress {
   color: #4F5467;
   background-color: transparent;
   background-clip: padding-box;
-  border: var(--bs-border-width) solid #e9ecef;
+  border: var(--bs-border-width) solid #dddddd;
   appearance: none;
   border-radius: 2px;
   box-shadow: inset 0 1px 2px rgba(var(--bs-body-color-rgb), 0.075);
@@ -5173,8 +5173,8 @@ textarea.form-control-lg {
   --bs-pagination-focus-bg: var(--bs-secondary-bg);
   --bs-pagination-focus-box-shadow: transparent;
   --bs-pagination-active-color: #fff;
-  --bs-pagination-active-bg: #5f76e8;
-  --bs-pagination-active-border-color: #5f76e8;
+  --bs-pagination-active-bg: #FF4B00;
+  --bs-pagination-active-border-color: #FF4B00;
   --bs-pagination-disabled-color: var(--bs-secondary-color);
   --bs-pagination-disabled-bg: var(--bs-secondary-bg);
   --bs-pagination-disabled-border-color: var(--bs-border-color);

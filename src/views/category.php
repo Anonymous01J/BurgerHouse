@@ -50,7 +50,7 @@
                                         <button class="btn bh_1" type="button" id="button-addon2" style="color: #fff;">Guardar</button>
                                     </div>
                                     <div class="table-responsive mt-5">
-                                        <table class="table table-striped table-bordered no-wrap">
+                                        <table class="table table-dark-mode no-wrap">
                                             <thead>
                                                 <tr>
                                                     <th>Nro de marca</th>
@@ -103,7 +103,7 @@
                                         <button class="btn bh_1" type="button" id="button-addon2" style="color: #fff;">Guardar</button>
                                     </div>
                                     <div class="table-responsive mt-5">
-                                        <table class="table table-striped table-bordered no-wrap">
+                                        <table class="table table-dark-mode no-wrap">
                                             <thead>
                                                 <tr>
                                                     <th>Nro de marca</th>
