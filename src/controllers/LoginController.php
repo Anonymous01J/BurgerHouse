@@ -30,8 +30,9 @@ class LoginController extends Controller_base{
             die;
         }
         $cont = $_POST['password'];
-        $encriptada = password_hash($cont, PASSWORD_DEFAULT);
-        $this->db = new Usuario(nombre:$_POST['nombre'],hash:$encriptada);
+        // $encriptada = password_hash($cont, PASSWORD_DEFAULT);
+        // $this->db = new Usuario(nombre:$_POST['nombre'],hash:$encriptada);
+        $this->db = new Usuario(nombre:$_POST['nombre'],hash:$cont);
         $result = $this->db->search();
         if (empty($result)) {
             echo json_encode(['success' => false,'message'=>'Usuario no encontrado']);
