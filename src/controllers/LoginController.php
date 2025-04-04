@@ -3,13 +3,12 @@
 namespace Shtch\Burgerhouse\controllers;
 use Shtch\Burgerhouse\controllers\Controller_base;
 
-use Shtch\Burgerhouse\controllers\Controller_base;
 use Shtch\Burgerhouse\models\Usuario;
 
 class LoginController extends Controller_base{
     public function __construct(){
         parent::__construct('login');
-        $this->db = new Usuario();
+        // $this->db = new Usuario(nombre:$_POST['email'], hash:$_POST['password']);
     }
 
     public function login()    {
@@ -26,17 +25,20 @@ class LoginController extends Controller_base{
         ]));
         $resultado = json_decode($response, true);
         if (!$resultado['success']) {
-            echo json_encode(['success' => false]);
+            echo json_encode(['success' => false, 'message' => 'Captcha verification failed']);
             return;
             die;
         }
+        $cont = $_POST['password'];
+        $encriptada = password_hash($cont, PASSWORD_DEFAULT);
+        $this->db = new Usuario(nombre:$_POST['nombre'],hash:$encriptada);
         $result = $this->db->search();
         if (empty($result)) {
-            echo json_encode(['success' => false]);
+            echo json_encode(['success' => false,'message'=>'Usuario no encontrado']);
             return;
             die;
         }
-        echo json_encode(['success' => true]);
+        echo json_encode(['success' => true, 'message' => 'Usuario encontrado']);
         return;
         die;
 
