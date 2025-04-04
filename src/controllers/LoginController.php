@@ -41,7 +41,6 @@ class LoginController extends Controller_base{
         }
         $_SESSION['id'] = $result[0]['id'];
         $_SESSION['nombre'] = $result[0]['nombre'];
-        $_SESSION['rol'] = $result[0]['id_rol'];
         echo json_encode(['success' => true, 'message' => 'Usuario encontrado']);
         return;
         die;
