@@ -6,7 +6,6 @@ use Shtch\Burgerhouse\models\Db_base;
 class Controller_base {
     public $module_name;
     public $table_name;
-    public Db_base $db;
 
     public function __construct($module_name) {
         $this->module_name = $module_name;
@@ -19,6 +18,18 @@ class Controller_base {
     public function get_all(...$args) {
         header('Content-Type: application/json');
         echo json_encode($this->db->search(...$args));
+    }
+
+    public function add() {
+        header('Content-Type: application/json');
+        echo json_encode($this->db->agregar(...$_POST));
+    }
+
+    public function add_many() {
+        header('Content-Type: application/json');
+        for ($i = 0; $i < count($_POST); $i++) {
+            echo json_encode($this->db->agregar(...$_POST[$i]));
+        }
     }
 
 
