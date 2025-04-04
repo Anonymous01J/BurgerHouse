@@ -11,7 +11,7 @@
                             class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-
+                
                 <li class="list-divider"></li>
 
                 <li class="nav-small-cap"><span class="hide-menu">Aplicaciones</span></li>
@@ -25,7 +25,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="order" class="sidebar-link">
+                            <a href="ordenes" class="sidebar-link">
                                 <span
                                     class="hide-menu">Ordenes
                                 </span>
@@ -50,16 +50,16 @@
                     </a>
                 </li>
 
-                <!-- <li class="sidebar-item">
-                    <a class="sidebar-link" href="ticket-list.html"
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="ordenes"
                         aria-expanded="false">
                         <i data-feather="file-minus" class="feather-icon"></i>
                         <span class="hide-menu">Reportes</span>
                     </a>
-                </li> -->
+                </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ticket-list.html"
+                    <a class="sidebar-link" href="estadisticas"
                         aria-expanded="false">
                         <i data-feather="bar-chart" class="feather-icon"></i>
                         <span class="hide-menu">Estadisticas</span>
@@ -99,20 +99,11 @@
                     </a>
                 </li>
 
-                <!--
                 <li class="sidebar-item">
                     <a class="sidebar-link sidebar-link" href="money"
                         aria-expanded="false">
                         <i data-feather="dollar-sign" class="feather-icon"></i>
                         <span class="hide-menu">Moneda</span>
-                    </a>
-                </li> -->
-
-                  <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="money"
-                        aria-expanded="false">
-                        <i data-feather="trash-2" class="feather-icon"></i>
-                        <span class="hide-menu">Papelera</span>
                     </a>
                 </li>
 
@@ -128,13 +119,6 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item">
-                            <a href="recipe" class="sidebar-link">
-                                <span
-                                    class="hide-menu"> Recetas
-                                </span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
                             <a href="combo" class="sidebar-link">
                                 <span
                                     class="hide-menu">Combo
@@ -142,20 +126,19 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="drink" class="sidebar-link">
-                                <span
-                                    class="hide-menu">Bebida
-                                </span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="rawmaterial" class="sidebar-link">
+                            <a href="raw-material" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Materia Prima
                                 </span>
                             </a>
                         </li>
-
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link">
+                                <span
+                                    class="hide-menu"> Recetas
+                                </span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -249,7 +232,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="ui-cards.html"
+                    <a class="sidebar-link sidebar-link" href="#"
                         aria-expanded="false">
                         <i data-feather="award" class="feather-icon"></i>
                         <span
@@ -289,7 +272,7 @@
                 <li class="nav-small-cap"><span class="hide-menu">Extra</span></li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link sidebar-link" href="../Views/login.php"
+                    <a class="sidebar-link sidebar-link" href="login"
                         aria-expanded="false">
                         <i data-feather="log-out" class="feather-icon"></i>
                         <span class="hide-menu">Logout</span>

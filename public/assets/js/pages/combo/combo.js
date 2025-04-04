@@ -3,7 +3,6 @@
 import functionGeneral from "../../Functions.js";
 const { InputPrice, SelectOption, viewImage, setValidationStyles } = functionGeneral();
 
-
 InputPrice("[input_price]");
 
 // ------------------Funcion de select de categoria y receta---------------------------
@@ -239,6 +238,9 @@ function addProduct() {
     document.getElementById("products-container").insertAdjacentHTML('beforeend', productHTML);
     feather.replace();
     viewImage(".input-image")
+    InputPrice("[input_price]");
+    SelectOption()
+
 
 
     // Asigna validación a los nuevos inputs
@@ -308,6 +310,7 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
     e.preventDefault();
     const products = document.querySelectorAll(".product");
     let formHasError = false;
+    let combo = []
 
     products.forEach((product, i) => {
         const index = i + 1;
@@ -319,6 +322,7 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
             descripcion: product.querySelector(`textarea[name="descripcion"]`) ? product.querySelector(`textarea[name="descripcion"]`).value : "",
             img: product.querySelector(`input[name="img"]`) ? product.querySelector(`input[name="img"]`).value : ""
         };
+        combo.push(data)
 
         const errors = validate(data, rules);
         setValidationStyles(`input-name-combo-${index}`, errors?.nombre ? errors.nombre[0] : null);
@@ -335,6 +339,7 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
     if (!formHasError) {
         alert("Todos los productos fueron validados correctamente");
         // Aquí enviarías los datos al servidor
+        console.log(combo);
     }
 });
 
@@ -342,7 +347,6 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
 attachValidationListeners(1);
 
 
-// ------------------Validacion de Formulario---------------------------
 
 validate.validators.precio = function (value, options, key, attributes) {
     if (!value) return;
@@ -363,7 +367,6 @@ validate.validators.validateCategoryAndRecipe = function (value, options, key, a
     }
     if (value.toLowerCase() === "seleccione una opcion") {
         return options.message || "es requerido";
-
     }
 };
 
@@ -392,10 +395,6 @@ const rules = {
         length: {
             minimum: 4,
             message: "^debe tener al menos 4 caracteres"
-        },
-        format: {
-            pattern: /^[A-Z].*/,
-            message: "^debe empezar con mayuscula"
         },
     },
     precio: {
@@ -436,45 +435,3 @@ const rules = {
         }
     },
 };
-
-document.querySelectorAll("#form-submit-combo input[type='text'], #form-submit-combo textarea").forEach(input => {
-    input.addEventListener("keyup", (e) => { validateField(e, rules) });
-    input.addEventListener("blur", (e) => { validateField(e, rules) });
-});
-
-document.getElementById("form-submit-combo").addEventListener("submit", (e) => {
-    e.preventDefault()
-
-    let data = {
-        nombre: document.getElementById("input-name-combo").value,
-        precio: document.getElementById("input-price-combo").value,
-        categoria: document.getElementById("input-category-combo").value,
-        receta: document.getElementById("input-recipe-combo").value,
-        descripcion: document.getElementById("input-description-combo").value,
-        img: document.getElementById("input-img-combo").value
-    }
-
-    const errors = validate(data, rules);
-
-    setValidationStyles("input-name-combo", errors?.nombre ? errors.nombre[0] : null);
-    setValidationStyles("input-price-combo", errors?.precio ? errors.precio[0] : null);
-    setValidationStyles("input-category-combo", errors?.categoria ? errors.categoria[0] : null);
-    setValidationStyles("input-recipe-combo", errors?.receta ? errors.receta[0] : null);
-    setValidationStyles("input-description-combo", errors?.descripcion ? errors.descripcion[0] : null);
-    setValidationStyles("input-img-combo", errors?.img ? errors.img[0] : null);
-
-    if (!errors) {
-        alert("Formulario enviado correctamente");
-        // this.reset();
-
-        const inputs = this.querySelectorAll(".is-valid, .is-invalid");
-        inputs.forEach(function (input) {
-            input.classList.remove("is-valid", "is-invalid");
-        });
-
-        const errorMessages = this.querySelectorAll(".text-danger");
-        errorMessages.forEach(function (error) {
-            error.textContent = "";
-        });
-    }
-})

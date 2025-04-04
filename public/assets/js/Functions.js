@@ -32,8 +32,7 @@ export default function functionGeneral() {
         const anio = fecha.getFullYear();
         const fechaFormateada = `${dia}/${mes}/${anio}`;
         return fechaFormateada
-    }     
-
+    }
 
     function setValidationStyles(input, errorMessage) {
         const inputElement = document.getElementById(input);
@@ -61,9 +60,7 @@ export default function functionGeneral() {
 
     function SelectOption() {
         document.querySelectorAll(".dropdown-item").forEach(item => {
-
             item.addEventListener("click", () => {
-
                 let input = item.parentElement.parentElement.firstElementChild.value
                 let option = item.textContent
                 item.parentElement.parentElement.firstElementChild.value = option
