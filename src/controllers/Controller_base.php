@@ -41,6 +41,8 @@ class Controller_base {
                 if ($this->table_name == 'combo') {
                     $_POST['lista'][$i]['id_categoria'] = $_POST['categoria'];
                     $_POST['lista'][$i]['id_receta'] = $_POST['receta'];
+                    unset($_POST['categoria']);
+                    unset($_POST['receta']);
                 }
                 $this->db->add_variables($_POST['lista'][$i]);
                 echo json_encode(['last_id' => $this->db->agregar()]);
