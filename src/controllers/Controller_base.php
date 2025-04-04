@@ -35,10 +35,14 @@ class Controller_base {
     }
 
     public function add_many() {
-        header('Content-Type: application/json');
+        // header('Content-Type: application/json');
         try {
             for ($i = 0; $i < count($_POST['lista']); $i++) {
-                $this->db->add_variables(...$_POST['lista'][$i]);
+                if ($this->table_name == 'combo') {
+                    $_POST['lista'][$i]['id_categoria'] = $_POST['categoria'];
+                    $_POST['lista'][$i]['id_receta'] = $_POST['receta'];
+                }
+                $this->db->add_variables($_POST['lista'][$i]);
                 echo json_encode(['last_id' => $this->db->agregar()]);
             }
         } catch (Exception $e) {
