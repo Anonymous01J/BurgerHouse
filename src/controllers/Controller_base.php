@@ -1,7 +1,7 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
 
-use Shtch\Burgerhouse\models\Db_base;
+use Exception;
 
 class Controller_base {
     public $module_name;
@@ -18,18 +18,30 @@ class Controller_base {
 
     public function get_all(...$args) {
         header('Content-Type: application/json');
-        echo json_encode($this->db->search(...$args));
+        try {
+            echo json_encode($this->db->search(...$args));
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
     }
 
     public function add() {
         header('Content-Type: application/json');
-        echo json_encode($this->db->agregar(...$_POST));
+        try {
+            echo json_encode($this->db->agregar(...$_POST));
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
     }
 
     public function add_many() {
         header('Content-Type: application/json');
-        for ($i = 0; $i < count($_POST); $i++) {
-            echo json_encode($this->db->agregar(...$_POST[$i]));
+        try {
+            for ($i = 0; $i < count($_POST); $i++) {
+                echo json_encode($this->db->agregar(...$_POST[$i]));
+            }
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 
