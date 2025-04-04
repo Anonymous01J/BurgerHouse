@@ -26,4 +26,5 @@ const dolarBCV = async () => {
     let response = await search.json()
     document.getElementById("Dolar_bcv").textContent = parseFloat(response[0].promedio).toFixed(2) + " Bs"
 }
+
 dolarBCV()

@@ -72,7 +72,7 @@ export default function functionGeneral() {
     }
 
     function viewImage(inputs) {
-        document.querySelectorAll(inputs).forEach(image=>{
+        document.querySelectorAll(inputs).forEach(image => {
             image.addEventListener("change", function (event) {
                 const file = event.target.files[0]; // Obtiene el archivo seleccionado
                 if (file) {
@@ -88,7 +88,80 @@ export default function functionGeneral() {
         })
     }
 
+    //--------------funciones para el manejo de peticiones ajax------------------
 
+    const searchAll = async (module) => {
+        let search = await fetch(`${module}/get_all`)
+        let response = await search.json()
+        return response
+    }
+    const print = async (search, template, container) => {
+        let response = await search
+        let templatesWrapper = ""
+        response.forEach(element => {
+            templatesWrapper += template(element)
+        })
+        document.querySelector(container).innerHTML = templatesWrapper
+        Delete(template, container)
+        feather.replace()
+    }
+    const Delete = (template, container) => {
+        document.querySelectorAll(".trash_btn").forEach(element => {
+            element.addEventListener("click", () => {
+                Swal.fire({
+                    title: "¿Deseas eliminar este elemento?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Eliminar",
+                    cancelButtonText: "Cancelar",
+                    confirmButtonColor: "#FF4B00"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        let id = element.getAttribute("data-id")
+                        let module = element.getAttribute("data-module")
+                        $.ajax({
+                            type: "POST",
+                            url: `${module}/update`,
+                            data: { id, active: 0 },
+                            success: function (response) {
+                                print(searchAll(module), template, container)
+                            }
+                        })
+                        Swal.fire({
+                            title: "Elemento eliminado!",
+                            icon: "success",
+                            confirmButtonText: "Aceptar",
+                            confirmButtonColor: "#FF4B00"
+                        });
+                    }
+                });
 
-    return { InputPrice, hora, fecha, setValidationStyles, validateField, SelectOption, viewImage }
+            })
+        })
+
+    }
+    const add = (module, data, template, container) => {
+        $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            processData: false,
+            url: `${module}/add_many`,
+            data: { lista: data },
+            success: function (response) {
+                Swal.fire({
+                    title: `Exito!`,
+                    text: "El elemento fue agregado correctamente",
+                    icon: "success"
+                });
+                console.log(response);
+                print(searchAll(module), template, container)
+            }
+        })
+    }
+
+    const searchSingle = ()=>{
+        
+    }
+
+    return { InputPrice, hora, fecha, setValidationStyles, validateField, SelectOption, viewImage, searchAll, print, add }
 }

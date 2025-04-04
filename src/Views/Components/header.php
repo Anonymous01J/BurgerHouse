@@ -17,7 +17,9 @@
     <link rel="stylesheet" href="./assets/libs/extra-libs/datatables.net-bs4/css/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="./assets/libs/extra-libs/datatables.net-bs4/css/responsive.dataTables.min.css">
     <link href="./assets/css/stylesPerson.css" rel="stylesheet">
-
+    
+    <link rel="stylesheet" href="./assets/libs/libs/sweetalert/sweetalert2.min.css">
+    <script src="./assets/libs/libs/sweetalert/sweetalert2.all.min.js"></script>
     <script src="./assets/libs/libs/validatejs/validate.min.js"></script>
 
 

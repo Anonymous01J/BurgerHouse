@@ -24,7 +24,7 @@
                         </nav>
                     </div>
                 </div>
-                
+
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
 
             </div>
@@ -43,11 +43,11 @@
 
             <div class="row">
 
-            <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
-            <?php include_once __DIR__ . '/../Views/Components/modals/combo/modal.php' ?>
+                <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
+                <?php include_once __DIR__ . '/../Views/Components/modals/combo/modal.php' ?>
 
 
-                <div class="col-md-12 col-lg-4">
+                <div class="col-md-12 col-lg-3">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between mb-3">
@@ -102,39 +102,41 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 col-lg-8">
-                    <div class="row gap-3 mx-auto">
-                        <?php for ($i = 0; $i < 6; $i++) { ?>
-                            <div class="card shadow rounded-4 mt-5 mx-auto w-auto h-auto">
-                                <div class="d-flex justify-content-center align-items-center" style="transform: translateY(-70px);">
-                                    <img src="./assets/img/users/profile-pic.jpg" alt="user" class="rounded-circle img-fluid" width="190">
+                <div class="col-md-12 col-lg-9">
+                    <!-- <div class="row justify-content-center gap-5 cont-combos">
+                        <div class="card shadow rounded-4 mt-5 w-auto h-auto">
+                            <div class="d-flex align-items-center" style="transform: translateY(-70px);">
+                                <img src="./assets/img/users/profile-pic.jpg" alt="user" class="rounded-circle img-fluid" width="150">
+                            </div>
+                            <div class="card-body p-0" style="transform: translateY(-50px);">
+                                <h5 class="card-title mb-3">Nombre</h5>
+                                <div class="mb-4">
+                                    <i data-feather="star" class="text-warning"></i>
+                                    <i data-feather="star" class="text-warning"></i>
+                                    <i data-feather="star" class="text-warning"></i>
+                                    <i data-feather="star" class="text-warning"></i>
+                                    <i data-feather="star" class="text-secondary"></i>
                                 </div>
-                                <div class="card-body p-0" style="transform: translateY(-50px);">
-                                    <h5 class="card-title mb-3">Nombre</h5>
-                                    <div class="mb-4">
-                                        <i data-feather="star" class="text-warning"></i>
-                                        <i data-feather="star" class="text-warning"></i>
-                                        <i data-feather="star" class="text-warning"></i>
-                                        <i data-feather="star" class="text-warning"></i>
-                                        <i data-feather="star" class="text-secondary"></i>
-                                    </div>
-                                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <p class="mb-0">precio</p>
-                                        <div class="d-flex gap-3">
-                                            <i data-feather="edit"></i>
-                                            <i data-feather="trash-2"></i>
-                                        </div>
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <p class="mb-0">precio</p>
+                                    <div class="d-flex gap-3">
+                                        <i data-feather="edit"></i>
+                                        <i data-feather="trash-2"></i>
                                     </div>
                                 </div>
                             </div>
-                        <?php } ?>
+                        </div>
+                    </div> -->
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-4 cont-combos">
+                        
                     </div>
                 </div>
             </div>
         </div>
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
 </div>
-
+<button></button>
 
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
@@ -146,7 +148,3 @@
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
 <script type="module" src="./assets/js/pages/combo/combo.js"></script>
-
-
-
-<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

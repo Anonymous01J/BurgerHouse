@@ -1,7 +1,9 @@
 // ----------------Parse de los inputs de tipo price-----------------------------
 
 import functionGeneral from "../../Functions.js";
-const { InputPrice, SelectOption, viewImage, setValidationStyles } = functionGeneral();
+import Templates from "../../templates.js";
+const { InputPrice, SelectOption, viewImage, setValidationStyles, searchAll, print, add } = functionGeneral();
+const { targetCombo } = Templates()
 
 InputPrice("[input_price]");
 
@@ -320,7 +322,7 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
       id_categoria: product.querySelector(`input[name="id_categoria"]`) ? product.querySelector(`input[name="id_categoria"]`).value : "",
       id_receta: product.querySelector(`input[name="id_receta"]`) ? product.querySelector(`input[name="id_receta"]`).value : "",
       detalles: product.querySelector(`textarea[name="detalles"]`) ? product.querySelector(`textarea[name="detalles"]`).value : "",
-      imagen: product.querySelector(`input[name="imagen"]`) ? product.querySelector(`input[name="imagen"]`).value : ""
+      imagen: product.querySelector(`input[name="imagen"]`) ? product.querySelector(`input[name="imagen"]`).files[0] : ""
     };
     combo.push(data)
 
@@ -337,17 +339,7 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
   });
 
   if (!formHasError) {
-    alert("Todos los productos fueron validados correctamente");
-    // Aquí enviarías los datos al servidor
-    $.ajax({
-      type: "POST",
-      url: "combo/add_many",
-      data: {lista: combo},
-      success: function (response) {
-        console.log(response);
-       
-      }
-    })
+    add('combo', combo, targetCombo, ".cont-combos")
   }
 });
 
@@ -444,12 +436,5 @@ const rules = {
   },
 };
 
-// $.ajax({
-//   type: "POST",
-//   url: "combo/update",
-//   data: {id: 29, active: 0},
-//   success: function (response) {
-//     console.log(response);
-   
-//   }
-// })
+
+print(searchAll("combo"), targetCombo, ".cont-combos")
