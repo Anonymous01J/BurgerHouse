@@ -28,7 +28,28 @@ export default function Templates() {
         </div>
         `
     }
+    // template menu website
+    function targetMenu(objet){ 
+        return `
+        <div class="col-lg-6 menu-item isotope-item filter-${objet.id_categoria}" style="position: absolute; left: 0px; top: 133px;">
+            <img src="${objet.img}" class="menu-img" alt="">
+            <div class="menu-content">
+                <a href="#">${objet.nombre}</a><span>${objet.precio}</span>
+            </div>
+            <div class="menu-ingredients">
+            ${objet.detalles}
+            </div>
+            </div>
+        `
+    }
+    // template categorias de producto website
+    function targetCategoryMenu(objet){ 
+        return `
+            <ul class="menu-filters isotope-filters">
+                <li data-filter=".filter-${objet.nombre}">${objet.nombre}</li>
+        `
+    }
 
 
-    return {targetCombo}
+    return {targetCombo,targetMenu,targetCategoryMenu}
 }
