@@ -9,12 +9,15 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../public/assets/img/favicon.png">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
   <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -61,7 +64,7 @@
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
           <!-- Uncomment the line below if you also wish to use an image logo -->
-          <img src="../assets/images/favicon.png" width="10px" alt="">
+          <img src="../../../public/assets/img/favicon.png">
           <h1 class="sitename">Burger House</h1>
         </a>
 
@@ -96,7 +99,18 @@
           </ul>
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
-
+        <!-- cart -->
+        <a class="btn-book-a-table toolTip" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" data-bs-toggle="tooltip" data-bs-placement="top" title="Carrito de compras"><i class="uil uil-shopping-cart-alt"></i></a>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+          <div class="offcanvas-header">
+            <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            ...
+          </div>
+        </div>
+        <!-- <a class="btn-book-a-table d-none d-md-block d-flex justify-content-center" href="#">Carrito<i class="uil uil-shopping-cart-alt"></i></a> -->
         <a class="btn-book-a-table d-none d-xl-block" href="#">Iniciar Sesión</a>
 
       </div>
@@ -223,7 +237,7 @@
               <li data-filter=".filter-Pepitos">Pepitos</li>
               <li data-filter=".filter-Perros">Perros Calientes</li>
               <li data-filter=".filter-Griegos">Griegos</li>
-              <li data-filter=".filter-HIDS">HIDS</li>
+              <li data-filter=".filter-KIDS">KIDS</li>
               <li data-filter=".filter-Papas">Papas</li>
             </ul>
           </div>
@@ -239,6 +253,11 @@
             <div class="menu-ingredients">
               Lorem, deren, trataro, filede, nerada
             </div>
+            <form action="agregar_al_carrito.php" method="post">
+              <input type="hidden" name="id" value="<?= $producto['id'] ?>">
+              <input type="number" name="cantidad" value="1" min="1">
+              <button type="submit">Agregar al carrito</button>
+          </form>
           </div><!-- Menu Item -->
 
           <div class="col-lg-6 menu-item isotope-item filter-Pepitos">
@@ -441,7 +460,7 @@
             </div>
           </div><!-- Menu Item -->
 
-          <div class="col-lg-6 menu-item isotope-item filter-HIDS">
+          <div class="col-lg-6 menu-item isotope-item filter-KIDS">
             <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
             <div class="menu-content">
               <a href="#">Mini burger</a><span>$3.00</span>
@@ -451,7 +470,7 @@
             </div>
           </div><!-- Menu Item -->
 
-          <div class="col-lg-6 menu-item isotope-item filter-HIDS">
+          <div class="col-lg-6 menu-item isotope-item filter-KIDS">
             <img src="assets/img/menu/lobster-roll.jpg" class="menu-img" alt="">
             <div class="menu-content">
               <a href="#">Tenders de pollo</a><span>$4.00</span>
@@ -512,19 +531,19 @@
           <div class="col-lg-3">
             <ul class="nav nav-tabs flex-column">
               <li class="nav-item">
-                <a class="nav-link active show" data-bs-toggle="tab" href="#specials-tab-1">Modi sit est</a>
+                <a class="nav-link active show" data-bs-toggle="tab" href="#specials-tab-1">Burger House</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-2">Unde praesentium sed</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-2">Pepito Mixto</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-3">Pariatur explicabo vel</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-3">Smash Burger</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-4">Nostrum qui quasi</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-4">Club House</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-5">Iusto ut expedita aut</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#specials-tab-5">Tasty Burger</a>
               </li>
             </ul>
           </div>
@@ -533,9 +552,8 @@
               <div class="tab-pane active show" id="specials-tab-1">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Architecto ut aperiam autem id</h3>
-                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                    <p>Et nobis maiores eius. Voluptatibus ut enim blanditiis atque harum sint. Laborum eos ipsum ipsa odit magni. Incidunt hic ut molestiae aut qui. Est repellat minima eveniet eius et quis magni nihil. Consequatur dolorem quaerat quos qui similique accusamus nostrum rem vero</p>
+                    <h3>Es la estrella de la casa y lo merece</h3>
+                    <p class="fst-italic">Una explosión de sabor con carne, pollo crispy, cebolla caramelizada y crispy, maíz, queso cheddar y tocineta. Todo esto con nuestra salsa especial y papas fritas incluidas. ¡Nuestra insignia!</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="assets/img/specials-1.png" alt="" class="img-fluid">
@@ -545,9 +563,8 @@
               <div class="tab-pane" id="specials-tab-2">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Et blanditiis nemo veritatis excepturi</h3>
-                    <p class="fst-italic">Qui laudantium consequatur laborum sit qui ad sapiente dila parde sonata raqer a videna mareta paulona marka</p>
-                    <p>Ea ipsum voluptatem consequatur quis est. Illum error ullam omnis quia et reiciendis sunt sunt est. Non aliquid repellendus itaque accusamus eius et velit ipsa voluptates. Optio nesciunt eaque beatae accusamus lerode pakto madirna desera vafle de nideran pal</p>
+                    <h3>Ideal para quien quiere algo contundente y con de todo un poco</h3>
+                    <p class="fst-italic">¡Un clásico que nunca falla! Solomo, pollo, chorizo, cuatro tipos de queso, tocineta y maíz, en 22 cm de puro sabor. Acompañado de papas fritas.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="assets/img/specials-2.png" alt="" class="img-fluid">
@@ -557,9 +574,8 @@
               <div class="tab-pane" id="specials-tab-3">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Impedit facilis occaecati odio neque aperiam sit</h3>
-                    <p class="fst-italic">Eos voluptatibus quo. Odio similique illum id quidem non enim fuga. Qui natus non sunt dicta dolor et. In asperiores velit quaerat perferendis aut</p>
-                    <p>Iure officiis odit rerum. Harum sequi eum illum corrupti culpa veritatis quisquam. Neque necessitatibus illo rerum eum ut. Commodi ipsam minima molestiae sed laboriosam a iste odio. Earum odit nesciunt fugiat sit ullam. Soluta et harum voluptatem optio quae</p>
+                    <h3>De lo más pro del menú.</h3>
+                    <p class="fst-italic">Si lo tuyo es el sabor intenso, esta es tu burger. Triple carne, triple cheddar, tocineta, pepinillo, cebolla morada, en pan de papa y con papas fritas.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="assets/img/specials-3.png" alt="" class="img-fluid">
@@ -569,9 +585,8 @@
               <div class="tab-pane" id="specials-tab-4">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Fuga dolores inventore laboriosam ut est accusamus laboriosam dolore</h3>
-                    <p class="fst-italic">Totam aperiam accusamus. Repellat consequuntur iure voluptas iure porro quis delectus</p>
-                    <p>Eaque consequuntur consequuntur libero expedita in voluptas. Nostrum ipsam necessitatibus aliquam fugiat debitis quis velit. Eum ex maxime error in consequatur corporis atque. Eligendi asperiores sed qui veritatis aperiam quia a laborum inventore</p>
+                    <h3>Para variar sin salir del sabor casero y callejero</h3>
+                    <p class="fst-italic">Una opción diferente y muy completa: pollo, jamón, huevo, tocineta, vegetales, y tortilla, todo en pan de sándwich. Servido con papas fritas.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="assets/img/specials-4.png" alt="" class="img-fluid">
@@ -581,9 +596,8 @@
               <div class="tab-pane" id="specials-tab-5">
                 <div class="row">
                   <div class="col-lg-8 details order-2 order-lg-1">
-                    <h3>Est eveniet ipsam sindera pad rone matrelat sando reda</h3>
-                    <p class="fst-italic">Omnis blanditiis saepe eos autem qui sunt debitis porro quia.</p>
-                    <p>Exercitationem nostrum omnis. Ut reiciendis repudiandae minus. Omnis recusandae ut non quam ut quod eius qui. Ipsum quia odit vero atque qui quibusdam amet. Occaecati sed est sint aut vitae molestiae voluptate vel</p>
+                    <h3>Perfecta para los que quieren full queso y carne</h3>
+                    <p class="fst-italic">Inspirada en la Big Tasty, esta versión trae triple carne, triple cheddar, salsa especial, vegetales frescos y pan de papa. Incluye papas fritas.</p>
                   </div>
                   <div class="col-lg-4 text-center order-1 order-lg-2">
                     <img src="assets/img/specials-5.png" alt="" class="img-fluid">
@@ -1200,6 +1214,8 @@
   <div id="preloader"></div>
 
   <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/popper.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="assets/vendor/php-email-form/validate.js"></script>
   <script src="assets/vendor/aos/aos.js"></script>
@@ -1207,7 +1223,12 @@
   <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-
+  <script>
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('.toolTip'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  </script>
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
 

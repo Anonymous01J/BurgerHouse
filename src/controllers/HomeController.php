@@ -6,7 +6,7 @@ use Shtch\Burgerhouse\controllers\Controller_base;
 class HomeController extends Controller_base {
 
     public function __construct(){
-        parent::__construct('index');
+        parent::__construct(module_name: 'index');
     }
 
     public function index() {
