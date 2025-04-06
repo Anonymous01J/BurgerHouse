@@ -140,5 +140,5 @@ export default function Templates() {
     `
     }
 
-    return { targetCombo , elemenFormCombo}
+    return { targetCombo , elemenFormCombo, targetCategoryMenu, targetMenu }
 }
