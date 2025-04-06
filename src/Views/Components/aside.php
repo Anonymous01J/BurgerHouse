@@ -134,7 +134,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a href="raw-material" class="sidebar-link">
+                            <a href="rawmaterial" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Materia Prima
                                 </span>

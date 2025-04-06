@@ -6,7 +6,6 @@ use Shtch\Burgerhouse\models\Receta;
 
 class RecipeController extends Controller_base {
     public function __construct() {
-        parent::__construct('recetas');
-        $this->db = new Receta();
+        parent::__construct('recipe');
     }
 }

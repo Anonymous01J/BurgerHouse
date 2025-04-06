@@ -147,4 +147,4 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
-<script type="module" src="./assets/js/pages/combo/combo.js"></script>
+<script type="module" defer src="./assets/js/pages/combo/combo.js"></script>

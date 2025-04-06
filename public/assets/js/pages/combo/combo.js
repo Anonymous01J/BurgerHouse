@@ -2,8 +2,8 @@
 
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { InputPrice, SelectOption, viewImage, setValidationStyles, searchAll, print, add } = functionGeneral();
-const { targetCombo } = Templates()
+const { InputPrice, SelectOption, viewImage, setValidationStyles,validateField, searchAll, print, add } = functionGeneral();
+const { targetCombo, elemenFormCombo } = Templates()
 
 InputPrice("[input_price]");
 
@@ -14,138 +14,48 @@ viewImage(".input-image")
 
 // ------------------Validacion de Formulario---------------------------
 
-// validate.validators.precio = function (value, options, key, attributes) {
-//     if (!value) return;
-//     const cleanValue = value.replace(/\./g, '').replace(',', '.');
-//     const numberValue = parseFloat(cleanValue);
-
-//     if (isNaN(numberValue)) {
-//         return options.message || "no es un número válido";
-//     }
-//     if (numberValue <= 0) {
-//         return options.message || "debe ser un número mayor a 0";
-//     }
-// };
-
-// validate.validators.validateCategoryAndRecipe = function (value, options, key, attributes) {
-//     if (!value) {
-//         return options.message || "es requerido";
-//     }
-//     if (value.toLowerCase() === "seleccione una opcion") {
-//         return options.message || "es requerido'";
-//     }
-// };
-
-// validate.validators.nombreValidator = function (value, options, key, attributes) {
-//     if (!value) return;
-
-//     if (!/^[A-Z]/.test(value)) {
-//         return options.uppercaseMessage;
-//     }
-
-//     if (!/^[A-Za-z0-9\s]*$/.test(value)) {
-//         return options.specialCharMessage;
-//     }
-// };
 
 
-// const rules = {
-//     nombre: {
-//         nombreValidator: {
-//             uppercaseMessage: "^debe tener la primera letra en mayúscula.",
-//             specialCharMessage: "^No se permiten signos como puntos (.) o comas (,)."
-//         },
-//         presence: {
-//             allowEmpty: false,
-//             message: "^es requerido"
-//         },
-//         length: {
-//             minimum: 4,
-//             message: "^debe tener al menos 4 caracteres"
-//         },
-//         format: {
-//             pattern: /^[A-Z].*/,
-//             message: "^debe empezar con mayuscula"
-//         },
-//     },
-//     precio: {
-//         presence: {
-//             allowEmpty: false,
-//             message: "^es requerido"
-//         },
-//         precio: { message: "^debe ser un número mayor a 0" }
-//     },
-//     categoria: {
-//         presence: {
-//             allowEmpty: false,
-//             message: "^es requerida"
-//         },
-//         validateCategoryAndRecipe: { message: "^es requerido" }
-//     },
-//     receta: {
-//         presence: {
-//             allowEmpty: false,
-//             message: "^es requerida"
-//         },
-//         validateCategoryAndRecipe: { message: "^es requerido" }
-//     },
-//     descripcion: {
-//         presence: {
-//             allowEmpty: false,
-//             message: "^es requerido"
-//         },
-//         length: {
-//             minimum: 15,
-//             message: "^debe tener al menos 15 caracteres"
-//         }
-//     },
-//     img: {
-//         presence: {
-//             allowEmpty: false,
-//             message: "^es requerido"
-//         }
-//     },
-// };
 
-// document.querySelectorAll("#form-submit-combo input[type='text'], #form-submit-combo textarea").forEach(input => {
+// document.querySelectorAll("#form-submit-edit-combo input[type='text'], #form-submit-edit-combo textarea").forEach(input => {
 //     input.addEventListener("keyup", (e) => { validateField(e, rules) });
 //     input.addEventListener("blur", (e) => { validateField(e, rules) });
 // });
 
-// document.getElementById("form-submit-combo").addEventListener("submit", (e) => {
+// document.getElementById("form-submit-edit-combo").addEventListener("submit", (e) => {
 //     e.preventDefault()
 
 //     let data = {
 //         nombre: document.getElementById("input-name-combo").value,
 //         precio: document.getElementById("input-price-combo").value,
-//         categoria: document.getElementById("input-category-combo").value,
-//         receta: document.getElementById("input-recipe-combo").value,
-//         descripcion: document.getElementById("input-description-combo").value,
-//         img: document.getElementById("input-img-combo").value
+//         id_categoria: document.getElementById("input-category-combo").value,
+//         id_receta: document.getElementById("input-recipe-combo").value,
+//         detalles: document.getElementById("input-details-combo").value,
+//         imagen: document.getElementById("input-image-combo").files[0]
 //     }
 
 //     const errors = validate(data, rules);
 
 //     setValidationStyles("input-name-combo", errors?.nombre ? errors.nombre[0] : null);
 //     setValidationStyles("input-price-combo", errors?.precio ? errors.precio[0] : null);
-//     setValidationStyles("input-category-combo", errors?.categoria ? errors.categoria[0] : null);
-//     setValidationStyles("input-recipe-combo", errors?.receta ? errors.receta[0] : null);
-//     setValidationStyles("input-description-combo", errors?.descripcion ? errors.descripcion[0] : null);
-//     setValidationStyles("input-img-combo", errors?.img ? errors.img[0] : null);
+//     setValidationStyles("input-category-combo", errors?.id_categoria ? errors.id_categoria[0] : null);
+//     setValidationStyles("input-recipe-combo", errors?.id_receta ? errors.id_receta[0] : null);
+//     setValidationStyles("input-details-combo", errors?.detalles ? errors.detalles[0] : null);
+//     setValidationStyles("input-image-combo", errors?.imagen ? errors.imagen[0] : null);
 
 //     if (!errors) {
 //         alert("Formulario enviado correctamente");
 //         // this.reset();
 
-//         const inputs = this.querySelectorAll(".is-valid, .is-invalid");
-//         inputs.forEach(function (input) {
-//             input.classList.remove("is-valid", "is-invalid");
-//         });
+//         // const inputs = this.querySelectorAll(".is-valid, .is-invalid");
+//         // inputs.forEach(function (input) {
+//         //     input.classList.remove("is-valid", "is-invalid");
+//         // });
 
-//         const errorMessages = this.querySelectorAll(".text-danger");
-//         errorMessages.forEach(function (error) {
-//             error.textContent = "";
-//         });
+//         // const errorMessages = this.querySelectorAll(".text-danger");
+//         // errorMessages.forEach(function (error) {
+//         //     error.textContent = "";
+//         // });
 //     }
 // })
 
@@ -153,128 +63,30 @@ viewImage(".input-image")
 // Contador global de productos. Inicia en 1 porque ya existe un producto por defecto.
 let productCount = 1;
 
-// Función para crear y agregar un nuevo grupo de inputs (producto)
 function addProduct() {
   productCount++;
-  const productHTML = `
-      <div class="row g-2 product" id="product-${productCount}">
-        <div class="d-flex align-items-center gap-4 mb-3">
-            <h2 class="m-0">Combo ${productCount}</h2>
-            <button type="button" class="btn btn-circle btn-secondary remove-product">
-                <i data-feather="trash"></i>
-            </button>
-        </div>
-
-        <div class="col-md-3">
-          <label for="input-name-combo-${productCount}" class="form-label">Nombre</label>
-          <input type="text" class="form-control" placeholder="Nombre" id="input-name-combo-${productCount}" name="nombre">
-          <div class="text-danger mt-1 fs-6" id="error-input-name-combo-${productCount}"></div>
-        </div>
-        <div class="col-md-3">
-          <label for="input-price-combo-${productCount}" class="form-label">Precio</label>
-          <div class="input-group">
-            <span class="input-group-text">$</span>
-            <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-combo-${productCount}" name="precio">
-            <div class="text-danger mt-1 fs-6" id="error-input-price-combo-${productCount}"></div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <label for="input-category-combo-${productCount}" class="form-label">Categoria</label>
-          <div class="dropdown">
-            <div class="dropdown">
-              <div class="btn-group w-100" bis_skin_checked="1">
-                <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-combo-${productCount}" name="id_categoria">
-                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span><i data-feather="chevron-down"></i></span>
-                </button>
-                <div class="dropdown-menu p-2" bis_skin_checked="1">
-                  <div>
-                    <input class="form-control" type="text" placeholder="Buscar">
-                  </div>
-                  <a class="dropdown-item">1</a>
-                  <a class="dropdown-item">2</a>
-                  <a class="dropdown-item">3</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-danger mt-1 fs-6" id="error-input-category-combo-${productCount}"></div>
-        </div>
-        <div class="col-md-3">
-          <label for="input-recipe-combo-${productCount}" class="form-label">Receta</label>
-          <div class="dropdown">
-            <div class="dropdown">
-              <div class="btn-group w-100" bis_skin_checked="1">
-                <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-recipe-combo-${productCount}" name="id_receta">
-                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <span><i data-feather="chevron-down"></i></span>
-                </button>
-                <div class="dropdown-menu p-2" bis_skin_checked="1">
-                  <div>
-                    <input class="form-control" type="text" placeholder="Buscar">
-                  </div>
-                  <a class="dropdown-item">1</a>
-                  <a class="dropdown-item">2</a>
-                  <a class="dropdown-item">3</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-danger mt-1 fs-6" id="error-input-recipe-combo-${productCount}"></div>
-        </div>
-        <div class="col-12">
-          <label for="input-description-combo-${productCount}" class="form-label">Descripcion</label>
-          <textarea placeholder="Detalles" class="form-control" id="input-details-combo-${productCount}" rows="5" name="detalles"></textarea>
-          <div class="text-danger mt-1 fs-6" id="error-input-details-combo-${productCount}"></div>
-        </div>
-        <div class="col-12">
-          <label for="input-img-combo-${productCount}" class="form-label">Imagen</label>
-          <input class="form-control input-image" type="file" id="input-image-combo-${productCount}" name="imagen">
-          <div class="text-danger mt-1 fs-6" id="error-input-image-combo-${productCount}"></div>
-          <img src="" alt="Vista previa" style="max-width: 200px; display: none;">
-        </div>
-        <div class="bg-secondary my-5" style="font-size: 1px;"> 2</div>
-        <input type="submit" class="d-none" id="submit-combo">
-      </div>
-    `;
-  document.getElementById("products-container").insertAdjacentHTML('beforeend', productHTML);
+  document.getElementById("products-container").insertAdjacentHTML('beforeend', elemenFormCombo(productCount));
   feather.replace();
   viewImage(".input-image")
   InputPrice("[input_price]");
   SelectOption()
 
-
-
-  // Asigna validación a los nuevos inputs
   attachValidationListeners(productCount);
 
-  // Asigna listener para el botón de eliminación
   const newProduct = document.getElementById(`product-${productCount}`);
   newProduct.querySelector(".remove-product").addEventListener("click", function () {
-    newProduct.remove();  // Elimina el producto del DOM
-    reindexProducts();    // Reindexa los productos restantes
+    newProduct.remove();
+    reindexProducts(); 
   });
 }
 
 function attachValidationListeners(index) {
   const productElement = document.getElementById(`product-${index}`);
   productElement.querySelectorAll("input[type='text'], textarea, input[type='button'], input[type='file']").forEach(input => {
-    input.addEventListener("keyup", (e) => validateField(e, index));
-    input.addEventListener("blur", (e) => validateField(e, index));
-    input.addEventListener("change", (e) => validateField(e, index));
+    input.addEventListener("keyup", (e) => validateField(e, rules));
+    input.addEventListener("blur", (e) => validateField(e, rules));
+    input.addEventListener("change", (e) => validateField(e, rules));
   });
-}
-
-function validateField(event, index) {
-  const field = event.target;
-  const fieldName = field.name;
-  const fieldValue = field.value;
-  const data = { [fieldName]: fieldValue };
-  const fieldRules = { [fieldName]: rules[fieldName] };
-
-  const errors = validate(data, fieldRules);
-  const errorMessage = errors ? errors[fieldName][0] : null;
-  setValidationStyles(field.id, errorMessage);
 }
 
 function reindexProducts() {
@@ -304,7 +116,6 @@ function reindexProducts() {
   });
 }
 
-// Asigna listener al botón para agregar nuevos productos
 document.getElementById("add-product-btn").addEventListener("click", addProduct);
 
 // Evento submit para validar todos los productos
@@ -322,7 +133,7 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
       id_categoria: product.querySelector(`input[name="id_categoria"]`) ? product.querySelector(`input[name="id_categoria"]`).value : "",
       id_receta: product.querySelector(`input[name="id_receta"]`) ? product.querySelector(`input[name="id_receta"]`).value : "",
       detalles: product.querySelector(`textarea[name="detalles"]`) ? product.querySelector(`textarea[name="detalles"]`).value : "",
-      imagen: product.querySelector(`input[name="imagen"]`) ? product.querySelector(`input[name="imagen"]`).files[0] : ""
+      imagen: product.querySelector(`input[name="imagen"]`) ? product.querySelector(`input[name="imagen"]`).files[0]: ""
     };
     combo.push(data)
 
@@ -339,14 +150,21 @@ document.getElementById("form-submit-combo").addEventListener("submit", function
   });
 
   if (!formHasError) {
-    add('combo', combo, targetCombo, ".cont-combos")
+    let form = new FormData()
+    combo.forEach((combo, index) => {
+      form.append(`combo[${index}][nombre]`, combo.nombre);
+      form.append(`combo[${index}][precio]`, combo.precio);
+      form.append(`combo[${index}][id_categoria]`, combo.id_categoria);
+      form.append(`combo[${index}][id_receta]`, combo.id_receta);
+      form.append(`combo[${index}][detalles]`, combo.detalles);
+      form.append(`combo[${index}][imagen]`, combo.imagen);
+    })
+    add('combo', form, targetCombo, ".cont-combos")
+    // bootstrap.Modal.getOrCreateInstance('#register-combo').hide()
   }
 });
 
-// Si se desea, asigna validación inicial al producto por defecto
-attachValidationListeners(1);
-
-
+attachValidationListeners(1)
 
 validate.validators.precio = function (value, options, key, attributes) {
   if (!value) return;
@@ -437,4 +255,4 @@ const rules = {
 };
 
 
-print(searchAll("combo"), targetCombo, ".cont-combos")
+print(searchAll("combo", 1), targetCombo, ".cont-combos")

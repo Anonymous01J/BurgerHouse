@@ -8,10 +8,8 @@ $(function () {
         bindto: '#campaign-v2',
         data: {
             columns: [
-                ['Direct Sales', 25],
-                ['Referral Sales', 15],
-                ['Afilliate Sales', 10],
-                ['Indirect Sales', 15]
+                ['Delivery', 25],
+                ['Local', 15],
             ],
 
             type: 'donut',
@@ -23,7 +21,7 @@ $(function () {
             label: {
                 show: false
             },
-            title: 'Sales',
+            title: 'Ventas',
             width: 18
         },
 
@@ -32,10 +30,8 @@ $(function () {
         },
         color: {
             pattern: [
-                '#edf2f6',
                 '#5f76e8',
                 '#ff4f70',
-                '#01caf1'
             ]
         }
     });
@@ -46,9 +42,9 @@ $(function () {
     // income
     // ============================================================== 
     var data = {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
         series: [
-            [5, 4, 3, 7, 5, 10]
+            [5, 4, 3, 7, 5, 10, 5, 4, 3, 7, 5, 10]
         ]
     };
 
@@ -117,7 +113,7 @@ $(function () {
     // Earning Stastics Chart
     // ==============================================================
     var chart = new Chartist.Line('.stats', {
-        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        labels: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
         series: [
             [11, 10, 15, 21, 14, 23, 12]
         ]

@@ -8,7 +8,7 @@
     <?php require_once("./Components/aside.php") ?>
 
     <div class="page-wrapper">
-       
+
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-       
+
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -308,9 +308,9 @@
                 </div>
             </div>
         </div>
-       
+
     </div>
-   
+
 </div>
 
 <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
@@ -336,5 +336,8 @@
         });
     });
 </script>
+
+
+
 
 <?php require_once("./Components/footer.php") ?>

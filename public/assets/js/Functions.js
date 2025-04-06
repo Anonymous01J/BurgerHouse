@@ -53,9 +53,12 @@ export default function functionGeneral() {
         const field = event.target;
         const fieldName = field.name;
         const fieldValue = field.value;
+        const data = { [fieldName]: fieldValue };
+        const fieldRules = { [fieldName]: rules[fieldName] };
 
-        const errors = validate({ [fieldName]: fieldValue }, { [fieldName]: rules[fieldName] });
-        setValidationStyles(field.id, errors ? errors[fieldName][0] : null);
+        const errors = validate(data, fieldRules);
+        const errorMessage = errors ? errors[fieldName][0] : null;
+        setValidationStyles(field.id, errorMessage);
     }
 
     function SelectOption() {
@@ -90,8 +93,14 @@ export default function functionGeneral() {
 
     //--------------funciones para el manejo de peticiones ajax------------------
 
-    const searchAll = async (module) => {
-        let search = await fetch(`${module}/get_all`)
+    const searchAll = async (module, active) => {
+        let data = new FormData()
+        data.append("active", active)
+
+        let search = await fetch(`${module}/get_all/0/6/id/desc`, {
+            method: "POST",
+            body: data,
+        })
         let response = await search.json()
         return response
     }
@@ -102,6 +111,7 @@ export default function functionGeneral() {
             templatesWrapper += template(element)
         })
         document.querySelector(container).innerHTML = templatesWrapper
+
         Delete(template, container)
         feather.replace()
     }
@@ -124,7 +134,7 @@ export default function functionGeneral() {
                             url: `${module}/update`,
                             data: { id, active: 0 },
                             success: function (response) {
-                                print(searchAll(module), template, container)
+                                print(searchAll(module, 1), template, container)
                             }
                         })
                         Swal.fire({
@@ -140,27 +150,55 @@ export default function functionGeneral() {
         })
 
     }
-    const add = (module, data, template, container) => {
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            processData: false,
-            url: `${module}/add_many`,
-            data: { lista: data },
-            success: function (response) {
-                Swal.fire({
-                    title: `Exito!`,
-                    text: "El elemento fue agregado correctamente",
-                    icon: "success"
-                });
-                console.log(response);
-                print(searchAll(module), template, container)
-            }
+    const add = async (module, data, template, container) => {
+
+        let action = await fetch(`${module}/add_many`, {
+            method: "POST",
+            body: data
         })
+
+        let response = await action.json()
+        console.log(response);
+        // Swal.fire({
+        //     title: `Exito!`,
+        //     text: "El elemento fue agregado correctamente",
+        //     icon: "success"
+        // });
+        // print(searchAll(module, 1), template, container)
+
     }
 
-    const searchSingle = ()=>{
-        
+    const searchSingle = () => {
+
+    }
+
+    const edit = () => {
+        document.querySelectorAll(".edit_btn").forEach(btn => {
+            btn.addEventListener("click", () => {
+                let id = btn.getAttribute("data-id")
+                let module = btn.getAttribute("data-module")
+
+                $.ajax({
+                    type: "POST",
+                    url: `${module}/get_all`,
+                    data: { id },
+                    success: function (response) {
+                        let json = JSON.parse(response)
+                        for (const key in json) {
+                            if (json.hasOwnProperty(key)) {
+                                let input = document.querySelector(`[name="${key}"]`);
+                                if (input) {
+                                    input.value = json[key];
+                                }
+                            }
+                        }
+
+                    }
+                })
+
+                // new bootstrap.Modal(document.getElementById("edit-combo")).show()
+            })
+        })
     }
 
     return { InputPrice, hora, fecha, setValidationStyles, validateField, SelectOption, viewImage, searchAll, print, add }

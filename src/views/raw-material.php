@@ -358,9 +358,10 @@
                 </div>
 
             </div>
-
-
+            
+            
         </div>
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
 
     </div>
 
@@ -383,5 +384,3 @@
 <script type="module" src="./assets/js/pages/raw-material/entrys.js"></script>
 
 
-
-<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

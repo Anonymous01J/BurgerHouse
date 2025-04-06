@@ -80,5 +80,7 @@ class Controller_base {
         echo "Session";
         print_r($_SESSION);
         echo "</pre>";
+        print_r($_FILES);
+        print_r($_POST['nombre']);
     }
 }
