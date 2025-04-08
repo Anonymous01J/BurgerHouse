@@ -61,6 +61,54 @@ export default function functionGeneral() {
         setValidationStyles(field.id, errorMessage);
     }
 
+    function reindex(elementAll, id, counter, name) {
+        const element = document.querySelectorAll(elementAll);
+        counter = element.length;
+
+        element.forEach((item, index) => {
+            const newIndex = index + 1;
+            item.id = `${id}-${newIndex}`;
+
+            item.querySelectorAll("input").forEach(input => {
+                const parts = input.id.split("-");
+                const baseId = parts.slice(0, parts.length - 1).join("-");
+                const newId = `${baseId}-${newIndex}`;
+                input.id = newId;
+            });
+            item.querySelectorAll("[id^='error-input']").forEach(errorDiv => {
+                const parts = errorDiv.id.split("-");
+                const newId = `${parts[0]}-${parts[1]}-${parts[2]}-${parts[3]}-${newIndex}`;
+                errorDiv.id = newId;
+            });
+
+            const header = item.querySelector("h4");
+            if (header) {
+                header.textContent = `${name} ${newIndex}`;
+            }
+        });
+    }
+
+    function resetForm(elements, form) {
+        let supplier = document.querySelectorAll(elements)
+        supplier.forEach(d => {
+            let id = d.id.split("-")[1]
+            if (id > 1) {
+                d.remove()
+            }
+            d.querySelectorAll("input, textarea").forEach(input => {
+                console.log(input);
+                input.value = input.type === "button" ? "Seleccione una opcion" : "";
+                input.classList.remove("is-valid", "is-invalid");
+            })
+            if (d.querySelectorAll("img")) {
+                d.querySelectorAll("img").forEach(img => {
+                    img.src = "";
+                    img.style.display = "none";
+                })
+            }
+        })
+        form.reset()
+    }
     function SelectOption() {
         document.querySelectorAll(".dropdown-item").forEach(item => {
             item.addEventListener("click", () => {
@@ -134,6 +182,7 @@ export default function functionGeneral() {
                             url: `${module}/update`,
                             data: { id, active: 0 },
                             success: function (response) {
+                                console.log(response);
                                 print(searchAll(module, 1), template, container)
                             }
                         })
@@ -201,5 +250,5 @@ export default function functionGeneral() {
         })
     }
 
-    return { InputPrice, hora, fecha, setValidationStyles, validateField, SelectOption, viewImage, searchAll, print, add }
+    return { InputPrice, hora, fecha, setValidationStyles, validateField, SelectOption, viewImage, searchAll, print, add, reindex, resetForm }
 }

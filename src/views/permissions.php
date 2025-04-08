@@ -101,13 +101,13 @@
                                                 <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descripcion" rows="12"></textarea>
                                             </div>
                                             <div class="mb-4">
-                                                <button data-bs-toggle="modal" data-bs-target="#confirmAction" type="button" class="btn bh_5 text-white">Guardar</button>
+                                                <button data-bs-toggle="modal" data-bs-target="#confirmAction" type="button" class="btn bh_1 text-white">Guardar</button>
                                             </div>
                                         </div>
                                         <!-- Column -->
                                         <div class="col-md-6 col-lg-9 col-xlg-3">
                                             <div class="form-check form-check-reverse mb-4">
-                                                <input class="form-check-input" type="checkbox" value="" id="reverseCheck1">
+                                                <input class="form-check-input check-all" type="checkbox" value="" id="reverseCheck1">
                                                 <label class="form-check-label" for="reverseCheck1">Seleccionar Todos</label>
                                             </div>
 
@@ -123,27 +123,27 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php for ($i = 0; $i < 15; $i++) { ?>
+                                                        <?php for ($i = 0; $i < 1; $i++) { ?>
                                                             <tr>
-                                                                <td>PRODUCTOS</td>
+                                                                <td>COMBO</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="Combo" data-action="search" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="Combo" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="Combo" data-action="modificar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="Combo" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
 
@@ -166,6 +166,7 @@
 
         </div>
 
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
 
     <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
@@ -181,6 +182,6 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
+<script src="./assets/js/pages/permissions/permissions.js"></script>
 
 
-<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

@@ -1,17 +1,11 @@
-// ----------------Parse de los inputs de tipo price-----------------------------
-
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { InputPrice, SelectOption, viewImage, setValidationStyles,validateField, searchAll, print, add } = functionGeneral();
+const { InputPrice, SelectOption, viewImage, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm } = functionGeneral();
 const { targetCombo, elemenFormCombo } = Templates()
 
 InputPrice("[input_price]");
-
-// ------------------Funcion de select de categoria y receta---------------------------
-
 SelectOption()
 viewImage(".input-image")
-
 // ------------------Validacion de Formulario---------------------------
 
 
@@ -62,7 +56,6 @@ viewImage(".input-image")
 
 // Contador global de productos. Inicia en 1 porque ya existe un producto por defecto.
 let productCount = 1;
-
 function addProduct() {
   productCount++;
   document.getElementById("products-container").insertAdjacentHTML('beforeend', elemenFormCombo(productCount));
@@ -76,7 +69,7 @@ function addProduct() {
   const newProduct = document.getElementById(`product-${productCount}`);
   newProduct.querySelector(".remove-product").addEventListener("click", function () {
     newProduct.remove();
-    reindexProducts(); 
+    reindex("#products-container .product", "product", productCount, "Combo");
   });
 }
 
@@ -89,83 +82,7 @@ function attachValidationListeners(index) {
   });
 }
 
-function reindexProducts() {
-  const products = document.querySelectorAll("#products-container .product");
-  productCount = products.length;
-
-  products.forEach((product, index) => {
-    const newIndex = index + 1;
-    product.id = `product-${newIndex}`;
-
-    product.querySelectorAll("input, textarea").forEach(input => {
-      const parts = input.id.split("-");
-      const baseId = parts.slice(0, parts.length - 1).join("-");
-      const newId = `${baseId}-${newIndex}`;
-      input.id = newId;
-    });
-    product.querySelectorAll("[id^='error-input']").forEach(errorDiv => {
-      const parts = errorDiv.id.split("-");
-      const newId = `${parts[0]}-${parts[1]}-${parts[2]}-${parts[3]}-${newIndex}`;
-      errorDiv.id = newId;
-    });
-
-    const header = product.querySelector("h2");
-    if (header) {
-      header.textContent = `Combo ${newIndex}`;
-    }
-  });
-}
-
 document.getElementById("add-product-btn").addEventListener("click", addProduct);
-
-// Evento submit para validar todos los productos
-document.getElementById("form-submit-combo").addEventListener("submit", function (e) {
-  e.preventDefault();
-  const products = document.querySelectorAll(".product");
-  let formHasError = false;
-  let combo = []
-
-  products.forEach((product, i) => {
-    const index = i + 1;
-    const data = {
-      nombre: product.querySelector(`input[name="nombre"]`).value,
-      precio: product.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
-      id_categoria: product.querySelector(`input[name="id_categoria"]`) ? product.querySelector(`input[name="id_categoria"]`).value : "",
-      id_receta: product.querySelector(`input[name="id_receta"]`) ? product.querySelector(`input[name="id_receta"]`).value : "",
-      detalles: product.querySelector(`textarea[name="detalles"]`) ? product.querySelector(`textarea[name="detalles"]`).value : "",
-      imagen: product.querySelector(`input[name="imagen"]`) ? product.querySelector(`input[name="imagen"]`).files[0]: ""
-    };
-    combo.push(data)
-
-    const errors = validate(data, rules);
-    setValidationStyles(`input-name-combo-${index}`, errors?.nombre ? errors.nombre[0] : null);
-    setValidationStyles(`input-price-combo-${index}`, errors?.precio ? errors.precio[0] : null);
-    setValidationStyles(`input-category-combo-${index}`, errors?.id_categoria ? errors.id_categoria[0] : null);
-    setValidationStyles(`input-recipe-combo-${index}`, errors?.id_receta ? errors.id_receta[0] : null);
-    setValidationStyles(`input-details-combo-${index}`, errors?.detalles ? errors.detalles[0] : null);
-    setValidationStyles(`input-image-combo-${index}`, errors?.imagen ? errors.imagen[0] : null);
-    if (errors) {
-      formHasError = true;
-    }
-  });
-
-  if (!formHasError) {
-    let form = new FormData()
-    combo.forEach((combo, index) => {
-      form.append(`combo[${index}][nombre]`, combo.nombre);
-      form.append(`combo[${index}][precio]`, combo.precio);
-      form.append(`combo[${index}][id_categoria]`, combo.id_categoria);
-      form.append(`combo[${index}][id_receta]`, combo.id_receta);
-      form.append(`combo[${index}][detalles]`, combo.detalles);
-      form.append(`combo[${index}][imagen]`, combo.imagen);
-    })
-    add('combo', form, targetCombo, ".cont-combos")
-    // bootstrap.Modal.getOrCreateInstance('#register-combo').hide()
-  }
-});
-
-attachValidationListeners(1)
-
 validate.validators.precio = function (value, options, key, attributes) {
   if (!value) return;
   const cleanValue = value.replace(/\./g, '').replace(',', '.');
@@ -178,7 +95,6 @@ validate.validators.precio = function (value, options, key, attributes) {
     return options.message || "debe ser un número mayor a 0";
   }
 };
-
 validate.validators.validateCategoryAndRecipe = function (value, options, key, attributes) {
   if (!value) {
     return options.message || "es requerido";
@@ -187,7 +103,6 @@ validate.validators.validateCategoryAndRecipe = function (value, options, key, a
     return options.message || "es requerido";
   }
 };
-
 validate.validators.nombreValidator = function (value, options, key, attributes) {
   if (!value) return;
 
@@ -199,7 +114,6 @@ validate.validators.nombreValidator = function (value, options, key, attributes)
     return options.specialCharMessage;
   }
 };
-
 const rules = {
   nombre: {
     nombreValidator: {
@@ -253,6 +167,55 @@ const rules = {
     }
   },
 };
+let form = document.getElementById("form-submit-combo")
+if (!form.dataset.listenerAttached) {
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const products = document.querySelectorAll(".product");
+    let formHasError = false;
+    let combo = []
 
+    products.forEach((product, i) => {
+      const index = i + 1;
+      const data = {
+        nombre: product.querySelector(`input[name="nombre"]`).value,
+        precio: product.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
+        id_categoria: product.querySelector(`input[name="id_categoria"]`) ? product.querySelector(`input[name="id_categoria"]`).value : "",
+        id_receta: product.querySelector(`input[name="id_receta"]`) ? product.querySelector(`input[name="id_receta"]`).value : "",
+        detalles: product.querySelector(`textarea[name="detalles"]`) ? product.querySelector(`textarea[name="detalles"]`).value : "",
+        imagen: product.querySelector(`input[name="imagen"]`) ? product.querySelector(`input[name="imagen"]`).files[0] : ""
+      };
+      combo.push(data)
 
+      const errors = validate(data, rules);
+      setValidationStyles(`input-name-combo-${index}`, errors?.nombre ? errors.nombre[0] : null);
+      setValidationStyles(`input-price-combo-${index}`, errors?.precio ? errors.precio[0] : null);
+      setValidationStyles(`input-category-combo-${index}`, errors?.id_categoria ? errors.id_categoria[0] : null);
+      setValidationStyles(`input-recipe-combo-${index}`, errors?.id_receta ? errors.id_receta[0] : null);
+      setValidationStyles(`input-details-combo-${index}`, errors?.detalles ? errors.detalles[0] : null);
+      setValidationStyles(`input-image-combo-${index}`, errors?.imagen ? errors.imagen[0] : null);
+      if (errors) {
+        formHasError = true;
+      }
+    });
+
+    if (!formHasError) {
+      let data = new FormData()
+      combo.forEach((combo, index) => {
+        data.append(`lista[${index}][nombre]`, combo.nombre);
+        data.append(`lista[${index}][precio]`, combo.precio);
+        data.append(`lista[${index}][id_categoria]`, combo.id_categoria);
+        data.append(`lista[${index}][id_receta]`, combo.id_receta);
+        data.append(`lista[${index}][detalles]`, combo.detalles);
+        data.append(`lista[${index}][imagen]`, combo.imagen);
+      })
+      resetForm("#products-container .product", form)
+      // add('combo', form, targetCombo, ".cont-combos")
+      // bootstrap.Modal.getOrCreateInstance('#register-combo').hide()
+    }
+  });
+  form.dataset.listenerAttached = "true";
+}
+
+attachValidationListeners(1)
 print(searchAll("combo", 1), targetCombo, ".cont-combos")

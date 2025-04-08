@@ -136,7 +136,6 @@
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
 </div>
-<button></button>
 
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>

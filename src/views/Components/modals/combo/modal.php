@@ -98,7 +98,7 @@
                 <form id="form-submit-combo">
                     <div id="products-container">
                         <div class="row g-2 product" id="product-1">
-                            <h2>Combo 1</h2>
+                            <h4>Combo 1</h4>
                             <div class="col-md-3">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
                                 <input type="text" class="form-control" placeholder="Nombre" id="input-name-combo-1" name="nombre">
@@ -168,9 +168,9 @@
                                 <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
                             </div>
                             <div class="bg-secondary my-5" style="font-size: 1px;"> 2</div>
-                            <input type="submit" class="d-none" id="submit-combo">
                         </div>
                     </div>
+                    <input type="submit" class="d-none" id="submit-combo">
                     <button type="button" id="add-product-btn" class="btn btn-secondary mt-3">Agregar Producto</button>
                 </form>
             </div>
