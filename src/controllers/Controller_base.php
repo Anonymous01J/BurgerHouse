@@ -17,6 +17,7 @@ class Controller_base {
     }
 
     public function get_all(...$args) {
+        $this->db->clear();
         $this->db->add_variables($_POST);
         // if (!$this->permisos['consultar']){
         //     echo json_encode(['success' => false, 'message' => 'No tienes permiso para consultar']);
@@ -33,6 +34,7 @@ class Controller_base {
     public function add() {
         header('Content-Type: application/json');
         try {
+            $this->db->clear();
             $this->db->add_variables($_POST);
             echo json_encode(['last_id' => $this->db->agregar()]);
         } catch (Exception $e) {
