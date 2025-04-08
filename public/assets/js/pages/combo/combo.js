@@ -207,11 +207,11 @@ if (!form.dataset.listenerAttached) {
         data.append(`lista[${index}][id_categoria]`, combo.id_categoria);
         data.append(`lista[${index}][id_receta]`, combo.id_receta);
         data.append(`lista[${index}][detalles]`, combo.detalles);
-        data.append(`lista[${index}][imagen]`, combo.imagen);
+        data.append(`lista[${index}][imagen]`, combo.imagen.name);
       })
       resetForm("#products-container .product", form)
-      // add('combo', form, targetCombo, ".cont-combos")
-      // bootstrap.Modal.getOrCreateInstance('#register-combo').hide()
+      add('combo', data, targetCombo, ".cont-combos")
+      bootstrap.Modal.getOrCreateInstance('#register-combo').hide()
     }
   });
   form.dataset.listenerAttached = "true";
