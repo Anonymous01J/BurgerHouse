@@ -96,7 +96,6 @@ export default function functionGeneral() {
                 d.remove()
             }
             d.querySelectorAll("input, textarea").forEach(input => {
-                console.log(input);
                 input.value = input.type === "button" ? "Seleccione una opcion" : "";
                 input.classList.remove("is-valid", "is-invalid");
             })
@@ -208,12 +207,12 @@ export default function functionGeneral() {
 
         let response = await action.json()
         console.log(response);
-        // Swal.fire({
-        //     title: `Exito!`,
-        //     text: "El elemento fue agregado correctamente",
-        //     icon: "success"
-        // });
-        // print(searchAll(module, 1), template, container)
+        Swal.fire({
+            title: `Exito!`,
+            text: "El elemento fue agregado correctamente",
+            icon: "success"
+        });
+        print(searchAll(module, 1), template, container)
 
     }
 
