@@ -1,5 +1,9 @@
 import functionGeneral from "../../Functions.js";
-const { validateField, setValidationStyles, SelectOption } = functionGeneral();
+import Templates from "../../templates.js";
+
+const { validateField, setValidationStyles, SelectOption, reindex, resetForm } = functionGeneral();
+const { elemenFormRawMaterial } = Templates()
+
 
 
 // ------------------Funcion de select de categoria y receta---------------------------
@@ -8,6 +12,31 @@ SelectOption()
 
 // ------------------Validaciones---------------------------
 
+let RawmaterialCount = 1;
+
+function addRawMaterial() {
+    RawmaterialCount++;
+    document.getElementById("rawmaterial-container").insertAdjacentHTML('beforeend', elemenFormRawMaterial(RawmaterialCount));
+    feather.replace();
+    SelectOption()
+
+    attachValidationListeners(RawmaterialCount);
+
+    const newProduct = document.getElementById(`rawmaterial-${RawmaterialCount}`);
+    newProduct.querySelector(".remove-rawmaterial").addEventListener("click", function () {
+        newProduct.remove();
+        reindex("#rawmaterial-container .rawmaterial", "rawmaterial", RawmaterialCount, "Materia Prima");
+    });
+}
+function attachValidationListeners(index) {
+    const RawmaterialElement = document.getElementById(`rawmaterial-${index}`);
+    RawmaterialElement.querySelectorAll("input[type='text']").forEach(input => {
+        input.addEventListener("keyup", (e) => validateField(e, rules));
+        input.addEventListener("blur", (e) => validateField(e, rules));
+    });
+}
+
+document.getElementById("add-rawmaterial-btn").addEventListener("click", addRawMaterial);
 
 validate.validators.validateCategoryAndUnit = function (value, options, key, attributes) {
     if (!value) {
@@ -50,14 +79,14 @@ const rules = {
         },
     },
 
-    categoria: {
+    id_categoria: {
         presence: {
             allowEmpty: false,
             message: "^es requerida"
         },
-        validateCategoryAndRecipe: { message: "^es requerido" }
+        validateCategoryAndUnit: { message: "^es requerido" }
     },
-    unidad: {
+    id_unidad: {
         presence: {
             allowEmpty: false,
             message: "^es requerida"
@@ -66,36 +95,36 @@ const rules = {
     },
 };
 
-document.querySelector("#form-submit-rawMaterial input[type='text']").addEventListener("keyup",(e)=>{validateField(e, rules)})
-document.querySelector("#form-submit-rawMaterial input[type='text']").addEventListener("blur",(e)=>{validateField(e, rules)})
+let form = document.getElementById("form-submit-rawMaterial")
+if (!form.dataset.listenerAttached) {
+    form.addEventListener("submit", function (e) {
+        e.preventDefault()
+        const rawmaterial = document.querySelectorAll(".rawmaterial");
+        let formHasError = false;
+        let material = []
+        rawmaterial.forEach((rawmaterial, i) => {
+            const index = i + 1;
+            let data = {
+                nombre: rawmaterial.querySelector(`input[name="nombre"]`).value,
+                id_categoria: rawmaterial.querySelector(`input[name="id_categoria"]`).value ? rawmaterial.querySelector(`input[name="id_categoria"]`).value : "",
+                id_unidad: rawmaterial.querySelector(`input[name="id_unidad"]`).value ? rawmaterial.querySelector(`input[name="id_unidad"]`).value : "",
+            }
+            material.push(data)
 
-document.getElementById("form-submit-rawMaterial").addEventListener("submit", (e) => {
-    e.preventDefault()
+            const errors = validate(data, rules);
+            setValidationStyles(`input-name-rawMaterial-${index}`, errors?.nombre ? errors.nombre[0] : null);
+            setValidationStyles(`input-category-rawMaterial-${index}`, errors?.id_categoria ? errors.id_categoria[0] : null);
+            setValidationStyles(`input-unit-rawMaterial-${index}`, errors?.id_unidad ? errors.id_unidad[0] : null);
+            if (errors) {
+                formHasError = true;
+            }
+        })
 
-    let data = {
-        nombre: document.getElementById("input-name-rawMaterial").value,
-        categoria: document.getElementById("input-category-rawMaterial").value,
-        unidad: document.getElementById("input-unit-rawMaterial").value,
-    }
-
-    const errors = validate(data, rules);
-
-    setValidationStyles("input-name-rawMaterial", errors?.nombre ? errors.nombre[0] : null);
-    setValidationStyles("input-category-rawMaterial", errors?.categoria ? errors.categoria[0] : null);
-    setValidationStyles("input-unit-rawMaterial", errors?.categoria ? errors.categoria[0] : null);
-
-    if (!errors) {
-        alert("Formulario enviado correctamente");
-        // this.reset();
-
-        // const inputs = this.querySelectorAll(".is-valid, .is-invalid");
-        // inputs.forEach(function (input) {
-        //     input.classList.remove("is-valid", "is-invalid");
-        // });
-
-        // const errorMessages = this.querySelectorAll(".text-danger");
-        // errorMessages.forEach(function (error) {
-        //     error.textContent = "";
-        // });
-    }
-})
+        if (!formHasError) {
+            resetForm("#rawmaterial-container .rawmaterial", form)
+            console.log(material);
+        }
+    });
+    form.dataset.listenerAttached = "true";
+}
+attachValidationListeners(1)

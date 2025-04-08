@@ -16,13 +16,12 @@
                     </div>
                     <div id="recipe-container">
                         <div class="row g-2 recipe" id="recipe-1">
-
                             <div class="col-md-6 ">
                                 <label for="inputCity" class="form-label">Materia prima</label>
                                 <div class="dropdown">
                                     <div class="dropdown">
                                         <div class="btn-group w-100" bis_skin_checked="1">
-                                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-recipe-recipe-1" name="receta">
+                                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-rawmaterial-recipe-1" name="id_rawmaterial">
                                             <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <span> <i data-feather="chevron-down"></i></span>
                                             </button>
@@ -37,7 +36,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="text-danger mt-1 fs-6" id="error-input-recipe-recipe-1"></div>
+                                <div class="text-danger mt-1 fs-6" id="error-input-rawmaterial-recipe-1"></div>
                             </div>
 
                             <div class="col-md-6">
@@ -48,9 +47,9 @@
                                     <div class="text-danger mt-1 fs-6" id="error-input-quantity-recipe-1"></div>
                                 </div>
                             </div>
-                            <input type="submit" class="d-none" id="submit-recipe">
                         </div>
                     </div>
+                    <input type="submit" class="d-none" id="submit-recipe">
                     <button type="button" id="add-recipe-btn" class="btn btn-secondary mt-3">Agregar Producto</button>
                 </form>
             </div>
