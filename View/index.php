@@ -14,7 +14,7 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
@@ -103,40 +103,46 @@
         <a class="btn-book-a-table toolTip" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" data-bs-toggle="tooltip" data-bs-placement="top" title="Carrito de compras"><i class="uil uil-shopping-cart-alt"></i></a>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
           <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+            <h5 id="offcanvasRightLabel">Carrito de compras</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
-            <div class="offcanvas-body"></div>
-            <?php
-            if (!empty($_SESSION['cart'])) {
-              $total = 0;
-              foreach ($_SESSION['cart'] as $key => $item) {
-              $total += $item['price'] * $item['quantity'];
-              echo '<div class="d-flex align-items-center mb-3 border-bottom pb-3">';
-              // echo '<img src="' . htmlspecialchars($item['image']) . '" alt="' . htmlspecialchars($item['name']) . '" class="img-fluid rounded me-3" style="width: 80px; height: 80px;">';
-              echo '<div class="flex-grow-1">';
-              echo '<h5 class="mb-1 text-black">' . htmlspecialchars($item['name']) . '</h5>';
-              echo '<p class="mb-1 text-muted">Precio: $' . htmlspecialchars($item['price']) . '</p>';
-              echo '<p class="mb-0 text-muted">Cantidad: ' . htmlspecialchars($item['quantity']) . '</p>';
-              echo '</div>';
-              echo '<form method="post" action="?c=CCar/handleRequest" class="ms-3">';
-              echo '<input type="hidden" name="action" value="' . "remove". '">';
-              echo '<input type="hidden" name="id" value="' . htmlspecialchars($item['id']) . '">';
-              var_dump($item);
-              echo '<button type="submit" class="btn btn-danger btn-sm">Eliminar</button>';
-              echo '</form>';
-              echo '</div>';
-              }
-              echo '<div class="border-top pt-3 mt-3">';
-              echo '<h5 class="text-end">Subtotal: $' . $total . '</h5>';
-              echo '<h5 class="text-end">Total (IVA incluido): $' . ($total * 1.16) . '</h5>'; // Assuming 16% tax
-              echo '</div>';
-              echo '<a href="?c=CCheckout/handleRequest" class="btn btn-primary w-100 mt-3">Proceder al pago</a>';
-            } else {
-              echo '<p class="text-center text-muted">Tu carrito está vacío.</p>';
-            }
-            ?>
-            </div>
+          <div class="offcanvas-body">
+            <?php if (!empty($_SESSION['cart'])): ?>
+              <?php $total = 0; ?>
+              <?php foreach ($_SESSION['cart'] as $position => $item): ?>
+                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                  <div class="flex-grow-1">
+                    <h5 class="mb-1 text-black"><?= htmlspecialchars($item['name']) ?></h5>
+                    <p class="mb-1 text-muted">Precio: $<?= htmlspecialchars($item['price']) ?></p>
+                    <p class="mb-1 text-muted">Cantidad: <?= htmlspecialchars($item['quantity']) ?></p>
+
+                    <!-- Mostrar detalles del pedido -->
+                    <?php if (!empty($item['details'])): ?>
+                      <p class="mb-1 text-muted"><strong>Detalles:</strong> <?= htmlspecialchars($item['details']) ?></p>
+                    <?php endif; ?>
+
+                    <!-- Mostrar adicionales -->
+                    <?php if (!empty($item['extras'])): ?>
+                      <p class="mb-0 text-muted"><strong>Adicionales:</strong> <?= htmlspecialchars(implode(', ', $item['extras'])) ?></p>
+                    <?php endif; ?>
+                  </div>
+                  <form method="post" action="?c=CCar/handleRequest" class="ms-3">
+                    <input type="hidden" name="action" value="remove">
+                    <input type="hidden" name="position" value="<?= $position ?>">
+                    <button type="submit" class="btn btn-book-a-table text-black btn-sm">Eliminar</button>
+                  </form>
+                </div>
+                <?php $total += $item['price'] * $item['quantity']; ?>
+              <?php endforeach; ?>
+              <div class="border-top pt-3 mt-3">
+                <h5 class="text-end text-black">Subtotal: $<?= number_format($total, 2) ?></h5>
+                <h5 class="text-end text-black">Total (IVA incluido): $<?= number_format($total * 1.16, 2) ?></h5>
+              </div>
+              <a href="?c=CCheckout/handleRequest" class="btn btn-primary w-100 mt-3">Proceder al pago</a>
+            <?php else: ?>
+              <p class="text-center text-muted">Tu carrito está vacío.</p>
+            <?php endif; ?>
+          </div>
         </div>
         <!-- <a class="btn-book-a-table d-none d-md-block d-flex justify-content-center" href="#">Carrito<i class="uil uil-shopping-cart-alt"></i></a> -->
         <a class="btn-book-a-table d-none d-xl-block" href="#">Iniciar Sesión</a>
@@ -276,32 +282,28 @@
         </div><!-- Menu Filters -->
 
         <div class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
-          <?php
-            if (!empty($productos)) {
-              foreach ($productos as $producto) {
-                  // Imprime cada producto en el formato deseado
-                    echo '<div class="col-lg-6 menu-item isotope-item filter-' . htmlspecialchars($producto['id_categoria']) . '">';
-                    echo '<img src="' . htmlspecialchars($producto['imagen']) . '" class="menu-img" alt="">';
-                    echo '<div class="menu-content">';
-                    echo '<a href="#">' . htmlspecialchars($producto['nombre']) . '</a><span>$' . htmlspecialchars($producto['precio']) . '</span>';
-                    echo '</div>';
-                    echo '<div class="menu-ingredients">';
-                    echo htmlspecialchars($producto['detalles']);
-                    echo '</div>';
-
-                    echo '<form method="post" action="?c=CCar/handleRequest">';
-                    echo '<input type="hidden" name="id" value="' . htmlspecialchars($producto['id']) . '">';
-                    echo '<input type="hidden" name="name" value="' . htmlspecialchars($producto['nombre']) . '">';
-                    echo '<input type="hidden" name="price" value="' . htmlspecialchars($producto['precio']) . '">';
-                    echo '<input type="hidden" name="quantity" value="1">'; // Puedes cambiar '1' por cualquier valor predeterminado
-                    echo '<button type="submit" class="btn btn-primary mt-2">Agregar al carrito</button>';
-                    echo '</form>';
-                    echo '</div><!-- Menu Item -->';
-              }
-            } else {
-              echo '<p>No se encontraron productos.</p>';
-            }
-          ?>
+          <?php foreach ($productos as $producto): ?>
+            <div class="col-lg-6 menu-item isotope-item filter-<?= htmlspecialchars($producto['id_categoria']) ?>">
+              <img src="<?= htmlspecialchars($producto['imagen']) ?>" class="menu-img" alt="">
+              <div class="menu-content d-flex justify-content-between align-items-center">
+              <a href="#"><?= htmlspecialchars($producto['nombre']) ?></a><span>$<?= htmlspecialchars($producto['precio']) ?></span>
+              </div>
+              <div class="menu-ingredients mb-2">
+              <?= htmlspecialchars($producto['detalles']) ?>
+              </div>
+              <div class="d-flex justify-content-end">
+              <button 
+                class="btn btn-book-a-table" 
+                data-bs-toggle="modal" 
+                data-bs-target="#addToCartModal" 
+                data-id="<?= htmlspecialchars($producto['id']) ?>" 
+                data-name="<?= htmlspecialchars($producto['nombre']) ?>" 
+                data-price="<?= htmlspecialchars($producto['precio']) ?>">
+                Agregar al carrito <i class="uil uil-shopping-cart-alt"></i>
+              </button>
+              </div>
+            </div>
+          <?php endforeach; ?>
         </div><!-- End Menu Items -->
     </section><!-- /Menu Section -->
 
@@ -996,6 +998,77 @@
 
   </footer>
 
+  <!-- Modal para agregar al carrito -->
+  <div class="modal fade" id="addToCartModal" tabindex="-1" aria-labelledby="addToCartModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="addToCartForm" method="post" action="?c=CCar/handleRequest">
+          <div class="modal-header">
+            <h5 class="modal-title text-black" id="addToCartModalLabel">Agregar al carrito</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <input type="hidden" name="id" id="productId">
+            <input type="hidden" name="name" id="productName">
+            <input type="hidden" name="price" id="productPrice">
+            <input type="hidden" name="quantity" value="1">
+
+            <div class="mb-3">
+              <label for="orderDetails" class="form-label text-black">Detalles de la orden</label>
+              <textarea class="form-control" id="orderDetails" name="details" rows="3" placeholder="Escribe algún detalle adicional..."></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-black">Selecciona adicionales:</label>
+              <div class="d-flex justify-content-evenly flex-wrap">
+                <div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="extras[]" value="tocineta" id="extraTocineta">
+                    <label class="form-check-label text-black" for="extraTocineta">Tocineta</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="extras[]" value="cheddar" id="extraCheddar">
+                    <label class="form-check-label text-black" for="extraCheddar">Cheddar</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="extras[]" value="pepinillo" id="extraPepinillo">
+                    <label class="form-check-label text-black" for="extraPepinillo">Pepinillo</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="extras[]" value="carne" id="extraCarne">
+                    <label class="form-check-label text-black" for="extraCarne">Carne</label>
+                  </div>
+                </div>
+                <div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="extras[]" value="pollo crispy" id="extraPolloCrispy">
+                    <label class="form-check-label text-black" for="extraPolloCrispy">Pollo Crispy</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="extras[]" value="cebolla crispy" id="extraCebollaCrispy">
+                    <label class="form-check-label text-black" for="extraCebollaCrispy">Cebolla Crispy</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="extras[]" value="cebolla caramelizada" id="extraCebollaCaramelizada">
+                    <label class="form-check-label text-black" for="extraCebollaCaramelizada">Cebolla Caramelizada</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="extras[]" value="papas fritas" id="extraPapasFritas">
+                    <label class="form-check-label text-black" for="extraPapasFritas">Papas Fritas</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Scroll Top -->
   <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -1017,6 +1090,20 @@
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
       return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+  </script>
+  <script>
+  const addToCartModal = document.getElementById('addToCartModal');
+  addToCartModal.addEventListener('show.bs.modal', function (event) {
+    const button = event.relatedTarget;
+    const productId = button.getAttribute('data-id');
+    const productName = button.getAttribute('data-name');
+    const productPrice = button.getAttribute('data-price');
+
+    // Pasar los datos al formulario del modal
+    document.getElementById('productId').value = productId;
+    document.getElementById('productName').value = productName;
+    document.getElementById('productPrice').value = productPrice;
+  });
   </script>
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
