@@ -334,7 +334,23 @@ h6 {
   color: var(--default-color);
   background: var(--accent-color);
 }
+.btn-principal {
+  color: white;
+  border: 2px solid var(--accent-color);
+  background: var(--accent-color);
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 6px 24px;
+  margin: 0 5px;
+  border-radius: 50px;
+  transition: 0.3s;
+}
 
+.btn-principal:hover {
+  background: var(--default-color);
+  border: 2px solid var(--accent-color);
+  color: var(--background-color);
+}
 .scrolled .header .topbar {
   height: 0;
   visibility: hidden;
@@ -1726,7 +1742,15 @@ section,
 .contact .php-email-form button[type=submit]:hover {
   background: var(--accent-color);
 }
-
+input[type="checkbox"]:checked {
+  background-color: var(--accent-color); /* Cambia el color de fondo del checkbox */
+  border-color: var(--accent-color);    /* Cambia el color del borde */
+}
+/* Cambiar el color del borde y la sombra del input cuando está enfocado */
+.form-control:focus,.form-select:focus {
+  border-color: var(--accent-color); /* Color del borde al hacer focus */
+  box-shadow: 0 0 0 0.25rem var(--accent-color); /* Sombra alrededor del input */
+}
 /*--------------------------------------------------------------
 # Starter Section Section
 --------------------------------------------------------------*/

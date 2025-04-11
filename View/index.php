@@ -9,7 +9,7 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" sizes="16x16" href="../../../public/assets/img/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon.png">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
@@ -64,7 +64,7 @@
       <div class="container position-relative d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
           <!-- Uncomment the line below if you also wish to use an image logo -->
-          <img src="../../../public/assets/img/favicon.png">
+          <img src="assets/img/bh_logo.png" alt="">
           <h1 class="sitename">Burger House</h1>
         </a>
 
@@ -101,44 +101,88 @@
         </nav>
         <!-- cart -->
         <a class="btn-book-a-table toolTip" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" data-bs-toggle="tooltip" data-bs-placement="top" title="Carrito de compras"><i class="uil uil-shopping-cart-alt"></i></a>
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+        <div class="offcanvas offcanvas-end bg-light" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
           <div class="offcanvas-header">
-            <h5 id="offcanvasRightLabel">Carrito de compras</h5>
+            <h5 id="offcanvasRightLabel" class="text-black">Carrito de compras</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
           </div>
           <div class="offcanvas-body">
             <?php if (!empty($_SESSION['cart'])): ?>
               <?php $total = 0; ?>
               <?php foreach ($_SESSION['cart'] as $position => $item): ?>
-                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
-                  <div class="flex-grow-1">
-                    <h5 class="mb-1 text-black"><?= htmlspecialchars($item['name']) ?></h5>
-                    <p class="mb-1 text-muted">Precio: $<?= htmlspecialchars($item['price']) ?></p>
-                    <p class="mb-1 text-muted">Cantidad: <?= htmlspecialchars($item['quantity']) ?></p>
+              <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                <div class="flex-grow-1">
+                <h5 class="mb-1 text-black"><?= htmlspecialchars($item['name']) ?></h5>
+                <p class="mb-1 text-muted">Precio: $<?= htmlspecialchars($item['price']) ?></p>
+                <p class="mb-1 text-muted">Cantidad: <?= htmlspecialchars($item['quantity']) ?></p>
 
-                    <!-- Mostrar detalles del pedido -->
-                    <?php if (!empty($item['details'])): ?>
-                      <p class="mb-1 text-muted"><strong>Detalles:</strong> <?= htmlspecialchars($item['details']) ?></p>
-                    <?php endif; ?>
+                <!-- Mostrar detalles del pedido -->
+                <?php if (!empty($item['details'])): ?>
+                  <p class="mb-1 text-muted"><strong>Detalles:</strong> <?= htmlspecialchars($item['details']) ?></p>
+                <?php endif; ?>
 
-                    <!-- Mostrar adicionales -->
-                    <?php if (!empty($item['extras'])): ?>
-                      <p class="mb-0 text-muted"><strong>Adicionales:</strong> <?= htmlspecialchars(implode(', ', $item['extras'])) ?></p>
-                    <?php endif; ?>
-                  </div>
-                  <form method="post" action="?c=CCar/handleRequest" class="ms-3">
-                    <input type="hidden" name="action" value="remove">
-                    <input type="hidden" name="position" value="<?= $position ?>">
-                    <button type="submit" class="btn btn-book-a-table text-black btn-sm">Eliminar</button>
-                  </form>
+                <!-- Mostrar adicionales -->
+                <?php if (!empty($item['extras'])): ?>
+                  <p class="mb-0 text-muted"><strong>Adicionales:</strong> <?= htmlspecialchars(implode(', ', $item['extras'])) ?></p>
+                <?php endif; ?>
                 </div>
-                <?php $total += $item['price'] * $item['quantity']; ?>
+                <form method="post" action="?c=CCart/handleRequest" class="ms-3">
+                <input type="hidden" name="action" value="remove">
+                <input type="hidden" name="position" value="<?= $position ?>">
+                <button type="submit" class="btn btn-book-a-table text-black btn-sm">Eliminar</button>
+                </form>
+              </div>
+              <?php $total += $item['price'] * $item['quantity']; ?>
               <?php endforeach; ?>
               <div class="border-top pt-3 mt-3">
-                <h5 class="text-end text-black">Subtotal: $<?= number_format($total, 2) ?></h5>
-                <h5 class="text-end text-black">Total (IVA incluido): $<?= number_format($total * 1.16, 2) ?></h5>
+              <h5 class="text-end text-black">Subtotal: $<?= number_format($total, 2) ?></h5>
+              <h5 class="text-end text-black">Total (IVA incluido): $<?= number_format($total * 1.16, 2) ?></h5>
               </div>
-              <a href="?c=CCheckout/handleRequest" class="btn btn-primary w-100 mt-3">Proceder al pago</a>
+              <button type="button" class="btn btn-principal w-100 mt-3" data-bs-toggle="modal" data-bs-target="#checkoutModal">Proceder al pago</button>
+
+              <!-- Modal de Pago -->
+              <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true" data-bs-backdrop="false">
+                <div class="modal-dialog">
+                  <div class="modal-content bg-light">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-black" id="checkoutModalLabel">Confirmar Pago</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h6 class="text-black">Productos seleccionados:</h6>
+                      <ul>
+                        <?php foreach ($_SESSION['cart'] as $item): ?>
+                          <li class="text-black"><?= htmlspecialchars($item['name']) ?> - $<?= htmlspecialchars($item['price']) ?> x <?= htmlspecialchars($item['quantity']) ?></li>
+                        <?php endforeach; ?>
+                      </ul>
+                      <h6 class="text-black mt-3 text-end">Total a pagar: $<?= number_format($total * 1.16, 2) ?></h6>
+                      <form method="post" action="?c=CCart/handleRequest" enctype="multipart/form-data">
+                        <div class="mb-3">
+                          <label for="paymentMethod" class="form-label text-black">Método de Pago</label>
+                          <select class="form-select" id="paymentMethod" name="payment_method" required>
+                            <option value="pagomovil">Pago Móvil</option>
+                            <option value="efectivo">Efectivo</option>
+                            <option value="binance">Binance</option>
+                            <option value="zelle">Zelle</option>
+                          </select>
+                        </div>
+                        <div class="mb-3">
+                          <label for="paymentReference" class="form-label text-black">Referencia</label>
+                          <input type="text" class="form-control" id="paymentReference" name="payment_reference" placeholder="Número de referencia" required>
+                        </div>
+                        <div class="mb-3">
+                          <label for="paymentImage" class="form-label text-black">Imagen del Pago</label>
+                          <input type="file" class="form-control" id="paymentImage" name="payment_image" accept="image/*" required>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-book-a-table text-black" data-bs-dismiss="modal">Cancelar</button>
+                          <button type="submit" class="btn btn-principal">Confirmar Pago</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             <?php else: ?>
               <p class="text-center text-muted">Tu carrito está vacío.</p>
             <?php endif; ?>
@@ -284,23 +328,23 @@
         <div class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
           <?php foreach ($productos as $producto): ?>
             <div class="col-lg-6 menu-item isotope-item filter-<?= htmlspecialchars($producto['id_categoria']) ?>">
-              <img src="<?= htmlspecialchars($producto['imagen']) ?>" class="menu-img" alt="">
+              <img src="<?= !empty($producto['imagen']) ? htmlspecialchars($producto['imagen']) : 'assets/img/banner_captcha.png' ?>" class="menu-img" alt="">
               <div class="menu-content d-flex justify-content-between align-items-center">
-              <a href="#"><?= htmlspecialchars($producto['nombre']) ?></a><span>$<?= htmlspecialchars($producto['precio']) ?></span>
+                <a href="#"><?= htmlspecialchars($producto['nombre']) ?></a><span>$<?= htmlspecialchars($producto['precio']) ?></span>
               </div>
               <div class="menu-ingredients mb-2">
-              <?= htmlspecialchars($producto['detalles']) ?>
+                <?= htmlspecialchars($producto['detalles']) ?>
               </div>
               <div class="d-flex justify-content-end">
-              <button 
-                class="btn btn-book-a-table" 
-                data-bs-toggle="modal" 
-                data-bs-target="#addToCartModal" 
-                data-id="<?= htmlspecialchars($producto['id']) ?>" 
-                data-name="<?= htmlspecialchars($producto['nombre']) ?>" 
-                data-price="<?= htmlspecialchars($producto['precio']) ?>">
-                Agregar al carrito <i class="uil uil-shopping-cart-alt"></i>
-              </button>
+                <button 
+                  class="btn btn-book-a-table" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#addToCartModal" 
+                  data-id="<?= htmlspecialchars($producto['id']) ?>" 
+                  data-name="<?= htmlspecialchars($producto['nombre']) ?>" 
+                  data-price="<?= htmlspecialchars($producto['precio']) ?>">
+                  Agregar al carrito <i class="uil uil-shopping-cart-alt"></i>
+                </button>
               </div>
             </div>
           <?php endforeach; ?>
@@ -1001,8 +1045,8 @@
   <!-- Modal para agregar al carrito -->
   <div class="modal fade" id="addToCartModal" tabindex="-1" aria-labelledby="addToCartModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <form id="addToCartForm" method="post" action="?c=CCar/handleRequest">
+      <div class="modal-content bg-light">
+        <form id="addToCartForm" method="post" action="?c=CCart/handleRequest">
           <div class="modal-header">
             <h5 class="modal-title text-black" id="addToCartModalLabel">Agregar al carrito</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -1061,8 +1105,8 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+            <button type="button" class="btn btn-book-a-table text-black" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-principal">Agregar al carrito</button>
           </div>
         </form>
       </div>
@@ -1092,18 +1136,34 @@
     })
   </script>
   <script>
-  const addToCartModal = document.getElementById('addToCartModal');
-  addToCartModal.addEventListener('show.bs.modal', function (event) {
-    const button = event.relatedTarget;
-    const productId = button.getAttribute('data-id');
-    const productName = button.getAttribute('data-name');
-    const productPrice = button.getAttribute('data-price');
+    const addToCartModal = document.getElementById('addToCartModal');
+      addToCartModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const productId = button.getAttribute('data-id');
+        const productName = button.getAttribute('data-name');
+        const productPrice = button.getAttribute('data-price');
 
-    // Pasar los datos al formulario del modal
-    document.getElementById('productId').value = productId;
-    document.getElementById('productName').value = productName;
-    document.getElementById('productPrice').value = productPrice;
-  });
+        // Pasar los datos al formulario del modal
+        document.getElementById('productId').value = productId;
+        document.getElementById('productName').value = productName;
+        document.getElementById('productPrice').value = productPrice;
+    });
+    // Detectar el parámetro "cart=open" en la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('cart') === 'open') {
+      const offcanvasElement = document.getElementById('offcanvasRight');
+      const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+      offcanvas.show();
+    }
+    if (urlParams.get('cart') === 'open') {
+      const offcanvasElement = document.getElementById('offcanvasRight');
+      const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+      offcanvas.show();
+
+      // Eliminar el parámetro de la URL
+      const newUrl = window.location.origin + window.location.pathname;
+      window.history.replaceState({}, document.title, newUrl);
+    }
   </script>
   <!-- Main JS File -->
   <script src="assets/js/main.js"></script>
