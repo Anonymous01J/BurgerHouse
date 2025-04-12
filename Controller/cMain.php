@@ -1,6 +1,6 @@
 <?php
-require_once('Modelo/categoriasProductos.php');
-require_once('Modelo/productos.php');
+require_once('Model/categoriasProductos.php');
+require_once('Model/productos.php');
 
 class CMain {
     
