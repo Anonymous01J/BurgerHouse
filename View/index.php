@@ -328,7 +328,7 @@
         <div class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
           <?php foreach ($productos as $producto): ?>
             <div class="col-lg-6 menu-item isotope-item filter-<?= htmlspecialchars($producto['id_categoria']) ?>">
-              <img src="<?= !empty($producto['imagen']) ? htmlspecialchars($producto['imagen']) : 'assets/img/banner_captcha.png' ?>" class="menu-img" alt="">
+              <img src="<?= !empty($producto['imagen']) ? htmlspecialchars($producto['imagen']) : 'assets/img/menu/lobster-roll.jpg' ?>" class="menu-img" alt="">
               <div class="menu-content d-flex justify-content-between align-items-center">
                 <a href="#"><?= htmlspecialchars($producto['nombre']) ?></a><span>$<?= htmlspecialchars($producto['precio']) ?></span>
               </div>

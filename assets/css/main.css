@@ -1197,6 +1197,7 @@ section,
   border-radius: 50%;
   float: left;
   border: 8px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  object-fit: cover;
 }
 
 .menu .menu-content {
