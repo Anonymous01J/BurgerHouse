@@ -1,7 +1,20 @@
-no tiene views la base de datos, asi que jose, arregla eso xD
+﻿no tiene views la base de datos, asi que jose, arregla eso xD
 
 falta el session_id y el recovery_token en tabla usuarios.
 y correo.
 
 el usuario es: Admin;
 la contraseña es: (Tocuyo#123).
+
+consulta de receta
+SELECT 
+    materia_prima.nombre AS materia_prima,
+    detalles_receta.cantidad,
+    unidades.alias AS unidad
+FROM 
+    detalles_receta
+JOIN 
+    materia_prima ON detalles_receta.Id_materia_prima = materia_prima.Id
+JOIN 
+    unidades ON materia_prima.id_unidad = unidades.Id
+where Id_producto  =23;
