@@ -623,3 +623,6 @@
 .dark-mode .text-dark {
   color: var(--text-primary) !important;
 }
+.dark-mode .swal2-title {
+  color: #0009 !important;
+}

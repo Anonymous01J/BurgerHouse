@@ -9,9 +9,26 @@
                 <form id="form-submit-recipe">
                     <div class="row">
                         <div class="col-md-12">
-                            <label class="form-label">Nombre</label>
-                            <input type="text" class="form-control" placeholder="Nombre" id="input-name-recipe" name="nombre">
-                            <div class="text-danger mt-1 fs-6" id="error-input-name-recipe"></div>
+                            <label for="inputCity" class="form-label">Receta</label>
+                            <div class="dropdown">
+                                <div class="dropdown">
+                                    <div class="btn-group w-100" bis_skin_checked="1">
+                                        <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-recipe-recipe" name="id_receta">
+                                        <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span> <i data-feather="chevron-down"></i></span>
+                                        </button>
+                                        <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                            <div>
+                                                <input class="form-control" type="text" placeholder="Buscar">
+                                            </div>
+                                            <a class="dropdown-item">1</a>
+                                            <a class="dropdown-item">2</a>
+                                            <a class="dropdown-item">3</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-danger mt-1 fs-6" id="error-input-recipe-recipe"></div>
                         </div>
                     </div>
                     <div id="recipe-container">

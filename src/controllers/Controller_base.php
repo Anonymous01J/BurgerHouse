@@ -17,7 +17,7 @@ class Controller_base {
     }
 
     public function get_all(...$args) {
-        $this->db->clear();
+        // $this->db->clear();
         $this->db->add_variables($_POST);
         // if (!$this->permisos['consultar']){
         //     echo json_encode(['success' => false, 'message' => 'No tienes permiso para consultar']);

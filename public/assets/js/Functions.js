@@ -1,5 +1,24 @@
 export default function functionGeneral() {
 
+    async function permission(module) {
+        let data = await fetch("./assets/js/permission_example.json")
+        let response = await data.json()
+        const permiss = response.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase())
+        let permissions = permiss.permisos.split(",")
+
+        if (!permissions.includes("consultar")) {
+            document.querySelector(`[data-module='${module}']`).remove()
+        }
+        if (!permissions.includes("agregar") && document.querySelector(`[data-module-add='${module.toLocaleLowerCase()}']`)) {
+            document.querySelector(`[data-module-add='${module.toLocaleLowerCase()}']`).remove()
+        }
+        if (!permissions.includes("editar")) {
+            document.querySelectorAll(`[data-module-edit='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("eliminar")) {
+            document.querySelectorAll(`[data-module-delete='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
+        }
+    }
     function InputPrice(input) {
         let inputDom = document.querySelectorAll(input)
         inputDom.forEach((element) => {
@@ -151,14 +170,14 @@ export default function functionGeneral() {
         let response = await search.json()
         return response
     }
-    const print = async (search, template, container) => {
+    const print = async (search, template, container, modulePermission) => {
         let response = await search
         let templatesWrapper = ""
         response.forEach(element => {
             templatesWrapper += template(element)
         })
         document.querySelector(container).innerHTML = templatesWrapper
-
+        permission(modulePermission)
         Delete(template, container)
         feather.replace()
     }
@@ -175,7 +194,7 @@ export default function functionGeneral() {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         let id = element.getAttribute("data-id")
-                        let module = element.getAttribute("data-module")
+                        let module = element.getAttribute("data-module-delete")
                         $.ajax({
                             type: "POST",
                             url: `${module}/update`,
@@ -198,13 +217,41 @@ export default function functionGeneral() {
         })
 
     }
-    const add = async (module, data, template, container) => {
-
+    const deleteDatatableItem = (tabla) => {
+        $(tabla).on('click', '.trash_btn', function () {
+            Swal.fire({
+                title: "¿Deseas eliminar este elemento?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Eliminar",
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#FF4B00"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    let id = this.getAttribute("data-id")
+                    let module = this.getAttribute("data-module")
+                    $.ajax({
+                        type: "POST",
+                        url: `${module}/update`,
+                        data: { id, active: 0 },
+                        success: function (response) {
+                            Swal.fire({
+                                title: "Elemento eliminado!",
+                                icon: "success",
+                                confirmButtonText: "Aceptar",
+                                confirmButtonColor: "#FF4B00"
+                            });
+                        }
+                    })
+                }
+            });
+        });
+    }
+    const add = async (module, data, template, container, permission) => {
         let action = await fetch(`${module}/add_many`, {
             method: "POST",
             body: data
         })
-
         let response = await action.json()
         console.log(response);
         Swal.fire({
@@ -212,7 +259,7 @@ export default function functionGeneral() {
             text: "El elemento fue agregado correctamente",
             icon: "success"
         });
-        print(searchAll(module, 1), template, container)
+        print(searchAll(module, 1), template, container, permission)
 
     }
 
@@ -220,34 +267,34 @@ export default function functionGeneral() {
 
     }
 
-    const edit = () => {
-        document.querySelectorAll(".edit_btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                let id = btn.getAttribute("data-id")
-                let module = btn.getAttribute("data-module")
+    // const edit = () => {
+    //     document.querySelectorAll(".edit_btn").forEach(btn => {
+    //         btn.addEventListener("click", () => {
+    //             let id = btn.getAttribute("data-id")
+    //             let module = btn.getAttribute("data-module")
 
-                $.ajax({
-                    type: "POST",
-                    url: `${module}/get_all`,
-                    data: { id },
-                    success: function (response) {
-                        let json = JSON.parse(response)
-                        for (const key in json) {
-                            if (json.hasOwnProperty(key)) {
-                                let input = document.querySelector(`[name="${key}"]`);
-                                if (input) {
-                                    input.value = json[key];
-                                }
-                            }
-                        }
+    //             $.ajax({
+    //                 type: "POST",
+    //                 url: `${module}/get_all`,
+    //                 data: { id },
+    //                 success: function (response) {
+    //                     let json = JSON.parse(response)
+    //                     for (const key in json) {
+    //                         if (json.hasOwnProperty(key)) {
+    //                             let input = document.querySelector(`[name="${key}"]`);
+    //                             if (input) {
+    //                                 input.value = json[key];
+    //                             }
+    //                         }
+    //                     }
 
-                    }
-                })
+    //                 }
+    //             })
 
-                // new bootstrap.Modal(document.getElementById("edit-combo")).show()
-            })
-        })
-    }
+    //             // new bootstrap.Modal(document.getElementById("edit-combo")).show()
+    //         })
+    //     })
+    // }
 
-    return { InputPrice, hora, fecha, setValidationStyles, validateField, SelectOption, viewImage, searchAll, print, add, reindex, resetForm }
+    return { InputPrice, hora, fecha, setValidationStyles, validateField, SelectOption, viewImage, searchAll, print, add, reindex, resetForm, permission }
 }

@@ -135,11 +135,71 @@
                 <div class="col-lg-8 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Ganancia Neta</h4>
-                            <div class="net-income mt-4 position-relative" style="height:294px;"></div>
-                            <ul class="list-inline text-center mt-5 mb-2">
-                                <li class="list-inline-item text-muted fst-italic">Ventas del Mes $</li>
-                            </ul>
+                            <div class="d-flex align-items-start">
+                                <h4 class="card-title">Ganancia Neta</h4>
+                                <div class="ms-auto">
+                                    <div class="dropdown sub-dropdown">
+                                        <a class="link-secondary text-muted" id="pdf_net_income" style="cursor: pointer">
+                                            <i data-feather="download"></i>
+                                        </a>
+                                        <button class="btn btn-link text-muted dropdown-toggle" type="button"
+                                            id="dd1" data-bs-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false">
+                                            <i data-feather="more-vertical"></i>
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dd1">
+                                            <div class="row p-3">
+                                                <div class="col-md-12">
+                                                    <label for="inputEmail4" class="form-label">Ingrese año</label>
+                                                    <input type="text" class="form-control" placeholder="Año" id="year_net_income">
+                                                    <div class="d-flex justify-content-center mt-3">
+                                                        <button class="btn bh_1 text-white mx-auto" id="search_net_income">Buscar</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="net_income_container">
+                                <div class="net-income mt-1 position-relative mt-2" style="height:294px;"></div>
+                                <div class="d-flex align-items-center gap-4 mt-3">
+                                    <div>
+                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
+                                        <span class="text-muted me-1 fs-6">Mejor rendimiento</span>
+                                        <span class="fs-6 mesMax">Ene con 25$</span>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
+                                        <span class="text-muted me-1 fs-6">Peor rendimiento</span>
+                                        <span class="fs-6 mesMin">Mar con 2$</span>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
+                                        <span class="text-muted me-1 fs-6">Promedio anual</span>
+                                        <span class="fs-6 promedio">5$</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex align-items-center gap-4 mt-3">
+                                    <div>
+                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
+                                        <span class="text-muted me-1 fs-6">Promedio 1er semestre</span>
+                                        <span class="fs-6 promedioS1">25$</span>
+                                    </div>
+                                    <div>
+                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
+                                        <span class="text-muted me-1 fs-6">Promedio 2do semestre</span>
+                                        <span class="fs-6 promedioS2">12$</span>
+                                    </div>
+                                </div>
+                                <!-- <div id="resumen-anual" class="mt-3 fs-6"></div> -->
+                                <ul class="list-inline text-center mt-4 mb-2">
+                                    <li class="list-inline-item text-muted fst-italic fs-6">Ventas del Mes $</li>
+                                </ul>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
@@ -454,6 +514,8 @@
 <script src="./assets/libs/extra-libs/c3/c3.min.js"></script>
 <script src="./assets/libs/libs/chartist/dist/chartist.min.js"></script>
 <script src="./assets/libs/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<script src="./assets/libs/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
-<script src="./assets/libs/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
-<script src="./assets/js/pages/dashboards/dashboard1.js"></script>
+<script defer src="./assets/js/pages/dashboards/dashboard1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/svg2pdf.js/dist/svg2pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

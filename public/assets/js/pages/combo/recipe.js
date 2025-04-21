@@ -28,8 +28,7 @@ function attachValidationListeners(index) {
         input.addEventListener("blur", (e) => validateField(e, rules));
     });
 }
-document.getElementById("input-name-recipe").addEventListener("keyup", (e) => validateField(e, rules2));
-document.getElementById("input-name-recipe").addEventListener("blur", (e) => validateField(e, rules2));
+document.getElementById("input-recipe-recipe").addEventListener("change", (e) => validateField(e, rules2));
 
 document.getElementById("add-recipe-btn").addEventListener("click", addRecipe);
 validate.validators.nombreValidator = function (value, options, key, attributes) {
@@ -108,6 +107,13 @@ const rules2 = {
             message: "^debe tener al menos 4 caracteres"
         },
     },
+    id_receta: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerida"
+        },
+        validateRecipe: { message: "^es requerido" }
+    },
 };
 let form = document.getElementById("form-submit-recipe")
 if (!form.dataset.listenerAttached) {
@@ -129,15 +135,16 @@ if (!form.dataset.listenerAttached) {
                 formHasError = true;
             }
         });
-        const recipeName = document.getElementById("input-name-recipe").value;
-        const errorsName = validate({ nombre: recipeName }, { nombre: rules2.nombre });
-        setValidationStyles("input-name-recipe", errorsName?.nombre ? errorsName.nombre[0] : null);
+        const recipeName = document.getElementById("input-recipe-recipe").value;
+        const errorsName = validate({ id_receta: recipeName }, { id_receta: rules2.id_receta });
+        setValidationStyles("input-recipe-recipe", errorsName?.id_receta ? errorsName.id_receta[0] : null);
         if (errorsName) {
             formHasError = true;
         }
         if (!formHasError) {
             resetForm("#recipe-container .recipe", form)
-            document.getElementById("input-name-recipe").classList.remove("is-invalid", "is-valid");
+            document.getElementById("input-recipe-recipe").classList.remove("is-invalid", "is-valid");
+            document.getElementById("input-recipe-recipe").value = "Seleccione una opcion";
         }
     });
     form.dataset.listenerAttached = "true";

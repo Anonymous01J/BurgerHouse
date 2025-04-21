@@ -1,11 +1,13 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { InputPrice, SelectOption, viewImage, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm } = functionGeneral();
+const { InputPrice, SelectOption, viewImage, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm, permission } = functionGeneral();
 const { targetCombo, elemenFormCombo } = Templates()
 
 InputPrice("[input_price]");
 SelectOption()
 viewImage(".input-image")
+permission("Combo")
+
 // ------------------Validacion de Formulario---------------------------
 
 
@@ -60,6 +62,7 @@ function addProduct() {
   productCount++;
   document.getElementById("products-container").insertAdjacentHTML('beforeend', elemenFormCombo(productCount));
   feather.replace();
+
   viewImage(".input-image")
   InputPrice("[input_price]");
   SelectOption()
@@ -143,13 +146,7 @@ const rules = {
     },
     validateCategoryAndRecipe: { message: "^es requerido" }
   },
-  id_receta: {
-    presence: {
-      allowEmpty: false,
-      message: "^es requerida"
-    },
-    validateCategoryAndRecipe: { message: "^es requerido" }
-  },
+
   detalles: {
     presence: {
       allowEmpty: false,
@@ -181,7 +178,6 @@ if (!form.dataset.listenerAttached) {
         nombre: product.querySelector(`input[name="nombre"]`).value,
         precio: product.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
         id_categoria: product.querySelector(`input[name="id_categoria"]`) ? product.querySelector(`input[name="id_categoria"]`).value : "",
-        id_receta: product.querySelector(`input[name="id_receta"]`) ? product.querySelector(`input[name="id_receta"]`).value : "",
         detalles: product.querySelector(`textarea[name="detalles"]`) ? product.querySelector(`textarea[name="detalles"]`).value : "",
         imagen: product.querySelector(`input[name="imagen"]`) ? product.querySelector(`input[name="imagen"]`).files[0] : ""
       };
@@ -191,7 +187,6 @@ if (!form.dataset.listenerAttached) {
       setValidationStyles(`input-name-combo-${index}`, errors?.nombre ? errors.nombre[0] : null);
       setValidationStyles(`input-price-combo-${index}`, errors?.precio ? errors.precio[0] : null);
       setValidationStyles(`input-category-combo-${index}`, errors?.id_categoria ? errors.id_categoria[0] : null);
-      setValidationStyles(`input-recipe-combo-${index}`, errors?.id_receta ? errors.id_receta[0] : null);
       setValidationStyles(`input-details-combo-${index}`, errors?.detalles ? errors.detalles[0] : null);
       setValidationStyles(`input-image-combo-${index}`, errors?.imagen ? errors.imagen[0] : null);
       if (errors) {
@@ -205,17 +200,15 @@ if (!form.dataset.listenerAttached) {
         data.append(`lista[${index}][nombre]`, combo.nombre);
         data.append(`lista[${index}][precio]`, combo.precio);
         data.append(`lista[${index}][id_categoria]`, combo.id_categoria);
-        data.append(`lista[${index}][id_receta]`, combo.id_receta);
         data.append(`lista[${index}][detalles]`, combo.detalles);
         data.append(`lista[${index}][imagen]`, combo.imagen.name);
       })
       resetForm("#products-container .product", form)
-      add('combo', data, targetCombo, ".cont-combos")
+      add('combo', data, targetCombo, ".cont-combos", "combo")
       bootstrap.Modal.getOrCreateInstance('#register-combo').hide()
     }
   });
   form.dataset.listenerAttached = "true";
 }
-
 attachValidationListeners(1)
-print(searchAll("combo", 1), targetCombo, ".cont-combos")
+print(searchAll("combo", 1), targetCombo, ".cont-combos", "combo")

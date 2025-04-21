@@ -17,21 +17,21 @@
                 <li class="nav-small-cap"><span class="hide-menu">Aplicaciones</span></li>
 
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Pedidos y entregas">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)"
                         aria-expanded="false">
                         <i data-feather="truck" class="feather-icon"></i>
                         <span class="hide-menu">Pedidos y entregas</span>
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" data-module="Ordenes">
                             <a href="order" class="sidebar-link">
                                 <span
                                     class="hide-menu">Ordenes
                                 </span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" data-module="Delivery">
                             <a href="delivery" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Delivery
@@ -42,7 +42,7 @@
                 </li>
 
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Cocina">
                     <a class="sidebar-link" href="kitchen"
                         aria-expanded="false">
                         <i data-feather="coffee" class="feather-icon"></i>
@@ -58,7 +58,7 @@
                     </a>
                 </li> -->
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Estadisticas">
                     <a class="sidebar-link" href="estadisticas"
                         aria-expanded="false">
                         <i data-feather="bar-chart" class="feather-icon"></i>
@@ -75,7 +75,7 @@
                     </a>
                 </li> -->
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Calendario">
                     <a class="sidebar-link sidebar-link" href="calendar"
                         aria-expanded="false">
                         <i data-feather="calendar" class="feather-icon"></i>
@@ -83,7 +83,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Bitacora">
                     <a class="sidebar-link sidebar-link" href="binnacle"
                         aria-expanded="false">
                         <i data-feather="book-open" class="feather-icon"></i>
@@ -91,7 +91,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Capital">
                     <a class="sidebar-link sidebar-link" href="capital"
                         aria-expanded="false">
                         <i data-feather="credit-card" class="feather-icon"></i>
@@ -107,10 +107,10 @@
                     </a>
                 </li> -->
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Papelera">
                     <a class="sidebar-link sidebar-link" href="#"
                         aria-expanded="false">
-                        <i data-feather="dollar-sign" class="feather-icon"></i>
+                        <i data-feather="trash-2" class="feather-icon"></i>
                         <span class="hide-menu">Papelera</span>
                     </a>
                 </li>
@@ -119,28 +119,28 @@
 
                 <li class="nav-small-cap"><span class="hide-menu">Modulos</span></li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Combos">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)"
                         aria-expanded="false">
                         <i data-feather="codepen" class="feather-icon"></i>
                         <span class="hide-menu">Combos</span>
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" data-module="Combo">
                             <a href="combo" class="sidebar-link">
                                 <span
                                     class="hide-menu">Combo
                                 </span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" data-module="Materia Prima">
                             <a href="rawmaterial" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Materia Prima
                                 </span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" data-module="Recetas">
                             <a href="recipe" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Recetas
@@ -151,7 +151,7 @@
                 </li>
 
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Proveedores">
                     <a class="sidebar-link sidebar-link" href="supplier"
                         aria-expanded="false">
                         <i data-feather="bookmark" class="feather-icon"></i>
@@ -162,7 +162,7 @@
                 </li>
 
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Clientes">
                     <a class="sidebar-link sidebar-link" href="clients"
                         aria-expanded="false">
                         <i data-feather="users" class="feather-icon"></i>
@@ -173,7 +173,7 @@
                 </li>
 
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Caja">
                     <a class="sidebar-link sidebar-link" href="cash"
                         aria-expanded="false">
                         <i data-feather="inbox" class="feather-icon"></i>
@@ -185,21 +185,21 @@
 
 
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Facturacion">
                     <a class="sidebar-link has-arrow" href="javascript:void(0)"
                         aria-expanded="false">
                         <i data-feather="shopping-bag" class="feather-icon"></i>
                         <span class="hide-menu">Facturación</span>
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" data-module="Factura">
                             <a href="invoice" class="sidebar-link">
                                 <span
                                     class="hide-menu">Facturas
                                 </span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" data-module="Credito">
                             <a href="credit" class="sidebar-link">
                                 <span
                                     class="hide-menu">Credito
@@ -209,7 +209,7 @@
                     </ul>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Unidades">
                     <a class="sidebar-link sidebar-link" href="units"
                         aria-expanded="false">
                         <i data-feather="flag" class="feather-icon"></i>
@@ -220,7 +220,7 @@
                 </li>
 
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Categorias">
                     <a class="sidebar-link sidebar-link" href="category"
                         aria-expanded="false">
                         <i data-feather="flag" class="feather-icon"></i>
@@ -230,7 +230,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Metodos de pago">
                     <a class="sidebar-link sidebar-link" href="#"
                         aria-expanded="false">
                         <i data-feather="award" class="feather-icon"></i>
@@ -245,7 +245,7 @@
                 <li class="list-divider"></li>
                 <li class="nav-small-cap"><span class="hide-menu">Autenticación</span></li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Roles y permisos">
                     <a class="sidebar-link sidebar-link" href="permissions"
                         aria-expanded="false">
                         <i data-feather="lock" class="feather-icon"></i>
@@ -255,7 +255,7 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" data-module="Usuarios">
                     <a class="sidebar-link sidebar-link" href="users"
                         aria-expanded="false">
                         <i data-feather="user" class="feather-icon"></i>

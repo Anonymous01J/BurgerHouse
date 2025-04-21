@@ -1,5 +1,4 @@
 export default function Templates() {
-
     function targetCombo(objet) {
         return `
         <div class="col">
@@ -14,18 +13,18 @@ export default function Templates() {
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <p class="mb-0">Precio: ${objet.precio}$</p>
                             <div class="d-flex gap-3">
-                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module="combo" style="cursor: pointer">
+                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="combo" style="cursor: pointer">
                                     <i data-feather="edit"></i>
                                 </a>
-                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module="combo" style="cursor: pointer">
+                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="combo" style="cursor: pointer">
                                     <i data-feather="trash-2"></i>
                                 </a>
                             </div>
                         </div>
                     </small>
                 </div>
-                </div>
-                </div>
+            </div>
+        </div>
                 `
     }
     function elemenFormCombo(objet) {
@@ -116,7 +115,6 @@ export default function Templates() {
                 </div>
             `
     }
-
     function elemenFormRecipe(objet) {
         return `
         <div class="row g-2 recipe" id="recipe-${objet}">
@@ -226,7 +224,6 @@ export default function Templates() {
         </div>
         `
     }
-
     function elemenFormSupplier(objet) {
         return `
         <div class="row g-2 supplier mt-4" id="supplier-${objet}">
@@ -291,7 +288,6 @@ export default function Templates() {
         </div>
         `
     }
-
     function elemenFormClient(objet) {
         return`
         <div class="row g-2 client mt-4" id="client-${objet}">

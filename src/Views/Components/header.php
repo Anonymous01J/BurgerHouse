@@ -24,7 +24,6 @@
     <script src="./assets/libs/libs/validatejs/validate.min.js"></script>
 
 
-
 </head>
 
 <body>
