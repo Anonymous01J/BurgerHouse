@@ -6,17 +6,5 @@
   {
     "modulo": "combo",
     "permisos": "agregar,consultar,eliminar,editar"
-  },
-  {
-    "modulo": "pedidos y entregas",
-    "permisos": "consultar"
-  },
-  {
-    "modulo": "ventas",
-    "permisos": "agregar,consultar"
-  },
-  {
-    "modulo": "reportes",
-    "permisos": "consultar,exportar"
   }
 ]

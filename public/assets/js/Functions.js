@@ -2,21 +2,26 @@ export default function functionGeneral() {
     async function permission(module) {
         let data = await fetch("./assets/js/permission_example.json")
         let response = await data.json()
-        const permiss = response.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase())
-        let permissions = permiss.permisos.split(",")
+        const permiss = response.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) ? response.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) : null
 
-        if (!permissions.includes("consultar")) {
+        if (permiss != null) {
+            let permissions = permiss.permisos.split(",")
+            if (!permissions.includes("agregar") && document.querySelector(`[data-module-add='${module.toLocaleLowerCase()}']`)) {
+                document.querySelector(`[data-module-add='${module.toLocaleLowerCase()}']`).remove()
+            }
+            if (!permissions.includes("editar")) {
+                document.querySelectorAll(`[data-module-edit='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
+            }
+            if (!permissions.includes("eliminar")) {
+                document.querySelectorAll(`[data-module-delete='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
+            }
+            if (!permissions.includes("consultar")) {
+                document.querySelectorAll(`[data-module='${module}']`).forEach((d) => d.remove())
+            }
+        } else if (document.querySelector(`[data-module='${module}']`)) {
             document.querySelector(`[data-module='${module}']`).remove()
         }
-        if (!permissions.includes("agregar") && document.querySelector(`[data-module-add='${module.toLocaleLowerCase()}']`)) {
-            document.querySelector(`[data-module-add='${module.toLocaleLowerCase()}']`).remove()
-        }
-        if (!permissions.includes("editar")) {
-            document.querySelectorAll(`[data-module-edit='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
-        }
-        if (!permissions.includes("eliminar")) {
-            document.querySelectorAll(`[data-module-delete='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
-        }
+
     }
     function InputPrice(input) {
         let inputDom = document.querySelectorAll(input)

@@ -119,6 +119,7 @@ if (!form.dataset.listenerAttached) {
                         permisos: acciones.join(',')
                     }
                 ));
+                console.log(datapermissions);
                 form.reset()
                 document.querySelectorAll("input[type='text'], textarea").forEach(input => {
                     input.classList.remove("is-valid", "is-invalid");

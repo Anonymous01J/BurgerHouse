@@ -1,3 +1,6 @@
+import functionGeneral from "./Functions.js";
+const { permission } = functionGeneral()
+
 let title = document.getElementById('titlePage');
 let url = window.location.href;
 let urlArray = url.split('/');
@@ -28,3 +31,7 @@ const dolarBCV = async () => {
 }
 
 dolarBCV()
+
+
+//permisos para el navbar
+permission("Combo")
