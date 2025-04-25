@@ -89,88 +89,107 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="row">
-                                        <!-- Column -->
-                                        <div class="col-md-6 col-lg-3 col-xlg-3">
-                                            <div class="mb-3">
-                                                <label class="form-label text-dark" for="uname">Nombre</label>
-                                                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombre" aria-describedby="emailHelp">
+                                    <form action="" id="form-submit-permissions">
+                                        <div class="row">
+                                            <!-- Column -->
+                                            <div class="col-md-6 col-lg-3 col-xlg-3">
+                                                <div class="mb-3">
+                                                    <label class="form-label text-dark" for="uname">Nombre</label>
+                                                    <input type="text" class="form-control" id="input-name-permission" placeholder="Nombre" name="nombre">
+                                                    <div class="text-danger mt-1 fs-6" id="error-input-name-permission"></div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label text-dark" for="uname">Descripcion</label>
+                                                    <textarea class="form-control" id="input-description-permission" placeholder="Descripcion" rows="12" name="descripcion"></textarea>
+                                                    <div class="text-danger mt-1 fs-6" id="error-input-description-permission"></div>
+                                                </div>
+                                                <div class="mb-4">
+                                                    <button type="submit" class="btn bh_1 text-white">Guardar</button>
+                                                </div>
                                             </div>
-                                            <div class="mb-3">
-                                                <label class="form-label text-dark" for="uname">Descripcion</label>
-                                                <textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descripcion" rows="12"></textarea>
-                                            </div>
-                                            <div class="mb-4">
-                                                <button data-bs-toggle="modal" data-bs-target="#confirmAction" type="button" class="btn bh_1 text-white">Guardar</button>
-                                            </div>
-                                        </div>
-                                        <!-- Column -->
-                                        <div class="col-md-6 col-lg-9 col-xlg-3">
-                                            <div class="form-check form-check-reverse mb-4">
-                                                <input class="form-check-input check-all" type="checkbox" value="" id="reverseCheck1">
-                                                <label class="form-check-label" for="reverseCheck1">Seleccionar Todos</label>
-                                            </div>
+                                            <!-- Column -->
+                                            <div class="col-md-6 col-lg-9 col-xlg-3">
+                                                <div class="form-check form-check-reverse mb-4">
+                                                    <input class="form-check-input check-all" type="checkbox" value="" id="reverseCheck1">
+                                                    <label class="form-check-label" for="reverseCheck1">Seleccionar Todos</label>
+                                                </div>
 
-                                            <div class="table-responsive">
-                                                <table class="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>MODULO</th>
-                                                            <th>CONSULTAR</th>
-                                                            <th>AGREGAR</th>
-                                                            <th>MODIFICAR</th>
-                                                            <th>ELIMINAR</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <?php for ($i = 0; $i < 1; $i++) { ?>
+                                                <div class="table-responsive table_permissions">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>MODULO</th>
+                                                                <th>CONSULTAR</th>
+                                                                <th>AGREGAR</th>
+                                                                <th>MODIFICAR</th>
+                                                                <th>ELIMINAR</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
                                                             <tr>
                                                                 <td>COMBO</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="Combo" data-action="search" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="combo" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="Combo" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="combo" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="Combo" data-action="modificar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="combo" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="Combo" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="combo" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
 
                                                             </tr>
-                                                        <?php } ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                                            <tr>
+                                                                <td>PROVEEDORES</td>
+                                                                <td>
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" data-module="proveedores" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" data-module="proveedores" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" data-module="proveedores" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-check form-switch">
+                                                                        <input class="form-check-input" data-module="proveedores" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                    </div>
+                                                                </td>
 
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
-
-    <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
-
 </div>
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
@@ -182,6 +201,4 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
-<script src="./assets/js/pages/permissions/permissions.js"></script>
-
-
+<script type="module" src="./assets/js/pages/permissions/permissions.js"></script>

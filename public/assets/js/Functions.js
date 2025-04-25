@@ -1,5 +1,4 @@
 export default function functionGeneral() {
-
     async function permission(module) {
         let data = await fetch("./assets/js/permission_example.json")
         let response = await data.json()
