@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-04-2025 a las 05:12:17
+-- Tiempo de generación: 26-04-2025 a las 22:15:48
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -202,6 +202,19 @@ INSERT INTO `detalles_receta` (`Id`, `Id_receta`, `Id_materia_prima`, `cantidad`
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `detalles_roles`
+--
+
+CREATE TABLE `detalles_roles` (
+  `id` int(11) NOT NULL,
+  `id_rol` int(11) NOT NULL,
+  `modulo` varchar(45) NOT NULL,
+  `permisos` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `detalle_entrada`
 --
 
@@ -354,29 +367,6 @@ CREATE TABLE `pagos` (
   `fecha` datetime NOT NULL,
   `tasa` float NOT NULL,
   `comprobante` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `permisos`
---
-
-CREATE TABLE `permisos` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(45) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `permiso_rol`
---
-
-CREATE TABLE `permiso_rol` (
-  `id` int(11) NOT NULL,
-  `id_rol` int(11) NOT NULL,
-  `id_permiso` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -622,6 +612,13 @@ ALTER TABLE `detalles_receta`
   ADD KEY `Id_materia_prima_ibfk_1` (`Id_materia_prima`);
 
 --
+-- Indices de la tabla `detalles_roles`
+--
+ALTER TABLE `detalles_roles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_rol` (`id_rol`);
+
+--
 -- Indices de la tabla `detalle_entrada`
 --
 ALTER TABLE `detalle_entrada`
@@ -686,20 +683,6 @@ ALTER TABLE `pagos`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idRegistroVentas` (`id_venta`),
   ADD KEY `idMetodoPago` (`id_metodo_pago`);
-
---
--- Indices de la tabla `permisos`
---
-ALTER TABLE `permisos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `permiso_rol`
---
-ALTER TABLE `permiso_rol`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_rol(permiso_rol)_idx` (`id_rol`),
-  ADD KEY `id_permiso(permisos_rol)_idx` (`id_permiso`);
 
 --
 -- Indices de la tabla `productos`
@@ -813,6 +796,12 @@ ALTER TABLE `detalles_receta`
   MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
+-- AUTO_INCREMENT de la tabla `detalles_roles`
+--
+ALTER TABLE `detalles_roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `detalle_entrada`
 --
 ALTER TABLE `detalle_entrada`
@@ -864,18 +853,6 @@ ALTER TABLE `orden`
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `permisos`
---
-ALTER TABLE `permisos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `permiso_rol`
---
-ALTER TABLE `permiso_rol`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -957,6 +934,12 @@ ALTER TABLE `detalles_receta`
   ADD CONSTRAINT `Id_receta_prima_ibfk_2` FOREIGN KEY (`Id_receta`) REFERENCES `recetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `detalles_roles`
+--
+ALTER TABLE `detalles_roles`
+  ADD CONSTRAINT `detalles_roles_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`) ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `detalle_entrada`
 --
 ALTER TABLE `detalle_entrada`
@@ -999,13 +982,6 @@ ALTER TABLE `orden`
 ALTER TABLE `pagos`
   ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_metodo_pago`) REFERENCES `metodo_pago` (`id`),
   ADD CONSTRAINT `pagos_ibfk_2` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`);
-
---
--- Filtros para la tabla `permiso_rol`
---
-ALTER TABLE `permiso_rol`
-  ADD CONSTRAINT `id_permiso(permisos_rol)` FOREIGN KEY (`id_permiso`) REFERENCES `permisos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `id_rol(permiso_rol)` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`);
 
 --
 -- Filtros para la tabla `productos`
