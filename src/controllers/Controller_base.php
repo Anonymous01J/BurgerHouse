@@ -1,14 +1,15 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
 
+use Shtch\Burgerhouse\models\Db_base;
 use Exception;
 
 class Controller_base {
     public $module_name;
-    public $table_name;
-    public $db;
+    public string $table_name;
+    public Db_base $db;
 
-    public function __construct($module_name) {
+    public function __construct(string $module_name) {
         $this->module_name = $module_name;
     }
 
@@ -17,14 +18,10 @@ class Controller_base {
     }
 
     public function get_all(...$args) {
-        // $this->db->clear();
-        $this->db->add_variables($_POST);
-        // if (!$this->permisos['consultar']){
-        //     echo json_encode(['success' => false, 'message' => 'No tienes permiso para consultar']);
-        //     return;
-        // }
+        // print_r($this->db);
         header('Content-Type: application/json');
         try {
+            $this->db->__construct(...$_POST);
             echo json_encode($this->db->search(...$args));
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
@@ -35,7 +32,7 @@ class Controller_base {
         header('Content-Type: application/json');
         try {
             $this->db->clear();
-            $this->db->add_variables($_POST);
+            $this->db->__construct(...$_POST);
             echo json_encode(['last_id' => $this->db->agregar()]);
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
@@ -46,7 +43,7 @@ class Controller_base {
         // header('Content-Type: application/json');
         try {
             for ($i = 0; $i < count($_POST['lista']); $i++) {
-                $this->db->add_variables($_POST['lista'][$i]);
+                $this->db->__construct(...$_POST['lista'][$i]);
                 echo json_encode(['last_id' => $this->db->agregar()]);
             }
         } catch (Exception $e) {
@@ -57,8 +54,14 @@ class Controller_base {
     public function delete() {
         header('Content-Type: application/json');
         try {
-            $this->db->add_variables($_POST);
-            echo json_encode($this->db->borrar());
+            $this->db->clear();
+            $this->db->add_variables(["a.id" => $_POST['id']]);
+            $result = $this->db->borrar();
+            if ($result === 0 or $result === false) {
+                echo json_encode(['success' => false, 'message' => 'No se pudo eliminar el registro']);
+            } else {
+                echo json_encode(['success' => true]);
+            }
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
@@ -67,8 +70,14 @@ class Controller_base {
     public function update() {
         header('Content-Type: application/json');
         try {
-            $this->db->add_variables($_POST);
-            echo json_encode(['success' => $this->db->actualizar()]);
+            $this->db->clear();
+            $this->db->__construct(...$_POST);
+            $result = $this->db->actualizar();
+            if ($result == false or $result == 0) {
+                echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);
+            } else {
+                echo json_encode(['success' => true]);
+            }
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }

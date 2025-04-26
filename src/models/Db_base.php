@@ -1,7 +1,7 @@
 <?php
     namespace Shtch\Burgerhouse\models;
     use Shtch\Burgerhouse\models\Conexion;
-
+    use Exception;
     use PDO;
     abstract class Db_base extends Conexion{
         // Ejemplo
@@ -40,8 +40,8 @@
         //     INNER JOIN unidades c ON c.id = a.id_unidad
         //     INNER JOIN marcas m ON m.id = a.id_marca 
         // ';
-        private $variables;
-        private $variables_like;
+        public $variables;
+        public $variables_like;
         public $tabla;
         public $joins;
         public $select_query;
@@ -56,14 +56,21 @@
             Conexion::__construct();
         }
         public function add_variables(array $variables) : void {
-            $this->variables = array_filter($variables, fn($value) => !is_null($value));
+            $this->variables = array_filter($variables, fn($value) => (!is_null($value) and !is_array($value)));
         }
         public function add_variables_like(array $variables) : void {
-            $this->variables_like = array_filter($variables, fn($value) => !is_null($value));
+            $this->variables_like = array_filter($variables, fn($value) => (!is_null($value) and !is_array($value)));
         }
         public function add_variables_interval(array $variables) : void {
-            $this->variables_interval = array_filter($variables, fn($value) => !is_null($value));
+            $this->variables_interval = array_filter($variables, fn($value) => (!is_null($value) and !is_array($value)));
         }
+
+        public function clear() : void {
+            $this->variables = array();
+            $this->variables_like = array();
+            $this->variables_interval = array();
+        }
+
         private function normalizeKey($key) {
             if (str_contains($key, '.')){
                 // return explode(".", $key)[1];
@@ -99,7 +106,7 @@
             return $this->conn->lastInsertId();
         }
         public function actualizar() : bool {
-            if (!isset($this->variables['id']) or $this->variables['id'] == null){
+            if (!isset($this->variables['a.id']) or $this->variables['a.id'] == null){
                 return false;
             }
             $lista_vars = array();
@@ -116,12 +123,23 @@
             $sql = substr($sql, 0, -2);
             $sql .= " WHERE id=:id";
             $query = $this->conn->prepare($sql);
-            return $query->execute($lista_vars);
+            try {
+                return $query->execute($lista_vars);
+            } catch (Exception $e) {
+                return false;
+            }
         }
-        public function borrar() : void {
-            $query = $this->conn->prepare("DELETE FROM $this->tabla WHERE id=:id");
-            $query->bindValue(':id',$this->variables['a.id'], PDO::PARAM_INT);
-            $query->execute();
+        public function borrar() : bool {
+            try {
+                $query = $this->conn->prepare("DELETE FROM $this->tabla WHERE id=:id");
+                if (!isset($this->variables['a.id'])){
+                    return false;
+                }
+                $query->bindValue(':id',$this->variables['a.id'], PDO::PARAM_INT);
+                return $query->execute();
+            } catch (Exception $e) {
+                return 0;
+            }
         }
         public function search($n=0,$limite=9, string $order_by='id', string $order_type='ASC') : Array{
             $query = "SELECT $this->select_query FROM $this->tabla AS a $this->joins WHERE 1";
@@ -150,6 +168,7 @@
             // Creamos la consulta
             $consulta = $this->conn->prepare($query);
             // Asignamos los parametros   
+            // print_r($this->variables);
             foreach ($this->variables as $key => $value){
                 $consulta->bindValue(':'.$this->normalizeKey($key),$value);
             }
@@ -204,5 +223,9 @@
         }
         public function set($key,$value){
             return $this->variables[$key] = $value;
+        }
+        public function __toString()
+        {
+            return json_encode($this->variables);
         }
     }
