@@ -4,23 +4,27 @@ namespace Shtch\Burgerhouse\models;
 class Permiso_rol extends Db_base {
     private $id;
     private $id_rol;
-    private $id_permiso;
+    private $modulo;
+    private $permisos;
 
     public function __construct(
         $id = null,
         $id_rol = null,
-        $id_permiso = null
+        $modulo = null,
+        $permisos = null
     ) {
-        parent::__construct("permiso_rol");
+        parent::__construct("detalles_roles");
         
         $this->id = $id;
         $this->id_rol = $id_rol;
-        $this->id_permiso = $id_permiso;
+        $this->modulo = $modulo;
+        $this->permisos = $permisos;
 
         $this->add_variables([
             "a.id" => $this->id,
             "a.id_rol" => $this->id_rol,
-            "a.id_permiso" => $this->id_permiso
+            "a.modulo" => $this->modulo,
+            "a.permisos" => $this->permisos
         ]);
     }
 }
