@@ -7,7 +7,7 @@ export default function functionGeneral() {
         if (permiss != null) {
             let permissions = permiss.permisos.split(",")
             if (!permissions.includes("agregar") && document.querySelector(`[data-module-add='${module.toLocaleLowerCase()}']`)) {
-                document.querySelector(`[data-module-add='${module.toLocaleLowerCase()}']`).remove()
+                document.querySelectorAll(`[data-module-add='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
             }
             if (!permissions.includes("editar")) {
                 document.querySelectorAll(`[data-module-edit='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
