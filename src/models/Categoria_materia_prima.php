@@ -8,20 +8,26 @@ class Categoria_materia_prima extends Db_base {
     private $nombre;
     private $tipo;
     private $active;
+    private $nombre_like;
 
-    public function __construct($id = null, $nombre = null, $tipo = null, $active = null) {
+    public function __construct($id = null, $nombre = null, $tipo = null, $active = null, $nombre_like = null) {
         parent::__construct("categoria_materia_prima");
         
         $this->id = $id;
         $this->nombre = $nombre;
         $this->tipo = $tipo;
         $this->active = $active;
+        $this->nombre_like = $nombre_like;
 
         $this->add_variables([
             "a.id" => $this->id,
             "a.nombre" => $this->nombre,
             "a.tipo" => $this->tipo,
             "a.active" => $this->active
+        ]);
+
+        $this->add_variables_like([
+            "a.nombre LIKE" => $this->nombre_like
         ]);
         
         $this->select_query = "

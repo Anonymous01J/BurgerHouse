@@ -8,12 +8,14 @@ class Categoria_producto extends Db_base {
     private $nombre;
     private $tipo;
     private $active;
+    private $nombre_like;
 
     public function __construct(
         $id = null,
         $nombre = null,
         $tipo = null,
-        $active = null
+        $active = null,
+        $nombre_like = null
     ) {
         parent::__construct("categorias_productos");
         
@@ -21,6 +23,7 @@ class Categoria_producto extends Db_base {
         $this->nombre = $nombre;
         $this->tipo = $tipo;
         $this->active = $active;
+        $this->nombre_like = $nombre_like;
 
         $this->add_variables([
             "a.id" => $this->id,
@@ -29,6 +32,10 @@ class Categoria_producto extends Db_base {
             "a.active" => $this->active
         ]);
 
+        $this->add_variables_like([
+            "a.nombre LIKE" => $this->nombre_like
+        ]);
+        
         $this->select_query = "
             a.id,
             a.nombre,

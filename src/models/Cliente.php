@@ -10,6 +10,7 @@ class Cliente extends Db_base {
     private $telefono;
     private $direccion;
     private $active;
+    private $nombre_like;
 
     public function __construct(
         $id = null,
@@ -17,7 +18,8 @@ class Cliente extends Db_base {
         $cedula = null,
         $telefono = null,
         $direccion = null,
-        $active = null
+        $active = null,
+        $nombre_like = null
     ) {
         parent::__construct("clientes");
         
@@ -27,6 +29,7 @@ class Cliente extends Db_base {
         $this->telefono = $telefono;
         $this->direccion = $direccion;
         $this->active = $active;
+        $this->nombre_like = $nombre_like;
 
         $this->add_variables([
             "a.id" => $this->id,
@@ -37,6 +40,10 @@ class Cliente extends Db_base {
             "a.active" => $this->active
         ]);
 
+        $this->add_variables_like([
+            "a.nombre LIKE" => $this->nombre_like
+        ]);
+        
         $this->select_query = "
             a.id,
             a.nombre,

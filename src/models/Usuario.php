@@ -8,8 +8,9 @@
         private $id_rol;
         private $active;
         private $session_id;
+        private $nombre_like;
 
-        function __construct($id=null, $nombre=null,$hash=null,$id_rol=null,$active=null,$session_id=null){
+        function __construct($id=null, $nombre=null,$hash=null,$id_rol=null,$active=null,$session_id=null, $nombre_like=null){
             parent::__construct("usuario");
             $this->id = $id;
             $this->nombre = $nombre;
@@ -17,6 +18,8 @@
             $this->id_rol = $id_rol;
             $this->active = $active;
             $this->session_id = $session_id;
+            $this->nombre_like = $nombre_like;
+
             $this->add_variables([
                 "a.id" => $this->id,
                 "a.nombre" => $this->nombre,
@@ -36,5 +39,9 @@
             $this->joins = "
                 INNER JOIN roles ON roles.id = a.id_rol
             ";
+
+            $this->add_variables_like([
+                "a.nombre LIKE" => $this->nombre_like
+            ]);
         }
     }

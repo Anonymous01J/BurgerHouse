@@ -12,6 +12,7 @@ class Producto extends Db_base {
     private $precio;
     private $detalles;
     private $active;
+    private $nombre_like;
 
     public function __construct(
         $id = null,
@@ -21,7 +22,8 @@ class Producto extends Db_base {
         $imagen = null,
         $precio = null,
         $detalles = null,
-        $active = null
+        $active = null,
+        $nombre_like = null
     ) {
         parent::__construct("productos");
         
@@ -33,6 +35,7 @@ class Producto extends Db_base {
         $this->precio = $precio;
         $this->detalles = $detalles;
         $this->active = $active;
+        $this->nombre_like = $nombre_like;
 
         $this->add_variables([
             "a.id" => $this->id,
@@ -45,6 +48,9 @@ class Producto extends Db_base {
             "a.active" => $this->active
         ]);
 
+        $this->add_variables_like([
+            "a.nombre LIKE" => $this->nombre_like
+        ]);
 
         $this->select_query = "
             a.id,

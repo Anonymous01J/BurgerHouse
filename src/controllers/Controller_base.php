@@ -33,7 +33,7 @@ class Controller_base {
         try {
             $this->db->clear();
             $this->db->__construct(...$_POST);
-            echo json_encode(['last_id' => $this->db->agregar()]);
+            echo json_encode(['success' => true, 'last_id' => $this->db->agregar()]);
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
@@ -44,7 +44,7 @@ class Controller_base {
         try {
             for ($i = 0; $i < count($_POST['lista']); $i++) {
                 $this->db->__construct(...$_POST['lista'][$i]);
-                echo json_encode(['last_id' => $this->db->agregar()]);
+                echo json_encode(['success' => true, 'last_id' => $this->db->agregar()]);
             }
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
