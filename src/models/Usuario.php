@@ -8,9 +8,11 @@
         private $id_rol;
         private $active;
         private $session_id;
+        private $documento;
+        private $email;
         private $nombre_like;
 
-        function __construct($id=null, $nombre=null,$hash=null,$id_rol=null,$active=null,$session_id=null, $nombre_like=null){
+        function __construct($id=null, $nombre=null,$hash=null,$id_rol=null,$active=null,$session_id=null, $documento=null, $email=null, $nombre_like=null){
             parent::__construct("usuario");
             $this->id = $id;
             $this->nombre = $nombre;
@@ -18,6 +20,8 @@
             $this->id_rol = $id_rol;
             $this->active = $active;
             $this->session_id = $session_id;
+            $this->documento = $documento;
+            $this->email = $email;
             $this->nombre_like = $nombre_like;
 
             $this->add_variables([
@@ -26,7 +30,9 @@
                 "a.hash" => $this->hash,
                 "a.id_rol" => $this->id_rol,
                 "a.active" => $this->active,
-                "a.session_id" => $this->session_id
+                "a.session_id" => $this->session_id,
+                "a.documento" => $this->documento,
+                "a.email" => $this->email
             ]);
             $this->select_query = "
                 a.id,
@@ -34,7 +40,9 @@
                 a.hash,
                 roles.nombre rol,
                 a.active,
-                a.session_id
+                a.session_id,
+                a.documento,
+                a.email
             ";
             $this->joins = "
                 INNER JOIN roles ON roles.id = a.id_rol
