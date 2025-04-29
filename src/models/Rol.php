@@ -23,7 +23,7 @@ class Rol extends Db_base {
             "a.descripcion" => $this->descripcion
         ]);
 
-        $this->add_variables([
+        $this->add_variables_like([
             "a.nombre LIKE" => $this->nombre_like
         ]);
         
