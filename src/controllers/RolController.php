@@ -13,8 +13,9 @@ class RolController extends Controller_base {
     }
 
     public function agregar_rol(){
-        $nombre = $_POST['nose']['detalles']['nombre'];
-        $descripcion = $_POST['nose']['detalles']['descripcion'];
+        $data = json_decode($_POST['nose'], true);
+        $nombre = $data['detalles']['nombre'];
+        $descripcion = $data['detalles']['descripcion'];
         $db = new Rol(nombre: $nombre, descripcion: $descripcion);
         $last_id = $db->agregar();
 
