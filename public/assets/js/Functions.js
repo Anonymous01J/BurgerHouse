@@ -1,27 +1,28 @@
 export default function functionGeneral() {
-    async function permission(module) {
-        let data = await fetch("./assets/js/permission_example.json")
-        let response = await data.json()
-        const permiss = response.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) ? response.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) : null
+    async function permission(module = null) {
+        if (module != null) {
+            let data = await fetch("./assets/js/permission_example.json")
+            let response = await data.json()
+            const permiss = response.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) ? response.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) : null
 
-        if (permiss != null) {
-            let permissions = permiss.permisos.split(",")
-            if (!permissions.includes("agregar") && document.querySelector(`[data-module-add='${module.toLocaleLowerCase()}']`)) {
-                document.querySelectorAll(`[data-module-add='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
+            if (permiss != null) {
+                let permissions = permiss.permisos.split(",")
+                if (!permissions.includes("agregar") && document.querySelector(`[data-module-add='${module.toLocaleLowerCase()}']`)) {
+                    document.querySelectorAll(`[data-module-add='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
+                }
+                if (!permissions.includes("editar")) {
+                    document.querySelectorAll(`[data-module-edit='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
+                }
+                if (!permissions.includes("eliminar")) {
+                    document.querySelectorAll(`[data-module-delete='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
+                }
+                if (!permissions.includes("consultar")) {
+                    document.querySelectorAll(`[data-module='${module}']`).forEach((d) => d.remove())
+                }
+            } else if (document.querySelector(`[data-module='${module}']`)) {
+                document.querySelector(`[data-module='${module}']`).remove()
             }
-            if (!permissions.includes("editar")) {
-                document.querySelectorAll(`[data-module-edit='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
-            }
-            if (!permissions.includes("eliminar")) {
-                document.querySelectorAll(`[data-module-delete='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
-            }
-            if (!permissions.includes("consultar")) {
-                document.querySelectorAll(`[data-module='${module}']`).forEach((d) => d.remove())
-            }
-        } else if (document.querySelector(`[data-module='${module}']`)) {
-            document.querySelector(`[data-module='${module}']`).remove()
         }
-
     }
     function InputPrice(input) {
         let inputDom = document.querySelectorAll(input)
@@ -131,14 +132,33 @@ export default function functionGeneral() {
         })
         form.reset()
     }
-    function SelectOption() {
-        document.querySelectorAll(".dropdown-item").forEach(item => {
+    async function SelectOption(selectItem = null, data = null, module = null) {
+        let select = document.querySelector(selectItem)
+        if (data != null) {
+            let template = ""
+            data.forEach(element => {
+                template += ` <a class="dropdown-item" data-id="${element.id}">${element.nombre}</a>`
+            })
+            select.querySelector(".options_search").innerHTML = template
+        }
+        // if (module != null) {
+        //     select.querySelector(".search_select").addEventListener("keyup", (e) => {
+        //         let value = e.target.value
+        //         let template = ""
+
+        //     })
+        // }
+        select.querySelectorAll(".dropdown-item").forEach(item => {
             item.addEventListener("click", () => {
-                let input = item.parentElement.parentElement.firstElementChild.value
+                let input = item.parentElement.parentElement.parentElement.firstElementChild.value
                 let option = item.textContent
-                item.parentElement.parentElement.firstElementChild.value = option
+                item.parentElement.parentElement.parentElement.firstElementChild.value = option
+                if (data != null) {
+                    let id = item.getAttribute("data-id")
+                    item.parentElement.parentElement.parentElement.firstElementChild.setAttribute("data-id", id)
+                }
                 if (input != "" || input != "Seleccione una opcion") {
-                    item.parentElement.parentElement.firstElementChild.parentElement.parentElement.parentElement.nextElementSibling.textContent = ""
+                    item.parentElement.parentElement.firstElementChild.parentElement.parentElement.parentElement.parentElement.nextElementSibling.textContent = ""
                 }
             })
         })
@@ -266,11 +286,11 @@ export default function functionGeneral() {
         print(searchAll(module, 1), template, container, permission)
 
     }
-
-    const searchSingle = () => {
-
+    const searchSingle = async () => {
+        let pet = await fetch("./assets/js/prueba.json")
+        let response = await pet.json()
+        return response
     }
-
     // const edit = () => {
     //     document.querySelectorAll(".edit_btn").forEach(btn => {
     //         btn.addEventListener("click", () => {
@@ -300,5 +320,5 @@ export default function functionGeneral() {
     //     })
     // }
 
-    return { InputPrice, hora, fecha, setValidationStyles, validateField, SelectOption, viewImage, searchAll, print, add, reindex, resetForm, permission }
+    return { InputPrice, hora, fecha, setValidationStyles, validateField, SelectOption, viewImage, searchAll, searchSingle, print, add, reindex, resetForm, permission }
 }

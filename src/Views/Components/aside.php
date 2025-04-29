@@ -50,6 +50,13 @@
                     </a>
                 </li>
 
+                <li class="sidebar-item" data-module="Mesas">
+                    <a class="sidebar-link" href="table"
+                        aria-expanded="false">
+                        <i data-feather="grid" class="feather-icon"></i>
+                        <span class="hide-menu">Mesas</span>
+                    </a>
+                </li>
                 <!-- <li class="sidebar-item">
                     <a class="sidebar-link" href="ordenes"
                         aria-expanded="false">
@@ -108,7 +115,7 @@
                 </li> -->
 
                 <li class="sidebar-item" data-module="Papelera">
-                    <a class="sidebar-link sidebar-link" href="#"
+                    <a class="sidebar-link sidebar-link" href="trash"
                         aria-expanded="false">
                         <i data-feather="trash-2" class="feather-icon"></i>
                         <span class="hide-menu">Papelera</span>
@@ -144,6 +151,13 @@
                             <a href="recipe" class="sidebar-link">
                                 <span
                                     class="hide-menu"> Recetas
+                                </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item" data-module="Adicionales">
+                            <a href="additional" class="sidebar-link">
+                                <span
+                                    class="hide-menu"> Adicionales
                                 </span>
                             </a>
                         </li>
@@ -231,7 +245,7 @@
                 </li>
 
                 <li class="sidebar-item" data-module="Metodos de pago">
-                    <a class="sidebar-link sidebar-link" href="#"
+                    <a class="sidebar-link sidebar-link" href="paymentMethod"
                         aria-expanded="false">
                         <i data-feather="award" class="feather-icon"></i>
                         <span

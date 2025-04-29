@@ -45,15 +45,16 @@
                         <div class="col-md-6 col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Nombre de categoria" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <button class="btn bh_1" type="button" id="button-addon2" style="color: #fff;">Guardar</button>
-                                    </div>
+                                    <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#register-categoryCombo">
+                                        <i class="fas fa-plus"></i>
+                                        Categoria
+                                    </button>
+
                                     <div class="table-responsive mt-5">
                                         <table class="table table-dark-mode no-wrap">
                                             <thead>
                                                 <tr>
-                                                    <th>Nro de marca</th>
+                                                    <th>Nro</th>
                                                     <th>Nombre</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -98,15 +99,16 @@
                         <div class="col-md-6 col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Nombre de categoria" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                        <button class="btn bh_1" type="button" id="button-addon2" style="color: #fff;">Guardar</button>
-                                    </div>
+                                    <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#register-categoryRawmaterial">
+                                        <i class="fas fa-plus"></i>
+                                        Categoria
+                                    </button>
+
                                     <div class="table-responsive mt-5">
                                         <table class="table table-dark-mode no-wrap">
                                             <thead>
                                                 <tr>
-                                                    <th>Nro de marca</th>
+                                                    <th>Nro</th>
                                                     <th>Nombre</th>
                                                     <th>Acciones</th>
                                                 </tr>
@@ -147,12 +149,11 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
-        <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
+        <?php include_once __DIR__ . '/../Views/Components/modals/category/categoryCombo.php' ?>
+        <?php include_once __DIR__ . '/../Views/Components/modals/category/categoryRawmaterial.php' ?>
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
-
 </div>
 </div>
 
@@ -166,7 +167,3 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
-
-
-
-<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

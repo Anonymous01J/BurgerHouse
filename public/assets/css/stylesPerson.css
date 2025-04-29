@@ -3,7 +3,6 @@
   transition: display .7s, transform .7s, opacity .7s;
   transition-behavior: allow-discrete;
 }
-
 .captcha_page {
   display: flex;
   transition: display .7s, transform .7s, opacity .7s;
@@ -625,4 +624,13 @@
 }
 .dark-mode .swal2-title {
   color: #0009 !important;
+}
+.dark-mode .fc-ltr .fc-basic-view .fc-day-top .fc-day-number{
+  color: #000 !important;
+}
+.dark-mode .fc th.fc-widget-header{
+  background: var(--bg-modal);
+}
+.dark-mode .fc-unthemed td.fc-today{
+  background: var(--bg-secondary);
 }

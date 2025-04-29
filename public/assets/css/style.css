@@ -4322,7 +4322,7 @@ textarea.form-control-lg {
 .nav-pills {
   --bs-nav-pills-border-radius: 2px;
   --bs-nav-pills-link-active-color: #fff;
-  --bs-nav-pills-link-active-bg: #5f76e8;
+  --bs-nav-pills-link-active-bg: #FF4B00;
 }
 .nav-pills .nav-link {
   background: none;
@@ -17698,7 +17698,7 @@ strong {
 .fc-state-down,
 .fc-state-active,
 .fc-state-disabled {
-  background-color: #5f76e8;
+  background-color: #FF4B00;
   color: #fff;
   text-shadow: none;
 }

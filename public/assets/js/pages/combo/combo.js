@@ -6,7 +6,7 @@ const { targetCombo, elemenFormCombo } = Templates()
 InputPrice("[input_price]");
 SelectOption()
 viewImage(".input-image")
-permission("Combo")
+permission("Combo")//verifica el btn de agg
 
 // ------------------Validacion de Formulario---------------------------
 
@@ -211,4 +211,4 @@ if (!form.dataset.listenerAttached) {
   form.dataset.listenerAttached = "true";
 }
 attachValidationListeners(1)
-print(searchAll("combo", 1), targetCombo, ".cont-combos", "combo")
+print(searchAll("combo", 1), targetCombo, ".cont-combos", "combo")//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar

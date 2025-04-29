@@ -1,0 +1,89 @@
+<?php include_once __DIR__ . '/../Views/Components/header.php' ?>
+<?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
+
+
+
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+
+    <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
+
+    <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
+
+    <div class="page-wrapper">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-7 align-self-center">
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Mesas</h3>
+                    <div class="d-flex align-items-center">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb m-0 p-0">
+                                <li class="breadcrumb-item"><a href="home" class="text-muted">Aplicaciones</a></li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Mesas</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+                <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
+
+            </div>
+        </div>
+
+        <div class="container-fluid">
+
+            <div class="row g-3 align-items-center mb-5">
+                <div class="col-auto">
+                    <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                </div>
+                <button data-bs-toggle="modal" data-bs-target="#register-user" type="button" class="btn bh_1 btn-circle text-white">
+                    <i data-feather="plus" class="svg-icon"></i>
+                </button>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <div class="col">
+                    <div class="card h-100">
+                        <img src="./assets/img/big/banner_login.png" class="card-img-top" style="object-fit: cover; height: 200px;" alt="...">
+                        <div class="card-body p-1">
+                            <div class="d-flex justify-content-center align-items-center gap-4 h-100">
+                                <h5 class="card-title m-0">Mesa 1</h5>
+                                <h5 class="card-title m-0">Sillas: 5</h5>
+                                <h5 class="card-title m-0">VIP: SI</h5>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-body-secondary">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <p class="mb-0">Estado: <span class="badge text-bg-success">Libre</span></p>
+                                    <div class="d-flex gap-3">
+                                        <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="combo" style="cursor: pointer">
+                                            <i data-feather="edit"></i>
+                                        </a>
+                                        <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="combo" style="cursor: pointer">
+                                            <i data-feather="trash-2"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
+
+    </div>
+
+
+    <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
+    <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/js/app-style-switcher.js"></script>
+    <script src="./assets/js/feather.min.js"></script>
+    <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="./assets/js/sidebarmenu.js"></script>
+    <script src="./assets/js/custom.min.js"></script>

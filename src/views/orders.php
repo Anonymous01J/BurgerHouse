@@ -210,11 +210,210 @@
                                 </div>
 
 
-                                <div class="tab-pane fade" id="nav-llevar" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">...</div>
+                                <div class="tab-pane fade" id="nav-llevar" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                                    <div class="row">
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_5BG text-center">
+                                                    <h1 class="font-light text-white">5</h1>
+                                                    <h6 class="text-white">Pagos nulos</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_1BG text-center">
+                                                    <h1 class="font-light text-white">2,064</h1>
+                                                    <h6 class="text-white">Ordenes Totales</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_4 text-center">
+                                                    <h1 class="font-light text-white">1100</h1>
+                                                    <h6 class="text-white">Por Despachar</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_2 text-center">
+                                                    <h1 class="font-light text-white">964</h1>
+                                                    <h6 class="text-white">Despachadas</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#domicile">
+                                        <i class="fas fa-plus"></i>
+                                        Orden
+                                    </button>
+
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab">Pendientes</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="cosa-tab" data-bs-toggle="tab" data-bs-target="#pordespachar" type="button" role="tab">Para despachar</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#process" type="button" role="tab">Procesadas</button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                            <div class="row justify-content-between mt-3">
+                                                <div class="col-md-6 col-lg-3">
+                                                    <input type="text" class="form-control" id="searchBoxLLevarPending" placeholder="Buscar">
+                                                </div>
+                                                <div class="col-md-6 col-lg-9">
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive mt-2">
+                                                <table class="table no-wrap table-order-llevar-pendientes table-dark-mode">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Status</th>
+                                                            <th>N° Orden</th>
+                                                            <th>Cliente</th>
+                                                            <th>Fecha</th>
+                                                            <th>Hora</th>
+                                                            <th>Detalles</th>
+                                                            <th>N° Comp</th>
+                                                            <th>Comprobante</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php for ($i = 0; $i < 20; $i++) { ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="badge text-bg-success badge-pill">ENTREGADO</span>
+
+                                                                </td>
+                                                                <td><span class="fs-6">6419619819</span></td>
+                                                                <td>Jose Escalona</td>
+                                                                <td>13-3-2025</td>
+                                                                <td>13:40</td>
+                                                                <td>detalle</td>
+                                                                <td class="fs-6">2560</td>
+                                                                <td>ver</td>
+                                                                <td>
+                                                                    <button class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
+                                                                        <i data-feather="check-circle" class="text-white"></i>
+                                                                    </button>
+                                                                    <button class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
+                                                                        <i data-feather="x-circle" class="text-white"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade show" id="pordespachar" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                            <div class="row justify-content-between mt-3">
+                                                <div class="col-md-6 col-lg-3">
+                                                    <input type="text" class="form-control" id="searchBoxLLevarPorDespachar" placeholder="Buscar">
+                                                </div>
+                                                <div class="col-md-6 col-lg-9">
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive mt-2">
+                                                <table class="table no-wrap table-order-llevar-pordespachar table-dark-mode">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Status</th>
+                                                            <th>N° Orden</th>
+                                                            <th>Cliente</th>
+                                                            <th>Fecha</th>
+                                                            <th>Hora</th>
+                                                            <th>Detalles</th>
+                                                            <th>N° Comp</th>
+                                                            <th>Comprobante</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php for ($i = 0; $i < 20; $i++) { ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="badge text-bg-success badge-pill">ENTREGADO</span>
+
+                                                                </td>
+                                                                <td><span class="fs-6">6419619819</span></td>
+                                                                <td>Jose Escalona</td>
+                                                                <td>13-3-2025</td>
+                                                                <td>13:40</td>
+                                                                <td>detalle</td>
+                                                                <td class="fs-6">2560</td>
+                                                                <td>ver</td>
+                                                                <td>
+                                                                    <button class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
+                                                                        <i data-feather="check-circle" class="text-white"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade show" id="process" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                            <div class="row justify-content-between mt-3">
+                                                <div class="col-md-6 col-lg-3">
+                                                    <input type="text" class="form-control" id="searchBoxllevarProcesadas" placeholder="Buscar">
+                                                </div>
+                                                <div class="col-md-6 col-lg-9">
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive mt-2">
+                                                <table class="table no-wrap table-order-llevar-procesadas table-dark-mode">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Status</th>
+                                                            <th>N° Orden</th>
+                                                            <th>Cliente</th>
+                                                            <th>Fecha</th>
+                                                            <th>Hora</th>
+                                                            <th>Detalles</th>
+                                                            <th>N° Comp</th>
+                                                            <th>Comprobante</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <?php for ($i = 0; $i < 20; $i++) { ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <span class="badge text-bg-success badge-pill">ENTREGADO</span>
+                                                                </td>
+                                                                <td><span class="fs-6">6419619819</span></td>
+                                                                <td>Jose Escalona</td>
+                                                                <td>13-3-2025</td>
+                                                                <td>13:40</td>
+                                                                <td>detalle</td>
+                                                                <td class="fs-6">2560</td>
+                                                                <td>ver</td>
+                                                            </tr>
+                                                        <?php } ?>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
 
-                                <div class="tab-pane fade" id="nav-local" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">...</div>
+                                <div class="tab-pane fade" id="nav-local" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">2</div>
                             </div>
 
                         </div>
@@ -245,4 +444,3 @@
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
 <script src="./assets/js/pages/order/order.js"></script>
-

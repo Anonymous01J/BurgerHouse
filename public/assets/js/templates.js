@@ -349,6 +349,94 @@ export default function Templates() {
         </div>
         `
     }
+    function elemenFormUser(objet) {
+        return`
+        <div class="row g-2 users mt-4" id="user-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-3">
+                <h4 class="m-0">Usuario ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-user">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="input-name-user-${objet}" name="nombre">
+                <div class="text-danger mt-1 fs-6" id="error-input-name-user-${objet}"></div>
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Apellido</label>
+                <input type="text" class="form-control" placeholder="Apellido" id="input-lastname-user-${objet}" name="apellido">
+                <div class="text-danger mt-1 fs-6" id="error-input-lastname-user-${objet}"></div>
+            </div>
+            <div class="col-md-6 ">
+                <label for="inputCity" class="form-label">Tipo de documento</label>
+                <div class="dropdown">
+                    <div class="dropdown">
+                        <div class="btn-group w-100" bis_skin_checked="1">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-td-user-${objet}" name="tipo_documento">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span> <i data-feather="chevron-down"></i></span>
+                            </button>
+                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                <div>
+                                    <input class="form-control" type="text" placeholder="Buscar">
+                                </div>
+                                <a class="dropdown-item">V</a>
+                                <a class="dropdown-item">E</a>
+                                <a class="dropdown-item">J</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-td-user-${objet}"></div>
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Nro de documento</label>
+                <input type="text" class="form-control" placeholder="Nro de documento" id="input-rif-user-${objet}" name="rif">
+                <div class="text-danger mt-1 fs-6" id="error-input-rif-user-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Correo Electronico</label>
+                <input type="text" class="form-control" placeholder="Correo Electronico" id="input-email-user-${objet}" name="email" autocomplete="off">
+                <div class="text-danger mt-1 fs-6" id="error-input-email-user-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Contraseña</label>
+                <input type="password" autocomplete="new-password" class="form-control" placeholder="Contraseña" id="input-password-user-${objet}" name="hash">
+                <div class="text-danger mt-1 fs-6" id="error-input-password-user-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputCity" class="form-label">Rol</label>
+                <div class="dropdown">
+                    <div class="dropdown">
+                        <div class="btn-group w-100" bis_skin_checked="1">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-rol-user-${objet}" name="id_rol">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span> <i data-feather="chevron-down"></i></span>
+                            </button>
+                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                <div>
+                                    <input class="form-control" type="text" placeholder="Buscar">
+                                </div>
+                                <a class="dropdown-item">V</a>
+                                <a class="dropdown-item">E</a>
+                                <a class="dropdown-item">J</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-rol-user-${objet}"></div>
+            </div>
+        </div>
+        `
+    }
+
+
+
+
+
+
+
     function targetCategoryMenu(objet) {
         return `
             <ul class="menu-filters isotope-filters">
@@ -369,5 +457,5 @@ export default function Templates() {
         `
     }
 
-    return { targetCombo, elemenFormCombo, elemenFormRawMaterial, elemenFormRecipe, elemenFormSupplier, elemenFormClient, targetCategoryMenu, targetMenu }
+    return { targetCombo, elemenFormCombo, elemenFormRawMaterial, elemenFormRecipe, elemenFormSupplier, elemenFormClient, elemenFormUser, targetCategoryMenu, targetMenu }
 }

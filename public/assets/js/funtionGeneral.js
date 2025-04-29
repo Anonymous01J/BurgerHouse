@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.toggle('dark-mode', isDark);
     if (check == "true") {
         document.getElementById("themeToggle").removeAttribute("checked")
+        document.querySelector(".img-bcv").src = "./assets/img/bcv2.png"
     }
 });
 
@@ -21,6 +22,12 @@ document.getElementById("themeToggle").addEventListener("click", () => {
     const isDark = document.body.classList.toggle('dark-mode');
     localStorage.setItem('darkMode', isDark);
     localStorage.setItem('check', isDark);
+    if (localStorage.getItem("check") == "true") {
+        console.log("object");
+        document.querySelector(".img-bcv").src = "./assets/img/bcv2.png"
+    } else {
+        document.querySelector(".img-bcv").src = "./assets/img/bcv.png"
+    }
 });
 
 

@@ -1,5 +1,5 @@
 import functionGeneral from "../../Functions.js";
-const { setValidationStyles, validateField } = functionGeneral();
+const { setValidationStyles, validateField, add } = functionGeneral();
 //funcion para el check all
 let check_all = document.querySelector(".check-all")
 let form_check_input = document.querySelectorAll(".form-check-input")
@@ -119,7 +119,19 @@ if (!form.dataset.listenerAttached) {
                         permisos: acciones.join(',')
                     }
                 ));
+                //$data = json_decode(file_get_contents("php://input"), true)
                 console.log(datapermissions);
+                // let dat = new FormData()
+                // dat.append("lista", JSON.stringify(datapermissions))
+                // async function send() {
+                //     let pet = await fetch("permissions/add_many", {
+                //         method: "POST",
+                //         body: dat
+                //     })
+                //     let response = await pet.json()
+                //     console.log(response);
+                // }
+                // send()
                 form.reset()
                 document.querySelectorAll("input[type='text'], textarea").forEach(input => {
                     input.classList.remove("is-valid", "is-invalid");

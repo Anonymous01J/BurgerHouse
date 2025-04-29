@@ -48,7 +48,7 @@
                         <div class="col-auto">
                             <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
-                        <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+                        <button style="color: #fff;" type="button" class="btn bh_1 btn-circle" data-bs-toggle="modal" data-bs-target="#register-cash">
                             <i data-feather="plus" class="svg-icon"></i>
                         </button>
                     </div>
@@ -151,7 +151,7 @@
 
                 </div>
 
-                <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
+                <?php include_once __DIR__ . '/../Views/Components/modals/cash/modal.php' ?>
 
             </div>
         </div>

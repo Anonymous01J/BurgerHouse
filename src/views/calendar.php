@@ -64,13 +64,11 @@
                 </div>
             </div>
         </div>
-
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
-
 </div>
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
-<script src="./assets/libs/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js"></script>
 <script src="./assets/libs/extra-libs/taskboard/js/jquery-ui.min.js"></script>
 <script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -82,5 +80,5 @@
 <script src="./assets/libs/libs/moment/min/moment.min.js"></script>
 <script src="./assets/libs/libs/fullcalendar/dist/fullcalendar.min.js"></script>
 <script src="./assets/js/pages/calendar/cal-init.js"></script>
+<script src='./assets/libs/libs/fullcalendar/dist/locale/es.js'></script>
 
-<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
