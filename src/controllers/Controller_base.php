@@ -21,6 +21,7 @@ class Controller_base {
         // print_r($this->db);
         header('Content-Type: application/json');
         try {
+            $this->db->clear();
             $this->db->__construct(...$_POST);
             echo json_encode($this->db->search(...$args));
         } catch (Exception $e) {

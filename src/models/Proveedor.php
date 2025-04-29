@@ -33,7 +33,7 @@ class Proveedor extends Db_base {
         ]);
 
         $this->add_variables_like([
-            "a.nombre LIKE" => $this->nombre_like
+            "a.nombre" => $this->nombre_like
         ]);
 
         $this->select_query = "
