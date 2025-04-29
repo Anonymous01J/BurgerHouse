@@ -19,7 +19,7 @@ class RolController extends Controller_base {
         $db = new Rol(nombre: $nombre, descripcion: $descripcion);
         $last_id = $db->agregar();
 
-        $lista_permisos = $_POST['nose']['permisos'];
+        $lista_permisos = $data['permisos'];
         
         for ($i = 0; $i < count($lista_permisos); $i++) {
             $db= new  Permiso_rol(id_rol: $last_id, modulo: $lista_permisos[$i]['modulo'], permisos: $lista_permisos[$i]['permisos']);
