@@ -8,6 +8,9 @@ class Proveedor extends Db_base {
     private $nombre;
     private $razon_social;
     private $rif;
+    private $telefono;
+    private $correo;
+    private $active;
     private $nombre_like;
 
     public function __construct(
@@ -15,7 +18,10 @@ class Proveedor extends Db_base {
         $nombre = null,
         $razon_social = null,
         $rif = null,
-        $nombre_like = null
+        $nombre_like = null,
+        $telefono = null,
+        $correo = null,
+        $active = null
     ) {
         parent::__construct("proveedores");
         
@@ -24,12 +30,18 @@ class Proveedor extends Db_base {
         $this->razon_social = $razon_social;
         $this->rif = $rif;
         $this->nombre_like = $nombre_like;
+        $this->telefono = $telefono;
+        $this->correo = $correo;
+        $this->active = $active;
 
         $this->add_variables([
             "a.id" => $this->id,
             "a.nombre" => $this->nombre,
             "a.razon_social" => $this->razon_social,
-            "a.rif" => $this->rif
+            "a.rif" => $this->rif,
+            "a.telefono" => $this->telefono,
+            "a.correo" => $this->correo,
+            "a.active" => $this->active
         ]);
 
         $this->add_variables_like([
@@ -40,7 +52,10 @@ class Proveedor extends Db_base {
             a.id,
             a.nombre,
             a.razon_social,
-            a.rif
+            a.rif,
+            a.telefono,
+            a.correo,
+            a.active
         ";
     }
 }
