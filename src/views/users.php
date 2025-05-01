@@ -34,52 +34,15 @@
 
             <div class="row g-3 align-items-center mb-5">
                 <div class="col-auto">
-                    <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                    <input type="search" id="search-filter-users" placeholder="Buscar" class="form-control">
                 </div>
                 <button data-bs-toggle="modal" data-bs-target="#register-user" type="button" class="btn bh_1 btn-circle text-white">
                     <i data-feather="user-plus" class="svg-icon"></i>
                 </button>
             </div>
 
-            <div class="row">
-                <div class="col-md-4 col-lg-3 ">
-                    <div class="position-relative">
-                        <span class="badge bh_1 d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;">
-                            <span><i style="font-size: 20px;" data-feather="user-check" class="svg-icon"></i></span>
-                        </span>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="mb-3 border-bottom">
-                                    <div class="d-flex justify-content-between ">
-                                        <h5 class="card-title">Jose Perez</h5>
-                                        <div>
-                                            <p class="fs-6">CI-582679</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row gap-3">
-                                    <div class="d-flex flex-column gap-4">
-
-                                        <div class="text-start">
-                                            <h4>Rol</h4>
-                                            <div class="fs-6">Cajero</div>
-                                        </div>
-                                        <div class="text-start">
-                                            <h4>Correo Electronico</h4>
-                                            <div class="fs-6">garnicaluis391@gmail.com</div>
-                                        </div>
-
-                                        <div class="d-flex justify-content-end gap-3 border-top pt-3">
-                                            <i style="cursor: pointer;" data-feather="edit"></i>
-                                            <i style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#confirmAction" data-feather="trash-2"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="row container_users">
+                <!-- // Aquí se cargarán los usuarios -->
             </div>
 
 

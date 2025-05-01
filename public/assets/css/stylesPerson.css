@@ -613,6 +613,10 @@
   color: var(--text-primary) !important;
 }
 
+.dark-mode input[type="button"] {
+  background: var(--bg-modal);
+}
+
 .dark-mode input:focus {
   border-color: var(--border-color) !important;
   outline-color: var(--border-color) !important;

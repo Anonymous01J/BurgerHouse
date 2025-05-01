@@ -1,5 +1,7 @@
 import functionGeneral from "../../Functions.js";
-const { setValidationStyles, validateField, add } = functionGeneral();
+import Templates from "../../templates.js";
+const { setValidationStyles, validateField, print, searchAll } = functionGeneral();
+const {targetPermission} = Templates()
 //funcion para el check all
 let check_all = document.querySelector(".check-all")
 let form_check_input = document.querySelectorAll(".form-check-input")
@@ -119,19 +121,17 @@ if (!form.dataset.listenerAttached) {
                         permisos: acciones.join(',')
                     }
                 ));
-                //$data = json_decode(file_get_contents("php://input"), true)
-                console.log(datapermissions);
-                // let dat = new FormData()
-                // dat.append("lista", JSON.stringify(datapermissions))
-                // async function send() {
-                //     let pet = await fetch("permissions/add_many", {
-                //         method: "POST",
-                //         body: dat
-                //     })
-                //     let response = await pet.json()
-                //     console.log(response);
-                // }
-                // send()
+                let dat = new FormData()
+                dat.append("nose", JSON.stringify(datapermissions))
+                async function send() {
+                    let pet = await fetch("rol/agregar_rol", {
+                        method: "POST",
+                        body: dat,
+                    })
+                    let response = await pet.json()
+                    console.log(response);
+                }
+                send()
                 form.reset()
                 document.querySelectorAll("input[type='text'], textarea").forEach(input => {
                     input.classList.remove("is-valid", "is-invalid");
@@ -142,3 +142,4 @@ if (!form.dataset.listenerAttached) {
     })
     form.dataset.listenerAttached = "true";
 }
+print(searchAll(), targetPermission, "table_permissions")

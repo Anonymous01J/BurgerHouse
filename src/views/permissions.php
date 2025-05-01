@@ -154,22 +154,22 @@
                                                                 <td>PROVEEDORES</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="proveedores" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="supplier" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="proveedores" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="supplier" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="proveedores" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="supplier" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="proveedores" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="supplier" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
 
@@ -178,22 +178,22 @@
                                                                 <td>ORDENES</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="ordenes" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="order" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="ordenes" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="order" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="ordenes" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="order" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="ordenes" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="order" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
 
@@ -217,12 +217,12 @@
                                                                 <td>COCINA</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="cocina" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="kitchen" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="cocina" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="kitchen" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td></td>
@@ -232,7 +232,7 @@
                                                                 <td>ESTADISTICAS</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="estadisticas" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="statistics" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td></td>
@@ -243,7 +243,7 @@
                                                                 <td>CALENDARIO</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="calendario" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="calendar" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td></td>
@@ -254,7 +254,7 @@
                                                                 <td>BITACORA</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="bitacora" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="binnacle" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td></td>
@@ -280,12 +280,12 @@
                                                                 <td>PAPELERA</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="papelera" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="trash" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="papelera" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="trash" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td></td>
@@ -295,22 +295,22 @@
                                                                 <td>CLIENTES</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="cliente" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="clients" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="cliente" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="clients" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="cliente" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="clients" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="cliente" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="clients" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
 
@@ -319,17 +319,17 @@
                                                                 <td>CAJA</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="caja" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="cash" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="caja" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="cash" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="caja" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="cash" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td></td>
@@ -338,7 +338,7 @@
                                                                 <td>FACTURAS</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="factura" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="invoice" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td></td>
@@ -349,13 +349,13 @@
                                                                 <td>CREDITO</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="credito" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="credit" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td></td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="credito" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="credit" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td></td>
@@ -364,22 +364,22 @@
                                                                 <td>UNIDADES</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="unidades" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="units" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="unidades" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="units" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="unidades" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="units" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="unidades" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="units" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
 
@@ -388,22 +388,22 @@
                                                                 <td>CATEGORIAS</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="categorias" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="category" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="categorias" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="category" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="categorias" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="category" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="categorias" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="category" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
 
@@ -412,22 +412,22 @@
                                                                 <td>METODOS DE PAGO</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="metodos de pago" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="paymentMethod" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="metodos de pago" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="paymentMethod" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="metodos de pago" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="paymentMethod" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="metodos de pago" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="paymentMethod" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
 
@@ -436,22 +436,22 @@
                                                                 <td>PERMISOS</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="permisos" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="permissionsRol" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="permisos" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="permissionsRol" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="permisos" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="permissionsRol" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="permisos" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="permissionsRol" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
 
@@ -460,22 +460,22 @@
                                                                 <td>USUARIOS</td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="usuarios" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="users" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="usuarios" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="users" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="usuarios" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="users" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
                                                                 <td>
                                                                     <div class="form-check form-switch">
-                                                                        <input class="form-check-input" data-module="usuarios" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                                        <input class="form-check-input" data-module="users" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                                     </div>
                                                                 </td>
 

@@ -7,5 +7,4 @@ class CategoryController extends Controller_base {
     public function __construct() {
         parent::__construct("category");
     }
-    
 }

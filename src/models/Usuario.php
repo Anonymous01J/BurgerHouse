@@ -43,6 +43,7 @@
                 a.nombre,
                 a.hash,
                 roles.nombre rol,
+                roles.id rol_id,
                 a.active,
                 a.session_id,
                 a.documento,

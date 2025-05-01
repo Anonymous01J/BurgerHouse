@@ -9,7 +9,7 @@ class RolController extends Controller_base {
 
     public function __construct() {
         parent::__construct("roles");
-        $this->db = new Rol(...$_POST);
+        $this->db = new Rol();
     }
 
     public function agregar_rol(){

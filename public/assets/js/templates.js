@@ -13,7 +13,7 @@ export default function Templates() {
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <p class="mb-0">Precio: ${objet.precio}$</p>
                             <div class="d-flex gap-3">
-                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="combo" style="cursor: pointer">
+                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="combo" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-combo">
                                     <i data-feather="edit"></i>
                                 </a>
                                 <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="combo" style="cursor: pointer">
@@ -26,6 +26,97 @@ export default function Templates() {
             </div>
         </div>
                 `
+    }
+    function targetUser(objet) {
+        return `
+        <div class="col-md-4 col-lg-3 ">
+            <div class="position-relative">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3 border-bottom">
+                            <div class="d-flex justify-content-between ">
+                                <h5 class="card-title">${objet.nombre + " " + objet.apellido}</h5>
+                                <div>
+                                    <p style="font-size: 12px"">${objet.documento}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row gap-3">
+                            <div class="d-flex flex-column gap-4">
+
+                                <div class="text-start">
+                                    <h4>Rol</h4>
+                                    <div class="fs-6">${objet.rol}</div>
+                                </div>
+                                <div class="text-start">
+                                    <h4>Correo Electronico</h4>
+                                    <div class="fs-6">${objet.email}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">
+                            <div style="display: flex; justify-content: end; align-items: center;">
+                                <div class="d-flex gap-3">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="users" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-user">
+                                        <i data-feather="edit"></i>
+                                    </a>
+                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="users" style="cursor: pointer">
+                                        <i data-feather="trash-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    }
+    function targetPermission(objet) {
+        return`
+        <div class="col-md-4 col-lg-3 ">
+            <div class="position-relative">
+                <span class="badge bh_1 d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;">
+                    <span><i style="font-size: 24px;" data-feather="shield" class="svg-icon"></i></span>
+                </span>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3 border-bottom">
+                            <div class="d-flex justify-content-between ">
+                                <h5 class="card-title">${objet.nombre}</h5>
+                            </div>
+                        </div>
+
+                        <div class="row gap-3">
+                            <div class="d-flex flex-column gap-4">
+                                <div class="text-start">
+                                    <h4>Descripcion</h4>
+                                    <div class="fs-6">${objet.descripcion}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">
+                            <div style="display: flex; justify-content: end; align-items: center;">
+                                <div class="d-flex gap-3">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="permissionsRol" style="cursor: pointer">
+                                        <i data-feather="edit"></i>
+                                    </a>
+                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="permissionsRol" style="cursor: pointer">
+                                        <i data-feather="trash-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
     }
     function elemenFormCombo(objet) {
         return `
@@ -289,7 +380,7 @@ export default function Templates() {
         `
     }
     function elemenFormClient(objet) {
-        return`
+        return `
         <div class="row g-2 client mt-4" id="client-${objet}">
             <div class="d-flex align-items-center gap-4 mb-3">
                 <h4 class="m-0">Cliente ${objet}</h4>
@@ -350,7 +441,7 @@ export default function Templates() {
         `
     }
     function elemenFormUser(objet) {
-        return`
+        return `
         <div class="row g-2 users mt-4" id="user-${objet}">
             <div class="d-flex align-items-center gap-4 mb-3">
                 <h4 class="m-0">Usuario ${objet}</h4>
@@ -430,11 +521,21 @@ export default function Templates() {
         </div>
         `
     }
+    function optionsRol(object) {
+        return `
+         <a class="dropdown-item" data-id="${object.id}">${object.nombre}</a>
+        `
+    }
 
-
-
-
-
+    function Watermark(){
+        return`
+        <div class="col-12">
+            <div class="d-flex justify-content-center align-items-center flex-column mb-4">
+                <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
+            </div>
+        </div>
+        `
+    }
 
 
     function targetCategoryMenu(objet) {
@@ -457,5 +558,5 @@ export default function Templates() {
         `
     }
 
-    return { targetCombo, elemenFormCombo, elemenFormRawMaterial, elemenFormRecipe, elemenFormSupplier, elemenFormClient, elemenFormUser, targetCategoryMenu, targetMenu }
+    return { targetCombo, targetUser, targetPermission, elemenFormCombo, elemenFormRawMaterial, elemenFormRecipe, elemenFormSupplier, elemenFormClient, elemenFormUser, optionsRol, Watermark, targetCategoryMenu, targetMenu }
 }

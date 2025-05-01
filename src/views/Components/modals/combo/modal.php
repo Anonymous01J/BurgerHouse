@@ -1,5 +1,6 @@
-<!-- <div class="modal fade p-0" id="edit-combo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog  modal-dialog-scrollable">
+<!-- modal para editar como -->
+<div class="modal fade p-0" id="edit-combo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Combo</h1>
@@ -25,7 +26,7 @@
                         <div class="dropdown">
                             <div class="dropdown">
                                 <div class="btn-group w-100" bis_skin_checked="1">
-                                    <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-combo" name="id_categoria">
+                                    <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-combo" name="id_categoria" data-id="Seleccione una opcion">
                                     <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span> <i data-feather="chevron-down"></i></span>
                                     </button>
@@ -47,7 +48,7 @@
                         <div class="dropdown">
                             <div class="dropdown">
                                 <div class="btn-group w-100" bis_skin_checked="1">
-                                    <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-recipe-combo" name="id_receta">
+                                    <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-recipe-combo" name="id_receta" data-id="Seleccione una opcion">
                                     <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <span> <i data-feather="chevron-down"></i></span>
                                     </button>
@@ -84,9 +85,9 @@
             </div>
         </div>
     </div>
-</div> -->
+</div>
 
-
+<!-- modal para agg combos -->
 <div class="modal fade p-0" id="register-combo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
         <div class="modal-content">
