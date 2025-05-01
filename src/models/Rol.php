@@ -8,19 +8,22 @@ class Rol extends Db_base {
     private $nombre;
     private $descripcion;
     private $nombre_like;
+    private $active;
 
-    public function __construct($id = null, $nombre = null, $descripcion = null, $nombre_like=null) {
+    public function __construct($id = null, $nombre = null, $descripcion = null, $nombre_like=null, $active=null) {
         parent::__construct("roles");
         
         $this->id = $id;
         $this->nombre = $nombre;
         $this->descripcion = $descripcion;
         $this->nombre_like = $nombre_like;
+        $this->active = $active;
 
         $this->add_variables([
             "a.id" => $this->id,
             "a.nombre" => $this->nombre,
-            "a.descripcion" => $this->descripcion
+            "a.descripcion" => $this->descripcion,
+            "a.active" => $this->active
         ]);
 
         $this->add_variables_like([
@@ -30,7 +33,8 @@ class Rol extends Db_base {
         $this->select_query = "
             a.id,
             a.nombre,
-            a.descripcion
+            a.descripcion,
+            a.active
         ";
     }
 }
