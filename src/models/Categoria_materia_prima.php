@@ -6,23 +6,20 @@ use Shtch\Burgerhouse\models\Db_base;
 class Categoria_materia_prima extends Db_base {
     private $id;
     private $nombre;
-    private $tipo;
     private $active;
     private $nombre_like;
 
-    public function __construct($id = null, $nombre = null, $tipo = null, $active = null, $nombre_like = null) {
+    public function __construct($id = null, $nombre = null, $active = null, $nombre_like = null) {
         parent::__construct("categoria_materia_prima");
         
         $this->id = $id;
         $this->nombre = $nombre;
-        $this->tipo = $tipo;
         $this->active = $active;
         $this->nombre_like = $nombre_like;
 
         $this->add_variables([
             "a.id" => $this->id,
             "a.nombre" => $this->nombre,
-            "a.tipo" => $this->tipo,
             "a.active" => $this->active
         ]);
 
@@ -33,7 +30,6 @@ class Categoria_materia_prima extends Db_base {
         $this->select_query = "
             a.id,
             a.nombre,
-            a.tipo,
             a.active
         ";
     }
