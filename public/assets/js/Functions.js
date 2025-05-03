@@ -118,7 +118,11 @@ export default function functionGeneral() {
       if (id > 1) d.remove();
       d.querySelectorAll("input, textarea").forEach((input) => {
         input.value = input.type === "button" ? "Seleccione una opcion" : "";
-        input.type = "button" ? input.setAttribute("data-id", "Seleccione una opcion") : "";
+        if (input.tagName.toLowerCase() === "input") {
+          if (input.type === "button") {
+            input.setAttribute("data-id", "Seleccione una opcion");
+          }
+        }
         input.classList.remove("is-valid", "is-invalid");
       });
       if (d.querySelectorAll("img")) {
@@ -133,17 +137,21 @@ export default function functionGeneral() {
   async function SelectOption(selectItem = null, module = null, template = null) {
     let select = document.querySelector(selectItem);
     if (module != null) {
-      // searchAll('rol', 1)
-      console.log("object");
-      // data.forEach((element) => {
-      //   template += ` <a class="dropdown-item" data-id="${element.id}">${element.nombre}</a>`;
-      // });
-      // select.querySelector(".options_search").innerHTML = template;
+      let template = ""
+      let data = await searchAll('rol', 1)
+      if (data.length == 0) {
+        select.querySelector(".options_search").innerHTML = `<a class="dropdown-item">No hay resultados</a>`;
+      } else {
+        data.forEach((element) => {
+          template += ` <a class="dropdown-item" data-id="${element.id}">${element.nombre}</a>`;
+        });
+        select.querySelector(".options_search").innerHTML = template;
+      }
     }
     if (module != null) {
       select.querySelector(".search_select").addEventListener("keyup", async (e) => {
         if (e.target.value != "") {
-          let res = await searchLike(e, module);
+          let res = await searchLike(e, module, 1);
           let cont = "";
           if (res.length == 0) {
             cont = `<a class="dropdown-item"">No hay resultados</a>`;
@@ -187,6 +195,93 @@ export default function functionGeneral() {
       });
     });
   }
+  async function selectOptionAll(item = null, module = null, template = null) {
+    let select = document.querySelectorAll(item);
+    select.forEach(async (element) => {
+      if (module != null) {
+        let data = await searchAll(module, 1)
+        let template = ""
+        if (data.length == 0) {
+          element.querySelector(".options_search").innerHTML = `<a class="dropdown-item">No hay resultados</a>`;
+        } else {
+          data.forEach((element) => {
+            template += ` <a class="dropdown-item" data-id="${element.id}">${element.nombre}</a>`;
+          });
+          element.querySelector(".options_search").innerHTML = template;
+        }
+        element.querySelectorAll(".dropdown-item").forEach((item) => {
+          item.addEventListener("click", () => {
+            let input = item.parentElement.parentElement.parentElement.firstElementChild.value;
+            let option = item.textContent;
+            item.parentElement.parentElement.parentElement.firstElementChild.value = option;
+            if (module != null) {
+              let id = item.getAttribute("data-id");
+              item.parentElement.parentElement.parentElement.firstElementChild.setAttribute("data-id", id);
+            }
+            if (input != "" || input != "Seleccione una opcion") {
+              item.parentElement.parentElement.firstElementChild.parentElement.parentElement.parentElement.parentElement.nextElementSibling.textContent = "";
+            }
+          });
+        });
+      }
+      if (module != null) {
+        element.querySelector(".search_select").addEventListener("keyup", async (e) => {
+          if (e.target.value != "") {
+            let res = await searchLike(e, module, 1);
+            let cont = "";
+            if (res.length == 0) {
+              cont = `<a class="dropdown-item"">No hay resultados</a>`;
+              element.querySelector(".options_search").innerHTML = cont;
+            } else {
+              res.forEach((element) => {
+                cont += template(element);
+              });
+            }
+            element.querySelector(".options_search").innerHTML = cont;
+            element.querySelectorAll(".dropdown-item").forEach((item) => {
+              item.addEventListener("click", () => {
+                let input = item.parentElement.parentElement.parentElement.firstElementChild.value;
+                let option = item.textContent;
+                item.parentElement.parentElement.parentElement.firstElementChild.value = option;
+                if (module != null) {
+                  let id = item.getAttribute("data-id");
+                  item.parentElement.parentElement.parentElement.firstElementChild.setAttribute("data-id", id);
+                }
+                if (input != "" || input != "Seleccione una opcion") {
+                  item.parentElement.parentElement.firstElementChild.parentElement.parentElement.parentElement.parentElement.nextElementSibling.textContent = "";
+                }
+              });
+            });
+          } else {
+            let res = await searchAll(module, 1);
+            let cont = "";
+            if (res.length == 0) {
+              cont = `<a class="dropdown-item"">No hay resultados</a>`;
+            } else {
+              res.forEach((element) => {
+                cont += template(element);
+              });
+            }
+            element.querySelector(".options_search").innerHTML = cont;
+          }
+        });
+      }
+      element.querySelectorAll(".dropdown-item").forEach((item) => {
+        item.addEventListener("click", () => {
+          let input = item.parentElement.parentElement.parentElement.firstElementChild.value;
+          let option = item.textContent;
+          item.parentElement.parentElement.parentElement.firstElementChild.value = option;
+          if (module != null) {
+            let id = item.getAttribute("data-id");
+            item.parentElement.parentElement.parentElement.firstElementChild.setAttribute("data-id", id);
+          }
+          if (input != "" || input != "Seleccione una opcion") {
+            item.parentElement.parentElement.firstElementChild.parentElement.parentElement.parentElement.parentElement.nextElementSibling.textContent = "";
+          }
+        });
+      });
+    })
+  }
   function viewImage(inputs) {
     document.querySelectorAll(inputs).forEach((image) => {
       image.addEventListener("change", function (event) {
@@ -203,7 +298,7 @@ export default function functionGeneral() {
       });
     });
   }
-  //--------------funciones para el manejo de peticiones ajax------------------
+  //--------------funciones para el manejo de peticiones ajax para las tarjetas------------------
   const searchAll = async (module, active) => {
     let data = new FormData();
     data.append("active", active);
@@ -279,36 +374,6 @@ export default function functionGeneral() {
       });
     });
   };
-  const deleteDatatableItem = (tabla) => {
-    $(tabla).on("click", ".trash_btn", function () {
-      Swal.fire({
-        title: "¿Deseas eliminar este elemento?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: "Eliminar",
-        cancelButtonText: "Cancelar",
-        confirmButtonColor: "#FF4B00",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          let id = this.getAttribute("data-id");
-          let module = this.getAttribute("data-module");
-          $.ajax({
-            type: "POST",
-            url: `${module}/update`,
-            data: { id, active: 0 },
-            success: function (response) {
-              Swal.fire({
-                title: "Elemento eliminado!",
-                icon: "success",
-                confirmButtonText: "Aceptar",
-                confirmButtonColor: "#FF4B00",
-              });
-            },
-          });
-        }
-      });
-    });
-  };
   const add = async (module, data, template, container, permission, inputs) => {
     let action = await fetch(`${module}/add_many`, {
       method: "POST",
@@ -329,7 +394,6 @@ export default function functionGeneral() {
         icon: "error",
       });
     }
-
   };
   const searchParam = async (param, module, data) => {
     let d = new FormData();
@@ -341,10 +405,10 @@ export default function functionGeneral() {
     let response = await pet.json();
     return response;
   };
-  const searchLike = async (event, module) => {
+  const searchLike = async (event, module, active) => {
     let data = new FormData();
     data.append("nombre_like", event.target.value);
-    data.append("active", 1);
+    data.append("active", active);
     let pet = await fetch(`${module}/get_all`, {
       method: "POST",
       body: data,
@@ -392,15 +456,110 @@ export default function functionGeneral() {
       })
     })
   }
-  const searchFilter = (searchInput, module, template, modulePermission, container, inputs) => {
+  const searchFilter = (searchInput, module, template, modulePermission, container, active, inputs) => {
     let search = document.querySelector(searchInput);
     search.addEventListener("keyup", async (e) => {
       if (e.target.value != "") {
-        print(searchLike(e, module), template, container, modulePermission, inputs);
+        print(searchLike(e, module, active), template, container, modulePermission, inputs);
       } else {
         print(searchAll(module, 1), template, container, modulePermission, inputs);
       }
     });
+  }
+  //--------------funciones para el manejo de peticiones ajax para las datatables------------------
+  const deleteDatatable = (tableItem, table) => {
+    $(`${tableItem} tbody`).on("click", ".trash_btn_datatable", function () {
+      Swal.fire({
+        title: "¿Deseas eliminar este elemento?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Eliminar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#FF4B00",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let id = this.getAttribute("data-id");
+          let module = this.getAttribute("data-module-delete");
+          $.ajax({
+            type: "POST",
+            url: `${module}/update`,
+            data: { id, active: 0 },
+            success: function (response) {
+              if (response.success == true) {
+                Swal.fire({
+                  title: `Exito!`,
+                  text: "El elemento fue eliminado correctamente",
+                  icon: "success",
+                });
+                table.ajax.reload();
+              } else {
+                Swal.fire({
+                  title: `Error!`,
+                  text: "El elemento no fue eliminado",
+                  icon: "error",
+                });
+              }
+            },
+          });
+        }
+      });
+    });
+  };
+  const addDataTables = async (table, data, module) => {
+    let pet = await fetch(`${module}/add_many`, {
+      method: "POST",
+      body: data,
+    })
+    let response = await pet.json()
+    if (response.success == true) {
+      Swal.fire({
+        title: `Exito!`,
+        text: "El elemento fue agregado correctamente",
+        icon: "success",
+      });
+      table.ajax.reload();
+    } else {
+      Swal.fire({
+        title: `Error!`,
+        text: "El elemento no fue agregado",
+        icon: "error",
+      });
+    }
+  }
+  const editDataTables = async (tableItem, inputs) => {
+    $(`${tableItem} tbody`).on("click", ".edit_btn_datatable", function () {
+      let id = this.getAttribute("data-id")
+      let module = this.getAttribute("data-module-edit")
+      $.ajax({
+        type: "POST",
+        url: `${module}/get_all`,
+        data: { "id": id },
+        success: function (response) {
+          inputs(response);
+        }
+      })
+    })
+  }
+  const updateDataTables = async (table, data, module) => {
+    let pet = await fetch(`${module}/update`, {
+      method: "POST",
+      body: data,
+    })
+    let response = await pet.json()
+    if (response.success == true) {
+      Swal.fire({
+        title: `Exito!`,
+        text: "El elemento fue actualizado correctamente",
+        icon: "success",
+      });
+      table.ajax.reload();
+    } else {
+      Swal.fire({
+        title: `Error!`,
+        text: "El elemento no fue actualizado",
+        icon: "error",
+      });
+    }
   }
   return {
     InputPrice,
@@ -409,6 +568,7 @@ export default function functionGeneral() {
     setValidationStyles,
     validateField,
     SelectOption,
+    selectOptionAll,
     viewImage,
     searchAll,
     searchParam,
@@ -421,5 +581,9 @@ export default function functionGeneral() {
     reindex,
     resetForm,
     permission,
+    addDataTables,
+    deleteDatatable,
+    editDataTables,
+    updateDataTables,
   };
 }

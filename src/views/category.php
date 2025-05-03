@@ -45,13 +45,18 @@
                         <div class="col-md-6 col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#register-categoryCombo">
-                                        <i class="fas fa-plus"></i>
-                                        Categoria
-                                    </button>
+                                    <div class="d-flex gap-4">
+                                        <button type="button" class="btn bh_1 text-white" data-bs-toggle="modal" data-bs-target="#register-categoryCombo">
+                                            <i class="fas fa-plus"></i>
+                                            Categoria Producto
+                                        </button>
+                                        <div class="col-md-6 col-lg-3">
+                                            <input type="search" class="form-control" id="searchCategoryProducts" placeholder="Buscar">
+                                        </div>
+                                    </div>
 
                                     <div class="table-responsive mt-5">
-                                        <table class="table table-dark-mode no-wrap">
+                                        <table class="table table-dark-mode no-wrap table_combo w-100">
                                             <thead>
                                                 <tr>
                                                     <th>Nro</th>
@@ -75,19 +80,6 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <ul class="pagination float-end">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                            </li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">Next</a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -99,13 +91,17 @@
                         <div class="col-md-6 col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#register-categoryRawmaterial">
-                                        <i class="fas fa-plus"></i>
-                                        Categoria
-                                    </button>
-
+                                    <div class="d-flex gap-4">
+                                        <button type="button" class="btn bh_1 text-white" data-bs-toggle="modal" data-bs-target="#register-categoryRawMaterials">
+                                            <i class="fas fa-plus"></i>
+                                            Categoria Materia Prima
+                                        </button>
+                                        <div class="col-md-6 col-lg-3">
+                                            <input type="search" class="form-control" id="searchCategoryRawMaterials" placeholder="Buscar">
+                                        </div>
+                                    </div>
                                     <div class="table-responsive mt-5">
-                                        <table class="table table-dark-mode no-wrap">
+                                        <table class="table table-dark-mode no-wrap table_category_rawmaterial w-100">
                                             <thead>
                                                 <tr>
                                                     <th>Nro</th>
@@ -129,19 +125,6 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <ul class="pagination float-end">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                            </li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">Next</a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -161,9 +144,12 @@
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="./assets/libs/extra-libs/datatables.net/js/jquery.dataTables.js"></script>
+<script src="./assets/libs/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
 <script src="./assets/js/app-style-switcher.js"></script>
 <script src="./assets/js/feather.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
+<script type="module" src="./assets/js/pages/category/categoryCombo.js"></script>
+<script type="module" src="./assets/js/pages/category/categoryRawMaterial.js"></script>

@@ -1,20 +1,24 @@
 // ----------------Parse de los inputs de tipo price-----------------------------
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { SelectOption, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm } = functionGeneral();
+const { SelectOption,selectOptionAll, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm } = functionGeneral();
 const { elemenFormSupplier } = Templates()
 
-SelectOption()
+selectOptionAll(".select_options_td_edit", null)
+selectOptionAll(".select_options_td", null)
+
 let iti = window.intlTelInput(document.querySelector("#input-num1-supplier-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
 window.intlTelInput(document.querySelector("#input-num2-supplier-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js", });
+window.intlTelInput(document.querySelector("#input-num2-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js", });
+window.intlTelInput(document.querySelector("#input-num2-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js", });
 
 // ------------------Validacion de Formulario---------------------------
 let SupplierCount = 1;
 function addSupplier() {
     SupplierCount++;
-    document.getElementById("supplier-container").insertAdjacentHTML('beforeend', elemenFormSupplier(SupplierCount));
+    document.getElementById("suppliers-container").insertAdjacentHTML('beforeend', elemenFormSupplier(SupplierCount));
     feather.replace();
-    SelectOption()
+    selectOptionAll(".select_options_td", null)
     const input = document.querySelector(`#input-num1-supplier-${SupplierCount}`);
     const iti = window.intlTelInput(input, {
         initialCountry: "ve",
@@ -29,24 +33,23 @@ function addSupplier() {
     });
     attachValidationListeners(SupplierCount);
 
-    const newSupplier = document.getElementById(`supplier-${SupplierCount}`);
+    const newSupplier = document.getElementById(`suppliers-${SupplierCount}`);
     newSupplier.querySelector(".remove-supplier").addEventListener("click", function () {
         newSupplier.remove();
-        reindex("#supplier-container .supplier", "supplier", SupplierCount, "Proveedor");
+        reindex("#suppliers-container .suppliers", "supplier", SupplierCount, "Proveedor");
     });
 }
 function attachValidationListeners(index) {
-    const productElement = document.getElementById(`supplier-${index}`);
+    const productElement = document.getElementById(`suppliers-${index}`);
     productElement.querySelectorAll("input[type='text'], textarea, input[type='button'], input[type='tel']").forEach(input => {
         input.addEventListener("keyup", (e) => validateField(e, rules));
         input.addEventListener("blur", (e) => validateField(e, rules));
         input.addEventListener("change", (e) => validateField(e, rules));
     });
 }
-
 document.getElementById("add-supplier-btn").addEventListener("click", () => {
     addSupplier()
-    reindex("#supplier-container .supplier", "supplier", SupplierCount, "Proveedor");
+    reindex("#suppliers-container .suppliers", "supplier", SupplierCount, "Proveedor");
 });
 validate.validators.telefonoValido = function (value) {
     if (!value) return
@@ -138,11 +141,11 @@ const rules = {
         validateTD: { message: "^es requerido" }
     }
 };
-let form = document.getElementById("form-submit-supplier")
+let form = document.getElementById("form-submit-suppliers")
 if (!form.dataset.listenerAttached) {
     form.addEventListener("submit", function (e) {
         e.preventDefault();
-        const supplier = document.querySelectorAll(".supplier");
+        const supplier = document.querySelectorAll(".suppliers");
         let formHasError = false;
         let dataSupplier = []
 
@@ -172,10 +175,9 @@ if (!form.dataset.listenerAttached) {
         });
 
         if (!formHasError) {
-            resetForm("#supplier-container .supplier", form)
+            resetForm("#suppliers-container .suppliers", form)
         }
     });
     form.dataset.listenerAttached = "true";
 }
-
 attachValidationListeners(1)

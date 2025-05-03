@@ -10,6 +10,20 @@ class Router
         require_once __DIR__ . '/../config/config.php';
         $url = $this->parseUrl();
 
+        //validar si la url es un archivo de media
+        if (strpos($url[0], 'media') === 0) {
+            $filePath = '../src/' . implode('/', $url);
+            if (file_exists($filePath)) {
+                header('Content-Type: ' . mime_content_type($filePath));
+                readfile($filePath);
+                exit;
+            } else {
+                http_response_code(404);
+                echo "Archivo no encontrado.";
+                exit;
+            }
+        }
+
         $controllerName = !empty($url[0]) ? ucfirst($url[0]) . 'Controller' : 'HomeController';
         $methodName = isset($url[1]) ? $url[1] : 'view';
 

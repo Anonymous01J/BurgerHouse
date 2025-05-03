@@ -3,7 +3,7 @@ export default function Templates() {
         return `
         <div class="col">
             <div class="card">
-                <img src="${objet.img ? objet.img : "./assets/img/big/banner_login.png"}" class="card-img-top" alt="..." style="object-fit: cover; height: 140px">
+                <img src="${objet.imagen ? "media/combos/" + objet.imagen : "./assets/img/big/banner_login.png"}" class="card-img-top" alt="..." style="object-fit: cover; height: 140px">
                 <div class="card-body">
                     <h5 class="card-title">${objet.nombre}</h5>
                     <p class=" fs-6 truncate-3-lines">${objet.detalles}</p>
@@ -120,91 +120,122 @@ export default function Templates() {
     }
     function elemenFormCombo(objet) {
         return `
-               <div class="row g-2 product" id="product-${objet}">
-                    <div class="d-flex align-items-center gap-4 mb-3">
-                        <h4 class="m-0">Combo ${objet}</h4>
-                        <button type="button" class="btn btn-circle btn-secondary remove-product">
-                            <i data-feather="trash"></i>
-                        </button>
-                    </div>
-        
-                    <div class="col-md-3">
-                        <label for="input-name-combo-${objet}" class="form-label">Nombre</label>
-                        <input type="text" class="form-control" placeholder="Nombre" id="input-name-combo-${objet}" name="nombre" />
-                        <div class="text-danger mt-1 fs-6" id="error-input-name-combo-${objet}"></div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="input-price-combo-${objet}" class="form-label">Precio</label>
-                        <div class="input-group">
-                            <span class="input-group-text">$</span>
-                            <input type="text" class="form-control w-75" placeholder="Precio" input_price
-                                id="input-price-combo-${objet}" name="precio" />
-                            <div class="text-danger mt-1 fs-6" id="error-input-price-combo-${objet}"></div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="input-category-combo-${objet}" class="form-label">Categoria</label>
-                        <div class="dropdown">
-                            <div class="dropdown">
-                                <div class="btn-group w-100" bis_skin_checked="1">
-                                    <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion"
-                                        id="input-category-combo-${objet}" name="id_categoria" />
-                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <span><i data-feather="chevron-down"></i></span>
-                                    </button>
-                                    <div class="dropdown-menu p-2" bis_skin_checked="1">
-                                        <div>
-                                            <input class="form-control" type="text" placeholder="Buscar" />
-                                        </div>
-                                        <a class="dropdown-item">1</a>
-                                        <a class="dropdown-item">2</a>
-                                        <a class="dropdown-item">3</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-danger mt-1 fs-6" id="error-input-category-combo-${objet}"></div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="input-recipe-combo-${objet}" class="form-label">Receta</label>
-                        <div class="dropdown">
-                            <div class="dropdown">
-                                <div class="btn-group w-100" bis_skin_checked="1">
-                                    <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion"
-                                        id="input-recipe-combo-${objet}" name="id_receta" />
-                                    <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        <span><i data-feather="chevron-down"></i></span>
-                                    </button>
-                                    <div class="dropdown-menu p-2" bis_skin_checked="1">
-                                        <div>
-                                            <input class="form-control" type="text" placeholder="Buscar" />
-                                        </div>
-                                        <a class="dropdown-item">1</a>
-                                        <a class="dropdown-item">2</a>
-                                        <a class="dropdown-item">3</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-danger mt-1 fs-6" id="error-input-recipe-combo-${objet}"></div>
-                    </div>
-                    <div class="col-12">
-                        <label for="input-description-combo-${objet}" class="form-label">Descripcion</label>
-                        <textarea placeholder="Detalles" class="form-control" id="input-details-combo-${objet}" rows="5"
-                            name="detalles"></textarea>
-                        <div class="text-danger mt-1 fs-6" id="error-input-details-combo-${objet}"></div>
-                    </div>
-                    <div class="col-12">
-                        <label for="input-img-combo-${objet}" class="form-label">Imagen</label>
-                        <input class="form-control input-image" type="file" id="input-image-combo-${objet}" name="imagen" />
-                        <div class="text-danger mt-1 fs-6" id="error-input-image-combo-${objet}"></div>
-                        <img src="" alt="Vista previa" style="max-width: 200px; display: none" />
-                    </div>
-                    <div class="bg-secondary my-5" style="font-size: 1px">2</div>
+        <div class="row g-2 product" id="product-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-3">
+                <h4 class="m-0">Combo ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-product">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="input-name-combo-${objet}" name="nombre">
+                <div class="text-danger mt-1 fs-6" id="error-input-name-combo-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Precio</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-combo-${objet}" name="precio">
+                    <div class="text-danger mt-1 fs-6" id="error-input-price-combo-${objet}"></div>
                 </div>
-            `
+            </div>
+            <div class="col-md-4">
+                <label for="inputCity" class="form-label">Categoria</label>
+                <div class="dropdown select_options_category_combo">
+                    <div class="dropdown">
+                        <div class="btn-group w-100" bis_skin_checked="1">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-combo-${objet}" name="id_categoria" data-id="Seleccione una opcion">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span> <i data-feather="chevron-down"></i></span>
+                            </button>
+                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                <div>
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
+                                </div>
+                                <div class="options_search">
+                                    <a class="dropdown-item">1</a>
+                                    <a class="dropdown-item">2</a>
+                                    <a class="dropdown-item">3</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-category-combo-${objet}"></div>
+            </div>
+
+            <div class="col-12">
+                <label for="inputAddress2" class="form-label">Detalles</label>
+                <textarea placeholder="Detalles" class="form-control" id="input-details-combo-${objet}" rows="5" name="detalles"></textarea>
+                <div class="text-danger mt-1 fs-6" id="error-input-details-combo-${objet}"></div>
+            </div>
+            <div class="col-12">
+                <label for="inputZip" class="form-label">Imagen</label>
+                <input class="form-control input-image" type="file" id="input-image-combo-${objet}" name="imagen">
+                <div class="text-danger mt-1 fs-6" id="error-input-image-combo-${objet}"></div>
+                <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
+            </div>
+            <div class="bg-secondary my-5" style="font-size: 1px;"> 2</div>
+        </div>
+    `
+    }
+    function elemenFormUnit(objet) {
+        return `
+        <div class="row g-2 units" id="unit-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-0 mt-4">
+                <h4 class="m-0">Uad ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-unit">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="input-name-units-${objet}" name="nombre">
+                <div class="text-danger mt-1 fs-6" id="error-input-name-units-${objet}"></div>
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Alias</label>
+                <input type="text" class="form-control" placeholder="Alias" id="input-alias-units-${objet}" name="alias">
+                <div class="text-danger mt-1 fs-6" id="error-input-alias-units-${objet}"></div>
+            </div>
+        </div>
+        `
+    }
+    function elemenFormCategoryProduct(objet) {
+        return`
+        <div class="row g-2 categoryCombos" id="categoryCombos-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-0 mt-4">
+                <h4 class="m-0">Uad ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-categoryProducts">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-12">
+                <label for="inputEmail4" class="form-label">Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="input-name-categoryProduct-${objet}" name="nombre">
+                <div class="text-danger mt-1 fs-6" id="error-input-name-categoryProduct-${objet}"></div>
+            </div>
+        </div>
+        `
+    }
+    function elemenFormCategoryRawmaterial(objet) {
+        return`
+        <div class="row g-2 categoryRawMaterials" id="categoryRawMaterials-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-0 mt-4">
+                <h4 class="m-0">Uad ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-categoryRawMaterials">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-12">
+                <label for="inputEmail4" class="form-label">Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="input-name-categoryRawMaterials-${objet}" name="nombre">
+                <div class="text-danger mt-1 fs-6" id="error-input-name-categoryRawMaterials-${objet}"></div>
+            </div>
+        </div>
+        `
     }
     function elemenFormRecipe(objet) {
         return `
@@ -317,7 +348,7 @@ export default function Templates() {
     }
     function elemenFormSupplier(objet) {
         return `
-        <div class="row g-2 supplier mt-4" id="supplier-${objet}">
+        <div class="row g-2 suppliers mt-4" id="suppliers-${objet}">
             <div class="d-flex align-items-center gap-4 mb-3">
                 <h4 class="m-0">Proveedor ${objet}</h4>
                 <button type="button" class="btn btn-circle btn-secondary remove-supplier">
@@ -336,7 +367,7 @@ export default function Templates() {
             </div>
             <div class="col-md-3 mb-3">
                 <label for="inputCity" class="form-label">Tipo de documento</label>
-                <div class="dropdown">
+                <div class="dropdown select_options_td">
                     <div class="dropdown">
                         <div class="btn-group w-100" bis_skin_checked="1">
                             <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-td-supplier-${objet}" name="tipo_documento">
@@ -344,12 +375,11 @@ export default function Templates() {
                                 <span> <i data-feather="chevron-down"></i></span>
                             </button>
                             <div class="dropdown-menu p-2" bis_skin_checked="1">
-                                <div>
-                                    <input class="form-control" type="text" placeholder="Buscar">
+                                <div class="options_search">
+                                    <a class="dropdown-item">V</a>
+                                    <a class="dropdown-item">E</a>
+                                    <a class="dropdown-item">J</a>
                                 </div>
-                                <a class="dropdown-item">V</a>
-                                <a class="dropdown-item">E</a>
-                                <a class="dropdown-item">J</a>
                             </div>
                         </div>
                     </div>
@@ -526,7 +556,6 @@ export default function Templates() {
          <a class="dropdown-item" data-id="${object.id}">${object.nombre}</a>
         `
     }
-
     function Watermark(){
         return`
         <div class="col-12">
@@ -536,8 +565,6 @@ export default function Templates() {
         </div>
         `
     }
-
-
     function targetCategoryMenu(objet) {
         return `
             <ul class="menu-filters isotope-filters">
@@ -558,5 +585,5 @@ export default function Templates() {
         `
     }
 
-    return { targetCombo, targetUser, targetPermission, elemenFormCombo, elemenFormRawMaterial, elemenFormRecipe, elemenFormSupplier, elemenFormClient, elemenFormUser, optionsRol, Watermark, targetCategoryMenu, targetMenu }
+    return { targetCombo, targetUser, targetPermission, elemenFormCombo, elemenFormCategoryProduct, elemenFormCategoryRawmaterial, elemenFormUnit, elemenFormRawMaterial, elemenFormRecipe, elemenFormSupplier, elemenFormClient, elemenFormUser, optionsRol, Watermark, targetCategoryMenu, targetMenu }
 }

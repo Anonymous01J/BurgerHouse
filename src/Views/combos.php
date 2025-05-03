@@ -34,7 +34,7 @@
 
             <div class="row g-3 align-items-center mb-5">
                 <div class="col-auto">
-                    <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                    <input type="search" id="searchCombos" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
                 <button type="button" class="btn bh_1 btn-circle text-white" data-module-add="combo" data-bs-toggle="modal" data-bs-target="#register-combo">
                     <i data-feather="plus" class="svg-icon"></i>

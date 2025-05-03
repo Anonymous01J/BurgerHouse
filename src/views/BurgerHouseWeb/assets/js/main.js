@@ -5,10 +5,7 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-import functionGeneral from "../../Functions.js";
-import Templates from "../../templates.js";
-const { SelectOption, viewImage, setValidationStyles, searchAll, print, add } = functionGeneral();
-const { targetCategoryMenu,targetMenu } = Templates()
+
 (function() {
   "use strict";
 

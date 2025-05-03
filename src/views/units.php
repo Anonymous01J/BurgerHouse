@@ -37,49 +37,31 @@
                 <div class="col-md-6 col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#register-unit">
-                                <i class="fas fa-plus"></i>
-                                Unidad
-                            </button>
-
                             <div class="table-responsive mt-5">
-                                <table class="table table-dark-mode no-wrap">
+                                <div class="d-flex gap-4">
+                                <img src="media/combos/Flyer13.png" alt="daw">
+
+                                    <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#register-unit">
+                                        <i class="fas fa-plus"></i>
+                                        Unidad
+                                    </button>
+                                    <div class="col-md-6 col-lg-3">
+                                        <input type="search" class="form-control" id="searchUnits" placeholder="Buscar">
+                                    </div>
+                                </div>
+                                <table class="table table-dark-mode no-wrap table_unit w-100">
                                     <thead>
                                         <tr>
                                             <th>Nro de unidad</th>
                                             <th>Nombre</th>
+                                            <th>Alias</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><span class="fs-6">Kg</span></td>
-                                            <td>
-                                                <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_1 rounded-circle btn-circle">
-                                                    <i data-feather="edit" class="text-white"></i>
-                                                </button>
-                                                <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_5 rounded-circle btn-circle">
-                                                    <i data-feather="trash" class="text-white"></i>
-                                                </button>
-                                            </td>
-
-                                        </tr>
+                                        <!-- cargan con datatable -->
                                     </tbody>
                                 </table>
-                                <ul class="pagination float-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -95,10 +77,13 @@
 
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
+<script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="./assets/libs/extra-libs/datatables.net/js/jquery.dataTables.js"></script>
+<script src="./assets/libs/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
 <script src="./assets/js/app-style-switcher.js"></script>
 <script src="./assets/js/feather.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
+<script type="module" src="./assets/js/pages/units/units.js"></script>

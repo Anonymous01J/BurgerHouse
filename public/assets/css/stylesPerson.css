@@ -621,6 +621,10 @@
   border-color: var(--border-color) !important;
   outline-color: var(--border-color) !important;
 }
+.dark-mode textarea {
+  border-color: var(--border-color) !important;
+  color: var(--text-primary) !important;
+}
 
 /* Utilidades */
 .dark-mode .text-dark {
