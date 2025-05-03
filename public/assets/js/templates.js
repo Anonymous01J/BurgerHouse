@@ -75,8 +75,54 @@ export default function Templates() {
         </div>
         `
     }
+    function targetClient(objet) {
+        return `
+        <div class="col-md-4 col-lg-3 ">
+            <div class="position-relative">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3 border-bottom">
+                            <div class="d-flex justify-content-between ">
+                                <h5 class="card-title">${objet.nombre + " " + objet.apellido}</h5>
+                                <div>
+                                    <p class="fs-6">${objet.documento}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row gap-3">
+                            <div class="d-flex flex-column gap-4">
+                                <div class="text-start">
+                                    <h4>Telefono</h4>
+                                    <div class="fs-6">${objet.telefono}</div>
+                                </div>
+                                <div class="">
+                                    <h4>Direccion</h4>
+                                    <div class="fs-6">${objet.direccion}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">
+                            <div style="display: flex; justify-content: end; align-items: center;">
+                                <div class="d-flex gap-3">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="clients" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-client">
+                                        <i data-feather="edit"></i>
+                                    </a>
+                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="clients" style="cursor: pointer">
+                                        <i data-feather="trash-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    }
     function targetPermission(objet) {
-        return`
+        return `
         <div class="col-md-4 col-lg-3 ">
             <div class="position-relative">
                 <span class="badge bh_1 d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;">
@@ -204,7 +250,7 @@ export default function Templates() {
         `
     }
     function elemenFormCategoryProduct(objet) {
-        return`
+        return `
         <div class="row g-2 categoryCombos" id="categoryCombos-${objet}">
             <div class="d-flex align-items-center gap-4 mb-0 mt-4">
                 <h4 class="m-0">Uad ${objet}</h4>
@@ -221,7 +267,7 @@ export default function Templates() {
         `
     }
     function elemenFormCategoryRawmaterial(objet) {
-        return`
+        return `
         <div class="row g-2 categoryRawMaterials" id="categoryRawMaterials-${objet}">
             <div class="d-flex align-items-center gap-4 mb-0 mt-4">
                 <h4 class="m-0">Uad ${objet}</h4>
@@ -411,7 +457,7 @@ export default function Templates() {
     }
     function elemenFormClient(objet) {
         return `
-        <div class="row g-2 client mt-4" id="client-${objet}">
+        <div class="row g-2 clients mt-4" id="clients-${objet}">
             <div class="d-flex align-items-center gap-4 mb-3">
                 <h4 class="m-0">Cliente ${objet}</h4>
                 <button type="button" class="btn btn-circle btn-secondary remove-client">
@@ -422,7 +468,6 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Nombre</label>
                 <input type="text" class="form-control" placeholder="Nombre" id="input-name-client-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-client-${objet}"></div>
-
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Apellido</label>
@@ -432,7 +477,7 @@ export default function Templates() {
             </div>
             <div class="col-md-6 ">
                 <label for="inputCity" class="form-label">Tipo de documento</label>
-                <div class="dropdown">
+                <div class="dropdown select_options_td">
                     <div class="dropdown">
                         <div class="btn-group w-100" bis_skin_checked="1">
                             <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-td-client-${objet}" name="tipo_documento">
@@ -440,12 +485,12 @@ export default function Templates() {
                                 <span> <i data-feather="chevron-down"></i></span>
                             </button>
                             <div class="dropdown-menu p-2" bis_skin_checked="1">
-                                <div>
-                                    <input class="form-control" type="text" placeholder="Buscar">
+                                <div class="options_search">
+                                    <a class="dropdown-item">V</a>
+                                    <a class="dropdown-item">E</a>
+                                    <a class="dropdown-item">J</a>
                                 </div>
-                                <a class="dropdown-item">V</a>
-                                <a class="dropdown-item">E</a>
-                                <a class="dropdown-item">J</a>
+
                             </div>
                         </div>
                     </div>
@@ -556,8 +601,8 @@ export default function Templates() {
          <a class="dropdown-item" data-id="${object.id}">${object.nombre}</a>
         `
     }
-    function Watermark(){
-        return`
+    function Watermark() {
+        return `
         <div class="col-12">
             <div class="d-flex justify-content-center align-items-center flex-column mb-4">
                 <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
@@ -585,5 +630,23 @@ export default function Templates() {
         `
     }
 
-    return { targetCombo, targetUser, targetPermission, elemenFormCombo, elemenFormCategoryProduct, elemenFormCategoryRawmaterial, elemenFormUnit, elemenFormRawMaterial, elemenFormRecipe, elemenFormSupplier, elemenFormClient, elemenFormUser, optionsRol, Watermark, targetCategoryMenu, targetMenu }
+    return {
+        targetCombo,
+        targetUser,
+        targetClient,
+        targetPermission,
+        elemenFormCombo,
+        elemenFormCategoryProduct,
+        elemenFormCategoryRawmaterial,
+        elemenFormUnit,
+        elemenFormRawMaterial,
+        elemenFormRecipe,
+        elemenFormSupplier,
+        elemenFormClient,
+        elemenFormUser,
+        optionsRol,
+        Watermark,
+        targetCategoryMenu,
+        targetMenu
+    }
 }

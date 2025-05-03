@@ -1,45 +1,56 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { SelectOption, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm } = functionGeneral();
-const { elemenFormClient } = Templates()
-
-SelectOption()
+const { selectOptionAll, setValidationStyles, validateField, searchAll, searchFilter, print, add, update, reindex, resetForm } = functionGeneral();
+const { elemenFormClient, targetClient } = Templates()
+searchFilter("#SearchClients", "clients", targetClient, "clients", ".container_clients", 1, (response) => editClient(response))
+selectOptionAll(".select_options_td", null, null)
 let iti = window.intlTelInput(document.querySelector("#input-tel-client-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
-
+let itiedit = window.intlTelInput(document.querySelector("#input-tel-client"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
 // ------------------Validacion de Formulario---------------------------
 let ClientCount = 1;
 function addClient() {
     ClientCount++;
-    document.getElementById("client-container").insertAdjacentHTML('beforeend', elemenFormClient(ClientCount));
+    document.getElementById("clients-container").insertAdjacentHTML('beforeend', elemenFormClient(ClientCount));
     feather.replace();
-    SelectOption()
     let iti = window.intlTelInput(document.querySelector(`#input-tel-client-${ClientCount}`), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
-
+    selectOptionAll(".select_options_td", null, null)
     attachValidationListeners(ClientCount);
-
-    const newClient = document.getElementById(`client-${ClientCount}`);
+    const newClient = document.getElementById(`clients-${ClientCount}`);
     newClient.querySelector(".remove-client").addEventListener("click", function () {
         newClient.remove();
-        reindex("#client-container .client", "client", ClientCount, "Cliente");
+        reindex("#clients-container .clients", "clients", ClientCount, "Cliente");
     });
 }
 function attachValidationListeners(index) {
-    const productElement = document.getElementById(`client-${index}`);
+    const productElement = document.getElementById(`clients-${index}`);
     productElement.querySelectorAll("input[type='text'], textarea, input[type='button'], input[type='tel']").forEach(input => {
         input.addEventListener("keyup", (e) => validateField(e, rules));
         input.addEventListener("blur", (e) => validateField(e, rules));
         input.addEventListener("change", (e) => validateField(e, rules));
     });
+    const contEditClient = document.querySelector("#client-container");
+    contEditClient.querySelectorAll("input[type='text'], textarea, input[type='button'], input[type='tel']").forEach(input => {
+        input.addEventListener("keyup", (e) => validateField(e, rules2));
+        input.addEventListener("blur", (e) => validateField(e, rules2));
+        input.addEventListener("change", (e) => validateField(e, rules2));
+    });
 }
 document.getElementById("add-client-btn").addEventListener("click", () => {
     addClient()
-    reindex("#client-container .client", "client", ClientCount, "Cliente");
+    reindex("#clients-container .clients", "clients", ClientCount, "Cliente");
 });
 
 validate.validators.telefonoValido = function (value) {
     if (!value) return
     if (!iti.isValidNumber()) {
         const pais = iti.getSelectedCountryData().name;
+        return `^Número inválido para ${pais}`;
+    }
+};
+validate.validators.telefonoValidoEdit = function (value) {
+    if (!value) return
+    if (!itiedit.isValidNumber()) {
+        const pais = itiedit.getSelectedCountryData().name;
         return `^Número inválido para ${pais}`;
     }
 };
@@ -121,12 +132,73 @@ const rules = {
         validateTD: { message: "^es requerido" }
     }
 };
+const rules2 = {
+    nombre: {
+        nombreValidator: {
+            uppercaseMessage: "^debe tener la primera letra en mayúscula.",
+            specialCharMessage: "^No se permiten signos como puntos (.) o comas (,)."
+        },
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        length: {
+            minimum: 4,
+            message: "^debe tener al menos 3 caracteres"
+        },
+    },
+    apellido: {
+        nombreValidator: {
+            uppercaseMessage: "^debe tener la primera letra en mayúscula.",
+            specialCharMessage: "^No se permiten signos como puntos (.) o comas (,)."
+        },
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        length: {
+            minimum: 4,
+            message: "^debe tener al menos 3 caracteres"
+        },
+    },
+    documento: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerida"
+        },
+        format: {
+            pattern: "^[0-9]+$",
+            message: "^solo puede tener numeros"
+        }
+    },
+    telefono: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerida"
+        },
+        telefonoValidoEdit: true
 
-let form = document.getElementById("form-submit-client")
+    },
+    direccion: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+    },
+    tipo_documento: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerida"
+        },
+        validateTD: { message: "^es requerido" }
+    }
+};
+
+let form = document.getElementById("form-submit-clients")
 if (!form.dataset.listenerAttached) {
     form.addEventListener("submit", function (e) {
         e.preventDefault();
-        const client = document.querySelectorAll(".client");
+        const client = document.querySelectorAll(".clients");
         let formHasError = false;
         let dataClient = []
 
@@ -154,19 +226,76 @@ if (!form.dataset.listenerAttached) {
         });
 
         if (!formHasError) {
-            let dataFinal = []
-            dataClient.forEach((client) => {
-                dataFinal.push({
-                    nombre: client.nombre,
-                    apellido: client.apellido,
-                    telefono: client.telefono,
-                    direccion: client.direccion,
-                    documento: client.tipo_documento + client.documento
-                })
+            let dataFinal = new FormData();
+            dataClient.forEach((client, index) => {
+                dataFinal.append(`lista[${index}][nombre]`, client.nombre);
+                dataFinal.append(`lista[${index}][apellido]`, client.apellido);
+                dataFinal.append(`lista[${index}][documento]`, client.tipo_documento + "-" + client.documento);
+                dataFinal.append(`lista[${index}][telefono]`, client.telefono);
+                dataFinal.append(`lista[${index}][direccion]`, client.direccion);
             })
-            resetForm("#client-container .client", form)
+            add("clients", dataFinal, targetClient, ".container_clients", "clients", (response) => editClient(response))
+            resetForm("#clients-container .clients", form)
+            bootstrap.Modal.getOrCreateInstance('#register-client').hide()
         }
     });
     form.dataset.listenerAttached = "true";
+}
+print(searchAll("clients", 1), targetClient, ".container_clients", "clients", (response) => editClient(response));
+const editClient = (response) => {
+    let hasError = false;
+    document.querySelector("#input-name-client").value = response[0].nombre;
+    document.querySelector("#input-lastname-client").value = response[0].apellido;
+    document.querySelector("#input-doc-client").value = response[0].documento.split("-")[1];
+    document.querySelector("#input-td-client").value = response[0].documento.split("-")[0];
+    document.querySelector("#input-tel-client").value = response[0].telefono;
+    document.querySelector("#input-direction-client").value = response[0].direccion;
+    document.querySelector("#input-id-client").value = response[0].id;
+    const data = {
+        nombre: document.querySelector(`#input-name-client`).value,
+        apellido: document.querySelector(`#input-lastname-client`).value,
+        tipo_documento: document.querySelector(`#input-td-client`).value,
+        telefono: window.intlTelInput(document.querySelector(`#input-tel-client`), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber(),
+        documento: document.querySelector(`#input-doc-client`).value,
+        direccion: document.querySelector(`#input-direction-client`).value,
+    };
+    const errors = validate(data, rules2);
+    if (errors) hasError = true;
+    setValidationStyles(`input-name-client`, errors?.nombre ? errors.nombre[0] : null);
+    setValidationStyles(`input-lastname-client`, errors?.apellido ? errors.apellido[0] : null);
+    setValidationStyles(`input-td-client`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
+    setValidationStyles(`input-doc-client`, errors?.documento ? errors.documento[0] : null);
+    setValidationStyles(`input-tel-client`, errors?.telefono ? errors.telefono[0] : null);
+    setValidationStyles(`input-direction-client`, errors?.direccion ? errors.direccion[0] : null);
+
+
+    let formEdit = document.getElementById("form-submit-edit-client")
+    if (!formEdit.dataset.listenerAttached) {
+        formEdit.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const data = {
+                nombre: document.querySelector(`#input-name-client`).value,
+                apellido: document.querySelector(`#input-lastname-client`).value,
+                tipo_documento: document.querySelector(`#input-td-client`).value,
+                telefono: window.intlTelInput(document.querySelector(`#input-tel-client`), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber(),
+                documento: document.querySelector(`#input-doc-client`).value,
+                direccion: document.querySelector(`#input-direction-client`).value,
+            };
+            const errors = validate(data, rules2);
+            if (errors) hasError = true;
+            if (!hasError) {
+                let dataFinal = new FormData();
+                dataFinal.append(`nombre`, data.nombre);
+                dataFinal.append(`apellido`, data.apellido);
+                dataFinal.append(`documento`, data.tipo_documento + "-" + data.documento);
+                dataFinal.append(`telefono`, data.telefono);
+                dataFinal.append(`direccion`, data.direccion);
+                dataFinal.append(`id`, document.querySelector("#input-id-client").value);
+                update("clients", dataFinal, targetClient, ".container_clients", "clients", (response) => editClient(response))
+                bootstrap.Modal.getOrCreateInstance('#edit-client').hide()
+            }
+        });
+        formEdit.dataset.listenerAttached = "true";
+    }
 }
 attachValidationListeners(1)
