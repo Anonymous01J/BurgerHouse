@@ -5,7 +5,7 @@ use Shtch\Burgerhouse\models\Db_base;
 
 class Bitacora extends Db_base {
     private $id;
-    private $usuario;
+    private $id_usuario;
     private $tabla_str;
     private $accion;
     private $fecha;
@@ -13,7 +13,7 @@ class Bitacora extends Db_base {
 
     public function __construct(
         $id = null,
-        $usuario = null,
+        $id_usuario = null,
         $tabla = null,
         $accion = null,
         $fecha = null,
@@ -22,7 +22,7 @@ class Bitacora extends Db_base {
         parent::__construct("bitacora");
         
         $this->id = $id;
-        $this->usuario = $usuario;
+        $this->id_usuario = $id_usuario;
         $this->tabla_str = $tabla;
         $this->accion = $accion;
         $this->fecha = $fecha;
@@ -30,7 +30,7 @@ class Bitacora extends Db_base {
 
         $this->add_variables([
             "a.id" => $this->id,
-            "a.usuario" => $this->usuario,
+            "a.id_usuario" => $this->id_usuario,
             "a.tabla" => $this->tabla_str,
             "a.accion" => $this->accion,
             "a.fecha" => $this->fecha,
@@ -39,7 +39,7 @@ class Bitacora extends Db_base {
 
         $this->select_query = "
             a.id,
-            a.usuario,
+            a.id_usuario,
             b.nombre AS nombre_usuario,
             a.tabla,
             a.accion,
