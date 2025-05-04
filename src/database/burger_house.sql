@@ -1,1008 +1,795 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
+-- MySQL dump 10.13  Distrib 8.0.34, for Win64 (x86_64)
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 26-04-2025 a las 22:15:48
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: burger_house
+-- ------------------------------------------------------
+-- Server version	8.0.34
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Base de datos: `burgerhouse`
+-- Table structure for table `bitacora`
 --
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `bitacora`
---
-
+DROP TABLE IF EXISTS `bitacora`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `bitacora` (
-  `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `tabla` varchar(20) NOT NULL,
-  `accion` varchar(20) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
+  `tabla` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `accion` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
   `fecha` datetime NOT NULL,
-  `descripcion` text DEFAULT NULL
+  `descripcion` text COLLATE utf8mb4_spanish_ci,
+  PRIMARY KEY (`id`),
+  KEY `Usuario` (`id_usuario`),
+  CONSTRAINT `bitacora_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `caja`
+-- Dumping data for table `bitacora`
 --
 
+LOCK TABLES `bitacora` WRITE;
+/*!40000 ALTER TABLE `bitacora` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bitacora` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `caja`
+--
+
+DROP TABLE IF EXISTS `caja`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `caja` (
-  `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
   `monto_inicial` float NOT NULL,
   `monto_final` float NOT NULL,
-  `fecha_apertura` datetime NOT NULL
+  `fecha_apertura` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `usuario` (`id_usuario`),
+  CONSTRAINT `id_usuario(caja)` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `capital`
+-- Dumping data for table `caja`
 --
 
+LOCK TABLES `caja` WRITE;
+/*!40000 ALTER TABLE `caja` DISABLE KEYS */;
+/*!40000 ALTER TABLE `caja` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `capital`
+--
+
+DROP TABLE IF EXISTS `capital`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `capital` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `monto` float NOT NULL,
-  `fecha` datetime NOT NULL
+  `fecha` datetime NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `categorias_productos`
---
-
-CREATE TABLE `categorias_productos` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(20) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `categorias_productos`
+-- Dumping data for table `capital`
 --
 
-INSERT INTO `categorias_productos` (`id`, `nombre`, `active`) VALUES
-(1, 'Bebidas', 1),
-(2, 'Pepitos', 1),
-(3, 'Griegos', 1),
-(4, 'Perros Calientes', 1),
-(5, 'Papas', 1),
-(6, 'Club House', 1),
-(7, 'Burgers', 1),
-(8, 'Kids', 1);
-
--- --------------------------------------------------------
+LOCK TABLES `capital` WRITE;
+/*!40000 ALTER TABLE `capital` DISABLE KEYS */;
+/*!40000 ALTER TABLE `capital` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `categoria_materia_prima`
+-- Table structure for table `categoria_materia_prima`
 --
 
+DROP TABLE IF EXISTS `categoria_materia_prima`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categoria_materia_prima` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(30) NOT NULL,
-  `tipo` varchar(20) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `categoria_materia_prima`
+-- Dumping data for table `categoria_materia_prima`
 --
 
-INSERT INTO `categoria_materia_prima` (`id`, `nombre`, `tipo`, `active`) VALUES
-(1, 'Carnes', '', 1),
-(2, 'Panadería', '', 1),
-(3, 'Verduras y hortaliza', '', 1),
-(4, 'Salsas y condimentos', '', 1),
-(5, 'Aceites y grasas', '', 1),
-(6, 'Postres y acompañamientos', '', 1),
-(7, 'Lacteos', '', 1);
-
--- --------------------------------------------------------
+LOCK TABLES `categoria_materia_prima` WRITE;
+/*!40000 ALTER TABLE `categoria_materia_prima` DISABLE KEYS */;
+INSERT INTO `categoria_materia_prima` VALUES (1,'Carnes',1),(2,'Panadería',1),(3,'Verduras y hortaliza',1),(4,'Salsas y condimentos',1),(5,'Aceites y grasas',1),(6,'Postres y acompañamientos',1),(7,'Lacteos',1),(8,'Prueba',1);
+/*!40000 ALTER TABLE `categoria_materia_prima` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `clientes`
+-- Table structure for table `categorias_productos`
 --
 
+DROP TABLE IF EXISTS `categorias_productos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `categorias_productos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `categorias_productos`
+--
+
+LOCK TABLES `categorias_productos` WRITE;
+/*!40000 ALTER TABLE `categorias_productos` DISABLE KEYS */;
+INSERT INTO `categorias_productos` VALUES (1,'Bebidas',1),(2,'Pepitos',1),(3,'Griegos',1),(4,'Perros Calientes',1),(5,'Papas',1),(6,'Club House',1),(7,'Burgers',1),(8,'Kids',1),(9,'Jira',1);
+/*!40000 ALTER TABLE `categorias_productos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `clientes`
+--
+
+DROP TABLE IF EXISTS `clientes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clientes` (
-  `id` int(11) NOT NULL,
-  `nombre` text NOT NULL,
-  `cedula` varchar(11) NOT NULL,
-  `telefono` varchar(20) DEFAULT NULL,
-  `direccion` varchar(500) DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `apellido` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `documento` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `telefono` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `direccion` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `configuraciones`
+-- Dumping data for table `clientes`
 --
 
+LOCK TABLES `clientes` WRITE;
+/*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
+INSERT INTO `clientes` VALUES (1,'Jose','Escalona','V-85652235','+584126742231','Avenida 15, local numero 5',1);
+/*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `configuraciones`
+--
+
+DROP TABLE IF EXISTS `configuraciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `configuraciones` (
-  `id` int(11) NOT NULL,
-  `llave` varchar(500) NOT NULL,
-  `valor` varchar(500) NOT NULL
+  `id` int NOT NULL AUTO_INCREMENT,
+  `llave` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `valor` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `credito`
+-- Dumping data for table `configuraciones`
 --
 
+LOCK TABLES `configuraciones` WRITE;
+/*!40000 ALTER TABLE `configuraciones` DISABLE KEYS */;
+/*!40000 ALTER TABLE `configuraciones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `credito`
+--
+
+DROP TABLE IF EXISTS `credito`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `credito` (
-  `id` int(11) NOT NULL,
-  `id_venta` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_venta` int NOT NULL,
   `fecha` datetime NOT NULL,
   `monto_credito` float NOT NULL,
   `monto_final` float NOT NULL,
-  `estado` tinyint(1) NOT NULL
+  `estado` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idRegistroVentas` (`id_venta`),
+  CONSTRAINT `credito_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `detalles_orden`
---
-
-CREATE TABLE `detalles_orden` (
-  `Id` int(11) NOT NULL,
-  `Id_Orden` int(11) NOT NULL,
-  `Id_producto` int(11) NOT NULL,
-  `detalles_producto` text NOT NULL,
-  `cantidad` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `detalles_receta`
+-- Dumping data for table `credito`
 --
 
-CREATE TABLE `detalles_receta` (
-  `Id` int(11) NOT NULL,
-  `Id_receta` int(11) NOT NULL,
-  `Id_materia_prima` int(11) NOT NULL,
-  `cantidad` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+LOCK TABLES `credito` WRITE;
+/*!40000 ALTER TABLE `credito` DISABLE KEYS */;
+/*!40000 ALTER TABLE `credito` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Volcado de datos para la tabla `detalles_receta`
+-- Table structure for table `detalle_entrada`
 --
 
-INSERT INTO `detalles_receta` (`Id`, `Id_receta`, `Id_materia_prima`, `cantidad`) VALUES
-(41, 1, 2, 0.15),
-(42, 1, 3, 0.05),
-(43, 1, 4, 0.02),
-(44, 1, 5, 2),
-(45, 1, 8, 0.15),
-(46, 1, 1, 0.1),
-(47, 1, 6, 0.03),
-(48, 1, 7, 0.02),
-(49, 1, 8, 0.15),
-(50, 1, 9, 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `detalles_roles`
---
-
-CREATE TABLE `detalles_roles` (
-  `id` int(11) NOT NULL,
-  `id_rol` int(11) NOT NULL,
-  `modulo` varchar(45) NOT NULL,
-  `permisos` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `detalle_entrada`
---
-
+DROP TABLE IF EXISTS `detalle_entrada`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `detalle_entrada` (
-  `id` int(11) NOT NULL,
-  `id_materia_prima` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `restante` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_materia_prima` int NOT NULL,
+  `cantidad` int NOT NULL,
+  `restante` int NOT NULL,
   `fecha_vencimiento` datetime DEFAULT NULL,
-  `precio_total` float NOT NULL
+  `precio_total` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_materia_prima` (`id_materia_prima`),
+  CONSTRAINT `id_materia_prima` FOREIGN KEY (`id_materia_prima`) REFERENCES `materia_prima` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `entradas_materia_prima`
+-- Dumping data for table `detalle_entrada`
 --
 
+LOCK TABLES `detalle_entrada` WRITE;
+/*!40000 ALTER TABLE `detalle_entrada` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detalle_entrada` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `detalles_orden`
+--
+
+DROP TABLE IF EXISTS `detalles_orden`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `detalles_orden` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `Id_Orden` int NOT NULL,
+  `Id_producto` int NOT NULL,
+  `detalles_producto` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `cantidad` int NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `Id_Orden` (`Id_Orden`),
+  KEY `Id_producto` (`Id_producto`),
+  CONSTRAINT `Id_orden_ibfk_1` FOREIGN KEY (`Id_Orden`) REFERENCES `orden` (`Id`),
+  CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`Id_producto`) REFERENCES `productos` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detalles_orden`
+--
+
+LOCK TABLES `detalles_orden` WRITE;
+/*!40000 ALTER TABLE `detalles_orden` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detalles_orden` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `detalles_receta`
+--
+
+DROP TABLE IF EXISTS `detalles_receta`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `detalles_receta` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `Id_receta` int NOT NULL,
+  `Id_materia_prima` int NOT NULL,
+  `cantidad` float NOT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `Id_receta` (`Id_receta`,`Id_materia_prima`),
+  KEY `Id_materia_prima_ibfk_1` (`Id_materia_prima`),
+  CONSTRAINT `Id_materia_prima_ibfk_1` FOREIGN KEY (`Id_materia_prima`) REFERENCES `materia_prima` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Id_receta_prima_ibfk_2` FOREIGN KEY (`Id_receta`) REFERENCES `recetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detalles_receta`
+--
+
+LOCK TABLES `detalles_receta` WRITE;
+/*!40000 ALTER TABLE `detalles_receta` DISABLE KEYS */;
+INSERT INTO `detalles_receta` VALUES (41,1,2,0.15),(42,1,3,0.05),(43,1,4,0.02),(44,1,5,2),(45,1,8,0.15),(46,1,1,0.1),(47,1,6,0.03),(48,1,7,0.02),(49,1,8,0.15),(50,1,9,1),(51,2,9,1);
+/*!40000 ALTER TABLE `detalles_receta` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `detalles_roles`
+--
+
+DROP TABLE IF EXISTS `detalles_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `detalles_roles` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_rol` int NOT NULL,
+  `modulo` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `permisos` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_rol` (`id_rol`),
+  CONSTRAINT `detalles_roles_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detalles_roles`
+--
+
+LOCK TABLES `detalles_roles` WRITE;
+/*!40000 ALTER TABLE `detalles_roles` DISABLE KEYS */;
+INSERT INTO `detalles_roles` VALUES (20,10,'combo','consultar,agregar,editar,eliminar'),(21,10,'supplier','consultar,agregar,editar,eliminar'),(22,10,'order','consultar,agregar,editar,eliminar'),(23,10,'delivery','consultar,agregar'),(24,10,'kitchen','consultar,agregar'),(25,10,'statistics','consultar'),(26,10,'calendar','consultar'),(27,10,'binnacle','consultar'),(28,10,'capital','consultar,agregar'),(29,10,'trash','consultar,editar'),(30,10,'clients','consultar,agregar,editar,eliminar'),(31,10,'cash','consultar,agregar,editar'),(32,10,'invoice','consultar'),(33,10,'credit','consultar,editar'),(34,10,'units','consultar,agregar,editar,eliminar'),(35,10,'category','consultar,agregar,editar,eliminar'),(36,10,'paymentMethod','consultar,agregar,editar,eliminar'),(37,10,'permissionsRol','consultar,agregar,editar,eliminar'),(38,10,'users','consultar,agregar,editar,eliminar');
+/*!40000 ALTER TABLE `detalles_roles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `entradas_materia_prima`
+--
+
+DROP TABLE IF EXISTS `entradas_materia_prima`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `entradas_materia_prima` (
-  `id` int(11) NOT NULL,
-  `id_provedor` int(11) NOT NULL,
-  `fecha_compra` datetime NOT NULL DEFAULT current_timestamp(),
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_provedor` int NOT NULL,
+  `fecha_compra` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `precio_compra` float NOT NULL,
-  `referencia` varchar(500) DEFAULT NULL
+  `referencia` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_provedor` (`id_provedor`),
+  CONSTRAINT `id_proveedor` FOREIGN KEY (`id_provedor`) REFERENCES `proveedores` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `facturas`
+-- Dumping data for table `entradas_materia_prima`
 --
 
+LOCK TABLES `entradas_materia_prima` WRITE;
+/*!40000 ALTER TABLE `entradas_materia_prima` DISABLE KEYS */;
+/*!40000 ALTER TABLE `entradas_materia_prima` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `facturas`
+--
+
+DROP TABLE IF EXISTS `facturas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `facturas` (
-  `Id_factura` int(11) NOT NULL,
-  `Id_orden` int(11) NOT NULL,
-  `Id_caja` int(11) NOT NULL,
-  `Monto_total` int(11) NOT NULL,
-  `Monto_total_divisa` int(11) NOT NULL
+  `Id_factura` int NOT NULL AUTO_INCREMENT,
+  `Id_orden` int NOT NULL,
+  `Id_caja` int NOT NULL,
+  `Monto_total` int NOT NULL,
+  `Monto_total_divisa` int NOT NULL,
+  PRIMARY KEY (`Id_factura`),
+  KEY `Id_orden` (`Id_orden`),
+  KEY `Id_caja` (`Id_caja`),
+  CONSTRAINT `id_caja_ibfk_1` FOREIGN KEY (`Id_caja`) REFERENCES `caja` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `materia_prima`
+-- Dumping data for table `facturas`
 --
 
+LOCK TABLES `facturas` WRITE;
+/*!40000 ALTER TABLE `facturas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `facturas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `materia_prima`
+--
+
+DROP TABLE IF EXISTS `materia_prima`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `materia_prima` (
-  `id` int(11) NOT NULL,
-  `id_categoria` int(11) NOT NULL,
-  `id_unidad` int(11) NOT NULL,
-  `nombre` varchar(20) NOT NULL,
-  `stock_min` int(11) NOT NULL,
-  `stock_max` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_categoria` int NOT NULL,
+  `id_unidad` int NOT NULL,
+  `nombre` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `stock_min` int NOT NULL,
+  `stock_max` int NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `id_unidad_idx` (`id_unidad`),
+  KEY `id_categoria` (`id_categoria`),
+  CONSTRAINT `id_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_materia_prima` (`id`),
+  CONSTRAINT `id_unidad` FOREIGN KEY (`id_unidad`) REFERENCES `unidades` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `materia_prima`
+-- Dumping data for table `materia_prima`
 --
 
-INSERT INTO `materia_prima` (`id`, `id_categoria`, `id_unidad`, `nombre`, `stock_min`, `stock_max`, `active`) VALUES
-(1, 1, 3, 'Pollo', 10, 20, 1),
-(2, 1, 3, 'Carne de res', 10, 20, 1),
-(3, 3, 3, 'Cebolla', 10, 20, 1),
-(4, 3, 3, 'Maíz', 10, 20, 1),
-(5, 7, 4, 'Queso cheddar', 10, 20, 1),
-(6, 4, 3, 'Salsa especial', 10, 20, 1),
-(7, 1, 3, 'Tocineta', 10, 20, 1),
-(8, 3, 3, 'Papas', 10, 20, 1),
-(9, 2, 4, 'Pan de la casa', 10, 20, 1);
-
--- --------------------------------------------------------
+LOCK TABLES `materia_prima` WRITE;
+/*!40000 ALTER TABLE `materia_prima` DISABLE KEYS */;
+INSERT INTO `materia_prima` VALUES (1,1,3,'Pollo',10,20,1),(2,1,3,'Carne de res',10,20,1),(3,3,3,'Cebolla',10,20,1),(4,3,3,'Maíz',10,20,1),(5,7,4,'Queso cheddar',10,20,1),(6,4,3,'Salsa especial',10,20,1),(7,1,3,'Tocineta',10,20,1),(8,3,3,'Papas',10,20,1),(9,2,4,'Pan de la casa',10,20,1);
+/*!40000 ALTER TABLE `materia_prima` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `metodo_pago`
+-- Table structure for table `metodo_pago`
 --
 
+DROP TABLE IF EXISTS `metodo_pago`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `metodo_pago` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(25) NOT NULL,
-  `descripcion` text NOT NULL,
-  `imagen` text NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(25) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `metodo_pago`
+-- Dumping data for table `metodo_pago`
 --
 
-INSERT INTO `metodo_pago` (`id`, `nombre`, `descripcion`, `imagen`, `active`) VALUES
-(1, 'Zelle', '', '', 1),
-(2, 'Binance', '', '', 1),
-(3, 'PagoMovil', '', '', 1),
-(4, 'Efectivo', '', '', 1);
-
--- --------------------------------------------------------
+LOCK TABLES `metodo_pago` WRITE;
+/*!40000 ALTER TABLE `metodo_pago` DISABLE KEYS */;
+INSERT INTO `metodo_pago` VALUES (1,'Zelle',1),(2,'Binance',1),(3,'Pago Movil',1),(4,'Efectivo',1),(9,'Prueba infinity',1),(10,'Prueba 2',0);
+/*!40000 ALTER TABLE `metodo_pago` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `movimientos_capital`
+-- Table structure for table `movimientos_capital`
 --
 
+DROP TABLE IF EXISTS `movimientos_capital`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `movimientos_capital` (
-  `id` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `monto` float NOT NULL,
-  `descripcion` text NOT NULL,
-  `fecha` datetime NOT NULL
+  `descripcion` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `fecha` datetime NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `notificaciones`
+-- Dumping data for table `movimientos_capital`
 --
 
+LOCK TABLES `movimientos_capital` WRITE;
+/*!40000 ALTER TABLE `movimientos_capital` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movimientos_capital` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `notificaciones`
+--
+
+DROP TABLE IF EXISTS `notificaciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notificaciones` (
-  `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `mensaje` text NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT 0,
-  `fecha` datetime NOT NULL
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
+  `mensaje` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `fecha` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `usuario` (`id_usuario`),
+  CONSTRAINT `notificaciones_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `orden`
+-- Dumping data for table `notificaciones`
 --
 
+LOCK TABLES `notificaciones` WRITE;
+/*!40000 ALTER TABLE `notificaciones` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notificaciones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orden`
+--
+
+DROP TABLE IF EXISTS `orden`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `orden` (
-  `Id` int(11) NOT NULL,
-  `Nro_Orden` int(11) NOT NULL,
-  `Id_cliente` int(11) NOT NULL,
-  `fecha` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `Referencia` int(11) NOT NULL,
-  `Comprobante` text NOT NULL,
-  `Status` int(11) NOT NULL DEFAULT 0
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `Nro_Orden` int NOT NULL,
+  `Id_cliente` int NOT NULL,
+  `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `Referencia` int NOT NULL,
+  `Comprobante` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `Status` int NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Id`),
+  KEY `Id_cliente` (`Id_cliente`),
+  KEY `idx_cliente` (`Id_cliente`),
+  KEY `idx_fecha` (`fecha`),
+  CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`Id_cliente`) REFERENCES `clientes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `pagos`
+-- Dumping data for table `orden`
 --
 
+LOCK TABLES `orden` WRITE;
+/*!40000 ALTER TABLE `orden` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orden` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pagos`
+--
+
+DROP TABLE IF EXISTS `pagos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pagos` (
-  `id` int(11) NOT NULL,
-  `id_venta` int(11) NOT NULL,
-  `id_metodo_pago` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_venta` int NOT NULL,
+  `id_metodo_pago` int NOT NULL,
   `monto` float NOT NULL,
   `fecha` datetime NOT NULL,
   `tasa` float NOT NULL,
-  `comprobante` varchar(500) DEFAULT NULL
+  `comprobante` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idRegistroVentas` (`id_venta`),
+  KEY `idMetodoPago` (`id_metodo_pago`),
+  CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_metodo_pago`) REFERENCES `metodo_pago` (`id`),
+  CONSTRAINT `pagos_ibfk_2` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `productos`
+-- Dumping data for table `pagos`
 --
 
+LOCK TABLES `pagos` WRITE;
+/*!40000 ALTER TABLE `pagos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pagos` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `productos`
+--
+
+DROP TABLE IF EXISTS `productos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `productos` (
-  `id` int(11) NOT NULL,
-  `id_categoria` int(11) NOT NULL,
-  `nombre` text NOT NULL,
-  `imagen` varchar(500) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_categoria` int NOT NULL,
+  `nombre` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `imagen` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
   `precio` float NOT NULL,
-  `detalles` text NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `id_receta` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  `detalles` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `id_receta` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idCategoria` (`id_categoria`),
+  KEY `id_receta` (`id_receta`),
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias_productos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `productos`
+-- Dumping data for table `productos`
 --
 
-INSERT INTO `productos` (`id`, `id_categoria`, `nombre`, `imagen`, `precio`, `detalles`, `active`, `id_receta`) VALUES
-(1, 2, 'PEPITO TRADICIONAL', '', 7, '22CM de pan, salsas, tomate, lechuga, cebolla, solomo o pollo, tocineta, queso parmesano y ración de papas fritas.', 1, 0),
-(2, 2, 'PEPITO MIXTO', '', 11, '22CM de pan, salsas, tomate, lechuga, cebolla, solomo, pollo, chorizo, tocineta, queso amarillo, queso parmesano, queso cheddar, maíz y ración de papas fritas.', 1, 0),
-(3, 2, 'PEPITO GRATINADO', '', 9, '22CM de pan, salsas, solomo, pollo o chorizo, tocineta, queso mozzarella, queso cheddar y ración de papas fritas.', 1, 0),
-(4, 2, 'PEPITO ESPECIAL', '', 10, '22CM de pan, mayonesa, pollo y camarones, queso mozzarella gratinado, queso parmesano y ración de papas fritas.', 1, 0),
-(5, 4, 'PERRO TRADICIONAL', '', 2, 'Pan grande, salchicha, salsas, repollo, cebolla y ración de papas fritas.', 1, 0),
-(6, 4, 'PERRO ESPECIAL', '', 3.5, 'Pan grande, salchicha, salsas, tocineta, queso amarillo, maíz y ración de papas fritas.', 1, 0),
-(7, 4, 'PERRO CON CARNE', '', 4.5, 'Pan grande, salchicha, salsas, carne, queso amarillo y ración de papas fritas.', 1, 0),
-(8, 6, 'CLUB HOUSE', '', 8, 'Pan de sándwich, salsas, vegetales, pollo, jamón, queso, tocineta, tortilla de huevo y ración de papas fritas.', 1, 0),
-(9, 3, 'GRIEGO TRADICIONAL', '', 7.7, 'Pan, salsas, vegetales, salchicha, carne, pollo o mixto, queso parmesano, tocineta, jamón, queso amarillo y ración de papas fritas.', 1, 0),
-(10, 3, 'GRIEGO ESPECIAL', '', 9, 'Pan, salsas, vegetales, carne, pollo y camarones, queso parmesano y ración de papas fritas.', 1, 0),
-(11, 5, 'PAPAS CON CARNE', '', 7.5, '300gr de papas, 200gr de carne o mixta, queso amarillo, tocineta, salsas.', 1, 0),
-(12, 5, 'SALCHIPAPAS', '', 3.5, '300gr de papa, salchicha, cubiertas con queso cheddar con topping de tocineta.', 1, 0),
-(13, 5, 'PAPAS CHEDDAR', '', 2.8, '300gr de papas fritas, cubiertas de queso cheddar y tocineta.', 1, 0),
-(14, 8, 'MINI BURGER', '', 3, 'Pan de la casa, salsas, carne, queso cheddar y ración de papas fritas.', 1, 0),
-(15, 8, 'TENDERS DE POLLO', '', 4, 'Tenders de pollo, salsas y ración de papas fritas.', 1, 0),
-(16, 7, 'CLÁSICA', '', 2.8, 'Pan de la casa, carne, tomate, lechuga, cebolla, salsas, ración de papas fritas.', 1, 0),
-(17, 7, 'CHEESE BURGER', '', 4.1, 'Pan de la casa, carne o pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta y ración de papas fritas.', 1, 0),
-(18, 7, 'CHICKEN BURGER', '', 5.6, 'Pan de la casa, pollo crispy, salsa especial, doble cheddar, doble tocineta, ración de papas fritas.', 1, 0),
-(19, 7, 'CRISPY BURGER', '', 4, 'Pan de la casa, salsa especial, pollo crispy, queso cheddar, lechuga, tocineta, ración de papas fritas.', 1, 0),
-(20, 7, 'TENTACIÓN BURGER', '', 7, 'Pan de la casa, carne, pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta, maíz y ración de papas fritas.', 1, 0),
-(21, 7, 'BACON JAM BURGER', '', 5, 'Pan de papa, mayonesa, doble carne, doble cheddar, mermelada de tocineta, ración de papas fritas.', 1, 0),
-(22, 7, 'ONION BURGER', '', 4, 'Pan de la casa, carne o pollo, salsa especial, cebolla caramelizada o cebolla crispy, queso cheddar, tocineta y ración de papas fritas.', 1, 0),
-(23, 7, 'BURGER HOUSE', '', 6.5, 'Pan de la casa, salsa especial, carne, pollo crispy, cebolla crispy, cebolla caramelizada, tocineta, queso cheddar, maíz y ración de papas fritas.', 1, 0),
-(24, 7, 'BIG BURGER', '', 6.5, 'Pan de la casa, doble carne, doble queso cheddar, salsa Big Mac, pepinillo, lechuga, tocineta y ración de papas fritas.', 1, 0),
-(25, 7, 'TASTY BURGER', '', 8, 'Pan de papa, salsa tasty, triple carne, triple cheddar, tocineta, tomate, cebolla, lechuga, ración de papas fritas.', 1, NULL),
-(26, 7, 'SMASH BURGER', '', 8.8, 'Pan de papa, salsa especial, triple carne, triple cheddar, tocineta, cebolla morada, pepinillo, ración de papas fritas.', 1, 0),
-(27, 1, 'Luis', 'C:\\fakepath\\5ce0e0f8-46df-4654-b37b-7d7f40d9bc6a.jpeg', 6.56, 'awdk;oakd;kaw;odk;ad', 1, 2),
-(28, 1, 'Azucar', 'C:\\fakepath\\5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg', 656.56, 'alwjdildjiladjiljdildwada', 1, 2),
-(29, 2, 'Shawarma', 'C:\\fakepath\\LOGO SHTECHNOLOGYX CON OTRAS LETRAS.png', 50, 'mailmdilwmlidmlwiadl', 0, 1);
-
--- --------------------------------------------------------
+LOCK TABLES `productos` WRITE;
+/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
+INSERT INTO `productos` VALUES (1,2,'PEPITO TRADICIONAL','',7,'22CM de pan, salsas, tomate, lechuga, cebolla, solomo o pollo, tocineta, queso parmesano y ración de papas fritas.',1,0),(2,2,'PEPITO MIXTO','',11,'22CM de pan, salsas, tomate, lechuga, cebolla, solomo, pollo, chorizo, tocineta, queso amarillo, queso parmesano, queso cheddar, maíz y ración de papas fritas.',1,0),(3,2,'PEPITO GRATINADO','',9,'22CM de pan, salsas, solomo, pollo o chorizo, tocineta, queso mozzarella, queso cheddar y ración de papas fritas.',1,0),(4,2,'PEPITO ESPECIAL','',10,'22CM de pan, mayonesa, pollo y camarones, queso mozzarella gratinado, queso parmesano y ración de papas fritas.',1,0),(5,4,'PERRO TRADICIONAL','',2,'Pan grande, salchicha, salsas, repollo, cebolla y ración de papas fritas.',1,0),(6,4,'PERRO ESPECIAL','',3.5,'Pan grande, salchicha, salsas, tocineta, queso amarillo, maíz y ración de papas fritas.',1,0),(7,4,'PERRO CON CARNE','',4.5,'Pan grande, salchicha, salsas, carne, queso amarillo y ración de papas fritas.',1,0),(8,6,'CLUB HOUSE','',8,'Pan de sándwich, salsas, vegetales, pollo, jamón, queso, tocineta, tortilla de huevo y ración de papas fritas.',1,0),(9,3,'GRIEGO TRADICIONAL','',7.7,'Pan, salsas, vegetales, salchicha, carne, pollo o mixto, queso parmesano, tocineta, jamón, queso amarillo y ración de papas fritas.',1,0),(10,3,'GRIEGO ESPECIAL','',9,'Pan, salsas, vegetales, carne, pollo y camarones, queso parmesano y ración de papas fritas.',1,0),(11,5,'PAPAS CON CARNE','',7.5,'300gr de papas, 200gr de carne o mixta, queso amarillo, tocineta, salsas.',1,0),(12,5,'SALCHIPAPAS','',3.5,'300gr de papa, salchicha, cubiertas con queso cheddar con topping de tocineta.',1,0),(13,5,'PAPAS CHEDDAR','',2.8,'300gr de papas fritas, cubiertas de queso cheddar y tocineta.',1,0),(14,8,'MINI BURGER','',3,'Pan de la casa, salsas, carne, queso cheddar y ración de papas fritas.',1,0),(15,8,'TENDERS DE POLLO','',4,'Tenders de pollo, salsas y ración de papas fritas.',1,0),(16,7,'CLÁSICA','',2.8,'Pan de la casa, carne, tomate, lechuga, cebolla, salsas, ración de papas fritas.',1,0),(17,7,'CHEESE BURGER','',4.1,'Pan de la casa, carne o pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta y ración de papas fritas.',1,0),(18,7,'CHICKEN BURGER','',5.6,'Pan de la casa, pollo crispy, salsa especial, doble cheddar, doble tocineta, ración de papas fritas.',1,0),(19,7,'CRISPY BURGER','',4,'Pan de la casa, salsa especial, pollo crispy, queso cheddar, lechuga, tocineta, ración de papas fritas.',1,0),(20,7,'TENTACIÓN BURGER','',7,'Pan de la casa, carne, pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta, maíz y ración de papas fritas.',1,0),(21,7,'BACON JAM BURGER','',5,'Pan de papa, mayonesa, doble carne, doble cheddar, mermelada de tocineta, ración de papas fritas.',1,0),(22,7,'ONION BURGER','',4,'Pan de la casa, carne o pollo, salsa especial, cebolla caramelizada o cebolla crispy, queso cheddar, tocineta y ración de papas fritas.',1,0),(23,7,'BURGER HOUSE','',6.5,'Pan de la casa, salsa especial, carne, pollo crispy, cebolla crispy, cebolla caramelizada, tocineta, queso cheddar, maíz y ración de papas fritas.',1,0),(24,7,'BIG BURGER','',6.5,'Pan de la casa, doble carne, doble queso cheddar, salsa Big Mac, pepinillo, lechuga, tocineta y ración de papas fritas.',1,0),(25,7,'TASTY BURGER','',8,'Pan de papa, salsa tasty, triple carne, triple cheddar, tocineta, tomate, cebolla, lechuga, ración de papas fritas.',1,NULL),(26,7,'SMASH BURGER','',8.8,'Pan de papa, salsa especial, triple carne, triple cheddar, tocineta, cebolla morada, pepinillo, ración de papas fritas.',1,0),(27,1,'Luis','C:\\fakepath\\5ce0e0f8-46df-4654-b37b-7d7f40d9bc6a.jpeg',6.56,'awdk;oakd;kaw;odk;ad',0,2),(28,1,'Azucar','C:\\fakepath\\5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg',656.56,'alwjdildjiladjiljdildwada',0,2),(29,2,'Shawarma','C:\\fakepath\\LOGO SHTECHNOLOGYX CON OTRAS LETRAS.png',50,'mailmdilwmlidmlwiadl',0,1),(40,7,'Combo Prueba','banner_login.png',2.5,'texto descriptivo',1,NULL);
+/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `proveedores`
+-- Table structure for table `proveedores`
 --
 
+DROP TABLE IF EXISTS `proveedores`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `proveedores` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `razonSocial` varchar(50) NOT NULL,
-  `rif` varchar(15) NOT NULL,
-  `telefono` varchar(20) NOT NULL,
-  `correo` text NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
--- --------------------------------------------------------
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `razon_social` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `documento` varchar(15) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `n_telefono1` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `n_telefono2` varchar(45) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `direccion` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Estructura de tabla para la tabla `recetas`
+-- Dumping data for table `proveedores`
 --
 
+LOCK TABLES `proveedores` WRITE;
+/*!40000 ALTER TABLE `proveedores` DISABLE KEYS */;
+INSERT INTO `proveedores` VALUES (1,'Luis Perez','Montecarmelo','E-5435543','+584126742231','','una direccion para especificar',1);
+/*!40000 ALTER TABLE `proveedores` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `recetas`
+--
+
+DROP TABLE IF EXISTS `recetas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `recetas` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `recetas`
+-- Dumping data for table `recetas`
 --
 
-INSERT INTO `recetas` (`id`, `nombre`) VALUES
-(1, 'Burger House');
-
--- --------------------------------------------------------
+LOCK TABLES `recetas` WRITE;
+/*!40000 ALTER TABLE `recetas` DISABLE KEYS */;
+INSERT INTO `recetas` VALUES (1,'Burger House'),(2,'receta 2');
+/*!40000 ALTER TABLE `recetas` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `roles`
+-- Table structure for table `roles`
 --
 
+DROP TABLE IF EXISTS `roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `roles` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(25) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(25) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `descripcion` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `roles`
+-- Dumping data for table `roles`
 --
 
-INSERT INTO `roles` (`id`, `nombre`) VALUES
-(1, 'Super-Administrador'),
-(2, 'Cajero'),
-(3, 'Mesero'),
-(4, 'Delivery'),
-(5, 'Cocinero'),
-(6, 'Usuario');
-
--- --------------------------------------------------------
+LOCK TABLES `roles` WRITE;
+/*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+INSERT INTO `roles` VALUES (10,'SuperAdmin','Rol con acceso a todas las funciones del e-commerce',1);
+/*!40000 ALTER TABLE `roles` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `unidades`
+-- Table structure for table `unidades`
 --
 
+DROP TABLE IF EXISTS `unidades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `unidades` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(10) NOT NULL,
-  `alias` varchar(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `alias` varchar(4) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `unidades`
+-- Dumping data for table `unidades`
 --
 
-INSERT INTO `unidades` (`id`, `nombre`, `alias`) VALUES
-(1, 'Litro', 'Lt'),
-(2, 'Gramo', 'Gr'),
-(3, 'Kilogramo', 'Kg'),
-(4, 'Unidad', 'Ud'),
-(5, 'Mililitro', 'Ml');
-
--- --------------------------------------------------------
+LOCK TABLES `unidades` WRITE;
+/*!40000 ALTER TABLE `unidades` DISABLE KEYS */;
+INSERT INTO `unidades` VALUES (1,'Litro','Lt','1'),(2,'Gramo','Gr','1'),(3,'Kilogramo','Kg','1'),(4,'Unidad','Ud','1'),(5,'Mililitro','Ml','1'),(7,'Prueba','P','0'),(8,'Prueba1','1','0'),(9,'Prueba2','2','0'),(10,'Prueba3','2','0');
+/*!40000 ALTER TABLE `unidades` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `usuario`
+-- Table structure for table `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
-  `id_rol` int(11) NOT NULL,
-  `hash` text NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  `session_id` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_rol` int NOT NULL,
+  `nombre` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `hash` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `apellido` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `documento` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `session_id` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '1',
+  `email` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `documento_UNIQUE` (`documento`),
+  KEY `idRol` (`id_rol`),
+  CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Volcado de datos para la tabla `usuario`
+-- Dumping data for table `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `id_rol`, `hash`, `nombre`, `active`, `session_id`) VALUES
-(1, 1, 'GodOfWar20**', 'josepeez@gmail.com', 1, 'fpsejfpisfp');
-
--- --------------------------------------------------------
+LOCK TABLES `usuario` WRITE;
+/*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
+INSERT INTO `usuario` VALUES (11,10,'Alejandro','Luisgv202*','Vargas','V-30087582',1,'1','garnicaluis391@gmail.com'),(13,10,'Pedro','Pedro25**','Perez','V-58963325',1,'1','pedro202@gmail.com');
+/*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Estructura de tabla para la tabla `ventas`
+-- Table structure for table `ventas`
 --
 
+DROP TABLE IF EXISTS `ventas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ventas` (
-  `id` int(11) NOT NULL,
-  `id_caja` int(11) NOT NULL,
-  `id_cliente` int(11) NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_caja` int NOT NULL,
+  `id_cliente` int NOT NULL,
   `IVA` float NOT NULL,
   `monto_final` float NOT NULL,
   `fecha` datetime NOT NULL,
-  `direccion` varchar(500) NOT NULL,
-  `active` tinyint(1) NOT NULL
+  `direccion` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idCaja` (`id_caja`),
+  KEY `idCliente` (`id_cliente`),
+  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_caja`) REFERENCES `caja` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Índices para tablas volcadas
+-- Dumping data for table `ventas`
 --
 
---
--- Indices de la tabla `bitacora`
---
-ALTER TABLE `bitacora`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `Usuario` (`id_usuario`);
-
---
--- Indices de la tabla `caja`
---
-ALTER TABLE `caja`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario` (`id_usuario`);
-
---
--- Indices de la tabla `capital`
---
-ALTER TABLE `capital`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `categorias_productos`
---
-ALTER TABLE `categorias_productos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `categoria_materia_prima`
---
-ALTER TABLE `categoria_materia_prima`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `clientes`
---
-ALTER TABLE `clientes`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `configuraciones`
---
-ALTER TABLE `configuraciones`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `credito`
---
-ALTER TABLE `credito`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idRegistroVentas` (`id_venta`);
-
---
--- Indices de la tabla `detalles_orden`
---
-ALTER TABLE `detalles_orden`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `Id_Orden` (`Id_Orden`),
-  ADD KEY `Id_producto` (`Id_producto`);
-
---
--- Indices de la tabla `detalles_receta`
---
-ALTER TABLE `detalles_receta`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `Id_receta` (`Id_receta`,`Id_materia_prima`),
-  ADD KEY `Id_materia_prima_ibfk_1` (`Id_materia_prima`);
-
---
--- Indices de la tabla `detalles_roles`
---
-ALTER TABLE `detalles_roles`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_rol` (`id_rol`);
-
---
--- Indices de la tabla `detalle_entrada`
---
-ALTER TABLE `detalle_entrada`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_materia_prima` (`id_materia_prima`);
-
---
--- Indices de la tabla `entradas_materia_prima`
---
-ALTER TABLE `entradas_materia_prima`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_provedor` (`id_provedor`);
-
---
--- Indices de la tabla `facturas`
---
-ALTER TABLE `facturas`
-  ADD PRIMARY KEY (`Id_factura`),
-  ADD KEY `Id_orden` (`Id_orden`),
-  ADD KEY `Id_caja` (`Id_caja`);
-
---
--- Indices de la tabla `materia_prima`
---
-ALTER TABLE `materia_prima`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_unidad_idx` (`id_unidad`),
-  ADD KEY `id_categoria` (`id_categoria`);
-
---
--- Indices de la tabla `metodo_pago`
---
-ALTER TABLE `metodo_pago`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `movimientos_capital`
---
-ALTER TABLE `movimientos_capital`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `notificaciones`
---
-ALTER TABLE `notificaciones`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `usuario` (`id_usuario`);
-
---
--- Indices de la tabla `orden`
---
-ALTER TABLE `orden`
-  ADD PRIMARY KEY (`Id`),
-  ADD KEY `Id_cliente` (`Id_cliente`),
-  ADD KEY `idx_cliente` (`Id_cliente`),
-  ADD KEY `idx_fecha` (`fecha`);
-
---
--- Indices de la tabla `pagos`
---
-ALTER TABLE `pagos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idRegistroVentas` (`id_venta`),
-  ADD KEY `idMetodoPago` (`id_metodo_pago`);
-
---
--- Indices de la tabla `productos`
---
-ALTER TABLE `productos`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idCategoria` (`id_categoria`),
-  ADD KEY `id_receta` (`id_receta`);
-
---
--- Indices de la tabla `proveedores`
---
-ALTER TABLE `proveedores`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `recetas`
---
-ALTER TABLE `recetas`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `roles`
---
-ALTER TABLE `roles`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `unidades`
---
-ALTER TABLE `unidades`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idRol` (`id_rol`);
-
---
--- Indices de la tabla `ventas`
---
-ALTER TABLE `ventas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idCaja` (`id_caja`),
-  ADD KEY `idCliente` (`id_cliente`);
-
---
--- AUTO_INCREMENT de las tablas volcadas
---
-
---
--- AUTO_INCREMENT de la tabla `bitacora`
---
-ALTER TABLE `bitacora`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `caja`
---
-ALTER TABLE `caja`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `capital`
---
-ALTER TABLE `capital`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `categorias_productos`
---
-ALTER TABLE `categorias_productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de la tabla `categoria_materia_prima`
---
-ALTER TABLE `categoria_materia_prima`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT de la tabla `clientes`
---
-ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `configuraciones`
---
-ALTER TABLE `configuraciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `credito`
---
-ALTER TABLE `credito`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `detalles_orden`
---
-ALTER TABLE `detalles_orden`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `detalles_receta`
---
-ALTER TABLE `detalles_receta`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
-
---
--- AUTO_INCREMENT de la tabla `detalles_roles`
---
-ALTER TABLE `detalles_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `detalle_entrada`
---
-ALTER TABLE `detalle_entrada`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `entradas_materia_prima`
---
-ALTER TABLE `entradas_materia_prima`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `facturas`
---
-ALTER TABLE `facturas`
-  MODIFY `Id_factura` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `materia_prima`
---
-ALTER TABLE `materia_prima`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- AUTO_INCREMENT de la tabla `metodo_pago`
---
-ALTER TABLE `metodo_pago`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT de la tabla `movimientos_capital`
---
-ALTER TABLE `movimientos_capital`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `notificaciones`
---
-ALTER TABLE `notificaciones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `orden`
---
-ALTER TABLE `orden`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `pagos`
---
-ALTER TABLE `pagos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `productos`
---
-ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
-
---
--- AUTO_INCREMENT de la tabla `proveedores`
---
-ALTER TABLE `proveedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de la tabla `recetas`
---
-ALTER TABLE `recetas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `roles`
---
-ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT de la tabla `unidades`
---
-ALTER TABLE `unidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT de la tabla `usuario`
---
-ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `ventas`
---
-ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- Restricciones para tablas volcadas
---
-
---
--- Filtros para la tabla `bitacora`
---
-ALTER TABLE `bitacora`
-  ADD CONSTRAINT `bitacora_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
-
---
--- Filtros para la tabla `caja`
---
-ALTER TABLE `caja`
-  ADD CONSTRAINT `id_usuario(caja)` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `credito`
---
-ALTER TABLE `credito`
-  ADD CONSTRAINT `credito_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`);
-
---
--- Filtros para la tabla `detalles_orden`
---
-ALTER TABLE `detalles_orden`
-  ADD CONSTRAINT `Id_orden_ibfk_1` FOREIGN KEY (`Id_Orden`) REFERENCES `orden` (`Id`),
-  ADD CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`Id_producto`) REFERENCES `productos` (`id`);
-
---
--- Filtros para la tabla `detalles_receta`
---
-ALTER TABLE `detalles_receta`
-  ADD CONSTRAINT `Id_materia_prima_ibfk_1` FOREIGN KEY (`Id_materia_prima`) REFERENCES `materia_prima` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `Id_receta_prima_ibfk_2` FOREIGN KEY (`Id_receta`) REFERENCES `recetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `detalles_roles`
---
-ALTER TABLE `detalles_roles`
-  ADD CONSTRAINT `detalles_roles_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`) ON UPDATE CASCADE;
-
---
--- Filtros para la tabla `detalle_entrada`
---
-ALTER TABLE `detalle_entrada`
-  ADD CONSTRAINT `id_materia_prima` FOREIGN KEY (`id_materia_prima`) REFERENCES `materia_prima` (`id`);
-
---
--- Filtros para la tabla `entradas_materia_prima`
---
-ALTER TABLE `entradas_materia_prima`
-  ADD CONSTRAINT `id_proveedor` FOREIGN KEY (`id_provedor`) REFERENCES `proveedores` (`id`);
-
---
--- Filtros para la tabla `facturas`
---
-ALTER TABLE `facturas`
-  ADD CONSTRAINT `id_caja_ibfk_1` FOREIGN KEY (`Id_caja`) REFERENCES `caja` (`id`);
-
---
--- Filtros para la tabla `materia_prima`
---
-ALTER TABLE `materia_prima`
-  ADD CONSTRAINT `id_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_materia_prima` (`id`),
-  ADD CONSTRAINT `id_unidad` FOREIGN KEY (`id_unidad`) REFERENCES `unidades` (`id`);
-
---
--- Filtros para la tabla `notificaciones`
---
-ALTER TABLE `notificaciones`
-  ADD CONSTRAINT `notificaciones_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
-
---
--- Filtros para la tabla `orden`
---
-ALTER TABLE `orden`
-  ADD CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`Id_cliente`) REFERENCES `clientes` (`id`);
-
---
--- Filtros para la tabla `pagos`
---
-ALTER TABLE `pagos`
-  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_metodo_pago`) REFERENCES `metodo_pago` (`id`),
-  ADD CONSTRAINT `pagos_ibfk_2` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`);
-
---
--- Filtros para la tabla `productos`
---
-ALTER TABLE `productos`
-  ADD CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias_productos` (`id`);
-
---
--- Filtros para la tabla `usuario`
---
-ALTER TABLE `usuario`
-  ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`);
-
---
--- Filtros para la tabla `ventas`
---
-ALTER TABLE `ventas`
-  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
-  ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_caja`) REFERENCES `caja` (`id`);
-COMMIT;
+LOCK TABLES `ventas` WRITE;
+/*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-05-04 13:25:42
