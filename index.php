@@ -1,31 +1,34 @@
 <?php 
-session_start();
-$ruta = isset($_GET['c'])? $_GET['c']: "CMain/mostrarMain";
+	require 'vendor/autoload.php';
+	session_start();
 
-$partes = explode("/", $ruta);
+	$ruta = isset($_GET['c']) ? $_GET['c'] : "CMain/mostrarMain";
 
-$nomClase = ucfirst($partes['0']);
+	$partes = explode("/", $ruta);
 
-$metodo = isset($partes['1'])? $partes['1']: "mostrarMain";
+	$nomClase = "Shtch\\Burgerhouse\\Controller\\" . ucfirst($partes[0]); // Agregar el namespace completo
 
-$url = "Controller/".$partes['0'].".php";
+	$metodo = isset($partes[1]) ? $partes[1] : "mostrarMain";
 
-if (file_exists($url)) {
+	$url = __DIR__ . "/src/Controller/" . $partes[0] . ".php";
 
-	require_once $url;
+	if (file_exists($url)) {
 
-	$instancia = new $nomClase();
+		require_once $url;
 
-	if (method_exists($instancia, $metodo)) {
-		
-		$instancia->$metodo();
-	}else{
-		echo "NO EXISTE EL METODO";
+		if (class_exists($nomClase)) {
+			$instancia = new $nomClase();
+
+			if (method_exists($instancia, $metodo)) {
+				$instancia->$metodo();
+			} else {
+				echo "NO EXISTE EL METODO";
+			}
+		} else {
+			echo "NO EXISTE LA CLASE";
+		}
+
+	} else {
+		echo "NO EXISTE EL CONTROLADOR";
 	}
-
-}else{
-	echo "NO EXISTE EL CONTROLADOR";
-}
-
-
 ?>

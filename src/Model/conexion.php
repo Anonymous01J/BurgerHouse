@@ -1,5 +1,8 @@
 <?php
-    class conexion extends PDO{
+    namespace Shtch\burgerhouse\Model;
+    use PDOException;
+    use PDO;
+    class Conexion extends PDO{
         public $conn;
         function __construct(){
             

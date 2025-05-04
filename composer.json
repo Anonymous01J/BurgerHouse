@@ -1,0 +1,12 @@
+{
+    "name": "shtch/burgerhouse",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Shtch\\Burgerhouse\\": "src/"
+        }
+    },
+    "minimum-stability": "beta",
+    "require": {}
+}
