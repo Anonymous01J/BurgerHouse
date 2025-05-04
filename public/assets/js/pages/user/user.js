@@ -2,7 +2,7 @@ import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 const { SelectOption, setValidationStyles, validateField, searchAll, searchFilter, print, add, update, reindex, resetForm } = functionGeneral();
 const { elemenFormUser, optionsRol, targetUser } = Templates()
-
+const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 SelectOption(".select_options_td", null)
 SelectOption(".select_options_rol", "rol", optionsRol)
 SelectOption(".select_options_td_edit", null)

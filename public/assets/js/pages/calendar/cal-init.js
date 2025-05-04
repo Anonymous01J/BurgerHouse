@@ -65,40 +65,40 @@
             var defaultEvents = [{
                     title: 'Meeting #3',
                     start: new Date($.now() + 506800000),
-                    className: 'bg-info'
+                    className: 'bh_1'
                 }, {
                     title: 'Submission #1',
                     start: today,
                     end: today,
-                    className: 'bg-danger'
+                    className: 'bh_2'
                 }, {
                     title: 'Meetup #6',
                     start: new Date($.now() + 848000000),
-                    className: 'bg-info'
+                    className: 'bh_1'
                 }, {
                     title: 'Seminar #4',
                     start: new Date($.now() - 1099000000),
                     end: new Date($.now() - 919000000),
-                    className: 'bg-warning'
+                    className: 'bh_1'
                 }, {
                     title: 'Event Conf.',
                     start: new Date($.now() - 1199000000),
                     end: new Date($.now() - 1199000000),
-                    className: 'bg-purple'
+                    className: 'bh_2'
                 }, {
                     title: 'Meeting #5',
                     start: new Date($.now() - 399000000),
                     end: new Date($.now() - 219000000),
-                    className: 'bg-info'
+                    className: 'bh_1'
                 },
                 {
                     title: 'Submission #2',
                     start: new Date($.now() + 868000000),
-                    className: 'bg-danger'
+                    className: 'bh_2'
                 }, {
                     title: 'Seminar #5',
                     start: new Date($.now() + 348000000),
-                    className: 'bg-success'
+                    className: 'bh_1'
                 }
             ];
 

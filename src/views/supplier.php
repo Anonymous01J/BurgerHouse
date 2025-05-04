@@ -31,62 +31,18 @@
         </div>
 
         <div class="container-fluid">
-
             <div class="row g-3 align-items-center mb-5">
                 <div class="col-auto">
-                    <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                    <input type="search" id="SearchSupplier" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
                 <button data-bs-toggle="modal" data-bs-target="#register-supplier" style="color: #fff;" type="button" class="btn bh_1 btn-circle">
                     <i data-feather="plus" class="svg-icon"></i>
                 </button>
             </div>
 
-            <div class="row">
-                <div class="col-md-4 col-lg-3 ">
-                    <div class="position-relative">
-                        <span class="badge bh_1 d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;">
-                            <span><i style="font-size: 20px;" data-feather="bookmark" class="svg-icon"></i></span>
-                        </span>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="mb-3 border-bottom">
-                                    <div class="d-flex justify-content-between ">
-                                        <h5 class="card-title">Montecarmelo</h5>
-                                        <div>
-                                            <p class="fs-6">J-582679</p>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
-                                        <p class="fw-lighter fs-6">Nombre</p>
-                                        <p class="fw-lighter fs-6">Jose Perez</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="row gap-3">
-                                    <div class="d-flex flex-column gap-4">
-                                        <div class="text-start">
-                                            <h4>Telefono</h4>
-                                            <div class="fs-6">0412568935</div>
-                                        </div>
-                                        <div class="">
-                                            <h4>Direccion</h4>
-                                            <div class="fs-6">Una direccion cualquiera detras de algo</div>
-                                        </div>
-                                        <div class="d-flex justify-content-end gap-3 border-top pt-3">
-                                            <i style="cursor: pointer;" data-feather="edit"></i>
-                                            <i style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#confirmAction" data-feather="trash-2"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="row cont_suppliers">
+                
             </div>
-
-
-
         </div>
 
         <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>

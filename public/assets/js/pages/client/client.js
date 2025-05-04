@@ -2,6 +2,7 @@ import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 const { selectOptionAll, setValidationStyles, validateField, searchAll, searchFilter, print, add, update, reindex, resetForm } = functionGeneral();
 const { elemenFormClient, targetClient } = Templates()
+const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 searchFilter("#SearchClients", "clients", targetClient, "clients", ".container_clients", 1, (response) => editClient(response))
 selectOptionAll(".select_options_td", null, null)
 let iti = window.intlTelInput(document.querySelector("#input-tel-client-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });

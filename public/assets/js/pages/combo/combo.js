@@ -2,14 +2,12 @@ import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm, permission, searchFilter } = functionGeneral();
 const { targetCombo, elemenFormCombo, optionsRol } = Templates()
-
+const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 InputPrice("[input_price]");
 selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 viewImage(".input-image")
 permission("Combo")//verifica el btn de agg
-
 searchFilter("#searchCombos", "combo", targetCombo, "combo",".cont-combos", 1, (response) => editData(response))
-
 // ------------------Validacion de Formulario---------------------------
 
 

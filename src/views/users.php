@@ -36,7 +36,8 @@
                 <div class="col-auto">
                     <input type="search" id="search-filter-users" placeholder="Buscar" class="form-control">
                 </div>
-                <button data-bs-toggle="modal" data-bs-target="#register-user" type="button" class="btn bh_1 btn-circle text-white">
+                <button data-bs-toggle="modal" data-bs-target="#register-user" type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-bs-title="Agregar Usuario" 
+                data-bs-placement="top">
                     <i data-feather="user-plus" class="svg-icon"></i>
                 </button>
             </div>

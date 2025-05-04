@@ -1,14 +1,18 @@
-const formData = new FormData();
-formData.append("nombre", "Luidas");
-formData.append("mensaje", "Hola desde AJAX");
+async function renderizarTarjetas() {
+  // 1) Obtener datos
+  const resp = await fetch("combo/pruebita");
+  const data = await resp.json();
 
-fetch("home/index", {
-  method: "POST",
-  headers: {
-    "X-Requested-With": "XMLHttpRequest" // No incluyas "Content-Type", ya que FormData lo establece automáticamente
-  },
-  body: formData // Enviar los datos como FormData
-})
-  .then(response => response.text())
-  .then(data => console.log(data))
-  .catch(error => console.error("Error en la petición AJAX:", error));
+  // 2) Agrupar por receta_nombre
+  const agrupado = data.reduce((acum, item) => {
+    const nombre = item.receta_nombre;
+    if (!acum[nombre]) acum[nombre] = [];
+    acum[nombre].push(item);
+    return acum;
+  }, {});
+
+  Object.entries(agrupado).forEach(([receta, ingredientes]) => {
+    console.log(receta, ingredientes);
+  });
+}
+// renderizarTarjetas();

@@ -1,8 +1,8 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables } = functionGeneral();
+const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm } = functionGeneral();
 const { elemenFormCategoryRawmaterial } = Templates()
-
+document.querySelectorAll(".btn-add-tooltip").forEach((btn) => { new bootstrap.Tooltip(btn) })
 let table = $(".table_category_rawmaterial").DataTable({
     language: {
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
@@ -23,10 +23,10 @@ let table = $(".table_category_rawmaterial").DataTable({
             orderable: false,
             render: function (data, type, row, meta) {
                 return `
-                <button data-id="${data.id}" data-module-edit="categoryMateriaPrima" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-categoryRawMaterial">
+                <button data-id="${data.id}" data-module-edit="categoryMateriaPrima" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-categoryRawMaterial" data-bs-title="Editar Categoria" data-bs-placement="bottom">
                     <i data-feather="edit" class="text-white"></i>
                 </button>
-                <button data-id="${data.id}" data-module-delete="categoryMateriaPrima" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable">
+                <button data-id="${data.id}" data-module-delete="categoryMateriaPrima" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Categoria" data-bs-placement="bottom">
                     <i data-feather="trash" class="text-white"></i>
                 </button>
 `;
@@ -35,6 +35,9 @@ let table = $(".table_category_rawmaterial").DataTable({
     ],
     drawCallback: function (settings) {
         feather.replace();
+        document.querySelectorAll(".trash_btn_datatable, .edit_btn_datatable").forEach((btn) => {
+            let tooltip = new bootstrap.Tooltip(btn)
+        })
     },
     "dom": 'tipr',
     "paging": true,
@@ -125,6 +128,7 @@ if (!form.dataset.listenerAttached) {
                 dataFinal.append(`lista[${index}][nombre]`, category.nombre)
             })
             addDataTables(table, dataFinal, "categoryMateriaPrima")
+            resetForm(".categoryRawMaterials", form)
             bootstrap.Modal.getOrCreateInstance('#register-categoryRawMaterials').hide()
         }
     })

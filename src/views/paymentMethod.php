@@ -9,7 +9,7 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Metodos de pagp</h3>
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Metodos de pago</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
@@ -28,12 +28,16 @@
                 <div class="col-md-6 col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#register-payment">
-                                <i class="fas fa-plus"></i>
-                                metodo de pago
-                            </button>
-                            <div class="table-responsive mt-5">
-                                <table class="table table-dark-mode no-wrap">
+                            <div class="d-flex gap-3">
+                                <div class="col-md-6 col-lg-3">
+                                    <input type="search" class="form-control" id="searchPayments" placeholder="Buscar">
+                                </div>
+                                <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="combo" data-bs-toggle="modal" data-bs-target="#register-payments" data-bs-title="Agregar Metodo de pago" data-bs-placement="bottom">
+                                    <i data-feather="plus" class="svg-icon"></i>
+                                </button>
+                            </div>
+                            <div class="table-responsive mt-2">
+                                <table class="table table-dark-mode no-wrap table_payment w-100">
                                     <thead>
                                         <tr>
                                             <th>Nro</th>
@@ -57,19 +61,6 @@
                                         </tr>
                                     </tbody>
                                 </table>
-                                <ul class="pagination float-end">
-                                    <li class="page-item disabled">
-                                        <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                    </li>
-                                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
                     </div>
@@ -84,8 +75,11 @@
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/libs/extra-libs/datatables.net/js/jquery.dataTables.js"></script>
+<script src="./assets/libs/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
 <script src="./assets/js/app-style-switcher.js"></script>
 <script src="./assets/js/feather.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
+<script type="module" src="./assets/js/pages/paymentMethod/payment.js"></script>

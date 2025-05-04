@@ -1,8 +1,8 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables } = functionGeneral();
+const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm } = functionGeneral();
 const { elemenFormCategoryProduct } = Templates()
-
+document.querySelectorAll(".btn-add-tooltip").forEach((btn) => {new bootstrap.Tooltip(btn)})
 let n = $(".table_combo").DataTable({
     language: {
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
@@ -23,10 +23,10 @@ let n = $(".table_combo").DataTable({
             orderable: false,
             render: function (data, type, row, meta) {
                 return `
-                <button data-id="${data.id}" data-module-edit="categoryProducto" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-categoryCombo">
+                <button data-id="${data.id}" data-module-edit="categoryProducto" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-categoryCombo" data-bs-title="Editar Categoria" data-bs-placement="bottom">
                     <i data-feather="edit" class="text-white"></i>
                 </button>
-                <button data-id="${data.id}" data-module-delete="categoryProducto" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable">
+                <button data-id="${data.id}" data-module-delete="categoryProducto" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Categoria" data-bs-placement="bottom">
                     <i data-feather="trash" class="text-white"></i>
                 </button>
 `;
@@ -35,6 +35,9 @@ let n = $(".table_combo").DataTable({
     ],
     drawCallback: function (settings) {
         feather.replace();
+        document.querySelectorAll(".trash_btn_datatable, .edit_btn_datatable").forEach((btn) => {
+            let tooltip = new bootstrap.Tooltip(btn)
+        })
     },
     "dom": 'tipr',
     "paging": true,
@@ -125,6 +128,7 @@ if (!form.dataset.listenerAttached) {
                 dataFinal.append(`lista[${index}][nombre]`, category.nombre)
             })
             addDataTables(n, dataFinal, "categoryProducto")
+            resetForm(".categoryCombos", form)
             bootstrap.Modal.getOrCreateInstance('#register-categoryCombo').hide()
         }
     })

@@ -13,10 +13,10 @@ export default function Templates() {
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <p class="mb-0">Precio: ${objet.precio}$</p>
                             <div class="d-flex gap-3">
-                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="combo" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-combo">
+                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="combo" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-combo" data-bs-title="Editar Combo" data-bs-placement="bottom">
                                     <i data-feather="edit"></i>
                                 </a>
-                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="combo" style="cursor: pointer">
+                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="combo" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Combo" data-bs-placement="bottom">
                                     <i data-feather="trash-2"></i>
                                 </a>
                             </div>
@@ -26,6 +26,58 @@ export default function Templates() {
             </div>
         </div>
                 `
+    }
+    function targetSupplier(objet) {
+        return `
+        <div class="col-md-4 col-lg-3 ">
+            <div class="position-relative">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3 border-bottom">
+                            <div class="d-flex justify-content-between ">
+                                <h5 class="card-title">${objet.razon_social}</h5>
+                                <div>
+                                    <p class="fs-6">${objet.documento}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="fw-lighter fs-6">Nombre</p>
+                                <p class="fw-lighter fs-6">${objet.nombre}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row gap-3">
+                            <div class="d-flex flex-column gap-4">
+                                <div class="text-start">
+                                    <h4>Telefono</h4>
+                                    <div class="fs-6">${objet.n_telefono1 + (objet.n_telefono2 ? " / " + objet.n_telefono2 : "")}</div>
+                                </div>
+                                <div class="">
+                                    <h4>Direccion</h4>
+                                    <div class="fs-6">${objet.direccion}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">
+                            <div style="display: flex; justify-content: end; align-items: center;">
+                                <div class="d-flex gap-3">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="supplier" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-supplier" data-bs-title="Editar Proveedor" data-bs-placement="bottom">
+                                        <i data-feather="edit"></i>
+                                    </a>
+                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="supplier" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Proveedor" data-bs-placement="bottom">
+                                        <i data-feather="trash-2"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
     }
     function targetUser(objet) {
         return `
@@ -60,10 +112,10 @@ export default function Templates() {
                         <small class="text-body-secondary">
                             <div style="display: flex; justify-content: end; align-items: center;">
                                 <div class="d-flex gap-3">
-                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="users" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-user">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="users" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-user" data-bs-title="Editar Usuario" data-bs-placement="bottom">
                                         <i data-feather="edit"></i>
                                     </a>
-                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="users" style="cursor: pointer">
+                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="users" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Usuario" data-bs-placement="bottom">
                                         <i data-feather="trash-2"></i>
                                     </a>
                                 </div>
@@ -106,10 +158,10 @@ export default function Templates() {
                         <small class="text-body-secondary">
                             <div style="display: flex; justify-content: end; align-items: center;">
                                 <div class="d-flex gap-3">
-                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="clients" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-client">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="clients" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-client"  data-bs-title="Editar Cliente" data-bs-placement="bottom">
                                         <i data-feather="edit"></i>
                                     </a>
-                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="clients" style="cursor: pointer">
+                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="clients" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Cliente" data-bs-placement="bottom">
                                         <i data-feather="trash-2"></i>
                                     </a>
                                 </div>
@@ -245,6 +297,23 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Alias</label>
                 <input type="text" class="form-control" placeholder="Alias" id="input-alias-units-${objet}" name="alias">
                 <div class="text-danger mt-1 fs-6" id="error-input-alias-units-${objet}"></div>
+            </div>
+        </div>
+        `
+    }
+    function elemenFormPaymentMethod(objet) {
+        return `
+        <div class="row g-2 payments" id="payments-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-0 mt-4">
+                <h4 class="m-0">${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-payment">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-12">
+                <label for="inputEmail4" class="form-label">Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="input-name-payments-${objet}" name="nombre">
+                <div class="text-danger mt-1 fs-6" id="error-input-name-payments-${objet}"></div>
             </div>
         </div>
         `
@@ -629,9 +698,9 @@ export default function Templates() {
             </div>
         `
     }
-
     return {
         targetCombo,
+        targetSupplier,
         targetUser,
         targetClient,
         targetPermission,
@@ -639,6 +708,7 @@ export default function Templates() {
         elemenFormCategoryProduct,
         elemenFormCategoryRawmaterial,
         elemenFormUnit,
+        elemenFormPaymentMethod,
         elemenFormRawMaterial,
         elemenFormRecipe,
         elemenFormSupplier,

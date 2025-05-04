@@ -25,14 +25,10 @@
                         </nav>
                     </div>
                 </div>
-
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
-
         <div class="container-fluid">
-
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                     <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Categorias de Combos</button>
@@ -41,95 +37,10 @@
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex gap-4">
-                                        <button type="button" class="btn bh_1 text-white" data-bs-toggle="modal" data-bs-target="#register-categoryCombo">
-                                            <i class="fas fa-plus"></i>
-                                            Categoria Producto
-                                        </button>
-                                        <div class="col-md-6 col-lg-3">
-                                            <input type="search" class="form-control" id="searchCategoryProducts" placeholder="Buscar">
-                                        </div>
-                                    </div>
-
-                                    <div class="table-responsive mt-5">
-                                        <table class="table table-dark-mode no-wrap table_combo w-100">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nro</th>
-                                                    <th>Nombre</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td><span class="fs-6">Hamburguesas</span></td>
-                                                    <td>
-                                                        <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_1 rounded-circle btn-circle">
-                                                            <i data-feather="edit" class="text-white"></i>
-                                                        </button>
-                                                        <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_5 rounded-circle btn-circle">
-                                                            <i data-feather="trash" class="text-white"></i>
-                                                        </button>
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php include_once __DIR__ . '/../Views/Components/switcher/category/categoryCombos.php' ?>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                    <div class="row">
-                        <div class="col-md-6 col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="d-flex gap-4">
-                                        <button type="button" class="btn bh_1 text-white" data-bs-toggle="modal" data-bs-target="#register-categoryRawMaterials">
-                                            <i class="fas fa-plus"></i>
-                                            Categoria Materia Prima
-                                        </button>
-                                        <div class="col-md-6 col-lg-3">
-                                            <input type="search" class="form-control" id="searchCategoryRawMaterials" placeholder="Buscar">
-                                        </div>
-                                    </div>
-                                    <div class="table-responsive mt-5">
-                                        <table class="table table-dark-mode no-wrap table_category_rawmaterial w-100">
-                                            <thead>
-                                                <tr>
-                                                    <th>Nro</th>
-                                                    <th>Nombre</th>
-                                                    <th>Acciones</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td><span class="fs-6">Carnes rojas</span></td>
-                                                    <td>
-                                                        <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_1 rounded-circle btn-circle">
-                                                            <i data-feather="edit" class="text-white"></i>
-                                                        </button>
-                                                        <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn bh_5 rounded-circle btn-circle">
-                                                            <i data-feather="trash" class="text-white"></i>
-                                                        </button>
-                                                    </td>
-
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php include_once __DIR__ . '/../Views/Components/switcher/category/categoryRawmaterial.php' ?>
                 </div>
             </div>
         </div>
@@ -137,7 +48,6 @@
         <?php include_once __DIR__ . '/../Views/Components/modals/category/categoryRawmaterial.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
-</div>
 </div>
 
 

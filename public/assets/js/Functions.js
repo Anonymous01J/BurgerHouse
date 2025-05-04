@@ -327,6 +327,8 @@ export default function functionGeneral() {
       });
     }
     document.querySelector(container).innerHTML = templatesWrapper;
+    document.querySelectorAll(".edit_btn").forEach((element) => {let tooltip = new bootstrap.Tooltip(element)});
+    document.querySelectorAll(".trash_btn").forEach((element) => {let tooltip = new bootstrap.Tooltip(element)});
     permission(modulePermission);
     Delete(template, container);
     edit(inputs);

@@ -89,21 +89,22 @@
             <div class="modal-body">
                 <form class="row g-2" id="form-submit-edit-supplier">
                     <div id="supplier-container">
+                        <input type="hidden" id="input-id-supplier">
                         <div class="row g-2 supplier" id="supplier">
                             <div class="d-flex align-items-center gap-4 mb-3">
                                 <h4 class="m-0">Proveedor</h4>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre de acreditado</label>
                                 <input type="text" class="form-control" placeholder="Nombre" id="input-name-supplier" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-supplier"></div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Razon Social</label>
                                 <input type="text" class="form-control" placeholder="Razon Social" id="input-razonSocial-supplier" name="razonSocial">
                                 <div class="text-danger mt-1 fs-6" id="error-input-razonSocial-supplier"></div>
                             </div>
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <label for="inputCity" class="form-label">Tipo de documento</label>
                                 <div class="dropdown select_options_td_edit">
                                     <div class="dropdown">
@@ -124,7 +125,7 @@
                                 </div>
                                 <div class="text-danger mt-1 fs-6" id="error-input-td-supplier"></div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nro de documento</label>
                                 <input type="text" class="form-control" placeholder="Numero de documento" id="input-rif-supplier" name="rif">
                                 <div class="text-danger mt-1 fs-6" id="error-input-rif-supplier"></div>
@@ -147,7 +148,6 @@
                         </div>
                     </div>
                     <input type="submit" class="d-none" id="submit-edit-supplier">
-                    <button type="button" id="add-supplier-btn" class="btn btn-secondary mt-3">Agregar proveedor</button>
                 </form>
             </div>
             <div class="modal-footer">

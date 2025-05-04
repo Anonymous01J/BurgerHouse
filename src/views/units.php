@@ -37,17 +37,14 @@
                 <div class="col-md-6 col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="table-responsive mt-5">
+                            <div class="table-responsive mt-3">
                                 <div class="d-flex gap-4">
-                                <img src="media/combos/Flyer13.png" alt="daw">
-
-                                    <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#register-unit">
-                                        <i class="fas fa-plus"></i>
-                                        Unidad
-                                    </button>
                                     <div class="col-md-6 col-lg-3">
                                         <input type="search" class="form-control" id="searchUnits" placeholder="Buscar">
                                     </div>
+                                    <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="combo" data-bs-toggle="modal" data-bs-target="#register-unit" data-bs-title="Agregar unidad" data-bs-placement="top">
+                                        <i data-feather="plus" class="svg-icon"></i>
+                                    </button>
                                 </div>
                                 <table class="table table-dark-mode no-wrap table_unit w-100">
                                     <thead>

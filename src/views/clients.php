@@ -36,7 +36,7 @@
                 <div class="col-auto">
                     <input type="search" id="SearchClients" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <button data-bs-toggle="modal" data-bs-target="#register-client" style="color: #fff;" type="button" class="btn bh_1 btn-circle">
+                <button data-bs-toggle="modal" data-bs-target="#register-client" style="color: #fff;" type="button" class="btn bh_1 btn-circle btn-add-tooltip" data-bs-title="Agregar Cliente" data-bs-placement="top">
                     <i data-feather="plus" class="svg-icon"></i>
                 </button>
             </div>

@@ -1,8 +1,8 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { SelectOption, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables } = functionGeneral();
+const { resetForm, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables } = functionGeneral();
 const { elemenFormUnit } = Templates()
-
+let tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 let n = $(".table_unit").DataTable({
     language: {
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
@@ -24,10 +24,10 @@ let n = $(".table_unit").DataTable({
             orderable: false,
             render: function (data, type, row, meta) {
                 return `
-                <button data-id="${data.id}" data-module-edit="units" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-unit">
+                <button data-id="${data.id}" data-module-edit="units" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-unit" data-bs-title="Editar Unidad" data-bs-placement="bottom">
                     <i data-feather="edit" class="text-white"></i>
                 </button>
-                <button data-id="${data.id}" data-module-delete="units" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable">
+                <button data-id="${data.id}" data-module-delete="units" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Unidad" data-bs-placement="bottom">
                     <i data-feather="trash" class="text-white"></i>
                 </button>
 `;
@@ -36,6 +36,9 @@ let n = $(".table_unit").DataTable({
     ],
     drawCallback: function (settings) {
         feather.replace();
+        document.querySelectorAll(".trash_btn_datatable, .edit_btn_datatable").forEach((btn) => {
+            let tooltip = new bootstrap.Tooltip(btn)
+        })
     },
     "dom": 'tipr',
     "paging": true,
@@ -135,6 +138,7 @@ if (!form.dataset.listenerAttached) {
                 dataFinal.append(`lista[${index}][alias]`, user.alias)
             })
             addDataTables(n, dataFinal, "units")
+            resetForm(".units", form)
             bootstrap.Modal.getOrCreateInstance('#register-unit').hide()
         }
     })
