@@ -41,7 +41,7 @@
                 </button>
             </div>
 
-            <div class="row row-cols-1 row-cols-md-4 g-4">
+            <div class="row cont_tables">
                 <div class="col">
                     <div class="card h-100">
                         <img src="./assets/img/big/banner_login.png" class="card-img-top" style="object-fit: cover; height: 200px;" alt="...">

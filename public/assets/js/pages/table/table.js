@@ -119,8 +119,8 @@ if (!form.dataset.listenerAttached) {
                 data.append(`lista[${index}][vip]`, table.vip == true ? 1 : 0);
             })
             resetForm("#tables-container .tables", form)
-            // add('table', data, targetTable, ".cont-combos", "combo", (response) => editData(response))
-            // bootstrap.Modal.getOrCreateInstance('#register-table').hide()
+            add('table', data, targetTable, ".cont_tables", "table", (response) => dataEdit(response))
+            bootstrap.Modal.getOrCreateInstance('#register-table').hide()
         }
     });
     form.dataset.listenerAttached = "true";
@@ -164,6 +164,7 @@ const dataEdit = (response) => {
                 dataFinal.append(`imagen`, data.imagen);
                 dataFinal.append(`imagen_name`, data.imagen.name);
                 dataFinal.append(`vip`, data.vip == true ? 1 : 0);
+                add("table", dataFinal, targetTable, ".cont_tables", "table", (response) => dataEdit(response))
                 bootstrap.Modal.getOrCreateInstance('#edit-table').hide()
             }
         })
@@ -171,3 +172,4 @@ const dataEdit = (response) => {
     }
 }
 attachValidationListeners(1);
+print(searchAll("table", 1), targetTable, ".cont_tables", "table", (response)=> dataEdit(response));
