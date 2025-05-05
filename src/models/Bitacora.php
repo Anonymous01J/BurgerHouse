@@ -48,7 +48,7 @@ class Bitacora extends Db_base {
         ";
 
         $this->joins = "
-            INNER JOIN usuario b ON b.usuario = a.usuario
+            INNER JOIN usuario b ON b.id = a.id_usuario
         ";
     }
 }

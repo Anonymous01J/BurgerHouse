@@ -5,7 +5,7 @@ use Shtch\Burgerhouse\models\Db_base;
 
 class Caja extends Db_base {
     private $id;
-    private $usuario;
+    private $id_usuario;
     private $monto_inicial;
     private $monto_final;
     private $fecha;
@@ -14,7 +14,7 @@ class Caja extends Db_base {
 
     public function __construct(
         $id = null,
-        $usuario = null,
+        $id_usuario = null,
         $monto_inicial = null,
         $monto_final = null,
         $fecha = null,
@@ -24,7 +24,7 @@ class Caja extends Db_base {
         parent::__construct("caja");
         
         $this->id = $id;
-        $this->usuario = $usuario;
+        $this->id_usuario = $id_usuario;
         $this->monto_inicial = $monto_inicial;
         $this->monto_final = $monto_final;
         $this->fecha = $fecha;
@@ -33,7 +33,7 @@ class Caja extends Db_base {
 
         $this->add_variables([
             "a.id" => $this->id,
-            "a.usuario" => $this->usuario,
+            "a.id_usuario" => $this->id_usuario,
             "a.monto_inicial" => $this->monto_inicial,
             "a.monto_final" => $this->monto_final,
             "a.fecha" => $this->fecha,
@@ -43,7 +43,7 @@ class Caja extends Db_base {
 
         $this->select_query = "
             a.id,
-            a.usuario,
+            a.id_usuario,
             b.nombre AS nombre_usuario,
             a.monto_inicial,
             a.monto_final,
@@ -53,7 +53,7 @@ class Caja extends Db_base {
         ";
 
         $this->joins = "
-            INNER JOIN usuario b ON b.usuario = a.usuario
+            INNER JOIN usuario b ON b.id = a.id_usuario
         ";
     }
 }
