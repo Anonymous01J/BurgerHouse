@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-04-2025 a las 22:15:48
+-- Tiempo de generación: 05-05-2025 a las 00:19:00
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -86,33 +86,8 @@ INSERT INTO `categorias_productos` (`id`, `nombre`, `active`) VALUES
 (5, 'Papas', 1),
 (6, 'Club House', 1),
 (7, 'Burgers', 1),
-(8, 'Kids', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `categoria_materia_prima`
---
-
-CREATE TABLE `categoria_materia_prima` (
-  `id` int(11) NOT NULL,
-  `nombre` varchar(30) NOT NULL,
-  `tipo` varchar(20) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-
---
--- Volcado de datos para la tabla `categoria_materia_prima`
---
-
-INSERT INTO `categoria_materia_prima` (`id`, `nombre`, `tipo`, `active`) VALUES
-(1, 'Carnes', '', 1),
-(2, 'Panadería', '', 1),
-(3, 'Verduras y hortaliza', '', 1),
-(4, 'Salsas y condimentos', '', 1),
-(5, 'Aceites y grasas', '', 1),
-(6, 'Postres y acompañamientos', '', 1),
-(7, 'Lacteos', '', 1);
+(8, 'Kids', 1),
+(9, 'Jira', 1);
 
 -- --------------------------------------------------------
 
@@ -123,11 +98,19 @@ INSERT INTO `categoria_materia_prima` (`id`, `nombre`, `tipo`, `active`) VALUES
 CREATE TABLE `clientes` (
   `id` int(11) NOT NULL,
   `nombre` text NOT NULL,
-  `cedula` varchar(11) NOT NULL,
-  `telefono` varchar(20) DEFAULT NULL,
-  `direccion` varchar(500) DEFAULT NULL,
+  `apellido` varchar(45) NOT NULL,
+  `documento` varchar(50) NOT NULL,
+  `telefono` varchar(20) NOT NULL,
+  `direccion` varchar(500) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `clientes`
+--
+
+INSERT INTO `clientes` (`id`, `nombre`, `apellido`, `documento`, `telefono`, `direccion`, `active`) VALUES
+(1, 'Jose', 'Escalona', 'V-85652235', '+584126742231', 'Avenida 15, local numero 5', 1);
 
 -- --------------------------------------------------------
 
@@ -197,7 +180,8 @@ INSERT INTO `detalles_receta` (`Id`, `Id_receta`, `Id_materia_prima`, `cantidad`
 (47, 1, 6, 0.03),
 (48, 1, 7, 0.02),
 (49, 1, 8, 0.15),
-(50, 1, 9, 1);
+(50, 1, 9, 1),
+(51, 2, 9, 1);
 
 -- --------------------------------------------------------
 
@@ -211,6 +195,31 @@ CREATE TABLE `detalles_roles` (
   `modulo` varchar(45) NOT NULL,
   `permisos` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `detalles_roles`
+--
+
+INSERT INTO `detalles_roles` (`id`, `id_rol`, `modulo`, `permisos`) VALUES
+(20, 10, 'combo', 'consultar,agregar,editar,eliminar'),
+(21, 10, 'supplier', 'consultar,agregar,editar,eliminar'),
+(22, 10, 'order', 'consultar,agregar,editar,eliminar'),
+(23, 10, 'delivery', 'consultar,agregar'),
+(24, 10, 'kitchen', 'consultar,agregar'),
+(25, 10, 'statistics', 'consultar'),
+(26, 10, 'calendar', 'consultar'),
+(27, 10, 'binnacle', 'consultar'),
+(28, 10, 'capital', 'consultar,agregar'),
+(29, 10, 'trash', 'consultar,editar'),
+(30, 10, 'clients', 'consultar,agregar,editar,eliminar'),
+(31, 10, 'cash', 'consultar,agregar,editar'),
+(32, 10, 'invoice', 'consultar'),
+(33, 10, 'credit', 'consultar,editar'),
+(34, 10, 'units', 'consultar,agregar,editar,eliminar'),
+(35, 10, 'category', 'consultar,agregar,editar,eliminar'),
+(36, 10, 'paymentMethod', 'consultar,agregar,editar,eliminar'),
+(37, 10, 'permissionsRol', 'consultar,agregar,editar,eliminar'),
+(38, 10, 'users', 'consultar,agregar,editar,eliminar');
 
 -- --------------------------------------------------------
 
@@ -236,8 +245,12 @@ CREATE TABLE `detalle_entrada` (
 CREATE TABLE `entradas_materia_prima` (
   `id` int(11) NOT NULL,
   `id_provedor` int(11) NOT NULL,
-  `fecha_compra` datetime NOT NULL DEFAULT current_timestamp(),
+  `id_materia_prima` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `existencia` int(11) NOT NULL,
   `precio_compra` float NOT NULL,
+  `fecha_compra` datetime NOT NULL DEFAULT current_timestamp(),
+  `fecha_vencimiento` date DEFAULT NULL,
   `referencia` varchar(500) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -251,6 +264,8 @@ CREATE TABLE `facturas` (
   `Id_factura` int(11) NOT NULL,
   `Id_orden` int(11) NOT NULL,
   `Id_caja` int(11) NOT NULL,
+  `direccion_entrega` text DEFAULT NULL,
+  `iva` float NOT NULL,
   `Monto_total` int(11) NOT NULL,
   `Monto_total_divisa` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -295,8 +310,6 @@ INSERT INTO `materia_prima` (`id`, `id_categoria`, `id_unidad`, `nombre`, `stock
 CREATE TABLE `metodo_pago` (
   `id` int(11) NOT NULL,
   `nombre` varchar(25) NOT NULL,
-  `descripcion` text NOT NULL,
-  `imagen` text NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
@@ -304,11 +317,13 @@ CREATE TABLE `metodo_pago` (
 -- Volcado de datos para la tabla `metodo_pago`
 --
 
-INSERT INTO `metodo_pago` (`id`, `nombre`, `descripcion`, `imagen`, `active`) VALUES
-(1, 'Zelle', '', '', 1),
-(2, 'Binance', '', '', 1),
-(3, 'PagoMovil', '', '', 1),
-(4, 'Efectivo', '', '', 1);
+INSERT INTO `metodo_pago` (`id`, `nombre`, `active`) VALUES
+(1, 'Zelle', 1),
+(2, 'Binance', 1),
+(3, 'Pago Movil', 1),
+(4, 'Efectivo', 1),
+(9, 'Prueba infinity', 1),
+(10, 'Prueba 2', 0);
 
 -- --------------------------------------------------------
 
@@ -417,9 +432,10 @@ INSERT INTO `productos` (`id`, `id_categoria`, `nombre`, `imagen`, `precio`, `de
 (24, 7, 'BIG BURGER', '', 6.5, 'Pan de la casa, doble carne, doble queso cheddar, salsa Big Mac, pepinillo, lechuga, tocineta y ración de papas fritas.', 1, 0),
 (25, 7, 'TASTY BURGER', '', 8, 'Pan de papa, salsa tasty, triple carne, triple cheddar, tocineta, tomate, cebolla, lechuga, ración de papas fritas.', 1, NULL),
 (26, 7, 'SMASH BURGER', '', 8.8, 'Pan de papa, salsa especial, triple carne, triple cheddar, tocineta, cebolla morada, pepinillo, ración de papas fritas.', 1, 0),
-(27, 1, 'Luis', 'C:\\fakepath\\5ce0e0f8-46df-4654-b37b-7d7f40d9bc6a.jpeg', 6.56, 'awdk;oakd;kaw;odk;ad', 1, 2),
-(28, 1, 'Azucar', 'C:\\fakepath\\5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg', 656.56, 'alwjdildjiladjiljdildwada', 1, 2),
-(29, 2, 'Shawarma', 'C:\\fakepath\\LOGO SHTECHNOLOGYX CON OTRAS LETRAS.png', 50, 'mailmdilwmlidmlwiadl', 0, 1);
+(27, 1, 'Luis', 'C:\\fakepath\\5ce0e0f8-46df-4654-b37b-7d7f40d9bc6a.jpeg', 6.56, 'awdk;oakd;kaw;odk;ad', 0, 2),
+(28, 1, 'Azucar', 'C:\\fakepath\\5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg', 656.56, 'alwjdildjiladjiljdildwada', 0, 2),
+(29, 2, 'Shawarma', 'C:\\fakepath\\LOGO SHTECHNOLOGYX CON OTRAS LETRAS.png', 50, 'mailmdilwmlidmlwiadl', 0, 1),
+(40, 7, 'Combo Prueba', 'banner_login.png', 2.5, 'texto descriptivo', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -430,12 +446,20 @@ INSERT INTO `productos` (`id`, `id_categoria`, `nombre`, `imagen`, `precio`, `de
 CREATE TABLE `proveedores` (
   `id` int(11) NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `razonSocial` varchar(50) NOT NULL,
-  `rif` varchar(15) NOT NULL,
-  `telefono` varchar(20) NOT NULL,
-  `correo` text NOT NULL,
+  `razon_social` varchar(50) NOT NULL,
+  `documento` varchar(15) NOT NULL,
+  `n_telefono1` varchar(20) NOT NULL,
+  `n_telefono2` varchar(45) DEFAULT NULL,
+  `direccion` varchar(500) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `proveedores`
+--
+
+INSERT INTO `proveedores` (`id`, `nombre`, `razon_social`, `documento`, `n_telefono1`, `n_telefono2`, `direccion`, `active`) VALUES
+(1, 'Luis Perez', 'Montecarmelo', 'E-5435543', '+584126742231', '', 'una direccion para especificar', 1);
 
 -- --------------------------------------------------------
 
@@ -453,7 +477,8 @@ CREATE TABLE `recetas` (
 --
 
 INSERT INTO `recetas` (`id`, `nombre`) VALUES
-(1, 'Burger House');
+(1, 'Burger House'),
+(2, 'receta 2');
 
 -- --------------------------------------------------------
 
@@ -463,20 +488,17 @@ INSERT INTO `recetas` (`id`, `nombre`) VALUES
 
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(25) NOT NULL
+  `nombre` varchar(25) NOT NULL,
+  `descripcion` varchar(500) NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `roles`
 --
 
-INSERT INTO `roles` (`id`, `nombre`) VALUES
-(1, 'Super-Administrador'),
-(2, 'Cajero'),
-(3, 'Mesero'),
-(4, 'Delivery'),
-(5, 'Cocinero'),
-(6, 'Usuario');
+INSERT INTO `roles` (`id`, `nombre`, `descripcion`, `active`) VALUES
+(10, 'SuperAdmin', 'Rol con acceso a todas las funciones del e-commerce', 1);
 
 -- --------------------------------------------------------
 
@@ -487,19 +509,24 @@ INSERT INTO `roles` (`id`, `nombre`) VALUES
 CREATE TABLE `unidades` (
   `id` int(11) NOT NULL,
   `nombre` varchar(10) NOT NULL,
-  `alias` varchar(4) NOT NULL
+  `alias` varchar(4) NOT NULL,
+  `active` varchar(45) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `unidades`
 --
 
-INSERT INTO `unidades` (`id`, `nombre`, `alias`) VALUES
-(1, 'Litro', 'Lt'),
-(2, 'Gramo', 'Gr'),
-(3, 'Kilogramo', 'Kg'),
-(4, 'Unidad', 'Ud'),
-(5, 'Mililitro', 'Ml');
+INSERT INTO `unidades` (`id`, `nombre`, `alias`, `active`) VALUES
+(1, 'Litro', 'Lt', '1'),
+(2, 'Gramo', 'Gr', '1'),
+(3, 'Kilogramo', 'Kg', '1'),
+(4, 'Unidad', 'Ud', '1'),
+(5, 'Mililitro', 'Ml', '1'),
+(7, 'Prueba', 'P', '0'),
+(8, 'Prueba1', '1', '0'),
+(9, 'Prueba2', '2', '0'),
+(10, 'Prueba3', '2', '0');
 
 -- --------------------------------------------------------
 
@@ -510,35 +537,22 @@ INSERT INTO `unidades` (`id`, `nombre`, `alias`) VALUES
 CREATE TABLE `usuario` (
   `id` int(11) NOT NULL,
   `id_rol` int(11) NOT NULL,
-  `hash` text NOT NULL,
   `nombre` varchar(50) NOT NULL,
-  `active` tinyint(1) NOT NULL,
-  `session_id` varchar(500) NOT NULL
+  `hash` text NOT NULL,
+  `apellido` varchar(45) NOT NULL,
+  `documento` varchar(45) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `session_id` varchar(500) NOT NULL DEFAULT '1',
+  `email` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `id_rol`, `hash`, `nombre`, `active`, `session_id`) VALUES
-(1, 1, 'GodOfWar20**', 'josepeez@gmail.com', 1, 'fpsejfpisfp');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `ventas`
---
-
-CREATE TABLE `ventas` (
-  `id` int(11) NOT NULL,
-  `id_caja` int(11) NOT NULL,
-  `id_cliente` int(11) NOT NULL,
-  `IVA` float NOT NULL,
-  `monto_final` float NOT NULL,
-  `fecha` datetime NOT NULL,
-  `direccion` varchar(500) NOT NULL,
-  `active` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+INSERT INTO `usuario` (`id`, `id_rol`, `nombre`, `hash`, `apellido`, `documento`, `active`, `session_id`, `email`) VALUES
+(11, 10, 'Alejandro', 'Luisgv202*', 'Vargas', 'V-30087582', 1, '1', 'garnicaluis391@gmail.com'),
+(13, 10, 'Pedro', 'Pedro25**', 'Perez', 'V-58963325', 1, '1', 'pedro202@gmail.com');
 
 --
 -- Índices para tablas volcadas
@@ -568,12 +582,6 @@ ALTER TABLE `capital`
 -- Indices de la tabla `categorias_productos`
 --
 ALTER TABLE `categorias_productos`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `categoria_materia_prima`
---
-ALTER TABLE `categoria_materia_prima`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -630,7 +638,8 @@ ALTER TABLE `detalle_entrada`
 --
 ALTER TABLE `entradas_materia_prima`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_provedor` (`id_provedor`);
+  ADD KEY `id_provedor` (`id_provedor`),
+  ADD KEY `id_producto` (`id_materia_prima`);
 
 --
 -- Indices de la tabla `facturas`
@@ -721,15 +730,8 @@ ALTER TABLE `unidades`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `documento_UNIQUE` (`documento`),
   ADD KEY `idRol` (`id_rol`);
-
---
--- Indices de la tabla `ventas`
---
-ALTER TABLE `ventas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `idCaja` (`id_caja`),
-  ADD KEY `idCliente` (`id_cliente`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -757,19 +759,13 @@ ALTER TABLE `capital`
 -- AUTO_INCREMENT de la tabla `categorias_productos`
 --
 ALTER TABLE `categorias_productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT de la tabla `categoria_materia_prima`
---
-ALTER TABLE `categoria_materia_prima`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `configuraciones`
@@ -793,13 +789,13 @@ ALTER TABLE `detalles_orden`
 -- AUTO_INCREMENT de la tabla `detalles_receta`
 --
 ALTER TABLE `detalles_receta`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT de la tabla `detalles_roles`
 --
 ALTER TABLE `detalles_roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT de la tabla `detalle_entrada`
@@ -829,7 +825,7 @@ ALTER TABLE `materia_prima`
 -- AUTO_INCREMENT de la tabla `metodo_pago`
 --
 ALTER TABLE `metodo_pago`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `movimientos_capital`
@@ -859,43 +855,37 @@ ALTER TABLE `pagos`
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedores`
 --
 ALTER TABLE `proveedores`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `recetas`
 --
 ALTER TABLE `recetas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `unidades`
 --
 ALTER TABLE `unidades`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT de la tabla `ventas`
---
-ALTER TABLE `ventas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Restricciones para tablas volcadas
@@ -949,13 +939,15 @@ ALTER TABLE `detalle_entrada`
 -- Filtros para la tabla `entradas_materia_prima`
 --
 ALTER TABLE `entradas_materia_prima`
-  ADD CONSTRAINT `id_proveedor` FOREIGN KEY (`id_provedor`) REFERENCES `proveedores` (`id`);
+  ADD CONSTRAINT `entradas_materia_prima_ibfk_1` FOREIGN KEY (`id_materia_prima`) REFERENCES `materia_prima` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_proveedor` FOREIGN KEY (`id_provedor`) REFERENCES `proveedores` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `facturas`
 --
 ALTER TABLE `facturas`
-  ADD CONSTRAINT `id_caja_ibfk_1` FOREIGN KEY (`Id_caja`) REFERENCES `caja` (`id`);
+  ADD CONSTRAINT `facturas_ibfk_1` FOREIGN KEY (`Id_orden`) REFERENCES `orden` (`Id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `id_caja_ibfk_1` FOREIGN KEY (`Id_caja`) REFERENCES `caja` (`id`) ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `materia_prima`
@@ -994,13 +986,6 @@ ALTER TABLE `productos`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`);
-
---
--- Filtros para la tabla `ventas`
---
-ALTER TABLE `ventas`
-  ADD CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
-  ADD CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_caja`) REFERENCES `caja` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

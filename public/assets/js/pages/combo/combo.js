@@ -1,13 +1,13 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { InputPrice, SelectOption, viewImage, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm, permission } = functionGeneral();
-const { targetCombo, elemenFormCombo } = Templates()
-
+const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm, permission, searchFilter } = functionGeneral();
+const { targetCombo, elemenFormCombo, optionsRol } = Templates()
+const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 InputPrice("[input_price]");
-SelectOption()
+selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 viewImage(".input-image")
 permission("Combo")//verifica el btn de agg
-
+searchFilter("#searchCombos", "combo", targetCombo, "combo", ".cont-combos", 1, (response) => editData(response))
 // ------------------Validacion de Formulario---------------------------
 
 
@@ -62,10 +62,10 @@ function addProduct() {
   productCount++;
   document.getElementById("products-container").insertAdjacentHTML('beforeend', elemenFormCombo(productCount));
   feather.replace();
+  selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 
   viewImage(".input-image")
   InputPrice("[input_price]");
-  SelectOption()
 
   attachValidationListeners(productCount);
 
@@ -75,7 +75,6 @@ function addProduct() {
     reindex("#products-container .product", "product", productCount, "Combo");
   });
 }
-
 function attachValidationListeners(index) {
   const productElement = document.getElementById(`product-${index}`);
   productElement.querySelectorAll("input[type='text'], textarea, input[type='button'], input[type='file']").forEach(input => {
@@ -83,8 +82,14 @@ function attachValidationListeners(index) {
     input.addEventListener("blur", (e) => validateField(e, rules));
     input.addEventListener("change", (e) => validateField(e, rules));
   });
-}
 
+  const productElement2 = document.getElementById(`product-container`);
+  productElement2.querySelectorAll("input[type='text'], textarea, input[type='button']").forEach(input => {
+    input.addEventListener("keyup", (e) => validateField(e, rules));
+    input.addEventListener("blur", (e) => validateField(e, rules));
+    input.addEventListener("change", (e) => validateField(e, rules));
+  });
+}
 document.getElementById("add-product-btn").addEventListener("click", addProduct);
 validate.validators.precio = function (value, options, key, attributes) {
   if (!value) return;
@@ -164,6 +169,47 @@ const rules = {
     }
   },
 };
+const rules2 = {
+  nombre: {
+    nombreValidator: {
+      uppercaseMessage: "^debe tener la primera letra en mayúscula.",
+      specialCharMessage: "^No se permiten signos como puntos (.) o comas (,)."
+    },
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    length: {
+      minimum: 4,
+      message: "^debe tener al menos 4 caracteres"
+    },
+  },
+  precio: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    precio: { message: "^debe ser un número mayor a 0" }
+  },
+  id_categoria: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerida"
+    },
+    validateCategoryAndRecipe: { message: "^es requerido" }
+  },
+
+  detalles: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    length: {
+      minimum: 15,
+      message: "^debe tener al menos 15 caracteres"
+    }
+  },
+};
 let form = document.getElementById("form-submit-combo")
 if (!form.dataset.listenerAttached) {
   form.addEventListener("submit", function (e) {
@@ -177,7 +223,7 @@ if (!form.dataset.listenerAttached) {
       const data = {
         nombre: product.querySelector(`input[name="nombre"]`).value,
         precio: product.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
-        id_categoria: product.querySelector(`input[name="id_categoria"]`) ? product.querySelector(`input[name="id_categoria"]`).value : "",
+        id_categoria: product.querySelector(`input[name="id_categoria"]`).getAttribute("data-id"),
         detalles: product.querySelector(`textarea[name="detalles"]`) ? product.querySelector(`textarea[name="detalles"]`).value : "",
         imagen: product.querySelector(`input[name="imagen"]`) ? product.querySelector(`input[name="imagen"]`).files[0] : ""
       };
@@ -201,14 +247,75 @@ if (!form.dataset.listenerAttached) {
         data.append(`lista[${index}][precio]`, combo.precio);
         data.append(`lista[${index}][id_categoria]`, combo.id_categoria);
         data.append(`lista[${index}][detalles]`, combo.detalles);
-        data.append(`lista[${index}][imagen]`, combo.imagen.name);
+        data.append(`lista[${index}][imagen_name]`, combo.imagen.name);
+        data.append(`lista[${index}][imagen]`, combo.imagen);
       })
       resetForm("#products-container .product", form)
-      add('combo', data, targetCombo, ".cont-combos", "combo")
+      add('combo', data, targetCombo, ".cont-combos", "combo", (response) => editData(response))
       bootstrap.Modal.getOrCreateInstance('#register-combo').hide()
     }
   });
   form.dataset.listenerAttached = "true";
 }
 attachValidationListeners(1)
-print(searchAll("combo", 1), targetCombo, ".cont-combos", "combo")//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
+print(searchAll("combo", 1), targetCombo, ".cont-combos", "combo", (response) => editData(response))//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
+
+function editData(response) {
+  let hasError = false
+  document.querySelector("#input-name-combo").value = response[0].nombre
+  document.querySelector("#input-id-combo").value = response[0].id
+  document.querySelector("#input-price-combo").value = (response[0].precio).toString().replace(/\./g, ',')
+  document.querySelector("#input-category-combo").value = response[0].nombre_categoria
+  document.querySelector("#input-category-combo").setAttribute("data-id", response[0].id_categoria)
+  document.querySelector("#input-details-combo").value = response[0].detalles
+  document.querySelector("#img-combo-response").src = `media/combos/${response[0].imagen}`
+  let data = {
+    nombre: document.querySelector(`#input-name-combo`).value,
+    precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
+    id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
+    detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
+  }
+  const errors = validate(data, rules2);
+  if (errors) hasError = true
+  setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
+  setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
+  setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
+  setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
+
+  let formEdit = document.getElementById("form-submit-edit-combo")
+  if (!formEdit.dataset.listenerAttached) {
+    formEdit.addEventListener("submit", function (e) {
+      e.preventDefault();
+      let data = {
+        nombre: document.querySelector(`#input-name-combo`).value,
+        precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
+        id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
+        detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
+      }
+      const errors = validate(data, rules2);
+      if (errors) hasError = true
+      else hasError = false
+      setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
+      setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
+      setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
+      setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
+
+      if (!hasError) {
+        let datafinal = new FormData()
+        datafinal.append("nombre", document.querySelector("#input-name-combo").value)
+        datafinal.append("precio", document.querySelector("#input-price-combo").value.replace(/\./g, '').replace(',', '.'))
+        datafinal.append("id_categoria", document.querySelector("#input-category-combo").getAttribute("data-id"))
+        datafinal.append("detalles", document.querySelector("#input-details-combo").value)
+        datafinal.append("id", document.querySelector("#input-id-combo").value)
+        if (document.querySelector("#input-image-combo").value != "") {
+          console.log("object");
+          datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
+          datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
+        }
+        update('combo', datafinal, targetCombo, ".cont-combos", "combo", (response) => editData(response))
+        bootstrap.Modal.getOrCreateInstance('#edit-combo').hide()
+      }
+    })
+    form.dataset.listenerAttached = "true";
+  }
+}

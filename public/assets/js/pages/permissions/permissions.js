@@ -1,7 +1,8 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, print, searchAll } = functionGeneral();
-const {targetPermission} = Templates()
+const { setValidationStyles, validateField, print, searchAll, searchFilter } = functionGeneral();
+const { targetPermission } = Templates()
+searchFilter("#SearchRol", "rol", targetPermission, "permissions", ".cont_permission", 1, (response) => editData(response))
 //funcion para el check all
 let check_all = document.querySelector(".check-all")
 let form_check_input = document.querySelectorAll(".form-check-input")
@@ -26,16 +27,6 @@ verify.forEach(d => {
         if (action == "consultar" && d.checked == false && cheked > 0) d.closest('tr').querySelector("[data-action='consultar']").checked = true
     })
 })
-async function cargarPermisos() {
-    let pet = await fetch("./assets/js/permission_example.json")
-    let response = await pet.json()
-    response.forEach(element => {
-        let check = document.querySelectorAll(`[data-module='${element.modulo}']`)
-        for (const data of check) {
-            if (element.permisos.includes(data.getAttribute("data-action"))) data.checked = true
-        }
-    })
-}
 //-----------------------------------------------------------------------------
 validate.validators.nombreValidator = function (value, options, key, attributes) {
     if (!value) return;
@@ -129,7 +120,20 @@ if (!form.dataset.listenerAttached) {
                         body: dat,
                     })
                     let response = await pet.json()
-                    console.log(response);
+                    if (response.success == true) {
+                        Swal.fire({
+                            title: `Exito!`,
+                            text: "El elemento fue agregado correctamente",
+                            icon: "success",
+                        });
+                        print(searchAll("rol", 1), targetPermission, ".cont_permission", "permissions", (response) => editData(response));
+                    } else {
+                        Swal.fire({
+                            title: `Error!`,
+                            text: "El elemento no fue agregado",
+                            icon: "error",
+                        });
+                    }
                 }
                 send()
                 form.reset()
@@ -142,4 +146,27 @@ if (!form.dataset.listenerAttached) {
     })
     form.dataset.listenerAttached = "true";
 }
-print(searchAll(), targetPermission, "table_permissions")
+print(searchAll("rol", 1), targetPermission, ".cont_permission", "permissions", (response) => editData(response));
+
+const editData = async (response) => {
+    let switcherCont = document.getElementById("myTabContent")
+    let nav = document.querySelector(".nav-tabs")
+    nav.children[0].firstElementChild.classList.remove("active")
+    nav.children[1].firstElementChild.classList.add("active")
+    switcherCont.children[0].classList.remove("show", "active")
+    switcherCont.children[1].classList.add("show", "active")
+
+    let details = response[0]
+    let pet = await fetch('permissions/get_all/0/100', {method: "POST",body: new FormData().append("id_rol", details.id)})
+    let detailRol = await pet.json()
+    cargarPermisos(detailRol)
+}
+
+async function cargarPermisos(response) {
+    response.forEach(element => {
+        let check = document.querySelectorAll(`[data-module='${element.modulo}']`)
+        for (const data of check) {
+            if (element.permisos.includes(data.getAttribute("data-action"))) data.checked = true
+        }
+    })
+}

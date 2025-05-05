@@ -1,20 +1,23 @@
 // ----------------Parse de los inputs de tipo price-----------------------------
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { SelectOption, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm } = functionGeneral();
-const { elemenFormSupplier } = Templates()
+const { selectOptionAll, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm, update, searchFilter } = functionGeneral();
+const { elemenFormSupplier, targetSupplier } = Templates()
+searchFilter("#SearchSupplier", "supplier", targetSupplier, "supplier", ".cont_suppliers", 1, (response) => editSupplier(response))
+selectOptionAll(".select_options_td", null)
+selectOptionAll(".select_options_td_edit", null)
 
-SelectOption()
 let iti = window.intlTelInput(document.querySelector("#input-num1-supplier-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
 window.intlTelInput(document.querySelector("#input-num2-supplier-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js", });
-
+let itiEdit = window.intlTelInput(document.querySelector("#input-num1-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js", });
+window.intlTelInput(document.querySelector("#input-num2-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js", });
 // ------------------Validacion de Formulario---------------------------
 let SupplierCount = 1;
 function addSupplier() {
     SupplierCount++;
-    document.getElementById("supplier-container").insertAdjacentHTML('beforeend', elemenFormSupplier(SupplierCount));
+    document.getElementById("suppliers-container").insertAdjacentHTML('beforeend', elemenFormSupplier(SupplierCount));
     feather.replace();
-    SelectOption()
+    selectOptionAll(".select_options_td", null)
     const input = document.querySelector(`#input-num1-supplier-${SupplierCount}`);
     const iti = window.intlTelInput(input, {
         initialCountry: "ve",
@@ -29,29 +32,42 @@ function addSupplier() {
     });
     attachValidationListeners(SupplierCount);
 
-    const newSupplier = document.getElementById(`supplier-${SupplierCount}`);
+    const newSupplier = document.getElementById(`suppliers-${SupplierCount}`);
     newSupplier.querySelector(".remove-supplier").addEventListener("click", function () {
         newSupplier.remove();
-        reindex("#supplier-container .supplier", "supplier", SupplierCount, "Proveedor");
+        reindex("#suppliers-container .suppliers", "supplier", SupplierCount, "Proveedor");
     });
 }
 function attachValidationListeners(index) {
-    const productElement = document.getElementById(`supplier-${index}`);
+    const productElement = document.getElementById(`suppliers-${index}`);
     productElement.querySelectorAll("input[type='text'], textarea, input[type='button'], input[type='tel']").forEach(input => {
         input.addEventListener("keyup", (e) => validateField(e, rules));
         input.addEventListener("blur", (e) => validateField(e, rules));
         input.addEventListener("change", (e) => validateField(e, rules));
     });
-}
 
+    const SupplierEdit = document.getElementById(`supplier-container`);
+    SupplierEdit.querySelectorAll("input[type='text'], textarea, input[type='button'], input[type='tel']").forEach(input => {
+        input.addEventListener("keyup", (e) => validateField(e, rules2));
+        input.addEventListener("blur", (e) => validateField(e, rules2));
+        input.addEventListener("change", (e) => validateField(e, rules2));
+    });
+}
 document.getElementById("add-supplier-btn").addEventListener("click", () => {
     addSupplier()
-    reindex("#supplier-container .supplier", "supplier", SupplierCount, "Proveedor");
+    reindex("#suppliers-container .suppliers", "supplier", SupplierCount, "Proveedor");
 });
 validate.validators.telefonoValido = function (value) {
     if (!value) return
     if (!iti.isValidNumber()) {
         const pais = iti.getSelectedCountryData().name;
+        return `^Número inválido para ${pais}`;
+    }
+};
+validate.validators.telefonoValidoEdit = function (value) {
+    if (!value) return
+    if (!itiEdit.isValidNumber()) {
+        const pais = itiEdit.getSelectedCountryData().name;
         return `^Número inválido para ${pais}`;
     }
 };
@@ -138,11 +154,77 @@ const rules = {
         validateTD: { message: "^es requerido" }
     }
 };
-let form = document.getElementById("form-submit-supplier")
+const rules2 = {
+    nombre: {
+        nombreValidator: {
+            uppercaseMessage: "^debe tener la primera letra en mayúscula.",
+            specialCharMessage: "^No se permiten signos como puntos (.) o comas (,)."
+        },
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        length: {
+            minimum: 4,
+            message: "^debe tener al menos 4 caracteres"
+        },
+    },
+    razonSocial: {
+        nombreValidator: {
+            uppercaseMessage: "^debe tener la primera letra en mayúscula.",
+            specialCharMessage: "^No se permiten signos como puntos (.) o comas (,)."
+        },
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        length: {
+            minimum: 4,
+            message: "^debe tener al menos 4 caracteres"
+        },
+    },
+    rif: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerida"
+        },
+        format: {
+            pattern: "^[0-9]+$",
+            message: "^solo puede tener numeros"
+        }
+    },
+    n_telefono1: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerida"
+        },
+        telefonoValidoEdit: true
+
+    },
+    n_telefono2: {
+        presence: {
+            allowEmpty: true,
+        },
+    },
+    direccion: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+    },
+    tipo_documento: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerida"
+        },
+        validateTD: { message: "^es requerido" }
+    }
+};
+let form = document.getElementById("form-submit-suppliers")
 if (!form.dataset.listenerAttached) {
     form.addEventListener("submit", function (e) {
         e.preventDefault();
-        const supplier = document.querySelectorAll(".supplier");
+        const supplier = document.querySelectorAll(".suppliers");
         let formHasError = false;
         let dataSupplier = []
 
@@ -172,10 +254,89 @@ if (!form.dataset.listenerAttached) {
         });
 
         if (!formHasError) {
-            resetForm("#supplier-container .supplier", form)
+            let data = new FormData()
+            dataSupplier.forEach((sup, index) => {
+                data.append(`lista[${index}][nombre]`, sup.nombre);
+                data.append(`lista[${index}][razon_social]`, sup.razonSocial);
+                data.append(`lista[${index}][documento]`, sup.tipo_documento + "-" + sup.rif);
+                data.append(`lista[${index}][n_telefono1]`, sup.n_telefono1);
+                data.append(`lista[${index}][n_telefono2]`, sup.n_telefono2);
+                data.append(`lista[${index}][direccion]`, sup.direccion);
+            })
+            add('supplier', data, targetSupplier, ".cont_suppliers", "supplier", (response) => editSupplier(response))
+            bootstrap.Modal.getOrCreateInstance('#register-supplier').hide()
+            resetForm("#suppliers-container .suppliers", form)
         }
     });
     form.dataset.listenerAttached = "true";
 }
-
+print(searchAll("supplier", 1), targetSupplier, ".cont_suppliers", "supplier", (response) => editSupplier(response))
 attachValidationListeners(1)
+
+function editSupplier(response) {
+    let hasError = false
+    document.querySelector("#input-id-supplier").value = response[0].id
+    document.querySelector("#input-name-supplier").value = response[0].nombre
+    document.querySelector("#input-razonSocial-supplier").value = response[0].razon_social
+    document.querySelector("#input-rif-supplier").value = response[0].documento.split("-")[1]
+    document.querySelector("#input-td-supplier").value = response[0].documento.split("-")[0]
+    document.querySelector("#input-num1-supplier").value = response[0].n_telefono1
+    document.querySelector("#input-num2-supplier").value = response[0].n_telefono2 ? response[0].n_telefono2 : ""
+    document.querySelector("#input-direction-supplier").value = response[0].direccion
+    const data = {
+        nombre: document.querySelector("#input-name-supplier").value,
+        razonSocial: document.querySelector("#input-razonSocial-supplier").value,
+        tipo_documento: document.querySelector("#input-td-supplier") ? document.querySelector("#input-td-supplier").value : "",
+        n_telefono1: window.intlTelInput(document.querySelector("#input-num1-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber(),
+        n_telefono2: window.intlTelInput(document.querySelector("#input-num2-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber(),
+        rif: document.querySelector("#input-rif-supplier") ? document.querySelector("#input-rif-supplier").value : "",
+        direccion: document.querySelector("#input-direction-supplier") ? document.querySelector("#input-direction-supplier").value : "",
+    };
+    const errors = validate(data, rules2);
+    setValidationStyles(`input-name-supplier`, errors?.nombre ? errors.nombre[0] : null);
+    setValidationStyles(`input-razonSocial-supplier`, errors?.razonSocial ? errors.razonSocial[0] : null);
+    setValidationStyles(`input-td-supplier`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
+    setValidationStyles(`input-rif-supplier`, errors?.rif ? errors.rif[0] : null);
+    setValidationStyles(`input-num1-supplier`, errors?.n_telefono1 ? errors.n_telefono1[0] : null);
+    setValidationStyles(`input-num2-supplier`, errors?.n_telefono2 ? errors.n_telefono2[0] : null);
+    setValidationStyles(`input-direction-supplier`, errors?.direccion ? errors.direccion[0] : null);
+    if (errors) hasError = true;
+    let formEdit = document.getElementById("form-submit-edit-supplier")
+    if (!formEdit.dataset.listenerAttached) {
+        formEdit.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const data = {
+                nombre: document.querySelector("#input-name-supplier").value,
+                razonSocial: document.querySelector("#input-razonSocial-supplier").value,
+                tipo_documento: document.querySelector("#input-td-supplier") ? document.querySelector("#input-td-supplier").value : "",
+                n_telefono1: window.intlTelInput(document.querySelector("#input-num1-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber(),
+                n_telefono2: window.intlTelInput(document.querySelector("#input-num2-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber(),
+                rif: document.querySelector("#input-rif-supplier") ? document.querySelector("#input-rif-supplier").value : "",
+                direccion: document.querySelector("#input-direction-supplier") ? document.querySelector("#input-direction-supplier").value : "",
+            };
+            const errors = validate(data, rules2);
+            setValidationStyles(`input-name-supplier`, errors?.nombre ? errors.nombre[0] : null);
+            setValidationStyles(`input-razonSocial-supplier`, errors?.razonSocial ? errors.razonSocial[0] : null);
+            setValidationStyles(`input-td-supplier`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
+            setValidationStyles(`input-rif-supplier`, errors?.rif ? errors.rif[0] : null);
+            setValidationStyles(`input-num1-supplier`, errors?.n_telefono1 ? errors.n_telefono1[0] : null);
+            setValidationStyles(`input-num2-supplier`, errors?.n_telefono2 ? errors.n_telefono2[0] : null);
+            setValidationStyles(`input-direction-supplier`, errors?.direccion ? errors.direccion[0] : null);
+            if (errors) hasError = true;
+            else hasError = false
+            if (!hasError) {
+                let data = new FormData()
+                data.append(`id`, document.querySelector("#input-id-supplier").value)
+                data.append(`nombre`, document.querySelector("#input-name-supplier").value)
+                data.append(`razon_social`, document.querySelector("#input-razonSocial-supplier").value)
+                data.append(`documento`, document.querySelector("#input-td-supplier").value + "-" + document.querySelector("#input-rif-supplier").value)
+                data.append(`n_telefono1`, window.intlTelInput(document.querySelector("#input-num1-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber())
+                data.append(`n_telefono2`, window.intlTelInput(document.querySelector("#input-num2-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber())
+                data.append(`direccion`, document.querySelector("#input-direction-supplier").value)
+                update('supplier', data, targetSupplier, ".cont_suppliers", "supplier", (response) => editSupplier(response))
+                bootstrap.Modal.getOrCreateInstance('#edit-supplier').hide()
+            }
+        });
+        formEdit.dataset.listenerAttached = "true";
+    }
+}

@@ -34,18 +34,17 @@
 
             <div class="row g-3 align-items-center mb-5">
                 <div class="col-auto">
-                    <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                    <input type="search" id="searchCombos" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <button type="button" class="btn bh_1 btn-circle text-white" data-module-add="combo" data-bs-toggle="modal" data-bs-target="#register-combo">
+                <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="combo" data-bs-toggle="modal" data-bs-target="#register-combo" data-bs-title="Agregar Combo" 
+                data-bs-placement="top">
                     <i data-feather="plus" class="svg-icon"></i>
                 </button>
             </div>
 
             <div class="row">
 
-                <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
                 <?php include_once __DIR__ . '/../Views/Components/modals/combo/modal.php' ?>
-
 
                 <div class="col-md-12 col-lg-3">
                     <div class="card">

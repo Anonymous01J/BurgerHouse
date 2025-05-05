@@ -1,17 +1,11 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
-
-<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-
+<div id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
 
-
     <div class="page-wrapper">
-
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
@@ -27,14 +21,11 @@
                         </nav>
                     </div>
                 </div>
-
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
 
         <div class="container-fluid">
-
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Mi Actividad</button>
@@ -98,7 +89,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">Actividad reciente</h4>
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-bordered no-wrap">
+                                        <table class="table table-dark-mode no-wrap">
                                             <thead>
                                                 <tr>
                                                     <th>Usuario</th>
@@ -139,17 +130,10 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-
-
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
-
 </div>
-</div>
-
-
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -159,7 +143,3 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
-
-
-
-<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

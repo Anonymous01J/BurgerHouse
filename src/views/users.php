@@ -36,7 +36,8 @@
                 <div class="col-auto">
                     <input type="search" id="search-filter-users" placeholder="Buscar" class="form-control">
                 </div>
-                <button data-bs-toggle="modal" data-bs-target="#register-user" type="button" class="btn bh_1 btn-circle text-white">
+                <button data-bs-toggle="modal" data-bs-target="#register-user" type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-bs-title="Agregar Usuario" 
+                data-bs-placement="top">
                     <i data-feather="user-plus" class="svg-icon"></i>
                 </button>
             </div>
@@ -44,18 +45,10 @@
             <div class="row container_users">
                 <!-- // Aquí se cargarán los usuarios -->
             </div>
-
-
-
         </div>
-
-        <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/modals/user/modal.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
-
     </div>
-
-
 
     <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
     <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

@@ -3,7 +3,6 @@ namespace Shtch\Burgerhouse\controllers;
 use Shtch\Burgerhouse\controllers\Controller_base;
 use Shtch\Burgerhouse\models\Permiso;
 use Shtch\Burgerhouse\models\Rol;
-use Shtch\Burgerhouse\models\Permiso_rol;
 
 class RolController extends Controller_base {
 
@@ -22,7 +21,7 @@ class RolController extends Controller_base {
         $lista_permisos = $data['permisos'];
         
         for ($i = 0; $i < count($lista_permisos); $i++) {
-            $db= new  Permiso_rol(id_rol: $last_id, modulo: $lista_permisos[$i]['modulo'], permisos: $lista_permisos[$i]['permisos']);
+            $db= new Permiso(id_rol: $last_id, modulo: $lista_permisos[$i]['modulo'], permisos: $lista_permisos[$i]['permisos']);
             $db->agregar();
         }
     }
