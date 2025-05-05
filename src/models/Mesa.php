@@ -10,13 +10,15 @@ class Mesa extends Db_base {
     private $sillas;
     private $active;
     private $estado;
+    private $imagen;
 
     public function __construct(
         $id = null,
         $numero = null,
         $sillas = null,
         $active = null,
-        $estado = null
+        $estado = null,
+        $imagen = null
     ) {
         parent::__construct("mesas");
         
@@ -25,13 +27,15 @@ class Mesa extends Db_base {
         $this->sillas = $sillas;
         $this->active = $active;
         $this->estado = $estado;
+        $this->imagen = $imagen;
 
         $this->add_variables([
             "a.id" => $this->id,
             "a.numero" => $this->numero,
             "a.sillas" => $this->sillas,
             "a.active" => $this->active,
-            "a.estado" => $this->estado
+            "a.estado" => $this->estado,
+            "a.imagen" => $this->imagen
         ]);
     }
 }
