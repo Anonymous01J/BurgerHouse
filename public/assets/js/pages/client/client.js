@@ -284,6 +284,7 @@ const editClient = (response) => {
             };
             const errors = validate(data, rules2);
             if (errors) hasError = true;
+            else hasError = false
             if (!hasError) {
                 let dataFinal = new FormData();
                 dataFinal.append(`nombre`, data.nombre);

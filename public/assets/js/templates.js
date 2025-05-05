@@ -201,10 +201,10 @@ export default function Templates() {
                         <small class="text-body-secondary">
                             <div style="display: flex; justify-content: end; align-items: center;">
                                 <div class="d-flex gap-3">
-                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="permissionsRol" style="cursor: pointer">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="rol" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Editar Permiso" data-bs-placement="bottom">
                                         <i data-feather="edit"></i>
                                     </a>
-                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="permissionsRol" style="cursor: pointer">
+                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="rol" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Permiso" data-bs-placement="bottom">
                                         <i data-feather="trash-2"></i>
                                     </a>
                                 </div>
@@ -215,6 +215,37 @@ export default function Templates() {
             </div>
         </div>
         `
+    }
+    function targetTable(objet) {
+        return `
+        <div class="col">
+            <div class="card h-100">
+                <img src="media/mesas/${objet.imagen}" class="card-img-top" style="object-fit: cover; height: 200px;" alt="...">
+                <div class="card-body p-1">
+                    <div class="d-flex justify-content-center align-items-center gap-4 h-100">
+                        <h5 class="card-title m-0">${objet.nombre}</h5>
+                        <h5 class="card-title m-0">Sillas: ${objet.sillas}</h5>
+                        <h5 class="card-title m-0">VIP: ${objet.vip == true ? 'Si' : 'No'}</h5>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <p class="mb-0">Estado: <span class="badge text-bg-success">Libre</span></p>
+                            <div class="d-flex gap-3">
+                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="table" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-table" data-bs-title="Editar Mesa" data-bs-placement="bottom">
+                                    <i data-feather="edit"></i>
+                                </a>
+                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="table" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Mesa" data-bs-placement="bottom">
+                                    <i data-feather="trash-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </small>
+                </div>
+            </div>
+        </div>
+`
     }
     function elemenFormCombo(objet) {
         return `
@@ -278,6 +309,41 @@ export default function Templates() {
             <div class="bg-secondary my-5" style="font-size: 1px;"> 2</div>
         </div>
     `
+    }
+    function elemenFormTables(objet){
+        return `
+        <div class="row g-2 tables" id="tables-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-3 mt-3">
+                <h4 class="m-0">Combo ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-table">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-3">
+                <label for="inputEmail4" class="form-label">Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="input-name-tables-${objet}" name="nombre">
+                <div class="text-danger mt-1 fs-6" id="error-input-name-tables-${objet}"></div>
+            </div>
+            <div class="col-md-3">
+                <label for="inputEmail4" class="form-label">Nro de sillas</label>
+                <input type="number" class="form-control" placeholder="Nro de sillas" id="input-chair-tables-${objet}" name="sillas">
+                <div class="text-danger mt-1 fs-6" id="error-input-chair-tables-${objet}"></div>
+            </div>
+            <div class="col-md-1">
+                <label for="inputAddress2" class="form-label">VIP</label>
+                <br>
+                <input type="checkbox" class="btn-check" id="input-vip-tables-${objet}" autocomplete="off" name="vip">
+                <label class="btn btn-outline-primary w-100" for="input-vip-tables-${objet}">VIP</label><br>
+                <div class="text-danger mt-1 fs-6" id="error-input-vip-tables-${objet}"></div>
+            </div>
+            <div class="col-md-5">
+                <label for="inputZip" class="form-label">Imagen</label>
+                <input class="form-control input-image" type="file" id="input-image-tables-${objet}" name="imagen">
+                <div class="text-danger mt-1 fs-6" id="error-input-image-tables-${objet}"></div>
+            </div>
+            <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
+        </div>
+        `
     }
     function elemenFormUnit(objet) {
         return `
@@ -586,9 +652,9 @@ export default function Templates() {
     }
     function elemenFormUser(objet) {
         return `
-        <div class="row g-2 users mt-4" id="user-${objet}">
-            <div class="d-flex align-items-center gap-4 mb-3">
-                <h4 class="m-0">Usuario ${objet}</h4>
+        <div class="row g-2 users" id="user-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-3 mt-5">
+                <h4 class="m-0">Cliente ${objet}</h4>
                 <button type="button" class="btn btn-circle btn-secondary remove-user">
                     <i data-feather="trash"></i>
                 </button>
@@ -605,7 +671,7 @@ export default function Templates() {
             </div>
             <div class="col-md-6 ">
                 <label for="inputCity" class="form-label">Tipo de documento</label>
-                <div class="dropdown">
+                <div class="dropdown select_options_td">
                     <div class="dropdown">
                         <div class="btn-group w-100" bis_skin_checked="1">
                             <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-td-user-${objet}" name="tipo_documento">
@@ -613,12 +679,12 @@ export default function Templates() {
                                 <span> <i data-feather="chevron-down"></i></span>
                             </button>
                             <div class="dropdown-menu p-2" bis_skin_checked="1">
-                                <div>
-                                    <input class="form-control" type="text" placeholder="Buscar">
+                                <div class="options_search">
+                                    <a class="dropdown-item">V</a>
+                                    <a class="dropdown-item">E</a>
+                                    <a class="dropdown-item">J</a>
                                 </div>
-                                <a class="dropdown-item">V</a>
-                                <a class="dropdown-item">E</a>
-                                <a class="dropdown-item">J</a>
+
                             </div>
                         </div>
                     </div>
@@ -642,20 +708,22 @@ export default function Templates() {
             </div>
             <div class="col-md-4">
                 <label for="inputCity" class="form-label">Rol</label>
-                <div class="dropdown">
+                <div class="dropdown select_options_rol">
                     <div class="dropdown">
                         <div class="btn-group w-100" bis_skin_checked="1">
-                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-rol-user-${objet}" name="id_rol">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-rol-user-${objet}" name="id_rol" data-id="Seleccione una opcion">
                             <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span> <i data-feather="chevron-down"></i></span>
                             </button>
                             <div class="dropdown-menu p-2" bis_skin_checked="1">
                                 <div>
-                                    <input class="form-control" type="text" placeholder="Buscar">
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
                                 </div>
-                                <a class="dropdown-item">V</a>
-                                <a class="dropdown-item">E</a>
-                                <a class="dropdown-item">J</a>
+                                <div class="options_search">
+                                    <a class="dropdown-item">V</a>
+                                    <a class="dropdown-item">E</a>
+                                    <a class="dropdown-item">J</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -704,9 +772,11 @@ export default function Templates() {
         targetUser,
         targetClient,
         targetPermission,
+        targetTable,
         elemenFormCombo,
         elemenFormCategoryProduct,
         elemenFormCategoryRawmaterial,
+        elemenFormTables,
         elemenFormUnit,
         elemenFormPaymentMethod,
         elemenFormRawMaterial,

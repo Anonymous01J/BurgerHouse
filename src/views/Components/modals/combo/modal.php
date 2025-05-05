@@ -58,8 +58,8 @@
                                 <label for="inputZip" class="form-label">Imagen</label>
                                 <input class="form-control input-image" type="file" id="input-image-combo-1" name="imagen">
                                 <div class="text-danger mt-1 fs-6" id="error-input-image-combo-1"></div>
-                                <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
                             </div>
+                            <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
                             <div class="bg-secondary my-5" style="font-size: 1px;"> 2</div>
                         </div>
                     </div>
@@ -133,8 +133,8 @@
                                 <label for="inputZip" class="form-label">Imagen</label>
                                 <input class="form-control input-image" type="file" id="input-image-combo" name="imagen">
                                 <div class="text-danger mt-1 fs-6" id="error-input-image-combo"></div>
-                                <img class="mt-3" id="img-combo-response" src="" alt="Vista previa" style="max-width: 200px;">
                             </div>
+                            <img class="mt-3" id="img-combo-response" src="" alt="Vista previa" style="max-width: 200px;">
                         </div>
                     </div>
                     <input type="submit" class="d-none" id="submit-edit-combo">

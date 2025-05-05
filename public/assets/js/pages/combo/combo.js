@@ -7,7 +7,7 @@ InputPrice("[input_price]");
 selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 viewImage(".input-image")
 permission("Combo")//verifica el btn de agg
-searchFilter("#searchCombos", "combo", targetCombo, "combo",".cont-combos", 1, (response) => editData(response))
+searchFilter("#searchCombos", "combo", targetCombo, "combo", ".cont-combos", 1, (response) => editData(response))
 // ------------------Validacion de Formulario---------------------------
 
 
@@ -269,78 +269,37 @@ function editData(response) {
   document.querySelector("#input-category-combo").setAttribute("data-id", response[0].id_categoria)
   document.querySelector("#input-details-combo").value = response[0].detalles
   document.querySelector("#img-combo-response").src = `media/combos/${response[0].imagen}`
-  let data = {}
-  if (document.querySelector("#input-image-combo").value == "") {
-    data = {
-      nombre: document.querySelector(`#input-name-combo`).value,
-      precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
-      id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
-      detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
-    }
-    const errors = validate(data, rules2);
-    if (errors) {
-      hasError = true
-    }
-    setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
-    setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
-    setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
-    setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
-
-  } else {
-    data = {
-      nombre: document.querySelector(`#input-name-combo`).value,
-      precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
-      id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
-      detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
-      imagen: document.querySelector(`#input-image-combo`).files[0]
-    }
-    const errors = validate(data, rules);
-    if (errors) {
-      hasError = true
-    }
-    setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
-    setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
-    setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
-    setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
-    setValidationStyles(`input-image-combo`, errors?.imagen ? errors.imagen[0] : null);
+  let data = {
+    nombre: document.querySelector(`#input-name-combo`).value,
+    precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
+    id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
+    detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
   }
+  const errors = validate(data, rules2);
+  if (errors) hasError = true
+  setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
+  setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
+  setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
+  setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
 
   let formEdit = document.getElementById("form-submit-edit-combo")
   if (!formEdit.dataset.listenerAttached) {
     formEdit.addEventListener("submit", function (e) {
       e.preventDefault();
-      let data
-      if (document.querySelector("#input-image-combo").value == "") {
-        data = {
-          nombre: document.querySelector(`#input-name-combo`).value,
-          precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
-          id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
-          detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
-        }
-        const errors = validate(data, rules2);
-        if (errors) hasError = true
-        setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
-        setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
-        setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
-        setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
-      } else {
-        data = {
-          nombre: document.querySelector(`#input-name-combo`).value,
-          precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
-          id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
-          detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
-          imagen: document.querySelector(`#input-image-combo`).files[0]
-        }
-        const errors = validate(data, rules);
-        if (errors) {
-          hasError = true
-        }
-        setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
-        setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
-        setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
-        setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
-        setValidationStyles(`input-image-combo`, errors?.imagen ? errors.imagen[0] : null);
+      let data = {
+        nombre: document.querySelector(`#input-name-combo`).value,
+        precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
+        id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
+        detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
       }
+      const errors = validate(data, rules2);
+      if (errors) hasError = true
+      else hasError = false
+      setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
+      setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
+      setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
+      setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
+
       if (!hasError) {
         let datafinal = new FormData()
         datafinal.append("nombre", document.querySelector("#input-name-combo").value)
@@ -349,6 +308,7 @@ function editData(response) {
         datafinal.append("detalles", document.querySelector("#input-details-combo").value)
         datafinal.append("id", document.querySelector("#input-id-combo").value)
         if (document.querySelector("#input-image-combo").value != "") {
+          console.log("object");
           datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
           datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
         }

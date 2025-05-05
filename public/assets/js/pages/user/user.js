@@ -1,13 +1,12 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { SelectOption, setValidationStyles, validateField, searchAll, searchFilter, print, add, update, reindex, resetForm } = functionGeneral();
+const { selectOptionAll, setValidationStyles, validateField, searchAll, searchFilter, print, add, update, reindex, resetForm } = functionGeneral();
 const { elemenFormUser, optionsRol, targetUser } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
-SelectOption(".select_options_td", null)
-SelectOption(".select_options_rol", "rol", optionsRol)
-SelectOption(".select_options_td_edit", null)
-SelectOption(".select_options_rol_edit", "rol", optionsRol)
-
+selectOptionAll(".select_options_td", null)
+selectOptionAll(".select_options_rol", "rol", optionsRol)
+selectOptionAll(".select_options_td_edit", null)
+selectOptionAll(".select_options_rol_edit", "rol", optionsRol)
 //funcion del search para filtrar los usuarios
 searchFilter("#search-filter-users", "users", targetUser, "users", ".container_users", 1, (response) => {
     document.querySelector(`#id-user`).value = response[0].id;
@@ -44,7 +43,8 @@ function addUsers() {
     UsersCount++;
     document.getElementById("users-container").insertAdjacentHTML('beforeend', elemenFormUser(UsersCount));
     feather.replace();
-    SelectOption()
+    selectOptionAll(".select_options_td", null)
+    selectOptionAll(".select_options_rol", "rol", optionsRol)
     attachValidationListeners(UsersCount);
     const newUser = document.getElementById(`user-${UsersCount}`);
     newUser.querySelector(".remove-user").addEventListener("click", function () {
@@ -235,54 +235,6 @@ if (!form.dataset.listenerAttached) {
 attachValidationListeners(1)
 print(searchAll("users", 1), targetUser, ".container_users", "usuarios", (response) => editData(response))
 //edicion de usuarios
-let formEdit = document.getElementById("form-submit-edit-user")
-if (!formEdit.dataset.listenerAttached) {
-    formEdit.addEventListener("submit", (e) => {
-        e.preventDefault();
-        const data = {
-            nombre: formEdit.querySelector(`input[name="nombre"]`).value,
-            apellido: formEdit.querySelector(`input[name="apellido"]`).value,
-            tipo_documento: formEdit.querySelector(`input[name="tipo_documento"]`) ? formEdit.querySelector(`input[name="tipo_documento"]`).value : "",
-            rif: formEdit.querySelector(`input[name="rif"]`).value,
-            email: formEdit.querySelector(`input[name="email"]`).value,
-            id_rol: formEdit.querySelector(`input[name="id_rol"]`).getAttribute("data-id"),
-            hash: formEdit.querySelector(`input[name="hash"]`).value
-        }
-        const errors = validate(data, rules);
-        setValidationStyles(`input-name-user`, errors?.nombre ? errors.nombre[0] : null);
-        setValidationStyles(`input-lastname-user`, errors?.apellido ? errors.apellido[0] : null);
-        setValidationStyles(`input-td-user`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
-        setValidationStyles(`input-rif-user`, errors?.rif ? errors.rif[0] : null);
-        setValidationStyles(`input-email-user`, errors?.email ? errors.email[0] : null);
-        setValidationStyles(`input-password-user`, errors?.hash ? errors.hash[0] : null);
-        setValidationStyles(`input-rol-user`, errors?.id_rol ? errors.id_rol[0] : null);
-
-        if (!errors) {
-            let dataFinal = new FormData()
-            dataFinal.append('nombre', data.nombre)
-            dataFinal.append('apellido', data.apellido)
-            dataFinal.append('documento', data.tipo_documento + "-" + data.rif)
-            dataFinal.append('email', data.email)
-            dataFinal.append('id_rol', data.id_rol)
-            dataFinal.append('hash', data.hash)
-            dataFinal.append('id', formEdit.querySelector(`input[name="id_user"]`).value)
-
-            update('users', dataFinal, targetUser, ".container_users", "usuarios", (response) => {
-                document.querySelector(`#id-user`).value = response[0].id;
-                document.querySelector(`#input-name-user`).value = response[0].nombre;
-                document.querySelector(`#input-lastname-user`).value = response[0].apellido;
-                document.querySelector(`#input-td-user`).value = response[0].documento.split("-")[0];
-                document.querySelector(`#input-rif-user`).value = response[0].documento.split("-")[1];
-                document.querySelector(`#input-email-user`).value = response[0].email;
-                document.querySelector(`#input-password-user`).value = response[0].hash;
-                document.querySelector(`#input-rol-user`).setAttribute("data-id", response[0].rol_id);
-                document.querySelector(`#input-rol-user`).value = response[0].rol;
-            })
-            bootstrap.Modal.getOrCreateInstance('#edit-user').hide()
-        }
-    })
-    formEdit.dataset.listenerAttached = "true";
-}
 function editData(response) {
     document.querySelector(`#id-user`).value = response[0].id;
     document.querySelector(`#input-name-user`).value = response[0].nombre;
@@ -311,4 +263,53 @@ function editData(response) {
     setValidationStyles(`input-email-user`, errors?.email ? errors.email[0] : null);
     setValidationStyles(`input-password-user`, errors?.hash ? errors.hash[0] : null);
     setValidationStyles(`input-rol-user`, errors?.id_rol ? errors.id_rol[0] : null);
+
+    let formEdit = document.getElementById("form-submit-edit-user")
+    if (!formEdit.dataset.listenerAttached) {
+        formEdit.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const data = {
+                nombre: formEdit.querySelector(`input[name="nombre"]`).value,
+                apellido: formEdit.querySelector(`input[name="apellido"]`).value,
+                tipo_documento: formEdit.querySelector(`input[name="tipo_documento"]`) ? formEdit.querySelector(`input[name="tipo_documento"]`).value : "",
+                rif: formEdit.querySelector(`input[name="rif"]`).value,
+                email: formEdit.querySelector(`input[name="email"]`).value,
+                id_rol: formEdit.querySelector(`input[name="id_rol"]`).getAttribute("data-id"),
+                hash: formEdit.querySelector(`input[name="hash"]`).value
+            }
+            const errors = validate(data, rules);
+            setValidationStyles(`input-name-user`, errors?.nombre ? errors.nombre[0] : null);
+            setValidationStyles(`input-lastname-user`, errors?.apellido ? errors.apellido[0] : null);
+            setValidationStyles(`input-td-user`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
+            setValidationStyles(`input-rif-user`, errors?.rif ? errors.rif[0] : null);
+            setValidationStyles(`input-email-user`, errors?.email ? errors.email[0] : null);
+            setValidationStyles(`input-password-user`, errors?.hash ? errors.hash[0] : null);
+            setValidationStyles(`input-rol-user`, errors?.id_rol ? errors.id_rol[0] : null);
+
+            if (!errors) {
+                let dataFinal = new FormData()
+                dataFinal.append('nombre', data.nombre)
+                dataFinal.append('apellido', data.apellido)
+                dataFinal.append('documento', data.tipo_documento + "-" + data.rif)
+                dataFinal.append('email', data.email)
+                dataFinal.append('id_rol', data.id_rol)
+                dataFinal.append('hash', data.hash)
+                dataFinal.append('id', formEdit.querySelector(`input[name="id_user"]`).value)
+
+                update('users', dataFinal, targetUser, ".container_users", "usuarios", (response) => {
+                    document.querySelector(`#id-user`).value = response[0].id;
+                    document.querySelector(`#input-name-user`).value = response[0].nombre;
+                    document.querySelector(`#input-lastname-user`).value = response[0].apellido;
+                    document.querySelector(`#input-td-user`).value = response[0].documento.split("-")[0];
+                    document.querySelector(`#input-rif-user`).value = response[0].documento.split("-")[1];
+                    document.querySelector(`#input-email-user`).value = response[0].email;
+                    document.querySelector(`#input-password-user`).value = response[0].hash;
+                    document.querySelector(`#input-rol-user`).setAttribute("data-id", response[0].rol_id);
+                    document.querySelector(`#input-rol-user`).value = response[0].rol;
+                })
+                bootstrap.Modal.getOrCreateInstance('#edit-user').hide()
+            }
+        })
+        formEdit.dataset.listenerAttached = "true";
+    }
 }

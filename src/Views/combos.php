@@ -44,9 +44,7 @@
 
             <div class="row">
 
-                <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
                 <?php include_once __DIR__ . '/../Views/Components/modals/combo/modal.php' ?>
-
 
                 <div class="col-md-12 col-lg-3">
                     <div class="card">

@@ -533,7 +533,12 @@
   --text-primary: #FFFFFF;
   --border-color: #FFFFFF;
 }
-
+.dark-mode #main-wrapper[data-layout=vertical][data-header-position=fixed][data-sidebar-position=fixed] .topbar .top-navbar .navbar-collapse {
+  background-color: var(--bg-secondary) !important;
+}
+.dark-mode .pagination {
+  --bs-pagination-disabled-bg : var(--bg-primary) !important;
+}
 /* Estructura principal */
 .dark-mode .left-sidebar {
   background-color: var(--bg-primary) !important;

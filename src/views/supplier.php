@@ -39,13 +39,10 @@
                     <i data-feather="plus" class="svg-icon"></i>
                 </button>
             </div>
-
             <div class="row cont_suppliers">
-                
+                <!-- aqui se cargan los proveedores con js -->
             </div>
         </div>
-
-        <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/modals/supplier/modal.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
 

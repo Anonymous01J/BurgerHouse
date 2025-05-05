@@ -289,7 +289,7 @@ export default function functionGeneral() {
         if (file) {
           const reader = new FileReader();
           reader.onload = function (e) {
-            const img = image.nextElementSibling.nextElementSibling;
+            const img = image.parentElement.nextElementSibling;
             img.src = e.target.result; // Asigna el resultado de la lectura al src de la imagen
             img.style.display = "block"; // Muestra la imagen
           };
@@ -439,22 +439,21 @@ export default function functionGeneral() {
       });
     }
   };
-  const edit = (inputs) => {
+  const edit = async (inputs) => {
     document.querySelectorAll(".edit_btn").forEach(btn => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", async () => {
         let id = btn.getAttribute("data-id")
         let module = btn.getAttribute("data-module-edit")
-        $.ajax({
-          type: "POST",
-          url: `${module}/get_all`,
-          data: { "id": id },
-          success: function (response) {
-            if (typeof inputs === "function") {
-              inputs(response);
-            }
-          }
+        let data = new FormData();
+        data.append("id", id);
+        let pet = await fetch(`${module}/get_all`, {
+          method: "POST",
+          body: data
         })
-        // new bootstrap.Modal(document.getElementById("edit-combo")).show()
+        let response = await pet.json()
+        if (typeof inputs === "function") {
+          inputs(response);
+        }
       })
     })
   }

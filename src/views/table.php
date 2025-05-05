@@ -36,7 +36,7 @@
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <button data-bs-toggle="modal" data-bs-target="#register-user" type="button" class="btn bh_1 btn-circle text-white">
+                <button data-bs-toggle="modal" data-bs-target="#register-table" type="button" class="btn bh_1 btn-circle text-white">
                     <i data-feather="plus" class="svg-icon"></i>
                 </button>
             </div>
@@ -74,9 +74,8 @@
 
 
         </div>
-
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
-
+        <?php include_once __DIR__ . '/../Views/Components/modals/table/modal.php' ?>
     </div>
 
 
@@ -87,3 +86,4 @@
     <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
+    <script type="module" src="./assets/js/pages/table/table.js"></script>

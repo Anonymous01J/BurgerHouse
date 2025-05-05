@@ -45,18 +45,10 @@
             <div class="row container_users">
                 <!-- // Aquí se cargarán los usuarios -->
             </div>
-
-
-
         </div>
-
-        <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/modals/user/modal.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
-
     </div>
-
-
 
     <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
     <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

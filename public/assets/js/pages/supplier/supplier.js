@@ -5,12 +5,12 @@ const { selectOptionAll, setValidationStyles, validateField, searchAll, print, a
 const { elemenFormSupplier, targetSupplier } = Templates()
 searchFilter("#SearchSupplier", "supplier", targetSupplier, "supplier", ".cont_suppliers", 1, (response) => editSupplier(response))
 selectOptionAll(".select_options_td", null)
+selectOptionAll(".select_options_td_edit", null)
 
 let iti = window.intlTelInput(document.querySelector("#input-num1-supplier-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
 window.intlTelInput(document.querySelector("#input-num2-supplier-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js", });
 let itiEdit = window.intlTelInput(document.querySelector("#input-num1-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js", });
 window.intlTelInput(document.querySelector("#input-num2-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js", });
-
 // ------------------Validacion de Formulario---------------------------
 let SupplierCount = 1;
 function addSupplier() {
@@ -300,10 +300,7 @@ function editSupplier(response) {
     setValidationStyles(`input-num1-supplier`, errors?.n_telefono1 ? errors.n_telefono1[0] : null);
     setValidationStyles(`input-num2-supplier`, errors?.n_telefono2 ? errors.n_telefono2[0] : null);
     setValidationStyles(`input-direction-supplier`, errors?.direccion ? errors.direccion[0] : null);
-    if (errors) {
-        hasError = true;
-    }
-
+    if (errors) hasError = true;
     let formEdit = document.getElementById("form-submit-edit-supplier")
     if (!formEdit.dataset.listenerAttached) {
         formEdit.addEventListener("submit", function (e) {
@@ -325,9 +322,8 @@ function editSupplier(response) {
             setValidationStyles(`input-num1-supplier`, errors?.n_telefono1 ? errors.n_telefono1[0] : null);
             setValidationStyles(`input-num2-supplier`, errors?.n_telefono2 ? errors.n_telefono2[0] : null);
             setValidationStyles(`input-direction-supplier`, errors?.direccion ? errors.direccion[0] : null);
-            if (errors) {
-                hasError = true;
-            }
+            if (errors) hasError = true;
+            else hasError = false
             if (!hasError) {
                 let data = new FormData()
                 data.append(`id`, document.querySelector("#input-id-supplier").value)
