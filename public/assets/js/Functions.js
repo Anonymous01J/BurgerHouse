@@ -381,7 +381,8 @@ export default function functionGeneral() {
       method: "POST",
       body: data,
     });
-    let response = await action.json();
+    let response = await action.json()
+    console.log(response);;
     if (response.success == true) {
       Swal.fire({
         title: `Exito!`,

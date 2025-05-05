@@ -218,7 +218,7 @@ export default function Templates() {
     }
     function targetTable(objet) {
         return `
-        <div class="col">
+        <div class="col-md-3">
             <div class="card h-100">
                 <img src="media/mesas/${objet.imagen}" class="card-img-top" style="object-fit: cover; height: 200px;" alt="...">
                 <div class="card-body p-1">
