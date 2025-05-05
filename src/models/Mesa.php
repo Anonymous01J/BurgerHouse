@@ -18,6 +18,7 @@ class Mesa extends Db_base {
         $sillas = null,
         $active = null,
         $estado = null,
+        $imagen_name = null,
         $imagen = null,
         $vip = null
     ) {
@@ -28,7 +29,7 @@ class Mesa extends Db_base {
         $this->sillas = $sillas;
         $this->active = $active;
         $this->estado = $estado;
-        $this->imagen = $imagen;
+        $this->imagen = $imagen_name;
         $this->vip = $vip;
 
         $this->add_variables([
