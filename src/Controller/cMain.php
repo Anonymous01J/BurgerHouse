@@ -12,11 +12,11 @@
             $productos = $this->productos->search();
             $this->categorias = new CategoriasProductos();
             $categorias = $this->categorias->search();
-            header(header: 'Content-Type: application/json');
-            echo json_encode(value: [
-                'productos' => $productos,
-                'categorias' => $categorias
-            ]);
+            // header(header: 'Content-Type: application/json');
+            // echo json_encode(value: [
+            //     'productos' => $productos,
+            //     'categorias' => $categorias
+            // ]);
             include_once __DIR__ . '/../Views/index.php';
         }
         
