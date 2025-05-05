@@ -41,7 +41,9 @@ class ComboController extends Controller_base {
             $this->db->clear();
             $this->db->__construct(...$_POST);
             $result = $this->db->actualizar();
-            $this->guardar_imagen_single();
+            if (isset($_FILES['imagen'])) {
+                $this->guardar_imagen_single();
+            }
             if ($result == false or $result == 0) {
                 echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);
             } else {
