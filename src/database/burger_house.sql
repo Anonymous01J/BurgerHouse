@@ -25,10 +25,10 @@ DROP TABLE IF EXISTS `bitacora`;
 CREATE TABLE `bitacora` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_usuario` int NOT NULL,
-  `tabla` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `accion` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `tabla` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `accion` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `fecha` datetime NOT NULL,
-  `descripcion` text COLLATE utf8mb4_spanish_ci,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci,
   PRIMARY KEY (`id`),
   KEY `Usuario` (`id_usuario`),
   CONSTRAINT `bitacora_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
@@ -105,7 +105,7 @@ DROP TABLE IF EXISTS `categoria_materia_prima`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categoria_materia_prima` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(30) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -130,7 +130,7 @@ DROP TABLE IF EXISTS `categorias_productos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `categorias_productos` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -155,11 +155,11 @@ DROP TABLE IF EXISTS `clientes`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `clientes` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` text COLLATE utf8mb4_spanish_ci NOT NULL,
-  `apellido` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `documento` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `telefono` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `direccion` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `apellido` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `documento` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `telefono` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `direccion` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -184,8 +184,8 @@ DROP TABLE IF EXISTS `configuraciones`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `configuraciones` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `llave` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `valor` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `llave` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `valor` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -229,32 +229,31 @@ LOCK TABLES `credito` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `detalle_entrada`
+-- Table structure for table `deliverys`
 --
 
-DROP TABLE IF EXISTS `detalle_entrada`;
+DROP TABLE IF EXISTS `deliverys`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalle_entrada` (
+CREATE TABLE `deliverys` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `id_materia_prima` int NOT NULL,
-  `cantidad` int NOT NULL,
-  `restante` int NOT NULL,
-  `fecha_vencimiento` datetime DEFAULT NULL,
-  `precio_total` float NOT NULL,
+  `id_usuario_delivery` int NOT NULL,
+  `id_venta` int NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_materia_prima` (`id_materia_prima`),
-  CONSTRAINT `id_materia_prima` FOREIGN KEY (`id_materia_prima`) REFERENCES `materia_prima` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  KEY `id_venta_delivery_idx` (`id_venta`),
+  KEY `id_usuario_delivery_idx` (`id_usuario_delivery`),
+  CONSTRAINT `id_usuario_delivery` FOREIGN KEY (`id_usuario_delivery`) REFERENCES `usuario` (`id`),
+  CONSTRAINT `id_venta_delivery` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `detalle_entrada`
+-- Dumping data for table `deliverys`
 --
 
-LOCK TABLES `detalle_entrada` WRITE;
-/*!40000 ALTER TABLE `detalle_entrada` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalle_entrada` ENABLE KEYS */;
+LOCK TABLES `deliverys` WRITE;
+/*!40000 ALTER TABLE `deliverys` DISABLE KEYS */;
+/*!40000 ALTER TABLE `deliverys` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -268,7 +267,7 @@ CREATE TABLE `detalles_orden` (
   `Id` int NOT NULL AUTO_INCREMENT,
   `Id_Orden` int NOT NULL,
   `Id_producto` int NOT NULL,
-  `detalles_producto` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `detalles_producto` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `cantidad` int NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `Id_Orden` (`Id_Orden`),
@@ -327,8 +326,8 @@ DROP TABLE IF EXISTS `detalles_roles`;
 CREATE TABLE `detalles_roles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_rol` int NOT NULL,
-  `modulo` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `permisos` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `modulo` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `permisos` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_rol` (`id_rol`),
   CONSTRAINT `detalles_roles_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`) ON UPDATE CASCADE
@@ -355,11 +354,16 @@ DROP TABLE IF EXISTS `entradas_materia_prima`;
 CREATE TABLE `entradas_materia_prima` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_provedor` int NOT NULL,
+  `id_materia_prima` int NOT NULL,
   `fecha_compra` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `precio_compra` float NOT NULL,
-  `referencia` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `referencia` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `existencia` float NOT NULL,
+  `cantidad` float NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_provedor` (`id_provedor`),
+  KEY `id_materia_prima_idx` (`id_materia_prima`),
+  CONSTRAINT `id_materia_prima` FOREIGN KEY (`id_materia_prima`) REFERENCES `materia_prima` (`id`),
   CONSTRAINT `id_proveedor` FOREIGN KEY (`id_provedor`) REFERENCES `proveedores` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -413,7 +417,7 @@ CREATE TABLE `materia_prima` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_categoria` int NOT NULL,
   `id_unidad` int NOT NULL,
-  `nombre` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `stock_min` int NOT NULL,
   `stock_max` int NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
@@ -436,6 +440,60 @@ INSERT INTO `materia_prima` VALUES (1,1,3,'Pollo',10,20,1),(2,1,3,'Carne de res'
 UNLOCK TABLES;
 
 --
+-- Table structure for table `mesa_reservacion`
+--
+
+DROP TABLE IF EXISTS `mesa_reservacion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `mesa_reservacion` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_mesa` int NOT NULL,
+  `id_reservacion` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_reservacion_idx` (`id_reservacion`),
+  KEY `id_mesa_idx` (`id_mesa`),
+  CONSTRAINT `id_mesa` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id`),
+  CONSTRAINT `id_reservacion` FOREIGN KEY (`id_reservacion`) REFERENCES `reservaciones` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mesa_reservacion`
+--
+
+LOCK TABLES `mesa_reservacion` WRITE;
+/*!40000 ALTER TABLE `mesa_reservacion` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mesa_reservacion` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mesas`
+--
+
+DROP TABLE IF EXISTS `mesas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `mesas` (
+  `id` int NOT NULL,
+  `nombre` varchar(45) NOT NULL,
+  `sillas` varchar(45) NOT NULL,
+  `estado` varchar(45) NOT NULL DEFAULT 'LIBRE',
+  `vip` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mesas`
+--
+
+LOCK TABLES `mesas` WRITE;
+/*!40000 ALTER TABLE `mesas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mesas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `metodo_pago`
 --
 
@@ -444,7 +502,7 @@ DROP TABLE IF EXISTS `metodo_pago`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `metodo_pago` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(25) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -470,7 +528,7 @@ DROP TABLE IF EXISTS `movimientos_capital`;
 CREATE TABLE `movimientos_capital` (
   `id` int NOT NULL AUTO_INCREMENT,
   `monto` float NOT NULL,
-  `descripcion` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `descripcion` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `fecha` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -495,7 +553,7 @@ DROP TABLE IF EXISTS `notificaciones`;
 CREATE TABLE `notificaciones` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_usuario` int NOT NULL,
-  `mensaje` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `mensaje` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0',
   `fecha` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -526,7 +584,7 @@ CREATE TABLE `orden` (
   `Id_cliente` int NOT NULL,
   `fecha` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `Referencia` int NOT NULL,
-  `Comprobante` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `Comprobante` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `Status` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`Id`),
   KEY `Id_cliente` (`Id_cliente`),
@@ -559,7 +617,7 @@ CREATE TABLE `pagos` (
   `monto` float NOT NULL,
   `fecha` datetime NOT NULL,
   `tasa` float NOT NULL,
-  `comprobante` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `comprobante` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idRegistroVentas` (`id_venta`),
   KEY `idMetodoPago` (`id_metodo_pago`),
@@ -587,10 +645,10 @@ DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_categoria` int NOT NULL,
-  `nombre` text COLLATE utf8mb4_spanish_ci NOT NULL,
-  `imagen` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `imagen` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `precio` float NOT NULL,
-  `detalles` text COLLATE utf8mb4_spanish_ci NOT NULL,
+  `detalles` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `id_receta` int DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -619,12 +677,12 @@ DROP TABLE IF EXISTS `proveedores`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `proveedores` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `razon_social` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `documento` varchar(15) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `n_telefono1` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `n_telefono2` varchar(45) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
-  `direccion` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `razon_social` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `documento` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `n_telefono1` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `n_telefono2` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `direccion` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -649,7 +707,7 @@ DROP TABLE IF EXISTS `recetas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `recetas` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(20) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -665,6 +723,32 @@ INSERT INTO `recetas` VALUES (1,'Burger House'),(2,'receta 2');
 UNLOCK TABLES;
 
 --
+-- Table structure for table `reservaciones`
+--
+
+DROP TABLE IF EXISTS `reservaciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `reservaciones` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario` int NOT NULL,
+  `cantidad_personas` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_usuario_reservacion_idx` (`id_usuario`),
+  CONSTRAINT `id_usuario_reservacion` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reservaciones`
+--
+
+LOCK TABLES `reservaciones` WRITE;
+/*!40000 ALTER TABLE `reservaciones` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reservaciones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `roles`
 --
 
@@ -673,8 +757,8 @@ DROP TABLE IF EXISTS `roles`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `roles` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(25) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `descripcion` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `descripcion` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -699,9 +783,9 @@ DROP TABLE IF EXISTS `unidades`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `unidades` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(10) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `alias` varchar(4) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `active` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '1',
+  `nombre` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `alias` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `active` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -726,13 +810,13 @@ DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_rol` int NOT NULL,
-  `nombre` varchar(50) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `hash` text COLLATE utf8mb4_spanish_ci NOT NULL,
-  `apellido` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
-  `documento` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `hash` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `apellido` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `documento` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  `session_id` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '1',
-  `email` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `session_id` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '1',
+  `email` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `documento_UNIQUE` (`documento`),
   KEY `idRol` (`id_rol`),
@@ -764,7 +848,7 @@ CREATE TABLE `ventas` (
   `IVA` float NOT NULL,
   `monto_final` float NOT NULL,
   `fecha` datetime NOT NULL,
-  `direccion` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
+  `direccion` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCaja` (`id_caja`),
@@ -792,4 +876,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-04 13:25:42
+-- Dump completed on 2025-05-05 20:50:28
