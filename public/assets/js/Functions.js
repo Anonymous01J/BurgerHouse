@@ -382,7 +382,6 @@ export default function functionGeneral() {
       body: data,
     });
     let response = await action.json()
-    console.log(response);;
     if (response.success == true) {
       Swal.fire({
         title: `Exito!`,
@@ -398,9 +397,10 @@ export default function functionGeneral() {
       });
     }
   };
-  const searchParam = async (param, module, data) => {
+  const searchParam = async (param, module, data, active) => {
     let d = new FormData();
     d.append(`${param}`, data);
+    d.append("active", active);
     let pet = await fetch(`${module}/get_all`, {
       method: "POST",
       body: d,

@@ -217,6 +217,32 @@ export default function Templates() {
         `
     }
     function targetTable(objet) {
+        let action = `
+        <div class="card-footer">
+            <small class="text-body-secondary">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <p class="mb-0">Estado: <span class="badge text-bg-${objet.estado == "LIBRE" ? 'success' : 'secondary'}">${objet.estado}</span></p>
+                    <div class="d-flex gap-3">
+                        <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="table" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-table" data-bs-title="Editar Mesa" data-bs-placement="bottom">
+                            <i data-feather="edit"></i>
+                        </a>
+                        <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="table" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Mesa" data-bs-placement="bottom">
+                            <i data-feather="trash-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </small>
+        </div>
+        `
+        let action2 = `
+        <div class="card-footer">
+            <small class="text-body-secondary">
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <p class="mb-0">Estado: <span class="badge text-bg-${objet.estado == "LIBRE" ? 'success' : 'secondary'}">${objet.estado}</span></p>
+                </div>
+            </small>
+        </div>
+        `
         return `
         <div class="col-md-3">
             <div class="card h-100">
@@ -228,21 +254,7 @@ export default function Templates() {
                         <h5 class="card-title m-0">VIP: ${objet.vip == true ? 'Si' : 'No'}</h5>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <small class="text-body-secondary">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <p class="mb-0">Estado: <span class="badge text-bg-success">Libre</span></p>
-                            <div class="d-flex gap-3">
-                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="table" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-table" data-bs-title="Editar Mesa" data-bs-placement="bottom">
-                                    <i data-feather="edit"></i>
-                                </a>
-                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="table" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Mesa" data-bs-placement="bottom">
-                                    <i data-feather="trash-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </small>
-                </div>
+                ${objet.estado == "LIBRE" ? action : action2}
             </div>
         </div>
 `

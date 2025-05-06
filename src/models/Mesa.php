@@ -11,6 +11,7 @@ class Mesa extends Db_base {
     private $estado;
     private $imagen;
     private $vip;
+    private $nombre_like;
 
     public function __construct(
         $id = null,
@@ -20,7 +21,8 @@ class Mesa extends Db_base {
         $estado = null,
         $imagen_name = null,
         $imagen = null,
-        $vip = null
+        $vip = null,
+        $nombre_like = null
     ) {
         parent::__construct("mesas");
         
@@ -31,6 +33,11 @@ class Mesa extends Db_base {
         $this->estado = $estado;
         $this->imagen = $imagen_name;
         $this->vip = $vip;
+        $this->nombre_like = $nombre_like;
+
+        $this->add_variables_like([
+            "a.nombre" => $this->nombre_like
+        ]);
 
         $this->add_variables([
             "a.id" => $this->id,
