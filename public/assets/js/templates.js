@@ -322,7 +322,7 @@ export default function Templates() {
         </div>
     `
     }
-    function elemenFormTables(objet){
+    function elemenFormTables(objet) {
         return `
         <div class="row g-2 tables" id="tables-${objet}">
             <div class="d-flex align-items-center gap-4 mb-3 mt-3">
@@ -480,61 +480,71 @@ export default function Templates() {
     }
     function elemenFormRawMaterial(objet) {
         return `
-        <div class="rawmaterial row mt-4" id="rawmaterial-${objet}">
+        <div class="rawmaterials row mt-4" id="rawmaterials-${objet}">
             <div class="d-flex align-items-center gap-4 mb-3">
                 <h4 class="m-0">Materia Prima ${objet}</h4>
                 <button type="button" class="btn btn-circle btn-secondary remove-rawmaterial">
                     <i data-feather="trash"></i>
                 </button>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <label for="inputEmail4" class="form-label">Nombre</label>
                 <input type="text" class="form-control" placeholder="Nombre" id="input-name-rawMaterial-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-rawMaterial-${objet}"></div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="inputCity" class="form-label">Categoria</label>
-                <div class="dropdown">
+                <div class="dropdown select_options_categorys_rawmaterial">
                     <div class="dropdown">
                         <div class="btn-group w-100" bis_skin_checked="1">
-                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-rawMaterial-${objet}" name="id_categoria">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-rawMaterial-${objet}" name="id_categoria" data-id="Seleccione una opcion">
                             <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span> <i data-feather="chevron-down"></i></span>
                             </button>
                             <div class="dropdown-menu p-2" bis_skin_checked="1">
                                 <div>
-                                    <input class="form-control" type="text" placeholder="Buscar">
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
                                 </div>
-                                <a class="dropdown-item">Action</a>
-                                <a class="dropdown-item">Another action</a>
-                                <a class="dropdown-item">Something else here</a>
+                                <div class="options_search">
+                                    <!-- aqui cargan las opciones con ajax -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-category-rawMaterial-${objet}"></div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="inputCity" class="form-label">Unidad</label>
-                <div class="dropdown">
+                <div class="dropdown select_options_units_rawmaterial">
                     <div class="dropdown">
                         <div class="btn-group w-100" bis_skin_checked="1">
-                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-unit-rawMaterial-${objet}" name="id_unidad">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-unit-rawMaterial-${objet}" name="id_unidad" data-id="Seleccione una opcion">
                             <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span> <i data-feather="chevron-down"></i></span>
                             </button>
                             <div class="dropdown-menu p-2" bis_skin_checked="1">
                                 <div>
-                                    <input class="form-control" type="text" placeholder="Buscar">
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
                                 </div>
-                                <a class="dropdown-item">Action</a>
-                                <a class="dropdown-item">Another action</a>
-                                <a class="dropdown-item">Something else here</a>
+                                <div class="options_search">
+                                    <!-- aqui cargan las opciones con ajax -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-unit-rawMaterial-${objet}"></div>
+            </div>
+            <div class="col-md-2">
+                <label for="inputEmail4" class="form-label">Stock Min</label>
+                <input type="number" class="form-control" placeholder="Nombre" id="input-min-rawMaterial-${objet}" name="min">
+                <div class="text-danger mt-1 fs-6" id="error-input-min-rawMaterial-${objet}"></div>
+            </div>
+            <div class="col-md-2">
+                <label for="inputEmail4" class="form-label">Stock Max</label>
+                <input type="number" class="form-control" placeholder="Nombre" id="input-max-rawMaterial-${objet}" name="max">
+                <div class="text-danger mt-1 fs-6" id="error-input-max-rawMaterial-${objet}"></div>
             </div>
         </div>
         `

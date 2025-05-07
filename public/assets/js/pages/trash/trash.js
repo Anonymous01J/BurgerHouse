@@ -2,7 +2,7 @@ const modulesConfig = {
     mesas: {
         ajax: {
             dataSrc: '',
-            url: 'table/get_all',
+            url: 'table/get_all/0/10000000/id/asc',
             type: 'POST',
             data: { active: 0 },
         },
@@ -24,7 +24,7 @@ const modulesConfig = {
     },
     combo: {
         ajax: {
-            url: 'combo/get_all',
+            url: 'combo/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             data: {
@@ -49,7 +49,7 @@ const modulesConfig = {
     },
     Proveedores: {
         ajax: {
-            url: 'supplier/get_all',
+            url: 'supplier/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             data: {
@@ -74,7 +74,7 @@ const modulesConfig = {
     },
     Clientes: {
         ajax: {
-            url: 'clients/get_all',
+            url: 'clients/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             data: {
@@ -99,7 +99,7 @@ const modulesConfig = {
     },
     Unidades: {
         ajax: {
-            url: 'units/get_all',
+            url: 'units/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             dataSrc: '',
@@ -123,9 +123,39 @@ const modulesConfig = {
             }
         ]
     },
+    materia_prima: {
+        ajax: {
+            url: 'rawmaterial/get_all/0/10000000/id/asc',
+            dataSrc: '',
+            type: 'POST',
+            dataSrc: '',
+            data: {
+                active: 0
+            }
+        },
+        columns: [
+            { title: 'ID', data: 'id' },
+            { title: 'Nombre', data: 'nombre' },
+            { title: 'Categoria', data: 'nombre_categoria' },
+            { title: 'Unidad', data: 'alias_unidad' },
+            { title: 'Stock Min', data: 'stock_min' },
+            { title: 'StocK Max', data: 'stock_max' },
+            { title: 'existencia', data: 'existencia' },
+            {
+                title: 'Acciones',
+                data: null,
+                render: (data) =>
+                    `
+                <button data-id="${data.id}" data-module-restore="rawmaterial" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Unidad" data-bs-placement="bottom">
+                    <i data-feather="refresh-ccw" class="text-white"></i>
+                </button>
+                `
+            }
+        ]
+    },
     Categoria_combo: {
         ajax: {
-            url: 'categoryProducto/get_all',
+            url: 'categoryProducto/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             data: {
@@ -149,7 +179,7 @@ const modulesConfig = {
     },
     Categoria_rawmaterial: {
         ajax: {
-            url: 'categoryMateriaPrima/get_all',
+            url: 'categoryMateriaPrima/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             data: {
@@ -173,7 +203,7 @@ const modulesConfig = {
     },
     Metodos_pago: {
         ajax: {
-            url: 'paymentMethod/get_all',
+            url: 'paymentMethod/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             data: {
@@ -197,7 +227,7 @@ const modulesConfig = {
     },
     Roles: {
         ajax: {
-            url: 'rol/get_all',
+            url: 'rol/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             data: {
@@ -222,7 +252,7 @@ const modulesConfig = {
     },
     Usuarios: {
         ajax: {
-            url: 'users/get_all',
+            url: 'users/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             data: {
@@ -346,3 +376,5 @@ options.forEach((option) => {
         initTable(moduleKey);
     });
 });
+
+initTable("mesas");

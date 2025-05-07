@@ -8,7 +8,7 @@ let n = $(".table_unit").DataTable({
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
     },
     ajax: {
-        url: 'units/get_all',
+        url: 'units/get_all/0/10000000/id/asc',
         dataSrc: '',
         type: 'POST',
         data: {

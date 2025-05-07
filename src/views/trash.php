@@ -45,7 +45,7 @@
                                                     <div class="options_search" style="max-height: 180px; overflow-y: scroll;">
                                                         <a class="dropdown-item" data-key="mesas">Mesas</a>
                                                         <a class="dropdown-item" data-key="combo">Combo</a>
-                                                        <a class="dropdown-item" data-key="">Materia Prima</a>
+                                                        <a class="dropdown-item" data-key="materia_prima">Materia Prima</a>
                                                         <a class="dropdown-item" data-key="">Receta</a>
                                                         <a class="dropdown-item" data-key="">Adicionales</a>
                                                         <a class="dropdown-item" data-key="Proveedores">Proveedores</a>
