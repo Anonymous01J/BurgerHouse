@@ -291,6 +291,10 @@ function initTable(moduleKey) {
         processing: !!config.serverSide
     });
 
+    $('#SearchTrash').on('keyup', function () {
+        table.search(this.value).draw();
+    });
+
     // Evento de restaurar
     $('.table_trash tbody').off('click', 'button.btn_datatable_restore').on('click', 'button.btn_datatable_restore', function () {
         Swal.fire({

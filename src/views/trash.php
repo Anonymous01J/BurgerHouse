@@ -31,7 +31,7 @@
                         <div class="card-body">
                             <div class="d-flex gap-4">
                                 <div class="col-md-6 col-lg-2">
-                                    <input type="search" class="form-control" id="" placeholder="Buscar">
+                                    <input type="search" class="form-control" id="SearchTrash" placeholder="Buscar">
                                 </div>
                                 <div class="col-md-6 col-lg-3">
                                     <div class="dropdown select_options_module">
