@@ -32,12 +32,15 @@
 
         <div class="container-fluid">
 
-            <div class="row g-3 align-items-center mb-5">
+            <div class="row g-3 align-items-center mb-5 gap-2">
                 <div class="col-auto">
                     <input type="search" id="SearchClients" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
                 <button data-bs-toggle="modal" data-bs-target="#register-client" style="color: #fff;" type="button" class="btn bh_1 btn-circle btn-add-tooltip" data-bs-title="Agregar Cliente" data-bs-placement="top">
                     <i data-feather="plus" class="svg-icon"></i>
+                </button>
+                <button data-bs-toggle="tooltip"  type="button" class="btn bh_1 btn-circle btn-add-tooltip text-white" data-bs-title="Reporte de clientes" data-bs-placement="top" id="btn-report">
+                    <i data-feather="file-minus" class="svg-icon"></i>
                 </button>
             </div>
             <div class="row container_clients">
@@ -45,7 +48,6 @@
             </div>
         </div>
 
-        <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/modals/client/modal.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
 
@@ -58,4 +60,7 @@
     <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
+    <script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
+    <script src="./assets/libs/libs/jspdf/jspdf.plugin.autotable.min.js"></script>
     <script type="module" src="./assets/js/pages/client/client.js"></script>
+    <script type="module" src="./assets/js/pages/client/report.js"></script>

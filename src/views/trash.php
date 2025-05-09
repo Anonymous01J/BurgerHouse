@@ -44,10 +44,10 @@
                                                 <div class="dropdown-menu p-2" bis_skin_checked="1">
                                                     <div class="options_search" style="max-height: 180px; overflow-y: scroll;">
                                                         <a class="dropdown-item" data-key="mesas">Mesas</a>
-                                                        <a class="dropdown-item" data-key="combo">Combo</a>
+                                                        <a class="dropdown-item" data-key="product">Productos</a>
                                                         <a class="dropdown-item" data-key="materia_prima">Materia Prima</a>
                                                         <a class="dropdown-item" data-key="">Receta</a>
-                                                        <a class="dropdown-item" data-key="">Adicionales</a>
+                                                        <a class="dropdown-item" data-key="Adicionales">Adicionales</a>
                                                         <a class="dropdown-item" data-key="Proveedores">Proveedores</a>
                                                         <a class="dropdown-item" data-key="Clientes">Clientes</a>
                                                         <a class="dropdown-item" data-key="Unidades">Unidades</a>

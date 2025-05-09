@@ -13,13 +13,13 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Combo</h3>
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Productos</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
                                 <li class="breadcrumb-item"><a href="index.html" class="text-muted">Modulos</a></li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Combos</li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Combo</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Productos</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Producto</li>
                             </ol>
                         </nav>
                     </div>
@@ -34,9 +34,9 @@
 
             <div class="row g-3 align-items-center mb-5">
                 <div class="col-auto">
-                    <input type="search" id="searchCombos" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                    <input type="search" id="searchProduct" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="combo" data-bs-toggle="modal" data-bs-target="#register-combo" data-bs-title="Agregar Combo" 
+                <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="product" data-bs-toggle="modal" data-bs-target="#register-product" data-bs-title="Agregar Producto" 
                 data-bs-placement="top">
                     <i data-feather="plus" class="svg-icon"></i>
                 </button>
@@ -44,7 +44,7 @@
 
             <div class="row">
 
-                <?php include_once __DIR__ . '/../Views/Components/modals/combo/modal.php' ?>
+                <?php include_once __DIR__ . '/../Views/Components/modals/product/modal.php' ?>
 
                 <div class="col-md-12 col-lg-3">
                     <div class="card">
@@ -102,31 +102,7 @@
                     </div>
                 </div>
                 <div class="col-md-12 col-lg-9">
-                    <!-- <div class="row justify-content-center gap-5 cont-combos">
-                        <div class="card shadow rounded-4 mt-5 w-auto h-auto">
-                            <div class="d-flex align-items-center" style="transform: translateY(-70px);">
-                                <img src="./assets/img/users/profile-pic.jpg" alt="user" class="rounded-circle img-fluid" width="150">
-                            </div>
-                            <div class="card-body p-0" style="transform: translateY(-50px);">
-                                <h5 class="card-title mb-3">Nombre</h5>
-                                <div class="mb-4">
-                                    <i data-feather="star" class="text-warning"></i>
-                                    <i data-feather="star" class="text-warning"></i>
-                                    <i data-feather="star" class="text-warning"></i>
-                                    <i data-feather="star" class="text-warning"></i>
-                                    <i data-feather="star" class="text-secondary"></i>
-                                </div>
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <p class="mb-0">precio</p>
-                                    <div class="d-flex gap-3">
-                                        <i data-feather="edit"></i>
-                                        <i data-feather="trash-2"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-4 cont-combos">
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-4 cont-product ">
                         
                     </div>
                 </div>
@@ -145,4 +121,4 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
-<script type="module" defer src="./assets/js/pages/combo/combo.js"></script>
+<script type="module" defer src="./assets/js/pages/product/product.js"></script>

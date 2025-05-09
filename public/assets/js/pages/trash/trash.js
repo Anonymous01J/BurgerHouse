@@ -22,9 +22,9 @@ const modulesConfig = {
             }
         ]
     },
-    combo: {
+    product: {
         ajax: {
-            url: 'combo/get_all/0/10000000/id/asc',
+            url: 'product/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             data: {
@@ -32,7 +32,7 @@ const modulesConfig = {
             }
         },
         columns: [
-            { title: '', data: null, render: (data) => `<img src='${data.imagen ? "media/combos/" + data.imagen : "./assets/img/big/banner_login.png"}' width='50px' height='50px'>` },
+            { title: '', data: null, render: (data) => `<img src='${data.imagen ? "media/productos/" + data.imagen : "./assets/img/big/banner_login.png"}' width='50px' height='50px'>` },
             { title: 'Nombre', data: 'nombre' },
             { title: 'Precio', data: 'precio' },
             {
@@ -40,7 +40,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="combo" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Combo" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="product" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Producto" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -277,6 +277,29 @@ const modulesConfig = {
             }
         ]
     },
+    Adicionales: {
+        ajax: {
+            url: 'additional/get_all/0/10000000/id/asc',
+            dataSrc: '',
+            type: 'POST',
+            data: {active: 0}
+        },
+        columns: [
+            { title: '', data: null ,render: (data) =>{return `<img style="object-fit: cover" src='media/adicionales/${data.imagen}' width='50px' height='50px'>`}},
+            { title: 'Nombre', data: 'nombre' },
+            { title: 'Precio', data: null, render: (data) =>{return (data.precio).toString().replace(".",",") + " $" }},
+            {
+                title: 'Acciones',
+                data: null,
+                render: (data) =>
+                    `
+                <button data-id="${data.id}" data-module-restore="additional" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Adicional" data-bs-placement="bottom">
+                    <i data-feather="refresh-ccw" class="text-white"></i>
+                </button>
+                `
+            }
+        ]
+    },
 };
 
 let table;
@@ -363,8 +386,6 @@ function initTable(moduleKey) {
         });
     });
 }
-
-
 let select = document.querySelector(".select_options_module")
 let options = select.querySelectorAll(".dropdown-item")
 

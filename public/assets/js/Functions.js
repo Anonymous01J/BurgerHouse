@@ -382,6 +382,7 @@ export default function functionGeneral() {
       body: data,
     });
     let response = await action.json()
+    console.log(response);
     if (response.success == true) {
       Swal.fire({
         title: `Exito!`,
@@ -548,6 +549,7 @@ export default function functionGeneral() {
       body: data,
     })
     let response = await pet.json()
+    console.log(response);
     if (response.success == true) {
       Swal.fire({
         title: `Exito!`,
