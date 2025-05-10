@@ -12,24 +12,25 @@
             $productos = $this->productos->search();
             $this->categorias = new CategoriasProductos();
             $categorias = $this->categorias->search();
-            // header(header: 'Content-Type: application/json');
-            // echo json_encode(value: [
-            //     'productos' => $productos,
-            //     'categorias' => $categorias
-            // ]);
             include_once __DIR__ . '/../Views/index.php';
         }
         
-        // public function mostrarCategorias() {
-        //     $this->categorias = new CategoriaProductos(); // Cambié 'categoriaProductos' a 'CategoriaProductos' para mantener la consistencia en el uso de mayúsculas.
-        //     $categorias = $this->categorias->search();
-        //     require_once 'View/categorias.php';
-        // }
+        public function mostrarCategorias() {
+            $this->categorias = new CategoriasProductos();
+            $categorias = $this->categorias->search();
+            header(header: 'Content-Type: application/json');
+            echo json_encode(value: [
+                'categorias' => $categorias,
+            ]);
+        }
         
-        // public function mostrarProductos() {
-        //     $this->productos = new Productos();
-        //     $productos = $this->productos->search();
-        //     require_once 'View/productos.php';
-        // }
+        public function mostrarProductos() {
+            $this->productos = new Productos();
+            $productos = $this->productos->search();
+            header(header: 'Content-Type: application/json');
+            echo json_encode(value: [
+                'productos' => $productos,
+            ]);
+        }
     }
 ?>

@@ -1,6 +1,7 @@
+import Templates from './templates.js';
+const templates = Templates();
 (function() {
   "use strict";
-
   /**
    * Apply .scrolled class to the body as the page is scrolled down
    */
@@ -190,7 +191,52 @@
       }
     })
   }
-  window.addEventListener('load', navmenuScrollspy);
+  /**
+ * Función para consultar productos vía AJAX
+ */
+  /**
+   * Función para consultar categorías vía AJAX
+   */
+  function fetchCategorias() {
+    fetch('?c=CMain/mostrarCategorias')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error al obtener las categorías');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(response);
+        const categoriasContainer = document.querySelector('#categorias-container');
+        categoriasContainer.innerHTML = ''; // Limpiar el contenedor
+        data.categorias.forEach(categoria => {
+          categoriasContainer.innerHTML += templates.targetCategories(categoria);
+        });
+      })
+      .catch(error => console.error('Error:', error));
+  }
+  function fetchProductos() {
+    fetch('?c=CMain/mostrarProductos')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Error al obtener los productos');
+        }
+        return response.json();
+      })
+      .then(data => {
+        const productosContainer = document.querySelector('#productos-container');
+        productosContainer.innerHTML = ''; // Limpiar el contenedor
+        data.productos.forEach(producto => {
+          productosContainer.innerHTML += templates.targetProducts(producto);
+        });
+      })
+      .catch(error => console.error('Error:', error));
+  }
+  window.addEventListener('load', () => {
+    navmenuScrollspy
+    // fetchProductos();
+    // fetchCategorias();
+  });
   document.addEventListener('scroll', navmenuScrollspy);
 
 })();

@@ -403,7 +403,7 @@
 
         <div class="row" data-aos="fade-up" data-aos-delay="100">
           <div class="col-lg-12 d-flex justify-content-center">
-            <ul class="menu-filters isotope-filters">
+            <ul id="categorias-container" class="menu-filters isotope-filters">
               <li data-filter="*" class="filter-active">Todos</li>
               <?php 
                 if (!empty($categorias)) {
@@ -419,7 +419,7 @@
           </div>
         </div><!-- Menu Filters -->
 
-        <div class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
+        <div id="productos-container" class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
           <?php foreach ($productos as $producto): ?>
             <div class="col-lg-6 menu-item isotope-item filter-<?= htmlspecialchars($producto['id_categoria']) ?>">
               <img src="<?= !empty($producto['imagen']) ? htmlspecialchars($producto['imagen']) : 'assets/img/menu/lobster-roll.jpg' ?>" class="menu-img" alt="">
