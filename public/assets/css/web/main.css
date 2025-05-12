@@ -5,16 +5,20 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Rubik:300,400,500,700&display=swap");
+@import 'icons/font-awesome/css/fontawesome-all.css';
+@import 'icons/simple-line-icons/css/simple-line-icons.css';
+@import 'icons/themify-icons/themify-icons.css';
 /*--------------------------------------------------------------
 # Font & Color Variables
 # Help: https://bootstrapmade.com/color-system/
 --------------------------------------------------------------*/
 /* Fonts */
 :root {
-  --default-font: "Roboto",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --heading-font: "Playfair Display",  sans-serif;
-  --nav-font: "Poppins",  sans-serif;
+  --default-font: "Rubik",  system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --heading-font: "Rubik",  sans-serif;
+  --nav-font: "Rubik",  sans-serif;
 }
 
 /* Global Colors - The following color variables are used throughout the website. Updating them here will change the color scheme of the entire website */
@@ -1193,7 +1197,7 @@ section,
 .menu .menu-content::after {
   content: "......................................................................" "...................................................................." "....................................................................";
   position: absolute;
-  left: 20px;
+  left: 145px;
   right: 0;
   top: -4px;
   z-index: 1;
@@ -1203,7 +1207,7 @@ section,
 
 .menu .menu-content a {
   color: var(--heading-color);
-  background: var(--background-color);
+  /* background: var(--background-color); */
   padding-right: 10px;
   position: relative;
   z-index: 3;

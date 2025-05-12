@@ -30,7 +30,7 @@ CREATE TABLE `adicionales` (
   `active` int NOT NULL DEFAULT '1',
   `tipo` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,9 +185,7 @@ CREATE TABLE `clientes` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `apellido` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `documento` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `telefono` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `direccion` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -199,7 +197,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'Jose','Escalona','V-85652235','+584126742231','Avenida 15, local numero 5',1),(2,'Pedro','Escalona','V-29654423','+584161214717','una direccion cualquiera',1);
+INSERT INTO `clientes` VALUES (1,'Jose','Escalona','+584126742231',1),(2,'Pedro','Escalona','+584161214717',0);
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -228,35 +226,6 @@ LOCK TABLES `configuraciones` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `credito`
---
-
-DROP TABLE IF EXISTS `credito`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `credito` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_venta` int NOT NULL,
-  `fecha` datetime NOT NULL,
-  `monto_credito` float NOT NULL,
-  `monto_final` float NOT NULL,
-  `estado` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `idRegistroVentas` (`id_venta`),
-  CONSTRAINT `credito_ibfk_1` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `credito`
---
-
-LOCK TABLES `credito` WRITE;
-/*!40000 ALTER TABLE `credito` DISABLE KEYS */;
-/*!40000 ALTER TABLE `credito` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `deliverys`
 --
 
@@ -272,7 +241,7 @@ CREATE TABLE `deliverys` (
   KEY `id_usuario_delivery_idx` (`id_usuario_delivery`),
   CONSTRAINT `id_usuario_delivery` FOREIGN KEY (`id_usuario_delivery`) REFERENCES `usuario` (`id`),
   CONSTRAINT `id_venta_delivery` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -454,7 +423,7 @@ CREATE TABLE `mesa_reservacion` (
   KEY `id_mesa_idx` (`id_mesa`),
   CONSTRAINT `id_mesa` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id`),
   CONSTRAINT `id_reservacion` FOREIGN KEY (`id_reservacion`) REFERENCES `reservaciones` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -482,7 +451,7 @@ CREATE TABLE `mesas` (
   `imagen` varchar(500) NOT NULL,
   `active` varchar(45) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -491,7 +460,7 @@ CREATE TABLE `mesas` (
 
 LOCK TABLES `mesas` WRITE;
 /*!40000 ALTER TABLE `mesas` DISABLE KEYS */;
-INSERT INTO `mesas` VALUES (1,'Mesa 2','5','LIBRE','0','29604004.jpg','1'),(2,'Mesa 45','10','OCUPADA','1','concepto-rpa-pantalla-tactil-mano-borrosa.jpg','1'),(3,'Mesa 9','4','LIBRE','0','5f395e0a-584d-4540-bc2b-3dba66a98c31.jpeg','0'),(4,'Mesa 10','7','LIBRE','1','championship-leblanc-league-of-legends_3840x2161_xtrafondos.com.jpg','0'),(5,'Mesa dios','58','LIBRE','0','depositphotos_66292255-stock-photo-dark-background-with-spotlights.jpg','0'),(6,'Mesa 99','10','LIBRE','1','5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg','1');
+INSERT INTO `mesas` VALUES (1,'Mesa 2','5','LIBRE','0','29604004.jpg','0'),(2,'Mesa 45','10','OCUPADA','1','concepto-rpa-pantalla-tactil-mano-borrosa.jpg','1'),(3,'Mesa 9','4','LIBRE','0','5f395e0a-584d-4540-bc2b-3dba66a98c31.jpeg','0'),(4,'Mesa 10','7','LIBRE','1','championship-leblanc-league-of-legends_3840x2161_xtrafondos.com.jpg','0'),(5,'Mesa dios','58','LIBRE','0','depositphotos_66292255-stock-photo-dark-background-with-spotlights.jpg','1'),(6,'Mesa 99','10','LIBRE','1','5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg','1');
 /*!40000 ALTER TABLE `mesas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -606,6 +575,94 @@ CREATE TABLE `orden` (
 LOCK TABLES `orden` WRITE;
 /*!40000 ALTER TABLE `orden` DISABLE KEYS */;
 /*!40000 ALTER TABLE `orden` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orden_mesa`
+--
+
+DROP TABLE IF EXISTS `orden_mesa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orden_mesa` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_mesa` int DEFAULT NULL,
+  `id_orden` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id5_idx` (`id_mesa`),
+  KEY `id6_idx` (`id_orden`),
+  CONSTRAINT `id5` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id`),
+  CONSTRAINT `id6` FOREIGN KEY (`id_orden`) REFERENCES `orden` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orden_mesa`
+--
+
+LOCK TABLES `orden_mesa` WRITE;
+/*!40000 ALTER TABLE `orden_mesa` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orden_mesa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `orden_reserva`
+--
+
+DROP TABLE IF EXISTS `orden_reserva`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `orden_reserva` (
+  `id` int NOT NULL,
+  `id_orden` int DEFAULT NULL,
+  `id_reserva` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id6_idx` (`id_orden`),
+  KEY `id7_idx` (`id_reserva`),
+  CONSTRAINT `id10` FOREIGN KEY (`id_orden`) REFERENCES `orden` (`Id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `id7` FOREIGN KEY (`id_reserva`) REFERENCES `reservaciones` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `orden_reserva`
+--
+
+LOCK TABLES `orden_reserva` WRITE;
+/*!40000 ALTER TABLE `orden_reserva` DISABLE KEYS */;
+/*!40000 ALTER TABLE `orden_reserva` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pago_reserva`
+--
+
+DROP TABLE IF EXISTS `pago_reserva`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pago_reserva` (
+  `id` int NOT NULL,
+  `id_reserva` int DEFAULT NULL,
+  `id_metodo_pago` int DEFAULT NULL,
+  `monto` float DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
+  `comprobante` varchar(45) DEFAULT NULL,
+  `tasa` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id8_idx` (`id_reserva`),
+  KEY `id59_idx` (`id_metodo_pago`),
+  CONSTRAINT `id59` FOREIGN KEY (`id_metodo_pago`) REFERENCES `metodo_pago` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `id8` FOREIGN KEY (`id_reserva`) REFERENCES `reservaciones` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pago_reserva`
+--
+
+LOCK TABLES `pago_reserva` WRITE;
+/*!40000 ALTER TABLE `pago_reserva` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pago_reserva` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -741,14 +798,14 @@ DROP TABLE IF EXISTS `reservaciones`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `reservaciones` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `id_usuario` int NOT NULL,
+  `id_cliente` int NOT NULL,
   `cantidad_personas` float NOT NULL,
   `descripcion` varchar(40) DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `id_usuario_reservacion_idx` (`id_usuario`),
-  CONSTRAINT `id_usuario_reservacion` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+  KEY `id4_idx` (`id_cliente`),
+  CONSTRAINT `id4` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -813,6 +870,34 @@ INSERT INTO `unidades` VALUES (1,'Litro','Lt','1'),(2,'Gramo','Gr','1'),(3,'Kilo
 UNLOCK TABLES;
 
 --
+-- Table structure for table `usuari_cliente`
+--
+
+DROP TABLE IF EXISTS `usuari_cliente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `usuari_cliente` (
+  `id` int NOT NULL,
+  `id_cliente` int DEFAULT NULL,
+  `id_usuario` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id1_idx` (`id_cliente`),
+  KEY `id2_idx` (`id_usuario`),
+  CONSTRAINT `id1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `id2` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `usuari_cliente`
+--
+
+LOCK TABLES `usuari_cliente` WRITE;
+/*!40000 ALTER TABLE `usuari_cliente` DISABLE KEYS */;
+/*!40000 ALTER TABLE `usuari_cliente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `usuario`
 --
 
@@ -825,12 +910,10 @@ CREATE TABLE `usuario` (
   `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `hash` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `apellido` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `documento` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `session_id` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '1',
   `email` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `documento_UNIQUE` (`documento`),
   KEY `idRol` (`id_rol`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
@@ -842,7 +925,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (11,10,'Alejandro','Luisgv202*','Vargas','V-30087582',1,'1','garnicaluis391@gmail.com'),(13,10,'Pedro','Pedro25**','Perez','V-58963325',1,'1','pedro202@gmail.com');
+INSERT INTO `usuario` VALUES (11,10,'Alejandro','Luisgv202*','Vargas',1,'1','garnicaluis391@gmail.com'),(13,10,'Pedro','Pedro25**','Perez',1,'1','pedro202@gmail.com');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -888,4 +971,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-09 15:12:51
+-- Dump completed on 2025-05-12 18:54:14
