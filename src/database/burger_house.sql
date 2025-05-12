@@ -16,6 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `adicional_orden`
+--
+
+DROP TABLE IF EXISTS `adicional_orden`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `adicional_orden` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_adicional` int NOT NULL,
+  `id_orden` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_13_idx` (`id_orden`),
+  KEY `id14_idx` (`id_adicional`),
+  CONSTRAINT `id14` FOREIGN KEY (`id_adicional`) REFERENCES `adicionales` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `id_13` FOREIGN KEY (`id_orden`) REFERENCES `orden` (`Id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `adicional_orden`
+--
+
+LOCK TABLES `adicional_orden` WRITE;
+/*!40000 ALTER TABLE `adicional_orden` DISABLE KEYS */;
+/*!40000 ALTER TABLE `adicional_orden` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `adicionales`
 --
 
@@ -251,36 +279,6 @@ CREATE TABLE `deliverys` (
 LOCK TABLES `deliverys` WRITE;
 /*!40000 ALTER TABLE `deliverys` DISABLE KEYS */;
 /*!40000 ALTER TABLE `deliverys` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `detalles_orden`
---
-
-DROP TABLE IF EXISTS `detalles_orden`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `detalles_orden` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `Id_Orden` int NOT NULL,
-  `Id_producto` int NOT NULL,
-  `detalles_producto` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `cantidad` int NOT NULL,
-  PRIMARY KEY (`Id`),
-  KEY `Id_Orden` (`Id_Orden`),
-  KEY `Id_producto` (`Id_producto`),
-  CONSTRAINT `Id_orden_ibfk_1` FOREIGN KEY (`Id_Orden`) REFERENCES `orden` (`Id`),
-  CONSTRAINT `productos_ibfk_2` FOREIGN KEY (`Id_producto`) REFERENCES `productos` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `detalles_orden`
---
-
-LOCK TABLES `detalles_orden` WRITE;
-/*!40000 ALTER TABLE `detalles_orden` DISABLE KEYS */;
-/*!40000 ALTER TABLE `detalles_orden` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -698,6 +696,34 @@ LOCK TABLES `pagos` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `producto_detalle_orden`
+--
+
+DROP TABLE IF EXISTS `producto_detalle_orden`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `producto_detalle_orden` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_producto` int NOT NULL,
+  `id_orden` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id11_idx` (`id_producto`),
+  KEY `id12_idx` (`id_orden`),
+  CONSTRAINT `id11` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`),
+  CONSTRAINT `id12` FOREIGN KEY (`id_orden`) REFERENCES `orden` (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `producto_detalle_orden`
+--
+
+LOCK TABLES `producto_detalle_orden` WRITE;
+/*!40000 ALTER TABLE `producto_detalle_orden` DISABLE KEYS */;
+/*!40000 ALTER TABLE `producto_detalle_orden` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `productos`
 --
 
@@ -971,4 +997,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-12 18:54:14
+-- Dump completed on 2025-05-12 19:10:56
