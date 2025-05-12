@@ -1,16 +1,16 @@
-<!-- modal para agg combos -->
-<div class="modal fade p-0" id="register-combo" tabindex="-1">
+<!-- modal para agg productos -->
+<div class="modal fade p-0" id="register-product" tabindex="-1">
     <div class="modal-dialog modal-fullscreen modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar Combo</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Registrar Producto</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="form-submit-combo">
                     <div id="products-container">
                         <div class="row g-2 product" id="product-1">
-                            <h4>Combo 1</h4>
+                            <h4>Producto 1</h4>
                             <div class="col-md-4">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
                                 <input type="text" class="form-control" placeholder="Nombre" id="input-name-combo-1" name="nombre">
@@ -75,11 +75,11 @@
     </div>
 </div>
 <!-- modal para editar como -->
-<div class="modal fade p-0" id="edit-combo" tabindex="-1">
+<div class="modal fade p-0" id="edit-product" tabindex="-1">
     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Combo</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Producto</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

@@ -2,13 +2,15 @@
 namespace Shtch\Burgerhouse\controllers;
 use Shtch\Burgerhouse\controllers\Controller_base;
 use Exception;
-use Shtch\Burgerhouse\models\Mesa;
+use Shtch\Burgerhouse\models\Producto;
 
-class MesaController extends Controller_base {
+class ProductController extends Controller_base {
+
     public function __construct() {
-        parent::__construct(module_name: "mesas");
-        $this->db = new Mesa();
+        parent::__construct(module_name: "product");
+        $this->db = new Producto();
     }
+
     public function add() {
         header('Content-Type: application/json');
         try {
@@ -54,10 +56,10 @@ class MesaController extends Controller_base {
 
     public function guardar_imagen($pre,$index) {
         $imagen = $_FILES['lista'];
-        move_uploaded_file($imagen['tmp_name'][$index]['imagen'],'../src/media/combos/'.$imagen['name'][$index]['imagen']);
+        move_uploaded_file($imagen['tmp_name'][$index]['imagen'],'../src/media/productos/'.$imagen['name'][$index]['imagen']);
     }
     public function guardar_imagen_single() {
         $imagen = $_FILES['imagen'];
-        move_uploaded_file($imagen['tmp_name'],'../src/media/combos/'.$imagen['name']);
+        move_uploaded_file($imagen['tmp_name'],'../src/media/productos/'.$imagen['name']);
     }
 }

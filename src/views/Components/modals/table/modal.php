@@ -51,7 +51,7 @@
 
 <!-- modal para editar tables -->
 <div class="modal fade p-0" id="edit-table" tabindex="-1">
-    <div class="modal-dialog modal-modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Editar Mesa</h1>
@@ -62,29 +62,29 @@
                     <div id="table-container">
                         <input type="hidden" id="input-id-table">
                         <div class="row g-2 table" id="table">
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
                                 <input type="text" class="form-control" placeholder="Nombre" id="input-name-table" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-table"></div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nro de sillas</label>
                                 <input type="number" class="form-control" placeholder="Nro de sillas" id="input-chair-table" name="sillas">
                                 <div class="text-danger mt-1 fs-6" id="error-input-chair-table"></div>
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <label for="inputAddress2" class="form-label">VIP</label>
                                 <br>
                                 <input type="checkbox" class="btn-check" id="input-vip-table" autocomplete="off" name="vip">
                                 <label class="btn btn-outline-primary w-100" for="input-vip-table">VIP</label><br>
                                 <div class="text-danger mt-1 fs-6" id="error-input-vip-table"></div>
                             </div>
-                            <div class="col-md-5">
+                            <div class="col-md-10">
                                 <label for="inputZip" class="form-label">Imagen</label>
                                 <input class="form-control input-image" type="file" id="input-image-table" name="imagen">
                                 <div class="text-danger mt-1 fs-6" id="error-input-image-table"></div>
                             </div>
-                            <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
+                            <img id="img-table-response" class="mt-3" src="" alt="Vista previa" style="max-width: 200px;">
                         </div>
                     </div>
                     <input type="submit" class="d-none" id="submit-edit-table">

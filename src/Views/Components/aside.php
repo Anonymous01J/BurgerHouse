@@ -126,17 +126,17 @@
 
                 <li class="nav-small-cap"><span class="hide-menu">Modulos</span></li>
 
-                <li class="sidebar-item" data-module="Combos">
-                    <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                <li class="sidebar-item" data-module="Product">
+                    <a class="sidebar-link has-arrow" href="#"
                         aria-expanded="false">
                         <i data-feather="codepen" class="feather-icon"></i>
-                        <span class="hide-menu">Combos</span>
+                        <span class="hide-menu">Productos</span>
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        <li class="sidebar-item" data-module="Combo">
-                            <a href="combo" class="sidebar-link">
+                        <li class="sidebar-item" data-module="Product">
+                            <a href="product" class="sidebar-link">
                                 <span
-                                    class="hide-menu">Combo
+                                    class="hide-menu">Producto
                                 </span>
                             </a>
                         </li>

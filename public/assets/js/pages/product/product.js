@@ -1,13 +1,13 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm, permission, searchFilter } = functionGeneral();
-const { targetCombo, elemenFormCombo, optionsRol } = Templates()
+const { targetProduct, elemenFormCombo, optionsRol } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 InputPrice("[input_price]");
 selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 viewImage(".input-image")
-permission("Combo")//verifica el btn de agg
-searchFilter("#searchCombos", "combo", targetCombo, "combo", ".cont-combos", 1, (response) => editData(response))
+permission("Product")//verifica el btn de agg
+searchFilter("#searchProduct", "product", targetProduct, "product", ".cont-product", 1, (response) => editData(response))
 // ------------------Validacion de Formulario---------------------------
 
 
@@ -72,7 +72,7 @@ function addProduct() {
   const newProduct = document.getElementById(`product-${productCount}`);
   newProduct.querySelector(".remove-product").addEventListener("click", function () {
     newProduct.remove();
-    reindex("#products-container .product", "product", productCount, "Combo");
+    reindex("#products-container .product", "product", productCount, "Producto");
   });
 }
 function attachValidationListeners(index) {
@@ -90,7 +90,10 @@ function attachValidationListeners(index) {
     input.addEventListener("change", (e) => validateField(e, rules));
   });
 }
-document.getElementById("add-product-btn").addEventListener("click", addProduct);
+document.getElementById("add-product-btn").addEventListener("click", () => {
+  addProduct();
+  reindex("#products-container .product", "product", productCount, "Producto");
+});
 validate.validators.precio = function (value, options, key, attributes) {
   if (!value) return;
   const cleanValue = value.replace(/\./g, '').replace(',', '.');
@@ -251,14 +254,14 @@ if (!form.dataset.listenerAttached) {
         data.append(`lista[${index}][imagen]`, combo.imagen);
       })
       resetForm("#products-container .product", form)
-      add('combo', data, targetCombo, ".cont-combos", "combo", (response) => editData(response))
-      bootstrap.Modal.getOrCreateInstance('#register-combo').hide()
+      add('product', data, targetProduct, ".cont-product", "product", (response) => editData(response))
+      bootstrap.Modal.getOrCreateInstance('#register-product').hide()
     }
   });
   form.dataset.listenerAttached = "true";
 }
 attachValidationListeners(1)
-print(searchAll("combo", 1), targetCombo, ".cont-combos", "combo", (response) => editData(response))//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
+print(searchAll("product", 1), targetProduct, ".cont-product", "product", (response) => editData(response))//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
 
 function editData(response) {
   let hasError = false
@@ -268,7 +271,7 @@ function editData(response) {
   document.querySelector("#input-category-combo").value = response[0].nombre_categoria
   document.querySelector("#input-category-combo").setAttribute("data-id", response[0].id_categoria)
   document.querySelector("#input-details-combo").value = response[0].detalles
-  document.querySelector("#img-combo-response").src = `media/combos/${response[0].imagen}`
+  document.querySelector("#img-combo-response").src = `media/productos/${response[0].imagen}`
   let data = {
     nombre: document.querySelector(`#input-name-combo`).value,
     precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
@@ -312,8 +315,8 @@ function editData(response) {
           datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
           datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
         }
-        update('combo', datafinal, targetCombo, ".cont-combos", "combo", (response) => editData(response))
-        bootstrap.Modal.getOrCreateInstance('#edit-combo').hide()
+        update('product', datafinal, targetProduct, ".cont-product", "product", (response) => editData(response))
+        bootstrap.Modal.getOrCreateInstance('#edit-product').hide()
       }
     })
     form.dataset.listenerAttached = "true";

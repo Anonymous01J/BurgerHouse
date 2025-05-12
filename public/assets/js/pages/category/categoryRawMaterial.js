@@ -8,7 +8,7 @@ let table = $(".table_category_rawmaterial").DataTable({
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
     },
     ajax: {
-        url: 'categoryMateriaPrima/get_all',
+        url: 'categoryMateriaPrima/get_all/0/10000000/id/asc',
         dataSrc: '',
         type: 'POST',
         data: {

@@ -8,7 +8,7 @@ let table = $(".table_payment").DataTable({
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
     },
     ajax: {
-        url: 'paymentMethod/get_all',
+        url: 'paymentMethod/get_all/0/10000000/id/asc',
         dataSrc: '',
         type: 'POST',
         data: {

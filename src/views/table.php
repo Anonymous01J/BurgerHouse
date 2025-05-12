@@ -32,44 +32,43 @@
 
         <div class="container-fluid">
 
-            <div class="row g-3 align-items-center mb-5">
-                <div class="col-auto">
-                    <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
-                </div>
-                <button data-bs-toggle="modal" data-bs-target="#register-table" type="button" class="btn bh_1 btn-circle text-white">
-                    <i data-feather="plus" class="svg-icon"></i>
-                </button>
-            </div>
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Libres</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Ocupadas</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                    <div class="row g-3 align-items-center mb-5 mt-3">
+                        <div class="col-auto">
+                            <input type="search" id="SearchTablesFREE" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                        </div>
+                        <button data-bs-toggle="modal" data-bs-target="#register-table" type="button" class="btn bh_1 btn-circle text-white">
+                            <i data-feather="plus" class="svg-icon"></i>
+                        </button>
+                    </div>
 
-            <div class="row cont_tables">
-                <div class="col-md-3">
-                    <div class="card h-100">
-                        <img src="./assets/img/big/banner_login.png" class="card-img-top" style="object-fit: cover; height: 200px;" alt="...">
-                        <div class="card-body p-1">
-                            <div class="d-flex justify-content-center align-items-center gap-4 h-100">
-                                <h5 class="card-title m-0">Mesa 1</h5>
-                                <h5 class="card-title m-0">Sillas: 5</h5>
-                                <h5 class="card-title m-0">VIP: SI</h5>
-                            </div>
+                    <div class="row cont_tables_free">
+                        <!-- aqui se cargan las mesas libres -->
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                    <div class="row g-3 align-items-center mb-5 mt-3">
+                        <div class="col-auto">
+                            <input type="search" id="SearchTablesOCCUPIED" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
-                        <div class="card-footer">
-                            <small class="text-body-secondary">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <p class="mb-0">Estado: <span class="badge text-bg-success">Libre</span></p>
-                                    <div class="d-flex gap-3">
-                                        <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="combo" style="cursor: pointer">
-                                            <i data-feather="edit"></i>
-                                        </a>
-                                        <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="combo" style="cursor: pointer">
-                                            <i data-feather="trash-2"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </small>
-                        </div>
+                    </div>
+
+                    <div class="row cont_tables_occupied">
+                        <!-- aqui se cargan las mesas ocupadas -->
                     </div>
                 </div>
             </div>
+
+
 
 
 

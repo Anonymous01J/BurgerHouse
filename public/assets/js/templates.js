@@ -1,9 +1,9 @@
 export default function Templates() {
-    function targetCombo(objet) {
+    function targetProduct(objet) {
         return `
         <div class="col">
             <div class="card">
-                <img src="${objet.imagen ? "media/combos/" + objet.imagen : "./assets/img/big/banner_login.png"}" class="card-img-top" alt="..." style="object-fit: cover; height: 140px">
+                <img src="${objet.imagen ? "media/productos/" + objet.imagen : "./assets/img/big/banner_login.png"}" class="card-img-top" alt="..." style="object-fit: cover; height: 140px">
                 <div class="card-body">
                     <h5 class="card-title">${objet.nombre}</h5>
                     <p class=" fs-6 truncate-3-lines">${objet.detalles}</p>
@@ -13,10 +13,10 @@ export default function Templates() {
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <p class="mb-0">Precio: ${objet.precio}$</p>
                             <div class="d-flex gap-3">
-                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="combo" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-combo" data-bs-title="Editar Combo" data-bs-placement="bottom">
+                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="product" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-product" data-bs-title="Editar Producto" data-bs-placement="bottom">
                                     <i data-feather="edit"></i>
                                 </a>
-                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="combo" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Combo" data-bs-placement="bottom">
+                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="product" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Producto" data-bs-placement="bottom">
                                     <i data-feather="trash-2"></i>
                                 </a>
                             </div>
@@ -217,6 +217,32 @@ export default function Templates() {
         `
     }
     function targetTable(objet) {
+        let action = `
+        <div class="card-footer">
+            <small class="text-body-secondary">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <p class="mb-0">Estado: <span class="badge text-bg-${objet.estado == "LIBRE" ? 'success' : 'secondary'}">${objet.estado}</span></p>
+                    <div class="d-flex gap-3">
+                        <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="table" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-table" data-bs-title="Editar Mesa" data-bs-placement="bottom">
+                            <i data-feather="edit"></i>
+                        </a>
+                        <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="table" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Mesa" data-bs-placement="bottom">
+                            <i data-feather="trash-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </small>
+        </div>
+        `
+        let action2 = `
+        <div class="card-footer">
+            <small class="text-body-secondary">
+                <div style="display: flex; justify-content: center; align-items: center;">
+                    <p class="mb-0">Estado: <span class="badge text-bg-${objet.estado == "LIBRE" ? 'success' : 'secondary'}">${objet.estado}</span></p>
+                </div>
+            </small>
+        </div>
+        `
         return `
         <div class="col-md-3">
             <div class="card h-100">
@@ -228,21 +254,7 @@ export default function Templates() {
                         <h5 class="card-title m-0">VIP: ${objet.vip == true ? 'Si' : 'No'}</h5>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <small class="text-body-secondary">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
-                            <p class="mb-0">Estado: <span class="badge text-bg-success">Libre</span></p>
-                            <div class="d-flex gap-3">
-                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="table" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-table" data-bs-title="Editar Mesa" data-bs-placement="bottom">
-                                    <i data-feather="edit"></i>
-                                </a>
-                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="table" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Mesa" data-bs-placement="bottom">
-                                    <i data-feather="trash-2"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </small>
-                </div>
+                ${objet.estado == "LIBRE" ? action : action2}
             </div>
         </div>
 `
@@ -251,7 +263,7 @@ export default function Templates() {
         return `
         <div class="row g-2 product" id="product-${objet}">
             <div class="d-flex align-items-center gap-4 mb-3">
-                <h4 class="m-0">Combo ${objet}</h4>
+                <h4 class="m-0">Producto ${objet}</h4>
                 <button type="button" class="btn btn-circle btn-secondary remove-product">
                     <i data-feather="trash"></i>
                 </button>
@@ -310,7 +322,7 @@ export default function Templates() {
         </div>
     `
     }
-    function elemenFormTables(objet){
+    function elemenFormTables(objet) {
         return `
         <div class="row g-2 tables" id="tables-${objet}">
             <div class="d-flex align-items-center gap-4 mb-3 mt-3">
@@ -381,6 +393,37 @@ export default function Templates() {
                 <input type="text" class="form-control" placeholder="Nombre" id="input-name-payments-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-payments-${objet}"></div>
             </div>
+        </div>
+        `
+    }
+    function elemenFormAdditional(objet) {
+        return `
+        <div class="row g-2 additionals" id="additionals-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-0 mt-4">
+                <h4 class="m-0">${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-additional">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="input-name-additional-${objet}" name="nombre">
+                <div class="text-danger mt-1 fs-6" id="error-input-name-additional-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Precio</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-additional-${objet}" name="precio">
+                    <div class="text-danger mt-1 fs-6" id="error-input-price-additional-${objet}"></div>
+                </div>
+            </div>
+            <div class="col-4">
+                <label for="inputZip" class="form-label">Imagen</label>
+                <input class="form-control input-image" type="file" id="input-image-additional-${objet}" name="imagen">
+                <div class="text-danger mt-1 fs-6" id="error-input-image-additional-${objet}"></div>
+            </div>
+            <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
         </div>
         `
     }
@@ -468,61 +511,71 @@ export default function Templates() {
     }
     function elemenFormRawMaterial(objet) {
         return `
-        <div class="rawmaterial row mt-4" id="rawmaterial-${objet}">
+        <div class="rawmaterials row mt-4" id="rawmaterials-${objet}">
             <div class="d-flex align-items-center gap-4 mb-3">
                 <h4 class="m-0">Materia Prima ${objet}</h4>
                 <button type="button" class="btn btn-circle btn-secondary remove-rawmaterial">
                     <i data-feather="trash"></i>
                 </button>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <label for="inputEmail4" class="form-label">Nombre</label>
                 <input type="text" class="form-control" placeholder="Nombre" id="input-name-rawMaterial-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-rawMaterial-${objet}"></div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="inputCity" class="form-label">Categoria</label>
-                <div class="dropdown">
+                <div class="dropdown select_options_categorys_rawmaterial">
                     <div class="dropdown">
                         <div class="btn-group w-100" bis_skin_checked="1">
-                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-rawMaterial-${objet}" name="id_categoria">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-category-rawMaterial-${objet}" name="id_categoria" data-id="Seleccione una opcion">
                             <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span> <i data-feather="chevron-down"></i></span>
                             </button>
                             <div class="dropdown-menu p-2" bis_skin_checked="1">
                                 <div>
-                                    <input class="form-control" type="text" placeholder="Buscar">
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
                                 </div>
-                                <a class="dropdown-item">Action</a>
-                                <a class="dropdown-item">Another action</a>
-                                <a class="dropdown-item">Something else here</a>
+                                <div class="options_search">
+                                    <!-- aqui cargan las opciones con ajax -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-category-rawMaterial-${objet}"></div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="inputCity" class="form-label">Unidad</label>
-                <div class="dropdown">
+                <div class="dropdown select_options_units_rawmaterial">
                     <div class="dropdown">
                         <div class="btn-group w-100" bis_skin_checked="1">
-                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-unit-rawMaterial-${objet}" name="id_unidad">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-unit-rawMaterial-${objet}" name="id_unidad" data-id="Seleccione una opcion">
                             <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span> <i data-feather="chevron-down"></i></span>
                             </button>
                             <div class="dropdown-menu p-2" bis_skin_checked="1">
                                 <div>
-                                    <input class="form-control" type="text" placeholder="Buscar">
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
                                 </div>
-                                <a class="dropdown-item">Action</a>
-                                <a class="dropdown-item">Another action</a>
-                                <a class="dropdown-item">Something else here</a>
+                                <div class="options_search">
+                                    <!-- aqui cargan las opciones con ajax -->
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-unit-rawMaterial-${objet}"></div>
+            </div>
+            <div class="col-md-2">
+                <label for="inputEmail4" class="form-label">Stock Min</label>
+                <input type="number" class="form-control" placeholder="Nombre" id="input-min-rawMaterial-${objet}" name="min">
+                <div class="text-danger mt-1 fs-6" id="error-input-min-rawMaterial-${objet}"></div>
+            </div>
+            <div class="col-md-2">
+                <label for="inputEmail4" class="form-label">Stock Max</label>
+                <input type="number" class="form-control" placeholder="Nombre" id="input-max-rawMaterial-${objet}" name="max">
+                <div class="text-danger mt-1 fs-6" id="error-input-max-rawMaterial-${objet}"></div>
             </div>
         </div>
         `
@@ -767,7 +820,7 @@ export default function Templates() {
         `
     }
     return {
-        targetCombo,
+        targetProduct,
         targetSupplier,
         targetUser,
         targetClient,
@@ -783,6 +836,7 @@ export default function Templates() {
         elemenFormRecipe,
         elemenFormSupplier,
         elemenFormClient,
+        elemenFormAdditional,
         elemenFormUser,
         optionsRol,
         Watermark,

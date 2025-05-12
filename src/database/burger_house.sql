@@ -16,6 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `adicionales`
+--
+
+DROP TABLE IF EXISTS `adicionales`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `adicionales` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(500) NOT NULL,
+  `precio` float NOT NULL,
+  `imagen` varchar(500) NOT NULL,
+  `active` int NOT NULL DEFAULT '1',
+  `tipo` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `adicionales`
+--
+
+LOCK TABLES `adicionales` WRITE;
+/*!40000 ALTER TABLE `adicionales` DISABLE KEYS */;
+INSERT INTO `adicionales` VALUES (1,'Ensalada Picorina',2.55,'collage-fondo-programacion.jpg',1,'');
+/*!40000 ALTER TABLE `adicionales` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `bitacora`
 --
 
@@ -133,7 +161,7 @@ CREATE TABLE `categorias_productos` (
   `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,7 +170,7 @@ CREATE TABLE `categorias_productos` (
 
 LOCK TABLES `categorias_productos` WRITE;
 /*!40000 ALTER TABLE `categorias_productos` DISABLE KEYS */;
-INSERT INTO `categorias_productos` VALUES (1,'Bebidas',1),(2,'Pepitos',1),(3,'Griegos',1),(4,'Perros Calientes',1),(5,'Papas',1),(6,'Club House',1),(7,'Burgers',1),(8,'Kids',1),(9,'Jira',1);
+INSERT INTO `categorias_productos` VALUES (1,'Bebidas',1),(2,'Pepitos',1),(3,'Griegos',1),(4,'Perros Calientes',1),(5,'Papas',1),(6,'Club House',1),(7,'Burgers',1),(8,'Kids',1),(9,'Jira',0),(10,'Adicionales',1);
 /*!40000 ALTER TABLE `categorias_productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -162,7 +190,7 @@ CREATE TABLE `clientes` (
   `direccion` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -171,7 +199,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'Jose','Escalona','V-85652235','+584126742231','Avenida 15, local numero 5',1);
+INSERT INTO `clientes` VALUES (1,'Jose','Escalona','V-85652235','+584126742231','Avenida 15, local numero 5',1),(2,'Pedro','Escalona','V-29654423','+584161214717','una direccion cualquiera',1);
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -244,7 +272,7 @@ CREATE TABLE `deliverys` (
   KEY `id_usuario_delivery_idx` (`id_usuario_delivery`),
   CONSTRAINT `id_usuario_delivery` FOREIGN KEY (`id_usuario_delivery`) REFERENCES `usuario` (`id`),
   CONSTRAINT `id_venta_delivery` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,7 +340,6 @@ CREATE TABLE `detalles_receta` (
 
 LOCK TABLES `detalles_receta` WRITE;
 /*!40000 ALTER TABLE `detalles_receta` DISABLE KEYS */;
-INSERT INTO `detalles_receta` VALUES (41,1,2,0.15),(42,1,3,0.05),(43,1,4,0.02),(44,1,5,2),(45,1,8,0.15),(46,1,1,0.1),(47,1,6,0.03),(48,1,7,0.02),(49,1,8,0.15),(50,1,9,1),(51,2,9,1);
 /*!40000 ALTER TABLE `detalles_receta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -378,35 +405,6 @@ LOCK TABLES `entradas_materia_prima` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `facturas`
---
-
-DROP TABLE IF EXISTS `facturas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `facturas` (
-  `Id_factura` int NOT NULL AUTO_INCREMENT,
-  `Id_orden` int NOT NULL,
-  `Id_caja` int NOT NULL,
-  `Monto_total` int NOT NULL,
-  `Monto_total_divisa` int NOT NULL,
-  PRIMARY KEY (`Id_factura`),
-  KEY `Id_orden` (`Id_orden`),
-  KEY `Id_caja` (`Id_caja`),
-  CONSTRAINT `id_caja_ibfk_1` FOREIGN KEY (`Id_caja`) REFERENCES `caja` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `facturas`
---
-
-LOCK TABLES `facturas` WRITE;
-/*!40000 ALTER TABLE `facturas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `facturas` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `materia_prima`
 --
 
@@ -420,13 +418,14 @@ CREATE TABLE `materia_prima` (
   `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `stock_min` int NOT NULL,
   `stock_max` int NOT NULL,
+  `existencia` varchar(45) COLLATE utf8mb4_spanish_ci DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `id_unidad_idx` (`id_unidad`),
   KEY `id_categoria` (`id_categoria`),
   CONSTRAINT `id_categoria` FOREIGN KEY (`id_categoria`) REFERENCES `categoria_materia_prima` (`id`),
   CONSTRAINT `id_unidad` FOREIGN KEY (`id_unidad`) REFERENCES `unidades` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -435,7 +434,7 @@ CREATE TABLE `materia_prima` (
 
 LOCK TABLES `materia_prima` WRITE;
 /*!40000 ALTER TABLE `materia_prima` DISABLE KEYS */;
-INSERT INTO `materia_prima` VALUES (1,1,3,'Pollo',10,20,1),(2,1,3,'Carne de res',10,20,1),(3,3,3,'Cebolla',10,20,1),(4,3,3,'Maíz',10,20,1),(5,7,4,'Queso cheddar',10,20,1),(6,4,3,'Salsa especial',10,20,1),(7,1,3,'Tocineta',10,20,1),(8,3,3,'Papas',10,20,1),(9,2,4,'Pan de la casa',10,20,1);
+INSERT INTO `materia_prima` VALUES (1,1,3,'Pollo',10,20,'0',1),(2,1,3,'Carne de res',10,20,'0',1),(3,3,3,'Cebolla',10,20,'0',1),(4,3,3,'Maíz',10,20,'0',1),(5,7,4,'Queso cheddar',10,20,'0',1),(6,4,3,'Salsa especial',10,20,'0',1),(7,1,3,'Tocineta',10,20,'0',1),(8,3,3,'Papas',10,20,'0',1),(9,2,4,'Pan de la casa',10,20,'0',1),(10,3,3,'Prueba',1,5,'0',1),(11,7,5,'CONSOLA',2,10,'0',0),(12,6,4,'CONN',2,3,'0',0);
 /*!40000 ALTER TABLE `materia_prima` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -455,7 +454,7 @@ CREATE TABLE `mesa_reservacion` (
   KEY `id_mesa_idx` (`id_mesa`),
   CONSTRAINT `id_mesa` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id`),
   CONSTRAINT `id_reservacion` FOREIGN KEY (`id_reservacion`) REFERENCES `reservaciones` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -475,13 +474,15 @@ DROP TABLE IF EXISTS `mesas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `mesas` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
   `sillas` varchar(45) NOT NULL,
   `estado` varchar(45) NOT NULL DEFAULT 'LIBRE',
   `vip` varchar(45) NOT NULL,
+  `imagen` varchar(500) NOT NULL,
+  `active` varchar(45) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -490,6 +491,7 @@ CREATE TABLE `mesas` (
 
 LOCK TABLES `mesas` WRITE;
 /*!40000 ALTER TABLE `mesas` DISABLE KEYS */;
+INSERT INTO `mesas` VALUES (1,'Mesa 2','5','LIBRE','0','29604004.jpg','1'),(2,'Mesa 45','10','OCUPADA','1','concepto-rpa-pantalla-tactil-mano-borrosa.jpg','1'),(3,'Mesa 9','4','LIBRE','0','5f395e0a-584d-4540-bc2b-3dba66a98c31.jpeg','0'),(4,'Mesa 10','7','LIBRE','1','championship-leblanc-league-of-legends_3840x2161_xtrafondos.com.jpg','0'),(5,'Mesa dios','58','LIBRE','0','depositphotos_66292255-stock-photo-dark-background-with-spotlights.jpg','0'),(6,'Mesa 99','10','LIBRE','1','5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg','1');
 /*!40000 ALTER TABLE `mesas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -504,6 +506,8 @@ CREATE TABLE `metodo_pago` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
+  `imagen` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `descripcion` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -514,7 +518,7 @@ CREATE TABLE `metodo_pago` (
 
 LOCK TABLES `metodo_pago` WRITE;
 /*!40000 ALTER TABLE `metodo_pago` DISABLE KEYS */;
-INSERT INTO `metodo_pago` VALUES (1,'Zelle',1),(2,'Binance',1),(3,'Pago Movil',1),(4,'Efectivo',1),(9,'Prueba infinity',1),(10,'Prueba 2',0);
+INSERT INTO `metodo_pago` VALUES (1,'Zelle',1,NULL,NULL),(2,'Binance',1,NULL,NULL),(3,'Pago Movil',1,NULL,NULL),(4,'Efectivo',1,NULL,NULL),(9,'Prueba infinity',1,NULL,NULL),(10,'Prueba 2',0,NULL,NULL);
 /*!40000 ALTER TABLE `metodo_pago` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -586,6 +590,7 @@ CREATE TABLE `orden` (
   `Referencia` int NOT NULL,
   `Comprobante` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `Status` int NOT NULL DEFAULT '0',
+  `tipo_orden` varchar(45) COLLATE utf8mb4_spanish_ci NOT NULL,
   PRIMARY KEY (`Id`),
   KEY `Id_cliente` (`Id_cliente`),
   KEY `idx_cliente` (`Id_cliente`),
@@ -645,17 +650,17 @@ DROP TABLE IF EXISTS `productos`;
 CREATE TABLE `productos` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_categoria` int NOT NULL,
-  `nombre` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `nombre` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `imagen` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `precio` float NOT NULL,
-  `detalles` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `detalles` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `id_receta` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idCategoria` (`id_categoria`),
   KEY `id_receta` (`id_receta`),
   CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias_productos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -664,7 +669,7 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (1,2,'PEPITO TRADICIONAL','',7,'22CM de pan, salsas, tomate, lechuga, cebolla, solomo o pollo, tocineta, queso parmesano y ración de papas fritas.',1,0),(2,2,'PEPITO MIXTO','',11,'22CM de pan, salsas, tomate, lechuga, cebolla, solomo, pollo, chorizo, tocineta, queso amarillo, queso parmesano, queso cheddar, maíz y ración de papas fritas.',1,0),(3,2,'PEPITO GRATINADO','',9,'22CM de pan, salsas, solomo, pollo o chorizo, tocineta, queso mozzarella, queso cheddar y ración de papas fritas.',1,0),(4,2,'PEPITO ESPECIAL','',10,'22CM de pan, mayonesa, pollo y camarones, queso mozzarella gratinado, queso parmesano y ración de papas fritas.',1,0),(5,4,'PERRO TRADICIONAL','',2,'Pan grande, salchicha, salsas, repollo, cebolla y ración de papas fritas.',1,0),(6,4,'PERRO ESPECIAL','',3.5,'Pan grande, salchicha, salsas, tocineta, queso amarillo, maíz y ración de papas fritas.',1,0),(7,4,'PERRO CON CARNE','',4.5,'Pan grande, salchicha, salsas, carne, queso amarillo y ración de papas fritas.',1,0),(8,6,'CLUB HOUSE','',8,'Pan de sándwich, salsas, vegetales, pollo, jamón, queso, tocineta, tortilla de huevo y ración de papas fritas.',1,0),(9,3,'GRIEGO TRADICIONAL','',7.7,'Pan, salsas, vegetales, salchicha, carne, pollo o mixto, queso parmesano, tocineta, jamón, queso amarillo y ración de papas fritas.',1,0),(10,3,'GRIEGO ESPECIAL','',9,'Pan, salsas, vegetales, carne, pollo y camarones, queso parmesano y ración de papas fritas.',1,0),(11,5,'PAPAS CON CARNE','',7.5,'300gr de papas, 200gr de carne o mixta, queso amarillo, tocineta, salsas.',1,0),(12,5,'SALCHIPAPAS','',3.5,'300gr de papa, salchicha, cubiertas con queso cheddar con topping de tocineta.',1,0),(13,5,'PAPAS CHEDDAR','',2.8,'300gr de papas fritas, cubiertas de queso cheddar y tocineta.',1,0),(14,8,'MINI BURGER','',3,'Pan de la casa, salsas, carne, queso cheddar y ración de papas fritas.',1,0),(15,8,'TENDERS DE POLLO','',4,'Tenders de pollo, salsas y ración de papas fritas.',1,0),(16,7,'CLÁSICA','',2.8,'Pan de la casa, carne, tomate, lechuga, cebolla, salsas, ración de papas fritas.',1,0),(17,7,'CHEESE BURGER','',4.1,'Pan de la casa, carne o pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta y ración de papas fritas.',1,0),(18,7,'CHICKEN BURGER','',5.6,'Pan de la casa, pollo crispy, salsa especial, doble cheddar, doble tocineta, ración de papas fritas.',1,0),(19,7,'CRISPY BURGER','',4,'Pan de la casa, salsa especial, pollo crispy, queso cheddar, lechuga, tocineta, ración de papas fritas.',1,0),(20,7,'TENTACIÓN BURGER','',7,'Pan de la casa, carne, pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta, maíz y ración de papas fritas.',1,0),(21,7,'BACON JAM BURGER','',5,'Pan de papa, mayonesa, doble carne, doble cheddar, mermelada de tocineta, ración de papas fritas.',1,0),(22,7,'ONION BURGER','',4,'Pan de la casa, carne o pollo, salsa especial, cebolla caramelizada o cebolla crispy, queso cheddar, tocineta y ración de papas fritas.',1,0),(23,7,'BURGER HOUSE','',6.5,'Pan de la casa, salsa especial, carne, pollo crispy, cebolla crispy, cebolla caramelizada, tocineta, queso cheddar, maíz y ración de papas fritas.',1,0),(24,7,'BIG BURGER','',6.5,'Pan de la casa, doble carne, doble queso cheddar, salsa Big Mac, pepinillo, lechuga, tocineta y ración de papas fritas.',1,0),(25,7,'TASTY BURGER','',8,'Pan de papa, salsa tasty, triple carne, triple cheddar, tocineta, tomate, cebolla, lechuga, ración de papas fritas.',1,NULL),(26,7,'SMASH BURGER','',8.8,'Pan de papa, salsa especial, triple carne, triple cheddar, tocineta, cebolla morada, pepinillo, ración de papas fritas.',1,0),(27,1,'Luis','C:\\fakepath\\5ce0e0f8-46df-4654-b37b-7d7f40d9bc6a.jpeg',6.56,'awdk;oakd;kaw;odk;ad',0,2),(28,1,'Azucar','C:\\fakepath\\5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg',656.56,'alwjdildjiladjiljdildwada',0,2),(29,2,'Shawarma','C:\\fakepath\\LOGO SHTECHNOLOGYX CON OTRAS LETRAS.png',50,'mailmdilwmlidmlwiadl',0,1),(40,7,'Combo Prueba','banner_login.png',2.5,'texto descriptivo',1,NULL);
+INSERT INTO `productos` VALUES (1,2,'PEPITO TRADICIONAL','',7,'22CM de pan, salsas, tomate, lechuga, cebolla, solomo o pollo, tocineta, queso parmesano y ración de papas fritas.',1,0),(2,2,'PEPITO MIXTO','',11,'22CM de pan, salsas, tomate, lechuga, cebolla, solomo, pollo, chorizo, tocineta, queso amarillo, queso parmesano, queso cheddar, maíz y ración de papas fritas.',1,0),(3,2,'PEPITO GRATINADO','',9,'22CM de pan, salsas, solomo, pollo o chorizo, tocineta, queso mozzarella, queso cheddar y ración de papas fritas.',1,0),(4,2,'PEPITO ESPECIAL','',10,'22CM de pan, mayonesa, pollo y camarones, queso mozzarella gratinado, queso parmesano y ración de papas fritas.',1,0),(5,4,'PERRO TRADICIONAL','',2,'Pan grande, salchicha, salsas, repollo, cebolla y ración de papas fritas.',1,0),(6,4,'PERRO ESPECIAL','',3.5,'Pan grande, salchicha, salsas, tocineta, queso amarillo, maíz y ración de papas fritas.',1,0),(7,4,'PERRO CON CARNE','',4.5,'Pan grande, salchicha, salsas, carne, queso amarillo y ración de papas fritas.',1,0),(8,6,'CLUB HOUSE','',8,'Pan de sándwich, salsas, vegetales, pollo, jamón, queso, tocineta, tortilla de huevo y ración de papas fritas.',1,0),(9,3,'GRIEGO TRADICIONAL','',7.7,'Pan, salsas, vegetales, salchicha, carne, pollo o mixto, queso parmesano, tocineta, jamón, queso amarillo y ración de papas fritas.',1,0),(10,3,'GRIEGO ESPECIAL','',9,'Pan, salsas, vegetales, carne, pollo y camarones, queso parmesano y ración de papas fritas.',1,0),(11,5,'PAPAS CON CARNE','',7.5,'300gr de papas, 200gr de carne o mixta, queso amarillo, tocineta, salsas.',1,0),(12,5,'SALCHIPAPAS','',3.5,'300gr de papa, salchicha, cubiertas con queso cheddar con topping de tocineta.',1,0),(13,5,'PAPAS CHEDDAR','',2.8,'300gr de papas fritas, cubiertas de queso cheddar y tocineta.',1,0),(14,8,'MINI BURGER','',3,'Pan de la casa, salsas, carne, queso cheddar y ración de papas fritas.',1,0),(15,8,'TENDERS DE POLLO','',4,'Tenders de pollo, salsas y ración de papas fritas.',1,0),(16,7,'CLÁSICA','',2.8,'Pan de la casa, carne, tomate, lechuga, cebolla, salsas, ración de papas fritas.',1,0),(17,7,'CHEESE BURGER','',4.1,'Pan de la casa, carne o pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta y ración de papas fritas.',1,0),(18,7,'CHICKEN BURGER','',5.6,'Pan de la casa, pollo crispy, salsa especial, doble cheddar, doble tocineta, ración de papas fritas.',1,0),(19,7,'CRISPY BURGER','',4,'Pan de la casa, salsa especial, pollo crispy, queso cheddar, lechuga, tocineta, ración de papas fritas.',1,0),(20,7,'TENTACIÓN BURGER','',7,'Pan de la casa, carne, pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta, maíz y ración de papas fritas.',1,0),(21,7,'BACON JAM BURGER','',5,'Pan de papa, mayonesa, doble carne, doble cheddar, mermelada de tocineta, ración de papas fritas.',1,0),(22,7,'ONION BURGER','',4,'Pan de la casa, carne o pollo, salsa especial, cebolla caramelizada o cebolla crispy, queso cheddar, tocineta y ración de papas fritas.',1,0),(23,7,'BURGER HOUSE','',6.5,'Pan de la casa, salsa especial, carne, pollo crispy, cebolla crispy, cebolla caramelizada, tocineta, queso cheddar, maíz y ración de papas fritas.',1,0),(24,7,'BIG BURGER','',6.5,'Pan de la casa, doble carne, doble queso cheddar, salsa Big Mac, pepinillo, lechuga, tocineta y ración de papas fritas.',1,0),(25,7,'TASTY BURGER','',8,'Pan de papa, salsa tasty, triple carne, triple cheddar, tocineta, tomate, cebolla, lechuga, ración de papas fritas.',1,NULL),(26,7,'SMASH BURGER','',8.8,'Pan de papa, salsa especial, triple carne, triple cheddar, tocineta, cebolla morada, pepinillo, ración de papas fritas.',1,0),(27,1,'Luis','',6.56,'awdk;oakd;kaw;odk;ad',0,2),(28,1,'Azucar','',656.56,'alwjdildjiladjiljdildwada',0,2),(29,2,'Shawarma','',50,'mailmdilwmlidmlwiadl',0,1),(40,7,'Combo Prueba1','banner_login.png',2.5,'texto descriptivo',0,NULL),(46,7,'Big burger','2c51307c-9d9f-41fb-9419-1e61a44891f0.jpeg',4,'hamburguesa con queso y tocineta',0,NULL),(47,8,'Hola','5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg',0.85,'ggageagagaegagaegagageag',0,NULL),(48,8,'JOjsad','5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg',69.86,'rwqrrrqrq3r3rqrqr',0,NULL),(49,8,'Jojsdad','2c51307c-9d9f-41fb-9419-1e61a44891f0.jpeg',0.99,'wdwfwfwfwfwfwfwfwf',0,NULL),(50,8,'Prueba','5ce0e0f8-46df-4654-b37b-7d7f40d9bc6a.jpeg',5656.56,'fefle[slfsfseffsfs',0,NULL);
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -708,7 +713,13 @@ DROP TABLE IF EXISTS `recetas`;
 CREATE TABLE `recetas` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  `id_producto` int DEFAULT NULL,
+  `id_adicional` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_p_idx` (`id_producto`),
+  KEY `id_adicional_idx` (`id_adicional`),
+  CONSTRAINT `id_adicional` FOREIGN KEY (`id_adicional`) REFERENCES `adicionales` (`id`),
+  CONSTRAINT `id_p` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -718,7 +729,6 @@ CREATE TABLE `recetas` (
 
 LOCK TABLES `recetas` WRITE;
 /*!40000 ALTER TABLE `recetas` DISABLE KEYS */;
-INSERT INTO `recetas` VALUES (1,'Burger House'),(2,'receta 2');
 /*!40000 ALTER TABLE `recetas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -733,10 +743,12 @@ CREATE TABLE `reservaciones` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_usuario` int NOT NULL,
   `cantidad_personas` float NOT NULL,
+  `descripcion` varchar(40) DEFAULT NULL,
+  `fecha` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id_usuario_reservacion_idx` (`id_usuario`),
   CONSTRAINT `id_usuario_reservacion` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -844,7 +856,7 @@ DROP TABLE IF EXISTS `ventas`;
 CREATE TABLE `ventas` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_caja` int NOT NULL,
-  `id_cliente` int NOT NULL,
+  `id_orden` int NOT NULL,
   `IVA` float NOT NULL,
   `monto_final` float NOT NULL,
   `fecha` datetime NOT NULL,
@@ -852,8 +864,8 @@ CREATE TABLE `ventas` (
   `active` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `idCaja` (`id_caja`),
-  KEY `idCliente` (`id_cliente`),
-  CONSTRAINT `ventas_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`),
+  KEY `id-orden_idx` (`id_orden`),
+  CONSTRAINT `id-orden` FOREIGN KEY (`id_orden`) REFERENCES `orden` (`Id`),
   CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_caja`) REFERENCES `caja` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -876,4 +888,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-05 20:50:28
+-- Dump completed on 2025-05-09 15:12:51
