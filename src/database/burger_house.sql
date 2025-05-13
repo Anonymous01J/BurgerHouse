@@ -16,62 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `adicional_orden`
---
-
-DROP TABLE IF EXISTS `adicional_orden`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `adicional_orden` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_adicional` int NOT NULL,
-  `id_orden` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id_13_idx` (`id_orden`),
-  KEY `id14_idx` (`id_adicional`),
-  CONSTRAINT `id14` FOREIGN KEY (`id_adicional`) REFERENCES `adicionales` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  CONSTRAINT `id_13` FOREIGN KEY (`id_orden`) REFERENCES `orden` (`Id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `adicional_orden`
---
-
-LOCK TABLES `adicional_orden` WRITE;
-/*!40000 ALTER TABLE `adicional_orden` DISABLE KEYS */;
-/*!40000 ALTER TABLE `adicional_orden` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `adicionales`
---
-
-DROP TABLE IF EXISTS `adicionales`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `adicionales` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(500) NOT NULL,
-  `precio` float NOT NULL,
-  `imagen` varchar(500) NOT NULL,
-  `active` int NOT NULL DEFAULT '1',
-  `tipo` varchar(45) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `adicionales`
---
-
-LOCK TABLES `adicionales` WRITE;
-/*!40000 ALTER TABLE `adicionales` DISABLE KEYS */;
-INSERT INTO `adicionales` VALUES (1,'Ensalada Picorina',2.55,'collage-fondo-programacion.jpg',1,'');
-/*!40000 ALTER TABLE `adicionales` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `bitacora`
 --
 
@@ -586,6 +530,8 @@ CREATE TABLE `orden_mesa` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_mesa` int DEFAULT NULL,
   `id_orden` int DEFAULT NULL,
+  `cantidad` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id5_idx` (`id_mesa`),
   KEY `id6_idx` (`id_orden`),
@@ -706,6 +652,8 @@ CREATE TABLE `producto_detalle_orden` (
   `id` int NOT NULL AUTO_INCREMENT,
   `id_producto` int NOT NULL,
   `id_orden` int NOT NULL,
+  `cantidad` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id11_idx` (`id_producto`),
   KEY `id12_idx` (`id_orden`),
@@ -732,16 +680,15 @@ DROP TABLE IF EXISTS `productos`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `productos` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `id_categoria` int NOT NULL,
+  `id_categoria` int DEFAULT NULL,
   `nombre` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `imagen` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `precio` float NOT NULL,
   `detalles` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci,
   `active` tinyint(1) NOT NULL DEFAULT '1',
-  `id_receta` int DEFAULT NULL,
+  `tipo` varchar(50) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idCategoria` (`id_categoria`),
-  KEY `id_receta` (`id_receta`),
   CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias_productos` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -752,7 +699,7 @@ CREATE TABLE `productos` (
 
 LOCK TABLES `productos` WRITE;
 /*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (1,2,'PEPITO TRADICIONAL','',7,'22CM de pan, salsas, tomate, lechuga, cebolla, solomo o pollo, tocineta, queso parmesano y ración de papas fritas.',1,0),(2,2,'PEPITO MIXTO','',11,'22CM de pan, salsas, tomate, lechuga, cebolla, solomo, pollo, chorizo, tocineta, queso amarillo, queso parmesano, queso cheddar, maíz y ración de papas fritas.',1,0),(3,2,'PEPITO GRATINADO','',9,'22CM de pan, salsas, solomo, pollo o chorizo, tocineta, queso mozzarella, queso cheddar y ración de papas fritas.',1,0),(4,2,'PEPITO ESPECIAL','',10,'22CM de pan, mayonesa, pollo y camarones, queso mozzarella gratinado, queso parmesano y ración de papas fritas.',1,0),(5,4,'PERRO TRADICIONAL','',2,'Pan grande, salchicha, salsas, repollo, cebolla y ración de papas fritas.',1,0),(6,4,'PERRO ESPECIAL','',3.5,'Pan grande, salchicha, salsas, tocineta, queso amarillo, maíz y ración de papas fritas.',1,0),(7,4,'PERRO CON CARNE','',4.5,'Pan grande, salchicha, salsas, carne, queso amarillo y ración de papas fritas.',1,0),(8,6,'CLUB HOUSE','',8,'Pan de sándwich, salsas, vegetales, pollo, jamón, queso, tocineta, tortilla de huevo y ración de papas fritas.',1,0),(9,3,'GRIEGO TRADICIONAL','',7.7,'Pan, salsas, vegetales, salchicha, carne, pollo o mixto, queso parmesano, tocineta, jamón, queso amarillo y ración de papas fritas.',1,0),(10,3,'GRIEGO ESPECIAL','',9,'Pan, salsas, vegetales, carne, pollo y camarones, queso parmesano y ración de papas fritas.',1,0),(11,5,'PAPAS CON CARNE','',7.5,'300gr de papas, 200gr de carne o mixta, queso amarillo, tocineta, salsas.',1,0),(12,5,'SALCHIPAPAS','',3.5,'300gr de papa, salchicha, cubiertas con queso cheddar con topping de tocineta.',1,0),(13,5,'PAPAS CHEDDAR','',2.8,'300gr de papas fritas, cubiertas de queso cheddar y tocineta.',1,0),(14,8,'MINI BURGER','',3,'Pan de la casa, salsas, carne, queso cheddar y ración de papas fritas.',1,0),(15,8,'TENDERS DE POLLO','',4,'Tenders de pollo, salsas y ración de papas fritas.',1,0),(16,7,'CLÁSICA','',2.8,'Pan de la casa, carne, tomate, lechuga, cebolla, salsas, ración de papas fritas.',1,0),(17,7,'CHEESE BURGER','',4.1,'Pan de la casa, carne o pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta y ración de papas fritas.',1,0),(18,7,'CHICKEN BURGER','',5.6,'Pan de la casa, pollo crispy, salsa especial, doble cheddar, doble tocineta, ración de papas fritas.',1,0),(19,7,'CRISPY BURGER','',4,'Pan de la casa, salsa especial, pollo crispy, queso cheddar, lechuga, tocineta, ración de papas fritas.',1,0),(20,7,'TENTACIÓN BURGER','',7,'Pan de la casa, carne, pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta, maíz y ración de papas fritas.',1,0),(21,7,'BACON JAM BURGER','',5,'Pan de papa, mayonesa, doble carne, doble cheddar, mermelada de tocineta, ración de papas fritas.',1,0),(22,7,'ONION BURGER','',4,'Pan de la casa, carne o pollo, salsa especial, cebolla caramelizada o cebolla crispy, queso cheddar, tocineta y ración de papas fritas.',1,0),(23,7,'BURGER HOUSE','',6.5,'Pan de la casa, salsa especial, carne, pollo crispy, cebolla crispy, cebolla caramelizada, tocineta, queso cheddar, maíz y ración de papas fritas.',1,0),(24,7,'BIG BURGER','',6.5,'Pan de la casa, doble carne, doble queso cheddar, salsa Big Mac, pepinillo, lechuga, tocineta y ración de papas fritas.',1,0),(25,7,'TASTY BURGER','',8,'Pan de papa, salsa tasty, triple carne, triple cheddar, tocineta, tomate, cebolla, lechuga, ración de papas fritas.',1,NULL),(26,7,'SMASH BURGER','',8.8,'Pan de papa, salsa especial, triple carne, triple cheddar, tocineta, cebolla morada, pepinillo, ración de papas fritas.',1,0),(27,1,'Luis','',6.56,'awdk;oakd;kaw;odk;ad',0,2),(28,1,'Azucar','',656.56,'alwjdildjiladjiljdildwada',0,2),(29,2,'Shawarma','',50,'mailmdilwmlidmlwiadl',0,1),(40,7,'Combo Prueba1','banner_login.png',2.5,'texto descriptivo',0,NULL),(46,7,'Big burger','2c51307c-9d9f-41fb-9419-1e61a44891f0.jpeg',4,'hamburguesa con queso y tocineta',0,NULL),(47,8,'Hola','5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg',0.85,'ggageagagaegagaegagageag',0,NULL),(48,8,'JOjsad','5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg',69.86,'rwqrrrqrq3r3rqrqr',0,NULL),(49,8,'Jojsdad','2c51307c-9d9f-41fb-9419-1e61a44891f0.jpeg',0.99,'wdwfwfwfwfwfwfwfwf',0,NULL),(50,8,'Prueba','5ce0e0f8-46df-4654-b37b-7d7f40d9bc6a.jpeg',5656.56,'fefle[slfsfseffsfs',0,NULL);
+INSERT INTO `productos` VALUES (1,2,'PEPITO TRADICIONAL','',7,'22CM de pan, salsas, tomate, lechuga, cebolla, solomo o pollo, tocineta, queso parmesano y ración de papas fritas.',1,'0'),(2,2,'PEPITO MIXTO','',11,'22CM de pan, salsas, tomate, lechuga, cebolla, solomo, pollo, chorizo, tocineta, queso amarillo, queso parmesano, queso cheddar, maíz y ración de papas fritas.',1,'0'),(3,2,'PEPITO GRATINADO','',9,'22CM de pan, salsas, solomo, pollo o chorizo, tocineta, queso mozzarella, queso cheddar y ración de papas fritas.',1,'0'),(4,2,'PEPITO ESPECIAL','',10,'22CM de pan, mayonesa, pollo y camarones, queso mozzarella gratinado, queso parmesano y ración de papas fritas.',1,'0'),(5,4,'PERRO TRADICIONAL','',2,'Pan grande, salchicha, salsas, repollo, cebolla y ración de papas fritas.',1,'0'),(6,4,'PERRO ESPECIAL','',3.5,'Pan grande, salchicha, salsas, tocineta, queso amarillo, maíz y ración de papas fritas.',1,'0'),(7,4,'PERRO CON CARNE','',4.5,'Pan grande, salchicha, salsas, carne, queso amarillo y ración de papas fritas.',1,'0'),(8,6,'CLUB HOUSE','',8,'Pan de sándwich, salsas, vegetales, pollo, jamón, queso, tocineta, tortilla de huevo y ración de papas fritas.',1,'0'),(9,3,'GRIEGO TRADICIONAL','',7.7,'Pan, salsas, vegetales, salchicha, carne, pollo o mixto, queso parmesano, tocineta, jamón, queso amarillo y ración de papas fritas.',1,'0'),(10,3,'GRIEGO ESPECIAL','',9,'Pan, salsas, vegetales, carne, pollo y camarones, queso parmesano y ración de papas fritas.',1,'0'),(11,5,'PAPAS CON CARNE','',7.5,'300gr de papas, 200gr de carne o mixta, queso amarillo, tocineta, salsas.',1,'0'),(12,5,'SALCHIPAPAS','',3.5,'300gr de papa, salchicha, cubiertas con queso cheddar con topping de tocineta.',1,'0'),(13,5,'PAPAS CHEDDAR','',2.8,'300gr de papas fritas, cubiertas de queso cheddar y tocineta.',1,'0'),(14,8,'MINI BURGER','',3,'Pan de la casa, salsas, carne, queso cheddar y ración de papas fritas.',1,'0'),(15,8,'TENDERS DE POLLO','',4,'Tenders de pollo, salsas y ración de papas fritas.',1,'0'),(16,7,'CLÁSICA','',2.8,'Pan de la casa, carne, tomate, lechuga, cebolla, salsas, ración de papas fritas.',1,'0'),(17,7,'CHEESE BURGER','',4.1,'Pan de la casa, carne o pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta y ración de papas fritas.',1,'0'),(18,7,'CHICKEN BURGER','',5.6,'Pan de la casa, pollo crispy, salsa especial, doble cheddar, doble tocineta, ración de papas fritas.',1,'0'),(19,7,'CRISPY BURGER','',4,'Pan de la casa, salsa especial, pollo crispy, queso cheddar, lechuga, tocineta, ración de papas fritas.',1,'0'),(20,7,'TENTACIÓN BURGER','',7,'Pan de la casa, carne, pollo, tomate, lechuga, cebolla, salsas, queso cheddar, tocineta, maíz y ración de papas fritas.',1,'0'),(21,7,'BACON JAM BURGER','',5,'Pan de papa, mayonesa, doble carne, doble cheddar, mermelada de tocineta, ración de papas fritas.',1,'0'),(22,7,'ONION BURGER','',4,'Pan de la casa, carne o pollo, salsa especial, cebolla caramelizada o cebolla crispy, queso cheddar, tocineta y ración de papas fritas.',1,'0'),(23,7,'BURGER HOUSE','',6.5,'Pan de la casa, salsa especial, carne, pollo crispy, cebolla crispy, cebolla caramelizada, tocineta, queso cheddar, maíz y ración de papas fritas.',1,'0'),(24,7,'BIG BURGER','',6.5,'Pan de la casa, doble carne, doble queso cheddar, salsa Big Mac, pepinillo, lechuga, tocineta y ración de papas fritas.',1,'0'),(25,7,'TASTY BURGER','',8,'Pan de papa, salsa tasty, triple carne, triple cheddar, tocineta, tomate, cebolla, lechuga, ración de papas fritas.',1,'0'),(26,7,'SMASH BURGER','',8.8,'Pan de papa, salsa especial, triple carne, triple cheddar, tocineta, cebolla morada, pepinillo, ración de papas fritas.',1,'0'),(27,1,'Luis','',6.56,'awdk;oakd;kaw;odk;ad',0,'0'),(28,1,'Azucar','',656.56,'alwjdildjiladjiljdildwada',0,'0'),(29,2,'Shawarma','',50,'mailmdilwmlidmlwiadl',0,'0'),(40,7,'Combo Prueba1','banner_login.png',2.5,'texto descriptivo',0,'0'),(46,7,'Big burger','2c51307c-9d9f-41fb-9419-1e61a44891f0.jpeg',4,'hamburguesa con queso y tocineta',0,'0'),(47,8,'Hola','5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg',0.85,'ggageagagaegagaegagageag',0,'0'),(48,8,'JOjsad','5e5294ee-d7d2-424d-ac2e-5802bbad41ab.jpeg',69.86,'rwqrrrqrq3r3rqrqr',0,'0'),(49,8,'Jojsdad','2c51307c-9d9f-41fb-9419-1e61a44891f0.jpeg',0.99,'wdwfwfwfwfwfwfwfwf',0,'0'),(50,8,'Prueba','5ce0e0f8-46df-4654-b37b-7d7f40d9bc6a.jpeg',5656.56,'fefle[slfsfseffsfs',0,'0');
 /*!40000 ALTER TABLE `productos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -796,12 +743,9 @@ DROP TABLE IF EXISTS `recetas`;
 CREATE TABLE `recetas` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
-  `id_producto` int DEFAULT NULL,
-  `id_adicional` int DEFAULT NULL,
+  `id_producto` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_p_idx` (`id_producto`),
-  KEY `id_adicional_idx` (`id_adicional`),
-  CONSTRAINT `id_adicional` FOREIGN KEY (`id_adicional`) REFERENCES `adicionales` (`id`),
   CONSTRAINT `id_p` FOREIGN KEY (`id_producto`) REFERENCES `productos` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -827,7 +771,8 @@ CREATE TABLE `reservaciones` (
   `id_cliente` int NOT NULL,
   `cantidad_personas` float NOT NULL,
   `descripcion` varchar(40) DEFAULT NULL,
-  `fecha` datetime DEFAULT NULL,
+  `fecha_inicio` datetime NOT NULL,
+  `fecha_final` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id4_idx` (`id_cliente`),
   CONSTRAINT `id4` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`)
@@ -997,4 +942,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-12 19:10:56
+-- Dump completed on 2025-05-13 18:17:34
