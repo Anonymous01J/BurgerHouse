@@ -1,99 +1,21 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, reindex, resetForm, viewImage, searchParam, edit, permission } = functionGeneral();
+const { setValidationStyles, validateField, reindex, resetForm, viewImage, searchParam, print, add, update, permission, searchFilter } = functionGeneral();
 const { elemenFormTables, targetTable } = Templates()
 
-const print = async (search, template, container, modulePermission, estado, data, inputs) => {
-    let response = await search;
-    let templatesWrapper = "";
-    if (response.length == 0) {
-        templatesWrapper = `
-        <div class="col-12">
-            <div class="d-flex justify-content-center align-items-center">
-                <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
-            </div>
-        </div>
-      `;
-    } else {
-        response.forEach((element) => {
-            templatesWrapper += template(element);
-        });
-    }
-    document.querySelector(container).innerHTML = templatesWrapper;
-    document.querySelectorAll(".edit_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
-    document.querySelectorAll(".trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
-    permission(modulePermission);
-    Delete(template, container, estado, data, modulePermission, inputs);
-    edit(inputs);
-    feather.replace();
-};
-const Delete = (template, container, estado, data, modulePermission, inputs) => {
-    document.querySelectorAll(".trash_btn").forEach((element) => {
-        element.addEventListener("click", () => {
-            Swal.fire({
-                title: "¿Deseas eliminar este elemento?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Eliminar",
-                cancelButtonText: "Cancelar",
-                confirmButtonColor: "#FF4B00",
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    let id = element.getAttribute("data-id");
-                    let module = element.getAttribute("data-module-delete");
-                    $.ajax({
-                        type: "POST",
-                        url: `${module}/update`,
-                        data: { id, active: 0 },
-                        success: function (response) {
-                            if (response.success == true) {
-                                Swal.fire({
-                                    title: `Exito!`,
-                                    text: "El elemento fue eliminado correctamente",
-                                    icon: "success",
-                                });
-                                print(searchParam(estado, module, data, 1), template, container, modulePermission, estado, data, inputs);
-                            } else {
-                                Swal.fire({
-                                    title: `Error!`,
-                                    text: "El elemento no fue eliminado",
-                                    icon: "error",
-                                });
-                            }
-
-                        }
-                    });
-
-                }
-            });
-        });
-    });
-};
 viewImage(".input-image")
-const searchFilter = async (event, active, estado) => {
-    let data = new FormData();
-    data.append("nombre_like", event.target.value);
-    data.append("active", active);
-    data.append("estado", estado);
-    let pet = await fetch(`table/get_all`, {
-        method: "POST",
-        body: data,
-    });
-    let response = pet.json()
-    return response;
-};
-document.getElementById("SearchTablesFREE").addEventListener("keyup", (e) => {
-    if (e.target.value != "") {
-        print(searchFilter(e, 1, "LIBRE"), targetTable, ".cont_tables_free", "tables", "estado", "LIBRE", (response) => dataEdit(response));
+searchFilter("#SearchTablesFREE", (e) => {
+    if (e.target.value == "") {
+        print(() => searchParam({ active: 1, estado: "LIBRE" }, "table"), targetTable, ".cont_tables_free", "table", (response) => dataEdit(response));
     } else {
-        print(searchParam("estado", "table", "LIBRE", 1), targetTable, ".cont_tables_free", "table", "estado", "LIBRE", (response) => dataEdit(response));
+        print(() => searchParam({ active: 1, nombre_like: e.target.value, estado: "LIBRE" }, "table"), targetTable, ".cont_tables_free", "table", (response) => dataEdit(response));
     }
 })
-document.getElementById("SearchTablesOCCUPIED").addEventListener("keyup", (e) => {
-    if (e.target.value != "") {
-        print(searchFilter(e, 1, "OCUPADA"), targetTable, ".cont_tables_occupied", "tables", "estado", "OCUPADA", (response) => dataEdit(response));
+searchFilter("#SearchTablesOCCUPIED", (e) => {
+    if (e.target.value == "") {
+        print(() => searchParam({ active: 1, estado: "OCUPADA" }, "table"), targetTable, ".cont_tables_occupied", "table", (response) => dataEdit(response));
     } else {
-        print(searchParam("estado", "table", "OCUPADA", 1), targetTable, ".cont_tables_occupied", "table", "estado", "OCUPADA", (response) => dataEdit(response));
+        print(() => searchParam({ active: 1, nombre_like: e.target.value, estado: "OCUPADA" }, "table"), targetTable, ".cont_tables_occupied", "table", (response) => dataEdit(response));
     }
 })
 
@@ -198,7 +120,6 @@ const rules2 = {
         numero: { message: "^debe ser un número mayor a 0" }
     },
 };
-
 let form = document.getElementById("form-submit-tables")
 if (!form.dataset.listenerAttached) {
     form.addEventListener("submit", (e) => {
@@ -236,27 +157,7 @@ if (!form.dataset.listenerAttached) {
                 data.append(`lista[${index}][vip]`, table.vip == true ? 1 : 0);
             })
             resetForm("#tables-container .tables", form)
-            const send = async () => {
-                let pet = await fetch("table/add_many", { method: "POST", body: data, })
-                let response = await pet.json()
-                if (response.success == true) {
-                    if (response.success == true) {
-                        Swal.fire({
-                            title: `Exito!`,
-                            text: "El elemento fue agregado correctamente",
-                            icon: "success",
-                        });
-                        print(searchParam("estado", "table", "LIBRE", 1), targetTable, ".cont_tables_free", "table", "estado", "LIBRE", (response) => dataEdit(response));
-                    } else {
-                        Swal.fire({
-                            title: `Error!`,
-                            text: "El elemento no fue agregado",
-                            icon: "error",
-                        });
-                    }
-                }
-            }
-            send()
+            add(() => searchParam({ active: 1, estado: "LIBRE" }, "table"), "table", data, targetTable, ".cont_tables_free", "table", (response) => dataEdit(response))
             bootstrap.Modal.getOrCreateInstance('#register-table').hide()
         }
     });
@@ -305,25 +206,7 @@ const dataEdit = (response) => {
                     dataFinal.append(`imagen`, data.imagen);
                     dataFinal.append(`imagen_name`, data.imagen.name);
                 }
-                let send = async () => {
-                    let pet = await fetch("table/update", { method: "POST", body: dataFinal, })
-                    let response = await pet.json()
-                    if (response.success == true) {
-                        Swal.fire({
-                            title: `Exito!`,
-                            text: "El elemento fue editado correctamente",
-                            icon: "success",
-                        });
-                        print(searchParam("estado", "table", "LIBRE", 1), targetTable, ".cont_tables_free", "table", "estado", "LIBRE", (response) => dataEdit(response));
-                    } else {
-                        Swal.fire({
-                            title: `Error!`,
-                            text: "El elemento no fue editado",
-                            icon: "error",
-                        });
-                    }
-                }
-                send()
+                update(() => searchParam({ active: 1, estado: "LIBRE" }, "table"), "table", dataFinal, targetTable, ".cont_tables_free", "table", (response) => dataEdit(response))
                 bootstrap.Modal.getOrCreateInstance('#edit-table').hide()
             }
         })
@@ -331,5 +214,5 @@ const dataEdit = (response) => {
     }
 }
 attachValidationListeners(1);
-print(searchParam("estado", "table", "LIBRE", 1), targetTable, ".cont_tables_free", "table", "estado", "LIBRE", (response) => dataEdit(response));
-print(searchParam("estado", "table", "OCUPADA", 1), targetTable, ".cont_tables_occupied", "table", "estado", "OCUPADA", (response) => dataEdit(response));
+print(() => searchParam({ active: 1, estado: "LIBRE" }, "table"), targetTable, ".cont_tables_free", "table", (response) => dataEdit(response));
+print(() => searchParam({ active: 1, estado: "OCUPADA" }, "table"), targetTable, ".cont_tables_occupied", "table", (response) => dataEdit(response));

@@ -1,9 +1,15 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { selectOptionAll, setValidationStyles, validateField, searchAll, searchFilter, print, add, update, reindex, resetForm } = functionGeneral();
+const { selectOptionAll, setValidationStyles, validateField, searchAll, searchParam, searchFilter, print, add, update, reindex, resetForm } = functionGeneral();
 const { elemenFormClient, targetClient } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
-searchFilter("#SearchClients", "clients", targetClient, "clients", ".container_clients", 1, (response) => editClient(response))
+searchFilter("#SearchClients", (e) => {
+    if (e.target.value == "") {
+        print(() => searchParam({ active: 1 }, "clients"), targetClient, ".container_clients", "clients", (response) => editClient(response));
+    } else {
+        print(() => searchParam({ active: 1, nombre_like: e.target.value }, "clients"), targetClient, ".container_clients", "clients", (response) => editClient(response));
+    }
+})
 selectOptionAll(".select_options_td", null, null)
 let iti = window.intlTelInput(document.querySelector("#input-tel-client-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
 let itiedit = window.intlTelInput(document.querySelector("#input-tel-client"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
@@ -101,16 +107,16 @@ const rules = {
             message: "^debe tener al menos 3 caracteres"
         },
     },
-    documento: {
-        presence: {
-            allowEmpty: false,
-            message: "^es requerida"
-        },
-        format: {
-            pattern: "^[0-9]+$",
-            message: "^solo puede tener numeros"
-        }
-    },
+    // documento: {
+    //     presence: {
+    //         allowEmpty: false,
+    //         message: "^es requerida"
+    //     },
+    //     format: {
+    //         pattern: "^[0-9]+$",
+    //         message: "^solo puede tener numeros"
+    //     }
+    // },
     telefono: {
         presence: {
             allowEmpty: false,
@@ -119,19 +125,19 @@ const rules = {
         telefonoValido: true
 
     },
-    direccion: {
-        presence: {
-            allowEmpty: false,
-            message: "^es requerido"
-        },
-    },
-    tipo_documento: {
-        presence: {
-            allowEmpty: false,
-            message: "^es requerida"
-        },
-        validateTD: { message: "^es requerido" }
-    }
+    // direccion: {
+    //     presence: {
+    //         allowEmpty: false,
+    //         message: "^es requerido"
+    //     },
+    // },
+    // tipo_documento: {
+    //     presence: {
+    //         allowEmpty: false,
+    //         message: "^es requerida"
+    //     },
+    //     validateTD: { message: "^es requerido" }
+    // }
 };
 const rules2 = {
     nombre: {
@@ -162,16 +168,16 @@ const rules2 = {
             message: "^debe tener al menos 3 caracteres"
         },
     },
-    documento: {
-        presence: {
-            allowEmpty: false,
-            message: "^es requerida"
-        },
-        format: {
-            pattern: "^[0-9]+$",
-            message: "^solo puede tener numeros"
-        }
-    },
+    // documento: {
+    //     presence: {
+    //         allowEmpty: false,
+    //         message: "^es requerida"
+    //     },
+    //     format: {
+    //         pattern: "^[0-9]+$",
+    //         message: "^solo puede tener numeros"
+    //     }
+    // },
     telefono: {
         presence: {
             allowEmpty: false,
@@ -180,19 +186,19 @@ const rules2 = {
         telefonoValidoEdit: true
 
     },
-    direccion: {
-        presence: {
-            allowEmpty: false,
-            message: "^es requerido"
-        },
-    },
-    tipo_documento: {
-        presence: {
-            allowEmpty: false,
-            message: "^es requerida"
-        },
-        validateTD: { message: "^es requerido" }
-    }
+    // direccion: {
+    //     presence: {
+    //         allowEmpty: false,
+    //         message: "^es requerido"
+    //     },
+    // },
+    // tipo_documento: {
+    //     presence: {
+    //         allowEmpty: false,
+    //         message: "^es requerida"
+    //     },
+    //     validateTD: { message: "^es requerido" }
+    // }
 };
 
 let form = document.getElementById("form-submit-clients")
@@ -208,19 +214,19 @@ if (!form.dataset.listenerAttached) {
             const data = {
                 nombre: client.querySelector(`input[name="nombre"]`).value,
                 apellido: client.querySelector(`input[name="apellido"]`).value,
-                tipo_documento: client.querySelector(`input[name="tipo_documento"]`) ? client.querySelector(`input[name="tipo_documento"]`).value : "",
+                // tipo_documento: client.querySelector(`input[name="tipo_documento"]`) ? client.querySelector(`input[name="tipo_documento"]`).value : "",
                 telefono: window.intlTelInput(client.querySelector(`input[name="telefono"]`), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber(),
-                documento: client.querySelector(`input[name="documento"]`) ? client.querySelector(`input[name="documento"]`).value : "",
-                direccion: client.querySelector(`textarea[name="direccion"]`) ? client.querySelector(`textarea[name="direccion"]`).value : "",
+                // documento: client.querySelector(`input[name="documento"]`) ? client.querySelector(`input[name="documento"]`).value : "",
+                // direccion: client.querySelector(`textarea[name="direccion"]`) ? client.querySelector(`textarea[name="direccion"]`).value : "",
             };
             dataClient.push(data)
             const errors = validate(data, rules);
             setValidationStyles(`input-name-client-${index}`, errors?.nombre ? errors.nombre[0] : null);
             setValidationStyles(`input-lastname-client-${index}`, errors?.apellido ? errors.apellido[0] : null);
-            setValidationStyles(`input-td-client-${index}`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
-            setValidationStyles(`input-doc-client-${index}`, errors?.documento ? errors.documento[0] : null);
+            // setValidationStyles(`input-td-client-${index}`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
+            // setValidationStyles(`input-doc-client-${index}`, errors?.documento ? errors.documento[0] : null);
             setValidationStyles(`input-tel-client-${index}`, errors?.telefono ? errors.telefono[0] : null);
-            setValidationStyles(`input-direction-client-${index}`, errors?.direccion ? errors.direccion[0] : null);
+            // setValidationStyles(`input-direction-client-${index}`, errors?.direccion ? errors.direccion[0] : null);
             if (errors) {
                 formHasError = true;
             }
@@ -231,43 +237,43 @@ if (!form.dataset.listenerAttached) {
             dataClient.forEach((client, index) => {
                 dataFinal.append(`lista[${index}][nombre]`, client.nombre);
                 dataFinal.append(`lista[${index}][apellido]`, client.apellido);
-                dataFinal.append(`lista[${index}][documento]`, client.tipo_documento + "-" + client.documento);
+                // dataFinal.append(`lista[${index}][documento]`, client.tipo_documento + "-" + client.documento);
                 dataFinal.append(`lista[${index}][telefono]`, client.telefono);
-                dataFinal.append(`lista[${index}][direccion]`, client.direccion);
+                // dataFinal.append(`lista[${index}][direccion]`, client.direccion);
             })
-            add("clients", dataFinal, targetClient, ".container_clients", "clients", (response) => editClient(response))
+            add(() => searchParam({ active: 1 }, "clients"), "clients", dataFinal, targetClient, ".container_clients", "clients", (response) => editClient(response))
             resetForm("#clients-container .clients", form)
             bootstrap.Modal.getOrCreateInstance('#register-client').hide()
         }
     });
     form.dataset.listenerAttached = "true";
 }
-print(searchAll("clients", 1), targetClient, ".container_clients", "clients", (response) => editClient(response));
+print(() => searchParam({ active: 1 }, "clients"), targetClient, ".container_clients", "clients", (response) => editClient(response));
 const editClient = (response) => {
     let hasError = false;
     document.querySelector("#input-name-client").value = response[0].nombre;
     document.querySelector("#input-lastname-client").value = response[0].apellido;
-    document.querySelector("#input-doc-client").value = response[0].documento.split("-")[1];
-    document.querySelector("#input-td-client").value = response[0].documento.split("-")[0];
+    // document.querySelector("#input-doc-client").value = response[0].documento.split("-")[1];
+    // document.querySelector("#input-td-client").value = response[0].documento.split("-")[0];
     document.querySelector("#input-tel-client").value = response[0].telefono;
-    document.querySelector("#input-direction-client").value = response[0].direccion;
+    // document.querySelector("#input-direction-client").value = response[0].direccion;
     document.querySelector("#input-id-client").value = response[0].id;
     const data = {
         nombre: document.querySelector(`#input-name-client`).value,
         apellido: document.querySelector(`#input-lastname-client`).value,
-        tipo_documento: document.querySelector(`#input-td-client`).value,
+        // tipo_documento: document.querySelector(`#input-td-client`).value,
         telefono: window.intlTelInput(document.querySelector(`#input-tel-client`), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber(),
-        documento: document.querySelector(`#input-doc-client`).value,
-        direccion: document.querySelector(`#input-direction-client`).value,
+        // documento: document.querySelector(`#input-doc-client`).value,
+        // direccion: document.querySelector(`#input-direction-client`).value,
     };
     const errors = validate(data, rules2);
     if (errors) hasError = true;
     setValidationStyles(`input-name-client`, errors?.nombre ? errors.nombre[0] : null);
     setValidationStyles(`input-lastname-client`, errors?.apellido ? errors.apellido[0] : null);
-    setValidationStyles(`input-td-client`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
-    setValidationStyles(`input-doc-client`, errors?.documento ? errors.documento[0] : null);
+    // setValidationStyles(`input-td-client`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
+    // setValidationStyles(`input-doc-client`, errors?.documento ? errors.documento[0] : null);
     setValidationStyles(`input-tel-client`, errors?.telefono ? errors.telefono[0] : null);
-    setValidationStyles(`input-direction-client`, errors?.direccion ? errors.direccion[0] : null);
+    // setValidationStyles(`input-direction-client`, errors?.direccion ? errors.direccion[0] : null);
 
 
     let formEdit = document.getElementById("form-submit-edit-client")
@@ -277,10 +283,10 @@ const editClient = (response) => {
             const data = {
                 nombre: document.querySelector(`#input-name-client`).value,
                 apellido: document.querySelector(`#input-lastname-client`).value,
-                tipo_documento: document.querySelector(`#input-td-client`).value,
+                // tipo_documento: document.querySelector(`#input-td-client`).value,
                 telefono: window.intlTelInput(document.querySelector(`#input-tel-client`), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber(),
-                documento: document.querySelector(`#input-doc-client`).value,
-                direccion: document.querySelector(`#input-direction-client`).value,
+                // documento: document.querySelector(`#input-doc-client`).value,
+                // direccion: document.querySelector(`#input-direction-client`).value,
             };
             const errors = validate(data, rules2);
             if (errors) hasError = true;
@@ -289,11 +295,11 @@ const editClient = (response) => {
                 let dataFinal = new FormData();
                 dataFinal.append(`nombre`, data.nombre);
                 dataFinal.append(`apellido`, data.apellido);
-                dataFinal.append(`documento`, data.tipo_documento + "-" + data.documento);
+                // dataFinal.append(`documento`, data.tipo_documento + "-" + data.documento);
                 dataFinal.append(`telefono`, data.telefono);
-                dataFinal.append(`direccion`, data.direccion);
+                // dataFinal.append(`direccion`, data.direccion);
                 dataFinal.append(`id`, document.querySelector("#input-id-client").value);
-                update("clients", dataFinal, targetClient, ".container_clients", "clients", (response) => editClient(response))
+                update(() => searchParam({ active: 1 }, "clients"), "clients", dataFinal, targetClient, ".container_clients", "clients", (response) => editClient(response))
                 bootstrap.Modal.getOrCreateInstance('#edit-client').hide()
             }
         });

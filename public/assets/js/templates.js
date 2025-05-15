@@ -133,12 +133,10 @@ export default function Templates() {
             <div class="position-relative">
                 <div class="card">
                     <div class="card-body">
-                        <div class="mb-3 border-bottom">
-                            <div class="d-flex justify-content-between ">
+                        <div class="mb-3 pb-2 border-bottom">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title">${objet.nombre + " " + objet.apellido}</h5>
-                                <div>
-                                    <p class="fs-6">${objet.documento}</p>
-                                </div>
+                                <img src="./assets/img/users/1.jpg" alt="user" class="rounded-circle" style="width: 20%">
                             </div>
                         </div>
                         <div class="row gap-3">
@@ -147,10 +145,6 @@ export default function Templates() {
                                     <h4>Telefono</h4>
                                     <div class="fs-6">${objet.telefono}</div>
                                 </div>
-                                <div class="">
-                                    <h4>Direccion</h4>
-                                    <div class="fs-6">${objet.direccion}</div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -158,7 +152,7 @@ export default function Templates() {
                         <small class="text-body-secondary">
                             <div style="display: flex; justify-content: end; align-items: center;">
                                 <div class="d-flex gap-3">
-                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="clients" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-client"  data-bs-title="Editar Cliente" data-bs-placement="bottom">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="clients" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-client" data-bs-title="Editar Cliente" data-bs-placement="bottom">
                                         <i data-feather="edit"></i>
                                     </a>
                                     <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="clients" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Cliente" data-bs-placement="bottom">
@@ -427,6 +421,37 @@ export default function Templates() {
         </div>
         `
     }
+    function elemenFormDrink(objet) {
+        return `
+        <div class="row g-2 drinks" id="drinks-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-0 mt-4">
+                <h4 class="m-0">${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-drink">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Nombre</label>
+                <input type="text" class="form-control" placeholder="Nombre" id="input-name-drink-${objet}" name="nombre">
+                <div class="text-danger mt-1 fs-6" id="error-input-name-drink-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Precio</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-drink-${objet}" name="precio">
+                    <div class="text-danger mt-1 fs-6" id="error-input-price-drink-${objet}"></div>
+                </div>
+            </div>
+            <div class="col-4">
+                <label for="inputZip" class="form-label">Imagen</label>
+                <input class="form-control input-image" type="file" id="input-image-drink-${objet}" name="imagen">
+                <div class="text-danger mt-1 fs-6" id="error-input-image-drink-${objet}"></div>
+            </div>
+            <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
+        </div>
+        `
+    }
     function elemenFormCategoryProduct(objet) {
         return `
         <div class="row g-2 categoryCombos" id="categoryCombos-${objet}">
@@ -652,53 +677,20 @@ export default function Templates() {
                     <i data-feather="trash"></i>
                 </button>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Nombre</label>
                 <input type="text" class="form-control" placeholder="Nombre" id="input-name-client-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-client-${objet}"></div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Apellido</label>
                 <input type="text" class="form-control" placeholder="Apellido" id="input-lastname-client-${objet}" name="apellido">
                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-client-${objet}"></div>
-
             </div>
-            <div class="col-md-6 ">
-                <label for="inputCity" class="form-label">Tipo de documento</label>
-                <div class="dropdown select_options_td">
-                    <div class="dropdown">
-                        <div class="btn-group w-100" bis_skin_checked="1">
-                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-td-client-${objet}" name="tipo_documento">
-                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span> <i data-feather="chevron-down"></i></span>
-                            </button>
-                            <div class="dropdown-menu p-2" bis_skin_checked="1">
-                                <div class="options_search">
-                                    <a class="dropdown-item">V</a>
-                                    <a class="dropdown-item">E</a>
-                                    <a class="dropdown-item">J</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="text-danger mt-1 fs-6" id="error-input-td-client-${objet}"></div>
-            </div>
-            <div class="col-md-6">
-                <label for="inputEmail4" class="form-label">Nro de documento</label>
-                <input type="text" class="form-control" placeholder="Documento" id="input-doc-client-${objet}" name="documento">
-                <div class="text-danger mt-1 fs-6" id="error-input-doc-client-${objet}"></div>
-            </div>
-            <div class="col-12">
+            <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Telefono</label>
                 <input type="tel" class="form-control" placeholder="Telefono" id="input-tel-client-${objet}" name="telefono">
                 <div class="text-danger mt-1 fs-6" id="error-input-tel-client-${objet}"></div>
-            </div>
-            <div class="col-12">
-                <label for="inputEmail4" class="form-label">Direccion</label>
-                <textarea class="form-control" id="input-direction-client-${objet}" name="direccion" rows="5"></textarea>
-                <div class="text-danger mt-1 fs-6" id="error-input-direction-client-${objet}"></div>
             </div>
         </div>
         `
@@ -837,6 +829,7 @@ export default function Templates() {
         elemenFormSupplier,
         elemenFormClient,
         elemenFormAdditional,
+        elemenFormDrink,
         elemenFormUser,
         optionsRol,
         Watermark,

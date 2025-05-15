@@ -28,7 +28,8 @@ const modulesConfig = {
             dataSrc: '',
             type: 'POST',
             data: {
-                active: 0
+                active: 0,
+                tipo: "producto"
             }
         },
         columns: [
@@ -282,7 +283,7 @@ const modulesConfig = {
             url: 'additional/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
-            data: {active: 0}
+            data: {active: 0, tipo: "adicional"}
         },
         columns: [
             { title: '', data: null ,render: (data) =>{return `<img style="object-fit: cover" src='media/adicionales/${data.imagen}' width='50px' height='50px'>`}},
@@ -294,6 +295,29 @@ const modulesConfig = {
                 render: (data) =>
                     `
                 <button data-id="${data.id}" data-module-restore="additional" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Adicional" data-bs-placement="bottom">
+                    <i data-feather="refresh-ccw" class="text-white"></i>
+                </button>
+                `
+            }
+        ]
+    },
+    bebidas: {
+        ajax: {
+            url: 'drink/get_all/0/10000000/id/asc',
+            dataSrc: '',
+            type: 'POST',
+            data: {active: 0, tipo: "bebida"}
+        },
+        columns: [
+            { title: '', data: null ,render: (data) =>{return `<img style="object-fit: cover" src='media/bebidas/${data.imagen}' width='50px' height='50px'>`}},
+            { title: 'Nombre', data: 'nombre' },
+            { title: 'Precio', data: null, render: (data) =>{return (data.precio).toString().replace(".",",") + " $" }},
+            {
+                title: 'Acciones',
+                data: null,
+                render: (data) =>
+                    `
+                <button data-id="${data.id}" data-module-restore="drink" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Bebida" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `

@@ -1,13 +1,19 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchAll, print, add, reindex, resetForm, permission, searchFilter } = functionGeneral();
+const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, print, add, reindex, resetForm, permission, searchFilter } = functionGeneral();
 const { targetProduct, elemenFormCombo, optionsRol } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 InputPrice("[input_price]");
 selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 viewImage(".input-image")
-permission("Product")//verifica el btn de agg
-searchFilter("#searchProduct", "product", targetProduct, "product", ".cont-product", 1, (response) => editData(response))
+// permission("Product")//verifica el btn de agg
+searchFilter("#searchProduct", (e) => {
+  if (e.target.value == "") {
+    print(()=>searchParam({ active: 1, tipo: "producto" }, "product"), targetProduct, ".cont-product", "product", (response) => editData(response))
+  } else {
+    print(()=>searchParam({ active: 1, nombre_like: e.target.value, tipo: "producto" }, "product"), targetProduct, ".cont-product", "product", (response) => editData(response))
+  }
+})
 // ------------------Validacion de Formulario---------------------------
 
 
@@ -213,6 +219,8 @@ const rules2 = {
     }
   },
 };
+
+const productSearch = () => { return searchParam({ active: 1, tipo: "producto" }, "product") }
 let form = document.getElementById("form-submit-combo")
 if (!form.dataset.listenerAttached) {
   form.addEventListener("submit", function (e) {
@@ -252,17 +260,17 @@ if (!form.dataset.listenerAttached) {
         data.append(`lista[${index}][detalles]`, combo.detalles);
         data.append(`lista[${index}][imagen_name]`, combo.imagen.name);
         data.append(`lista[${index}][imagen]`, combo.imagen);
+        data.append(`lista[${index}][tipo]`, "producto");
       })
       resetForm("#products-container .product", form)
-      add('product', data, targetProduct, ".cont-product", "product", (response) => editData(response))
+      add(productSearch, 'product', data, targetProduct, ".cont-product", "product", (response) => editData(response))
       bootstrap.Modal.getOrCreateInstance('#register-product').hide()
     }
   });
   form.dataset.listenerAttached = "true";
 }
 attachValidationListeners(1)
-print(searchAll("product", 1), targetProduct, ".cont-product", "product", (response) => editData(response))//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
-
+print(productSearch, targetProduct, ".cont-product", "product", (response) => editData(response))//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
 function editData(response) {
   let hasError = false
   document.querySelector("#input-name-combo").value = response[0].nombre
@@ -315,7 +323,7 @@ function editData(response) {
           datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
           datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
         }
-        update('product', datafinal, targetProduct, ".cont-product", "product", (response) => editData(response))
+        update(productSearch, 'product', datafinal, targetProduct, ".cont-product", "product", (response) => editData(response))
         bootstrap.Modal.getOrCreateInstance('#edit-product').hide()
       }
     })

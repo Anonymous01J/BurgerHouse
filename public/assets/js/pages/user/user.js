@@ -1,6 +1,6 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { selectOptionAll, setValidationStyles, validateField, searchAll, searchFilter, print, add, update, reindex, resetForm } = functionGeneral();
+const { selectOptionAll, setValidationStyles, validateField, searchAll, searchParam, searchFilter, print, add, update, reindex, resetForm } = functionGeneral();
 const { elemenFormUser, optionsRol, targetUser } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 selectOptionAll(".select_options_td", null)
@@ -8,36 +8,13 @@ selectOptionAll(".select_options_rol", "rol", optionsRol)
 selectOptionAll(".select_options_td_edit", null)
 selectOptionAll(".select_options_rol_edit", "rol", optionsRol)
 //funcion del search para filtrar los usuarios
-searchFilter("#search-filter-users", "users", targetUser, "users", ".container_users", 1, (response) => {
-    document.querySelector(`#id-user`).value = response[0].id;
-    document.querySelector(`#input-name-user`).value = response[0].nombre;
-    document.querySelector(`#input-lastname-user`).value = response[0].apellido;
-    document.querySelector(`#input-td-user`).value = response[0].documento.split("-")[0];
-    document.querySelector(`#input-rif-user`).value = response[0].documento.split("-")[1];
-    document.querySelector(`#input-email-user`).value = response[0].email;
-    document.querySelector(`#input-password-user`).value = response[0].hash;
-    document.querySelector(`#input-rol-user`).setAttribute("data-id", response[0].rol_id);
-    document.querySelector(`#input-rol-user`).value = response[0].rol;
-
-    const data = {
-        nombre: document.querySelector(`#input-name-user`).value,
-        apellido: document.querySelector(`#input-lastname-user`).value,
-        tipo_documento: document.querySelector(`#input-td-user`) ? document.querySelector(`#input-td-user`).value : "",
-        rif: document.querySelector(`#input-rif-user`).value,
-        email: document.querySelector(`#input-email-user`).value,
-        id_rol: document.querySelector(`#input-rol-user`).getAttribute("data-id"),
-        hash: document.querySelector(`#input-password-user`).value
+searchFilter("#search-filter-users", (e) => {
+    if (e.target.value == "") {
+        print(() => searchParam({ active: 1 }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response))
+    } else {
+        print(() => searchParam({ active: 1, nombre_like: e.target.value  }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response))
     }
-    const errors = validate(data, rules);
-    setValidationStyles(`input-name-user`, errors?.nombre ? errors.nombre[0] : null);
-    setValidationStyles(`input-lastname-user`, errors?.apellido ? errors.apellido[0] : null);
-    setValidationStyles(`input-td-user`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
-    setValidationStyles(`input-rif-user`, errors?.rif ? errors.rif[0] : null);
-    setValidationStyles(`input-email-user`, errors?.email ? errors.email[0] : null);
-    setValidationStyles(`input-password-user`, errors?.hash ? errors.hash[0] : null);
-    setValidationStyles(`input-rol-user`, errors?.id_rol ? errors.id_rol[0] : null);
 })
-
 let UsersCount = 1;
 function addUsers() {
     UsersCount++;
@@ -226,14 +203,14 @@ if (!form.dataset.listenerAttached) {
                 dataFinal.append(`lista[${index}][hash]`, user.hash)
             })
             resetForm("#users-container .users", form)
-            add('users', dataFinal, targetUser, ".container_users", "usuarios", (response) => editData(response))
+            add(() => searchParam({ active: 1 }, "users"), 'users', dataFinal, targetUser, ".container_users", "usuarios", (response) => editData(response))
             bootstrap.Modal.getOrCreateInstance('#register-user').hide()
         }
     })
     form.dataset.listenerAttached = "true";
 }
 attachValidationListeners(1)
-print(searchAll("users", 1), targetUser, ".container_users", "usuarios", (response) => editData(response))
+print(() => searchParam({ active: 1 }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response))
 //edicion de usuarios
 function editData(response) {
     document.querySelector(`#id-user`).value = response[0].id;
@@ -296,17 +273,7 @@ function editData(response) {
                 dataFinal.append('hash', data.hash)
                 dataFinal.append('id', formEdit.querySelector(`input[name="id_user"]`).value)
 
-                update('users', dataFinal, targetUser, ".container_users", "usuarios", (response) => {
-                    document.querySelector(`#id-user`).value = response[0].id;
-                    document.querySelector(`#input-name-user`).value = response[0].nombre;
-                    document.querySelector(`#input-lastname-user`).value = response[0].apellido;
-                    document.querySelector(`#input-td-user`).value = response[0].documento.split("-")[0];
-                    document.querySelector(`#input-rif-user`).value = response[0].documento.split("-")[1];
-                    document.querySelector(`#input-email-user`).value = response[0].email;
-                    document.querySelector(`#input-password-user`).value = response[0].hash;
-                    document.querySelector(`#input-rol-user`).setAttribute("data-id", response[0].rol_id);
-                    document.querySelector(`#input-rol-user`).value = response[0].rol;
-                })
+                update(() => searchParam({ active: 1 }, "users"), 'users', dataFinal, targetUser, ".container_users", "usuarios", (response) => editData(response))
                 bootstrap.Modal.getOrCreateInstance('#edit-user').hide()
             }
         })

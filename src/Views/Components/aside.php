@@ -161,6 +161,13 @@
                                 </span>
                             </a>
                         </li>
+                        <li class="sidebar-item" data-module="Adicionales">
+                            <a href="drink" class="sidebar-link">
+                                <span
+                                    class="hide-menu"> Bebidas
+                                </span>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

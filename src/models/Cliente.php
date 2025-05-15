@@ -7,9 +7,9 @@ class Cliente extends Db_base {
     private $id;
     private $nombre;
     private $apellido;
-    private $documento;
+    // private $documento;
     private $telefono;
-    private $direccion;
+    // private $direccion;
     private $active;
     private $nombre_like;
 
@@ -17,9 +17,9 @@ class Cliente extends Db_base {
         $id = null,
         $nombre = null,
         $apellido = null,
-        $documento = null,
+        // $documento = null,
         $telefono = null,
-        $direccion = null,
+        // $direccion = null,
         $active = null,
         $nombre_like = null
     ) {
@@ -28,9 +28,9 @@ class Cliente extends Db_base {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->apellido = $apellido;
-        $this->documento = $documento;
+        // $this->documento = $documento;
         $this->telefono = $telefono;
-        $this->direccion = $direccion;
+        // $this->direccion = $direccion;
         $this->active = $active;
         $this->nombre_like = $nombre_like;
 
@@ -38,23 +38,21 @@ class Cliente extends Db_base {
             "a.id" => $this->id,
             "a.nombre" => $this->nombre,
             "a.apellido" => $this->apellido,
-            "a.documento" => $this->documento,
+            // "a.documento" => $this->documento,
             "a.telefono" => $this->telefono,
-            "a.direccion" => $this->direccion,
+            // "a.direccion" => $this->direccion,
             "a.active" => $this->active
         ]);
 
         $this->add_variables_like([
-            "a.documento" => $this->nombre_like
+            "a.nombre" => $this->nombre_like
         ]);
         
         $this->select_query = "
             a.id,
             a.nombre,
             a.apellido,
-            a.documento,
             a.telefono,
-            a.direccion,
             a.active
         ";
     }

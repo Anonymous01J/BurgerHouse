@@ -38,4 +38,4 @@ const dolarBCV = async () => {
 }
 dolarBCV()
 //permisos para el navbar
-permission("Combo")
+// permission("Combo")

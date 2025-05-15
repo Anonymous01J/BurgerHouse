@@ -311,7 +311,7 @@ export default function functionGeneral() {
     return response;
   };
   const print = async (search, template, container, modulePermission, inputs) => {
-    let response = await search;
+    let response = await search();
     let templatesWrapper = "";
     if (response.length == 0) {
       templatesWrapper = `
@@ -327,14 +327,14 @@ export default function functionGeneral() {
       });
     }
     document.querySelector(container).innerHTML = templatesWrapper;
-    document.querySelectorAll(".edit_btn").forEach((element) => {let tooltip = new bootstrap.Tooltip(element)});
-    document.querySelectorAll(".trash_btn").forEach((element) => {let tooltip = new bootstrap.Tooltip(element)});
+    document.querySelectorAll(".edit_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
+    document.querySelectorAll(".trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
     permission(modulePermission);
-    Delete(template, container);
+    Delete(search, template, container, modulePermission, inputs);
     edit(inputs);
     feather.replace();
   };
-  const Delete = (template, container, modulePermission, inputs) => {
+  const Delete = (search, template, container, modulePermission, inputs) => {
     document.querySelectorAll(".trash_btn").forEach((element) => {
       element.addEventListener("click", () => {
         Swal.fire({
@@ -359,7 +359,7 @@ export default function functionGeneral() {
                     text: "El elemento fue eliminado correctamente",
                     icon: "success",
                   });
-                  print(searchAll(module, 1), template, container, modulePermission, inputs);
+                  print(search, template, container, modulePermission, inputs);
                 } else {
                   Swal.fire({
                     title: `Error!`,
@@ -376,7 +376,7 @@ export default function functionGeneral() {
       });
     });
   };
-  const add = async (module, data, template, container, permission, inputs) => {
+  const add = async (search, module, data, template, container, permission, inputs) => {
     let action = await fetch(`${module}/add_many`, {
       method: "POST",
       body: data,
@@ -389,7 +389,7 @@ export default function functionGeneral() {
         text: "El elemento fue agregado correctamente",
         icon: "success",
       });
-      print(searchAll(module, 1), template, container, permission, inputs);
+      print(search, template, container, permission, inputs);
     } else {
       Swal.fire({
         title: `Error!`,
@@ -398,29 +398,21 @@ export default function functionGeneral() {
       });
     }
   };
-  const searchParam = async (param, module, data, active) => {
-    let d = new FormData();
-    d.append(`${param}`, data);
-    d.append("active", active);
-    let pet = await fetch(`${module}/get_all`, {
+  const searchParam = async (param, module) => {
+    let data = new FormData()
+    if (Object.keys(param).length != 0) {
+      Object.keys(param).forEach((key) => {
+        data.append(`${key}`, `${param[key]}`)
+      })
+    }
+    let pet = await fetch(`${module}/get_all/0/6/id/desc`, {
       method: "POST",
-      body: d,
+      body: data
     });
-    let response = await pet.json();
-    return response;
+    let response = await pet.json()
+    return response
   };
-  const searchLike = async (event, module, active) => {
-    let data = new FormData();
-    data.append("nombre_like", event.target.value);
-    data.append("active", active);
-    let pet = await fetch(`${module}/get_all`, {
-      method: "POST",
-      body: data,
-    });
-    let response = pet.json()
-    return response;
-  };
-  const update = async (module, data, template, container, permission, inputs) => {
+  const update = async (search, module, data, template, container, permission, inputs) => {
     let action = await fetch(`${module}/update`, {
       method: "POST",
       body: data,
@@ -432,7 +424,7 @@ export default function functionGeneral() {
         text: "El elemento fue actualizado correctamente",
         icon: "success",
       });
-      print(searchAll(module, 1), template, container, permission, inputs);
+      print(search, template, container, permission, inputs);
     } else {
       Swal.fire({
         title: `Error!`,
@@ -459,14 +451,10 @@ export default function functionGeneral() {
       })
     })
   }
-  const searchFilter = (searchInput, module, template, modulePermission, container, active, inputs) => {
+  const searchFilter = (searchInput, searchLike) => {
     let search = document.querySelector(searchInput);
     search.addEventListener("keyup", async (e) => {
-      if (e.target.value != "") {
-        print(searchLike(e, module, active), template, container, modulePermission, inputs);
-      } else {
-        print(searchAll(module, 1), template, container, modulePermission, inputs);
-      }
+     searchLike(e)
     });
   }
   //--------------funciones para el manejo de peticiones ajax para las datatables------------------
@@ -576,7 +564,6 @@ export default function functionGeneral() {
     viewImage,
     searchAll,
     searchParam,
-    searchLike,
     searchFilter,
     print,
     add,
