@@ -66,7 +66,7 @@
                 </li> -->
 
                 <li class="sidebar-item" data-module="Estadisticas">
-                    <a class="sidebar-link" href="estadisticas"
+                    <a class="sidebar-link" href="statistics"
                         aria-expanded="false">
                         <i data-feather="bar-chart" class="feather-icon"></i>
                         <span class="hide-menu">Estadisticas</span>

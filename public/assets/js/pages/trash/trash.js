@@ -84,8 +84,8 @@ const modulesConfig = {
         },
         columns: [
             { title: 'ID', data: 'id' },
-            { title: 'Nombre', data: 'nombre' },
-            { title: 'Documento', data: 'documento' },
+            { title: 'Nombre', data: null, render: (data) => `${data.nombre + " " + data.apellido}` },
+            { title: 'Telefono', data: 'telefono' },
             {
                 title: 'Acciones',
                 data: null,
