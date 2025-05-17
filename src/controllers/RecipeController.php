@@ -16,9 +16,7 @@ class RecipeController extends Controller_base {
         try {
             $this->db->conn->beginTransaction();
             $this->db->clear();
-            $datos = $_POST;
-            unset($datos['lista']);
-            $this->db->__construct(...$datos);
+            $this->db->__construct($_POST['id_producto']);
             for ($i = 0; $i < count($_POST['lista']); $i++) {
                 $otra_clase = new Detalle_receta($_POST['lista'][$i]);
                 $otra_clase->agregar();
