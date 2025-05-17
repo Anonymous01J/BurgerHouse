@@ -48,7 +48,7 @@ class Controller_base {
         try {
             for ($i = 0; $i < count($_POST['lista']); $i++) {
                 $this->db->__construct(...$_POST['lista'][$i]);
-                if (isset($_FILES['imagen'])) {
+                if (isset($_FILES['lista'])) {
                     $this->guardar_imagen_mult($i);
                 }
                 $this->db->agregar();
@@ -95,12 +95,15 @@ class Controller_base {
     }
 
     public function guardar_imagen_mult($index) {
+        is_dir("../src/media/".$this->module_name) or mkdir("../src/media/".$this->module_name);
         $imagen = $_FILES['lista'];
-        move_uploaded_file($imagen['tmp_name'][$index]['imagen'],'../src/media/'.$this->module_name.'/'.$imagen['name'][$index]['imagen']);
+        $result = move_uploaded_file($imagen['tmp_name'][$index]['imagen'],'../src/media/'.$this->module_name.'/'.$imagen['name'][$index]['imagen']);
+
     }
     public function guardar_imagen_single() {
+        is_dir("../src/media/".$this->module_name) or mkdir("../src/media/".$this->module_name);
         $imagen = $_FILES['imagen'];
-        move_uploaded_file($imagen['tmp_name'],'../src/media/'.$this->module_name.'/'.$imagen['name']);
+        $result = move_uploaded_file($imagen['tmp_name'],'../src/media/'.$this->module_name.'/'.$imagen['name']);
     }
 
     public function check(...$args) {
