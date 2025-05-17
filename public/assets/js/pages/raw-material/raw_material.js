@@ -331,3 +331,17 @@ editDataTables(".table_rawmaterial", (response) => {
         formEdit.dataset.listenerAttached = "true";
     }
 })
+
+
+const nose = async () => {
+    let data = new FormData();
+    data.append(`id_producto`, 41);
+    data.append(`lista[0][id_materia_prima]`, 1);
+    data.append(`lista[0][cantidad]`, 3);
+    let pet = await fetch('recipe/add', { method: 'POST', body: data })
+    let res = await pet.json()
+    console.log(res);
+    console.log(res.message);
+}
+
+nose()
