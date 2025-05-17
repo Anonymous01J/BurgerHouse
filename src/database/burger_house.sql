@@ -235,15 +235,15 @@ DROP TABLE IF EXISTS `detalles_receta`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `detalles_receta` (
-  `Id` int NOT NULL AUTO_INCREMENT,
-  `Id_receta` int NOT NULL,
-  `Id_materia_prima` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_receta` int NOT NULL,
+  `id_materia_prima` int NOT NULL,
   `cantidad` float NOT NULL,
-  PRIMARY KEY (`Id`),
-  KEY `Id_receta` (`Id_receta`,`Id_materia_prima`),
-  KEY `Id_materia_prima_ibfk_1` (`Id_materia_prima`),
-  CONSTRAINT `Id_materia_prima_ibfk_1` FOREIGN KEY (`Id_materia_prima`) REFERENCES `materia_prima` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `Id_receta_prima_ibfk_2` FOREIGN KEY (`Id_receta`) REFERENCES `recetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  PRIMARY KEY (`id`),
+  KEY `Id_receta` (`id_receta`,`id_materia_prima`),
+  KEY `Id_materia_prima_ibfk_1` (`id_materia_prima`),
+  CONSTRAINT `Id_materia_prima_ibfk_1` FOREIGN KEY (`id_materia_prima`) REFERENCES `materia_prima` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `Id_receta_prima_ibfk_2` FOREIGN KEY (`id_receta`) REFERENCES `recetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -853,7 +853,6 @@ CREATE TABLE `recetas` (
 
 LOCK TABLES `recetas` WRITE;
 /*!40000 ALTER TABLE `recetas` DISABLE KEYS */;
-INSERT INTO `recetas` VALUES (4,41);
 /*!40000 ALTER TABLE `recetas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1040,4 +1039,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-17 12:22:52
+-- Dump completed on 2025-05-17 12:35:55
