@@ -16,13 +16,17 @@ class RecipeController extends Controller_base {
         try {
             $this->db->conn->beginTransaction();
             $this->db->clear();
-            $this->db->__construct(['id_producto' => $_POST['id_producto']]);
+
+            $this->db->__construct(id_producto: $_POST['id_producto']);
+            $last_id = $this->db->agregar();
+            
             for ($i = 0; $i < count($_POST['lista']); $i++) {
-                $otra_clase = new Detalle_receta($_POST['lista'][$i]);
+                print_r([$last_id,...$_POST['lista'][$i]]);
+                $otra_clase = new Detalle_receta([$last_id,...$_POST['lista'][$i]]);
                 $otra_clase->agregar();
             }
             $this->db->conn->commit();
-            echo json_encode(['success' => true, 'last_id' => $this->db->agregar()]);
+            echo json_encode(['success' => true, 'last_id' => $last_id]);
             
         } catch (Exception $e) {
             try {

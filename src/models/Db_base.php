@@ -96,9 +96,11 @@
             $sql .= implode(",:", array_keys($lista_vars));
             $sql .= ") ";
 
-            echo "\n";
-            echo "Consulta SQL: " . $sql . "\n";
-            print_r($lista_vars);
+            // echo "\n";
+            // echo "linea 100";
+            // echo "Consulta SQL: " . $sql . "\n";
+            // print_r($lista_vars);
+            // print_r($_POST);
             // $sql = str_replace("a.", "", $sql);
             // print_r($sql);
             $query = $this->conn->prepare($sql);
