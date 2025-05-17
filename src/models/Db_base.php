@@ -46,7 +46,7 @@
         public $joins;
         public $select_query;
         public $variables_interval;
-        public function __construct($tabla=""){
+        protected function __construct($tabla=""){
             $this->variables = array();
             $this->tabla = $tabla;
             $this->variables_like = array();
