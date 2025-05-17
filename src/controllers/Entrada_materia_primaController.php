@@ -15,7 +15,7 @@ class Entrada_materia_primaController extends Controller_base {
         $this->db->__construct(id:$_POST['id']);
         $r = $this->db->search()[0];
         $existencia = $r['existencia'] - $_POST['cantidad'];
-        $broken = $r['existencia'] - $_POST['cantidad'];
+        $broken = $r['broken'] + $_POST['cantidad'];
         $this->db->clear();
         $this->db->__construct(id:$_POST['id'], existencia:$existencia, broken:$broken);
         $result = $this->db->actualizar();
