@@ -27,7 +27,7 @@ class Entrada_materia_prima extends Db_base {
         parent::__construct("entradas_materia_prima");
         
         $this->id = $id;
-        $this->id_provedor = $id_proveedor;
+        $this->id_proveedor = $id_proveedor;
         $this->id_materia_prima = $id_materia_prima;
         $this->fecha_compra = $fecha_compra;
         $this->precio_compra = $precio_compra;
@@ -37,15 +37,15 @@ class Entrada_materia_prima extends Db_base {
         $this->comprobante = $comprobante;
 
         $this->add_variables([
-            "a.id" => $this->id,
-            "a.id_proveedor" => $this->id_proveedor,
-            "a.id_materia_prima" => $this->id_materia_prima,
-            "a.fecha_compra" => $this->fecha_compra,
-            "a.precio_compra" => $this->precio_compra,
-            "a.referencia" => $this->referencia,
-            "a.cantidad" => $this->cantidad,
-            "a.existencia" => $this->existencia,
-            "a.comprobante" => $this->comprobante,
+            "id" => $this->id,
+            "id_proveedor" => $this->id_proveedor,
+            "id_materia_prima" => $this->id_materia_prima,
+            "fecha_compra" => $this->fecha_compra,
+            "precio_compra" => $this->precio_compra,
+            "referencia" => $this->referencia,
+            "cantidad" => $this->cantidad,
+            "existencia" => $this->existencia,
+            "comprobante" => $this->comprobante,
         ]);
     }
 }
