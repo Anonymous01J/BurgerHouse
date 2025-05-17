@@ -4,7 +4,7 @@ use Shtch\Burgerhouse\models\Db_base;
 
 class Entrada_materia_prima extends Db_base {
     private $id;
-    private $id_provedor;
+    private $id_proveedor;
     private $id_materia_prima;
     private $fecha_compra;
     private $precio_compra;
@@ -14,7 +14,7 @@ class Entrada_materia_prima extends Db_base {
 
     public function __construct(
         $id = null,
-        $id_provedor = null,
+        $id_proveedor = null,
         $id_materia_prima = null,
         $fecha_compra = null,
         $precio_compra = null,
@@ -25,7 +25,7 @@ class Entrada_materia_prima extends Db_base {
         parent::__construct("entradas_materia_prima");
         
         $this->id = $id;
-        $this->id_provedor = $id_provedor;
+        $this->id_provedor = $id_proveedor;
         $this->id_materia_prima = $id_materia_prima;
         $this->fecha_compra = $fecha_compra;
         $this->precio_compra = $precio_compra;
@@ -35,7 +35,7 @@ class Entrada_materia_prima extends Db_base {
 
         $this->add_variables([
             "a.id" => $this->id,
-            "a.id_provedor" => $this->id_provedor,
+            "a.id_proveedor" => $this->id_proveedor,
             "a.id_materia_prima" => $this->id_materia_prima,
             "a.fecha_compra" => $this->fecha_compra,
             "a.precio_compra" => $this->precio_compra,
