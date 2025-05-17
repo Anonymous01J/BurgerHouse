@@ -336,13 +336,13 @@ editDataTables(".table_rawmaterial", (response) => {
 const nose = async () => {
     let data = new FormData();
     data.append(`lista[0][id_proveedor]`, 1);
-    data.append(`lista[0][id_producto]`, 1);
+    data.append(`lista[0][id_producto]`, 41);
     data.append(`lista[0][precio_compra]`, 3);
     data.append(`lista[0][referencia]`, 3);
     data.append(`lista[0][cantidad]`, 3);
     data.append(`lista[0][existencia]`, 3);
     data.append(`lista[0][comprobante]`, 3);
-    let pet = await fetch('entrada_productos_procesados/add_many', { method: 'POST', body: data })
+    let pet = await fetch('Entrada_producto_procesado/add_many', { method: 'POST', body: data })
     let res = await pet.json()
     console.log(res);
 }

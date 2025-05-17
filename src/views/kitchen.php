@@ -51,6 +51,7 @@
                     </div>
 
                     <div class="row">
+                        <input type="week" class="form-control" id="week">
                         <?php for ($i = 0; $i < 5; $i++) { ?>
                             <div class="col-md-4 col-lg-3">
                                 <div class="m-auto">
@@ -140,15 +141,18 @@
                     </div>
                     
                 </div>
-                
-                <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
                 <?php include_once __DIR__ . '/../Views/Components/modals/delivery-kitchen/modal.php' ?>
-                
             </div>
         </div>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
+<script>
 
+    document.getElementById("week").addEventListener("change", function(e) {
+        const week = e.target.value;
+        console.log(week);
+    });
+</script>
 
 
     <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
