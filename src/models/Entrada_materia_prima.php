@@ -12,6 +12,7 @@ class Entrada_materia_prima extends Db_base {
     private $cantidad;
     private $existencia;
     private $comprobante;
+    private $broken;
 
     public function __construct(
         $id = null,
@@ -23,6 +24,7 @@ class Entrada_materia_prima extends Db_base {
         $cantidad = null,
         $existencia = null,
         $comprobante = null,
+        $broken = null,
     ) {
         parent::__construct("entradas_materia_prima");
         
@@ -35,6 +37,7 @@ class Entrada_materia_prima extends Db_base {
         $this->cantidad = $cantidad;
         $this->existencia = $existencia;
         $this->comprobante = $comprobante;
+        $this->broken = $broken;
 
         $this->add_variables([
             "id" => $this->id,
@@ -46,6 +49,7 @@ class Entrada_materia_prima extends Db_base {
             "cantidad" => $this->cantidad,
             "existencia" => $this->existencia,
             "comprobante" => $this->comprobante,
+            "broken" => $this->broken,
         ]);
     }
 }
