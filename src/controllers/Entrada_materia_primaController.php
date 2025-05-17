@@ -19,8 +19,8 @@ class Entrada_materia_primaController extends Controller_base {
         $this->db->clear();
         $this->db->__construct(id:$_POST['id'], existencia:$existencia, broken:$broken);
         $result = $this->db->actualizar();
-        if ($result == false or $result == 0) {
-            echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);
+        if ($result['success'] == false) {
+            echo json_encode(['success' => false, 'message' => $result['message']]);
             return;
         }
         else {

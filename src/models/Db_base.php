@@ -107,7 +107,7 @@
             $query->execute($lista_vars);
             return $this->conn->lastInsertId();
         }
-        public function actualizar() : bool {
+        public function actualizar() : array {
             if (!isset($this->variables['a.id']) or $this->variables['a.id'] == null){
                 return false;
             }
@@ -126,9 +126,9 @@
             $sql .= " WHERE id=:id";
             $query = $this->conn->prepare($sql);
             try {
-                return $query->execute($lista_vars);
+                return ['success' => true, 'message' => $query->execute($lista_vars)];
             } catch (Exception $e) {
-                return false;
+                return ['success' => false, 'message' => $e->getMessage()];
             }
         }
         public function borrar() : bool {
