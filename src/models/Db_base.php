@@ -108,7 +108,8 @@
             return $this->conn->lastInsertId();
         }
         public function actualizar() : array {
-            if (!isset($this->variables['a.id']) or $this->variables['a.id'] == null){
+            if ((!isset($this->variables['a.id']) or $this->variables['a.id'] == null) and
+                (!isset($this->variables['id']) or $this->variables['id'] == null)){
                 return ['success' => false, 'message' => 'No se pudo actualizar el registro, falta el id'];
             }
             $lista_vars = array();
