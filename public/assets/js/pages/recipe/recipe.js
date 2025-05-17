@@ -150,3 +150,20 @@ if (!form.dataset.listenerAttached) {
     form.dataset.listenerAttached = "true";
 }
 attachValidationListeners(1);
+
+const nose = async () => {
+    let data = new FormData();
+    data.append(`lista[0][id_producto]`, combo.nombre);
+    data.append(`lista[0][id_receta]`, combo.precio);
+    data.append(`lista[0][id_categoria]`, combo.id_categoria);
+    data.append(`lista[0][detalles]`, combo.detalles);
+    data.append(`lista[0][imagen_name]`, combo.imagen.name);
+    data.append(`lista[0][imagen]`, combo.imagen);
+    data.append(`lista[0][tipo]`, "producto");
+    let pet = await fetch('recipe/add_many', {
+        method: 'POST',
+        body: data
+    })
+    let res = await pet.json()
+    console.log(res);
+}
