@@ -160,7 +160,7 @@ CREATE TABLE `clientes` (
   `telefono` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,7 +169,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'Jose','Escalona','+584126742231',1),(2,'Pedro','Escalona','+584161214717',0);
+INSERT INTO `clientes` VALUES (1,'Jose','Escalona','+584126742231',1),(2,'Pedro','Escalona','+584161214717',0),(3,'Pedro ','Perex','+584162589318',1);
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -214,7 +214,7 @@ CREATE TABLE `deliverys` (
   KEY `del_comb_1` (`id_venta`,`id_usuario_delivery`) /*!80000 INVISIBLE */,
   CONSTRAINT `id_usuario_delivery` FOREIGN KEY (`id_usuario_delivery`) REFERENCES `usuario` (`id`),
   CONSTRAINT `id_venta_delivery` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,6 +223,7 @@ CREATE TABLE `deliverys` (
 
 LOCK TABLES `deliverys` WRITE;
 /*!40000 ALTER TABLE `deliverys` DISABLE KEYS */;
+INSERT INTO `deliverys` VALUES (1,1,1),(2,2,3),(3,2,3);
 /*!40000 ALTER TABLE `deliverys` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -739,6 +740,37 @@ LOCK TABLES `producto_procesado_detalle_orden` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `productos_preparados`
+--
+
+DROP TABLE IF EXISTS `productos_preparados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `productos_preparados` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_categoria` int DEFAULT NULL,
+  `nombre` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `imagen` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `precio` float NOT NULL,
+  `detalles` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `tipo` varchar(50) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idCategoria` (`id_categoria`),
+  CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias_productos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `productos_preparados`
+--
+
+LOCK TABLES `productos_preparados` WRITE;
+/*!40000 ALTER TABLE `productos_preparados` DISABLE KEYS */;
+/*!40000 ALTER TABLE `productos_preparados` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `productos_procesados`
 --
 
@@ -807,6 +839,7 @@ DROP TABLE IF EXISTS `recetas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `recetas` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `id_producto` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_p_idx` (`id_producto`),
@@ -891,7 +924,7 @@ CREATE TABLE `unidades` (
   `alias` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `active` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -900,7 +933,7 @@ CREATE TABLE `unidades` (
 
 LOCK TABLES `unidades` WRITE;
 /*!40000 ALTER TABLE `unidades` DISABLE KEYS */;
-INSERT INTO `unidades` VALUES (1,'Litro','Lt','1'),(2,'Gramo','Gr','1'),(3,'Kilogramo','Kg','1'),(4,'Unidad','Ud','1'),(5,'Mililitro','Ml','1'),(7,'Prueba','P','0'),(8,'Prueba1','1','0'),(9,'Prueba2','2','0'),(10,'Prueba3','2','0');
+INSERT INTO `unidades` VALUES (1,'Litro','Lt','1'),(2,'Gramo','Gr','1'),(3,'Kilogramo','Kg','1'),(4,'Unidad','Ud','1'),(5,'Mililitro','Ml','1'),(7,'Prueba','P','0'),(8,'Prueba1','1','0'),(9,'Prueba2','2','0'),(10,'Prueba3','2','0'),(11,'PRUEBS','pr','1');
 /*!40000 ALTER TABLE `unidades` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -929,7 +962,6 @@ CREATE TABLE `usuari_cliente` (
 
 LOCK TABLES `usuari_cliente` WRITE;
 /*!40000 ALTER TABLE `usuari_cliente` DISABLE KEYS */;
-INSERT INTO `usuari_cliente` VALUES (1,1,11),(5,2,11);
 /*!40000 ALTER TABLE `usuari_cliente` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1007,4 +1039,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-17 11:11:52
+-- Dump completed on 2025-05-17 12:18:15
