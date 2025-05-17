@@ -5,7 +5,7 @@ use Shtch\Burgerhouse\models\Db_base;
 class Entrada_producto_procesado extends Db_base {
     private $id;
     private $id_producto;
-    private $id_provedor;
+    private $id_proovedor;
     private $fecha_compra;
     private $precio_compra;
     private $referencia;
@@ -17,7 +17,7 @@ class Entrada_producto_procesado extends Db_base {
     public function __construct(
         $id = null,
         $id_producto = null,
-        $id_provedor = null,
+        $id_proovedor = null,
         $fecha_compra = null,
         $precio_compra = null,
         $referencia = null,
@@ -29,7 +29,7 @@ class Entrada_producto_procesado extends Db_base {
         
         $this->id = $id;
         $this->id_producto = $id_producto;
-        $this->id_provedor = $id_provedor;
+        $this->id_proovedor = $id_proovedor;
         $this->fecha_compra = $fecha_compra;
         $this->precio_compra = $precio_compra;
         $this->referencia = $referencia;
@@ -41,7 +41,7 @@ class Entrada_producto_procesado extends Db_base {
         $this->add_variables([
             "a.id" => $this->id,
             "a.id_producto" => $this->id_producto,
-            "a.id_provedor" => $this->id_provedor,
+            "a.id_proovedor" => $this->id_proovedor,
             "a.fecha_compra" => $this->fecha_compra,
             "a.precio_compra" => $this->precio_compra,
             "a.referencia" => $this->referencia,
