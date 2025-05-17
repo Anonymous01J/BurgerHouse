@@ -48,6 +48,7 @@ class Controller_base {
         try {
             for ($i = 0; $i < count($_POST['lista']); $i++) {
                 $this->db->__construct(...$_POST['lista'][$i]);
+                print_r($_POST['lista'][$i]);
                 if (isset($_FILES['lista'])) {
                     $this->guardar_imagen_mult($i);
                 }
