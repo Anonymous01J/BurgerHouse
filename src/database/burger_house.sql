@@ -840,7 +840,6 @@ DROP TABLE IF EXISTS `recetas`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `recetas` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `id_producto` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_p_idx` (`id_producto`),
@@ -854,7 +853,6 @@ CREATE TABLE `recetas` (
 
 LOCK TABLES `recetas` WRITE;
 /*!40000 ALTER TABLE `recetas` DISABLE KEYS */;
-INSERT INTO `recetas` VALUES (4,'',41);
 /*!40000 ALTER TABLE `recetas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1041,4 +1039,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-17 12:33:50
+-- Dump completed on 2025-05-17 12:35:55
