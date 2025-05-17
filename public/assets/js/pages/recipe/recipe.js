@@ -4,7 +4,7 @@ import Templates from "../../templates.js";
 const { InputPrice, SelectOption, setValidationStyles, validateField, reindex, resetForm } = functionGeneral();
 const { elemenFormRecipe } = Templates()
 InputPrice("[input_price]");
-SelectOption()
+// SelectOption()
 
 let RecipeCount = 1;
 function addRecipe() {
@@ -153,17 +153,13 @@ attachValidationListeners(1);
 
 const nose = async () => {
     let data = new FormData();
-    data.append(`lista[0][id_producto]`, combo.nombre);
-    data.append(`lista[0][id_receta]`, combo.precio);
-    data.append(`lista[0][id_categoria]`, combo.id_categoria);
-    data.append(`lista[0][detalles]`, combo.detalles);
-    data.append(`lista[0][imagen_name]`, combo.imagen.name);
-    data.append(`lista[0][imagen]`, combo.imagen);
-    data.append(`lista[0][tipo]`, "producto");
-    let pet = await fetch('recipe/add_many', {
-        method: 'POST',
-        body: data
-    })
+    data.append(`id_producto`, 1);
+    data.append(`lista[0][id_materia_prima]`, 1);
+    data.append(`lista[0][cantidad]`, 3);
+    let pet = await fetch('recipe/add', { method: 'POST', body: data })
     let res = await pet.json()
     console.log(res);
+    console.log(res.message);
 }
+
+nose()
