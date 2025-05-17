@@ -99,6 +99,8 @@ class Controller_base {
         print_r($_SESSION);
         echo "</pre>";
         print_r($_FILES);
-        print_r($_POST['nombre']);
+        $data = $_POST;
+        unset($data['variable']);
+        print_r($_POST);
     }
 }
