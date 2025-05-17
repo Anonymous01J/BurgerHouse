@@ -25,7 +25,7 @@ class Entrada_producto_procesado extends Db_base {
         $existencia = null,
         $comprobante = null,
     ) {
-        parent::__construct("entradad_producto_procesado");
+        parent::__construct("entradas_producto_procesado");
         
         $this->id = $id;
         $this->id_producto = $id_producto;

@@ -4,7 +4,7 @@ namespace Shtch\Burgerhouse\models;
 
 use Shtch\Burgerhouse\models\Db_base;
 
-class Producto extends Db_base
+class ProductoPreparado extends Db_base
 {
     private $id;
     private $id_categoria;

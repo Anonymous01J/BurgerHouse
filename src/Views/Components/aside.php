@@ -134,7 +134,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item" data-module="Product">
-                            <a href="product" class="sidebar-link">
+                            <a href="productProcess" class="sidebar-link">
                                 <span
                                     class="hide-menu">Producto
                                 </span>

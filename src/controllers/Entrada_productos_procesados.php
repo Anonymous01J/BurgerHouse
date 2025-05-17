@@ -4,9 +4,9 @@ use Shtch\Burgerhouse\controllers\Controller_base;
 
 use Shtch\Burgerhouse\models\Entrada_producto_procesado;
 
-class Entrada_productos_procesados extends Controller_base {
+class Entrada_productos_procesadosController extends Controller_base {
     public function __construct() {
-        parent::__construct("entrada_producto_procesado");
+        parent::__construct("entradas_producto_procesado");
         $this->db = new Entrada_producto_procesado();
     }
     
