@@ -98,8 +98,7 @@
 
     </div>
 
-    <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
-    <?php include_once __DIR__ . '/../Views/Components/modals/combo/recipe.php' ?>
+    <?php include_once __DIR__ . '/../Views/Components/modals/recipe/modal.php' ?>
 
 
 </div>
@@ -107,13 +106,12 @@
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
 <script src="./assets/js/app-style-switcher.js"></script>
 <script src="./assets/js/feather.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
-<script type="module" src="./assets/js/pages/combo/recipe.js"></script>
+<script type="module" src="./assets/js/pages/recipe/recipe.js"></script>
 
 
 
