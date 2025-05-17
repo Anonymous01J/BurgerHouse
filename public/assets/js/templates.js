@@ -3,7 +3,7 @@ export default function Templates() {
         return `
         <div class="col">
             <div class="card">
-                <img src="${objet.imagen ? "media/productos/" + objet.imagen : "./assets/img/big/banner_login.png"}" class="card-img-top" alt="..." style="object-fit: cover; height: 140px">
+                <img src="${objet.imagen ? "media/product/" + objet.imagen : "./assets/img/big/banner_login.png"}" class="card-img-top" alt="..." style="object-fit: cover; height: 140px">
                 <div class="card-body">
                     <h5 class="card-title">${objet.nombre}</h5>
                     <p class=" fs-6 truncate-3-lines">${objet.detalles}</p>
