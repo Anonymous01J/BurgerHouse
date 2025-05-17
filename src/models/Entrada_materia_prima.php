@@ -9,7 +9,7 @@ class Entrada_materia_prima extends Db_base {
     private $fecha_compra;
     private $precio_compra;
     private $referencia;
-    private $cantiad;
+    private $cantidad;
     private $existencia;
 
     public function __construct(
@@ -19,7 +19,7 @@ class Entrada_materia_prima extends Db_base {
         $fecha_compra = null,
         $precio_compra = null,
         $referencia = null,
-        $cantiad = null,
+        $cantidad = null,
         $existencia = null,
     ) {
         parent::__construct("entradas_materia_prima");
@@ -30,7 +30,7 @@ class Entrada_materia_prima extends Db_base {
         $this->fecha_compra = $fecha_compra;
         $this->precio_compra = $precio_compra;
         $this->referencia = $referencia;
-        $this->cantiad = $cantiad;
+        $this->cantidad = $cantidad;
         $this->existencia = $existencia;
 
         $this->add_variables([
@@ -40,7 +40,7 @@ class Entrada_materia_prima extends Db_base {
             "a.fecha_compra" => $this->fecha_compra,
             "a.precio_compra" => $this->precio_compra,
             "a.referencia" => $this->referencia,
-            "a.cantiad" => $this->cantiad,
+            "a.cantidad" => $this->cantidad,
             "a.existencia" => $this->existencia,
         ]);
     }
