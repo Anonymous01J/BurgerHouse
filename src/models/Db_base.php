@@ -109,7 +109,7 @@
         }
         public function actualizar() : array {
             if (!isset($this->variables['a.id']) or $this->variables['a.id'] == null){
-                return false;
+                return ['success' => false, 'message' => 'No se pudo actualizar el registro, falta el id'];
             }
             $lista_vars = array();
             foreach ($this->variables as $key => $value){
