@@ -153,7 +153,7 @@ attachValidationListeners(1);
 
 const nose = async () => {
     let data = new FormData();
-    data.append(`id_producto`, 1);
+    data.append(`id_producto`, 41);
     data.append(`lista[0][id_materia_prima]`, 1);
     data.append(`lista[0][cantidad]`, 3);
     let pet = await fetch('recipe/add', { method: 'POST', body: data })
