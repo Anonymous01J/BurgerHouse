@@ -244,7 +244,7 @@ CREATE TABLE `detalles_receta` (
   KEY `Id_materia_prima_ibfk_1` (`id_materia_prima`),
   CONSTRAINT `Id_materia_prima_ibfk_1` FOREIGN KEY (`id_materia_prima`) REFERENCES `materia_prima` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `Id_receta_prima_ibfk_2` FOREIGN KEY (`id_receta`) REFERENCES `recetas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=55 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +253,7 @@ CREATE TABLE `detalles_receta` (
 
 LOCK TABLES `detalles_receta` WRITE;
 /*!40000 ALTER TABLE `detalles_receta` DISABLE KEYS */;
-INSERT INTO `detalles_receta` VALUES (52,5,1,3);
+INSERT INTO `detalles_receta` VALUES (52,5,1,3),(53,6,1,3),(54,7,1,3);
 /*!40000 ALTER TABLE `detalles_receta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,11 +294,13 @@ DROP TABLE IF EXISTS `entradas_materia_prima`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `entradas_materia_prima` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(100) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `id_proveedor` int NOT NULL,
   `id_materia_prima` int NOT NULL,
   `fecha_compra` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `precio_compra` float NOT NULL,
   `referencia` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `fecha_vencimiento` datetime DEFAULT NULL,
   `existencia` float NOT NULL,
   `cantidad` float NOT NULL,
   `comprobante` varchar(500) COLLATE utf8mb4_spanish_ci NOT NULL,
@@ -308,7 +310,7 @@ CREATE TABLE `entradas_materia_prima` (
   KEY `id_materia_prima_idx` (`id_materia_prima`),
   CONSTRAINT `id_materia_prima` FOREIGN KEY (`id_materia_prima`) REFERENCES `materia_prima` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `id_proveedor` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -317,7 +319,7 @@ CREATE TABLE `entradas_materia_prima` (
 
 LOCK TABLES `entradas_materia_prima` WRITE;
 /*!40000 ALTER TABLE `entradas_materia_prima` DISABLE KEYS */;
-INSERT INTO `entradas_materia_prima` VALUES (1,1,1,'2025-05-17 14:04:41',3,'3',2,3,'3',1),(2,1,1,'2025-05-17 14:18:02',3,'3',3,3,'3',0);
+INSERT INTO `entradas_materia_prima` VALUES (6,'586325',1,7,'2025-05-19 12:33:41',96.36,'5959494','2025-07-31 00:00:00',10.5,10.5,'tutorials-9832-0-35951100-1501582894.png',0);
 /*!40000 ALTER TABLE `entradas_materia_prima` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -330,20 +332,26 @@ DROP TABLE IF EXISTS `entradas_producto_procesado`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `entradas_producto_procesado` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `codigo` varchar(100) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `id_producto` int NOT NULL,
+  `id_proveedor` int NOT NULL,
+  `id_unidad` int NOT NULL,
   `fecha_compra` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `fecha_vencimiento` datetime DEFAULT NULL,
   `precio_compra` float NOT NULL,
   `referencia` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
   `existencia` float NOT NULL,
   `cantidad` float NOT NULL,
-  `id_proveedor` int NOT NULL,
   `comprobante` varchar(500) COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `broken` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `rov_idx` (`id_proveedor`),
   KEY `pro_idx` (`id_producto`),
+  KEY `nose_fg_idx` (`id_unidad`),
+  CONSTRAINT `nose_fg` FOREIGN KEY (`id_unidad`) REFERENCES `unidades` (`id`),
   CONSTRAINT `pro` FOREIGN KEY (`id_producto`) REFERENCES `productos_procesados` (`id`),
   CONSTRAINT `rov` FOREIGN KEY (`id_proveedor`) REFERENCES `proveedores` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -352,7 +360,7 @@ CREATE TABLE `entradas_producto_procesado` (
 
 LOCK TABLES `entradas_producto_procesado` WRITE;
 /*!40000 ALTER TABLE `entradas_producto_procesado` DISABLE KEYS */;
-INSERT INTO `entradas_producto_procesado` VALUES (2,41,'2025-05-17 15:25:09',3,'3',3,3,1,'3');
+INSERT INTO `entradas_producto_procesado` VALUES (16,'4646486',41,1,4,'2025-05-19 13:05:53','2025-05-29 00:00:00',25,'4648648',50.25,50.25,'5ce0e0f8-46df-4654-b37b-7d7f40d9bc6a.jpeg',0),(17,'56836',41,1,1,'2025-05-19 13:14:42','2025-07-31 00:00:00',150.75,'792684',45.8,45.8,'29604004.jpg',0);
 /*!40000 ALTER TABLE `entradas_producto_procesado` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -765,7 +773,7 @@ CREATE TABLE `productos_preparados` (
   PRIMARY KEY (`id`),
   KEY `idCategoria` (`id_categoria`),
   CONSTRAINT `productos_ibfk_1` FOREIGN KEY (`id_categoria`) REFERENCES `categorias_productos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -774,7 +782,7 @@ CREATE TABLE `productos_preparados` (
 
 LOCK TABLES `productos_preparados` WRITE;
 /*!40000 ALTER TABLE `productos_preparados` DISABLE KEYS */;
-INSERT INTO `productos_preparados` VALUES (41,1,'hamburguesa','',20,'mucho detalle',1,'producto'),(42,7,'Pruba','7893000979932.jpg',0.56,'dadkawpdkpoakdokada',0,'producto'),(43,7,'Ninncwda','7702535011805-20-281-29.webp',74.87,'dawdalwdmawldmwadaw',0,'producto'),(44,7,'SWSADA','harina-pan.jpg',0.56,'DAWDADAWDADADADA',1,'producto');
+INSERT INTO `productos_preparados` VALUES (41,1,'hamburguesa','',20,'mucho detalle',1,'producto'),(42,7,'Pruba','7893000979932.jpg',0.56,'dadkawpdkpoakdokada',0,'producto'),(43,7,'Ninncwda','7702535011805-20-281-29.webp',74.87,'dawdalwdmawldmwadaw',0,'producto'),(44,7,'SWSADA','harina-pan.jpg',0.56,'DAWDADAWDADADADA',0,'producto'),(45,7,'Producto Pruebaa','ImgThumb.jpg',0.56,'mucha descripcion',1,'producto'),(46,NULL,'Carneee','2c51307c-9d9f-41fb-9419-1e61a44891f0.jpeg',0.56,NULL,1,'adicional');
 /*!40000 ALTER TABLE `productos_preparados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -805,7 +813,7 @@ CREATE TABLE `productos_procesados` (
 
 LOCK TABLES `productos_procesados` WRITE;
 /*!40000 ALTER TABLE `productos_procesados` DISABLE KEYS */;
-INSERT INTO `productos_procesados` VALUES (41,'nimbre','dmakd',5,'dawdwdwad',1,1);
+INSERT INTO `productos_procesados` VALUES (41,'Nimbre','19085819.jpg',5,'dawdwdwadascacacac',1,1);
 /*!40000 ALTER TABLE `productos_procesados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -852,7 +860,7 @@ CREATE TABLE `recetas` (
   PRIMARY KEY (`id`),
   KEY `id_p_idx` (`id_producto`),
   CONSTRAINT `id_p` FOREIGN KEY (`id_producto`) REFERENCES `productos_preparados` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -861,7 +869,7 @@ CREATE TABLE `recetas` (
 
 LOCK TABLES `recetas` WRITE;
 /*!40000 ALTER TABLE `recetas` DISABLE KEYS */;
-INSERT INTO `recetas` VALUES (5,41);
+INSERT INTO `recetas` VALUES (5,41),(6,41),(7,41);
 /*!40000 ALTER TABLE `recetas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1048,4 +1056,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-17 15:58:42
+-- Dump completed on 2025-05-19 13:39:26

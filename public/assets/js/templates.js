@@ -1,9 +1,9 @@
 export default function Templates() {
-    function targetProduct(objet) {
+    function targetProductPrepared(objet) {
         return `
         <div class="col">
             <div class="card">
-                <img src="${objet.imagen ? "media/product/" + objet.imagen : "./assets/img/big/banner_login.png"}" class="card-img-top" alt="..." style="object-fit: cover; height: 140px">
+                <img src="${objet.imagen ? "media/productPrepared/" + objet.imagen : "./assets/img/big/banner_login.png"}" class="card-img-top" alt="..." style="object-fit: cover; height: 140px">
                 <div class="card-body">
                     <h5 class="card-title">${objet.nombre}</h5>
                     <p class=" fs-6 truncate-3-lines">${objet.detalles}</p>
@@ -13,10 +13,38 @@ export default function Templates() {
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <p class="mb-0">Precio: ${objet.precio}$</p>
                             <div class="d-flex gap-3">
-                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="product" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-product" data-bs-title="Editar Producto" data-bs-placement="bottom">
+                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="productPrepared" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-product" data-bs-title="Editar Producto" data-bs-placement="bottom">
                                     <i data-feather="edit"></i>
                                 </a>
-                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="product" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Producto" data-bs-placement="bottom">
+                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="productPrepared" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Producto" data-bs-placement="bottom">
+                                    <i data-feather="trash-2"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </small>
+                </div>
+            </div>
+        </div>
+                `
+    }
+    function targetProductProcess(objet) {
+        return `
+        <div class="col">
+            <div class="card">
+                <img src="${objet.imagen ? "media/productProcess/" + objet.imagen : "./assets/img/big/banner_login.png"}" class="card-img-top" alt="..." style="object-fit: cover; height: 140px">
+                <div class="card-body">
+                    <h5 class="card-title">${objet.nombre}</h5>
+                    <p class=" fs-6 truncate-3-lines">${objet.detalles}</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <p class="mb-0">Precio: ${objet.precio}$</p>
+                            <div class="d-flex gap-3">
+                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="productProcess" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-product" data-bs-title="Editar Producto" data-bs-placement="bottom">
+                                    <i data-feather="edit"></i>
+                                </a>
+                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="productProcess" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Producto" data-bs-placement="bottom">
                                     <i data-feather="trash-2"></i>
                                 </a>
                             </div>
@@ -778,9 +806,224 @@ export default function Templates() {
         </div>
         `
     }
+    function elementFormEntrysRawMaterial(objet) {
+        return `
+        <div class="row g-2 entrys" id="entrys-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-3 mt-5">
+                <h4 class="m-0">Cliente ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-entry">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Codigo</label>
+                <input type="text" class="form-control" placeholder="Codigo" id="input-code-entrys-${objet}" name="codigo">
+                <div class="text-danger mt-1 fs-6" id="error-input-code-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputCity" class="form-label">Materia Prima</label>
+                <div class="dropdown select_options_raw_material">
+                    <div class="dropdown">
+                        <div class="btn-group w-100" bis_skin_checked="1">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-rawmaterial-entrys-${objet}" name="id_materia_prima" data-id="Seleccione una opcion">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span> <i data-feather="chevron-down"></i></span>
+                            </button>
+                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                <div>
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
+                                </div>
+                                <div class="options_search">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-rawmaterial-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputCity" class="form-label">Proveedor</label>
+                <div class="dropdown select_options_supplier">
+                    <div class="dropdown">
+                        <div class="btn-group w-100" bis_skin_checked="1">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-supplier-entrys-${objet}" name="id_proveedor" data-id="Seleccione una opcion">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span> <i data-feather="chevron-down"></i></span>
+                            </button>
+                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                <div>
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
+                                </div>
+                                <div class="options_search">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-supplier-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Precio de compra</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-entrys-${objet}" name="precio">
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-price-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Cantidad</label>
+                <div class="input-group">
+                    <span class="input-group-text type_unit">0</span>
+                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entrys-${objet}" name="cantidad">
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-quantity-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <label for="inputZip" class="form-label">F. Vencimiento</label>
+                <input type="date" class="form-control" id="input-date-entrys-${objet}" name="fecha_vencimiento">
+                <div class="text-danger mt-1 fs-6" id="error-input-date-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label for="inputZip" class="form-label">Referencia</label>
+                <input type="text" class="form-control" id="input-ref-entrys-1" name="referencia">
+                <div class="text-danger mt-1 fs-6" id="error-input-ref-entrys-1"></div>
+            </div>
+            <div class="col-12">
+                <label for="inputZip" class="form-label">Imagen</label>
+                <input class="form-control input-image" type="file" id="input-image-entrys-${objet}" name="imagen">
+                <div class="text-danger mt-1 fs-6" id="error-input-image-entrys-${objet}"></div>
+            </div>
+            <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
+        </div>
+        `
+    }
+    function elemenFormEntrysProductProcess(objet) {
+        return`
+        <div class="row g-2 entrys" id="entrys-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-3 mt-5">
+                <h4 class="m-0">Cliente ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-entry">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-4">
+                <label for="inputEmail4" class="form-label">Codigo</label>
+                <input type="text" class="form-control" placeholder="Codigo" id="input-code-entrys-${objet}" name="codigo">
+                <div class="text-danger mt-1 fs-6" id="error-input-code-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputCity" class="form-label">Producto</label>
+                <div class="dropdown select_options_product">
+                    <div class="dropdown">
+                        <div class="btn-group w-100" bis_skin_checked="1">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-product-entrys-${objet}" name="id_producto" data-id="Seleccione una opcion">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span> <i data-feather="chevron-down"></i></span>
+                            </button>
+                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                <div>
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
+                                </div>
+                                <div class="options_search">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-product-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-4">
+                <label for="inputCity" class="form-label">Proveedor</label>
+                <div class="dropdown select_options_supplier">
+                    <div class="dropdown">
+                        <div class="btn-group w-100" bis_skin_checked="1">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-supplier-entrys-${objet}" name="id_proveedor" data-id="Seleccione una opcion">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span> <i data-feather="chevron-down"></i></span>
+                            </button>
+                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                <div>
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
+                                </div>
+                                <div class="options_search">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-supplier-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-3">
+                <label for="inputEmail4" class="form-label">Precio de compra</label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-entrys-${objet}" name="precio">
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-price-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-3">
+                <label for="inputCity" class="form-label">Unidad</label>
+                <div class="dropdown select_options_unit">
+                    <div class="dropdown">
+                        <div class="btn-group w-100" bis_skin_checked="1">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-unit-entrys-${objet}" name="id_unidad" data-id="Seleccione una opcion">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span> <i data-feather="chevron-down"></i></span>
+                            </button>
+                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                <div>
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
+                                </div>
+                                <div class="options_search">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-unit-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-3">
+                <label for="inputEmail4" class="form-label">Cantidad</label>
+                <input type="text" class="form-control" placeholder="Cantidad" input_price id="input-quantity-entrys-${objet}" name="cantidad">
+                <div class="text-danger mt-1 fs-6" id="error-input-quantity-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="inputZip" class="form-label">F. Vencimiento</label>
+                <input type="date" class="form-control" id="input-date-entrys-${objet}" name="fecha_vencimiento">
+                <div class="text-danger mt-1 fs-6" id="error-input-date-entrys-${objet}"></div>
+            </div>
+            <div class="col-md-12 mb-3">
+                <label for="inputZip" class="form-label">Referencia</label>
+                <input type="text" class="form-control" placeholder="Referencia" id="input-ref-entrys-${objet}" name="referencia">
+                <div class="text-danger mt-1 fs-6" id="error-input-ref-entrys-${objet}"></div>
+            </div>
+            <div class="col-12">
+                <label for="inputZip" class="form-label">Comprobante</label>
+                <input class="form-control input-image" type="file" id="input-image-entrys-${objet}" name="imagen">
+                <div class="text-danger mt-1 fs-6" id="error-input-image-entrys-${objet}"></div>
+            </div>
+            <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
+        </div>
+        `
+    }
     function optionsRol(object) {
         return `
          <a class="dropdown-item" data-id="${object.id}">${object.nombre}</a>
+        `
+    }
+    function optionsRawMaterial(object) {
+        return `
+         <a class="dropdown-item" data-id="${object.id}" data-unit="${object.alias_unidad}">${object.nombre}</a>
+        `
+    }
+    function optionsSupplier(object) {
+        return `
+         <a class="dropdown-item" data-id="${object.id}">${object.razon_social}</a>
         `
     }
     function Watermark() {
@@ -812,7 +1055,8 @@ export default function Templates() {
         `
     }
     return {
-        targetProduct,
+        targetProductPrepared,
+        targetProductProcess,
         targetSupplier,
         targetUser,
         targetClient,
@@ -831,7 +1075,11 @@ export default function Templates() {
         elemenFormAdditional,
         elemenFormDrink,
         elemenFormUser,
+        elementFormEntrysRawMaterial,
+        elemenFormEntrysProductProcess,
         optionsRol,
+        optionsRawMaterial,
+        optionsSupplier,
         Watermark,
         targetCategoryMenu,
         targetMenu

@@ -13,25 +13,21 @@
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-7 align-self-center">
-                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Productos</h3>
+                    <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Productos Preparados</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
                                 <li class="breadcrumb-item"><a href="index.html" class="text-muted">Modulos</a></li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Productos</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Productos Preparados</li>
                                 <li class="breadcrumb-item text-muted active" aria-current="page">Producto</li>
                             </ol>
                         </nav>
                     </div>
                 </div>
-
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
-
         <div class="container-fluid">
-
             <div class="row g-3 align-items-center mb-5">
                 <div class="col-auto">
                     <input type="search" id="searchProduct" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
@@ -43,9 +39,6 @@
             </div>
 
             <div class="row">
-
-                <?php include_once __DIR__ . '/../Views/Components/modals/product/modal.php' ?>
-
                 <div class="col-md-12 col-lg-3">
                     <div class="card">
                         <div class="card-body">
@@ -109,6 +102,7 @@
             </div>
         </div>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
+        <?php include_once __DIR__ . '/../Views/Components/modals/productPrepared/modal.php' ?>
     </div>
 </div>
 
@@ -121,4 +115,4 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
-<script type="module" defer src="./assets/js/pages/product/product.js"></script>
+<script type="module" defer src="./assets/js/pages/productPrepared/productPrepared.js"></script>

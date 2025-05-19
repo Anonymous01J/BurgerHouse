@@ -12,7 +12,6 @@ class ProductoProcesado extends Db_base
     private $imagen;
     private $precio;
     private $detalles;
-    private $tipo;
     private $active;
     private $nombre_like;
 
@@ -24,11 +23,10 @@ class ProductoProcesado extends Db_base
         $precio = null,
         $detalles = null,
         $active = null,
-        $tipo = null,
         $nombre_like = null,
         $imagen_name = null
     ) {
-        parent::__construct("productos_preparados");
+        parent::__construct("productos_procesados");
 
         $this->id = $id;
         $this->id_categoria = $id_categoria;
@@ -37,7 +35,6 @@ class ProductoProcesado extends Db_base
         $this->precio = $precio;
         $this->detalles = $detalles;
         $this->active = $active;
-        $this->tipo = $tipo;
         $this->nombre_like = $nombre_like;
 
         $this->add_variables([
@@ -48,7 +45,6 @@ class ProductoProcesado extends Db_base
             "a.precio" => $this->precio,
             "a.detalles" => $this->detalles,
             "a.active" => $this->active,
-            "a.tipo" => $this->tipo
         ]);
 
         $this->add_variables_like([
@@ -63,11 +59,11 @@ class ProductoProcesado extends Db_base
             a.imagen,
             a.precio,
             a.detalles,
-            a.active,
-            a.tipo
+            a.active
         ";
         $this->joins = "
             INNER JOIN categorias_productos ON categorias_productos.id = a.id_categoria
+            
         ";
     }
 }

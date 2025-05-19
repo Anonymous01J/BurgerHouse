@@ -18,7 +18,7 @@ let n = $(".table_additional").DataTable({
     },
     columns: [
         { data: 'nombre' },
-        { data: null, render: (data, type, row, meta) => { return `<img style="object-fit: cover" src='${data.imagen ? "media/adicionales/" + data.imagen : "./assets/img/big/banner_login.png"}' width='50px' height='50px'>` } },
+        { data: null, render: (data, type, row, meta) => { return `<img style="object-fit: cover" src='${data.imagen ? "media/additional/" + data.imagen : "./assets/img/big/banner_login.png"}' width='50px' height='50px'>` } },
         { data: null , render: (data, type, row, meta) => { return data.precio + " $" } },
         {
             data: null,
@@ -202,7 +202,7 @@ editDataTables(".table_additional", (response) => {
     let formHasError = false;
     document.querySelector(`#input-name-additional`).value = response[0].nombre,
         document.querySelector(`#input-price-additional`).value = (response[0].precio).toString().replace(/\./g, ',')
-    document.querySelector(`#img-additional-response`).src = `media/adicionales/${response[0].imagen}`
+    document.querySelector(`#img-additional-response`).src = `media/additional/${response[0].imagen}`
 
     const data = {
         nombre: document.querySelector(`#input-name-additional`).value,

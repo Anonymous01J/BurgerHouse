@@ -82,7 +82,7 @@
                                 <thead>
                                     <tr>
                                         <th>Codigo</th>
-                                        <th>M.Prima</th>
+                                        <th>Producto</th>
                                         <th>Prove.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
@@ -109,7 +109,7 @@
                                 <thead>
                                     <tr>
                                         <th>Codigo</th>
-                                        <th>M.Prima</th>
+                                        <th>Producto</th>
                                         <th>Prove.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
@@ -136,7 +136,7 @@
                                 <thead>
                                     <tr>
                                         <th>Codigo</th>
-                                        <th>M.Prima</th>
+                                        <th>Producto</th>
                                         <th>Prove.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
@@ -163,7 +163,7 @@
                                 <thead>
                                     <tr>
                                         <th>Codigo</th>
-                                        <th>M.Prima</th>
+                                        <th>Producto</th>
                                         <th>Prove.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>

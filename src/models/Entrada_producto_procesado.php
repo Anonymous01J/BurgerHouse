@@ -6,13 +6,16 @@ class Entrada_producto_procesado extends Db_base {
     private $id;
     private $id_producto;
     private $id_proveedor;
+    private $codigo;
+    private $id_unidad;
+    private $fecha_vencimiento;
     private $fecha_compra;
     private $precio_compra;
     private $referencia;
     private $cantidad;
     private $existencia;
     private $comprobante;
-    
+    private $broken;
 
     public function __construct(
         $id = null,
@@ -24,6 +27,11 @@ class Entrada_producto_procesado extends Db_base {
         $cantidad = null,
         $existencia = null,
         $comprobante = null,
+        $broken = null,
+        $id_unidad = null,
+        $fecha_vencimiento = null,
+        $codigo = null,
+        $imagen_name = null
     ) {
         parent::__construct("entradas_producto_procesado");
         
@@ -35,11 +43,19 @@ class Entrada_producto_procesado extends Db_base {
         $this->referencia = $referencia;
         $this->cantidad = $cantidad;
         $this->existencia = $existencia;
-        $this->comprobante = $comprobante;
+        $this->comprobante = $imagen_name;
+        $this->broken = $broken;
+        $this->id_unidad = $id_unidad;
+        $this->fecha_vencimiento = $fecha_vencimiento;
+        $this->codigo = $codigo;
     
 
         $this->add_variables([
             "a.id" => $this->id,
+            "a.codigo" => $this->codigo,
+            "a.id_unidad" => $this->id_unidad,
+            "a.fecha_vencimiento" => $this->fecha_vencimiento,
+            "a.broken" => $this->broken,
             "a.id_producto" => $this->id_producto,
             "a.id_proveedor" => $this->id_proveedor,
             "a.fecha_compra" => $this->fecha_compra,
@@ -49,5 +65,29 @@ class Entrada_producto_procesado extends Db_base {
             "a.existencia" => $this->existencia,
             "a.comprobante" => $this->comprobante,
         ]);
+
+        $this->select_query = "
+            a.id,
+            proveedores.razon_social as nombre_proveedor,
+            productos_procesados.nombre as nombre_producto,
+            unidades.nombre as nombre_unidad,
+            unidades.alias as alias_unidad,
+            a.fecha_compra,
+            a.fecha_vencimiento,
+            a.precio_compra,
+            a.codigo,
+            a.referencia,
+            a.cantidad,
+            a.existencia,
+            a.comprobante,
+            a.broken
+        ";
+
+        $this->joins = "
+            INNER JOIN productos_procesados ON productos_procesados.id = a.id_producto
+            INNER JOIN proveedores ON proveedores.id = a.id_proveedor
+            INNER JOIN unidades ON unidades.id = a.id_unidad
+            
+        ";
     }
 }

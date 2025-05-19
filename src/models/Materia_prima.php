@@ -20,7 +20,8 @@ class Materia_prima extends Db_base {
         $nombre = null,
         $stock_min = null,
         $stock_max = null,
-        $active = null
+        $active = null,
+        $nombre_like = null
     ) {
         parent::__construct("materia_prima");
         
@@ -31,6 +32,7 @@ class Materia_prima extends Db_base {
         $this->stock_min = $stock_min;
         $this->stock_max = $stock_max;
         $this->active = $active;
+        $this->nombre_like = $nombre_like;
 
         $this->add_variables([
             "a.id" => $this->id,
@@ -40,6 +42,10 @@ class Materia_prima extends Db_base {
             "a.stock_min" => $this->stock_min,
             "a.stock_max" => $this->stock_max,
             "a.active" => $this->active
+        ]);
+
+        $this->add_variables_like([
+            "a.nombre" => $this->nombre_like
         ]);
 
         $this->select_query = "

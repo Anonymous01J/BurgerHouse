@@ -1,15 +1,16 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { optionsSupplier, optionsRawMaterial, elementFormEntrysRawMaterial } = Templates()
+const { optionsSupplier, elemenFormEntrysProductProcess, optionsRol } = Templates()
 const { InputPrice, selectOptionAll, viewImage, reindex, resetForm, setValidationStyles, validateField, fecha, reference, searchParam, diasRestantesFechaVencimiento } = functionGeneral();
 selectOptionAll(".select_options_supplier", "supplier", optionsSupplier)
-selectOptionAll(".select_options_raw_material", "rawmaterial", optionsRawMaterial)
+selectOptionAll(".select_options_product", "productProcess", optionsRol)
+selectOptionAll(".select_options_unit", "units", optionsRol)
 InputPrice("[input_price]")
 viewImage(".input-image")
 
 //setear valores de las tarjetas de entradas
 const cardEntrys = async () => {
-    let entrysTotales = await searchParam({}, "Entrada_materia_prima")
+    let entrysTotales = await searchParam({}, "entrada_producto_procesado")
     let entrysVigentes = entrysTotales.filter((element) => diasRestantesFechaVencimiento(element) > 10 && element.existencia > 0);
     let entrysPorVencer = entrysTotales.filter((element) => diasRestantesFechaVencimiento(element) <= 10 && diasRestantesFechaVencimiento(element) > 0 && element.existencia > 0);
     let entrysVencidos = entrysTotales.filter((element) => diasRestantesFechaVencimiento(element) <= 0);
@@ -27,7 +28,7 @@ let tableActive = $(".table_entrys_active").DataTable({
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
     },
     ajax: {
-        url: 'Entrada_materia_prima/get_all/0/10000000/id/asc',
+        url: 'Entrada_producto_procesado/get_all/0/10000000/id/asc',
         dataSrc: function (json) {
             const EntrysActive = json.filter((element) => {
                 let diasRestantes = diasRestantesFechaVencimiento(element)
@@ -39,19 +40,19 @@ let tableActive = $(".table_entrys_active").DataTable({
     },
     columns: [
         { data: 'codigo' },
-        { data: 'nombre_materia_prima' },
+        { data: 'nombre_producto' },
         { data: 'nombre_proveedor' },
         { data: null, render: function (data, type, row, meta) { return fecha(data.fecha_compra) } },
         { data: null, render: function (data, type, row, meta) { return fecha(data.fecha_vencimiento) } },
-        { data: null, render: function (data, type, row, meta) { return data.cantidad + " " + data.nombre_unidad } },
-        { data: null, render: function (data, type, row, meta) { return data.existencia + " " + data.nombre_unidad } },
+        { data: null, render: function (data, type, row, meta) { return data.cantidad + " " + data.alias_unidad } },
+        { data: null, render: function (data, type, row, meta) { return data.existencia + " " + data.alias_unidad } },
         { data: null, render: function (data, type, row, meta) { return "$ " + data.precio_compra } },
-        { data: null, render: function (data, type, row, meta) { return ` <a data-module="Entrada_materia_prima" class="reference_btn" data-id="${data.id}" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#comprobante_view">  <i data-feather="eye" class="text-white"></i></a> ` } },
+        { data: null, render: function (data, type, row, meta) { return ` <a data-module="entrada_producto_procesado" class="reference_btn" data-id="${data.id}" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#comprobante_view">  <i data-feather="eye" class="text-white"></i></a> ` } },
 
     ],
     drawCallback: function (settings) {
         feather.replace();
-        reference("#comprobante_view", "entrada_materia_prima");
+        reference("#comprobante_view", "entradas_producto_procesado");
     },
     "dom": 'tipr',
     "paging": true,
@@ -62,7 +63,7 @@ let tablePorVencer = $(".table_entrys_por_vencer").DataTable({
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
     },
     ajax: {
-        url: 'Entrada_materia_prima/get_all/0/10000000/id/asc',
+        url: 'Entrada_producto_procesado/get_all/0/10000000/id/asc',
         dataSrc: function (json) {
             const EntryPorVencer = json.filter((element) => {
                 let diasRestantes = diasRestantesFechaVencimiento(element)
@@ -74,19 +75,19 @@ let tablePorVencer = $(".table_entrys_por_vencer").DataTable({
     },
     columns: [
         { data: 'codigo' },
-        { data: 'nombre_materia_prima' },
+        { data: 'nombre_producto' },
         { data: 'nombre_proveedor' },
         { data: null, render: function (data, type, row, meta) { return fecha(data.fecha_compra) } },
         { data: null, render: function (data, type, row, meta) { return fecha(data.fecha_vencimiento) } },
-        { data: null, render: function (data, type, row, meta) { return data.cantidad + " " + data.nombre_unidad } },
-        { data: null, render: function (data, type, row, meta) { return data.existencia + " " + data.nombre_unidad } },
+        { data: null, render: function (data, type, row, meta) { return data.cantidad + " " + data.alias_unidad } },
+        { data: null, render: function (data, type, row, meta) { return data.existencia + " " + data.alias_unidad } },
         { data: null, render: function (data, type, row, meta) { return "$ " + data.precio_compra } },
-        { data: null, render: function (data, type, row, meta) { return ` <a data-module="Entrada_materia_prima" class="reference_btn" data-id="${data.id}" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#comprobante_view">  <i data-feather="eye" class="text-white"></i></a> ` } },
+        { data: null, render: function (data, type, row, meta) { return ` <a data-module="entrada_producto_procesado" class="reference_btn" data-id="${data.id}" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#comprobante_view">  <i data-feather="eye" class="text-white"></i></a> ` } },
 
     ],
     drawCallback: function (settings) {
         feather.replace();
-        reference("#comprobante_view", "entrada_materia_prima");
+        reference("#comprobante_view", "entradas_producto_procesado");
     },
     "dom": 'tipr',
     "paging": true,
@@ -97,7 +98,7 @@ let tableVencidas = $(".table_entrys_vencidos").DataTable({
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
     },
     ajax: {
-        url: 'Entrada_materia_prima/get_all/0/10000000/id/asc',
+        url: 'Entrada_producto_procesado/get_all/0/10000000/id/asc',
         dataSrc: function (json) {
             const EntryVencidas = json.filter((element) => {
                 let diasRestantes = diasRestantesFechaVencimiento(element)
@@ -109,19 +110,19 @@ let tableVencidas = $(".table_entrys_vencidos").DataTable({
     },
     columns: [
         { data: 'codigo' },
-        { data: 'nombre_materia_prima' },
+        { data: 'nombre_producto' },
         { data: 'nombre_proveedor' },
         { data: null, render: function (data, type, row, meta) { return fecha(data.fecha_compra) } },
         { data: null, render: function (data, type, row, meta) { return fecha(data.fecha_vencimiento) } },
-        { data: null, render: function (data, type, row, meta) { return data.cantidad + " " + data.nombre_unidad } },
-        { data: null, render: function (data, type, row, meta) { return data.existencia + " " + data.nombre_unidad } },
+        { data: null, render: function (data, type, row, meta) { return data.cantidad + " " + data.alias_unidad } },
+        { data: null, render: function (data, type, row, meta) { return data.existencia + " " + data.alias_unidad } },
         { data: null, render: function (data, type, row, meta) { return "$ " + data.precio_compra } },
-        { data: null, render: function (data, type, row, meta) { return ` <a data-module="Entrada_materia_prima" class="reference_btn" data-id="${data.id}" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#comprobante_view">  <i data-feather="eye" class="text-white"></i></a> ` } },
+        { data: null, render: function (data, type, row, meta) { return ` <a data-module="entrada_producto_procesado" class="reference_btn" data-id="${data.id}" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#comprobante_view">  <i data-feather="eye" class="text-white"></i></a> ` } },
 
     ],
     drawCallback: function (settings) {
         feather.replace();
-        reference("#comprobante_view", "entrada_materia_prima");
+        reference("#comprobante_view", "entradas_producto_procesado");
     },
     "dom": 'tipr',
     "paging": true,
@@ -132,7 +133,7 @@ let tableSinStock = $(".table_entrys_sin_stock").DataTable({
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
     },
     ajax: {
-        url: 'Entrada_materia_prima/get_all/0/10000000/id/asc',
+        url: 'Entrada_producto_procesado/get_all/0/10000000/id/asc',
         dataSrc: function (json) {
             const EntrySinStock = json.filter((element) => {
                 return element.existencia == 0;;
@@ -143,19 +144,19 @@ let tableSinStock = $(".table_entrys_sin_stock").DataTable({
     },
     columns: [
         { data: 'codigo' },
-        { data: 'nombre_materia_prima' },
+        { data: 'nombre_producto' },
         { data: 'nombre_proveedor' },
         { data: null, render: function (data, type, row, meta) { return fecha(data.fecha_compra) } },
         { data: null, render: function (data, type, row, meta) { return fecha(data.fecha_vencimiento) } },
-        { data: null, render: function (data, type, row, meta) { return data.cantidad + " " + data.nombre_unidad } },
-        { data: null, render: function (data, type, row, meta) { return data.existencia + " " + data.nombre_unidad } },
+        { data: null, render: function (data, type, row, meta) { return data.cantidad + " " + data.alias_unidad } },
+        { data: null, render: function (data, type, row, meta) { return data.existencia + " " + data.alias_unidad } },
         { data: null, render: function (data, type, row, meta) { return "$ " + data.precio_compra } },
-        { data: null, render: function (data, type, row, meta) { return ` <a data-module="Entrada_materia_prima" class="reference_btn" data-id="${data.id}" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#comprobante_view">  <i data-feather="eye" class="text-white"></i></a> ` } },
+        { data: null, render: function (data, type, row, meta) { return ` <a data-module="entrada_producto_procesado" class="reference_btn" data-id="${data.id}" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#comprobante_view">  <i data-feather="eye" class="text-white"></i></a> ` } },
 
     ],
     drawCallback: function (settings) {
         feather.replace();
-        reference("#comprobante_view", "entrada_materia_prima");
+        reference("#comprobante_view", "entradas_producto_procesado");
     },
     "dom": 'tipr',
     "paging": true,
@@ -168,10 +169,11 @@ $('#searchEntrysSinStock').on('keyup', function () { tableSinStock.search(this.v
 let entrysCount = 1;
 function addEntrys() {
     entrysCount++;
-    document.getElementById("entrys-container").insertAdjacentHTML('beforeend', elementFormEntrysRawMaterial(entrysCount));
+    document.getElementById("entrys-container").insertAdjacentHTML('beforeend', elemenFormEntrysProductProcess(entrysCount));
     feather.replace();
     selectOptionAll(".select_options_supplier", "supplier", optionsSupplier)
-    selectOptionAll(".select_options_raw_material", "rawmaterial", optionsRawMaterial)
+    selectOptionAll(".select_options_product", "productProcess", optionsRol)
+    selectOptionAll(".select_options_unit", "units", optionsRol)
 
     attachValidationListeners(entrysCount);
 
@@ -235,7 +237,14 @@ const rules = {
             message: "^es requerido"
         },
     },
-    id_materia_prima: {
+    id_producto: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        validateCategoryAndRecipe: { message: "^es requerido" }
+    },
+    id_unidad: {
         presence: {
             allowEmpty: false,
             message: "^es requerido"
@@ -293,8 +302,9 @@ if (!form.dataset.listenerAttached) {
             const data = {
                 codigo: entry.querySelector(`input[name="codigo"]`).value,
                 precio: entry.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
-                id_materia_prima: entry.querySelector(`input[name="id_materia_prima"]`).getAttribute("data-id"),
+                id_producto: entry.querySelector(`input[name="id_producto"]`).getAttribute("data-id"),
                 id_proveedor: entry.querySelector(`input[name="id_proveedor"]`).getAttribute("data-id"),
+                id_unidad: entry.querySelector(`input[name="id_unidad"]`).getAttribute("data-id"),
                 cantidad: entry.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
                 imagen: entry.querySelector(`input[name="imagen"]`) ? entry.querySelector(`input[name="imagen"]`).files[0] : "",
                 fecha_vencimiento: entry.querySelector(`input[name="fecha_vencimiento"]`).value,
@@ -305,7 +315,8 @@ if (!form.dataset.listenerAttached) {
             const errors = validate(data, rules);
             setValidationStyles(`input-code-entrys-${index}`, errors?.codigo ? errors.codigo[0] : null);
             setValidationStyles(`input-price-entrys-${index}`, errors?.precio ? errors.precio[0] : null);
-            setValidationStyles(`input-rawmaterial-entrys-${index}`, errors?.id_materia_prima ? errors.id_materia_prima[0] : null);
+            setValidationStyles(`input-product-entrys-${index}`, errors?.id_producto ? errors.id_producto[0] : null);
+            setValidationStyles(`input-unit-entrys-${index}`, errors?.id_unidad ? errors.id_unidad[0] : null);
             setValidationStyles(`input-supplier-entrys-${index}`, errors?.id_proveedor ? errors.id_proveedor[0] : null);
             setValidationStyles(`input-image-entrys-${index}`, errors?.imagen ? errors.imagen[0] : null);
             setValidationStyles(`input-quantity-entrys-${index}`, errors?.cantidad ? errors.cantidad[0] : null);
@@ -324,14 +335,15 @@ if (!form.dataset.listenerAttached) {
                 data.append(`lista[${index}][cantidad]`, entry.cantidad);
                 data.append(`lista[${index}][existencia]`, entry.cantidad);
                 data.append(`lista[${index}][fecha_vencimiento]`, entry.fecha_vencimiento);
-                data.append(`lista[${index}][id_materia_prima]`, entry.id_materia_prima);
+                data.append(`lista[${index}][id_producto]`, entry.id_producto);
+                data.append(`lista[${index}][id_unidad]`, entry.id_unidad);
                 data.append(`lista[${index}][id_proveedor]`, entry.id_proveedor);
                 data.append(`lista[${index}][imagen_name]`, entry.imagen.name);
                 data.append(`lista[${index}][imagen]`, entry.imagen);
                 data.append(`lista[${index}][referencia]`, entry.referencia);
             })
             let send = async () => {
-                let pet = await fetch(`Entrada_materia_prima/add_many`, {
+                let pet = await fetch(`Entrada_producto_procesado/add_many`, {
                     method: "POST",
                     body: data,
                 })

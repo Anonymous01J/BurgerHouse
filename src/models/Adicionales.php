@@ -23,7 +23,7 @@ class Adicionales extends Db_base
         $nombre_like = null,
         $imagen_name = null
     ) {
-        parent::__construct("productos");
+        parent::__construct("productos_preparados");
 
         $this->id = $id;
         $this->nombre = $nombre;

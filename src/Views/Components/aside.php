@@ -129,12 +129,12 @@
                 <li class="sidebar-item" data-module="Product">
                     <a class="sidebar-link has-arrow" href="#"
                         aria-expanded="false">
-                        <i data-feather="codepen" class="feather-icon"></i>
-                        <span class="hide-menu">Productos</span>
+                        <i data-feather="sunset" class="feather-icon"></i>
+                        <span class="hide-menu">Produc Preparados</span>
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level base-level-line">
                         <li class="sidebar-item" data-module="Product">
-                            <a href="productProcess" class="sidebar-link">
+                            <a href="productPrepared" class="sidebar-link">
                                 <span
                                     class="hide-menu">Producto
                                 </span>
@@ -161,14 +161,15 @@
                                 </span>
                             </a>
                         </li>
-                        <li class="sidebar-item" data-module="Adicionales">
-                            <a href="drink" class="sidebar-link">
-                                <span
-                                    class="hide-menu"> Bebidas
-                                </span>
-                            </a>
-                        </li>
                     </ul>
+                </li>
+
+                <li class="sidebar-item" data-module="Product">
+                    <a class="sidebar-link sidebar-link" href="productProcess"
+                        aria-expanded="false">
+                        <i data-feather="codepen" class="feather-icon"></i>
+                        <span class="hide-menu">Produc Procesados</span>
+                    </a>
                 </li>
 
 

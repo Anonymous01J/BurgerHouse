@@ -1,7 +1,7 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, print, add, reindex, resetForm, permission, searchFilter } = functionGeneral();
-const { targetProduct, elemenFormCombo, optionsRol } = Templates()
+const { targetProductProcess, elemenFormCombo, optionsRol } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 InputPrice("[input_price]");
 selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
@@ -9,58 +9,12 @@ viewImage(".input-image")
 // permission("Product")//verifica el btn de agg
 searchFilter("#searchProduct", (e) => {
   if (e.target.value == "") {
-    print(()=>searchParam({ active: 1, tipo: "producto" }, "product"), targetProduct, ".cont-product", "product", (response) => editData(response))
+    print(()=>searchParam({ active: 1 }, "productProcess"), targetProductProcess, ".cont-product", "product", (response) => editData(response))
   } else {
-    print(()=>searchParam({ active: 1, nombre_like: e.target.value, tipo: "producto" }, "product"), targetProduct, ".cont-product", "product", (response) => editData(response))
+    print(()=>searchParam({ active: 1, nombre_like: e.target.value }, "productProcess"), targetProductProcess, ".cont-product", "product", (response) => editData(response))
   }
 })
 // ------------------Validacion de Formulario---------------------------
-
-
-
-
-// document.querySelectorAll("#form-submit-edit-combo input[type='text'], #form-submit-edit-combo textarea").forEach(input => {
-//     input.addEventListener("keyup", (e) => { validateField(e, rules) });
-//     input.addEventListener("blur", (e) => { validateField(e, rules) });
-// });
-
-// document.getElementById("form-submit-edit-combo").addEventListener("submit", (e) => {
-//     e.preventDefault()
-
-//     let data = {
-//         nombre: document.getElementById("input-name-combo").value,
-//         precio: document.getElementById("input-price-combo").value,
-//         id_categoria: document.getElementById("input-category-combo").value,
-//         id_receta: document.getElementById("input-recipe-combo").value,
-//         detalles: document.getElementById("input-details-combo").value,
-//         imagen: document.getElementById("input-image-combo").files[0]
-//     }
-
-//     const errors = validate(data, rules);
-
-//     setValidationStyles("input-name-combo", errors?.nombre ? errors.nombre[0] : null);
-//     setValidationStyles("input-price-combo", errors?.precio ? errors.precio[0] : null);
-//     setValidationStyles("input-category-combo", errors?.id_categoria ? errors.id_categoria[0] : null);
-//     setValidationStyles("input-recipe-combo", errors?.id_receta ? errors.id_receta[0] : null);
-//     setValidationStyles("input-details-combo", errors?.detalles ? errors.detalles[0] : null);
-//     setValidationStyles("input-image-combo", errors?.imagen ? errors.imagen[0] : null);
-
-//     if (!errors) {
-//         alert("Formulario enviado correctamente");
-//         // this.reset();
-
-//         // const inputs = this.querySelectorAll(".is-valid, .is-invalid");
-//         // inputs.forEach(function (input) {
-//         //     input.classList.remove("is-valid", "is-invalid");
-//         // });
-
-//         // const errorMessages = this.querySelectorAll(".text-danger");
-//         // errorMessages.forEach(function (error) {
-//         //     error.textContent = "";
-//         // });
-//     }
-// })
-
 
 // Contador global de productos. Inicia en 1 porque ya existe un producto por defecto.
 let productCount = 1;
@@ -220,7 +174,7 @@ const rules2 = {
   },
 };
 
-const productSearch = () => { return searchParam({ active: 1, tipo: "producto" }, "product") }
+const productSearch = () => { return searchParam({ active: 1 }, "productProcess") }
 let form = document.getElementById("form-submit-combo")
 if (!form.dataset.listenerAttached) {
   form.addEventListener("submit", function (e) {
@@ -260,17 +214,16 @@ if (!form.dataset.listenerAttached) {
         data.append(`lista[${index}][detalles]`, combo.detalles);
         data.append(`lista[${index}][imagen_name]`, combo.imagen.name);
         data.append(`lista[${index}][imagen]`, combo.imagen);
-        data.append(`lista[${index}][tipo]`, "producto");
       })
       resetForm("#products-container .product", form)
-      add(productSearch, 'product', data, targetProduct, ".cont-product", "product", (response) => editData(response))
+      add(productSearch, 'productProcess', data, targetProductProcess, ".cont-product", "product", (response) => editData(response))
       bootstrap.Modal.getOrCreateInstance('#register-product').hide()
     }
   });
   form.dataset.listenerAttached = "true";
 }
 attachValidationListeners(1)
-print(productSearch, targetProduct, ".cont-product", "product", (response) => editData(response))//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
+print(productSearch, targetProductProcess, ".cont-product", "product", (response) => editData(response))//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
 function editData(response) {
   let hasError = false
   document.querySelector("#input-name-combo").value = response[0].nombre
@@ -279,7 +232,7 @@ function editData(response) {
   document.querySelector("#input-category-combo").value = response[0].nombre_categoria
   document.querySelector("#input-category-combo").setAttribute("data-id", response[0].id_categoria)
   document.querySelector("#input-details-combo").value = response[0].detalles
-  document.querySelector("#img-combo-response").src = `media/productos/${response[0].imagen}`
+  document.querySelector("#img-combo-response").src = `media/productProcess/${response[0].imagen}`
   let data = {
     nombre: document.querySelector(`#input-name-combo`).value,
     precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
@@ -323,7 +276,7 @@ function editData(response) {
           datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
           datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
         }
-        update(productSearch, 'product', datafinal, targetProduct, ".cont-product", "product", (response) => editData(response))
+        update(productSearch, 'productProcess', datafinal, targetProductProcess, ".cont-product", "product", (response) => editData(response))
         bootstrap.Modal.getOrCreateInstance('#edit-product').hide()
       }
     })

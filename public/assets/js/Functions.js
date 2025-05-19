@@ -57,7 +57,15 @@ export default function functionGeneral() {
     const fechaFormateada = `${dia}/${mes}/${anio}`;
     return fechaFormateada;
   }
+  function diasRestantesFechaVencimiento(element) {
+    let fechaVencimiento = new Date(element.fecha_vencimiento);
+    let fechaActual = new Date();
+    fechaVencimiento.setMinutes(fechaVencimiento.getMinutes() + fechaVencimiento.getTimezoneOffset());
 
+    let diferencia = fechaVencimiento.getTime() - fechaActual.getTime();
+    let diasRestantes = Math.ceil(diferencia / (1000 * 60 * 60 * 24));
+    return diasRestantes;
+  }
   function setValidationStyles(input, errorMessage) {
     const inputElement = document.getElementById(input);
     const errorElement = document.getElementById("error-" + input);
@@ -200,14 +208,14 @@ export default function functionGeneral() {
     select.forEach(async (element) => {
       if (module != null) {
         let data = await searchAll(module, 1)
-        let template = ""
+        let cont = ""
         if (data.length == 0) {
           element.querySelector(".options_search").innerHTML = `<a class="dropdown-item">No hay resultados</a>`;
         } else {
           data.forEach((element) => {
-            template += ` <a class="dropdown-item" data-id="${element.id}">${element.nombre}</a>`;
+            cont += template(element);
           });
-          element.querySelector(".options_search").innerHTML = template;
+          element.querySelector(".options_search").innerHTML = cont;
         }
         element.querySelectorAll(".dropdown-item").forEach((item) => {
           item.addEventListener("click", () => {
@@ -227,10 +235,10 @@ export default function functionGeneral() {
       if (module != null) {
         element.querySelector(".search_select").addEventListener("keyup", async (e) => {
           if (e.target.value != "") {
-            let res = await searchLike(e, module, 1);
+            let res = await searchParam({ nombre_like: e.target.value, active: 1 }, module);
             let cont = "";
             if (res.length == 0) {
-              cont = `<a class="dropdown-item"">No hay resultados</a>`;
+              cont = `<a class="dropdown-item">No hay resultados</a>`;
               element.querySelector(".options_search").innerHTML = cont;
             } else {
               res.forEach((element) => {
@@ -238,49 +246,63 @@ export default function functionGeneral() {
               });
             }
             element.querySelector(".options_search").innerHTML = cont;
-            element.querySelectorAll(".dropdown-item").forEach((item) => {
-              item.addEventListener("click", () => {
-                let input = item.parentElement.parentElement.parentElement.firstElementChild.value;
-                let option = item.textContent;
-                item.parentElement.parentElement.parentElement.firstElementChild.value = option;
-                if (module != null) {
-                  let id = item.getAttribute("data-id");
-                  item.parentElement.parentElement.parentElement.firstElementChild.setAttribute("data-id", id);
-                }
-                if (input != "" || input != "Seleccione una opcion") {
-                  item.parentElement.parentElement.firstElementChild.parentElement.parentElement.parentElement.parentElement.nextElementSibling.textContent = "";
-                }
-              });
-            });
+            inputSet()
           } else {
-            let res = await searchAll(module, 1);
+            let res = await searchParam({ active: 1 }, module);
             let cont = "";
             if (res.length == 0) {
-              cont = `<a class="dropdown-item"">No hay resultados</a>`;
+              cont = `<a class="dropdown-item">No hay resultados</a>`;
+              element.querySelector(".options_search").innerHTML = cont;
             } else {
               res.forEach((element) => {
                 cont += template(element);
               });
             }
             element.querySelector(".options_search").innerHTML = cont;
+            inputSet()
           }
         });
       }
-      element.querySelectorAll(".dropdown-item").forEach((item) => {
-        item.addEventListener("click", () => {
-          let input = item.parentElement.parentElement.parentElement.firstElementChild.value;
-          let option = item.textContent;
-          item.parentElement.parentElement.parentElement.firstElementChild.value = option;
-          if (module != null) {
-            let id = item.getAttribute("data-id");
-            item.parentElement.parentElement.parentElement.firstElementChild.setAttribute("data-id", id);
-          }
-          if (input != "" || input != "Seleccione una opcion") {
-            item.parentElement.parentElement.firstElementChild.parentElement.parentElement.parentElement.parentElement.nextElementSibling.textContent = "";
-          }
+      const inputSet = () => {
+        element.querySelectorAll(".dropdown-item").forEach((item) => {
+          item.addEventListener("click", () => {
+            let input = item.parentElement.parentElement.parentElement.firstElementChild.value;
+            let option = item.textContent;
+            item.parentElement.parentElement.parentElement.firstElementChild.value = option;
+            if (module != null) {
+              let id = item.getAttribute("data-id");
+              item.parentElement.parentElement.parentElement.firstElementChild.setAttribute("data-id", id);
+            }
+            if (module == "rawmaterial") {
+              item.closest(".col-md-4").nextElementSibling.nextElementSibling.nextElementSibling.querySelector(".type_unit").textContent = item.getAttribute("data-unit");
+            }
+            if (input != "" || input != "Seleccione una opcion") {
+              item.parentElement.parentElement.firstElementChild.parentElement.parentElement.parentElement.parentElement.nextElementSibling.textContent = "";
+            }
+          });
         });
-      });
+      }
+      inputSet()
     })
+  }
+  async function reference(modal, carpeta) {
+    let btn = document.querySelectorAll(".reference_btn");
+    let modalCont = document.querySelector(modal);
+    btn.forEach((element) => {
+      element.addEventListener("click", async () => {
+        let id = element.getAttribute("data-id");
+        let module = element.getAttribute("data-module");
+        let data = new FormData();
+        data.append("id", id);
+        let pet = await fetch(`${module}/get_all`, {
+          method: "POST",
+          body: data,
+        });
+        let response = await pet.json();
+        let img = response[0].comprobante;
+        modalCont.querySelector(".view_comprobante").src = `media/${carpeta}/${img}`;
+      });
+    });
   }
   function viewImage(inputs) {
     document.querySelectorAll(inputs).forEach((image) => {
@@ -454,7 +476,7 @@ export default function functionGeneral() {
   const searchFilter = (searchInput, searchLike) => {
     let search = document.querySelector(searchInput);
     search.addEventListener("keyup", async (e) => {
-     searchLike(e)
+      searchLike(e)
     });
   }
   //--------------funciones para el manejo de peticiones ajax para las datatables------------------
@@ -557,8 +579,10 @@ export default function functionGeneral() {
     InputPrice,
     hora,
     fecha,
+    diasRestantesFechaVencimiento,
     setValidationStyles,
     validateField,
+    reference,
     SelectOption,
     selectOptionAll,
     viewImage,

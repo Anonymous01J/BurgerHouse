@@ -22,26 +22,51 @@ const modulesConfig = {
             }
         ]
     },
-    product: {
+    product_prepared: {
         ajax: {
-            url: 'product/get_all/0/10000000/id/asc',
+            url: 'productPrepared/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             data: {
                 active: 0,
-                tipo: "producto"
             }
         },
         columns: [
-            { title: '', data: null, render: (data) => `<img src='${data.imagen ? "media/productos/" + data.imagen : "./assets/img/big/banner_login.png"}' width='50px' height='50px'>` },
+            { title: '', data: null, render: (data) => `<img src='${data.imagen ? "media/productPrepared/" + data.imagen : "./assets/img/big/banner_login.png"}' width='50px' height='50px'>` },
             { title: 'Nombre', data: 'nombre' },
-            { title: 'Precio', data: 'precio' },
+            { title: 'Precio', data: null, render: (data) => { return (data.precio).toString().replace(".", ",") + " $" } },
             {
                 title: 'Acciones',
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="product" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Producto" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="productPrepared" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Producto" data-bs-placement="bottom">
+                    <i data-feather="refresh-ccw" class="text-white"></i>
+                </button>
+                `
+            }
+        ]
+    },
+    product_processed: {
+        ajax: {
+            url: 'productProcess/get_all/0/10000000/id/asc',
+            dataSrc: '',
+            type: 'POST',
+            data: {
+                active: 0,
+            }
+        },
+        columns: [
+            { title: '', data: null, render: (data) => `<img src='${data.imagen ? "media/productProcess/" + data.imagen : "./assets/img/big/banner_login.png"}' width='50px' height='50px'>` },
+            { title: 'Nombre', data: 'nombre' },
+            { title: 'Precio', data: null, render: (data) => { return (data.precio).toString().replace(".", ",") + " $" } },
+
+            {
+                title: 'Acciones',
+                data: null,
+                render: (data) =>
+                    `
+                <button data-id="${data.id}" data-module-restore="productProcess" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Producto" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
