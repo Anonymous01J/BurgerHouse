@@ -39,3 +39,10 @@ const dolarBCV = async () => {
 dolarBCV()
 //permisos para el navbar
 // permission("Combo")
+
+
+let a = new Set([1,2,3])
+
+let b = new Set([3,4,5])
+
+console.log(a.difference(b))
