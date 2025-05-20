@@ -10,7 +10,6 @@ class DetalleOrdenProductoProcesado extends Db_base {
     private $id_orden;
     private $cantidad;
     private $descripcion;
-    private $comprobante;
 
     public function __construct(
         $id = null,
@@ -18,7 +17,6 @@ class DetalleOrdenProductoProcesado extends Db_base {
         $id_orden = null,
         $cantidad = null,
         $descripcion = null,
-        $comprobante = null
     ) {
         parent::__construct("producto_procesado_detalle_orden");
 
@@ -27,7 +25,6 @@ class DetalleOrdenProductoProcesado extends Db_base {
         $this->id_orden = $id_orden;
         $this->cantidad = $cantidad;
         $this->descripcion = $descripcion;
-        $this->comprobante = $comprobante;
 
         $this->add_variables([
             "a.id" => $this->id,
@@ -35,7 +32,6 @@ class DetalleOrdenProductoProcesado extends Db_base {
             "a.id_orden" => $this->id_orden,
             "a.cantidad" => $this->cantidad,
             "a.descripcion" => $this->descripcion,
-            "a.comprobante" => $this->comprobante
         ]);
     }
 }
