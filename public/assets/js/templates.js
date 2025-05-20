@@ -516,48 +516,42 @@ export default function Templates() {
     }
     function elemenFormRecipe(objet) {
         return `
-        <div class="row g-2 recipe" id="recipe-${objet}">
-            <div class="col-md-5 ">
-                <label for="inputCity" class="form-label">Receta</label>
-                <div class="dropdown">
+        <div class="row g-2 recipes" id="recipes-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-0 mt-4">
+                <h4 class="m-0">Uad ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-recipe">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-6">
+                <label for="inputCity" class="form-label">Materia prima</label>
+                <div class="dropdown select_options_rawmaterial">
                     <div class="dropdown">
                         <div class="btn-group w-100" bis_skin_checked="1">
-                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-rawmaterial-recipe-${objet}" name="id_rawmaterial">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-rawmaterial-recipe-${objet}" name="id_rawmaterial" data-id="Seleccione una opcion">
                             <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span> <i data-feather="chevron-down"></i></span>
                             </button>
                             <div class="dropdown-menu p-2" bis_skin_checked="1">
                                 <div>
-                                    <input class="form-control" type="text" placeholder="Buscar">
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
                                 </div>
-                                <a class="dropdown-item">Action</a>
-                                <a class="dropdown-item">Another action</a>
-                                <a class="dropdown-item">Something else here</a>
+                                <div class="options_search">
+
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-rawmaterial-recipe-${objet}"></div>
             </div>
-
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Cantidad</label>
                 <div class="input-group">
-                    <span class="input-group-text">G</span>
+                    <span class="input-group-text type_unit">0</span>
                     <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-recipe-${objet}" name="cantidad">
-                    <div class="text-danger mt-1 fs-6" id="error-input-quantity-recipe-${objet}"></div>
                 </div>
-            </div>
-            
-            <div class="col-md-1">
-                <label for="inputEmail4" class="form-label"></label>
-
-                <div class="input-group">
-                    <button type="button" class="btn btn-circle btn-secondary remove-recipe">
-                    <i data-feather="trash"></i>
-                </button>
-                </div>
-                
+                <div class="text-danger mt-1 fs-6" id="error-input-quantity-recipe-${objet}"></div>
             </div>
         </div>
         `
@@ -900,7 +894,7 @@ export default function Templates() {
         `
     }
     function elemenFormEntrysProductProcess(objet) {
-        return`
+        return `
         <div class="row g-2 entrys" id="entrys-${objet}">
             <div class="d-flex align-items-center gap-4 mb-3 mt-5">
                 <h4 class="m-0">Cliente ${objet}</h4>
