@@ -274,7 +274,7 @@ export default function functionGeneral() {
               item.parentElement.parentElement.parentElement.firstElementChild.setAttribute("data-id", id);
             }
             if (module == "rawmaterial") {
-              item.closest(".col-md-4").nextElementSibling.nextElementSibling.nextElementSibling.querySelector(".type_unit").textContent = item.getAttribute("data-unit");
+              item.closest(".row").querySelector(".type_unit").textContent = item.getAttribute("data-unit");
             }
             if (input != "" || input != "Seleccione una opcion") {
               item.parentElement.parentElement.firstElementChild.parentElement.parentElement.parentElement.parentElement.nextElementSibling.textContent = "";

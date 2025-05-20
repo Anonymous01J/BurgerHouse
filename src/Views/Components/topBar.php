@@ -6,7 +6,7 @@
 
             <div class="navbar-brand justify-content-center">
                 <a href="home">
-                    <img src="./assets/img/logo_letras.svg" alt="" class="img-fluid items-center">
+                    <img src="./assets/img/logo_letras.svg" alt="" class="img-fluid items-center" style="z-index: 1000;">
                 </a>
             </div>
 
@@ -16,7 +16,7 @@
                     class="ti-more"></i></a>
         </div>
 
-        <div class="navbar-collapse collapse" id="navbarSupportedContent">
+        <div class="navbar-collapse collapse position-relative" style="z-index: 500;" id="navbarSupportedContent">
 
             <ul class="navbar-nav float-left me-auto ms-3 ps-1">
                 <!-- Notification -->
@@ -94,8 +94,6 @@
                         </ul>
                     </div>
                 </li>
-
-
                 <li class="nav-item" data-bs-toggle="tooltip" data-bs-title="Ayuda Interactiva" data-bs-placement="top">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -1,4 +1,4 @@
-<div class="col-5 align-self-center">
+<div class="col-md-4 flex-xs flex-xs-justify-content-start margin-xs-top-2 align-self-center">
     <div class="float-end d-flex align-items-center gap-3">
         <span class="badge bg-success d-flex justify-content-center align-items-center rounded-circle" style="width: 40px; height: 40px;" data-bs-toggle="tooltip" data-bs-title="Estado de caja" data-bs-placement="top">
             <span><i style="font-size: 19px;" data-feather="inbox" class="svg-icon"></i></span>

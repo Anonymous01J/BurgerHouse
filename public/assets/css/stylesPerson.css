@@ -3,6 +3,19 @@
   transition: display .7s, transform .7s, opacity .7s;
   transition-behavior: allow-discrete;
 }
+@media (max-width: 575px) {
+  .flex-xs {
+    display: flex;
+  }
+  .flex-xs-justify-content-start {
+    justify-content: flex-start;
+  }
+  .margin-xs-top-2 {
+    margin-top: 10px;
+  }
+  
+}
+
 .captcha_page {
   display: flex;
   transition: display .7s, transform .7s, opacity .7s;
