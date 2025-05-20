@@ -18,7 +18,7 @@ class Orden extends Db_base {
         $tipo = null
         
     ) {
-        parent::__construct("pagos");
+        parent::__construct("orden");
         
         $this->id = $id;
         $this->nro_orden = $nro_orden;
