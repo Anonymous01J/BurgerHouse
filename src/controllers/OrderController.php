@@ -15,7 +15,10 @@ class OrderController extends Controller_base {
     public function add() {
         try {
             $this->db->clear();
-            $this->db->__construct(...$_POST);
+            $l = $_POST;
+            unset($l['lista_detalle_preparado']);
+            unset($l['lista_detalle_procesado']);
+            $this->db->__construct(...$l);
             $last_id = $this->db->agregar();
             
             $clase_detalle_producto_preparado = new DetalleOrdenProductoPreparado();
