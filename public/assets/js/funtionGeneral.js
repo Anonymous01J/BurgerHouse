@@ -39,10 +39,38 @@ const dolarBCV = async () => {
 dolarBCV()
 //permisos para el navbar
 // permission("Combo")
+let pro = {
+    id_cliente: 1,
+    tipo: "delivery",
+    lista_detalle_preparado: [
+        {
+            id_producto: 1,
+            cantidad: 1,
+            descripcion: "Sin cebolla",
+            adicionales: "Tocineta",
+        }
+    ],
+    lista_detalle_procesado: [
+        {
+            id_producto: 1,
+            cantidad: 1,
+        }
+    ],
+}
 
+const ho = async () => {
+    let data = new FormData();
+    data.append("id_cliente", 1);
+    data.append("tipo", "delivery");
+    data.append("lista_detalle_preparado[0][id_producto]", 41);
+    data.append("lista_detalle_preparado[0][cantidad]", 1);
+    data.append("lista_detalle_preparado[0][descripcion]", "Sin cebolla");
+    data.append("lista_detalle_preparado[0][adicionales]", "Tocineta");
+    data.append("lista_detalle_procesado[0][id_producto]", 41);
+    data.append("lista_detalle_procesado[0][cantidad]", 1);
+    let pet = await fetch("order/add", { method: "POST", body: data })
+    let res = await pet.json()
+    console.log(res);
+}
 
-let a = new Set([1,2,3])
-
-let b = new Set([3,4,5])
-
-console.log(a.difference(b))
+// ho()

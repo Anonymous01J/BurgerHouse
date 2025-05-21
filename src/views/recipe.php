@@ -19,7 +19,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb m-0 p-0">
                                 <li class="breadcrumb-item"><a href="index.html" class="text-muted">Modulos</a></li>
-                                <li class="breadcrumb-item text-muted active" aria-current="page">Combos</li>
+                                <li class="breadcrumb-item text-muted active" aria-current="page">Productos Preparados</li>
                                 <li class="breadcrumb-item text-muted active" aria-current="page">Receta</li>
                             </ol>
                         </nav>
@@ -34,7 +34,7 @@
         <div class="container-fluid">
 
 
-            <div class="row g-3 align-items-center mb-5 mt-3">
+            <div class="row g-3 align-items-center mb-5">
                 <div class="col-auto">
                     <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
@@ -95,12 +95,9 @@
 
 
         </div>
-
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
-
     <?php include_once __DIR__ . '/../Views/Components/modals/recipe/modal.php' ?>
-
-
 </div>
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
@@ -114,5 +111,3 @@
 <script type="module" src="./assets/js/pages/recipe/recipe.js"></script>
 
 
-
-<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
