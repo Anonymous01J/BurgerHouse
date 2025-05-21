@@ -281,6 +281,55 @@ export default function Templates() {
         </div>
 `
     }
+    function targetRecipe(object1, objet2) {
+        let template = "";
+        objet2.forEach((item) => {
+            template += itemIngredientes(item);
+        })
+        return `
+        <div class="col-md-4 col-lg-6 ">
+            <div class="position-relative">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3 border-bottom">
+                            <div class="d-flex justify-content-between ">
+                                <h5 class="card-title">${object1.nombre_producto}</h5>
+                            </div>
+                        </div>
+
+                        <div class="row gap-3">
+                            <div class="d-flex flex-column gap-4">
+                                <div class="row">
+                                    <div class="container mb-3">
+                                        <ul class=" list-unstyled lista-multi">
+                                            ${template}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">
+                            <div style="display: flex; justify-content: end; align-items: center;">
+                                <div class="d-flex gap-3">
+                                    <a class="link-secondary edit_btn" data-id="${object1.id}" data-module-edit="Detallerecipe" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-recipe" data-bs-title="Editar Receta" data-bs-placement="bottom">
+                                        <i data-feather="edit"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    }
+    function itemIngredientes(objet) {
+        return `
+            <li class="fs-5">• ${objet.ingrediente + " " + objet.cantidad + " " + objet.unidad}</li>
+        `
+    }
     function elemenFormCombo(objet) {
         return `
         <div class="row g-2 product" id="product-${objet}">
@@ -514,12 +563,12 @@ export default function Templates() {
         </div>
         `
     }
-    function elemenFormRecipe(objet) {
+    function elemenFormRecipe(objet, objet2 = null) {
         return `
         <div class="row g-2 recipes" id="recipes-${objet}">
             <div class="d-flex align-items-center gap-4 mb-0 mt-4">
-                <h4 class="m-0">Uad ${objet}</h4>
-                <button type="button" class="btn btn-circle btn-secondary remove-recipe">
+                <h4 class="m-0">Item ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-recipe" data-id="${objet2 ? objet2.id : ''}">
                     <i data-feather="trash"></i>
                 </button>
             </div>
@@ -528,7 +577,7 @@ export default function Templates() {
                 <div class="dropdown select_options_rawmaterial">
                     <div class="dropdown">
                         <div class="btn-group w-100" bis_skin_checked="1">
-                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-rawmaterial-recipe-${objet}" name="id_rawmaterial" data-id="Seleccione una opcion">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="${objet2 ? objet2.ingrediente : "Seleccione una opcion"}" id="input-rawmaterial-recipe-${objet}" name="id_rawmaterial" data-id="${objet2 ? objet2.id_materia_prima : "Seleccione una opcion"}">
                             <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span> <i data-feather="chevron-down"></i></span>
                             </button>
@@ -548,8 +597,8 @@ export default function Templates() {
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Cantidad</label>
                 <div class="input-group">
-                    <span class="input-group-text type_unit">0</span>
-                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-recipe-${objet}" name="cantidad">
+                    <span class="input-group-text type_unit">${objet2 ? objet2.unidad : '0'} </span>
+                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-recipe-${objet}" name="cantidad" value="${objet2 ? objet2.cantidad : ''}">
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-quantity-recipe-${objet}"></div>
             </div>
@@ -1054,6 +1103,8 @@ export default function Templates() {
         targetSupplier,
         targetUser,
         targetClient,
+        targetRecipe,
+        itemIngredientes,
         targetPermission,
         targetTable,
         elemenFormCombo,

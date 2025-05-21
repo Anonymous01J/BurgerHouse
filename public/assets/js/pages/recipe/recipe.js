@@ -1,10 +1,9 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 
-const { InputPrice, selectOptionAll, setValidationStyles, validateField, reindex, resetForm } = functionGeneral();
-const { elemenFormRecipe, optionsRol, optionsRawMaterial } = Templates()
+const { InputPrice, selectOptionAll, setValidationStyles, validateField, reindex, resetForm, edit, searchParam } = functionGeneral();
+const { elemenFormRecipe, optionsRol, optionsRawMaterial, targetRecipe, itemIngredientes } = Templates()
 InputPrice("[input_price]");
-// SelectOption()
 selectOptionAll(".select_options_product", "productPrepared", optionsRol)
 selectOptionAll(".select_options_rawmaterial", "rawmaterial", optionsRawMaterial)
 let RecipeCount = 1;
@@ -129,12 +128,25 @@ if (!form.dataset.listenerAttached) {
                 data.append(`lista[${index}][id_materia_prima]`, item.id_rawmaterial);
                 data.append(`lista[${index}][cantidad]`, item.cantidad);
             })
-            const nose = async () => {
+            const add = async () => {
                 let pet = await fetch('recipe/add', { method: 'POST', body: data })
                 let res = await pet.json()
-                console.log(res);
+                if (res.success == true) {
+                    Swal.fire({
+                        title: `Exito!`,
+                        text: "El elemento fue agregado correctamente",
+                        icon: "success",
+                    });
+                    renderizarTarjetas({});
+                } else {
+                    Swal.fire({
+                        title: `Error!`,
+                        text: "El elemento no fue agregado",
+                        icon: "error",
+                    });
+                }
             }
-            nose()
+            add()
             resetForm("#recipes-container .recipes", form)
             document.getElementById("input-product-recipe").classList.remove("is-invalid", "is-valid");
             document.getElementById("input-product-recipe").value = "Seleccione una opcion";
@@ -145,23 +157,58 @@ if (!form.dataset.listenerAttached) {
 }
 attachValidationListeners(1);
 
-async function renderizarTarjetas() {
-    // 1) Obtener datos
-    const resp = await fetch("Detallerecipe/get_all/0/10000000/id/asc");
-    const data = await resp.json();
-  
-    const agrupado = data.reduce((acum, item) => {
-      const nombre = item.nombre+"-"+"id_receta:"+item.id_receta+"-"+"active:"+item.active;
-      if (!acum[nombre]) acum[nombre] = [];
-      acum[nombre].push(item);
-      return acum;
-    }, {});
-  
-    Object.entries(agrupado).forEach(([receta, ingredientes]) => {
-      if (receta.split("-")[2].split(":")[1] != 0) {
-        console.log(receta, ingredientes);
-      }
-    });
-  }
+async function renderizarTarjetas(param) {
+    let templatejk = "";
+    const data = await searchParam(param, "recipe")
+    data.forEach(async (item) => {
+        let data2 = await searchParam({ id_receta: item.id }, "Detallerecipe", 468468468486)
+        templatejk += targetRecipe(item, data2);
+        document.querySelector(".cont_recipe").innerHTML = templatejk;
+        feather.replace();
+        edit((response) => {
+            let objectActual = response
+            let objectSend = []
+            let data = new FormData();
+            let template = "";
+            let index = 0;
+            response.forEach((item, i) => {
+                index++;
+                template += elemenFormRecipe(index, item);
+            });
+            document.getElementById("recipe-edit-container").innerHTML = template;
+            selectOptionAll(".select_options_product", "productPrepared", optionsRol)
+            selectOptionAll(".select_options_rawmaterial", "rawmaterial", optionsRawMaterial)
+            InputPrice("[input_price]");
+            feather.replace();
+            attachValidationListeners(index);
+            document.getElementById("add-recipe-edit-btn").addEventListener("click", async () => {
+                index++;
+                document.getElementById("recipe-edit-container").innerHTML += elemenFormRecipe(index);
+                feather.replace();
+                selectOptionAll(".select_options_product", "productPrepared", optionsRol)
+                selectOptionAll(".select_options_rawmaterial", "rawmaterial", optionsRawMaterial)
+                InputPrice("[input_price]");
+                attachValidationListeners(index);
+                reindex("#recipe-edit-container .recipes", "recipes", index, "Item");
+                deleteItem()
+        
+            });
+            const deleteItem = async () => {
+                let recipe = document.querySelectorAll(".remove-recipe").forEach((item, i) => {
+                    item.addEventListener("click", async function () {
+                        item.closest(".recipes").remove();
+                        let id = item.getAttribute("data-id");
+                        data.append(`id`, id);
+                        let pet = await fetch(`Detallerecipe/delete`, { method: "POST", body: data })
+                        reindex("#recipe-edit-container .recipes", "recipes", index, "Item");
+                        renderizarTarjetas({});
+                    });
+                })
+            }
+            deleteItem()
+        })
+    })
+    
+}
 
-renderizarTarjetas();
+renderizarTarjetas({});

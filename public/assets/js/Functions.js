@@ -404,7 +404,6 @@ export default function functionGeneral() {
       body: data,
     });
     let response = await action.json()
-    console.log(response);
     if (response.success == true) {
       Swal.fire({
         title: `Exito!`,
@@ -420,14 +419,14 @@ export default function functionGeneral() {
       });
     }
   };
-  const searchParam = async (param, module) => {
+  const searchParam = async (param, module, pagination = null) => {
     let data = new FormData()
     if (Object.keys(param).length != 0) {
       Object.keys(param).forEach((key) => {
         data.append(`${key}`, `${param[key]}`)
       })
     }
-    let pet = await fetch(`${module}/get_all/0/6/id/desc`, {
+    let pet = await fetch(`${module}/get_all/0/${pagination == null ? 6 : pagination}/id/desc`, {
       method: "POST",
       body: data
     });
@@ -461,7 +460,7 @@ export default function functionGeneral() {
         let id = btn.getAttribute("data-id")
         let module = btn.getAttribute("data-module-edit")
         let data = new FormData();
-        data.append("id", id);
+        module == "Detallerecipe" ? data.append("id_receta", id) : data.append("id", id);
         let pet = await fetch(`${module}/get_all`, {
           method: "POST",
           body: data

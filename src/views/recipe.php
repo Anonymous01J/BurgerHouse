@@ -43,52 +43,8 @@
                 </button>
             </div>
 
-            <div class="row mt-4">
-                <?php for ($i = 0; $i < 5; $i++) { ?>
-                    <div class="col-md-4 col-lg-6 ">
-                        <div class="position-relative">
-                            <span class="badge bh_1 d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;">
-                                <span><i style="font-size: 20px;" data-feather="book" class="svg-icon"></i></span>
-                            </span>
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="mb-3 border-bottom">
-                                        <div class="d-flex justify-content-between ">
-                                            <h5 class="card-title">Nombre</h5>
-                                        </div>
-                                    </div>
-
-                                    <div class="row gap-3">
-                                        <div class="d-flex flex-column gap-4">
-                                            <div class="row">
-                                                <div class="container mb-3">
-                                                    <ul class=" list-unstyled lista-multi">
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                        <li class="fs-3">• Ingrediente 1</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-end gap-3 border-top pt-3">
-                                                <i style="cursor: pointer;" data-feather="edit"></i>
-                                                <i style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#confirmAction" data-feather="trash-2"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
+            <div class="row mt-4 cont_recipe">
+                
             </div>
 
 
@@ -109,5 +65,3 @@
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
 <script type="module" src="./assets/js/pages/recipe/recipe.js"></script>
-
-

@@ -74,3 +74,28 @@ const ho = async () => {
 }
 
 // ho()
+let uno = [
+    {
+        id_rawmaterial: 1,
+        cantidad: 1
+    },
+    {
+        id_rawmaterial: 2,
+        cantidad: 3
+    }
+]
+let dos = [
+    {
+        id_rawmaterial: 2,
+        cantidad: 3
+    }
+]
+
+const sonIguales = (a, b) => a.id_rawmaterial === b.id_rawmaterial && a.cantidad === b.cantidad;
+
+const unicosEnUno = uno.filter(obj1 => !dos.some(obj2 => sonIguales(obj1, obj2)));
+
+const unicosEnDos = dos.filter(obj2 => !uno.some(obj1 => sonIguales(obj1, obj2)));
+
+// console.log("Únicos en uno:", unicosEnUno);
+// console.log("Únicos en dos:", unicosEnDos);
