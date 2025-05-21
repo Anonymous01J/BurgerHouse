@@ -57,7 +57,18 @@ let pro = {
         }
     ],
 }
-
+const prueba = async () => {
+    let data = new FormData();
+    data.append("id_caja", 2);
+    data.append("id_orden", 10);
+    data.append("IVA", 10.4);
+    data.append("monto_final", 41);
+    data.append("direccion", "Tocoron");
+    let pet = await fetch("Sale/add", { method: "POST", body: data })
+    let res = await pet.json()
+    console.log(res);
+}
+prueba()
 const ho = async () => {
     let data = new FormData();
     data.append("id_cliente", 1);
@@ -73,7 +84,7 @@ const ho = async () => {
     console.log(res);
 }
 
-// ho()
+//  ho()
 let uno = [
     {
         id_rawmaterial: 1,
