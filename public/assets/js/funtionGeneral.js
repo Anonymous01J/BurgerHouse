@@ -37,6 +37,14 @@ const dolarBCV = async () => {
     document.getElementById("Dolar_bcv").textContent = parseFloat(response[0].promedio).toFixed(2) + " Bs"
 }
 dolarBCV()
+
+document.querySelectorAll(".logout_btn").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+        let pet = await fetch("login/logout")
+        window.location = "login"
+    })
+})
+
 //permisos para el navbar
 // permission("Combo")
 let pro = {
@@ -68,7 +76,7 @@ const prueba = async () => {
     let res = await pet.json()
     console.log(res);
 }
-prueba()
+// prueba()
 const ho = async () => {
     let data = new FormData();
     data.append("id_cliente", 1);

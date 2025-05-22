@@ -3,18 +3,17 @@
     use Shtch\Burgerhouse\models\Db_base;
     class Usuario extends Db_base{
         private $id;
-        private $nombre;
-        private $hash;
         private $id_rol;
+        private $nombre;
+        private $apellido;
+        private $hash;
         private $active;
         private $session_id;
-        private $documento;
         private $email;
-        private $apellido;
 
         private $nombre_like;
 
-        function __construct($id=null, $nombre=null,$hash=null,$id_rol=null,$active=null,$session_id=null, $documento=null, $email=null, $apellido=null, $nombre_like=null){
+        function __construct($id=null, $nombre=null,$hash=null,$id_rol=null,$active=null,$session_id=null, $email=null, $apellido=null, $nombre_like=null){
             parent::__construct("usuario");
             $this->id = $id;
             $this->nombre = $nombre;
@@ -22,7 +21,6 @@
             $this->id_rol = $id_rol;
             $this->active = $active;
             $this->session_id = $session_id;
-            $this->documento = $documento;
             $this->email = $email;
             $this->apellido = $apellido;
             $this->nombre_like = $nombre_like;
@@ -34,7 +32,6 @@
                 "a.id_rol" => $this->id_rol,
                 "a.active" => $this->active,
                 "a.session_id" => $this->session_id,
-                "a.documento" => $this->documento,
                 "a.email" => $this->email,
                 "a.apellido" => $this->apellido
             ]);
@@ -46,7 +43,6 @@
                 roles.id rol_id,
                 a.active,
                 a.session_id,
-                a.documento,
                 a.email,
                 a.apellido
             ";

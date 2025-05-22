@@ -150,9 +150,9 @@
                             Mi perfil</a>
 
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login"><i data-feather="power"
+                        <a class="dropdown-item logout_btn"><i data-feather="power"
                                 class="svg-icon me-2 ms-1"></i>
-                            Logout</a>
+                            Cerrar Sesión</a>
                     </div>
                 </li>
 
