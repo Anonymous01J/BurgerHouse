@@ -68,7 +68,7 @@ const prueba = async () => {
     let res = await pet.json()
     console.log(res);
 }
-prueba()
+// prueba()
 const ho = async () => {
     let data = new FormData();
     data.append("id_cliente", 1);
