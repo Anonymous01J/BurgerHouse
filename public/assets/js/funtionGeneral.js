@@ -118,3 +118,13 @@ const unicosEnDos = dos.filter(obj2 => !uno.some(obj1 => sonIguales(obj1, obj2))
 
 // console.log("Únicos en uno:", unicosEnUno);
 // console.log("Únicos en dos:", unicosEnDos);
+
+
+let cedula = async ()=>{
+    let data = new FormData();
+    data.append("cedula", "115435543");
+    let pet = await fetch(`login/cedula`,{ method: "POST", body: data })
+    let res = await pet.json()
+    console.log(res);
+}
+// cedula()

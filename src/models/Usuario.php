@@ -10,10 +10,11 @@
         private $active;
         private $session_id;
         private $email;
-
+        private $token;
+        private $token_expiracion;
         private $nombre_like;
 
-        function __construct($id=null, $nombre=null,$hash=null,$id_rol=null,$active=null,$session_id=null, $email=null, $apellido=null, $nombre_like=null){
+        function __construct($id=null, $nombre=null,$hash=null,$id_rol=null,$active=null,$session_id=null, $email=null, $apellido=null, $nombre_like=null, $token=null, $token_expiracion=null){
             parent::__construct("usuario");
             $this->id = $id;
             $this->nombre = $nombre;
@@ -23,6 +24,8 @@
             $this->session_id = $session_id;
             $this->email = $email;
             $this->apellido = $apellido;
+            $this->token = $token;
+            $this->token_expiracion = $token_expiracion;
             $this->nombre_like = $nombre_like;
 
             $this->add_variables([
@@ -33,7 +36,9 @@
                 "a.active" => $this->active,
                 "a.session_id" => $this->session_id,
                 "a.email" => $this->email,
-                "a.apellido" => $this->apellido
+                "a.apellido" => $this->apellido,
+                "a.token" => $this->token,
+                "a.token_expiracion" => $this->token_expiracion
             ]);
             $this->select_query = "
                 a.id,
@@ -44,7 +49,9 @@
                 a.active,
                 a.session_id,
                 a.email,
-                a.apellido
+                a.apellido,
+                a.token,
+                a.token_expiracion
             ";
             $this->joins = "
                 INNER JOIN roles ON roles.id = a.id_rol

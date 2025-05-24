@@ -1,10 +1,10 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
 use Shtch\Burgerhouse\controllers\Controller_base;
-
 use Shtch\Burgerhouse\models\Orden;
 use Shtch\Burgerhouse\models\DetalleOrdenProductoPreparado;
 use Shtch\Burgerhouse\models\DetalleOrdenProductoProcesado;
+use Exception;
 
 class OrderController extends Controller_base {
 

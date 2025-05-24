@@ -53,4 +53,37 @@ class LoginController extends Controller_base
         session_destroy();
         exit;
     }
+
+    public function cedula()
+    {
+        define('APPID_CEDULA', '1033');
+        define('TOKEN_CEDULA', '2e40fcab6d2f933e63fa9be82cdbd1be');
+        function getCurlData($url)
+        {
+            $curl = curl_init();
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_TIMEOUT, 10);
+            $curlData = curl_exec($curl);
+            curl_close($curl);
+            return $curlData;
+        }
+        function getCI($cedula, $return_raw = false)
+        {
+            $cedula = $_POST['cedula'];
+            $res = getCurlData("https://api.cedula.com.ve/api/v1?app_id=" . APPID_CEDULA . "&token=" . TOKEN_CEDULA . "&cedula=" . (int)$cedula);
+            if ($return_raw)
+                return strlen($res) > 3 ? $res : false;
+            $res = json_decode($res, true);
+            return isset($res['data']) && $res['data'] ? $res['data'] : $res['error_str'];
+        }
+        $consulta = getCI(00000);
+        if (is_array($consulta)) {
+            print_r(json_encode($consulta));
+        } else {
+            echo json_encode(['success' => false, 'message' => $consulta]);
+        }
+    }
 }

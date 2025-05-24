@@ -34,7 +34,7 @@ class Router
             $methodName = 'view';
         }
 
-        if (!isset($_SESSION['id'])) {
+        if (!isset($_SESSION['id']) && $controllerName != "ChangepassController") {
             $controller_class = 'Shtch\\Burgerhouse\\controllers\\LoginController';
         }
         $controller = new $controller_class();

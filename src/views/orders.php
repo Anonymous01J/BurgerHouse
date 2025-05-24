@@ -1,4 +1,5 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
+<link rel="stylesheet" href="./assets/libs/libs/bs-stepper/bs-stepper.min.css">
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
@@ -426,8 +427,6 @@
 
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
-
-    <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
     <?php include_once __DIR__ . '/../Views/Components/modals/order/domicile.php' ?>
 
 </div>
@@ -444,3 +443,5 @@
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
 <script src="./assets/js/pages/order/order.js"></script>
+<script src="./assets/libs/libs/bs-stepper/bs-stepper.min.js"></script>
+<
