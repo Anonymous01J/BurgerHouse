@@ -12,19 +12,19 @@
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon.png">
 
     <!-- Fonts -->
-    <!-- <link href="https://fonts.googleapis.com" rel="preconnect">
-  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
 
     <!-- Icons -->
-    <!-- <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css"> -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
     <!-- Vendor CSS Files -->
-    <link href="./assets/libs/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./assets/libs/libs/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="./assets/libs/libs/aos/aos.css" rel="stylesheet">
-    <link href="./assets/libs/libs/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="./assets/libs/libs/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="./assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="./assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="./assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
     <!-- Main CSS File -->
     <link href="./assets/css/web/main.css" rel="stylesheet">
@@ -100,14 +100,186 @@
                     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
                 </nav>
                 <!-- cart -->
-                <a class="btn-book-a-table toolTip" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" data-bs-toggle="tooltip" data-bs-placement="top" title="Carrito de compras"><i class="bi bi-cart"></i></a>
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                <a class="btn-book-a-table toolTip" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" data-bs-toggle="tooltip" data-bs-placement="top" title="Carrito de compras"><i class="uil uil-shopping-cart-alt"></i></a>
+                <div class="offcanvas offcanvas-end bg-light" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
                     <div class="offcanvas-header">
-                        <h5 id="offcanvasRightLabel">Offcanvas right</h5>
+                        <h5 id="offcanvasRightLabel" class="text-black">Carrito de compras</h5>
                         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
                     <div class="offcanvas-body">
-                        ...
+                        <?php if (!empty($_SESSION['cart'])): ?>
+                            <?php $total = 0; ?>
+                            <?php foreach ($_SESSION['cart'] as $position => $item): ?>
+                                <div class="d-flex align-items-center mb-3 border-bottom pb-3">
+                                    <div class="flex-grow-1">
+                                        <h5 class="mb-1 text-black"><?= htmlspecialchars($item['name']) ?></h5>
+                                        <p class="mb-1 text-muted">Precio: $<?= htmlspecialchars($item['price']) ?></p>
+                                        <p class="mb-1 text-muted">Cantidad: <?= htmlspecialchars($item['quantity']) ?></p>
+
+                                        <!-- Mostrar detalles del pedido -->
+                                        <?php if (!empty($item['details'])): ?>
+                                            <p class="mb-1 text-muted"><strong>Detalles:</strong> <?= htmlspecialchars($item['details']) ?></p>
+                                        <?php endif; ?>
+
+                                        <!-- Mostrar adicionales -->
+                                        <?php if (!empty($item['extras'])): ?>
+                                            <p class="mb-0 text-muted"><strong>Adicionales:</strong> <?= htmlspecialchars(implode(', ', $item['extras'])) ?></p>
+                                        <?php endif; ?>
+                                    </div>
+                                    <form method="post" action="?c=CCart/handleRequest" class="ms-3">
+                                        <input type="hidden" name="action" value="remove">
+                                        <input type="hidden" name="position" value="<?= $position ?>">
+                                        <button type="submit" class="btn btn-book-a-table text-black btn-sm">Eliminar</button>
+                                    </form>
+                                </div>
+                                <?php $total += $item['price'] * $item['quantity']; ?>
+                            <?php endforeach; ?>
+                            <div class="border-top pt-3 mt-3">
+                                <h5 class="text-end text-black">Subtotal: $<?= number_format(num: $total, decimals: 2) ?></h5>
+                                <h5 class="text-end text-black">Total (IVA incluido): $<span><?= number_format(num: $total * 1.16, decimals: 2) ?></span></h5>
+                            </div>
+                            <button type="button" class="btn btn-principal w-100 mt-3" data-bs-toggle="modal" data-bs-target="#addDrinksModal">Proceder al pago</button>
+                            <!-- Botón para vaciar el carrito -->
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <form method="post" action="?c=CCart/handleRequest">
+                                    <input type="hidden" name="action" value="clear">
+                                    <button type="submit" class="btn btn-danger w-100">Vaciar Carrito</button>
+                                </form>
+                            </div>
+                            <!-- Modal para agregar bebidas -->
+                            <div class="modal fade" id="addDrinksModal" tabindex="-1" aria-labelledby="addDrinksModalLabel" aria-hidden="true" data-bs-backdrop="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-light">
+                                        <form id="addDrinksForm" method="post" action="?c=CCart/handleRequest">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title text-black" id="addDrinksModalLabel">Agregar Bebidas</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <h6 class="text-black">Selecciona las bebidas que deseas agregar:</h6>
+                                                <div class="mb-3">
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input class="form-check-input me-2 drink-checkbox" type="checkbox" name="drinks[]" value="Coca Cola" id="drinkCocaCola" data-price="3">
+                                                        <label class="form-check-label text-black me-3" for="drinkCocaCola">Coca Cola <span>($3)</span></label>
+                                                        <input type="hidden" name="drinkPrice[Coca Cola]" value="3">
+                                                        <input type="number" class="form-control w-25 drink-quantity" name="drinkQuantity[Coca Cola]" min="1" placeholder="Cantidad" disabled>
+                                                    </div>
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input class="form-check-input me-2 drink-checkbox" type="checkbox" name="drinks[]" value="Sprite" id="drinkSprite" data-price="3">
+                                                        <label class="form-check-label text-black me-3" for="drinkSprite">Sprite <span>($3)</span></label>
+                                                        <input type="hidden" name="drinkPrice[Sprite]" value="3">
+                                                        <input type="number" class="form-control w-25 drink-quantity" name="drinkQuantity[Sprite]" min="1" placeholder="Cantidad" disabled>
+                                                    </div>
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input class="form-check-input me-2 drink-checkbox" type="checkbox" name="drinks[]" value="Agua mineral" id="drinkAgua mineral" data-price="3">
+                                                        <label class="form-check-label text-black me-3" for="drinkAgua mineral">Agua mineral <span>($3)</span></label>
+                                                        <input type="hidden" name="drinkPrice[Agua mineral]" value="3">
+                                                        <input type="number" class="form-control w-25 drink-quantity" name="drinkQuantity[Agua mineral]" min="1" placeholder="Cantidad" disabled>
+                                                    </div>
+                                                    <div class="form-check d-flex align-items-center">
+                                                        <input class="form-check-input me-2 drink-checkbox" type="checkbox" name="drinks[]" value="Jugo natural" id="drinkJugo natural" data-price="3">
+                                                        <label class="form-check-label text-black me-3" for="drinkJugo natural">Jugo natural <span>($3)</span></label>
+                                                        <input type="hidden" name="drinkPrice[Jugo natural]" value="3">
+                                                        <input type="number" class="form-control w-25 drink-quantity" name="drinkQuantity[Jugo natural]" min="1" placeholder="Cantidad" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="mt-3">
+                                                    <h6 class="text-black">Total (Carrito + Bebidas, IVA incluido): $<span id="drinksTotal">0.00</span></h6>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-book-a-table text-black" data-bs-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-principal">Agregar al carrito</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                document.querySelectorAll('.drink-checkbox').forEach(function(checkbox) {
+                                    checkbox.addEventListener('change', function() {
+                                        const quantityInput = this.closest('.form-check').querySelector('.drink-quantity');
+                                        if (this.checked) {
+                                            quantityInput.disabled = false;
+                                        } else {
+                                            quantityInput.disabled = true;
+                                            quantityInput.value = '';
+                                        }
+                                        calculateDrinksTotal();
+                                    });
+                                });
+
+                                document.querySelectorAll('.drink-quantity').forEach(function(input) {
+                                    input.addEventListener('input', calculateDrinksTotal);
+                                });
+
+                                function calculateDrinksTotal() {
+                                    let drinksTotal = 0;
+
+                                    // Calcular el total de las bebidas seleccionadas
+                                    document.querySelectorAll('.drink-checkbox:checked').forEach(function(checkbox) {
+                                        const price = parseFloat(checkbox.getAttribute('data-price'));
+                                        const quantity = parseInt(checkbox.closest('.form-check').querySelector('.drink-quantity').value) || 0;
+                                        drinksTotal += price * quantity;
+                                    });
+
+                                    // Obtener el total actual del carrito desde el DOM
+                                    const cartTotalElement = document.querySelector('.offcanvas-body h5.text-end.text-black:last-child span');
+                                    const cartTotal = cartTotalElement ? parseFloat(cartTotalElement.textContent.replace('$', '').replace(',', '')) || 0 : 0;
+
+                                    // Calcular el total con IVA incluido
+                                    const totalWithTax = cartTotal + drinksTotal;
+                                    document.getElementById('drinksTotal').textContent = (totalWithTax).toFixed(2);
+                                }
+                            </script>
+
+                            <!-- Modal de Pago -->
+                            <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true" data-bs-backdrop="false">
+                                <div class="modal-dialog">
+                                    <div class="modal-content bg-light">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-black" id="checkoutModalLabel">Confirmar Pago</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <h6 class="text-black">Productos seleccionados:</h6>
+                                            <ul>
+                                                <?php foreach ($_SESSION['cart'] as $item): ?>
+                                                    <li class="text-black"><?= htmlspecialchars($item['name']) ?> - $<?= htmlspecialchars($item['price']) ?> x <?= htmlspecialchars($item['quantity']) ?></li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                            <h6 class="text-black mt-3 text-end">Total a pagar: $<?= number_format($total * 1.16, 2) ?></h6>
+                                            <form method="post" action="?c=CCart/handleRequest" enctype="multipart/form-data">
+                                                <div class="mb-3">
+                                                    <label for="paymentMethod" class="form-label text-black">Método de Pago</label>
+                                                    <select class="form-select" id="paymentMethod" name="payment_method" required>
+                                                        <option value="pagomovil">Pago Móvil</option>
+                                                        <option value="efectivo">Efectivo</option>
+                                                        <option value="binance">Binance</option>
+                                                        <option value="zelle">Zelle</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="paymentReference" class="form-label text-black">Referencia</label>
+                                                    <input type="text" class="form-control" id="paymentReference" name="payment_reference" placeholder="Número de referencia" required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="paymentImage" class="form-label text-black">Imagen del Pago</label>
+                                                    <input type="file" class="form-control" id="paymentImage" name="payment_image" accept="image/*" required>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-book-a-table text-black" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="submit" class="btn btn-principal">Confirmar Pago</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php else: ?>
+                            <p class="text-center text-muted">Tu carrito está vacío.</p>
+                        <?php endif; ?>
                     </div>
                 </div>
                 <!-- <a class="btn-book-a-table d-none d-md-block d-flex justify-content-center" href="#">Carrito<i class="uil uil-shopping-cart-alt"></i></a> -->
@@ -124,7 +296,7 @@
         <!-- Hero Section -->
         <section id="hero" class="hero section dark-background">
 
-            <img src="./assets/img/web/hero-bg.jpg" alt="" data-aos="fade-in">
+            <img src="./assets/img/hero-bg.jpg" alt="" data-aos="fade-in">
 
             <div class="container">
                 <div class="row">
@@ -151,7 +323,7 @@
 
                 <div class="row gy-4">
                     <div class="col-lg-6 order-1 order-lg-2">
-                        <img src="./assets/img/web/about.jpg" class="img-fluid about-img" alt="">
+                        <img src="./assets/img/about.jpg" class="img-fluid about-img" alt="">
                     </div>
                     <div class="col-lg-6 order-2 order-lg-1 content">
                         <h3>Voluptatem dignissimos provident</h3>
@@ -231,295 +403,46 @@
 
                 <div class="row" data-aos="fade-up" data-aos-delay="100">
                     <div class="col-lg-12 d-flex justify-content-center">
-                        <ul class="menu-filters isotope-filters">
+                        <ul id="categories-container" class="menu-filters isotope-filters">
                             <li data-filter="*" class="filter-active">Todos</li>
-                            <li data-filter=".filter-Burgers">Burgers</li>
-                            <li data-filter=".filter-Pepitos">Pepitos</li>
-                            <li data-filter=".filter-Perros">Perros Calientes</li>
-                            <li data-filter=".filter-Griegos">Griegos</li>
-                            <li data-filter=".filter-KIDS">KIDS</li>
-                            <li data-filter=".filter-Papas">Papas</li>
+                            <?php
+                            if (!empty($categorias)) {
+                                foreach ($categorias as $categoria) {
+                                    // Imprime cada categoría en el formato deseado
+                                    echo '<li data-filter=".filter-' . htmlspecialchars($categoria['id']) . '">' . htmlspecialchars($categoria['nombre']) . '</li>';
+                                }
+                            } else {
+                                echo '<li>No se encontraron categorías.</li>';
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div><!-- Menu Filters -->
 
-                <div class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Pepitos">
-                        <img src="./assets/img/web/menu/lobster-bisque.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Pepito tradicional</a><span>$7.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <div class="ms-5 d-flex align-items-center mb-2 rounded-pill px-1 overflow-hidden" style="background-color: #0c0b09; width: 25%;">
-                                <a class="btn-book-a-table">
-                                    <i class="bi bi-dash-circle-fill fs-4"></i>
-                                </a>
-                                <input type="text" class="form-control form-control-sm" style="background-color: transparent; color: white; border: none; box-shadow: none;">
-                                <a class="btn-book-a-table">
-                                    <i class="bi bi-plus-circle-fill fs-4"></i>
-                                </a>
+                <div id="productsPrepared-container" class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
+                    <?php foreach ($productos as $producto): ?>
+                        <div class="col-lg-6 menu-item isotope-item filter-<?= htmlspecialchars($producto['id_categoria']) ?>">
+                            <img src="<?= !empty($producto['imagen']) ? htmlspecialchars($producto['imagen']) : './assets/img/menu/lobster-roll.jpg' ?>" class="menu-img" alt="">
+                            <div class="menu-content d-flex justify-content-between align-items-center">
+                                <a href="#"><?= htmlspecialchars($producto['nombre']) ?></a><span>$<?= htmlspecialchars($producto['precio']) ?></span>
+                            </div>
+                            <div class="menu-ingredients mb-2">
+                                <?= htmlspecialchars($producto['detalles']) ?>
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <button
+                                    class="btn btn-book-a-table"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#addToCartModal"
+                                    data-id="<?= htmlspecialchars($producto['id']) ?>"
+                                    data-name="<?= htmlspecialchars($producto['nombre']) ?>"
+                                    data-price="<?= htmlspecialchars($producto['precio']) ?>">
+                                    Agregar al carrito <i class="uil uil-shopping-cart-alt"></i>
+                                </button>
                             </div>
                         </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Pepitos">
-                        <img src="./assets/img/web/menu/bread-barrel.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Pepito mixto</a><span>$11.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Pepitos">
-                        <img src="./assets/img/web/menu/cake.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Pepito gratinado</a><span>$9.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            A delicate crab cake served on a toasted roll with lettuce and tartar sauce
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Pepitos">
-                        <img src="./assets/img/web/menu/cake.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Pepito especial</a><span>$10.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            A delicate crab cake served on a toasted roll with lettuce and tartar sauce
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Perros">
-                        <img src="./assets/img/web/menu/caesar.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Perro tradicional</a><span>$2.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Perros">
-                        <img src="./assets/img/web/menu/tuscan-grilled.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Perro especial</a><span>$3.50</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Grilled chicken with provolone, artichoke hearts, and roasted red pesto
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Perros">
-                        <img src="./assets/img/web/menu/mozzarella.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Perro con carne</a><span>$4.20</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Lorem, deren, trataro, filede, nerada
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Clásica</a><span>$2.80</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Chesse burger</a><span>$4.10</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Chicken burger</a><span>$5.60</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Crispy burger</a><span>$4.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Tentacion burger</a><span>$7.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Chicken burger</a><span>$5.60</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Bacon jam burger</a><span>$5.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Onion burger</a><span>$4.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Burger House</a><span>$6.50</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Big burger</a><span>$6.50</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Tasty burger</a><span>$8.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Burgers">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Smash burger</a><span>$8.80</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Griegos">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Griego tradicional</a><span>$7.70</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Griegos">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Griego especial</a><span>$9.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-KIDS">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Mini burger</a><span>$3.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-KIDS">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Tenders de pollo</a><span>$4.00</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Papas">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Papas con carne</a><span>$7.50</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Papas">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Salchipapas</a><span>$3.50</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                    <div class="col-lg-6 menu-item isotope-item filter-Papas">
-                        <img src="./assets/img/web/menu/lobster-roll.jpg" class="menu-img" alt="">
-                        <div class="menu-content">
-                            <a href="#">Papas cheddar</a><span>$2.80</span>
-                        </div>
-                        <div class="menu-ingredients">
-                            Plump lobster meat, mayo and crisp lettuce on a toasted bulky roll
-                        </div>
-                    </div><!-- Menu Item -->
-
-                </div><!-- Menu Container -->
-
-            </div>
-
+                    <?php endforeach; ?>
+                </div><!-- End Menu Items -->
         </section><!-- /Menu Section -->
 
         <!-- Specials Section -->
@@ -562,7 +485,7 @@
                                         <p class="fst-italic">Una explosión de sabor con carne, pollo crispy, cebolla caramelizada y crispy, maíz, queso cheddar y tocineta. Todo esto con nuestra salsa especial y papas fritas incluidas. ¡Nuestra insignia!</p>
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
-                                        <img src="./assets/img/web/specials-1.png" alt="" class="img-fluid">
+                                        <img src="./assets/img/specials-1.png" alt="" class="img-fluid">
                                     </div>
                                 </div>
                             </div>
@@ -573,7 +496,7 @@
                                         <p class="fst-italic">¡Un clásico que nunca falla! Solomo, pollo, chorizo, cuatro tipos de queso, tocineta y maíz, en 22 cm de puro sabor. Acompañado de papas fritas.</p>
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
-                                        <img src="./assets/img/web/specials-2.png" alt="" class="img-fluid">
+                                        <img src="./assets/img/specials-2.png" alt="" class="img-fluid">
                                     </div>
                                 </div>
                             </div>
@@ -584,7 +507,7 @@
                                         <p class="fst-italic">Si lo tuyo es el sabor intenso, esta es tu burger. Triple carne, triple cheddar, tocineta, pepinillo, cebolla morada, en pan de papa y con papas fritas.</p>
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
-                                        <img src="./assets/img/web/specials-3.png" alt="" class="img-fluid">
+                                        <img src="./assets/img/specials-3.png" alt="" class="img-fluid">
                                     </div>
                                 </div>
                             </div>
@@ -595,7 +518,7 @@
                                         <p class="fst-italic">Una opción diferente y muy completa: pollo, jamón, huevo, tocineta, vegetales, y tortilla, todo en pan de sándwich. Servido con papas fritas.</p>
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
-                                        <img src="./assets/img/web/specials-4.png" alt="" class="img-fluid">
+                                        <img src="./assets/img/specials-4.png" alt="" class="img-fluid">
                                     </div>
                                 </div>
                             </div>
@@ -606,7 +529,7 @@
                                         <p class="fst-italic">Inspirada en la Big Tasty, esta versión trae triple carne, triple cheddar, salsa especial, vegetales frescos y pan de papa. Incluye papas fritas.</p>
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
-                                        <img src="./assets/img/web/specials-5.png" alt="" class="img-fluid">
+                                        <img src="./assets/img/specials-5.png" alt="" class="img-fluid">
                                     </div>
                                 </div>
                             </div>
@@ -621,7 +544,7 @@
         <!-- Events Section -->
         <section id="events" class="events section">
 
-            <img class="slider-bg" src="./assets/img/web/events-bg.jpg" alt="" data-aos="fade-in">
+            <img class="slider-bg" src="./assets/img/events-bg.jpg" alt="" data-aos="fade-in">
 
             <div class="container">
 
@@ -646,7 +569,7 @@
                         <div class="swiper-slide">
                             <div class="row gy-4 event-item">
                                 <div class="col-lg-6">
-                                    <img src="./assets/img/web/events-slider/events-slider-1.jpg" class="img-fluid" alt="">
+                                    <img src="./assets/img/events-slider/events-slider-1.jpg" class="img-fluid" alt="">
                                 </div>
                                 <div class="col-lg-6 pt-4 pt-lg-0 content">
                                     <h3>Birthday Parties</h3>
@@ -673,7 +596,7 @@
                         <div class="swiper-slide">
                             <div class="row gy-4 event-item">
                                 <div class="col-lg-6">
-                                    <img src="./assets/img/web/events-slider/events-slider-2.jpg" class="img-fluid" alt="">
+                                    <img src="./assets/img/events-slider/events-slider-2.jpg" class="img-fluid" alt="">
                                 </div>
                                 <div class="col-lg-6 pt-4 pt-lg-0 content">
                                     <h3>Private Parties</h3>
@@ -700,7 +623,7 @@
                         <div class="swiper-slide">
                             <div class="row gy-4 event-item">
                                 <div class="col-lg-6">
-                                    <img src="./assets/img/web/events-slider/events-slider-3.jpg" class="img-fluid" alt="">
+                                    <img src="./assets/img/events-slider/events-slider-3.jpg" class="img-fluid" alt="">
                                 </div>
                                 <div class="col-lg-6 pt-4 pt-lg-0 content">
                                     <h3>Custom Parties</h3>
@@ -827,7 +750,7 @@
                                 <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
                                 <i class="bi bi-quote quote-icon-right"></i>
                                 </p>
-                                <img src="./assets/img/web/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
+                                <img src="./assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
                                 <h3>Saul Goodman</h3>
                                 <!-- <h4>Ceo &amp; Founder</h4> -->
                             </div>
@@ -840,7 +763,7 @@
                                     <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
                                     <i class="bi bi-quote quote-icon-right"></i>
                                 </p>
-                                <img src="./assets/img/web/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
+                                <img src="./assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
                                 <h3>Sara Wilsson</h3>
                                 <!-- <h4>Designer</h4> -->
                             </div>
@@ -853,7 +776,7 @@
                                     <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
                                     <i class="bi bi-quote quote-icon-right"></i>
                                 </p>
-                                <img src="./assets/img/web/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
+                                <img src="./assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
                                 <h3>Jena Karlis</h3>
                                 <!-- <h4>Store Owner</h4> -->
                             </div>
@@ -866,7 +789,7 @@
                                     <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
                                     <i class="bi bi-quote quote-icon-right"></i>
                                 </p>
-                                <img src="./assets/img/web/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
+                                <img src="./assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
                                 <h3>Matt Brandon</h3>
                                 <!-- <h4>Freelancer</h4> -->
                             </div>
@@ -879,7 +802,7 @@
                                     <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
                                     <i class="bi bi-quote quote-icon-right"></i>
                                 </p>
-                                <img src="./assets/img/web/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+                                <img src="./assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
                                 <h3>John Larson</h3>
                                 <!-- <h4>Entrepreneur</h4> -->
                             </div>
@@ -908,64 +831,64 @@
 
                     <div class="col-lg-3 col-md-4">
                         <div class="gallery-item">
-                            <a href="./assets/img/web/gallery/gallery-1.jpg" class="glightbox" data-gallery="images-gallery">
-                                <img src="./assets/img/web/gallery/gallery-1.jpg" alt="" class="img-fluid">
+                            <a href="./assets/img/gallery/gallery-1.jpg" class="glightbox" data-gallery="images-gallery">
+                                <img src="./assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
                             </a>
                         </div>
                     </div><!-- End Gallery Item -->
 
                     <div class="col-lg-3 col-md-4">
                         <div class="gallery-item">
-                            <a href="./assets/img/web/gallery/gallery-2.jpg" class="glightbox" data-gallery="images-gallery">
-                                <img src="./assets/img/web/gallery/gallery-2.jpg" alt="" class="img-fluid">
+                            <a href="./assets/img/gallery/gallery-2.jpg" class="glightbox" data-gallery="images-gallery">
+                                <img src="./assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
                             </a>
                         </div>
                     </div><!-- End Gallery Item -->
 
                     <div class="col-lg-3 col-md-4">
                         <div class="gallery-item">
-                            <a href="./assets/img/web/gallery/gallery-3.jpg" class="glightbox" data-gallery="images-gallery">
-                                <img src="./assets/img/web/gallery/gallery-3.jpg" alt="" class="img-fluid">
+                            <a href="./assets/img/gallery/gallery-3.jpg" class="glightbox" data-gallery="images-gallery">
+                                <img src="./assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid">
                             </a>
                         </div>
                     </div><!-- End Gallery Item -->
 
                     <div class="col-lg-3 col-md-4">
                         <div class="gallery-item">
-                            <a href="./assets/img/web/gallery/gallery-4.jpg" class="glightbox" data-gallery="images-gallery">
-                                <img src="./assets/img/web/gallery/gallery-4.jpg" alt="" class="img-fluid">
+                            <a href="./assets/img/gallery/gallery-4.jpg" class="glightbox" data-gallery="images-gallery">
+                                <img src="./assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
                             </a>
                         </div>
                     </div><!-- End Gallery Item -->
 
                     <div class="col-lg-3 col-md-4">
                         <div class="gallery-item">
-                            <a href="./assets/img/web/gallery/gallery-5.jpg" class="glightbox" data-gallery="images-gallery">
-                                <img src="./assets/img/web/gallery/gallery-5.jpg" alt="" class="img-fluid">
+                            <a href="./assets/img/gallery/gallery-5.jpg" class="glightbox" data-gallery="images-gallery">
+                                <img src="./assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
                             </a>
                         </div>
                     </div><!-- End Gallery Item -->
 
                     <div class="col-lg-3 col-md-4">
                         <div class="gallery-item">
-                            <a href="./assets/img/web/gallery/gallery-6.jpg" class="glightbox" data-gallery="images-gallery">
-                                <img src="./assets/img/web/gallery/gallery-6.jpg" alt="" class="img-fluid">
+                            <a href="./assets/img/gallery/gallery-6.jpg" class="glightbox" data-gallery="images-gallery">
+                                <img src="./assets/img/gallery/gallery-6.jpg" alt="" class="img-fluid">
                             </a>
                         </div>
                     </div><!-- End Gallery Item -->
 
                     <div class="col-lg-3 col-md-4">
                         <div class="gallery-item">
-                            <a href="./assets/img/web/gallery/gallery-7.jpg" class="glightbox" data-gallery="images-gallery">
-                                <img src="./assets/img/web/gallery/gallery-7.jpg" alt="" class="img-fluid">
+                            <a href="./assets/img/gallery/gallery-7.jpg" class="glightbox" data-gallery="images-gallery">
+                                <img src="./assets/img/gallery/gallery-7.jpg" alt="" class="img-fluid">
                             </a>
                         </div>
                     </div><!-- End Gallery Item -->
 
                     <div class="col-lg-3 col-md-4">
                         <div class="gallery-item">
-                            <a href="./assets/img/web/gallery/gallery-8.jpg" class="glightbox" data-gallery="images-gallery">
-                                <img src="./assets/img/web/gallery/gallery-8.jpg" alt="" class="img-fluid">
+                            <a href="./assets/img/gallery/gallery-8.jpg" class="glightbox" data-gallery="images-gallery">
+                                <img src="./assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
                             </a>
                         </div>
                     </div><!-- End Gallery Item -->
@@ -991,7 +914,7 @@
 
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                         <div class="member">
-                            <img src="./assets/img/web/chefs/chefs-1.jpg" class="img-fluid" alt="">
+                            <img src="./assets/img/chefs/chefs-1.jpg" class="img-fluid" alt="">
                             <div class="member-info">
                                 <div class="member-info-content">
                                     <h4>Walter White</h4>
@@ -1009,7 +932,7 @@
 
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
                         <div class="member">
-                            <img src="./assets/img/web/chefs/chefs-2.jpg" class="img-fluid" alt="">
+                            <img src="./assets/img/chefs/chefs-2.jpg" class="img-fluid" alt="">
                             <div class="member-info">
                                 <div class="member-info-content">
                                     <h4>Sarah Jhonson</h4>
@@ -1027,7 +950,7 @@
 
                     <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
                         <div class="member">
-                            <img src="./assets/img/web/chefs/chefs-3.jpg" class="img-fluid" alt="">
+                            <img src="./assets/img/chefs/chefs-3.jpg" class="img-fluid" alt="">
                             <div class="member-info">
                                 <div class="member-info-content">
                                     <h4>William Anderson</h4>
@@ -1213,6 +1136,77 @@
 
     </footer>
 
+    <!-- Modal para agregar al carrito -->
+    <div class="modal fade" id="addToCartModal" tabindex="-1" aria-labelledby="addToCartModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-light">
+                <form id="addToCartForm" method="post" action="?c=CCart/handleRequest">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-black" id="addToCartModalLabel">Agregar al carrito</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="productId">
+                        <input type="hidden" name="name" id="productName">
+                        <input type="hidden" name="price" id="productPrice">
+                        <input type="hidden" name="quantity" value="1">
+
+                        <div class="mb-3">
+                            <label for="orderDetails" class="form-label text-black">Detalles de la orden</label>
+                            <textarea class="form-control" id="orderDetails" name="details" rows="3" placeholder="Escribe algún detalle adicional..."></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label text-black">Selecciona adicionales:</label>
+                            <div class="d-flex justify-content-evenly flex-wrap">
+                                <div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="extras[]" value="tocineta" id="extraTocineta">
+                                        <label class="form-check-label text-black" for="extraTocineta">Tocineta</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="extras[]" value="cheddar" id="extraCheddar">
+                                        <label class="form-check-label text-black" for="extraCheddar">Cheddar</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="extras[]" value="pepinillo" id="extraPepinillo">
+                                        <label class="form-check-label text-black" for="extraPepinillo">Pepinillo</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="extras[]" value="carne" id="extraCarne">
+                                        <label class="form-check-label text-black" for="extraCarne">Carne</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="extras[]" value="pollo crispy" id="extraPolloCrispy">
+                                        <label class="form-check-label text-black" for="extraPolloCrispy">Pollo Crispy</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="extras[]" value="cebolla crispy" id="extraCebollaCrispy">
+                                        <label class="form-check-label text-black" for="extraCebollaCrispy">Cebolla Crispy</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="extras[]" value="cebolla caramelizada" id="extraCebollaCaramelizada">
+                                        <label class="form-check-label text-black" for="extraCebollaCaramelizada">Cebolla Caramelizada</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="extras[]" value="papas fritas" id="extraPapasFritas">
+                                        <label class="form-check-label text-black" for="extraPapasFritas">Papas Fritas</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-book-a-table text-black" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-principal">Agregar al carrito</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Scroll Top -->
     <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -1220,21 +1214,53 @@
     <div id="preloader"></div>
 
     <!-- Vendor JS Files -->
-    <script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/libs/libs/aos/aos.js"></script>
-    <script src="./assets/libs/libs/glightbox/js/glightbox.min.js"></script>
-    <script src="./assets/libs/libs/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script src="./assets/libs/libs/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="./assets/libs/libs/swiper/swiper-bundle.min.js"></script>
+    <script src="./assets/vendor/bootstrap/js/popper.min.js"></script>
+    <script src="./assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/vendor/php-email-form/validate.js"></script>
+    <script src="./assets/vendor/aos/aos.js"></script>
+    <script src="./assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="./assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+    <script src="./assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="./assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script>
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('.toolTip'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
     </script>
+    <script>
+        const addToCartModal = document.getElementById('addToCartModal');
+        addToCartModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const productId = button.getAttribute('data-id');
+            const productName = button.getAttribute('data-name');
+            const productPrice = button.getAttribute('data-price');
+
+            // Pasar los datos al formulario del modal
+            document.getElementById('productId').value = productId;
+            document.getElementById('productName').value = productName;
+            document.getElementById('productPrice').value = productPrice;
+        });
+        // Detectar el parámetro "cart=open" en la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('cart') === 'open') {
+            const offcanvasElement = document.getElementById('offcanvasRight');
+            const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+            offcanvas.show();
+        }
+        if (urlParams.get('cart') === 'open') {
+            const offcanvasElement = document.getElementById('offcanvasRight');
+            const offcanvas = new bootstrap.Offcanvas(offcanvasElement);
+            offcanvas.show();
+
+            // Eliminar el parámetro de la URL
+            const newUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, newUrl);
+        }
+    </script>
     <!-- Main JS File -->
-    <script src="./assets/js/web/main.js"></script>
+    <script type="module" src="./assets/js/web/main.js"></script>
 
 </body>
 

@@ -333,7 +333,7 @@ export default function functionGeneral() {
     return response;
   };
   const print = async (search, template, container, modulePermission, inputs) => {
-    let response = await search();
+    let response = await search();  
     let templatesWrapper = "";
     if (response.length == 0) {
       templatesWrapper = `
