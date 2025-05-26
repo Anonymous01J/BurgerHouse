@@ -141,7 +141,7 @@
                         <img src="./assets/img/users/profile-pic.jpg" alt="user" class="rounded-circle"
                             width="40">
                         <span class="ms-2 d-none d-lg-inline-block"><span>Hola,</span> <span
-                                class="text-dark">Felix Dominguez</span> <i data-feather="chevron-down"
+                                class="text-dark"><?php echo ucfirst($_SESSION['nombre'])." ".ucfirst($_SESSION['apellido']); ?></span> <i data-feather="chevron-down"
                                 class="svg-icon"></i></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">

@@ -16,52 +16,6 @@ searchFilter("#searchProduct", (e) => {
 })
 // ------------------Validacion de Formulario---------------------------
 
-
-
-
-// document.querySelectorAll("#form-submit-edit-combo input[type='text'], #form-submit-edit-combo textarea").forEach(input => {
-//     input.addEventListener("keyup", (e) => { validateField(e, rules) });
-//     input.addEventListener("blur", (e) => { validateField(e, rules) });
-// });
-
-// document.getElementById("form-submit-edit-combo").addEventListener("submit", (e) => {
-//     e.preventDefault()
-
-//     let data = {
-//         nombre: document.getElementById("input-name-combo").value,
-//         precio: document.getElementById("input-price-combo").value,
-//         id_categoria: document.getElementById("input-category-combo").value,
-//         id_receta: document.getElementById("input-recipe-combo").value,
-//         detalles: document.getElementById("input-details-combo").value,
-//         imagen: document.getElementById("input-image-combo").files[0]
-//     }
-
-//     const errors = validate(data, rules);
-
-//     setValidationStyles("input-name-combo", errors?.nombre ? errors.nombre[0] : null);
-//     setValidationStyles("input-price-combo", errors?.precio ? errors.precio[0] : null);
-//     setValidationStyles("input-category-combo", errors?.id_categoria ? errors.id_categoria[0] : null);
-//     setValidationStyles("input-recipe-combo", errors?.id_receta ? errors.id_receta[0] : null);
-//     setValidationStyles("input-details-combo", errors?.detalles ? errors.detalles[0] : null);
-//     setValidationStyles("input-image-combo", errors?.imagen ? errors.imagen[0] : null);
-
-//     if (!errors) {
-//         alert("Formulario enviado correctamente");
-//         // this.reset();
-
-//         // const inputs = this.querySelectorAll(".is-valid, .is-invalid");
-//         // inputs.forEach(function (input) {
-//         //     input.classList.remove("is-valid", "is-invalid");
-//         // });
-
-//         // const errorMessages = this.querySelectorAll(".text-danger");
-//         // errorMessages.forEach(function (error) {
-//         //     error.textContent = "";
-//         // });
-//     }
-// })
-
-
 // Contador global de productos. Inicia en 1 porque ya existe un producto por defecto.
 let productCount = 1;
 function addProduct() {

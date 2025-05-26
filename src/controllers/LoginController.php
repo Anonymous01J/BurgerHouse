@@ -42,7 +42,9 @@ class LoginController extends Controller_base
             die;
         }
         $_SESSION['id'] = $result[0]['id'];
+        $_SESSION['id_rol'] = $result[0]['rol_id'];
         $_SESSION['nombre'] = $result[0]['nombre'];
+        $_SESSION['apellido'] = $result[0]['apellido'];
         echo json_encode(['success' => true, 'message' => 'Usuario encontrado']);
         return;
         die;
@@ -81,7 +83,7 @@ class LoginController extends Controller_base
         }
         $consulta = getCI(00000);
         if (is_array($consulta)) {
-            print_r(json_encode($consulta));
+            echo json_encode(['success' => true, 'message' => $consulta]);
         } else {
             echo json_encode(['success' => false, 'message' => $consulta]);
         }

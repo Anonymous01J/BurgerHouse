@@ -1,17 +1,11 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
+<link href="./assets/libs/libs/tagify/tagify.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="./assets/libs/libs/bs-stepper/bs-stepper.min.css">
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
-
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-
-
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
-
-
     <div class="page-wrapper">
-
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-md-8 align-self-center">
@@ -26,15 +20,10 @@
                         </nav>
                     </div>
                 </div>
-
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
-
         <div class="container-fluid">
-
-
             <div class="row">
                 <div class="col-12">
                     <nav>
@@ -442,6 +431,8 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
-<script src="./assets/js/pages/order/order.js"></script>
+<script src="./assets/libs/libs/tagify/tagify.js"></script>
+<script src="./assets/libs/libs/tagify/tagify.polyfills.min.js"></script>
+<script type="module" src="./assets/js/pages/order/order.js"></script>
+<script type="module" src="./assets/js/pages/order/order_domicile.js"></script>
 <script src="./assets/libs/libs/bs-stepper/bs-stepper.min.js"></script>
-<

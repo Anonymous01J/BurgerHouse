@@ -1078,23 +1078,205 @@ export default function Templates() {
         </div>
         `
     }
-    function targetCategoryMenu(objet) {
+
+    //templates de order
+    function tagFilterProduct(objet) {
         return `
-            <ul class="menu-filters isotope-filters">
-                <li data-filter=".filter-${objet.nombre}">${objet.nombre}</li>
+        <div>
+            <input type="radio" class="btn-check" name="options-outlined" data-filter="${objet.nombre}" id="${objet.id + objet.nombre}" autocomplete="off">
+            <label class="btn bh_1CHECKBOX rounded-pill" for="${objet.id + objet.nombre}">${objet.nombre}</label>
+        </div>
         `
     }
-    function targetMenu(objet) {
+    function tagAdditional(objet) {
         return `
-        <div class="col-lg-6 menu-item isotope-item filter-${objet.id_categoria}" style="position: absolute; left: 0px; top: 133px;">
-            <img src="${objet.img}" class="menu-img" alt="">
-            <div class="menu-content">
-                <a href="#">${objet.nombre}</a><span>${objet.precio}</span>
+        <div class="form-check" ">
+            <input class="form-check-input" type="checkbox" precio="${objet.precio}" value="${objet.nombre}" id="${objet.id}">
+            <label class="form-check-label" for="flexCheckDefault">${objet.nombre}</label>
+        </div>
+        `
+    }
+    function selectProduct(objet, typeProduct) {
+        return `
+        <div class="col-md-6 col-lg-3" data-id="${objet.id}" data-filter-id="${objet.nombre_categoria}" tipo="${objet.tipo ? objet.tipo : ""}" nombre="${objet.nombre}" imagen="${objet.imagen}" precio="${objet.precio}">
+            <div class="card position-relative">
+                <div class="counter-container position-absolute" style="top: -10px; right: -5px;">
+                    <button class="trigger-btn p-1 plusTrigger">
+                        <i data-feather="plus"></i>
+                    </button>
+                    <div class="controls" id="controls">
+                        <button class="btn-round me-2 p-1 minusBtn">
+                            <i data-feather="minus"></i>
+                        </button>
+                        <input type="text" class="number-input" value="0" readonly>
+                        <button class="btn-round ms-2 p-1 plusBtn">
+                            <i data-feather="plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 align-items-center d-flex justify-content-center">
+                            <img ${objet.imagen ? `src='./media/${typeProduct}/${objet.imagen}'` : `src='./assets/img/big/banner_login.png'`} class="rounded-full" width="100" height="100" alt="">
+                        </div>
+                        <div class="col-md-8">
+                            <h4>${objet.nombre}</h4>
+                            <p class="text-muted fs-6">${objet.detalles}</p>
+                            <h4 class="border text-center rounded-pill p-1 fs-6 w-75">Precio: ${objet.precio}$</h4>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="menu-ingredients">
-            ${objet.detalles}
+        </div>
+        `
+    }
+    function targetDetailProductOrder(objet) {
+        let src = ""
+        if (objet.type == "" && objet.imagen) src = `src='./media/productProcess/${objet.imagen}'`
+        else if (objet.type == "producto" && objet.imagen) src = `src='./media/productPrepared/${objet.imagen}'`
+        else if (objet.type == "adicional" && objet.imagen) src = `src='./media/additional/${objet.imagen}'`
+        else src = `src='./assets/img/big/banner_login.png'`
+        return `
+        <div class="col-lg-3 col-md-6">
+            <div class="card position-relative">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 col-lg-6 d-flex flex-column align-items-center justify-content-center gap-2">
+                            <img ${src} width="100" height="90" style="object-fit: cover;" alt="">
+                            <h5 class="text-truncate w-100 text-center" data-id="${objet.id}">${objet.nombre}</h5>
+                            <h4 class="border text-center rounded-pill p-1 fs-6 w-100">Precio: ${objet.precio}$</h4>
+                            <textarea class="form-control details" placeholder="detalles" rows="3"></textarea>
+                            <div class="counter-container mb-2">
+                                <button class="trigger-btn p-1 plusTrigger">
+                                    <i data-feather="plus"></i>
+                                </button>
+                                <div class="controls" id="controls">
+                                    <button class="btn-round me-2 p-1 minusBtn">
+                                        <i data-feather="minus"></i>
+                                    </button>
+                                    <input type="text" class="number-input" value="1" readonly>
+                                    <button class="btn-round ms-2 p-1 plusBtn">
+                                        <i data-feather="plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 count_additional p-0 border border-2 rounded-3">
+                            <textarea rows="6" class="form-control border-0 " style="box-shadow: none;" name="tags" placeholder="Agregar Adicional" /></textarea>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+        `
+    }
+    function targetDetailOtherOrder(objet) {
+        let src = ""
+        if (objet.type == "" && objet.imagen) src = `src='./media/productProcess/${objet.imagen}'`
+        else if (objet.type == "adicional" && objet.imagen) src = `src='./media/additional/${objet.imagen}'`
+        else src = `src='./assets/img/big/banner_login.png'`
+        return `
+        <div class="col-lg-2 col-md-3">
+            <div class="card position-relative">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 d-flex flex-column align-items-center justify-content-center gap-2">
+                            <img ${src} width="100" height="90" style="object-fit: cover;" alt="">
+                            <h5 data-id="${objet.id}">${objet.nombre}</h5>
+                            <h4 class="border text-center rounded-pill p-1 fs-6 w-100">Precio: ${objet.precio}$</h4>
+                            <div class="counter-container mb-2">
+                                <button class="trigger-btn p-1 plusTrigger">
+                                    <i data-feather="plus"></i>
+                                </button>
+                                <div class="controls" id="controls">
+                                    <button class="btn-round me-2 p-1 minusBtn">
+                                        <i data-feather="minus"></i>
+                                    </button>
+                                    <input type="text" class="number-input" value="1" readonly>
+                                    <button class="btn-round ms-2 p-1 plusBtn">
+                                        <i data-feather="plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+        `
+    }
+    function targetClienteOrder(objet){
+        return `
+        <div class="col-sm-6 col-md-6 col-lg-3" id="${objet.id}">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                            <h4>NOMBRE</h4>
+                            <p class="text-muted fs-6">${objet.nombre + " " + objet.apellido}</p>
+                            <h4>CEDULA</h4>
+                            <p class="text-muted fs-6">${objet.documento}</p>
+                        </div>
+                        <div class="col-lg-6 col-md-6 d-flex justify-content-center align-items-center">
+                            <img src="./assets/img/users/1.jpg" class="rounded-circle" width="100" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    }
+    function elemenFormPaymentOrder(objet){
+        return `
+        <div class="row g-2 payments" id="payments-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-3 mt-5">
+                <h4 class="m-0">Cliente ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-payments">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-6">
+                <label for="inputCity" class="form-label">Metodo de pago</label>
+                <div class="dropdown select_options_payment">
+                    <div class="dropdown">
+                        <div class="btn-group w-100" bis_skin_checked="1">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-payment-order-${objet}" name="id_metodo_pago" data-id="Seleccione una opcion">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span> <i data-feather="chevron-down"></i></span>
+                            </button>
+                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                <div>
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
+                                </div>
+                                <div class="options_search">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-payment-order-${objet}"></div>
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Cantidad</label>
+                <div class="input-group">
+                    <span class="input-group-text type_payment">$</span>
+                    <input type="text" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-order-${objet}" name="cantidad">
+                    <div class="text-danger mt-1 fs-6" id="error-input-quantity-order-${objet}"></div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label for="inputEmail4" class="form-label">Referencia</label>
+                <input type="text" class="form-control" placeholder="Referencia" id="input-reference-order-${objet}" name="referencia">
+                <div class="text-danger mt-1 fs-6" id="error-input-reference-order-${objet}"></div>
+            </div>
+            <div class="col-12">
+                <label for="inputZip" class="form-label">Comprobante</label>
+                <input class="form-control input-image" type="file" id="input-comprobante-order-${objet}" name="imagen">
+                <div class="text-danger mt-1 fs-6" id="error-input-comprobante-order-${objet}"></div>
+            </div>
+            <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
+        </div>
         `
     }
     return {
@@ -1126,7 +1308,12 @@ export default function Templates() {
         optionsRawMaterial,
         optionsSupplier,
         Watermark,
-        targetCategoryMenu,
-        targetMenu
+        tagFilterProduct,
+        selectProduct,
+        targetDetailProductOrder,
+        targetDetailOtherOrder,
+        tagAdditional, 
+        targetClienteOrder,
+        elemenFormPaymentOrder
     }
 }

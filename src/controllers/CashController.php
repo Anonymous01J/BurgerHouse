@@ -10,5 +10,5 @@ class CashController extends Controller_base {
         parent::__construct("cash");
         $this->db = new Caja();
     }
-    
+
 }

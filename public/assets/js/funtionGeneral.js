@@ -1,5 +1,5 @@
 import functionGeneral from "./Functions.js";
-const { permission } = functionGeneral()
+const { permission, searchParam, fecha } = functionGeneral()
 
 let title = document.getElementById('titlePage');
 let url = window.location.href;
@@ -29,8 +29,6 @@ document.getElementById("themeToggle").addEventListener("click", () => {
         document.querySelector(".img-bcv").src = "./assets/img/bcv.png"
     }
 });
-
-
 const dolarBCV = async () => {
     let search = await fetch("https://ve.dolarapi.com/v1/dolares")
     let response = await search.json()
@@ -44,6 +42,28 @@ document.querySelectorAll(".logout_btn").forEach((btn) => {
         window.location = "login"
     })
 })
+
+//caja
+let caja = await searchParam({}, "cash")
+if (caja.length > 0) {
+    if ((fecha(caja[0].fecha_apertura) == fecha(new Date())) && caja[0].estado == 1) {
+        document.querySelector(".cash_status").classList.add("bg-success")
+        document.querySelector(".cash_status").classList.remove("bg-danger")
+        const tooltip = bootstrap.Tooltip.getInstance(document.querySelector(".cash_status"));
+        if (tooltip) {
+            tooltip._config.title = "Estado de caja: Abierta";
+            tooltip.update();
+        }
+    } else {
+        document.querySelector(".cash_status").classList.remove("bg-success")
+        document.querySelector(".cash_status").classList.add("bg-danger")
+        const tooltip = bootstrap.Tooltip.getInstance(document.querySelector(".cash_status"));
+        if (tooltip) {
+            tooltip._config.title = "Estado de caja: Cerrada";
+            tooltip.update();
+        }
+    }
+}
 
 //permisos para el navbar
 // permission("Combo")
@@ -120,10 +140,10 @@ const unicosEnDos = dos.filter(obj2 => !uno.some(obj1 => sonIguales(obj1, obj2))
 // console.log("Únicos en dos:", unicosEnDos);
 
 
-let cedula = async ()=>{
+let cedula = async () => {
     let data = new FormData();
     data.append("cedula", "115435543");
-    let pet = await fetch(`login/cedula`,{ method: "POST", body: data })
+    let pet = await fetch(`login/cedula`, { method: "POST", body: data })
     let res = await pet.json()
     console.log(res);
 }

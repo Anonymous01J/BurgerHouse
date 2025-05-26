@@ -48,7 +48,11 @@ export default function functionGeneral() {
     const horaFormateada = `${horas12}:${minutos < 10 ? `0${minutos}` : minutos} ${periodo}`;
     return horaFormateada;
   }
-
+  const amountDolar = async () => {
+    let search = await fetch("https://ve.dolarapi.com/v1/dolares")
+    let response = await search.json()
+    return parseFloat(response[0].promedio).toFixed(2);
+  }
   function fecha(f) {
     const fecha = new Date(f);
     const dia = fecha.getDate();
@@ -276,6 +280,11 @@ export default function functionGeneral() {
             if (module == "rawmaterial") {
               item.closest(".row").querySelector(".type_unit").textContent = item.getAttribute("data-unit");
             }
+            if (module == "paymentMethod") {
+              if (item.textContent.toLocaleLowerCase() == "efectivo" || item.textContent.toLocaleLowerCase() == "transferencia" || item.textContent.toLocaleLowerCase() == "pago movil") {
+                item.closest(".row").querySelector(".type_payment").textContent = "Bs";
+              } else { item.closest(".row").querySelector(".type_payment").textContent = "$"; }
+            }
             if (input != "" || input != "Seleccione una opcion") {
               item.parentElement.parentElement.firstElementChild.parentElement.parentElement.parentElement.parentElement.nextElementSibling.textContent = "";
             }
@@ -333,7 +342,7 @@ export default function functionGeneral() {
     return response;
   };
   const print = async (search, template, container, modulePermission, inputs) => {
-    let response = await search();  
+    let response = await search();
     let templatesWrapper = "";
     if (response.length == 0) {
       templatesWrapper = `
@@ -578,6 +587,7 @@ export default function functionGeneral() {
     InputPrice,
     hora,
     fecha,
+    amountDolar,
     diasRestantesFechaVencimiento,
     setValidationStyles,
     validateField,
