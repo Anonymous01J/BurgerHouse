@@ -2,6 +2,7 @@
 namespace Shtch\Burgerhouse\controllers;
 
 use Shtch\Burgerhouse\models\Db_base;
+use Shtch\Burgerhouse\models\Bitacora;
 use Exception;
 
 class Controller_base {
@@ -37,7 +38,10 @@ class Controller_base {
             if (isset($_FILES['imagen'])){
                 $this->guardar_imagen_single();
             }
-            echo json_encode(['success' => true, 'last_id' => $this->db->agregar()]);
+            $id = $this->db->agregar();
+            $this->bitacora_clase = new Bitacora();
+            $this->bitacora_clase->agregar(usuario_id:$_SESSION['id_usuario'], tabla:$this->table_name, accion:"Añadido", descripcion:"id:".$id);
+            echo json_encode(['success' => true, 'last_id' => $id]);
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
@@ -51,7 +55,9 @@ class Controller_base {
                 if (isset($_FILES['lista'])) {
                     $this->guardar_imagen_mult($i);
                 }
-                $this->db->agregar();
+                $id = $this->db->agregar();
+                $this->bitacora_clase = new Bitacora();
+                $this->bitacora_clase->agregar(usuario_id:$_SESSION['id_usuario'], tabla:$this->table_name, accion:"Añadido", descripcion:"id:".$id);
             }
             echo json_encode(['success' => true]);
         } catch (Exception $e) {
@@ -70,6 +76,9 @@ class Controller_base {
             } else {
                 echo json_encode(['success' => true]);
             }
+            $this->bitacora_clase = new Bitacora();
+            $this->bitacora_clase->agregar(usuario_id:$_SESSION['id_usuario'], tabla:$this->table_name, accion:"Eliminado", descripcion:"id:".$_POST['id']);
+
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
@@ -84,6 +93,8 @@ class Controller_base {
             if (isset($_FILES['imagen'])) {
                 $this->guardar_imagen_single();
             }
+            $this->bitacora_clase = new Bitacora();
+            $this->bitacora_clase->agregar(usuario_id:$_SESSION['id_usuario'], tabla:$this->table_name, accion:"Actualizado", descripcion:"id:".$_POST['id']);
             if ($result == false or $result == 0) {
                 echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);
             } else {

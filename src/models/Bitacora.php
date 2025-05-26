@@ -9,7 +9,7 @@ class Bitacora extends Db_base {
     private $tabla_str;
     private $accion;
     private $fecha;
-    private $detalles;
+    private $descripcion;
 
     public function __construct(
         $id = null,
@@ -17,7 +17,7 @@ class Bitacora extends Db_base {
         $tabla = null,
         $accion = null,
         $fecha = null,
-        $detalles = null
+        $descripcion = null
     ) {
         parent::__construct("bitacora");
         
@@ -26,7 +26,7 @@ class Bitacora extends Db_base {
         $this->tabla_str = $tabla;
         $this->accion = $accion;
         $this->fecha = $fecha;
-        $this->detalles = $detalles;
+        $this->descripcion = $descripcion;
 
         $this->add_variables([
             "a.id" => $this->id,
@@ -34,7 +34,7 @@ class Bitacora extends Db_base {
             "a.tabla" => $this->tabla_str,
             "a.accion" => $this->accion,
             "a.fecha" => $this->fecha,
-            "a.detalles" => $this->detalles
+            "a.descripcion" => $this->descripcion
         ]);
 
         $this->select_query = "
@@ -44,11 +44,21 @@ class Bitacora extends Db_base {
             a.tabla,
             a.accion,
             a.fecha,
-            a.detalles
+            a.descripcion
         ";
 
         $this->joins = "
             INNER JOIN usuario b ON b.id = a.id_usuario
         ";
+    }
+
+    public function agregar($id_usuario, $tabla, $accion,$descripcion=null) {
+        $query = "INSERT INTO bitacora (id_usuario, tabla, accion, descripcion) VALUES (:id_usuario, :tabla, :accion, :descripcion)";
+        $this->db->prepare($query);
+        $this->db->bind(':id_usuario', $id_usuario);
+        $this->db->bind(':tabla', $tabla);
+        $this->db->bind(':accion', $accion);
+        $this->db->bind(':descripcion', $descripcion);
+        return $this->db->execute();
     }
 }
