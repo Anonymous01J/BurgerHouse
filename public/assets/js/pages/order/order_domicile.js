@@ -479,7 +479,8 @@ const finalData = () => {
                 precio: price
             })
         }
-        
+        let id_cliente = document.querySelector(".cont_client-order").querySelector("h4[id]").getAttribute("id");
+
     })
 }
 attachValidationListeners(1)

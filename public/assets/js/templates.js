@@ -1212,10 +1212,10 @@ export default function Templates() {
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6 col-md-6">
-                            <h4>NOMBRE</h4>
-                            <p class="text-muted fs-6">${objet.nombre + " " + objet.apellido}</p>
+                            <h4 id="${objet.id}">NOMBRE</h4>
+                            <p class="text-muted fs-6 nombre_client">${objet.nombre + " " + objet.apellido}</p>
                             <h4>CEDULA</h4>
-                            <p class="text-muted fs-6">${objet.documento}</p>
+                            <p class="text-muted fs-6 document_client">${objet.documento}</p>
                         </div>
                         <div class="col-lg-6 col-md-6 d-flex justify-content-center align-items-center">
                             <img src="./assets/img/users/1.jpg" class="rounded-circle" width="100" alt="">
