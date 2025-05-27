@@ -163,9 +163,7 @@ $(function () {
     
         const ordenados = [...valores].sort((a, b) => a - b);
         const mitad = Math.floor(ordenados.length / 2);
-        const mediana = (ordenados.length % 2 === 0)
-            ? ((ordenados[mitad - 1] + ordenados[mitad]) / 2).toFixed(1)
-            : ordenados[mitad].toFixed(1);
+        const mediana = (ordenados.length % 2 === 0) ? ((ordenados[mitad - 1] + ordenados[mitad]) / 2).toFixed(1) : ordenados[mitad].toFixed(1);
     
         const frecuencia = {};
         valores.forEach(v => frecuencia[v] = (frecuencia[v] || 0) + 1);

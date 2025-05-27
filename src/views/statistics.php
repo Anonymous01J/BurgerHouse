@@ -242,6 +242,8 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
+<script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
+<script src="./assets/libs/libs/jspdf/jspdf.plugin.autotable.min.js"></script>
 <script src="./assets/libs/libs/chart.js/dist/Chart.min.js"></script>
 <script src="./assets/libs/libs/chart.js/dist/chartjs-plugin-datalabels.js"></script>
 <script src="./assets/js/pages/statistics/statistics.js"></script>
