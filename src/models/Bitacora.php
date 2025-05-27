@@ -52,7 +52,7 @@ class Bitacora extends Db_base {
         ";
     }
 
-    public function agregar($id_usuario, $tabla, $accion,$descripcion=null) {
+    public function nuevo($id_usuario, $tabla, $accion,$descripcion=null) {
         $query = "INSERT INTO bitacora (id_usuario, tabla, accion, descripcion) VALUES (:id_usuario, :tabla, :accion, :descripcion)";
         $this->db->prepare($query);
         $this->db->bind(':id_usuario', $id_usuario);
