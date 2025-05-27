@@ -263,7 +263,16 @@ const graphic4 = () => {
         }
     });
 }
-
-graphic4()
-
+function exportarPDF1() {
+    const canvas = document.getElementById('ocupacionChart');
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.addImage(imgData, 'PNG', 10, 10, 180, 160); // Ajusta las coordenadas y dimensiones según sea necesario
+    doc.save('grafico.pdf');
+  }
+graphic4();
+document.getElementById("tasaReservacion").addEventListener("click",()=>{
+    exportarPDF1();
+})
 // iwqq zoci qlbx lrvs
