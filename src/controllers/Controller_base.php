@@ -40,7 +40,7 @@ class Controller_base {
             }
             $id = $this->db->agregar();
             $bitacora_clase = new Bitacora();
-            $bitacora_clase->nuevo(id_usuario:$_SESSION['id'], tabla:$this->table_name, accion:"Añadido", descripcion:"id:".$id);
+            $bitacora_clase->nuevo(id_usuario:$_SESSION['id'], tabla:$this->module_name, accion:"Añadido", descripcion:"id:".$id);
             echo json_encode(['success' => true, 'last_id' => $id]);
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
@@ -57,7 +57,7 @@ class Controller_base {
                 }
                 $id = $this->db->agregar();
                 $bitacora_clase = new Bitacora();
-                $bitacora_clase->nuevo(id_usuario:$_SESSION['id'], tabla:$this->table_name, accion:"Añadido", descripcion:"id:".$id);
+                $bitacora_clase->nuevo(id_usuario:$_SESSION['id'], tabla:$this->module_name, accion:"Añadido", descripcion:"id:".$id);
             }
             echo json_encode(['success' => true]);
         } catch (Exception $e) {
@@ -77,7 +77,7 @@ class Controller_base {
                 echo json_encode(['success' => true]);
             }
             $bitacora_clase = new Bitacora();
-            $bitacora_clase->nuevo(id_usuario:$_SESSION['id'], tabla:$this->table_name, accion:"Eliminado", descripcion:"id:".$_POST['id']);
+            $bitacora_clase->nuevo(id_usuario:$_SESSION['id'], tabla:$this->module_name, accion:"Eliminado", descripcion:"id:".$_POST['id']);
 
         } catch (Exception $e) {
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
@@ -94,7 +94,7 @@ class Controller_base {
                 $this->guardar_imagen_single();
             }
             $bitacora_clase = new Bitacora();
-            $bitacora_clase->nuevo(id_usuario:$_SESSION['id'], tabla:$this->table_name, accion:"Actualizado", descripcion:"id:".$_POST['id']);
+            $bitacora_clase->nuevo(id_usuario:$_SESSION['id'], tabla:$this->module_name, accion:"Actualizado", descripcion:"id:".$_POST['id']);
             if ($result == false or $result == 0) {
                 echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);
             } else {
