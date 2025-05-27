@@ -263,18 +263,72 @@ const graphic4 = () => {
         }
     });
 }
-function exportarPDF1() {
+graphic4();
+function exportarPDFReservas() {
     const canvas = document.getElementById('ocupacionChart');
     const imgData = canvas.toDataURL('image/png');
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    doc.addImage(imgData, 'PNG', 10, 10, 50, 50); // Ajusta las coordenadas y dimensiones según sea necesario
+    doc.setFontSize(12);
+    doc.text(`FECHA: ${new Date().toLocaleDateString()}`, 165, 17);
+    doc.setFontSize(25);
+    doc.text(`Tasa de reservaciones Anuales`, 100, 30, { align: 'center' });
     
-    // doc.save('grafico.pdf');
+    doc.addImage(imgData, 'PNG', 50, 40, 110, 110); // Ajusta las coordenadas y dimensiones según sea necesario
+    
+    doc.setFontSize(12);
+    const text = `La gráfica muestra la evolución anual de las reservaciones en el establecimiento, permitiendo identificar las horas de mayor afluencia. Esta información es clave para planificar personal, gestionar insumos y diseñar promociones que respondan a la demanda real del cliente.`;
+    const additionalText = `Se puede observar que durante el año ${new Date().getFullYear()} el horario con más afluencia es a las 12-2PM y la menor afluencia es a las 4-6PM.`;
+    const pageWidth = 180; // Define el ancho máximo de la página
+    const marginLeft = 25; // Margen izquierdo
+    const marginTop = 170; // Margen superior
+    const lineHeight = 7; // Altura de línea
+
+    const lines = doc.splitTextToSize(text, pageWidth - marginLeft); // Divide el texto en líneas ajustadas al ancho
+    const additionalLines = doc.splitTextToSize(additionalText, pageWidth - marginLeft); // Divide el texto adicional en líneas ajustadas al ancho
+
+    [...lines, ...additionalLines].forEach((line, index) => {
+        doc.text(line, marginLeft, marginTop + index * lineHeight); // Dibuja cada línea con el salto correspondiente
+    });
+    
+    // doc.save(`Porcentaje de reservacion por horario ${new Date().toLocaleDateString()}.pdf`);
     window.open(doc.output('bloburl'), '_blank');
   }
-graphic4();
-document.getElementById("tasaReservacion").addEventListener("click",()=>{
-    exportarPDF1();
+document.getElementById("porcentajeReservacion").addEventListener("click",()=>{
+    exportarPDFReservas();
 })
+function exportarPDFReservasTasas() {
+    const canvas = document.getElementById('ReservasChart');
+    const imgData = canvas.toDataURL('image/png');
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.setFontSize(12);
+    doc.text(`FECHA: ${new Date().toLocaleDateString()}`, 165, 17);
+    doc.setFontSize(25);
+    doc.text(`Porcentaje de reservas por canales`, 100, 30, { align: 'center' });
+    
+    doc.addImage(imgData, 'PNG', 40, 40, 100, 80); // Ajusta las coordenadas y dimensiones según sea necesario
+    
+    doc.setFontSize(12);
+    const text = `La gráfica muestra la evolución anual de las reservaciones en el establecimiento, destacando la preferencia de los clientes por distintos métodos de reserva. Al analizar los canales más utilizados, como reservas directas en el local, plataformas digitales o llamadas telefónicas, se obtiene información clave para optimizar la gestión del negocio. Esta información permite planificar el personal según la demanda, gestionar insumos de manera eficiente y diseñar promociones estratégicas que se alineen con los hábitos de reservación del cliente. Entender estas tendencias es fundamental para mejorar la experiencia del usuario y aumentar la efectividad operativa.`;
+    const additionalText = `Se puede observar que durante el año ${new Date().getFullYear()} el metodo de reserva preferido por los clientes es a través de nuestra página web con un 90% de las reservas realizadas por dicho canal, dejando con un 65% el resto de metodos como ,directos en el local o a tráves de nuestro teléfono.`;
+    const pageWidth = 180; // Define el ancho máximo de la página
+    const marginLeft = 25; // Margen izquierdo
+    const marginTop = 150; // Margen superior
+    const lineHeight = 7; // Altura de línea
+
+    const lines = doc.splitTextToSize(text, pageWidth - marginLeft); // Divide el texto en líneas ajustadas al ancho
+    const additionalLines = doc.splitTextToSize(additionalText, pageWidth - marginLeft); // Divide el texto adicional en líneas ajustadas al ancho
+
+    [...lines, ...additionalLines].forEach((line, index) => {
+        doc.text(line, marginLeft, marginTop + index * lineHeight); // Dibuja cada línea con el salto correspondiente
+    });
+
+    // doc.save(`Porcentaje de reservas por canales ${new Date().toLocaleDateString()}.pdf`);
+    window.open(doc.output('bloburl'), '_blank');
+  }
+document.getElementById("canalesReservacion").addEventListener("click",()=>{
+    exportarPDFReservasTasas();
+})
+
 // iwqq zoci qlbx lrvs

@@ -161,10 +161,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-start">
-                                <h4 class="card-title">Tasa de reservacion % por horario (2025)</h4>
+                                <h4 class="card-title">Porcentaje de reservacion por horario (2025)</h4>
                                 <div class="ms-auto">
                                     <div class="dropdown sub-dropdown">
-                                        <a class="link-secondary text-muted" id="tasaReservacion" style="cursor: pointer">
+                                        <a class="link-secondary text-muted" id="porcentajeReservacion" style="cursor: pointer">
                                             <i data-feather="download"></i>
                                         </a>
                                         <button class="btn btn-link text-muted dropdown-toggle" type="button"
@@ -195,10 +195,10 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-start">
-                                <h4 class="card-title">% de reservas por canales (2025)</h4>
+                                <h4 class="card-title">Porcentaje de reservas por canales (2025)</h4>
                                 <div class="ms-auto">
                                     <div class="dropdown sub-dropdown">
-                                        <a class="link-secondary text-muted" id="pdf_net_income" style="cursor: pointer">
+                                        <a class="link-secondary text-muted" id="canalesReservacion" style="cursor: pointer">
                                             <i data-feather="download"></i>
                                         </a>
                                         <button class="btn btn-link text-muted dropdown-toggle" type="button"
