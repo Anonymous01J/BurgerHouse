@@ -268,8 +268,10 @@ function exportarPDF1() {
     const imgData = canvas.toDataURL('image/png');
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    doc.addImage(imgData, 'PNG', 10, 10, 180, 160); // Ajusta las coordenadas y dimensiones según sea necesario
-    doc.save('grafico.pdf');
+    doc.addImage(imgData, 'PNG', 10, 10, 50, 50); // Ajusta las coordenadas y dimensiones según sea necesario
+    
+    // doc.save('grafico.pdf');
+    window.open(doc.output('bloburl'), '_blank');
   }
 graphic4();
 document.getElementById("tasaReservacion").addEventListener("click",()=>{
