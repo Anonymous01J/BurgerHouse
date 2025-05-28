@@ -39,6 +39,19 @@ export default function functionGeneral() {
       });
     });
   }
+  const CheckCash = async () => {
+    let id_cash = null
+    let caja = await searchParam({}, "cash")
+    if (caja.length > 0) {
+      caja.forEach((e) => {
+        if ((fecha(e.fecha_apertura) == fecha(new Date())) && e.estado == 1) {
+          id_cash = e.id
+          id_cash = e.id
+        }
+      })
+    }
+    return id_cash
+  }
   function hora(f) {
     const fecha = new Date(f);
     const horas = fecha.getHours();
@@ -84,7 +97,6 @@ export default function functionGeneral() {
       errorElement.textContent = "";
     }
   }
-
   function validateField(event, rules) {
     const field = event.target;
     const fieldName = field.name;
@@ -96,7 +108,6 @@ export default function functionGeneral() {
     const errorMessage = errors ? errors[fieldName][0] : null;
     setValidationStyles(field.id, errorMessage);
   }
-
   function reindex(elementAll, id, counter, name) {
     const element = document.querySelectorAll(elementAll);
     counter = element.length;
@@ -329,6 +340,11 @@ export default function functionGeneral() {
       });
     });
   }
+  const sessionInfo = async () => {
+    let pet = await fetch("login/SessionInfo")
+    let response = await pet.json()
+    return response
+  }
   //--------------funciones para el manejo de peticiones ajax para las tarjetas------------------
   const searchAll = async (module, active) => {
     let data = new FormData();
@@ -341,7 +357,15 @@ export default function functionGeneral() {
     let response = await search.json();
     return response;
   };
-  const print = async (search, template, container, modulePermission, inputs) => {
+  const binnacle = async (id_user, table, action, description) => {
+    let data = new FormData();
+    data.append("id_usuario", id_user);
+    data.append("tabla", table);
+    data.append("accion", action);
+    data.append("descripcion", description);
+    let search = await fetch("binnacle/add", { method: "POST", body: data });
+  }
+  const print = async (search, template, container, modulePermission, inputs, binnacleDelete) => {
     let response = await search();
     let templatesWrapper = "";
     if (response.length == 0) {
@@ -361,11 +385,11 @@ export default function functionGeneral() {
     document.querySelectorAll(".edit_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
     document.querySelectorAll(".trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
     permission(modulePermission);
-    Delete(search, template, container, modulePermission, inputs);
+    Delete(search, template, container, modulePermission, inputs, binnacleDelete);
     edit(inputs);
     feather.replace();
   };
-  const Delete = (search, template, container, modulePermission, inputs) => {
+  const Delete = (search, template, container, modulePermission, inputs, binnacleDelete) => {
     document.querySelectorAll(".trash_btn").forEach((element) => {
       element.addEventListener("click", () => {
         Swal.fire({
@@ -390,7 +414,8 @@ export default function functionGeneral() {
                     text: "El elemento fue eliminado correctamente",
                     icon: "success",
                   });
-                  print(search, template, container, modulePermission, inputs);
+                  print(search, template, container, modulePermission, inputs, binnacleDelete);
+                  binnacleDelete()
                 } else {
                   Swal.fire({
                     title: `Error!`,
@@ -407,11 +432,8 @@ export default function functionGeneral() {
       });
     });
   };
-  const add = async (search, module, data, template, container, permission, inputs) => {
-    let action = await fetch(`${module}/add_many`, {
-      method: "POST",
-      body: data,
-    });
+  const add = async (search, module, data, template, container, permission, inputs, binnacleDelete, binnacleAdd) => {
+    let action = await fetch(`${module}/add_many`, { method: "POST", body: data, });
     let response = await action.json()
     if (response.success == true) {
       Swal.fire({
@@ -419,7 +441,8 @@ export default function functionGeneral() {
         text: "El elemento fue agregado correctamente",
         icon: "success",
       });
-      print(search, template, container, permission, inputs);
+      print(search, template, container, permission, inputs, binnacleDelete);
+      binnacleAdd()
     } else {
       Swal.fire({
         title: `Error!`,
@@ -442,7 +465,7 @@ export default function functionGeneral() {
     let response = await pet.json()
     return response
   };
-  const update = async (search, module, data, template, container, permission, inputs) => {
+  const update = async (search, module, data, template, container, permission, inputs, binnacleDelete, binnacleAdd) => {
     let action = await fetch(`${module}/update`, {
       method: "POST",
       body: data,
@@ -454,7 +477,8 @@ export default function functionGeneral() {
         text: "El elemento fue actualizado correctamente",
         icon: "success",
       });
-      print(search, template, container, permission, inputs);
+      print(search, template, container, permission, inputs, binnacleDelete);
+      binnacleAdd()
     } else {
       Swal.fire({
         title: `Error!`,
@@ -488,7 +512,7 @@ export default function functionGeneral() {
     });
   }
   //--------------funciones para el manejo de peticiones ajax para las datatables------------------
-  const deleteDatatable = (tableItem, table) => {
+  const deleteDatatable = (tableItem, table, binnacle) => {
     $(`${tableItem} tbody`).on("click", ".trash_btn_datatable", function () {
       Swal.fire({
         title: "¿Deseas eliminar este elemento?",
@@ -513,6 +537,7 @@ export default function functionGeneral() {
                   icon: "success",
                 });
                 table.ajax.reload();
+                binnacle()
               } else {
                 Swal.fire({
                   title: `Error!`,
@@ -526,7 +551,7 @@ export default function functionGeneral() {
       });
     });
   };
-  const addDataTables = async (table, data, module) => {
+  const addDataTables = async (table, data, module, binnacle) => {
     let pet = await fetch(`${module}/add_many`, {
       method: "POST",
       body: data,
@@ -539,6 +564,7 @@ export default function functionGeneral() {
         icon: "success",
       });
       table.ajax.reload();
+      binnacle()
     } else {
       Swal.fire({
         title: `Error!`,
@@ -561,7 +587,7 @@ export default function functionGeneral() {
       })
     })
   }
-  const updateDataTables = async (table, data, module) => {
+  const updateDataTables = async (table, data, module, binnacle) => {
     let pet = await fetch(`${module}/update`, {
       method: "POST",
       body: data,
@@ -575,6 +601,7 @@ export default function functionGeneral() {
         icon: "success",
       });
       table.ajax.reload();
+      binnacle()
     } else {
       Swal.fire({
         title: `Error!`,
@@ -591,8 +618,11 @@ export default function functionGeneral() {
     diasRestantesFechaVencimiento,
     setValidationStyles,
     validateField,
+    binnacle,
     reference,
+    sessionInfo,
     SelectOption,
+    CheckCash,
     selectOptionAll,
     viewImage,
     searchAll,

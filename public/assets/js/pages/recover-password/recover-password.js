@@ -1,6 +1,7 @@
 import functionGeneral from "../../Functions.js";
-const { searchParam, validateField, setValidationStyles } = functionGeneral();
+const { searchParam, validateField, setValidationStyles, sessionInfo, binnacle } = functionGeneral();
 $(".preloader").fadeOut();
+let session = await sessionInfo();
 const stepsContainer = document.querySelector('.steps');
 const nextButtons = document.querySelectorAll('.next');
 const backButtons = document.querySelectorAll('.back');
@@ -181,6 +182,7 @@ btnUpdateUser.addEventListener('click', async () => {
         let result = await send.json()
         if (result.success == true) {
             toas("success", "Contraseña actualizada");
+            binnacle(session.message.id, "Recuperar contraseña", "Actualizacion", "Se actualizo la contraseña");
             setTimeout(() => {
                 window.location = "login"
             }, 2000)

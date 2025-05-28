@@ -40,42 +40,25 @@
                         <div class="col-md-6 col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Actividad reciente</h4>
+                                    <div class="">
+                                        <div class="col-md-6 col-lg-3">
+                                            <input type="search" class="form-control" id="searchBinnacleUser" placeholder="Buscar">
+                                        </div>
+                                    </div>
                                     <div class="table-responsive">
-                                        <table class="table no-wrap table-dark-mode">
+                                        <table class="table no-wrap table-dark-mode w-100 table_binnacle_user">
                                             <thead>
                                                 <tr>
-                                                    <th>Usuario</th>
+                                                    <th>#</th>
                                                     <th>Actividad</th>
                                                     <th>Fecha</th>
                                                     <th>Hora</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <span class="badge text-bg-success badge-pill">Juan Silva</span>
-                                                    </td>
-                                                    <td><span class="fs-6">Venta</span></td>
-                                                    <td>13-3-2025</td>
-                                                    <td>13:45</td>
 
-                                                </tr>
                                             </tbody>
                                         </table>
-                                        <ul class="pagination float-end">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                            </li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">Next</a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -87,11 +70,16 @@
                         <div class="col-md-6 col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Actividad reciente</h4>
+                                    <div class="">
+                                        <div class="col-md-6 col-lg-3">
+                                            <input type="search" class="form-control" id="searchBinnacleSystem" placeholder="Buscar">
+                                        </div>
+                                    </div>
                                     <div class="table-responsive">
-                                        <table class="table table-dark-mode no-wrap">
+                                        <table class="table table-dark-mode no-wrap w-100 table_binnacle_system">
                                             <thead>
                                                 <tr>
+                                                    <th>#</th>
                                                     <th>Usuario</th>
                                                     <th>Actividad</th>
                                                     <th>Fecha</th>
@@ -99,30 +87,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <span class="badge text-bg-success badge-pill">Juan Silva</span>
-                                                    </td>
-                                                    <td><span class="fs-6">Venta</span></td>
-                                                    <td>13-3-2025</td>
-                                                    <td>13:45</td>
 
-                                                </tr>
                                             </tbody>
                                         </table>
-                                        <ul class="pagination float-end">
-                                            <li class="page-item disabled">
-                                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                            </li>
-                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item">
-                                                <a class="page-link" href="#">Next</a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -137,9 +104,11 @@
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="./assets/libs/extra-libs/datatables.net/js/jquery.dataTables.js"></script>
+<script src="./assets/libs/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
 <script src="./assets/js/app-style-switcher.js"></script>
 <script src="./assets/js/feather.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
+<script type="module" src="./assets/js/pages/binnacle/binnacle.js"></script>

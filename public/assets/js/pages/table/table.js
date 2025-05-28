@@ -1,14 +1,26 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, reindex, resetForm, viewImage, searchParam, print, add, update, permission, searchFilter } = functionGeneral();
+const { setValidationStyles, validateField, reindex, resetForm, viewImage, searchParam, print, add, update, permission, searchFilter, sessionInfo, binnacle } = functionGeneral();
 const { elemenFormTables, targetTable } = Templates()
-
+let session = await sessionInfo()
 viewImage(".input-image")
 searchFilter("#SearchTablesFREE", (e) => {
     if (e.target.value == "") {
-        print(() => searchParam({ active: 1, estado: "LIBRE" }, "table"), targetTable, ".cont_tables_free", "table", (response) => dataEdit(response));
+        print(() => searchParam({ active: 1, estado: "LIBRE" }, "table"),
+            targetTable,
+            ".cont_tables_free",
+            "table",
+            (response) => dataEdit(response),
+            () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
+        );
     } else {
-        print(() => searchParam({ active: 1, nombre_like: e.target.value, estado: "LIBRE" }, "table"), targetTable, ".cont_tables_free", "table", (response) => dataEdit(response));
+        print(() => searchParam({ active: 1, nombre_like: e.target.value, estado: "LIBRE" }, "table"),
+            targetTable,
+            ".cont_tables_free",
+            "table",
+            (response) => dataEdit(response),
+            () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
+        );
     }
 })
 searchFilter("#SearchTablesOCCUPIED", (e) => {
@@ -157,7 +169,16 @@ if (!form.dataset.listenerAttached) {
                 data.append(`lista[${index}][vip]`, table.vip == true ? 1 : 0);
             })
             resetForm("#tables-container .tables", form)
-            add(() => searchParam({ active: 1, estado: "LIBRE" }, "table"), "table", data, targetTable, ".cont_tables_free", "table", (response) => dataEdit(response))
+            add(() => searchParam({ active: 1, estado: "LIBRE" }, "table"),
+                "table",
+                data,
+                targetTable,
+                ".cont_tables_free",
+                "table",
+                (response) => dataEdit(response),
+                () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
+                () => binnacle(session.message.id, "Mesas", "Agregar", "Se agrego una mesa")
+            )
             bootstrap.Modal.getOrCreateInstance('#register-table').hide()
         }
     });
@@ -206,7 +227,16 @@ const dataEdit = (response) => {
                     dataFinal.append(`imagen`, data.imagen);
                     dataFinal.append(`imagen_name`, data.imagen.name);
                 }
-                update(() => searchParam({ active: 1, estado: "LIBRE" }, "table"), "table", dataFinal, targetTable, ".cont_tables_free", "table", (response) => dataEdit(response))
+                update(() => searchParam({ active: 1, estado: "LIBRE" }, "table"),
+                    "table",
+                    dataFinal,
+                    targetTable,
+                    ".cont_tables_free",
+                    "table",
+                    (response) => dataEdit(response),
+                    () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
+                    () => binnacle(session.message.id, "Mesas", "Edicion", "Se Edito un mesa")
+                )
                 bootstrap.Modal.getOrCreateInstance('#edit-table').hide()
             }
         })
@@ -214,5 +244,17 @@ const dataEdit = (response) => {
     }
 }
 attachValidationListeners(1);
-print(() => searchParam({ active: 1, estado: "LIBRE" }, "table"), targetTable, ".cont_tables_free", "table", (response) => dataEdit(response));
-print(() => searchParam({ active: 1, estado: "OCUPADA" }, "table"), targetTable, ".cont_tables_occupied", "table", (response) => dataEdit(response));
+print(() => searchParam({ active: 1, estado: "LIBRE" }, "table"),
+    targetTable,
+    ".cont_tables_free",
+    "table",
+    (response) => dataEdit(response),
+    () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
+);
+print(() => searchParam({ active: 1, estado: "OCUPADA" }, "table"),
+    targetTable,
+    ".cont_tables_occupied",
+    "table",
+    (response) => dataEdit(response),
+    () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
+);

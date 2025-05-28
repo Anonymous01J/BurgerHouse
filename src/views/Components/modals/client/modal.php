@@ -20,7 +20,7 @@
                                 <input type="text" class="form-control" placeholder="Apellido" id="input-lastname-client-1" name="apellido">
                                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-client-1"></div>
                             </div>
-                            <!-- <div class="col-md-6 ">
+                            <div class="col-md-6 ">
                                 <label for="inputCity" class="form-label">Tipo de documento</label>
                                 <div class="dropdown select_options_td">
                                     <div class="dropdown">
@@ -41,12 +41,12 @@
                                     </div>
                                 </div>
                                 <div class="text-danger mt-1 fs-6" id="error-input-td-client-1"></div>
-                            </div> -->
-                            <!-- <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nro de documento</label>
                                 <input type="text" class="form-control" placeholder="Documento" id="input-doc-client-1" name="documento">
                                 <div class="text-danger mt-1 fs-6" id="error-input-doc-client-1"></div>
-                            </div> -->
+                            </div>
                             <div class="col-md-4">
                                 <label for="inputEmail4" class="form-label">Telefono</label>
                                 <input type="tel" class="form-control" placeholder="Telefono" id="input-tel-client-1" name="telefono">
@@ -96,7 +96,7 @@
                                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-client"></div>
 
                             </div>
-                            <!-- <div class="col-md-6 ">
+                            <div class="col-md-6 ">
                                 <label for="inputCity" class="form-label">Tipo de documento</label>
                                 <div class="dropdown select_options_td">
                                     <div class="dropdown">
@@ -117,12 +117,12 @@
                                     </div>
                                 </div>
                                 <div class="text-danger mt-1 fs-6" id="error-input-td-client"></div>
-                            </div> -->
-                            <!-- <div class="col-md-6">
+                            </div>
+                            <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nro de documento</label>
                                 <input type="text" class="form-control" placeholder="Documento" id="input-doc-client" name="documento">
                                 <div class="text-danger mt-1 fs-6" id="error-input-doc-client"></div>
-                            </div> -->
+                            </div>
                             <div class="col-12">
                                 <label for="inputEmail4" class="form-label">Telefono</label>
                                 <input type="tel" class="form-control" placeholder="Telefono" id="input-tel-client" name="telefono">

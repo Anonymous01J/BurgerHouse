@@ -1,17 +1,30 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, print, add, reindex, resetForm, permission, searchFilter } = functionGeneral();
+const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, print, add, reindex, resetForm, permission, searchFilter, sessionInfo, binnacle } = functionGeneral();
 const { targetProductProcess, elemenFormCombo, optionsRol } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
+let session = await sessionInfo()
 InputPrice("[input_price]");
 selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 viewImage(".input-image")
 // permission("Product")//verifica el btn de agg
 searchFilter("#searchProduct", (e) => {
   if (e.target.value == "") {
-    print(()=>searchParam({ active: 1 }, "productProcess"), targetProductProcess, ".cont-product", "product", (response) => editData(response))
+    print(() => searchParam({ active: 1 }, "productProcess"),
+      targetProductProcess,
+      ".cont-product",
+      "product",
+      (response) => editData(response),
+      () => binnacle(session.message.id, 'Producto procesado', 'Eliminacion', 'Se elimino un producto procesado'),
+    )
   } else {
-    print(()=>searchParam({ active: 1, nombre_like: e.target.value }, "productProcess"), targetProductProcess, ".cont-product", "product", (response) => editData(response))
+    print(() => searchParam({ active: 1, nombre_like: e.target.value }, "productProcess"),
+      targetProductProcess,
+      ".cont-product",
+      "product",
+      (response) => editData(response),
+      () => binnacle(session.message.id, 'Producto procesado', 'Eliminacion', 'Se elimino un producto procesado'),
+    )
   }
 })
 // ------------------Validacion de Formulario---------------------------
@@ -216,14 +229,29 @@ if (!form.dataset.listenerAttached) {
         data.append(`lista[${index}][imagen]`, combo.imagen);
       })
       resetForm("#products-container .product", form)
-      add(productSearch, 'productProcess', data, targetProductProcess, ".cont-product", "product", (response) => editData(response))
+      add(productSearch,
+        'productProcess',
+        data,
+        targetProductProcess,
+        ".cont-product",
+        "product",
+        (response) => editData(response),
+        () => binnacle(session.message.id, 'Producto procesado', 'Eliminacion', 'Se elimino un producto procesado'),
+        () => binnacle(session.message.id, 'Producto procesado', 'Agregar', 'Se agrego un producto procesado')
+      )
       bootstrap.Modal.getOrCreateInstance('#register-product').hide()
     }
   });
   form.dataset.listenerAttached = "true";
 }
 attachValidationListeners(1)
-print(productSearch, targetProductProcess, ".cont-product", "product", (response) => editData(response))//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
+print(productSearch,
+  targetProductProcess,
+  ".cont-product",
+  "product",
+  (response) => editData(response),
+  () => binnacle(session.message.id, "Productos Procesados", "Eliminacion", "Se elimino un producto procesado")
+)//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
 function editData(response) {
   let hasError = false
   document.querySelector("#input-name-combo").value = response[0].nombre
@@ -276,7 +304,16 @@ function editData(response) {
           datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
           datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
         }
-        update(productSearch, 'productProcess', datafinal, targetProductProcess, ".cont-product", "product", (response) => editData(response))
+        update(productSearch,
+          'productProcess',
+          datafinal,
+          targetProductProcess,
+          ".cont-product",
+          "product",
+          (response) => editData(response),
+          () => binnacle(session.message.id, 'Producto procesado', 'Eliminacion', 'Se elimino un producto procesado'),
+          () => binnacle(session.message.id, 'Producto procesado', 'Actualizacion', 'Se agrego un producto procesado')
+        )
         bootstrap.Modal.getOrCreateInstance('#edit-product').hide()
       }
     })

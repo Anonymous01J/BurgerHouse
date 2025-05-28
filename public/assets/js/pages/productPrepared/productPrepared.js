@@ -1,6 +1,6 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, print, add, reindex, resetForm, permission, searchFilter } = functionGeneral();
+const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, print, add, reindex, resetForm, permission, searchFilter, sessionInfo, binnacle } = functionGeneral();
 const { targetProductPrepared, elemenFormCombo, optionsRol } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 InputPrice("[input_price]");
@@ -217,14 +217,23 @@ if (!form.dataset.listenerAttached) {
         data.append(`lista[${index}][tipo]`, "producto");
       })
       resetForm("#products-container .product", form)
-      add(productSearch, 'productPrepared', data, targetProductPrepared, ".cont-product", "product", (response) => editData(response))
+      add(productSearch, 
+        'productPrepared', 
+        data, 
+        targetProductPrepared, 
+        ".cont-product", 
+        "product", 
+        (response) => editData(response),
+        ()=> binnacle(session.message.id, "Productos Preparados", "Eliminacion", "Se elimino un producto preparado"),
+        ()=> binnacle(session.message.id, "Productos Preparados", "Agregar", "Se agrego un producto preparado")
+      )
       bootstrap.Modal.getOrCreateInstance('#register-product').hide()
     }
   });
   form.dataset.listenerAttached = "true";
 }
 attachValidationListeners(1)
-print(productSearch, targetProductPrepared, ".cont-product", "product", (response) => editData(response))//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
+print(productSearch, targetProductPrepared, ".cont-product", "product", (response) => editData(response), ()=> binnacle(session.message.id, "Productos Preparados", "Eliminacion", "Se elimino un producto preparado"))//imprime todos los combos y al final verifica los permisos de los btn de editar y eliminar
 function editData(response) {
   let hasError = false
   document.querySelector("#input-name-combo").value = response[0].nombre
@@ -277,7 +286,16 @@ function editData(response) {
           datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
           datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
         }
-        update(productSearch, 'productPrepared', datafinal, targetProductPrepared, ".cont-product", "product", (response) => editData(response))
+        update(productSearch, 
+          'productPrepared', 
+          datafinal, 
+          targetProductPrepared, 
+          ".cont-product", 
+          "product", 
+          (response) => editData(response),
+          ()=> binnacle(session.message.id, "Productos Preparados", "Eliminacion", "Se elimino un producto preparado"),
+          () => binnacle(session.message.id, "Productos Preparados", "Actualizacion", "Se actualizo un producto preparado")
+        )
         bootstrap.Modal.getOrCreateInstance('#edit-product').hide()
       }
     })

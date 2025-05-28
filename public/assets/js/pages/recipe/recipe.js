@@ -1,11 +1,12 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 
-const { InputPrice, selectOptionAll, setValidationStyles, validateField, reindex, resetForm, edit, searchParam } = functionGeneral();
+const { InputPrice, selectOptionAll, setValidationStyles, validateField, reindex, resetForm, edit, searchParam, sessionInfo, binnacle } = functionGeneral();
 const { elemenFormRecipe, optionsRol, optionsRawMaterial, targetRecipe, itemIngredientes } = Templates()
 InputPrice("[input_price]");
 selectOptionAll(".select_options_product", "productPrepared", optionsRol)
 selectOptionAll(".select_options_rawmaterial", "rawmaterial", optionsRawMaterial)
+let session = await sessionInfo()
 let RecipeCount = 1;
 function addRecipe() {
     RecipeCount++;
@@ -138,6 +139,7 @@ if (!form.dataset.listenerAttached) {
                         icon: "success",
                     });
                     renderizarTarjetas({});
+                    binnacle(session.message.id, "Recetas", "Agregar", "Se agrego una nueva receta")
                 } else {
                     Swal.fire({
                         title: `Error!`,

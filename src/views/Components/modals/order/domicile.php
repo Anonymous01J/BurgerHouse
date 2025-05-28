@@ -55,7 +55,7 @@
 									<!-- Productos -->
 								</div>
 							</div>
-							<div class="d-flex justify-content-center">
+							<div class="d-flex justify-content-end position-sticky start-100 bottom-0">
 								<button class="btn bh_1 mt-3 text-white select_product_btn_next">Siguiente</button>
 							</div>
 						</div>
@@ -82,7 +82,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="d-flex justify-content-center">
+							<div class="d-flex justify-content-end position-sticky start-100 bottom-0">
 								<button class="btn bh_5 text-white mt-3 me-2" onclick="stepper.previous()">Anterior</button>
 								<button class="btn bh_1 text-white mt-3" onclick="stepper.next()">Siguiente</button>
 							</div>
@@ -195,15 +195,23 @@
 									</div>
 								</div>
 							</div>
-							<button class="btn btn-secondary mt-3 me-2" onclick="stepper.previous()">Anterior</button>
-							<button class="btn btn-primary mt-3 btn_next_payment">Siguiente</button>
+							<div class="d-flex justify-content-end position-sticky start-100 bottom-0">
+								<button class="btn btn-secondary mt-3 me-2" onclick="stepper.previous()">Anterior</button>
+								<button class="btn btn-primary mt-3 btn_next_payment">Siguiente</button>
+							</div>
 						</div>
 						<div id="step-5" class="content" role="tabpanel" aria-labelledby="steppertrigger5">
 							<h5 class="text-center fs-3 mt-2 mb-4">CONFIRMACION</h5>
 							<div class="row mb-4">
 								<div class="d-flex justify-content-start gap-3">
-									<div>NOMBRE: JOSE PEREZ</div>
-									<div>DOCUMENTO: 12345678</div>
+									<div class="d-flex align-items-center gap-3">
+										<h4 class="m-0">CLIENTE:</h4>
+										<p class="m-0 name_client_confirm_order">JOSE PEREZ</p>
+									</div>
+									<div class="d-flex gap-3">
+										<h4 class="m-0">DOCUMENTO:</h4>
+										<p class="m-0 document_client_confirm_order">1234568</p>
+									</div>
 								</div>
 							</div>
 							<h4>PRODUCTOS</h4>
@@ -212,26 +220,12 @@
 								<table class="table table-dark-mode">
 									<thead>
 										<th>PRODUCTO</th>
-										<th>DETALLE</th>
 										<th>CANTIDAD</th>
 										<th>DETALLES</th>
 										<th>ADICIONALES</th>
 									</thead>
-									<tbody>
-										<tr>
-											<td>Hamburguesa</td>
-											<td>Con queso y tocino</td>
-											<td>2</td>
-											<td>Con papas fritas</td>
-											<td>Sin cebolla</td>
-										</tr>
-										<tr>
-											<td>Papas Fritas</td>
-											<td>Porción grande</td>
-											<td>1</td>
-											<td>Con salsa de queso</td>
-											<td>Con salsa de ajo</td>
-										</tr>
+									<tbody class="cont_confirm_product_order">
+
 									</tbody>
 								</table>
 							</div>
@@ -245,23 +239,20 @@
 										<th>REFERENCIA</th>
 										<th>COMPROBANTE</th>
 									</thead>
-									<tbody>
-										<tr>
-											<td>Tarjeta de Crédito</td>
-											<td>10.00 $</td>
-											<td>1234567890</td>
-											<td><img src="comprobante.jpg" alt="Comprobante" style="max-width: 100px;"></td>
-										</tr>
+									<tbody class="cont_confirm_payment_order">
+
 									</tbody>
 								</table>
 							</div>
 							<h4>DIRECCION DE ENVIO</h4>
 							<hr>
 							<div class="row">
-								<textarea class="form-control" placeholder="Direccion" rows="5"></textarea>
+								<textarea class="form-control direction_sale" placeholder="Direccion" rows="5"></textarea>
 							</div>
-							<button class="btn btn-secondary mt-3 me-2" onclick="stepper.previous()">Anterior</button>
-							<button class="btn btn-success mt-3 confirm_order">Enviar</button>
+							<div class="d-flex justify-content-end position-sticky start-100 bottom-0">
+								<button class="btn btn-secondary mt-3 me-2" onclick="stepper.previous()">Anterior</button>
+								<button class="btn btn-success mt-3 confirm_order">Enviar</button>
+							</div>
 						</div>
 					</div>
 				</div>

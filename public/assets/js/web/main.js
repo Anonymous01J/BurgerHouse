@@ -1,11 +1,16 @@
+import functionGeneral from "../Functions.js"
 import Templates from "./template.js";
-const template = Templates();
+const { searchParam, print, add, resetForm, inputPrice, selectOptionAll } = functionGeneral()
+const { targetCategories, targetProductsPrepared } = Templates();
+
+
 (function () {
   "use strict";
-
+  
   /**
    * Apply .scrolled class to the body as the page is scrolled down
-   */
+  */
+  print(() => searchParam({ active: 1 }, "categoryProducto", 10000000000000), targetCategories, "#categories-container")
   function toggleScrolled() {
     const selectBody = document.querySelector("body");
     const selectHeader = document.querySelector("#header");
@@ -215,24 +220,24 @@ const template = Templates();
       }
     });
   }
-  fetch("categoryProducto/get_all/0/10000000/id/asc")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      const categories = Array.isArray(data) ? data : [];
-      console.log("Datos procesados como array:", categories);
+  // fetch("categoryProducto/get_all/0/10000000/id/asc")
+  //   .then((response) => {
+  //     return response.json();
+  //   })
+  //   .then((data) => {
+  //     const categories = Array.isArray(data) ? data : [];
+  //     console.log("Datos procesados como array:", categories);
 
-      const categoriesContainer = document.querySelector(
-        "#categories-container"
-      );
-      if (categoriesContainer) {
-        categoriesContainer.innerHTML = template.targetCategories(categories);
-      }
-    })
-    .catch((error) => {
-      console.error("Error al realizar la petición:", error);
-    });
+  //     const categoriesContainer = document.querySelector(
+  //       "#categories-container"
+  //     );
+  //     if (categoriesContainer) {
+  //       categoriesContainer.innerHTML = template.targetCategories(categories);
+  //     }
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error al realizar la petición:", error);
+  //   });
   fetch("productPrepared/get_all/0/10000000/id/asc")
     .then((response) => {
       return response.json();

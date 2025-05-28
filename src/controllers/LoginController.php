@@ -88,4 +88,13 @@ class LoginController extends Controller_base
             echo json_encode(['success' => false, 'message' => $consulta]);
         }
     }
+
+    public function SessionInfo()
+    {
+        if (!isset($_SESSION)) {
+            echo json_encode(['success' => false, 'message' => 'Sesion no iniciada']);
+        } else {
+            echo json_encode(['success' => true, 'message' => $_SESSION]);
+        }
+    }
 }

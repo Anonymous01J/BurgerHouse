@@ -1,3 +1,6 @@
+import functionGeneral from "../../Functions.js";
+const { sessionInfo, binnacle } = functionGeneral();
+let session = await sessionInfo()
 const modulesConfig = {
     mesas: {
         ajax: {
@@ -308,41 +311,18 @@ const modulesConfig = {
             url: 'additional/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
-            data: {active: 0, tipo: "adicional"}
+            data: { active: 0, tipo: "adicional" }
         },
         columns: [
-            { title: '', data: null ,render: (data) =>{return `<img style="object-fit: cover" src='media/adicionales/${data.imagen}' width='50px' height='50px'>`}},
+            { title: '', data: null, render: (data) => { return `<img style="object-fit: cover" src='media/adicionales/${data.imagen}' width='50px' height='50px'>` } },
             { title: 'Nombre', data: 'nombre' },
-            { title: 'Precio', data: null, render: (data) =>{return (data.precio).toString().replace(".",",") + " $" }},
+            { title: 'Precio', data: null, render: (data) => { return (data.precio).toString().replace(".", ",") + " $" } },
             {
                 title: 'Acciones',
                 data: null,
                 render: (data) =>
                     `
                 <button data-id="${data.id}" data-module-restore="additional" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Adicional" data-bs-placement="bottom">
-                    <i data-feather="refresh-ccw" class="text-white"></i>
-                </button>
-                `
-            }
-        ]
-    },
-    bebidas: {
-        ajax: {
-            url: 'drink/get_all/0/10000000/id/asc',
-            dataSrc: '',
-            type: 'POST',
-            data: {active: 0, tipo: "bebida"}
-        },
-        columns: [
-            { title: '', data: null ,render: (data) =>{return `<img style="object-fit: cover" src='media/bebidas/${data.imagen}' width='50px' height='50px'>`}},
-            { title: 'Nombre', data: 'nombre' },
-            { title: 'Precio', data: null, render: (data) =>{return (data.precio).toString().replace(".",",") + " $" }},
-            {
-                title: 'Acciones',
-                data: null,
-                render: (data) =>
-                    `
-                <button data-id="${data.id}" data-module-restore="drink" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Bebida" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -422,6 +402,7 @@ function initTable(moduleKey) {
                                 icon: "success",
                             });
                             table.ajax.reload();
+                            binnacle(session.message.id, "Papelera", "Restaurar", "Se ha restaurado un elemento de la papelera")
                         } else {
                             Swal.fire({
                                 title: `Error!`,

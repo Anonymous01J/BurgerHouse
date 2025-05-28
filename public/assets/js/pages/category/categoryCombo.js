@@ -1,8 +1,10 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm } = functionGeneral();
+const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm, sessionInfo, binnacle } = functionGeneral();
 const { elemenFormCategoryProduct } = Templates()
-document.querySelectorAll(".btn-add-tooltip").forEach((btn) => {new bootstrap.Tooltip(btn)})
+let session = await sessionInfo();
+
+document.querySelectorAll(".btn-add-tooltip").forEach((btn) => { new bootstrap.Tooltip(btn) })
 let n = $(".table_combo").DataTable({
     language: {
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
@@ -46,7 +48,7 @@ let n = $(".table_combo").DataTable({
 $('#searchCategoryProducts').on('keyup', function () {
     n.search(this.value).draw();
 });
-deleteDatatable(".table_combo", n)
+deleteDatatable(".table_combo", n, () => binnacle(session.message.id, "Categoria de Producto", "Eliminacion", "Se ha eliminado una categoria de productos"))
 
 let CategoryProductCount = 1;
 function addCategoryCombo() {
@@ -127,7 +129,7 @@ if (!form.dataset.listenerAttached) {
             dataCategoryCombos.forEach((category, index) => {
                 dataFinal.append(`lista[${index}][nombre]`, category.nombre)
             })
-            addDataTables(n, dataFinal, "categoryProducto")
+            addDataTables(n, dataFinal, "categoryProducto", binnacle(session.message.id, "Categoria de Producto", "Agregar", "Se ha agregado una categoria de productos"))
             resetForm(".categoryCombos", form)
             bootstrap.Modal.getOrCreateInstance('#register-categoryCombo').hide()
         }
@@ -164,7 +166,7 @@ editDataTables(".table_combo", (response) => {
                 let dataFinal = new FormData()
                 dataFinal.append(`nombre`, document.querySelector(`#input-name-categoryProduct`).value)
                 dataFinal.append(`id`, document.querySelector("#input-id-categoryCombo").value)
-                updateDataTables(n, dataFinal, "categoryProducto")
+                updateDataTables(n, dataFinal, "categoryProducto", binnacle(session.message.id, "Categoria de Producto", "Actualizacion", "Se ha actualizado una categoria de productos"))
                 bootstrap.Modal.getOrCreateInstance('#edit-categoryCombo').hide()
             }
         })

@@ -1,15 +1,6 @@
 export default function Templates() {
   function targetCategories(data) {
-    if (!Array.isArray(data) || data.length === 0) {
-      console.warn("No hay categorías para mostrar.");
-      return `<li>No hay categorías disponibles.</li>`;
-    }
-
-    let html = `<li data-filter="*" class="filter-active">Todos</li>`;
-    data.forEach((category) => {
-      html += `<li data-filter=".filter-${category.id}">${category.nombre}</li>`;
-    });
-    return html;
+   return`<li data-filter=".filter-${data.id}">${data.nombre}</li>`;
   }
   function targetProductsPrepared(data) {
     if (!Array.isArray(data) || data.length === 0) {

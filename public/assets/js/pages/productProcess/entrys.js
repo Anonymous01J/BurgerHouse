@@ -1,7 +1,8 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 const { optionsSupplier, elemenFormEntrysProductProcess, optionsRol } = Templates()
-const { InputPrice, selectOptionAll, viewImage, reindex, resetForm, setValidationStyles, validateField, fecha, reference, searchParam, diasRestantesFechaVencimiento } = functionGeneral();
+const { InputPrice, selectOptionAll, viewImage, reindex, resetForm, setValidationStyles, validateField, fecha, reference, searchParam, diasRestantesFechaVencimiento, sessionInfo, binnacle } = functionGeneral();
+let session = await sessionInfo();
 selectOptionAll(".select_options_supplier", "supplier", optionsSupplier)
 selectOptionAll(".select_options_product", "productProcess", optionsRol)
 selectOptionAll(".select_options_unit", "units", optionsRol)
@@ -359,6 +360,7 @@ if (!form.dataset.listenerAttached) {
                     tableVencidas.ajax.reload();
                     tableSinStock.ajax.reload();
                     cardEntrys()
+                    binnacle(session.message.id, "Entrada de producto procesado", "Agregar", "Se agrego una nueva entrada de producto procesado")
                 } else {
                     Swal.fire({
                         title: `Error!`,

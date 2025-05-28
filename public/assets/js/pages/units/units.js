@@ -1,7 +1,8 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { resetForm, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables } = functionGeneral();
+const { resetForm, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, sessionInfo, binnacle } = functionGeneral();
 const { elemenFormUnit } = Templates()
+let session = await sessionInfo();
 let tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 let n = $(".table_unit").DataTable({
     language: {
@@ -47,7 +48,7 @@ let n = $(".table_unit").DataTable({
 $('#searchUnits').on('keyup', function () {
     n.search(this.value).draw();
 });
-deleteDatatable(".table_unit", n)
+deleteDatatable(".table_unit", n, () => binnacle(session.message.id, "Unidades", "Eliminacion", "Se ha eliminado una Unidad"))
 
 let UnitsCount = 1;
 function addUnits() {
@@ -137,7 +138,7 @@ if (!form.dataset.listenerAttached) {
                 dataFinal.append(`lista[${index}][nombre]`, user.nombre)
                 dataFinal.append(`lista[${index}][alias]`, user.alias)
             })
-            addDataTables(n, dataFinal, "units")
+            addDataTables(n, dataFinal, "units", () => binnacle(session.message.id, "Unidades", "Agregar", "Se ha agregado una unidad"))
             resetForm(".units", form)
             bootstrap.Modal.getOrCreateInstance('#register-unit').hide()
         }
@@ -181,7 +182,7 @@ editDataTables(".table_unit", (response) => {
                 dataFinal.append(`nombre`, document.querySelector(`#input-name-unit`).value)
                 dataFinal.append(`alias`, document.querySelector("#input-alias-unit").value)
                 dataFinal.append(`id`, document.querySelector("#input-id-unit").value)
-                updateDataTables(n, dataFinal, "units")
+                updateDataTables(n, dataFinal, "units", () => binnacle(session.message.id, "Unidades", "Editar", "Se ha editado una unidad"))
                 bootstrap.Modal.getOrCreateInstance('#edit-unit').hide()
             }
         })

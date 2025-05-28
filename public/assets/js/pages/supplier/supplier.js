@@ -1,13 +1,25 @@
-// ----------------Parse de los inputs de tipo price-----------------------------
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { selectOptionAll, setValidationStyles, validateField, searchAll, searchParam, print, add, reindex, resetForm, update, searchFilter } = functionGeneral();
+const { selectOptionAll, setValidationStyles, validateField, searchAll, searchParam, print, add, reindex, resetForm, update, searchFilter, sessionInfo, binnacle } = functionGeneral();
 const { elemenFormSupplier, targetSupplier } = Templates()
+let session = await sessionInfo()
 searchFilter("#SearchSupplier", (e) => {
     if (e.target.value == "") {
-        print(() => searchParam({ active: 1 }, "supplier"), targetSupplier, ".cont_suppliers", "supplier", (response) => editSupplier(response))
+        print(() => searchParam({ active: 1 }, "supplier"),
+            targetSupplier,
+            ".cont_suppliers",
+            "supplier",
+            (response) => editSupplier(response),
+            () => binnacle(session.message.id, "Proveedores", "Eliminacion", "Se Elimino un proveedor"),
+        )
     } else {
-        print(() => searchParam({ active: 1, nombre_like: e.target.value }, "supplier"), targetSupplier, ".cont_suppliers", "supplier", (response) => editSupplier(response))
+        print(() => searchParam({ active: 1, nombre_like: e.target.value }, "supplier"),
+            targetSupplier,
+            ".cont_suppliers",
+            "supplier",
+            (response) => editSupplier(response),
+            () => binnacle(session.message.id, "Proveedores", "Eliminacion", "Se Elimino un proveedor"),
+        )
     }
 })
 selectOptionAll(".select_options_td", null)
@@ -254,9 +266,7 @@ if (!form.dataset.listenerAttached) {
             setValidationStyles(`input-num1-supplier-${index}`, errors?.n_telefono1 ? errors.n_telefono1[0] : null);
             setValidationStyles(`input-num2-supplier-${index}`, errors?.n_telefono2 ? errors.n_telefono2[0] : null);
             setValidationStyles(`input-direction-supplier-${index}`, errors?.direccion ? errors.direccion[0] : null);
-            if (errors) {
-                formHasError = true;
-            }
+            if (errors) formHasError = true;
         });
 
         if (!formHasError) {
@@ -269,16 +279,31 @@ if (!form.dataset.listenerAttached) {
                 data.append(`lista[${index}][n_telefono2]`, sup.n_telefono2);
                 data.append(`lista[${index}][direccion]`, sup.direccion);
             })
-            add(() => searchParam({ active: 1 }, "supplier"), 'supplier', data, targetSupplier, ".cont_suppliers", "supplier", (response) => editSupplier(response))
+            add(
+                () => searchParam({ active: 1 }, "supplier"),
+                'supplier',
+                data,
+                targetSupplier,
+                ".cont_suppliers",
+                "supplier",
+                (response) => editSupplier(response),
+                () => binnacle(session.message.id, "Proveedores", "Eliminacion", "Se Elimino un proveedor"),
+                () => binnacle(session.message.id, "Proveedores", "Agregar", "Se Agrego un proveedor")
+            )
             bootstrap.Modal.getOrCreateInstance('#register-supplier').hide()
             resetForm("#suppliers-container .suppliers", form)
         }
     });
     form.dataset.listenerAttached = "true";
 }
-print(() => searchParam({ active: 1 }, "supplier"), targetSupplier, ".cont_suppliers", "supplier", (response) => editSupplier(response))
+print(() => searchParam({ active: 1 }, "supplier"),
+    targetSupplier,
+    ".cont_suppliers",
+    "supplier",
+    (response) => editSupplier(response),
+    () => binnacle(session.message.id, "Proveedores", "Eliminacion", "Se Elimino un proveedor"),
+)
 attachValidationListeners(1)
-
 function editSupplier(response) {
     let hasError = false
     document.querySelector("#input-id-supplier").value = response[0].id
@@ -339,7 +364,17 @@ function editSupplier(response) {
                 data.append(`n_telefono1`, window.intlTelInput(document.querySelector("#input-num1-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber())
                 data.append(`n_telefono2`, window.intlTelInput(document.querySelector("#input-num2-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" }).getNumber())
                 data.append(`direccion`, document.querySelector("#input-direction-supplier").value)
-                update(() => searchParam({ active: 1 }, "supplier"), 'supplier', data, targetSupplier, ".cont_suppliers", "supplier", (response) => editSupplier(response))
+                update(() => searchParam({ active: 1 }, "supplier"),
+                    'supplier',
+                    data,
+                    targetSupplier,
+                    ".cont_suppliers",
+                    "supplier",
+                    (response) => editSupplier(response),
+                    () => binnacle(session.message.id, "Proveedores", "Eliminacion", "Se Elimino un proveedor"),
+                    () => binnacle(session.message.id, "Proveedores", "Actualizacion", "Se Actualizo un proveedor")
+
+                )
                 bootstrap.Modal.getOrCreateInstance('#edit-supplier').hide()
             }
         });

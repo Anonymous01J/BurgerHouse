@@ -1,10 +1,10 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { resetForm, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, InputPrice, viewImage } = functionGeneral();
+const { resetForm, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, InputPrice, sessionInfo, viewImage, binnacle } = functionGeneral();
 const { elemenFormAdditional } = Templates()
 InputPrice("[input_price]");
 viewImage(".input-image")
-
+let session = await sessionInfo();
 let tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 let n = $(".table_additional").DataTable({
     language: {
@@ -19,7 +19,7 @@ let n = $(".table_additional").DataTable({
     columns: [
         { data: 'nombre' },
         { data: null, render: (data, type, row, meta) => { return `<img style="object-fit: cover" src='${data.imagen ? "media/additional/" + data.imagen : "./assets/img/big/banner_login.png"}' width='50px' height='50px'>` } },
-        { data: null , render: (data, type, row, meta) => { return data.precio + " $" } },
+        { data: null, render: (data, type, row, meta) => { return data.precio + " $" } },
         {
             data: null,
             orderable: false,
@@ -48,7 +48,7 @@ let n = $(".table_additional").DataTable({
 $('#searchAdditional').on('keyup', function () {
     n.search(this.value).draw();
 });
-deleteDatatable(".table_additional", n)
+
 let additionalCount = 1;
 function addAdditional() {
     additionalCount++;
@@ -64,7 +64,6 @@ function addAdditional() {
         reindex("#additionals-container .additionals", "additionals", additionalCount, "Adicional");
     });
 }
-
 document.getElementById("add-additional-btn").addEventListener("click", () => {
     addAdditional();
     reindex("#additionals-container .additionals", "additionals", additionalCount, "Adicional");
@@ -191,7 +190,7 @@ if (!form.dataset.listenerAttached) {
                 dataFinal.append(`lista[${index}][imagen_name]`, additional.imagen.name)
                 dataFinal.append(`lista[${index}][tipo]`, "adicional")
             })
-            addDataTables(n, dataFinal, "additional")
+            addDataTables(n, dataFinal, "additional", binnacle(session.message.id, "Adicionales", "Agregar", "Se agrego un nuevo adicional"))
             resetForm(".additionals", form)
             bootstrap.Modal.getOrCreateInstance('#register-additional').hide()
         }
@@ -238,12 +237,12 @@ editDataTables(".table_additional", (response) => {
                     dataFinal.append(`imagen`, document.querySelector(`#input-image-additional`).files[0])
                     dataFinal.append(`imagen_name`, document.querySelector(`#input-image-additional`).files[0].name)
                 }
-                updateDataTables(n, dataFinal, "additional")
+                updateDataTables(n, dataFinal, "additional", binnacle(session.message.id, "Adicionales", "Actualizacion", "Se actualizo un adicional"))
                 bootstrap.Modal.getOrCreateInstance('#edit-additional').hide()
             }
         })
         formEdit.dataset.listenerAttached = "true";
     }
 })
-
+deleteDatatable(".table_additional", n, () => binnacle(session.message.id, "Adicionales", "Eliminacion", "Se ha eliminado un adicional"))
 attachValidationListeners(1);

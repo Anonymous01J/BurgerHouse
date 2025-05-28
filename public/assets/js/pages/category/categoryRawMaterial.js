@@ -1,7 +1,8 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm } = functionGeneral();
+const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm, sessionInfo, binnacle } = functionGeneral();
 const { elemenFormCategoryRawmaterial } = Templates()
+let session = await sessionInfo();
 document.querySelectorAll(".btn-add-tooltip").forEach((btn) => { new bootstrap.Tooltip(btn) })
 let table = $(".table_category_rawmaterial").DataTable({
     language: {
@@ -46,7 +47,7 @@ let table = $(".table_category_rawmaterial").DataTable({
 $('#searchCategoryRawMaterials').on('keyup', function () {
     table.search(this.value).draw();
 });
-deleteDatatable(".table_category_rawmaterial", table)
+deleteDatatable(".table_category_rawmaterial", table, () => binnacle(session.user_id, "Materia Prima", "Eliminacion", "Eliminacion de categoria de materia prima"))
 
 let CategoryRawMaterialCount = 1;
 function addCategoryRawMaterial() {
@@ -127,7 +128,7 @@ if (!form.dataset.listenerAttached) {
             datacategoryRawMaterial.forEach((category, index) => {
                 dataFinal.append(`lista[${index}][nombre]`, category.nombre)
             })
-            addDataTables(table, dataFinal, "categoryMateriaPrima")
+            addDataTables(table, dataFinal, "categoryMateriaPrima",  binnacle(session.user_id, "Materia Prima", "Agregar", "Se agrego una nueva categoria materia prima"))
             resetForm(".categoryRawMaterials", form)
             bootstrap.Modal.getOrCreateInstance('#register-categoryRawMaterials').hide()
         }
@@ -165,7 +166,7 @@ editDataTables(".table_category_rawmaterial", (response) => {
                 let dataFinal = new FormData()
                 dataFinal.append(`nombre`, document.querySelector(`#input-name-categoryRawMaterial`).value)
                 dataFinal.append(`id`, document.querySelector("#input-id-categoryRawMaterial").value)
-                updateDataTables(table, dataFinal, "categoryMateriaPrima")
+                updateDataTables(table, dataFinal, "categoryMateriaPrima", binnacle(session.user_id, "Materia Prima", "Actualizar", "Se actualizo una categoria de materia prima"))
                 bootstrap.Modal.getOrCreateInstance('#edit-categoryRawMaterial').hide()
             }
         })

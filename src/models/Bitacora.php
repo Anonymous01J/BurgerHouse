@@ -41,6 +41,7 @@ class Bitacora extends Db_base {
             a.id,
             a.id_usuario,
             b.nombre AS nombre_usuario,
+            b.apellido AS apellido_usuario,
             a.tabla,
             a.accion,
             a.fecha,
@@ -50,15 +51,5 @@ class Bitacora extends Db_base {
         $this->joins = "
             INNER JOIN usuario b ON b.id = a.id_usuario
         ";
-    }
-
-    public function nuevo($id_usuario, $tabla, $accion,$descripcion=null) {
-        $query_string = "INSERT INTO bitacora (id_usuario, tabla, accion, descripcion) VALUES (:id_usuario, :tabla, :accion, :descripcion)";
-        $query = $this->conn->prepare($query_string);
-        $query->bindValue(':id_usuario', $id_usuario);
-        $query->bindValue(':tabla', $tabla);
-        $query->bindValue(':accion', $accion);
-        $query->bindValue(':descripcion', $descripcion);
-        return $query->execute();
     }
 }

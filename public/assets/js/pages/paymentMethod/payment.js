@@ -1,6 +1,6 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm } = functionGeneral();
+const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm, sessionInfo, binnacle } = functionGeneral();
 const { elemenFormPaymentMethod } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 let table = $(".table_payment").DataTable({
@@ -45,7 +45,7 @@ let table = $(".table_payment").DataTable({
 $('#searchPayments').on('keyup', function () {
     table.search(this.value).draw();
 });
-deleteDatatable(".table_payment", table)
+deleteDatatable(".table_payment", table, () => binnacle(session.message.id, "Metodo de Pago", "Eliminacion", "Se ha eliminado un metodo de pago"))
 let paymentCount = 1;
 function addPayment() {
     paymentCount++;
@@ -125,7 +125,7 @@ if (!form.dataset.listenerAttached) {
             dataPayment.forEach((category, index) => {
                 dataFinal.append(`lista[${index}][nombre]`, category.nombre)
             })
-            addDataTables(table, dataFinal, "PaymentMethod")
+            addDataTables(table, dataFinal, "PaymentMethod", () => binnacle(session.message.id, "Metodo de Pago", "Agregar", "Se ha agregado un metodo de pago"))
             resetForm(".payments", form)
             bootstrap.Modal.getOrCreateInstance('#register-payments').hide()
         }
@@ -162,7 +162,7 @@ editDataTables(".table_payment", (response) => {
                 let dataFinal = new FormData()
                 dataFinal.append(`nombre`, document.querySelector(`#input-name-payment`).value)
                 dataFinal.append(`id`, document.querySelector("#input-id-payment").value)
-                updateDataTables(table, dataFinal, "PaymentMethod")
+                updateDataTables(table, dataFinal, "PaymentMethod", () => binnacle(session.message.id, "Metodo de Pago", "Actualizacion", "Se ha actualizado un metodo de pago"))
                 bootstrap.Modal.getOrCreateInstance('#edit-payment').hide()
             }
         })

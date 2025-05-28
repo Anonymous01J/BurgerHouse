@@ -1,10 +1,11 @@
 import functionGeneral from "../../Functions.js"
 import Templates from "../../templates.js"
-const { searchParam, amountDolar, viewImage, InputPrice, selectOptionAll, validateField, setValidationStyles } = functionGeneral()
+const { searchParam, amountDolar, viewImage, InputPrice, selectOptionAll, validateField, setValidationStyles, reindex, CheckCash, sessionInfo, binnacle } = functionGeneral()
 const { tagFilterProduct, selectProduct, targetDetailProductOrder, targetDetailOtherOrder, targetClienteOrder, optionsRol, elemenFormPaymentOrder } = Templates()
 viewImage(".input-image")
 InputPrice("[input_price]");
 selectOptionAll(".select_options_payment", "paymentMethod", optionsRol);
+let session = await sessionInfo()
 let toas = (type, msj) => {
     const Toast = Swal.mixin({
         toast: true,
@@ -79,82 +80,6 @@ const initPopover = async () => {
             precio: item.precio
         });
     })
-    // const popoverTriggers = document.querySelectorAll('.popover-button');
-    // for (const pop of popoverTriggers) {
-    //     let template = "";
-    //     let additional = await searchParam({ active: 1, tipo: "adicional" }, "additional", 100);
-    //     additional.forEach((item) => {
-    //         template += tagAdditional(item);
-    //     });
-    //     const footer = `
-    //         <div class="popover-footer d-flex justify-content-end">
-    //             <button type="button" class="btn btn-sm btn-secondary me-2 cancelarPopover">Cancelar</button>
-    //             <button type="submit" form="form-popover" class="btn btn-sm bh_1 text-white add_adicional">Agregar</button>
-    //         </div>
-    //     `;
-    //     const contentWrapper = pop.nextElementSibling;
-    //     contentWrapper.innerHTML = `
-    //         ${template}
-    //         ${footer}
-    //     `;
-    //     const popover = new bootstrap.Popover(pop, {
-    //         html: true,
-    //         content: contentWrapper.innerHTML,
-    //         placement: 'right',
-    //         sanitize: false,
-    //         customClass: 'w-50'
-    //     });
-
-    //     pop.addEventListener('shown.bs.popover', () => {
-    //         document.querySelectorAll('.cancelarPopover').forEach((item) => {
-    //             item.addEventListener('click', () => {
-    //                 bootstrap.Popover.getInstance(pop)?.hide();
-    //             })
-    //         })
-    //         document.querySelectorAll('.add_adicional').forEach((item) => {
-    //             item.addEventListener('click', () => {
-    //                 let container = item.parentElement.parentElement.querySelectorAll(".form-check");
-    //                 let template = "";
-    //                 container.forEach((item) => {
-    //                     if (item.querySelector('input').checked) {
-    //                         pop.parentElement.classList.remove("d-flex");
-    //                         pop.parentElement.classList.remove("align-items-center");
-    //                         template +=
-    //                             `<h4 class="border rounded-pill fs-6 d-flex justify-content-between align-items-center px-2" precio="${item.querySelector('input').getAttribute('precio')}">
-    //                                 <p class="m-0">${item.querySelector('input').value}</p>
-    //                                 <i style="cursor: pointer;" data-feather="x" class="remove_adicional"></i>
-    //                             </h4>`;
-    //                     }
-    //                 });
-    //                 pop.parentElement.innerHTML = template;
-    //                 amount()
-    //                 bootstrap.Popover.getInstance(pop)?.hide();
-    //                 feather.replace();
-    //                 document.querySelectorAll('.remove_adicional').forEach((removeItem) => {
-    //                     removeItem.addEventListener('click', () => {
-    //                         if (removeItem.parentElement.parentElement.childElementCount == 1) {
-    //                             removeItem.parentElement.parentElement.classList.add("d-flex");
-    //                             removeItem.parentElement.parentElement.classList.add("align-items-center");
-    //                             removeItem.parentElement.parentElement.innerHTML = `
-    //                             <div class="d-flex flex-column align-items-center justify-content-center p-3 popover-button">
-    //                                 <i data-feather="plus-circle"></i>
-    //                                 <h4 class="m-0">Adicional</h4>
-    //                             </div>
-    //                             <div class="popover-content" style="display: none;"></div>
-    //                         `
-    //                             feather.replace();
-    //                             initPopover();
-    //                             amount()
-    //                         } else {
-    //                             removeItem.parentElement.remove();
-    //                             amount()
-    //                         }
-    //                     });
-    //                 });
-    //             });
-    //         })
-    //     });
-    // }
     document.querySelectorAll('textarea[name="tags"]').forEach((input) => {
         let tagify = new Tagify(input, {
             whitelist: data,
@@ -166,7 +91,6 @@ const initPopover = async () => {
                 closeOnSelect: false
             }
         })
-
         tagify.on('add', amount);
         tagify.on('remove', amount);
     })
@@ -179,14 +103,8 @@ const amount = async () => {
         let price = parseFloat(key.querySelector("h4").textContent.replace("$", "").replace("Precio:", ""))
         let quantity = parseInt(key.querySelector(".counter-container").querySelector("input").value)
         subT.push(price * quantity)
-        // key.querySelectorAll(".count_additional").forEach((item) => {
-        //     item.querySelectorAll("h4").forEach((h) => {
-        //         if (h.getAttribute("precio")) priceAdditional.push(parseFloat(h.getAttribute("precio")))
-        //         else priceAdditional.push(0)
-        //     })
-        // })
         key.querySelectorAll("tag").forEach((item) => {
-            priceAdditional.push(parseFloat(item.getAttribute("precio")))
+            priceAdditional.push(parseFloat(item.getAttribute("precio")) * quantity)
         })
     }
     let count2 = document.querySelector(".cont-details-product-order-other").children
@@ -286,7 +204,6 @@ const productForDetails = () => {
             feather.replace()
             plusBtn()
             amount()
-            finalData()
         }
     })
 }
@@ -315,6 +232,7 @@ formClient.addEventListener("submit", async (e) => {
             let pet = await fetch(`clients/add`, { method: "POST", body: data })
             let res = await pet.json()
             let pet2 = await searchParam({ active: 1, id: res.last_id }, "clients", 1);
+            console.log(pet2);
             if (pet2.length > 0) {
                 let template = targetClienteOrder(pet2[0])
                 document.querySelector(".cont_client-order").innerHTML = template
@@ -335,6 +253,8 @@ function addPayment() {
     document.getElementById("payments-container").insertAdjacentHTML('beforeend', elemenFormPaymentOrder(paymentCount));
     feather.replace();
     selectOptionAll(".select_options_payment", "paymentMethod", optionsRol);
+    viewImage(".input-image")
+    InputPrice("[input_price]");
     attachValidationListeners(paymentCount);
     const newProduct = document.getElementById(`payments-${paymentCount}`);
     newProduct.querySelector(".remove-payments").addEventListener("click", function () {
@@ -431,57 +351,222 @@ btn_next_payment.addEventListener("click", () => {
         setValidationStyles(`input-comprobante-order-${index}`, errors?.imagen ? errors.imagen[0] : null);
         if (errors) hasError = true
     });
-    // if (hasError) toas("error", "Complete los campos requeridos")
-    // else {
-    stepper.next()
+    if (!document.querySelector(".cont_client-order").querySelector("h4")) {
+        toas("error", "Seleccione un cliente");
+    } else if (hasError) {
+        toas("error", "Complete todos los campos");
+    } else {
+        stepper.next()
+        finalData(printConfirmDetailsOrder);
+    }
 })
-const finalData = () => {
-    let btn_confirm_order = document.querySelector(".confirm_order")
-    btn_confirm_order.addEventListener("click", () => {
-        let productProcessData = []
-        let productPreparedData = []
-        let productPrepared = document.querySelector(".cont-details-product-order-food").children
-        let productProcess = document.querySelector(".cont-details-product-order-other").children
-        for (const product of productPrepared) {
-            let additionalData = []
-            let quantity = parseInt(product.querySelector(".counter-container").querySelector("input").value);
-            let price = parseFloat(product.querySelector("h4").textContent.replace("$", "").replace("Precio:", ""));
-            let name = product.querySelector("h5").textContent;
-            let id = product.querySelector("h5").getAttribute("data-id");
-            let detalles = product.querySelector(".details").value;
-            product.querySelectorAll("tag").forEach((tag) => {
-                additionalData.push({
-                    id_producto: tag.getAttribute("id"),
-                    nombre: tag.getAttribute("value"),
-                    precio: tag.getAttribute("precio"),
-                    cantidad: 1
-                })
+const finalData = (funtion = null) => {
+    let productProcessData = []
+    let productPreparedData = []
+    let productPrepared = document.querySelector(".cont-details-product-order-food").children
+    let productProcess = document.querySelector(".cont-details-product-order-other").children
+    for (const product of productPrepared) {
+        let additionalData = []
+        let quantity = parseInt(product.querySelector(".counter-container").querySelector("input").value);
+        let price = parseFloat(product.querySelector("h4").textContent.replace("$", "").replace("Precio:", ""));
+        let name = product.querySelector("h5").textContent;
+        let id = product.querySelector("h5").getAttribute("data-id");
+        let detalles = product.querySelector(".details").value;
+        product.querySelectorAll("tag").forEach((tag) => {
+            additionalData.push({
+                id_producto: tag.getAttribute("id"),
+                nombre: tag.getAttribute("value"),
+                precio: tag.getAttribute("precio"),
+                cantidad: 1 * quantity
             })
-            productPreparedData.push({
-                id_producto: id,
-                nombre: name,
-                cantidad: quantity,
-                precio: price,
-                detalles: detalles,
-                adicionales: additionalData
-            })
-        }
-        for (const product of productProcess) {
-            let quantity = parseInt(product.querySelector(".counter-container").querySelector("input").value);
-            let price = parseFloat(product.querySelector("h4").textContent.replace("$", "").replace("Precio:", ""));
-            let name = product.querySelector("h5").textContent;
-            let id = product.querySelector("h5").getAttribute("data-id");
+        })
+        productPreparedData.push({
+            id_producto: id,
+            nombre: name,
+            cantidad: quantity,
+            precio: price,
+            detalles: detalles,
+            adicionales: additionalData
+        })
+    }
+    for (const product of productProcess) {
+        let quantity = parseInt(product.querySelector(".counter-container").querySelector("input").value);
+        let price = parseFloat(product.querySelector("h4").textContent.replace("$", "").replace("Precio:", ""));
+        let name = product.querySelector("h5").textContent;
+        let id = product.querySelector("h5").getAttribute("data-id");
 
-            productProcessData.push({
-                id_producto: id,
-                nombre: name,
-                cantidad: quantity,
-                precio: price
-            })
+        productProcessData.push({
+            id_producto: id,
+            nombre: name,
+            cantidad: quantity,
+            precio: price
+        })
+    }
+    let clientData = {
+        id_cliente: document.querySelector(".cont_client-order").querySelector("h4[id]").getAttribute("id"),
+        nameClient: document.querySelector(".cont_client-order").querySelector(".nombre_client").textContent,
+        documentClient: document.querySelector(".cont_client-order").querySelector(".document_client").textContent
+    };
+    let amountTotal = {
+        total_dolares: document.querySelector(".amount_payment_usd").textContent,
+        total_bs: document.querySelector(".amount_payment_bs").textContent
+    }
+    let directionSale = document.querySelector(".direction_sale").value;
+    let dataPayment = [];
+    const payment = document.querySelectorAll(".payments");
+    payment.forEach((payment) => {
+        const data = {
+            id_metodo_pago: payment.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
+            metodo: payment.querySelector(`input[name="id_metodo_pago"]`).value,
+            cantidad: payment.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
+            referencia: payment.querySelector(`input[name="referencia"]`).value,
+            imagen: payment.querySelector(`input[name="imagen"]`) ? payment.querySelector(`input[name="imagen"]`).files[0] : ""
+        };
+        dataPayment.push(data)
+    });
+    if (funtion) funtion(productPreparedData, productProcessData, clientData, dataPayment)
+    else return { productPreparedData, productProcessData, clientData, dataPayment, directionSale, amountTotal }
+}
+const printConfirmDetailsOrder = (productPreparedData, productProcessData, clientData, dataPayment) => {
+    document.querySelector(".name_client_confirm_order").textContent = clientData.nameClient.toUpperCase();
+    document.querySelector(".document_client_confirm_order").textContent = clientData.documentClient;
+    let templateProductPrepared = "";
+    let templateProductProcess = "";
+    let templatePayment = "";
+    productPreparedData.forEach((product) => {
+        let additional = product.adicionales.map((index) => index.nombre).join(",");
+        templateProductPrepared +=
+            `<tr>
+            <td>${product.nombre}</td>
+            <td>${product.cantidad}</td></td>
+            <td>${product.detalles == "" ? "S/D" : product.detalles}</td>
+            <td>${additional ? additional : "S/A"}</td>
+        </tr>`
+    });
+    productProcessData.forEach((product) => {
+        templateProductProcess +=
+            `<tr>
+            <td>${product.nombre}</td>
+            <td>${product.cantidad}</td></td>
+            <td>S/D</td>
+            <td>S/A</td>
+        </tr>`
+    });
+    dataPayment.forEach((payment) => {
+        const file = payment.imagen;
+        const reader = new FileReader();
+        let cantidad
+        if (payment.metodo.toLowerCase() == "efectivo") {
+            cantidad = payment.cantidad + " Bs";
+        } else if (payment.metodo.toLowerCase() == "transferencia") {
+            cantidad = payment.cantidad + " Bs";
+        } else if (payment.metodo.toLowerCase() == "pago movil") {
+            cantidad = payment.cantidad + " Bs";
+        } else {
+            cantidad = payment.cantidad + " $";
         }
-        let id_cliente = document.querySelector(".cont_client-order").querySelector("h4[id]").getAttribute("id");
+        reader.onload = (event) => {
+            const imgresult = event.target.result;
+            templatePayment +=
+                `<tr>
+                    <td>${payment.metodo}</td>
+                    <td>${cantidad}</td>
+                    <td>${payment.referencia}</td>
+                    <td><img src="${imgresult}" alt="Comprobante" style="max-width: 100px; max-height: 100px;"></td>
+                </tr>`;
 
-    })
+            document.querySelector(".cont_confirm_payment_order").innerHTML = templatePayment;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    document.querySelector(".cont_confirm_product_order").innerHTML = templateProductPrepared;
+    document.querySelector(".cont_confirm_product_order").innerHTML += templateProductProcess;
 }
 attachValidationListeners(1)
-//<div class="d-flex flex-column align-items-center justify-content-center p-3 popover-button"><i data-feather="plus-circle"></i><h4 class="m-0">Adicional</h4></div><div class="popover-content" style="display: none;"></div>
+//enviar orden
+let btnSendOrder = document.querySelector(".confirm_order");
+btnSendOrder.addEventListener("click", async () => {
+    let order = new FormData();
+    const { productPreparedData, productProcessData, clientData, dataPayment, directionSale, amountTotal } = finalData()
+    let nro_orden = Math.floor(Math.random() * (99999999 - 10000000 + 1)) + 10000000
+    order.append("id_cliente", clientData.id_cliente);
+    order.append("tipo", "delivery")
+    order.append("nro_orden", nro_orden)
+    let index = 0;
+    productPreparedData.forEach((product) => {
+        let additionalText = product.adicionales.map((index) => index.nombre).join(",");
+        order.append(`lista_detalle_preparado[${index}][id_producto]`, product.id_producto);
+        order.append(`lista_detalle_preparado[${index}][cantidad]`, product.cantidad);
+        order.append(`lista_detalle_preparado[${index}][adicionales]`, additionalText);
+        index++
+    })
+    let groupedAdicionales = {};
+    productPreparedData.forEach((product) => {
+        product.adicionales.forEach((aditional) => {
+            const key = aditional.id_producto;
+            if (!groupedAdicionales[key]) groupedAdicionales[key] = { ...aditional };
+            else groupedAdicionales[key].cantidad += aditional.cantidad;
+        });
+    });
+    let result = Object.values(groupedAdicionales);
+    result.forEach((aditional) => {
+        order.append(`lista_detalle_preparado[${index}][id_producto]`, aditional.id_producto);
+        order.append(`lista_detalle_preparado[${index}][cantidad]`, aditional.cantidad);
+        index++
+    })
+    let petOrder = await fetch("order/add", { method: "POST", body: order })
+    let resOrder = await petOrder.json()
+    console.log(resOrder);
+    let id_orden = resOrder.last_id
+
+    let dataSale = new FormData();
+    dataSale.append("id_orden", id_orden)
+    dataSale.append("id_caja", await CheckCash())
+    dataSale.append("monto_final", amountTotal.total_dolares)
+    dataSale.append("direccion", directionSale)
+    let petSale = await fetch("sale/add", { method: "POST", body: dataSale })
+    let resSale = await petSale.json()
+    console.log(resSale);
+    let id_venta = resSale.last_id
+
+    let dolar = await amountDolar()
+    let paymentData = new FormData();
+    dataPayment.forEach((payment, index) => {
+        paymentData.append(`lista[${index}][id_venta]`, id_venta)
+        paymentData.append(`lista[${index}][id_metodo_pago]`, payment.id_metodo_pago)
+        paymentData.append(`lista[${index}][monto]`, payment.cantidad)
+        paymentData.append(`lista[${index}][tasa]`, dolar)
+        paymentData.append(`lista[${index}][referencia]`, payment.referencia)
+        paymentData.append(`lista[${index}][imagen]`, payment.imagen)
+        paymentData.append(`lista[${index}][imagen_name]`, payment.imagen.name)
+    })
+    let petPayment = await fetch("payment/add_many", { method: "POST", body: paymentData })
+    let resPayment = await petPayment.json()
+    console.log(resPayment);
+    if (resPayment.success == true) {
+        bootstrap.Modal.getOrCreateInstance('#domicile').hide()
+        Swal.fire({
+            title: `Exito!`,
+            text: "Se creo la orden de domicilio",
+            icon: "success",
+        });
+        binnacle(session.message.id, 'Orden de domicilio', 'Creacion', 'Se creo una orden de domicilio')
+        setTimeout(() => {
+            window.location.href = "order";
+        }, 1000);
+    } else {
+        Swal.fire({
+            title: `Error!`,
+            text: "Hubo un error al crear la orden",
+            icon: "error",
+        });
+    }
+})
+
+let algo = async () => {
+    let pet = await fetch("order/get_all")
+    let res = await pet.json()
+    console.log(res)
+}
+algo()

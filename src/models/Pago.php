@@ -10,6 +10,7 @@ class Pago extends Db_base {
     private $monto;
     private $fecha;
     private $tasa;
+    private $referencia;
     private $comprobante;
 
     public function __construct(
@@ -19,7 +20,10 @@ class Pago extends Db_base {
         $monto = null,
         $fecha = null,
         $tasa = null,
-        $comprobante = null
+        $referencia = null,
+        $comprobante = null,
+        $imagen_name = null
+
     ) {
         parent::__construct("pagos");
         
@@ -29,7 +33,8 @@ class Pago extends Db_base {
         $this->monto = $monto;
         $this->fecha = $fecha;
         $this->tasa = $tasa;
-        $this->comprobante = $comprobante;
+        $this->referencia = $referencia;
+        $this->comprobante = $imagen_name;
 
         $this->add_variables([
             "a.id" => $this->id,
@@ -38,6 +43,7 @@ class Pago extends Db_base {
             "a.monto" => $this->monto,
             "a.fecha" => $this->fecha,
             "a.tasa" => $this->tasa,
+            "a.referencia" => $this->referencia,
             "a.comprobante" => $this->comprobante
         ]);
     }

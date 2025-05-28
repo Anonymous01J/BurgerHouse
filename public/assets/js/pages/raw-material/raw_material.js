@@ -1,9 +1,9 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 
-const { validateField, setValidationStyles, selectOptionAll, reindex, resetForm, addDataTables, deleteDatatable, editDataTables, updateDataTables } = functionGeneral();
+const { validateField, setValidationStyles, selectOptionAll, reindex, resetForm, addDataTables, deleteDatatable, editDataTables, updateDataTables, sessionInfo, binnacle } = functionGeneral();
 const { elemenFormRawMaterial, optionsRol } = Templates()
-
+let session = await sessionInfo()
 selectOptionAll(".select_options_categorys_rawmaterial", "categoryMateriaPrima", optionsRol)
 selectOptionAll(".select_options_units_rawmaterial", "units", optionsRol)
 selectOptionAll(".select_options_categorys_rawmaterial_edit", "categoryMateriaPrima", optionsRol)
@@ -54,7 +54,7 @@ let n = $(".table_rawmaterial").DataTable({
 $('#searchRawmaterial').on('keyup', function () {
     n.search(this.value).draw();
 });
-deleteDatatable(".table_rawmaterial", n)
+deleteDatatable(".table_rawmaterial", n, () => binnacle(session.message.id, "Materia Prima", "Eliminacion", "Se ha eliminado una Materia Prima"))
 // ------------------Funcion de select de categoria y receta---------------------------
 
 // ------------------Validaciones---------------------------
@@ -137,7 +137,6 @@ function attachValidationListeners(index) {
         });
     });
 }
-
 document.getElementById("add-rawmaterial-btn").addEventListener("click", () => {
     addRawMaterial()
     reindex("#rawmaterials-container .rawmaterials", "rawmaterials", RawmaterialCount, "Materia Prima");
@@ -265,7 +264,7 @@ if (!form.dataset.listenerAttached) {
                 datafinal.append(`lista[${index}][stock_min]`, material.min)
                 datafinal.append(`lista[${index}][stock_max]`, material.max)
             })
-            addDataTables(n, datafinal, "rawmaterial")
+            addDataTables(n, datafinal, "rawmaterial", binnacle(session.message.id, "Materia Prima", "Agregar", "Se creo un nueva materia prima"))
             bootstrap.Modal.getOrCreateInstance('#register-rawMaterial').hide()
             resetForm("#rawmaterial-container .rawmaterial", form)
 
@@ -324,7 +323,7 @@ editDataTables(".table_rawmaterial", (response) => {
                 datafinal.append("id_unidad", data.id_unidad)
                 datafinal.append("stock_min", data.min)
                 datafinal.append("stock_max", data.max)
-                updateDataTables(n, datafinal, "rawmaterial")
+                updateDataTables(n, datafinal, "rawmaterial", binnacle(session.message.id, "Materia Prima", "Actualizacion", "Se actualizo una materia prima"))
                 bootstrap.Modal.getOrCreateInstance('#edit-rawMaterial').hide()
             }
         })

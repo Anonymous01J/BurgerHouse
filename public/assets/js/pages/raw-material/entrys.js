@@ -1,12 +1,12 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 const { optionsSupplier, optionsRawMaterial, elementFormEntrysRawMaterial } = Templates()
-const { InputPrice, selectOptionAll, viewImage, reindex, resetForm, setValidationStyles, validateField, fecha, reference, searchParam, diasRestantesFechaVencimiento } = functionGeneral();
+const { InputPrice, selectOptionAll, viewImage, reindex, resetForm, setValidationStyles, validateField, fecha, reference, searchParam, diasRestantesFechaVencimiento, sessionInfo, binnacle } = functionGeneral();
 selectOptionAll(".select_options_supplier", "supplier", optionsSupplier)
 selectOptionAll(".select_options_raw_material", "rawmaterial", optionsRawMaterial)
 InputPrice("[input_price]")
 viewImage(".input-image")
-
+let session = await sessionInfo()
 //setear valores de las tarjetas de entradas
 const cardEntrys = async () => {
     let entrysTotales = await searchParam({}, "Entrada_materia_prima")
@@ -347,6 +347,7 @@ if (!form.dataset.listenerAttached) {
                     tableVencidas.ajax.reload();
                     tableSinStock.ajax.reload();
                     cardEntrys()
+                    binnacle(session.message.id, "Entradas", "Agregado", "Se ha agregado una entrada de materia prima")
                 } else {
                     Swal.fire({
                         title: `Error!`,

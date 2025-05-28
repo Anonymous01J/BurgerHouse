@@ -419,7 +419,7 @@
                     </div>
                 </div><!-- Menu Filters -->
 
-                <div id="productsPrepared-container" class="row isotope-container" data-aos="fade-up" data-aos-delay="200">
+                <div id="productsPrepared-container" class="row isotope-container h-100" data-aos="fade-up" data-aos-delay="200">
                     <?php foreach ($productos as $producto): ?>
                         <div class="col-lg-6 menu-item isotope-item filter-<?= htmlspecialchars($producto['id_categoria']) ?>">
                             <img src="<?= !empty($producto['imagen']) ? htmlspecialchars($producto['imagen']) : './assets/img/menu/lobster-roll.jpg' ?>" class="menu-img" alt="">
@@ -1223,6 +1223,7 @@
     <script src="./assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="./assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="./assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script type="module" src="./assets/js/web/main.js"></script>
     <script>
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('.toolTip'))
         var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
@@ -1260,7 +1261,6 @@
         }
     </script>
     <!-- Main JS File -->
-    <script type="module" src="./assets/js/web/main.js"></script>
 
 </body>
 
