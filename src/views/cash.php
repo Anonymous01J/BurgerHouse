@@ -53,48 +53,8 @@
                         </button>
                     </div>
 
-                    <div class="row">
-                        <?php for ($i = 0; $i < 1; $i++) { ?>
-                            <div class="col-md-4 col-lg-3 ">
-                                <div class="position-relative">
-                                    <span class="badge bg-success d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;" data-bs-toggle="tooltip" data-bs-title="Estado de caja" data-bs-placement="top">
-                                        <span><i style="font-size: 20px;" data-feather="inbox" class="svg-icon"></i></span>
-                                    </span>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="mb-3 border-bottom">
-                                                <div class="d-flex justify-content-between ">
-                                                    <h5 class="card-title">Nro Caja</h5>
-                                                    <div>
-                                                        <p class="fs-6">15</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <p class="fw-lighter fs-6">Fecha: 15/3/2025</p>
-                                                    <p class="fw-lighter fs-6">Hora: 13:40</p>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row gap-3">
-                                                <div class="d-flex flex-column gap-4">
-                                                    <div class="d-flex align-item-center justify-content-between text-start">
-                                                        <div>Usuario</div>
-                                                        <div class="fs-6">Jose Escalona</div>
-                                                    </div>
-
-                                                    <div class="d-flex justify-content-center pt-3 border-top gap-4">
-                                                        <button class="btn bh_1" style="color: #fff;">Cerrar</button>
-                                                        <button class="btn bh_5" style="color: #fff;">Detalles</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
-
+                    <div class="row cont-cash_open">
+                       
                     </div>
                 </div>
 
@@ -106,53 +66,11 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <?php for ($i = 0; $i < 1; $i++) { ?>
-                            <div class="col-md-4 col-lg-3 ">
-                                <div class="position-relative">
-                                    <span class="badge bg-danger d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;" data-bs-toggle="tooltip" data-bs-title="Estado de caja" data-bs-placement="top">
-                                        <span><i style="font-size: 20px;" data-feather="inbox" class="svg-icon"></i></span>
-                                    </span>
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="mb-3 border-bottom">
-                                                <div class="d-flex justify-content-between ">
-                                                    <h5 class="card-title">Nro Caja</h5>
-                                                    <div>
-                                                        <p class="fs-6">15</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <p class="fw-lighter fs-6">Fecha: 15/3/2025</p>
-                                                    <p class="fw-lighter fs-6">Hora: 13:40</p>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row gap-3">
-                                                <div class="d-flex flex-column gap-4">
-                                                    <div class="d-flex align-item-center justify-content-between text-start">
-                                                        <div>Usuario</div>
-                                                        <div class="fs-6">Jose Escalona</div>
-                                                    </div>
-
-                                                    <div class="d-flex justify-content-center pt-3 border-top">
-                                                        <button class="btn bh_5" style="color: #fff;">Detalles</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
-
+                    <div class="row cont-cash">
+                       
                     </div>
-
                 </div>
-
                 <?php include_once __DIR__ . '/../Views/Components/modals/cash/modal.php' ?>
-
             </div>
         </div>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

@@ -55,6 +55,29 @@ export default function Templates() {
         </div>
                 `
     }
+    function targetCash(objet) {
+        function hora(f) {
+            const fecha = new Date(f);
+            const horas = fecha.getHours();
+            const minutos = fecha.getMinutes();
+            const periodo = horas >= 12 ? "PM" : "AM";
+            const horas12 = horas % 12 || 12;
+            const horaFormateada = `${horas12}:${minutos < 10 ? `0${minutos}` : minutos} ${periodo}`;
+            return horaFormateada;
+        }
+        function fecha(f) {
+            const fecha = new Date(f);
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1;
+            const anio = fecha.getFullYear();
+            const fechaFormateada = `${dia}/${mes}/${anio}`;
+            return fechaFormateada;
+        }
+        return `
+        
+        
+        `
+    }
     function targetSupplier(objet) {
         return `
         <div class="col-md-4 col-lg-3 ">
@@ -1205,7 +1228,7 @@ export default function Templates() {
         </div>
         `
     }
-    function targetClienteOrder(objet){
+    function targetClienteOrder(objet) {
         return `
         <div class="col-sm-6 col-md-6 col-lg-3" id="${objet.id}">
             <div class="card">
@@ -1226,7 +1249,7 @@ export default function Templates() {
         </div>
         `
     }
-    function elemenFormPaymentOrder(objet){
+    function elemenFormPaymentOrder(objet) {
         return `
         <div class="row g-2 payments" id="payments-${objet}">
             <div class="d-flex align-items-center gap-4 mb-3 mt-5">
@@ -1285,6 +1308,7 @@ export default function Templates() {
         targetSupplier,
         targetUser,
         targetClient,
+        targetCash,
         targetRecipe,
         itemIngredientes,
         targetPermission,
@@ -1312,7 +1336,7 @@ export default function Templates() {
         selectProduct,
         targetDetailProductOrder,
         targetDetailOtherOrder,
-        tagAdditional, 
+        tagAdditional,
         targetClienteOrder,
         elemenFormPaymentOrder
     }

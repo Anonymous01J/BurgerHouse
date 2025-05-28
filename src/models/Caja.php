@@ -57,6 +57,7 @@ class Caja extends Db_base {
             a.id,
             a.id_usuario,
             b.nombre AS nombre_usuario,
+            b.apellido AS apellido_usuario,
             a.monto_inicial_bs,
             a.monto_inicial_dolar,
             a.monto_final_bs,
