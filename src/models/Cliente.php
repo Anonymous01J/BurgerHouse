@@ -9,7 +9,6 @@ class Cliente extends Db_base {
     private $apellido;
     private $documento;
     private $telefono;
-    // private $direccion;
     private $active;
     private $nombre_like;
 
@@ -19,7 +18,6 @@ class Cliente extends Db_base {
         $apellido = null,
         $documento = null,
         $telefono = null,
-        // $direccion = null,
         $active = null,
         $nombre_like = null
     ) {
@@ -30,7 +28,6 @@ class Cliente extends Db_base {
         $this->apellido = $apellido;
         $this->documento = $documento;
         $this->telefono = $telefono;
-        // $this->direccion = $direccion;
         $this->active = $active;
         $this->nombre_like = $nombre_like;
 
@@ -40,7 +37,6 @@ class Cliente extends Db_base {
             "a.apellido" => $this->apellido,
             "a.documento" => $this->documento,
             "a.telefono" => $this->telefono,
-            // "a.direccion" => $this->direccion,
             "a.active" => $this->active
         ]);
 

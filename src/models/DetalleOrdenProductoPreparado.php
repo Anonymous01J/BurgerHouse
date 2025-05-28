@@ -10,9 +10,7 @@ class DetalleOrdenProductoPreparado extends Db_base {
     private $id_orden;
     private $cantidad;
     private $descripcion;
-    private $comprobante;
     private $adicionales;
-    private $active;
 
     public function __construct(
         $id = null,

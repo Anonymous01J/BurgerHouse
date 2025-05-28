@@ -1,7 +1,4 @@
 ﻿no tiene views la base de datos, asi que jose, arregla eso xD
 
-falta el session_id y el recovery_token en tabla usuarios.
-y correo.
-
 el usuario es: Admin;
 la contraseña es: (Tocuyo#123).
