@@ -3,37 +3,26 @@ export default function Templates() {
    return`<li data-filter=".filter-${data.id}">${data.nombre}</li>`;
   }
   function targetProductsPrepared(data) {
-    if (!Array.isArray(data) || data.length === 0) {
-      console.warn("No hay productos preparados para mostrar.");
-      return `<div>No hay productos preparados disponibles.</div>`;
-    }
-
-    let html = "";
-    data.forEach((product) => {
-      html += `
-            <div class="col-lg-6 menu-item isotope-item filter-${product.id_categoria}">
-                <img src="assets/img/menu/${product.imagen}.jpg" class="menu-img" alt="${product.nombre}">
+      return `<div class="col-lg-6 menu-item isotope-item filter-${data.id_categoria}">
+                <img src="assets/img/menu/${data.imagen}.jpg" class="menu-img" alt="${data.nombre}">
                 <div class="menu-content d-flex justify-content-between align-items-center">
-                    <a href="#">${product.nombre}</a><span>$${product.precio}</span>
+                    <a href="#">${data.nombre}</a><span>$${data.precio}</span>
                 </div>
                 <div class="menu-ingredients mb-2">
-                    ${product.detalles}
+                    ${data.detalles}
                 </div>
                 <div class="d-flex justify-content-end">
                     <button
                     class="btn btn-book-a-table"
                     data-bs-toggle="modal"
                     data-bs-target="#addToCartModal"
-                    data-id="${product.id}"
-                    data-name="${product.nombre}"
-                    data-price="${product.precio}">
+                    data-id="${data.id}"
+                    data-name="${data.nombre}"
+                    data-price="${data.precio}">
                     Agregar al carrito <i class="uil uil-shopping-cart-alt"></i>
                     </button>
                 </div>
-            </div>
-            `;
-    });
-    return html;
+            </div>`;
   }
   return {
     targetProductsPrepared,

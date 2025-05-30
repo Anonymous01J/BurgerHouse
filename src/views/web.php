@@ -403,45 +403,15 @@
 
                 <div class="row" data-aos="fade-up" data-aos-delay="100">
                     <div class="col-lg-12 d-flex justify-content-center">
-                        <ul id="categories-container" class="menu-filters isotope-filters">
+                        <ul class="menu-filters isotope-filters">
                             <li data-filter="*" class="filter-active">Todos</li>
-                            <?php
-                            if (!empty($categorias)) {
-                                foreach ($categorias as $categoria) {
-                                    // Imprime cada categoría en el formato deseado
-                                    echo '<li data-filter=".filter-' . htmlspecialchars($categoria['id']) . '">' . htmlspecialchars($categoria['nombre']) . '</li>';
-                                }
-                            } else {
-                                echo '<li>No se encontraron categorías.</li>';
-                            }
-                            ?>
+                            <span id="categories-container"></span>
                         </ul>
                     </div>
                 </div><!-- Menu Filters -->
 
                 <div id="productsPrepared-container" class="row isotope-container h-100" data-aos="fade-up" data-aos-delay="200">
-                    <?php foreach ($productos as $producto): ?>
-                        <div class="col-lg-6 menu-item isotope-item filter-<?= htmlspecialchars($producto['id_categoria']) ?>">
-                            <img src="<?= !empty($producto['imagen']) ? htmlspecialchars($producto['imagen']) : './assets/img/menu/lobster-roll.jpg' ?>" class="menu-img" alt="">
-                            <div class="menu-content d-flex justify-content-between align-items-center">
-                                <a href="#"><?= htmlspecialchars($producto['nombre']) ?></a><span>$<?= htmlspecialchars($producto['precio']) ?></span>
-                            </div>
-                            <div class="menu-ingredients mb-2">
-                                <?= htmlspecialchars($producto['detalles']) ?>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button
-                                    class="btn btn-book-a-table"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#addToCartModal"
-                                    data-id="<?= htmlspecialchars($producto['id']) ?>"
-                                    data-name="<?= htmlspecialchars($producto['nombre']) ?>"
-                                    data-price="<?= htmlspecialchars($producto['precio']) ?>">
-                                    Agregar al carrito <i class="uil uil-shopping-cart-alt"></i>
-                                </button>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
+
                 </div><!-- End Menu Items -->
         </section><!-- /Menu Section -->
 
