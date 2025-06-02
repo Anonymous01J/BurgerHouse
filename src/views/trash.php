@@ -47,7 +47,6 @@
                                                         <a class="dropdown-item" data-key="product_prepared">Productos Preparados</a>
                                                         <a class="dropdown-item" data-key="product_processed">Productos Procesados</a>
                                                         <a class="dropdown-item" data-key="materia_prima">Materia Prima</a>
-                                                        <a class="dropdown-item" data-key="">Receta</a>
                                                         <a class="dropdown-item" data-key="Adicionales">Adicionales</a>
                                                         <a class="dropdown-item" data-key="Proveedores">Proveedores</a>
                                                         <a class="dropdown-item" data-key="Clientes">Clientes</a>

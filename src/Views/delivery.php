@@ -1,13 +1,10 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
-
-
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
 
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
 
     <div class="page-wrapper">
@@ -25,14 +22,11 @@
                         </nav>
                     </div>
                 </div>
-                
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-                
             </div>
         </div>
 
         <div class="container-fluid">
-
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Pendientes</button>
@@ -45,126 +39,34 @@
             <div class="tab-content" id="myTabContent">
 
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-
                     <div class="row g-3 align-items-center my-4">
                         <div class="col-auto">
                             <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
                     </div>
 
-                    <div class="row">
-                        <?php for ($i = 0; $i < 5; $i++) { ?>
-                            <div class="col-md-4 col-lg-3">
-                                <div class="m-auto">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="mb-3 border-bottom">
-                                                <div class="d-flex justify-content-between ">
-                                                    <h5 class="card-title">Nro Orden</h5>
-                                                    <div>
-                                                        <p class="fs-6">454558</p>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <p class="fw-lighter fs-6">Fecha: 15/3/2025</p>
-                                                    <p class="fw-lighter fs-6">Hora: 13:40</p>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="row gap-3">
-                                                <div class="d-flex flex-column gap-4">
-                                                    <div class="d-flex align-item-center justify-content-between text-start">
-                                                        <div>Cliente</div>
-                                                        <div class="fs-6">Jose Escalona</div>
-                                                    </div>
-                                                    <div class="d-flex align-item-center justify-content-between text-start">
-                                                        <div>Nro de contacto</div>
-                                                        <div class="fs-6">04126742231</div>
-                                                    </div>
-                                                    <div class="d-flex justify-content-between">
-                                                        <div class="text-start">Direccion</div>
-                                                        <div class=" text-end fs-6 w-50 text-truncate">Una direccion cualquiera detras de algo</div>
-                                                    </div>
-                                                    <div class="d-flex justify-content-around pt-3 border-top">
-                                                        <button data-bs-toggle="modal" data-bs-target="#confirmAction" class="btn btn-sm bh_1" style="color: #fff;">Aceptar Entrega</button>
-                                                        <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        <?php } ?>
-
+                    <div class="row cont-delivery-pending">
+                        
                     </div>
                 </div>
 
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-
                     <div class="row g-3 align-items-center my-4">
                         <div class="col-auto">
                             <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-4 col-lg-3 ">
-                            <div class="position-relative">
-                                <span class="badge bh_1 d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;">
-                                    <span><i style="font-size: 24px;" data-feather="check-circle" class="svg-icon"></i></span>
-                                </span>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="mb-3 border-bottom">
-                                            <div class="d-flex justify-content-between ">
-                                                <h5 class="card-title">Nro Orden</h5>
-                                                <div>
-                                                    <p class="fs-6">454558</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
-                                                <p class="fw-lighter fs-6">Fecha: 15/3/2025</p>
-                                                <p class="fw-lighter fs-6">Hora: 13:40</p>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row gap-3">
-                                            <div class="d-flex flex-column gap-4">
-                                                <div class="d-flex align-item-center justify-content-between text-start">
-                                                    <div>Cliente</div>
-                                                    <div class="fs-6">Jose Escalona</div>
-                                                </div>
-                                                <div class="d-flex justify-content-between">
-                                                    <div class="text-start">Direccion</div>
-                                                    <div class=" text-end fs-6 w-50 text-truncate">Una direccion cualquiera detras de algo</div>
-                                                </div>
-                                                <div class="d-flex justify-content-center pt-3 border-top">
-                                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="row cont-delivery-off">
+                        
                     </div>
 
                 </div>
-
-
             </div>
         </div>
-
-        <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/modals/delivery-kitchen/modal.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
-
     </div>
-
-
 
     <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
     <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -173,4 +75,4 @@
     <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
-    <script src="./assets/js/pages/dashboards/dashboard1.min.js"></script>
+    <script type="module" src="./assets/js/pages/delivery/delivery.js"></script>

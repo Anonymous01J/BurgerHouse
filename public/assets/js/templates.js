@@ -74,8 +74,158 @@ export default function Templates() {
             return fechaFormateada;
         }
         return `
-        
-        
+        <div class="col-md-4 col-lg-3 ">
+            <div class="position-relative">
+                <span class="badge ${objet.estado == 1 ? "bg-success" : "bg-danger"} d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;" data-bs-toggle="tooltip" data-bs-title="Estado de caja" data-bs-placement="top">
+                    <span><i style="font-size: 20px;" data-feather="inbox" class="svg-icon"></i></span>
+                </span>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3 border-bottom">
+                            <div class="d-flex justify-content-between ">
+                                <h5 class="card-title">Nro Caja</h5>
+                                <div>
+                                    <p class="fs-6">${objet.id}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="fw-lighter fs-6">Fecha: ${fecha(objet.fecha_apertura)}</p>
+                                <p class="fw-lighter fs-6">Hora: ${hora(objet.fecha_apertura)}</p>
+                            </div>
+                        </div>
+
+
+                        <div class="row gap-3">
+                            <div class="d-flex flex-column gap-4">
+                                <div class="d-flex align-item-center justify-content-between text-start">
+                                    <div>Usuario</div>
+                                    <div class="fs-6">${objet.nombre_usuario + " " + objet.apellido_usuario}</div>
+                                </div>
+
+                                <div class="d-flex justify-content-center pt-3 border-top ${objet.estado == 1 ? "gap-3" : ""}">
+                                    ${objet.estado == 1 ? `<button class="btn bh_1" style="color: #fff;">Cerrar</button>` : ""}
+                                    <button class="btn bh_5" style="color: #fff;">Detalles</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     `
+    }
+    function targetKitchen(objet) {
+        function hora(f) {
+            const fecha = new Date(f);
+            const horas = fecha.getHours();
+            const minutos = fecha.getMinutes();
+            const periodo = horas >= 12 ? "PM" : "AM";
+            const horas12 = horas % 12 || 12;
+            const horaFormateada = `${horas12}:${minutos < 10 ? `0${minutos}` : minutos} ${periodo}`;
+            return horaFormateada;
+        }
+        function fecha(f) {
+            const fecha = new Date(f);
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1;
+            const anio = fecha.getFullYear();
+            const fechaFormateada = `${dia}/${mes}/${anio}`;
+            return fechaFormateada;
+        }
+        return `
+        <div class="col-md-4 col-lg-3"">
+            <div class="m-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3 border-bottom">
+                            <div class="d-flex justify-content-between ">
+                                <h5 class="card-title">Nro Orden</h5>
+                                <div>
+                                    <p class="fs-6">${objet.nro_orden}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="fw-lighter fs-6">Fecha: ${fecha(objet.fecha)}</p>
+                                <p class="fw-lighter fs-6">Hora: ${hora(objet.fecha)}</p>
+                            </div>
+                        </div>
+                        <div class="row gap-3">
+                            <div class="d-flex flex-column gap-4">
+                                <div class="d-flex align-item-center justify-content-between text-start">
+                                    <div>Cliente</div>
+                                    <div class="fs-6">${objet.cliente_nombre + " " + objet.cliente_apellido}</div>
+                                </div>
+                                <div class="d-flex justify-content-around pt-3 border-top">
+                                    ${objet.status == 1 ? `<button class="btn bh_1 btn_prepared" id_order="${objet.id}" style="color: #fff;">Preparar</button>` : ""}
+                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn bh_5" style="color: #fff;">Detalles</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    }
+    function targetDelivery(objet) {
+        function hora(f) {
+            const fecha = new Date(f);
+            const horas = fecha.getHours();
+            const minutos = fecha.getMinutes();
+            const periodo = horas >= 12 ? "PM" : "AM";
+            const horas12 = horas % 12 || 12;
+            const horaFormateada = `${horas12}:${minutos < 10 ? `0${minutos}` : minutos} ${periodo}`;
+            return horaFormateada;
+        }
+        function fecha(f) {
+            const fecha = new Date(f);
+            const dia = fecha.getDate();
+            const mes = fecha.getMonth() + 1;
+            const anio = fecha.getFullYear();
+            const fechaFormateada = `${dia}/${mes}/${anio}`;
+            return fechaFormateada;
+        }
+        return `
+        <div class="col-md-4 col-lg-3">
+            <div class="m-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="mb-3 border-bottom">
+                            <div class="d-flex justify-content-between ">
+                                <h5 class="card-title">Nro Orden</h5>
+                                <div>
+                                    <p class="fs-6">${objet.nro_orden}</p>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <p class="fw-lighter fs-6">Fecha: ${fecha(objet.fecha)}</p>
+                                <p class="fw-lighter fs-6">Hora: ${hora(objet.fecha)}</p>
+                            </div>
+                        </div>
+                        <div class="row gap-3">
+                            <div class="d-flex flex-column">
+                                <div class="text-start">
+                                    <div>Cliente</div>
+                                    <p class="fs-6">${objet.cliente_nombre + " " + objet.cliente_apellido}</p>
+                                </div>
+                                <div class="text-start">
+                                    <div>Nro de contacto</div>
+                                    <p class="fs-6">${objet.cliente_telefono}</p>
+                                </div>
+                                <div class="">
+                                    <div class="text-start">Direccion</div>
+                                    <p class="fs-6 w-100 text-truncate">${objet.direccion}</p>
+                                </div>
+                                <div class="d-flex justify-content-around pt-3 border-top">
+                                    ${objet.status == 2 ? `<button class="btn btn-sm bh_1 text-white btn_sale" id_order="${objet.id}" id_venta="${objet.id_venta}">Aceptar Entrega</button>` : ""}
+                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         `
     }
     function targetSupplier(objet) {
@@ -140,7 +290,7 @@ export default function Templates() {
                             <div class="d-flex justify-content-between ">
                                 <h5 class="card-title">${objet.nombre + " " + objet.apellido}</h5>
                                 <div>
-                                    <p style="font-size: 12px"">${objet.documento}</p>
+                                    <p style="font-size: 12px"">${objet.id}</p>
                                 </div>
                             </div>
                         </div>
@@ -624,6 +774,48 @@ export default function Templates() {
                     <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-recipe-${objet}" name="cantidad" value="${objet2 ? objet2.cantidad : ''}">
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-quantity-recipe-${objet}"></div>
+            </div>
+        </div>
+        `
+    }
+    function elemenFormEditRecipe(objet, objet2 = null) {
+        return `
+        <div class="row g-2 recipe-edit" id="recipe-edit-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-0 mt-4">
+                <h4 class="m-0">Item ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-recipe" data-id="${objet2 ? objet2.id : ''}">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-6">
+                <label for="inputCity" class="form-label">Materia prima</label>
+                <div class="dropdown select_options_edit_rawmaterial">
+                    <div class="dropdown">
+                        <div class="btn-group w-100" bis_skin_checked="1">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="${objet2 ? objet2.ingrediente : 'Seleccione una opcion'}" id="input-edit-rawmaterial-${objet}" name="id_rawmaterial" data-id="${objet2 ? objet2.id_materia_prima : 'Seleccione una opcion'}">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span> <i data-feather="chevron-down"></i></span>
+                            </button>
+                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                <div>
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
+                                </div>
+                                <div class="options_search">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-edit-rawmaterial-${objet}"></div>
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Cantidad</label>
+                <div class="input-group">
+                    <span class="input-group-text type_unit">${objet2 ? objet2.unidad : '0'}</span>
+                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-edit-quantity-${objet}" name="cantidad" value="${objet2 ? String(objet2.cantidad).replace('.', ',') : ''}">
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-edit-quantity-${objet}"></div>
             </div>
         </div>
         `
@@ -1306,6 +1498,8 @@ export default function Templates() {
         targetProductPrepared,
         targetProductProcess,
         targetSupplier,
+        targetKitchen,
+        targetDelivery,
         targetUser,
         targetClient,
         targetCash,
@@ -1317,6 +1511,7 @@ export default function Templates() {
         elemenFormCategoryProduct,
         elemenFormCategoryRawmaterial,
         elemenFormTables,
+        elemenFormEditRecipe,
         elemenFormUnit,
         elemenFormPaymentMethod,
         elemenFormRawMaterial,

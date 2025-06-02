@@ -2,7 +2,7 @@ import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 
 const { InputPrice, selectOptionAll, setValidationStyles, validateField, reindex, resetForm, edit, searchParam, sessionInfo, binnacle } = functionGeneral();
-const { elemenFormRecipe, optionsRol, optionsRawMaterial, targetRecipe, itemIngredientes } = Templates()
+const { elemenFormRecipe, optionsRol, optionsRawMaterial, targetRecipe, itemIngredientes, elemenFormEditRecipe } = Templates()
 InputPrice("[input_price]");
 selectOptionAll(".select_options_product", "productPrepared", optionsRol)
 selectOptionAll(".select_options_rawmaterial", "rawmaterial", optionsRawMaterial)
@@ -168,49 +168,90 @@ async function renderizarTarjetas(param) {
         document.querySelector(".cont_recipe").innerHTML = templatejk;
         feather.replace();
         edit((response) => {
-            let objectActual = response
-            let objectSend = []
+            let objectActual = response;
+            let objectSend = [];
             let data = new FormData();
             let template = "";
             let index = 0;
+            document.getElementById("recipe-edit-container").innerHTML = "";
             response.forEach((item, i) => {
                 index++;
-                template += elemenFormRecipe(index, item);
+                template += elemenFormEditRecipe(index, item);
             });
             document.getElementById("recipe-edit-container").innerHTML = template;
-            selectOptionAll(".select_options_product", "productPrepared", optionsRol)
-            selectOptionAll(".select_options_rawmaterial", "rawmaterial", optionsRawMaterial)
+            selectOptionAll(".select_options_edit_rawmaterial", "rawmaterial", optionsRawMaterial);
             InputPrice("[input_price]");
             feather.replace();
-            attachValidationListeners(index);
-            document.getElementById("add-recipe-edit-btn").addEventListener("click", async () => {
-                index++;
-                document.getElementById("recipe-edit-container").innerHTML += elemenFormRecipe(index);
-                feather.replace();
-                selectOptionAll(".select_options_product", "productPrepared", optionsRol)
-                selectOptionAll(".select_options_rawmaterial", "rawmaterial", optionsRawMaterial)
-                InputPrice("[input_price]");
-                attachValidationListeners(index);
-                reindex("#recipe-edit-container .recipes", "recipes", index, "Item");
-                deleteItem()
-        
+            document.querySelectorAll(".recipe-edit").forEach((item, i) => {
+                item.querySelectorAll("input[type='text'], input[type='button']").forEach((input) => {
+                    input.addEventListener("keyup", (e) => validateField(e, rules));
+                });
             });
+            if (!document.getElementById("add-recipe-edit-btn").dataset.listenerAttached) {
+                document.getElementById("add-recipe-edit-btn").addEventListener("click", async () => {
+                    index++;
+                    document.getElementById("recipe-edit-container").innerHTML += elemenFormEditRecipe(index);
+                    feather.replace();
+                    selectOptionAll(".select_options_edit_rawmaterial", "rawmaterial", optionsRawMaterial);
+                    InputPrice("[input_price]");
+                    document.querySelectorAll(".recipe-edit").forEach((item, i) => {
+                        item.querySelectorAll("input[type='text'], input[type='button']").forEach((input) => {
+                            input.addEventListener("keyup", (e) => validateField(e, rules));
+                        });
+                    });
+                    reindex("#recipe-edit-container .recipe-edit", "recipe-edit", index, "Item");
+                    deleteItem();
+                });
+                document.getElementById("add-recipe-edit-btn").dataset.listenerAttached = "true";
+            }
             const deleteItem = async () => {
-                let recipe = document.querySelectorAll(".remove-recipe").forEach((item, i) => {
+                document.querySelectorAll(".remove-recipe").forEach((item, i) => {
                     item.addEventListener("click", async function () {
-                        item.closest(".recipes").remove();
+                        item.closest(".recipe-edit").remove();
                         let id = item.getAttribute("data-id");
                         data.append(`id`, id);
-                        let pet = await fetch(`Detallerecipe/delete`, { method: "POST", body: data })
-                        reindex("#recipe-edit-container .recipes", "recipes", index, "Item");
-                        renderizarTarjetas({});
+                        let pet = await fetch(`Detallerecipe/delete`, { method: "POST", body: data });
+                        reindex("#recipe-edit-container .recipe-edit", "recipe-edit", index, "Item");
                     });
-                })
+                });
+            };
+            deleteItem();
+
+            let formEdit = document.getElementById("form-submit-edit-recipe");
+            if (!formEdit.dataset.listenerAttached) {
+                formEdit.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    let formHasError = false;
+                    let recetaData = [];
+                    formEdit.querySelectorAll(".recipe-edit").forEach((recipe, i) => {
+                        let index = i + 1;
+                        let data = {
+                            cantidad: recipe.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
+                            id_rawmaterial: recipe.querySelector(`input[name="id_rawmaterial"]`).getAttribute("data-id"),
+                        };
+                        recetaData.push(data);
+                        const errors = validate(data, rules);
+                        setValidationStyles(`input-edit-quantity-${index}`, errors?.cantidad ? errors.cantidad[0] : null);
+                        setValidationStyles(`input-edit-rawmaterial-${index}`, errors?.id_rawmaterial ? errors.id_rawmaterial[0] : null);
+                        if (errors) formHasError = true;
+                    });
+                    if (!formHasError) {
+                        let unod = []
+                        objectActual.forEach((item, i) => {
+                            unod.push({cantidad: item.cantidad, id_rawmaterial: item.id_materia_prima});
+                        })
+                        const comparation = (a, b) => a.id_rawmaterial === b.id_rawmaterial && a.cantidad === b.cantidad;
+                        const unicosEnUno = recetaData.filter(obj1 => !unod.some(obj2 => comparation(obj1, obj2)));
+                        const unicosEnDos = unod.filter(obj2 => !recetaData.some(obj1 => comparation(obj1, obj2)));
+                        console.log("receta nueva", unicosEnUno);
+                        console.log("receta vieja", unicosEnDos);
+                    }
+                });
+                formEdit.dataset.listenerAttached = "true";
             }
-            deleteItem()
-        })
+        });
     })
-    
+
 }
 
 renderizarTarjetas({});

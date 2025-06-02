@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="row cont-cash_open">
-                       
+                       <!-- js -->
                     </div>
                 </div>
 
@@ -66,8 +66,8 @@
                         </div>
                     </div>
 
-                    <div class="row cont-cash">
-                       
+                    <div class="row cont-cash_close">
+                       <!-- js -->
                     </div>
                 </div>
                 <?php include_once __DIR__ . '/../Views/Components/modals/cash/modal.php' ?>

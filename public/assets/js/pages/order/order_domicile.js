@@ -487,86 +487,95 @@ attachValidationListeners(1)
 //enviar orden
 let btnSendOrder = document.querySelector(".confirm_order");
 btnSendOrder.addEventListener("click", async () => {
-    let order = new FormData();
     const { productPreparedData, productProcessData, clientData, dataPayment, directionSale, amountTotal } = finalData()
-    let nro_orden = Math.floor(Math.random() * (99999999 - 10000000 + 1)) + 10000000
-    order.append("id_cliente", clientData.id_cliente);
-    order.append("tipo", "delivery")
-    order.append("nro_orden", nro_orden)
-    let index = 0;
-    productPreparedData.forEach((product) => {
-        let additionalText = product.adicionales.map((index) => index.nombre).join(",");
-        order.append(`lista_detalle_preparado[${index}][id_producto]`, product.id_producto);
-        order.append(`lista_detalle_preparado[${index}][cantidad]`, product.cantidad);
-        order.append(`lista_detalle_preparado[${index}][adicionales]`, additionalText);
-        index++
-    })
-    let groupedAdicionales = {};
-    productPreparedData.forEach((product) => {
-        product.adicionales.forEach((aditional) => {
-            const key = aditional.id_producto;
-            if (!groupedAdicionales[key]) groupedAdicionales[key] = { ...aditional };
-            else groupedAdicionales[key].cantidad += aditional.cantidad;
-        });
-    });
-    let result = Object.values(groupedAdicionales);
-    result.forEach((aditional) => {
-        order.append(`lista_detalle_preparado[${index}][id_producto]`, aditional.id_producto);
-        order.append(`lista_detalle_preparado[${index}][cantidad]`, aditional.cantidad);
-        index++
-    })
-    let petOrder = await fetch("order/add", { method: "POST", body: order })
-    let resOrder = await petOrder.json()
-    console.log(resOrder);
-    let id_orden = resOrder.last_id
-
-    let dataSale = new FormData();
-    dataSale.append("id_orden", id_orden)
-    dataSale.append("id_caja", await CheckCash())
-    dataSale.append("monto_final", amountTotal.total_dolares)
-    dataSale.append("direccion", directionSale)
-    let petSale = await fetch("sale/add", { method: "POST", body: dataSale })
-    let resSale = await petSale.json()
-    console.log(resSale);
-    let id_venta = resSale.last_id
-
-    let dolar = await amountDolar()
-    let paymentData = new FormData();
-    dataPayment.forEach((payment, index) => {
-        paymentData.append(`lista[${index}][id_venta]`, id_venta)
-        paymentData.append(`lista[${index}][id_metodo_pago]`, payment.id_metodo_pago)
-        paymentData.append(`lista[${index}][monto]`, payment.cantidad)
-        paymentData.append(`lista[${index}][tasa]`, dolar)
-        paymentData.append(`lista[${index}][referencia]`, payment.referencia)
-        paymentData.append(`lista[${index}][imagen]`, payment.imagen)
-        paymentData.append(`lista[${index}][imagen_name]`, payment.imagen.name)
-    })
-    let petPayment = await fetch("payment/add_many", { method: "POST", body: paymentData })
-    let resPayment = await petPayment.json()
-    console.log(resPayment);
-    if (resPayment.success == true) {
-        bootstrap.Modal.getOrCreateInstance('#domicile').hide()
-        Swal.fire({
-            title: `Exito!`,
-            text: "Se creo la orden de domicilio",
-            icon: "success",
-        });
-        binnacle(session.message.id, 'Orden de domicilio', 'Creacion', 'Se creo una orden de domicilio')
-        setTimeout(() => {
-            window.location.href = "order";
-        }, 1000);
+    if (directionSale == "") {
+        toas("error", "Ingrese una direccion de entrega")
+    } else if (await CheckCash() == null) {
+        toas("error", "No hay cajas abiertas")
     } else {
-        Swal.fire({
-            title: `Error!`,
-            text: "Hubo un error al crear la orden",
-            icon: "error",
+        let order = new FormData();
+        let nro_orden = Math.floor(Math.random() * (99999999 - 10000000 + 1)) + 10000000
+        order.append("id_cliente", clientData.id_cliente);
+        order.append("tipo", "delivery")
+        order.append("nro_orden", nro_orden)
+        order.append("status", 1)
+        let index = 0;
+        productPreparedData.forEach((product) => {
+            let additionalText = product.adicionales.map((index) => index.nombre).join(",");
+            order.append(`lista_detalle_preparado[${index}][id_producto]`, product.id_producto);
+            order.append(`lista_detalle_preparado[${index}][cantidad]`, product.cantidad);
+            order.append(`lista_detalle_preparado[${index}][adicionales]`, additionalText);
+            index++
+        })
+        productProcessData.forEach((product) => {
+            order.append(`lista_detalle_procesado[${index}][id_producto]`, product.id_producto);
+            order.append(`lista_detalle_procesado[${index}][cantidad]`, product.cantidad);
+            index++
+        })
+
+        let groupedAdicionales = {};
+        productPreparedData.forEach((product) => {
+            product.adicionales.forEach((aditional) => {
+                const key = aditional.id_producto;
+                if (!groupedAdicionales[key]) groupedAdicionales[key] = { ...aditional };
+                else groupedAdicionales[key].cantidad += aditional.cantidad;
+            });
         });
+        let result = Object.values(groupedAdicionales);
+        result.forEach((aditional) => {
+            order.append(`lista_detalle_preparado[${index}][id_producto]`, aditional.id_producto);
+            order.append(`lista_detalle_preparado[${index}][cantidad]`, aditional.cantidad);
+            index++
+        })
+        
+
+        let petOrder = await fetch("order/add", { method: "POST", body: order })
+        let resOrder = await petOrder.json()
+        console.log(resOrder);
+        let id_orden = resOrder.last_id
+
+        let dataSale = new FormData();
+        dataSale.append("id_orden", id_orden)
+        dataSale.append("id_caja", await CheckCash())
+        dataSale.append("monto_final", amountTotal.total_dolares)
+        dataSale.append("direccion", directionSale)
+        let petSale = await fetch("sale/add", { method: "POST", body: dataSale })
+        let resSale = await petSale.json()
+        console.log(resSale);
+        let id_venta = resSale.last_id
+
+        let dolar = await amountDolar()
+        let paymentData = new FormData();
+        dataPayment.forEach((payment, index) => {
+            paymentData.append(`lista[${index}][id_venta]`, id_venta)
+            paymentData.append(`lista[${index}][id_metodo_pago]`, payment.id_metodo_pago)
+            paymentData.append(`lista[${index}][monto]`, payment.cantidad)
+            paymentData.append(`lista[${index}][tasa]`, dolar)
+            paymentData.append(`lista[${index}][referencia]`, payment.referencia)
+            paymentData.append(`lista[${index}][imagen]`, payment.imagen)
+            paymentData.append(`lista[${index}][imagen_name]`, payment.imagen.name)
+        })
+        let petPayment = await fetch("payment/add_many", { method: "POST", body: paymentData })
+        let resPayment = await petPayment.json()
+        console.log(resPayment);
+
+        if (resPayment.success == true) {
+            bootstrap.Modal.getOrCreateInstance('#domicile').hide()
+            Swal.fire({
+                title: `Exito!`,
+                text: "Se creo la orden de domicilio",
+                icon: "success",
+            });
+            binnacle(session.message.id, 'Orden de domicilio', 'Creacion', 'Se creo una orden de domicilio')
+            setTimeout(() => {
+                window.location.href = "order";
+            }, 1000);
+        } else {
+            Swal.fire({
+                title: `Error!`,
+                text: "Hubo un error al crear la orden",
+                icon: "error",
+            });
+        }
     }
 })
-
-let algo = async () => {
-    let pet = await fetch("order/get_all")
-    let res = await pet.json()
-    console.log(res)
-}
-algo()

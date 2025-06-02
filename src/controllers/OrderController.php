@@ -22,7 +22,7 @@ class OrderController extends Controller_base
             $l = $_POST;
             unset($l['lista_detalle_preparado']);
             unset($l['lista_detalle_procesado']);
-            $this->db->__construct(tipo: $_POST['tipo'], id_cliente: $_POST['id_cliente']);
+            $this->db->__construct(tipo: $_POST['tipo'], id_cliente: $_POST['id_cliente'], status: $_POST['status'], nro_orden: $_POST['nro_orden']);
             $last_id = $this->db->agregar();
             $clase_detalle_producto_preparado = new DetalleOrdenProductoPreparado();
             $clase_detalle_producto_procesado = new DetalleOrdenProductoProcesado();

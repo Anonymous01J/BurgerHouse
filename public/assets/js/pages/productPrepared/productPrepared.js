@@ -9,9 +9,13 @@ viewImage(".input-image")
 // permission("Product")//verifica el btn de agg
 searchFilter("#searchProduct", (e) => {
   if (e.target.value == "") {
-    print(()=>searchParam({ active: 1, tipo: "producto" }, "productPrepared"), targetProductPrepared, ".cont-product", "product", (response) => editData(response))
+    print(()=>searchParam({ active: 1, tipo: "producto" }, "productPrepared"), targetProductPrepared, ".cont-product", "product", (response) => editData(response),
+    ()=> binnacle(session.message.id, "Productos Preparados", "Eliminacion", "Se elimino un producto preparado")
+  )
   } else {
-    print(()=>searchParam({ active: 1, nombre_like: e.target.value, tipo: "producto" }, "productPrepared"), targetProductPrepared, ".cont-product", "product", (response) => editData(response))
+    print(()=>searchParam({ active: 1, nombre_like: e.target.value, tipo: "producto" }, "productPrepared"), targetProductPrepared, ".cont-product", "product", (response) => editData(response),
+    ()=> binnacle(session.message.id, "Productos Preparados", "Eliminacion", "Se elimino un producto preparado")
+  )
   }
 })
 // ------------------Validacion de Formulario---------------------------

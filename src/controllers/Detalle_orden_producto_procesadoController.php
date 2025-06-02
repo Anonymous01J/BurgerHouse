@@ -1,7 +1,6 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
 use Shtch\Burgerhouse\controllers\Controller_base;
-
 use Shtch\Burgerhouse\models\DetalleOrdenProductoProcesado;
 
 class Detalle_orden_producto_procesadoController extends Controller_base {

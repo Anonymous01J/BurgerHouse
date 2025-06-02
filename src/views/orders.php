@@ -43,7 +43,7 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_5BG text-center">
-                                                    <h1 class="font-light text-white">5</h1>
+                                                    <h1 class="font-light text-white target_order_domicile_null">0</h1>
                                                     <h6 class="text-white">Pagos nulos</h6>
                                                 </div>
                                             </div>
@@ -52,7 +52,7 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_1BG text-center">
-                                                    <h1 class="font-light text-white">2,064</h1>
+                                                    <h1 class="font-light text-white target_order_domicile_total">0</h1>
                                                     <h6 class="text-white">Ordenes Totales</h6>
                                                 </div>
                                             </div>
@@ -61,8 +61,17 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_2 text-center">
-                                                    <h1 class="font-light text-white">1,738</h1>
+                                                    <h1 class="font-light text-white target_order_domicile_verify">0</h1>
                                                     <h6 class="text-white">Por Verificar</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                         <!-- Column -->
+                                         <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_1 text-center">
+                                                    <h1 class="font-light text-white target_order_domicile_kitchen">0</h1>
+                                                    <h6 class="text-white">En cocina</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -70,7 +79,7 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_4 text-center">
-                                                    <h1 class="font-light text-white">1100</h1>
+                                                    <h1 class="font-light text-white target_order_domicile_delivery">0</h1>
                                                     <h6 class="text-white">Por Despachar</h6>
                                                 </div>
                                             </div>
@@ -79,14 +88,14 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_5BG text-center">
-                                                    <h1 class="font-light text-white">964</h1>
+                                                    <h1 class="font-light text-white target_order_domicile_delivered">0</h1>
                                                     <h6 class="text-white">Despachadas</h6>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#domicile">
+                                    <button type="button" class="btn bh_1 text-white mb-3 btnOrderDelivery" type_order="delivery" data-bs-toggle="modal" data-bs-target="#domicile">
                                         <i class="fas fa-plus"></i>
                                         Orden
                                     </button>
@@ -97,6 +106,9 @@
                                         </li>
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Procesadas</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="null_order" data-bs-toggle="tab" data-bs-target="#null_order_tab" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Anuladas</button>
                                         </li>
                                     </ul>
                                     <div class="tab-content" id="myTabContent">
@@ -109,45 +121,20 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive mt-2">
-                                                <table class="table no-wrap table-order-domicilio-pendientes table-dark-mode">
+                                                <table class="table no-wrap table-order-domicilio-pendientes table-dark-mode w-100">
                                                     <thead>
                                                         <tr>
-                                                            <th>Status</th>
                                                             <th>N° Orden</th>
                                                             <th>Cliente</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
                                                             <th>Detalles</th>
-                                                            <th>N° Comp</th>
                                                             <th>Comprobante</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php for ($i = 0; $i < 20; $i++) { ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="badge text-bg-success badge-pill">ENTREGADO</span>
-
-                                                                </td>
-                                                                <td><span class="fs-6">6419619819</span></td>
-                                                                <td>Jose Escalona</td>
-                                                                <td>13-3-2025</td>
-                                                                <td>13:40</td>
-                                                                <td>detalle</td>
-                                                                <td class="fs-6">2560</td>
-                                                                <td>ver</td>
-                                                                <td>
-                                                                    <button class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
-                                                                        <i data-feather="check-circle" class="text-white"></i>
-                                                                    </button>
-                                                                    <button class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
-                                                                        <i data-feather="x-circle" class="text-white"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        <?php } ?>
-
+                                                        
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -161,42 +148,50 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive mt-2">
-                                                <table class="table no-wrap table-order-domicilio-procesadas table-dark-mode">
+                                                <table class="table no-wrap table-order-domicilio-procesadas table-dark-mode w-100">
                                                     <thead>
                                                         <tr>
-                                                            <th>Status</th>
                                                             <th>N° Orden</th>
                                                             <th>Cliente</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
                                                             <th>Detalles</th>
-                                                            <th>N° Comp</th>
                                                             <th>Comprobante</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php for ($i = 0; $i < 20; $i++) { ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="badge text-bg-success badge-pill">ENTREGADO</span>
-
-                                                                </td>
-                                                                <td><span class="fs-6">6419619819</span></td>
-                                                                <td>Jose Escalona</td>
-                                                                <td>13-3-2025</td>
-                                                                <td>13:40</td>
-                                                                <td>detalle</td>
-                                                                <td class="fs-6">2560</td>
-                                                                <td>ver</td>
-                                                            </tr>
-                                                        <?php } ?>
 
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
+                                        <div class="tab-pane fade" id="null_order_tab" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                            <div class="row justify-content-between mt-3">
+                                                <div class="col-md-6 col-lg-3">
+                                                    <input type="text" class="form-control" id="searchBoxDomicilioNull" placeholder="Buscar">
+                                                </div>
+                                                <div class="col-md-6 col-lg-9">
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive mt-2">
+                                                <table class="table no-wrap table-order-domicilio-null table-dark-mode w-100">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>N° Orden</th>
+                                                            <th>Cliente</th>
+                                                            <th>Fecha</th>
+                                                            <th>Hora</th>
+                                                            <th>Detalles</th>
+                                                            <th>Comprobante</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
-
                                 </div>
 
 
@@ -240,7 +235,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="button" class="btn bh_1 text-white mb-3" data-bs-toggle="modal" data-bs-target="#domicile">
+                                    <button type="button" class="btn bh_1 text-white mb-3 btnOrder" type_order="para llevar" data-bs-toggle="modal" data-bs-target="#domicile">
                                         <i class="fas fa-plus"></i>
                                         Orden
                                     </button>
@@ -281,7 +276,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php for ($i = 0; $i < 20; $i++) { ?>
+                                                        <?php for ($i = 0; $i < 2; $i++) { ?>
                                                             <tr>
                                                                 <td>
                                                                     <span class="badge text-bg-success badge-pill">ENTREGADO</span>
@@ -333,7 +328,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php for ($i = 0; $i < 20; $i++) { ?>
+                                                        <?php for ($i = 0; $i < 2; $i++) { ?>
                                                             <tr>
                                                                 <td>
                                                                     <span class="badge text-bg-success badge-pill">ENTREGADO</span>
@@ -380,7 +375,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php for ($i = 0; $i < 20; $i++) { ?>
+                                                        <?php for ($i = 0; $i < 2; $i++) { ?>
                                                             <tr>
                                                                 <td>
                                                                     <span class="badge text-bg-success badge-pill">ENTREGADO</span>
@@ -402,7 +397,6 @@
                                 </div>
 
 
-
                                 <div class="tab-pane fade" id="nav-local" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">2</div>
                             </div>
 
@@ -410,14 +404,11 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
     <?php include_once __DIR__ . '/../Views/Components/modals/order/domicile.php' ?>
-
+    <?php include_once __DIR__ . '/../Views/Components/modals/order/modalDetailsOrder.php' ?>
 </div>
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
@@ -425,7 +416,6 @@
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./assets/libs/extra-libs/datatables.net/js/jquery.dataTables.js"></script>
 <script src="./assets/libs/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
-
 <script src="./assets/js/app-style-switcher.js"></script>
 <script src="./assets/js/feather.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>

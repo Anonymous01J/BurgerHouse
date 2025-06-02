@@ -6,9 +6,13 @@ let session = await sessionInfo();
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 searchFilter("#SearchClients", (e) => {
     if (e.target.value == "") {
-        print(() => searchParam({ active: 1 }, "clients"), targetClient, ".container_clients", "clients", (response) => editClient(response));
+        print(() => searchParam({ active: 1 }, "clients"), targetClient, ".container_clients", "clients", (response) => editClient(response),
+        () => binnacle(session.message.id, "Clientes", "Eliminacion", "Se elimino un cliente")
+    );
     } else {
-        print(() => searchParam({ active: 1, nombre_like: e.target.value }, "clients"), targetClient, ".container_clients", "clients", (response) => editClient(response));
+        print(() => searchParam({ active: 1, nombre_like: e.target.value }, "clients"), targetClient, ".container_clients", "clients", (response) => editClient(response),
+        () => binnacle(session.message.id, "Clientes", "Eliminacion", "Se elimino un cliente")
+    );
     }
 })
 selectOptionAll(".select_options_td", null, null)

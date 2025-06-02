@@ -1,8 +1,9 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { selectOptionAll, setValidationStyles, validateField, searchAll, searchParam, searchFilter, print, add, update, reindex, resetForm } = functionGeneral();
+const { selectOptionAll, setValidationStyles, validateField, searchAll, searchParam, searchFilter, print, add, update, reindex, resetForm, binnacle, sessionInfo } = functionGeneral();
 const { elemenFormUser, optionsRol, targetUser } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
+let session = await sessionInfo();
 selectOptionAll(".select_options_td", null)
 selectOptionAll(".select_options_rol", "rol", optionsRol)
 selectOptionAll(".select_options_td_edit", null)
@@ -10,9 +11,13 @@ selectOptionAll(".select_options_rol_edit", "rol", optionsRol)
 //funcion del search para filtrar los usuarios
 searchFilter("#search-filter-users", (e) => {
     if (e.target.value == "") {
-        print(() => searchParam({ active: 1 }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response))
+        print(() => searchParam({ active: 1 }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response),
+        () => binnacle(session.message.id, "Usuario", "Eliminacion", "Se elimino un usuario")
+    )
     } else {
-        print(() => searchParam({ active: 1, nombre_like: e.target.value  }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response))
+        print(() => searchParam({ active: 1, nombre_like: e.target.value }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response),
+        () => binnacle(session.message.id, "Usuario", "Eliminacion", "Se elimino un usuario")
+    )
     }
 })
 let UsersCount = 1;
@@ -115,23 +120,23 @@ const rules = {
             message: "^debe tener al menos 2 caracteres"
         },
     },
-    rif: {
-        presence: {
-            allowEmpty: false,
-            message: "^es requerida"
-        },
-        format: {
-            pattern: "^[0-9]+$",
-            message: "^solo puede tener numeros"
-        }
-    },
-    tipo_documento: {
-        presence: {
-            allowEmpty: false,
-            message: "^es requerida"
-        },
-        validateTD: { message: "^es requerido" }
-    },
+    // rif: {
+    //     presence: {
+    //         allowEmpty: false,
+    //         message: "^es requerida"
+    //     },
+    //     format: {
+    //         pattern: "^[0-9]+$",
+    //         message: "^solo puede tener numeros"
+    //     }
+    // },
+    // tipo_documento: {
+    //     presence: {
+    //         allowEmpty: false,
+    //         message: "^es requerida"
+    //     },
+    //     validateTD: { message: "^es requerido" }
+    // },
     id_rol: {
         presence: {
             allowEmpty: false,
@@ -173,8 +178,8 @@ if (!form.dataset.listenerAttached) {
             const data = {
                 nombre: user.querySelector(`input[name="nombre"]`).value,
                 apellido: user.querySelector(`input[name="apellido"]`).value,
-                tipo_documento: user.querySelector(`input[name="tipo_documento"]`) ? user.querySelector(`input[name="tipo_documento"]`).value : "",
-                rif: user.querySelector(`input[name="rif"]`).value,
+                // tipo_documento: user.querySelector(`input[name="tipo_documento"]`) ? user.querySelector(`input[name="tipo_documento"]`).value : "",
+                // rif: user.querySelector(`input[name="rif"]`).value,
                 email: user.querySelector(`input[name="email"]`).value,
                 id_rol: user.querySelector(`input[name="id_rol"]`).getAttribute("data-id"),
                 hash: user.querySelector(`input[name="hash"]`).value
@@ -183,8 +188,8 @@ if (!form.dataset.listenerAttached) {
             const errors = validate(data, rules);
             setValidationStyles(`input-name-user-${index}`, errors?.nombre ? errors.nombre[0] : null);
             setValidationStyles(`input-lastname-user-${index}`, errors?.apellido ? errors.apellido[0] : null);
-            setValidationStyles(`input-td-user-${index}`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
-            setValidationStyles(`input-rif-user-${index}`, errors?.rif ? errors.rif[0] : null);
+            // setValidationStyles(`input-td-user-${index}`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
+            // setValidationStyles(`input-rif-user-${index}`, errors?.rif ? errors.rif[0] : null);
             setValidationStyles(`input-email-user-${index}`, errors?.email ? errors.email[0] : null);
             setValidationStyles(`input-password-user-${index}`, errors?.hash ? errors.hash[0] : null);
             setValidationStyles(`input-rol-user-${index}`, errors?.id_rol ? errors.id_rol[0] : null);
@@ -197,48 +202,51 @@ if (!form.dataset.listenerAttached) {
             dataUsers.forEach((user, index) => {
                 dataFinal.append(`lista[${index}][nombre]`, user.nombre)
                 dataFinal.append(`lista[${index}][apellido]`, user.apellido)
-                dataFinal.append(`lista[${index}][documento]`, user.tipo_documento + "-" + user.rif)
+                // dataFinal.append(`lista[${index}][documento]`, user.tipo_documento + "-" + user.rif)
                 dataFinal.append(`lista[${index}][email]`, user.email)
                 dataFinal.append(`lista[${index}][id_rol]`, user.id_rol)
                 dataFinal.append(`lista[${index}][hash]`, user.hash)
             })
             resetForm("#users-container .users", form)
-            add(() => searchParam({ active: 1 }, "users"), 'users', dataFinal, targetUser, ".container_users", "usuarios", (response) => editData(response))
+            add(() => searchParam({ active: 1 }, "users"), 'users', dataFinal, targetUser, ".container_users", "usuarios", (response) => editData(response),
+                () => binnacle(session.message.id, "Usuarios", "Eliminacion", "Se elimino un usuario"),
+                () => binnacle(session.message.id, "Usuarios", "Agregar", "Se agrego un usuario")
+            )
             bootstrap.Modal.getOrCreateInstance('#register-user').hide()
         }
     })
     form.dataset.listenerAttached = "true";
 }
 attachValidationListeners(1)
-print(() => searchParam({ active: 1 }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response))
+print(() => searchParam({ active: 1 }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response), () => binnacle(session.message.id, "Usuarios", "Eliminacion", "Se elimino un usuario"))
 //edicion de usuarios
 function editData(response) {
     document.querySelector(`#id-user`).value = response[0].id;
     document.querySelector(`#input-name-user`).value = response[0].nombre;
     document.querySelector(`#input-lastname-user`).value = response[0].apellido;
-    document.querySelector(`#input-td-user`).value = response[0].documento.split("-")[0];
-    document.querySelector(`#input-rif-user`).value = response[0].documento.split("-")[1];
+    // document.querySelector(`#input-td-user`).value = response[0].documento.split("-")[0];
+    // document.querySelector(`#input-rif-user`).value = response[0].documento.split("-")[1];
     document.querySelector(`#input-email-user`).value = response[0].email;
-    document.querySelector(`#input-password-user`).value = response[0].hash;
+    // document.querySelector(`#input-password-user`).value = response[0].hash;
     document.querySelector(`#input-rol-user`).setAttribute("data-id", response[0].rol_id);
     document.querySelector(`#input-rol-user`).value = response[0].rol;
 
     const data = {
         nombre: document.querySelector(`#input-name-user`).value,
         apellido: document.querySelector(`#input-lastname-user`).value,
-        tipo_documento: document.querySelector(`#input-td-user`) ? document.querySelector(`#input-td-user`).value : "",
-        rif: document.querySelector(`#input-rif-user`).value,
+        // tipo_documento: document.querySelector(`#input-td-user`) ? document.querySelector(`#input-td-user`).value : "",
+        // rif: document.querySelector(`#input-rif-user`).value,
         email: document.querySelector(`#input-email-user`).value,
         id_rol: document.querySelector(`#input-rol-user`).getAttribute("data-id"),
-        hash: document.querySelector(`#input-password-user`).value
+        // hash: document.querySelector(`#input-password-user`).value
     }
     const errors = validate(data, rules);
     setValidationStyles(`input-name-user`, errors?.nombre ? errors.nombre[0] : null);
     setValidationStyles(`input-lastname-user`, errors?.apellido ? errors.apellido[0] : null);
-    setValidationStyles(`input-td-user`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
-    setValidationStyles(`input-rif-user`, errors?.rif ? errors.rif[0] : null);
+    // setValidationStyles(`input-td-user`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
+    // setValidationStyles(`input-rif-user`, errors?.rif ? errors.rif[0] : null);
     setValidationStyles(`input-email-user`, errors?.email ? errors.email[0] : null);
-    setValidationStyles(`input-password-user`, errors?.hash ? errors.hash[0] : null);
+    // setValidationStyles(`input-password-user`, errors?.hash ? errors.hash[0] : null);
     setValidationStyles(`input-rol-user`, errors?.id_rol ? errors.id_rol[0] : null);
 
     let formEdit = document.getElementById("form-submit-edit-user")
@@ -248,32 +256,35 @@ function editData(response) {
             const data = {
                 nombre: formEdit.querySelector(`input[name="nombre"]`).value,
                 apellido: formEdit.querySelector(`input[name="apellido"]`).value,
-                tipo_documento: formEdit.querySelector(`input[name="tipo_documento"]`) ? formEdit.querySelector(`input[name="tipo_documento"]`).value : "",
-                rif: formEdit.querySelector(`input[name="rif"]`).value,
+                // tipo_documento: formEdit.querySelector(`input[name="tipo_documento"]`) ? formEdit.querySelector(`input[name="tipo_documento"]`).value : "",
+                // rif: formEdit.querySelector(`input[name="rif"]`).value,
                 email: formEdit.querySelector(`input[name="email"]`).value,
                 id_rol: formEdit.querySelector(`input[name="id_rol"]`).getAttribute("data-id"),
-                hash: formEdit.querySelector(`input[name="hash"]`).value
+                // hash: formEdit.querySelector(`input[name="hash"]`).value
             }
             const errors = validate(data, rules);
             setValidationStyles(`input-name-user`, errors?.nombre ? errors.nombre[0] : null);
             setValidationStyles(`input-lastname-user`, errors?.apellido ? errors.apellido[0] : null);
-            setValidationStyles(`input-td-user`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
-            setValidationStyles(`input-rif-user`, errors?.rif ? errors.rif[0] : null);
+            // setValidationStyles(`input-td-user`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
+            // setValidationStyles(`input-rif-user`, errors?.rif ? errors.rif[0] : null);
             setValidationStyles(`input-email-user`, errors?.email ? errors.email[0] : null);
-            setValidationStyles(`input-password-user`, errors?.hash ? errors.hash[0] : null);
+            // setValidationStyles(`input-password-user`, errors?.hash ? errors.hash[0] : null);
             setValidationStyles(`input-rol-user`, errors?.id_rol ? errors.id_rol[0] : null);
 
             if (!errors) {
                 let dataFinal = new FormData()
                 dataFinal.append('nombre', data.nombre)
                 dataFinal.append('apellido', data.apellido)
-                dataFinal.append('documento', data.tipo_documento + "-" + data.rif)
+                // dataFinal.append('documento', data.tipo_documento + "-" + data.rif)
                 dataFinal.append('email', data.email)
                 dataFinal.append('id_rol', data.id_rol)
-                dataFinal.append('hash', data.hash)
+                // dataFinal.append('hash', data.hash)
                 dataFinal.append('id', formEdit.querySelector(`input[name="id_user"]`).value)
 
-                update(() => searchParam({ active: 1 }, "users"), 'users', dataFinal, targetUser, ".container_users", "usuarios", (response) => editData(response))
+                update(() => searchParam({ active: 1 }, "users"), 'users', dataFinal, targetUser, ".container_users", "usuarios", (response) => editData(response),
+                    () => binnacle(session.message.id, "Usuarios", "Eliminacion", "Se elimino un usuario"),
+                    () => binnacle(session.message.id, "Usuarios", "Actualizacion", "Se edito un usuario")
+                )
                 bootstrap.Modal.getOrCreateInstance('#edit-user').hide()
             }
         })

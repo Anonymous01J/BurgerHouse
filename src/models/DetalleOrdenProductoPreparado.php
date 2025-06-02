@@ -4,7 +4,8 @@ namespace Shtch\Burgerhouse\models;
 
 use Shtch\Burgerhouse\models\Db_base;
 
-class DetalleOrdenProductoPreparado extends Db_base {
+class DetalleOrdenProductoPreparado extends Db_base
+{
     private $id;
     private $id_producto;
     private $id_orden;
@@ -37,5 +38,20 @@ class DetalleOrdenProductoPreparado extends Db_base {
             "a.descripcion" => $this->descripcion,
             "a.adicionales" => $this->adicionales
         ]);
+
+        $this->select_query = "
+        a.id,
+        a.id_producto,
+        a.id_orden,
+        a.cantidad,
+        a.descripcion,
+        a.adicionales,
+        productos_preparados.nombre,
+        productos_preparados.tipo
+    ";
+
+        $this->joins = "
+        INNER JOIN productos_preparados ON productos_preparados.id = a.id_producto
+    ";
     }
 }

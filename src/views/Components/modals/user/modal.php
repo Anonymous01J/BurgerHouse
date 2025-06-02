@@ -20,7 +20,7 @@
                                 <input type="text" class="form-control" placeholder="Apellido" id="input-lastname-user-1" name="apellido">
                                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-user-1"></div>
                             </div>
-                            <div class="col-md-6 ">
+                            <!-- <div class="col-md-6 ">
                                 <label for="inputCity" class="form-label">Tipo de documento</label>
                                 <div class="dropdown select_options_td">
                                     <div class="dropdown">
@@ -46,7 +46,7 @@
                                 <label for="inputEmail4" class="form-label">Nro de documento</label>
                                 <input type="text" class="form-control" placeholder="Nro de documento" id="input-rif-user-1" name="rif">
                                 <div class="text-danger mt-1 fs-6" id="error-input-rif-user-1"></div>
-                            </div>
+                            </div> -->
                             <div class="col-md-4">
                                 <label for="inputEmail4" class="form-label">Correo Electronico</label>
                                 <input type="text" class="form-control" placeholder="Correo Electronico" id="input-email-user-1" name="email" autocomplete="off">
@@ -71,9 +71,7 @@
                                                     <input class="form-control search_select" type="search" placeholder="Buscar">
                                                 </div>
                                                 <div class="options_search">
-                                                    <a class="dropdown-item">V</a>
-                                                    <a class="dropdown-item">E</a>
-                                                    <a class="dropdown-item">J</a>
+                                                   
                                                 </div>
                                             </div>
                                         </div>
@@ -118,7 +116,7 @@
                                 <input type="text" class="form-control" placeholder="Apellido" id="input-lastname-user" name="apellido">
                                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-user"></div>
                             </div>
-                            <div class="col-md-6 ">
+                            <!-- <div class="col-md-6 ">
                                 <label for="inputCity" class="form-label">Tipo de documento</label>
                                 <div class="dropdown select_options_td_edit">
                                     <div class="dropdown">
@@ -144,17 +142,17 @@
                                 <label for="inputEmail4" class="form-label">Nro de documento</label>
                                 <input type="text" class="form-control" placeholder="Nro de documento" id="input-rif-user" name="rif">
                                 <div class="text-danger mt-1 fs-6" id="error-input-rif-user"></div>
-                            </div>
+                            </div> -->
                             <div class="col-md-12">
                                 <label for="inputEmail4" class="form-label">Correo Electronico</label>
                                 <input type="text" class="form-control" placeholder="Correo Electronico" id="input-email-user" name="email" autocomplete="off">
                                 <div class="text-danger mt-1 fs-6" id="error-input-email-user"></div>
                             </div>
-                            <div class="col-md-12">
+                            <!-- <div class="col-md-12">
                                 <label for="inputEmail4" class="form-label">Contraseña</label>
                                 <input type="password" autocomplete="new-password" class="form-control" placeholder="Contraseña" id="input-password-user" name="hash">
                                 <div class="text-danger mt-1 fs-6" id="error-input-password-user"></div>
-                            </div>
+                            </div> -->
                             <div class="col-md-12">
                                 <label for="inputCity" class="form-label">Rol</label>
                                 <div class="dropdown select_options_rol_edit">

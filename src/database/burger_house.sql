@@ -32,7 +32,7 @@ CREATE TABLE `bitacora` (
   PRIMARY KEY (`id`),
   KEY `Usuario` (`id_usuario`),
   CONSTRAINT `bitacora_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `bitacora` (
 
 LOCK TABLES `bitacora` WRITE;
 /*!40000 ALTER TABLE `bitacora` DISABLE KEYS */;
-INSERT INTO `bitacora` VALUES (26,11,'Adicionales','Agregar','2025-05-28 08:17:19','Se agrego un nuevo adicional'),(27,11,'Adicionales','Eliminacion','2025-05-28 08:18:35','Se ha eliminado un adicional'),(28,11,'Clientes','Eliminacion','2025-05-28 08:49:48','Se elimino un cliente'),(29,11,'Clientes','Actualizacion','2025-05-28 08:51:01','Se actualizo un cliente'),(30,11,'Clientes','Agregar','2025-05-28 08:51:47','Se agrego un nuevo cliente'),(31,11,'Clientes','Actualizacion','2025-05-28 08:54:06','Se actualizo un cliente'),(32,11,'Papelera','Restaurar','2025-05-28 10:05:24','Se ha restaurado un elemento de la papelera'),(33,11,'Producto procesado','Agregar','2025-05-28 10:35:32','Se agrego un producto procesado'),(34,11,'Papelera','Restaurar','2025-05-28 10:47:39','Se ha restaurado un elemento de la papelera'),(35,11,'Orden de domicilio','Creacion','2025-05-28 11:38:22','Se creo una orden de domicilio'),(36,11,'Producto procesado','Actualizacion','2025-05-28 11:48:27','Se agrego un producto procesado'),(37,11,'Clientes','Agregar','2025-05-28 11:48:54','Se agrego un nuevo cliente');
+INSERT INTO `bitacora` VALUES (26,11,'Adicionales','Agregar','2025-05-28 08:17:19','Se agrego un nuevo adicional'),(27,11,'Adicionales','Eliminacion','2025-05-28 08:18:35','Se ha eliminado un adicional'),(28,11,'Clientes','Eliminacion','2025-05-28 08:49:48','Se elimino un cliente'),(29,11,'Clientes','Actualizacion','2025-05-28 08:51:01','Se actualizo un cliente'),(30,11,'Clientes','Agregar','2025-05-28 08:51:47','Se agrego un nuevo cliente'),(31,11,'Clientes','Actualizacion','2025-05-28 08:54:06','Se actualizo un cliente'),(32,11,'Papelera','Restaurar','2025-05-28 10:05:24','Se ha restaurado un elemento de la papelera'),(33,11,'Producto procesado','Agregar','2025-05-28 10:35:32','Se agrego un producto procesado'),(34,11,'Papelera','Restaurar','2025-05-28 10:47:39','Se ha restaurado un elemento de la papelera'),(35,11,'Orden de domicilio','Creacion','2025-05-28 11:38:22','Se creo una orden de domicilio'),(36,11,'Producto procesado','Actualizacion','2025-05-28 11:48:27','Se agrego un producto procesado'),(37,11,'Clientes','Agregar','2025-05-28 11:48:54','Se agrego un nuevo cliente'),(38,11,'Caja','Agregar','2025-05-28 12:51:06','Se abrio una caja'),(39,11,'Orden de domicilio','Creacion','2025-05-28 13:41:29','Se creo una orden de domicilio'),(40,11,'Orden de cocina','Preparado','2025-05-28 14:36:13','Se preparo una orden de cocina'),(41,11,'Orden de cocina','Preparado','2025-05-28 14:40:43','Se preparo una orden de cocina'),(42,11,'Orden de delivery','Orden aceptada','2025-05-28 15:13:47','Se acepto una orden de delivery'),(43,11,'Usuarios','Login','2025-05-29 10:11:20','inicio de sesion'),(44,11,'orden','Actualizacion','2025-05-29 13:22:41','Se verifico la orden 10466000'),(45,11,'Orden de cocina','Preparado','2025-05-29 13:31:15','Se preparo una orden de cocina'),(46,11,'orden','Actualizacion','2025-05-29 13:33:38','Se anulo la orden 83599400'),(47,11,'orden','Actualizacion','2025-05-29 13:33:44','Se verifico la orden 10466000'),(48,11,'Orden de cocina','Preparado','2025-05-29 13:33:50','Se preparo una orden de cocina'),(49,11,'Orden de cocina','Preparado','2025-05-29 17:24:23','Se preparo una orden de cocina'),(50,11,'orden','Actualizacion','2025-05-29 17:27:48','Se anulo la orden 83599400'),(51,11,'Usuarios','Login','2025-05-29 19:53:06','inicio de sesion'),(52,11,'Usuarios','Agregar','2025-05-29 21:47:47','Se agrego un usuario'),(53,11,'Clientes','Eliminacion','2025-05-29 21:50:38','Se elimino un cliente'),(54,11,'Clientes','Eliminacion','2025-05-29 21:50:42','Se elimino un cliente'),(55,11,'orden','Actualizacion','2025-05-29 22:00:50','Se verifico la orden 83599400'),(56,11,'Orden de cocina','Preparado','2025-05-29 22:00:59','Se preparo una orden de cocina'),(57,11,'Orden de delivery','Orden aceptada','2025-05-29 22:01:35','Se acepto una orden de delivery'),(58,11,'Orden de delivery','Orden aceptada','2025-05-29 22:08:21','Se acepto una orden de delivery'),(59,11,'Orden de delivery','Orden aceptada','2025-05-29 22:19:25','Se acepto una orden de delivery'),(60,11,'Orden de delivery','Orden aceptada','2025-05-29 22:20:24','Se acepto una orden de delivery'),(61,11,'Orden de delivery','Orden aceptada','2025-05-29 22:21:35','Se acepto una orden de delivery');
 /*!40000 ALTER TABLE `bitacora` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +66,7 @@ CREATE TABLE `caja` (
   PRIMARY KEY (`id`),
   KEY `usuario` (`id_usuario`),
   CONSTRAINT `id_usuario(caja)` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +75,7 @@ CREATE TABLE `caja` (
 
 LOCK TABLES `caja` WRITE;
 /*!40000 ALTER TABLE `caja` DISABLE KEYS */;
-INSERT INTO `caja` VALUES (8,11,5,2,NULL,NULL,'2025-05-24 18:47:30',NULL,0,NULL),(10,11,10,1000,NULL,NULL,'2025-05-27 16:18:54',NULL,1,NULL),(11,11,10,1500,NULL,NULL,'2025-05-28 11:34:29',NULL,1,NULL);
+INSERT INTO `caja` VALUES (8,11,5,2,NULL,NULL,'2025-05-24 18:47:30',NULL,0,NULL),(10,11,10,1000,NULL,NULL,'2025-05-28 12:55:33',NULL,0,NULL),(11,11,10,1500,NULL,NULL,'2025-05-28 11:34:29',NULL,1,NULL);
 /*!40000 ALTER TABLE `caja` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -177,7 +177,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,'Jose','Escalona','+584126742231',1,'V-30087582'),(2,'Pedro','Escalona','+584161214717',0,''),(3,'Pedro ','Perex','+584162589318',1,''),(4,'AMELIA','GARNICAR',NULL,1,'V-5435543'),(5,'FELIX','DOMINGUEZ',NULL,1,'V-30554404'),(6,'PETER','HOFER',NULL,1,'V-1000000'),(7,'KENDERSON','TORREALBA',NULL,0,'V-19572137'),(17,'JOSE','PEREZ',NULL,1,'V-30218990'),(18,'Rodrigo','Hernandezz','+584122578963',1,'E-14586325'),(19,'Nombre','Nombre','+584159949468',0,'E-4984894894'),(20,'Nombrequiza','Alomen','+584267959595',1,'V-468468468'),(21,'Otromas','Sadada','+584126468464',1,'V-68464648');
+INSERT INTO `clientes` VALUES (1,'Jose','Escalona','+584126742231',1,'V-30087582'),(2,'Pedro','Escalona','+584161214717',0,''),(3,'Pedro ','Perex','+584162589318',1,''),(4,'AMELIA','GARNICAR',NULL,1,'V-5435543'),(5,'FELIX','DOMINGUEZ',NULL,1,'V-30554404'),(6,'PETER','HOFER',NULL,1,'V-1000000'),(7,'KENDERSON','TORREALBA',NULL,0,'V-19572137'),(17,'JOSE','PEREZ',NULL,1,'V-30218990'),(18,'Rodrigo','Hernandezz','+584122578963',1,'E-14586325'),(19,'Nombre','Nombre','+584159949468',0,'E-4984894894'),(20,'Nombrequiza','Alomen','+584267959595',0,'V-468468468'),(21,'Otromas','Sadada','+584126468464',0,'V-68464648');
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -203,6 +203,36 @@ CREATE TABLE `configuraciones` (
 LOCK TABLES `configuraciones` WRITE;
 /*!40000 ALTER TABLE `configuraciones` DISABLE KEYS */;
 /*!40000 ALTER TABLE `configuraciones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `delivery`
+--
+
+DROP TABLE IF EXISTS `delivery`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `delivery` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `id_usuario_delivery` int NOT NULL,
+  `id_venta` int NOT NULL,
+  `active` tinyint DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `asdfg_idx` (`id_usuario_delivery`),
+  KEY `asdfgh_idx` (`id_venta`),
+  CONSTRAINT `asdfg` FOREIGN KEY (`id_usuario_delivery`) REFERENCES `usuario` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `asdfgh` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `delivery`
+--
+
+LOCK TABLES `delivery` WRITE;
+/*!40000 ALTER TABLE `delivery` DISABLE KEYS */;
+INSERT INTO `delivery` VALUES (1,11,16,1);
+/*!40000 ALTER TABLE `delivery` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -532,7 +562,7 @@ CREATE TABLE `orden` (
   KEY `idx_cliente` (`id_cliente`),
   KEY `idx_fecha` (`fecha`),
   CONSTRAINT `clientes_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -541,64 +571,8 @@ CREATE TABLE `orden` (
 
 LOCK TABLES `orden` WRITE;
 /*!40000 ALTER TABLE `orden` DISABLE KEYS */;
-INSERT INTO `orden` VALUES (33,83599400,1,'2025-05-28 15:38:21',0,'delivery');
+INSERT INTO `orden` VALUES (33,83599400,1,'2025-05-30 02:00:59',2,'delivery'),(34,10466000,1,'2025-05-30 02:21:50',0,'delivery');
 /*!40000 ALTER TABLE `orden` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `orden_mesa`
---
-
-DROP TABLE IF EXISTS `orden_mesa`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `orden_mesa` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_mesa` int DEFAULT NULL,
-  `id_orden` int DEFAULT NULL,
-  `cantidad` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `descripcion` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id5_idx` (`id_mesa`),
-  KEY `id6_idx` (`id_orden`),
-  CONSTRAINT `id5` FOREIGN KEY (`id_mesa`) REFERENCES `mesas` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `orden_mesa`
---
-
-LOCK TABLES `orden_mesa` WRITE;
-/*!40000 ALTER TABLE `orden_mesa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `orden_mesa` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `orden_reserva`
---
-
-DROP TABLE IF EXISTS `orden_reserva`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `orden_reserva` (
-  `id` int NOT NULL,
-  `id_orden` int DEFAULT NULL,
-  `id_reserva` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id6_idx` (`id_orden`),
-  KEY `id7_idx` (`id_reserva`),
-  CONSTRAINT `id7` FOREIGN KEY (`id_reserva`) REFERENCES `reservaciones` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `orden_reserva`
---
-
-LOCK TABLES `orden_reserva` WRITE;
-/*!40000 ALTER TABLE `orden_reserva` DISABLE KEYS */;
-/*!40000 ALTER TABLE `orden_reserva` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -654,7 +628,7 @@ CREATE TABLE `pagos` (
   KEY `idMetodoPago` (`id_metodo_pago`),
   CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_metodo_pago`) REFERENCES `metodo_pago` (`id`),
   CONSTRAINT `pagos_ibfk_2` FOREIGN KEY (`id_venta`) REFERENCES `ventas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -663,7 +637,7 @@ CREATE TABLE `pagos` (
 
 LOCK TABLES `pagos` WRITE;
 /*!40000 ALTER TABLE `pagos` DISABLE KEYS */;
-INSERT INTO `pagos` VALUES (4,15,11,85.65,'2025-05-28 11:38:22',95.81,'cap.jpg','52662');
+INSERT INTO `pagos` VALUES (4,15,11,85.65,'2025-05-28 11:38:22',95.81,'cap.jpg','52662'),(5,16,11,6595.95,'2025-05-28 13:41:29',95.81,'cap.jpg','5684684');
 /*!40000 ALTER TABLE `pagos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -687,7 +661,7 @@ CREATE TABLE `producto_preparado_detalle_orden` (
   KEY `id12_idx` (`id_orden`),
   CONSTRAINT `id11` FOREIGN KEY (`id_producto`) REFERENCES `productos_preparados` (`id`),
   CONSTRAINT `id12` FOREIGN KEY (`id_orden`) REFERENCES `orden` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -696,7 +670,7 @@ CREATE TABLE `producto_preparado_detalle_orden` (
 
 LOCK TABLES `producto_preparado_detalle_orden` WRITE;
 /*!40000 ALTER TABLE `producto_preparado_detalle_orden` DISABLE KEYS */;
-INSERT INTO `producto_preparado_detalle_orden` VALUES (51,41,33,'1',NULL,'Salsa Inglesa,Nuggets',1),(52,48,33,'1',NULL,NULL,1),(53,50,33,'1',NULL,NULL,1);
+INSERT INTO `producto_preparado_detalle_orden` VALUES (51,41,33,'1',NULL,'Salsa Inglesa,Nuggets',1),(52,48,33,'1',NULL,NULL,1),(53,50,33,'1',NULL,NULL,1),(54,45,34,'1',NULL,'Salsa Inglesa',1),(55,41,34,'1',NULL,'Carne',1),(56,46,34,'1',NULL,NULL,1),(57,50,34,'1',NULL,NULL,1);
 /*!40000 ALTER TABLE `producto_preparado_detalle_orden` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -788,7 +762,7 @@ CREATE TABLE `productos_procesados` (
 
 LOCK TABLES `productos_procesados` WRITE;
 /*!40000 ALTER TABLE `productos_procesados` DISABLE KEYS */;
-INSERT INTO `productos_procesados` VALUES (41,'Nimbre','19085819.jpg',5,'dawdwdwadascacacac',1,1),(42,'Coca colaa','OIP.jpeg',1.5,'Coca cola de 1.5L',1,1);
+INSERT INTO `productos_procesados` VALUES (41,'Nigga','19085819.jpg',5,'dawdwdwadascacacac',1,1),(42,'Coca colaa','OIP.jpeg',1.5,'Coca cola de 1.5L',1,1);
 /*!40000 ALTER TABLE `productos_procesados` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -979,7 +953,7 @@ CREATE TABLE `usuario` (
   PRIMARY KEY (`id`),
   KEY `idRol` (`id_rol`),
   CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`id_rol`) REFERENCES `roles` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -988,7 +962,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (11,10,'Alejandro','Alejandro202*','Vargas',1,'1','garnicaluis391@gmail.com','8848','2025-05-25 22:18:49'),(13,10,'Pedro','Pedro25**','Perez',1,'1','pedro202@gmail.com','token',NULL);
+INSERT INTO `usuario` VALUES (11,10,'Alejandro','Alejandro202*','Vargas',1,'1','garnicaluis391@gmail.com','3139','2025-05-29 17:36:34'),(13,10,'Pedro','Pedro25**','Perez',1,'1','pedro202@gmail.com','token',NULL),(14,10,'Rolando','Martinez25/','Martinez',1,'1','martinezj@gmail.com','token',NULL);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1013,7 +987,7 @@ CREATE TABLE `ventas` (
   KEY `id-orden_idx` (`id_orden`),
   CONSTRAINT `srxtrxrxr` FOREIGN KEY (`id_orden`) REFERENCES `orden` (`id`),
   CONSTRAINT `ventas_ibfk_2` FOREIGN KEY (`id_caja`) REFERENCES `caja` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1022,7 +996,7 @@ CREATE TABLE `ventas` (
 
 LOCK TABLES `ventas` WRITE;
 /*!40000 ALTER TABLE `ventas` DISABLE KEYS */;
-INSERT INTO `ventas` VALUES (15,11,33,NULL,25.75,'2025-05-28 11:38:22','',1);
+INSERT INTO `ventas` VALUES (15,11,33,NULL,25.75,'2025-05-28 11:38:22','mi casa',1),(16,11,34,NULL,24.96,'2025-05-28 13:41:29','en mi casa',1);
 /*!40000 ALTER TABLE `ventas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1035,4 +1009,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-05-28 12:10:16
+-- Dump completed on 2025-05-29 22:23:58

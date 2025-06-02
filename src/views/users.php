@@ -1,13 +1,9 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
-
-
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
 
     <div class="page-wrapper">
