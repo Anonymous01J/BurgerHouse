@@ -31,13 +31,8 @@ class Delivery extends Db_base {
             a.id,
             a.id_usuario_delivery,
             a.id_venta,
-            a.active,
-            b.nombre AS nombre_delivery,
-            b.apellido AS apellido_delivery
+            a.active
         ";
 
-        $this->joins = "
-            INNER JOIN usuario b ON b.id = a.id_usuario_delivery
-        ";
     }
 }

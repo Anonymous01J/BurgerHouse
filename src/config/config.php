@@ -1,6 +1,14 @@
 <?php
-    $GLOBALS['db_host'] = 'localhost';
-    $GLOBALS['db_name'] = 'burger_house';
-    $GLOBALS['db_user'] = 'root';
-    $GLOBALS['db_pass'] = '12345';
+    $GLOBALS['db1'] = [
+        'host' => 'localhost',
+        'name' => 'burgerhouse',
+        'user' => 'root',
+        'pass' => '1234'
+    ];
+    $GLOBALS['db2'] = [
+        'host' => 'localhost',
+        'name' => 'usuarios_burgerhouse',
+        'user' => 'root',
+        'pass' => '1234'
+    ];
 ?>

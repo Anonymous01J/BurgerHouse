@@ -11,7 +11,7 @@ class Rol extends Db_base {
     private $active;
 
     public function __construct($id = null, $nombre = null, $descripcion = null, $nombre_like=null, $active=null) {
-        parent::__construct("roles");
+        parent::__construct("roles",2);
         
         $this->id = $id;
         $this->nombre = $nombre;
