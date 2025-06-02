@@ -10,7 +10,10 @@ const { targetCategories, targetProductsPrepared } = Templates();
   /**
    * Apply .scrolled class to the body as the page is scrolled down
   */
-  print(() => searchParam({ active: 1 }, "categoryProducto", 10000000000000), targetCategories, "#categories-container")
+  print(() => searchParam({ active: 1 }, "categoryProducto", 10000000000000), targetCategories, "#categories-container");
+  print(() => searchParam({ active: 1, tipo: "producto" }, "productPrepared", 10000000000000), targetProductsPrepared, "#productsPrepared-container");
+  let data = searchParam({ active: 1, tipo: "producto"}, "productPrepared");
+  console.log(data);
   function toggleScrolled() {
     const selectBody = document.querySelector("body");
     const selectHeader = document.querySelector("#header");
@@ -220,42 +223,6 @@ const { targetCategories, targetProductsPrepared } = Templates();
       }
     });
   }
-  // fetch("categoryProducto/get_all/0/10000000/id/asc")
-  //   .then((response) => {
-  //     return response.json();
-  //   })
-  //   .then((data) => {
-  //     const categories = Array.isArray(data) ? data : [];
-  //     console.log("Datos procesados como array:", categories);
-
-  //     const categoriesContainer = document.querySelector(
-  //       "#categories-container"
-  //     );
-  //     if (categoriesContainer) {
-  //       categoriesContainer.innerHTML = template.targetCategories(categories);
-  //     }
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error al realizar la petición:", error);
-  //   });
-  fetch("productPrepared/get_all/0/10000000/id/asc")
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      const products = Array.isArray(data) ? data : [];
-      console.log("Datos procesados como array:", products);
-
-      const productsContainer = document.querySelector(
-        "#productsPrepared-container"
-      );
-      if (productsContainer) {
-        productsContainer.innerHTML = template.targetProductsPrepared(products);
-      }
-    })
-    .catch((error) => {
-      console.error("Error al realizar la petición:", error);
-    });
   window.addEventListener("load", navmenuScrollspy);
   document.addEventListener("scroll", navmenuScrollspy);
 })();
