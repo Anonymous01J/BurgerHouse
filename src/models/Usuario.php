@@ -15,7 +15,7 @@
         private $nombre_like;
 
         function __construct($id=null, $nombre=null,$hash=null,$id_rol=null,$active=null,$session_id=null, $email=null, $apellido=null, $nombre_like=null, $token=null, $token_expiracion=null){
-            parent::__construct("usuario");
+            parent::__construct("usuario",2);
             $this->id = $id;
             $this->nombre = $nombre;
             $this->hash = $hash;

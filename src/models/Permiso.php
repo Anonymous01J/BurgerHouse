@@ -13,7 +13,7 @@ class Permiso extends Db_base {
         $modulo = null,
         $permisos = null
     ) {
-        parent::__construct("detalles_roles");
+        parent::__construct("detalles_roles",2);
         
         $this->id = $id;
         $this->id_rol = $id_rol;

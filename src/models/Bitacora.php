@@ -19,7 +19,7 @@ class Bitacora extends Db_base {
         $fecha = null,
         $descripcion = null
     ) {
-        parent::__construct("bitacora");
+        parent::__construct("bitacora",2);
         
         $this->id = $id;
         $this->id_usuario = $id_usuario;

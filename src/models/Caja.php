@@ -56,8 +56,6 @@ class Caja extends Db_base {
         $this->select_query = "
             a.id,
             a.id_usuario,
-            b.nombre AS nombre_usuario,
-            b.apellido AS apellido_usuario,
             a.monto_inicial_bs,
             a.monto_inicial_dolar,
             a.monto_final_bs,
@@ -66,10 +64,6 @@ class Caja extends Db_base {
             a.fecha_cierre,
             a.estado,
             a.total_ventas
-        ";
-
-        $this->joins = "
-            INNER JOIN usuario b ON b.id = a.id_usuario
         ";
     }
 }

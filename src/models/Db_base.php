@@ -46,14 +46,14 @@
         public $joins;
         public $select_query;
         public $variables_interval;
-        protected function __construct($tabla=""){
+        protected function __construct($tabla="", $db_n=1){
             $this->variables = array();
             $this->tabla = $tabla;
             $this->variables_like = array();
             $this->joins = "";
             $this->select_query = " a.* ";
             $this->variables_interval = array();
-            Conexion::__construct();
+            Conexion::__construct($db_n);
         }
         public function add_variables(array $variables) : void {
             $this->variables = array_filter($variables, fn($value) => (!is_null($value) and !is_array($value)));
