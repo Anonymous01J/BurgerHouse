@@ -68,7 +68,7 @@ let tablePorVencer = $(".table_entrys_por_vencer").DataTable({
         dataSrc: function (json) {
             const EntryPorVencer = json.filter((element) => {
                 let diasRestantes = diasRestantesFechaVencimiento(element)
-                return diasRestantes <= 10 && element.existencia > 0;
+                return (diasRestantes <= 10 && diasRestantes > 0) && element.existencia > 0;
             });
             return EntryPorVencer;
         },

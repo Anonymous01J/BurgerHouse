@@ -72,7 +72,6 @@ const graphic1 = () => {
     const ctx = document.getElementById('ticketChart').getContext('2d');
     new Chart(ctx, { type: 'line', data: { labels: ticketLabels, datasets: [datasetConfig] }, options: optionsConfig });
 }
-graphic1()
 const graphic2 = () => {
     const centerTextPlugin = {
         id: 'centerTextPlugin',
@@ -137,8 +136,6 @@ const graphic2 = () => {
 
     new Chart(ctx, config);
 }
-graphic2()
-
 const graphic3 = () => {
     const franjasHorarias = ['10-12 AM', '12-2 PM', '2-4 PM', '4-6 PM', '6-8 PM', '8-10 PM'];
     const ocupacion = [65, 90, 50, 40, 85, 70];
@@ -203,9 +200,6 @@ const graphic3 = () => {
         }
     });
 }
-
-graphic3()
-
 const graphic4 = () => {
     const franjasHorarias = ["Local y otros", "Pagina web"];
     const ocupacion = [65, 90];
@@ -263,7 +257,105 @@ const graphic4 = () => {
         }
     });
 }
+const graphic5 = () => {
+    const productos = ['Hamburguesa', 'Pizza', 'Papas', 'Refresco', 'Hot Dog'];
+    const ventas = [120, 95, 200, 150, 80];
+
+    const backgroundColors = [
+        '#FF4B00',
+        '#FFB200',
+        '#AA7861',
+        '#0B1B21',
+        '#b41a1a'
+    ];
+
+    new Chart(document.getElementById('productMoreSales'), {
+        type: 'pie',
+        data: {
+            labels: productos,
+            datasets: [{
+                data: ventas,
+                backgroundColor: backgroundColors,
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => `${ctx.label}: ${ctx.raw} `
+                    }
+                },
+                datalabels: {
+                    color: '#fff',
+                    font: {
+                        weight: 'bold',
+                        size: 14
+                    },
+                    formatter: (value, ctx) => `${ctx.chart.data.labels[ctx.dataIndex]}: ${value}`
+                }
+            },
+        },
+        plugins: [ChartDataLabels]
+    });
+
+
+}
+const graphic6 = () => {
+    const productos = ['Hamburguesa', 'Pizza', 'Papas', 'Refresco', 'Hot Dog'];
+    const ventas = [120, 95, 200, 150, 80];
+
+    const backgroundColors = [
+        '#FF4B00',
+        '#FFB200',
+        '#AA7861',
+        '#0B1B21',
+        '#b41a1a'
+    ];
+
+    new Chart(document.getElementById('productMinSales'), {
+        type: 'pie',
+        data: {
+            labels: productos,
+            datasets: [{
+                data: ventas,
+                backgroundColor: backgroundColors,
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => `${ctx.label}: ${ctx.raw} `
+                    }
+                },
+                datalabels: {
+                    color: '#fff',
+                    font: {
+                        weight: 'bold',
+                        size: 14
+                    },
+                    formatter: (value, ctx) => `${ctx.chart.data.labels[ctx.dataIndex]}: ${value}`
+                }
+            },
+        },
+        plugins: [ChartDataLabels]
+    });
+
+
+}
+
+graphic1()
+graphic2()
+graphic3()
 graphic4();
+graphic5()
+graphic6()
 function exportarPDFReservas() {
     const canvas = document.getElementById('ocupacionChart');
     const imgData = canvas.toDataURL('image/png');
@@ -273,9 +365,9 @@ function exportarPDFReservas() {
     doc.text(`FECHA: ${new Date().toLocaleDateString()}`, 165, 17);
     doc.setFontSize(25);
     doc.text(`Tasa de reservaciones Anuales`, 100, 30, { align: 'center' });
-    
+
     doc.addImage(imgData, 'PNG', 50, 40, 110, 110); // Ajusta las coordenadas y dimensiones según sea necesario
-    
+
     doc.setFontSize(12);
     const text = `La gráfica muestra la evolución anual de las reservaciones en el establecimiento, permitiendo identificar las horas de mayor afluencia. Esta información es clave para planificar personal, gestionar insumos y diseñar promociones que respondan a la demanda real del cliente.`;
     const additionalText = `Se puede observar que durante el año ${new Date().getFullYear()} el horario con más afluencia es a las 12-2PM y la menor afluencia es a las 4-6PM.`;
@@ -290,11 +382,11 @@ function exportarPDFReservas() {
     [...lines, ...additionalLines].forEach((line, index) => {
         doc.text(line, marginLeft, marginTop + index * lineHeight); // Dibuja cada línea con el salto correspondiente
     });
-    
+
     // doc.save(`Porcentaje de reservacion por horario ${new Date().toLocaleDateString()}.pdf`);
     window.open(doc.output('bloburl'), '_blank');
-  }
-document.getElementById("porcentajeReservacion").addEventListener("click",()=>{
+}
+document.getElementById("porcentajeReservacion").addEventListener("click", () => {
     exportarPDFReservas();
 })
 function exportarPDFReservasTasas() {
@@ -306,9 +398,9 @@ function exportarPDFReservasTasas() {
     doc.text(`FECHA: ${new Date().toLocaleDateString()}`, 165, 17);
     doc.setFontSize(25);
     doc.text(`Porcentaje de reservas por canales`, 100, 30, { align: 'center' });
-    
+
     doc.addImage(imgData, 'PNG', 40, 40, 100, 80); // Ajusta las coordenadas y dimensiones según sea necesario
-    
+
     doc.setFontSize(12);
     const text = `La gráfica muestra la evolución anual de las reservaciones en el establecimiento, destacando la preferencia de los clientes por distintos métodos de reserva. Al analizar los canales más utilizados, como reservas directas en el local, plataformas digitales o llamadas telefónicas, se obtiene información clave para optimizar la gestión del negocio. Esta información permite planificar el personal según la demanda, gestionar insumos de manera eficiente y diseñar promociones estratégicas que se alineen con los hábitos de reservación del cliente. Entender estas tendencias es fundamental para mejorar la experiencia del usuario y aumentar la efectividad operativa.`;
     const additionalText = `Se puede observar que durante el año ${new Date().getFullYear()} el metodo de reserva preferido por los clientes es a través de nuestra página web con un 90% de las reservas realizadas por dicho canal, dejando con un 65% el resto de metodos como ,directos en el local o a tráves de nuestro teléfono.`;
@@ -326,9 +418,8 @@ function exportarPDFReservasTasas() {
 
     // doc.save(`Porcentaje de reservas por canales ${new Date().toLocaleDateString()}.pdf`);
     window.open(doc.output('bloburl'), '_blank');
-  }
-document.getElementById("canalesReservacion").addEventListener("click",()=>{
+}
+document.getElementById("canalesReservacion").addEventListener("click", () => {
     exportarPDFReservasTasas();
 })
 
-// iwqq zoci qlbx lrvs

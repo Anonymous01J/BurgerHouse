@@ -1,19 +1,22 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { selectOptionAll, setValidationStyles, validateField, searchAll, searchParam, searchFilter, print, add, update, reindex, resetForm, sessionInfo, binnacle } = functionGeneral();
+const { selectOptionAll, setValidationStyles, validateField, searchParam, searchFilter, print, add, update, reindex, resetForm, sessionInfo, binnacle, edit, Delete } = functionGeneral();
 const { elemenFormClient, targetClient } = Templates()
 let session = await sessionInfo();
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
-searchFilter("#SearchClients", (e) => {
-    if (e.target.value == "") {
-        print(() => searchParam({ active: 1 }, "clients"), targetClient, ".container_clients", "clients", (response) => editClient(response),
-        () => binnacle(session.message.id, "Clientes", "Eliminacion", "Se elimino un cliente")
-    );
-    } else {
-        print(() => searchParam({ active: 1, nombre_like: e.target.value }, "clients"), targetClient, ".container_clients", "clients", (response) => editClient(response),
-        () => binnacle(session.message.id, "Clientes", "Eliminacion", "Se elimino un cliente")
-    );
+const config = {
+    search: () => searchParam({ active: 1 }, "clients"),
+    template: targetClient,
+    container: ".container_clients",
+    funtions: () => {
+        Delete(config, () => binnacle(session.message.id, "Clientes", "Eliminacion", "Se elimino un cliente"));
+        edit((response) => editData(response));
+        document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
     }
+}
+searchFilter("#SearchClients", (e) => {
+    if (e.target.value == "") print(config)
+    else print({ ...config, search: () => searchParam({ active: 1, nombre_like: e.target.value }, "clients") })
 })
 selectOptionAll(".select_options_td", null, null)
 let iti = window.intlTelInput(document.querySelector("#input-tel-client-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
@@ -204,7 +207,6 @@ const rules2 = {
         validateTD: { message: "^es requerido" }
     }
 };
-
 let form = document.getElementById("form-submit-clients")
 if (!form.dataset.listenerAttached) {
     form.addEventListener("submit", function (e) {
@@ -231,9 +233,7 @@ if (!form.dataset.listenerAttached) {
             setValidationStyles(`input-doc-client-${index}`, errors?.documento ? errors.documento[0] : null);
             setValidationStyles(`input-tel-client-${index}`, errors?.telefono ? errors.telefono[0] : null);
             // setValidationStyles(`input-direction-client-${index}`, errors?.direccion ? errors.direccion[0] : null);
-            if (errors) {
-                formHasError = true;
-            }
+            if (errors) formHasError = true;
         });
 
         if (!formHasError) {
@@ -245,25 +245,15 @@ if (!form.dataset.listenerAttached) {
                 dataFinal.append(`lista[${index}][telefono]`, client.telefono);
                 // dataFinal.append(`lista[${index}][direccion]`, client.direccion);
             })
-            add(
-                () => searchParam({ active: 1 }, "clients"),
-                "clients",
-                dataFinal,
-                targetClient,
-                ".container_clients",
-                "clients",
-                (response) => editClient(response),
-                () => binnacle(session.message.id, "Clientes", "Eliminacion", "Se elimino un cliente"),
-                () => binnacle(session.message.id, "Clientes", "Agregar", "Se agrego un nuevo cliente")
-            );
+            add(config, "clients", dataFinal, () => binnacle(session.message.id, "Clientes", "Agregar", "Se agrego un nuevo cliente"));
             resetForm("#clients-container .clients", form)
             bootstrap.Modal.getOrCreateInstance('#register-client').hide()
         }
     });
     form.dataset.listenerAttached = "true";
 }
-print(() => searchParam({ active: 1 }, "clients"), targetClient, ".container_clients", "clients", (response) => editClient(response), () => binnacle(session.message.id, "Clientes", "Eliminacion", "Se elimino un cliente"));
-const editClient = (response) => {
+print(config);
+const editData = (response) => {
     let hasError = false;
     document.querySelector("#input-name-client").value = response[0].nombre;
     document.querySelector("#input-lastname-client").value = response[0].apellido;
@@ -289,7 +279,6 @@ const editClient = (response) => {
     setValidationStyles(`input-tel-client`, errors?.telefono ? errors.telefono[0] : null);
     // setValidationStyles(`input-direction-client`, errors?.direccion ? errors.direccion[0] : null);
 
-
     let formEdit = document.getElementById("form-submit-edit-client")
     if (!formEdit.dataset.listenerAttached) {
         formEdit.addEventListener("submit", function (e) {
@@ -313,17 +302,7 @@ const editClient = (response) => {
                 dataFinal.append(`telefono`, data.telefono);
                 // dataFinal.append(`direccion`, data.direccion);
                 dataFinal.append(`id`, document.querySelector("#input-id-client").value);
-                update(
-                    () => searchParam({ active: 1 }, "clients"),
-                    "clients",
-                    dataFinal,
-                    targetClient,
-                    ".container_clients",
-                    "clients",
-                    (response) => editClient(response),
-                    () => binnacle(session.message.id, "Clientes", "Eliminacion", "Se elimino un cliente"),
-                    () => binnacle(session.message.id, "Clientes", "Actualizacion", "Se actualizo un cliente")
-                )
+                update(config, "clients", dataFinal, () => binnacle(session.message.id, "Clientes", "Actualizacion", "Se actualizo un cliente"))
                 bootstrap.Modal.getOrCreateInstance('#edit-client').hide()
             }
         });

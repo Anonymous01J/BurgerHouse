@@ -1,23 +1,17 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { searchParam, binnacle, sessionInfo } = functionGeneral();
+const { searchParam, binnacle, sessionInfo, print } = functionGeneral();
 const { targetDelivery } = Templates();
 let session = await sessionInfo()
-const printDeliveryPending = async () => {
-    let template = ""
-    let resut = await searchParam({ status: 2 }, "order");
-    if (resut.length > 0) {
-        resut.forEach((order) => { template += targetDelivery(order) })
-    } else {
-        template = `
-            <div class="col-12">
-                <div class="d-flex justify-content-center align-items-center">
-                    <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
-                </div>
-            </div>
-            `
-    }
-    document.querySelector(".cont-delivery-pending").innerHTML = template
+const config = {
+    search: () => searchParam({ status: 2 }, "order"),
+    template: targetDelivery,
+    container: ".cont-delivery-pending",
+    funtions: () => {
+        saleBTN(config, () => binnacle(session.message.id, 'Orden de delivery', 'Orden aceptada', 'Se acepto una orden de delivery'))
+    },
+}
+const saleBTN = async (config, binnacleSale) => {
     document.querySelectorAll(".btn_sale").forEach(item => {
         item.addEventListener("click", async () => {
             Swal.fire({
@@ -49,9 +43,9 @@ const printDeliveryPending = async () => {
                                 text: "La orden se acepto correctamente",
                                 icon: "success",
                             });
-                            printDeliveryPending()
+                            print(config)
                             printDeliveyOff()
-                            binnacle(session.message.id, 'Orden de delivery', 'Orden aceptada', 'Se acepto una orden de delivery')
+                            binnacleSale()
                             let deliveryData = new FormData();
                             deliveryData.append("id_venta", item.getAttribute("id_venta"))
                             deliveryData.append("id_usuario_delivery", session.message.id)
@@ -64,7 +58,6 @@ const printDeliveryPending = async () => {
                             });
                         }
                     }
-
                 }
             });
         })
@@ -74,10 +67,7 @@ const printDeliveyOff = async () => {
     let resut = await searchParam({}, "order");
     let template = ""
     let data = []
-    if (resut.length > 0) resut.forEach((order) => {
-        if (order.status > 2) data.push({ ...order })
-    })
-
+    if (resut.length > 0) resut.forEach((order) => { if (order.status > 2) data.push({ ...order }) })
     if (data.length > 0) data.forEach((order) => { template += targetDelivery(order) })
     else {
         template = `
@@ -88,8 +78,7 @@ const printDeliveyOff = async () => {
         </div>
         `
     }
-
     document.querySelector(".cont-delivery-off").innerHTML = template
 }
-printDeliveryPending()
+print(config)
 printDeliveyOff()

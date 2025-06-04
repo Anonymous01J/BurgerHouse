@@ -441,7 +441,7 @@ export default function Templates() {
         return `
         <div class="col-md-3">
             <div class="card h-100">
-                <img src="media/mesas/${objet.imagen}" class="card-img-top" style="object-fit: cover; height: 200px;" alt="...">
+                <img src="media/table/${objet.imagen}" class="card-img-top" style="object-fit: cover; height: 200px;" alt="...">
                 <div class="card-body p-1">
                     <div class="d-flex justify-content-center align-items-center gap-4 h-100">
                         <h5 class="card-title m-0">${objet.nombre}</h5>

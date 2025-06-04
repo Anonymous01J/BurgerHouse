@@ -36,34 +36,49 @@
                 <div class="col-lg-8 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex align-items-start">
+                            <div class="d-flex align-items-start flex-wrap justify-content-between prueba">
                                 <div>
                                     <h4 class="card-title">Gasto Promedio (Clientes)</h4>
                                     <p class="fs-6">Semana 14 de Febrero del 2025</p>
                                 </div>
-                                <div class="ms-auto">
-                                    <div class="dropdown sub-dropdown">
-                                        <a class="link-secondary text-muted" id="pdf_net_income" style="cursor: pointer">
-                                            <i data-feather="download"></i>
-                                        </a>
-                                        <button class="btn btn-link text-muted dropdown-toggle" type="button"
-                                            id="dd1" data-bs-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i data-feather="more-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dd1">
-                                            <div class="row p-3">
-                                                <div class="col-md-12">
-                                                    <label for="inputEmail4" class="form-label">Ingrese año</label>
-                                                    <input type="text" class="form-control" placeholder="Año" id="year_net_income">
-                                                    <div class="d-flex justify-content-center mt-3">
-                                                        <button class="btn bh_1 text-white mx-auto" id="search_net_income">Buscar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class=" d-flex align-items-center gap-2">
+                                    <select class="form-select" name="select" id="">
+                                        <option selected disabled value="2021">Tipo de filtro</option>
+                                        <option value="2022">Semana/mes/año</option>
+                                        <option value="2023">Mes/Año</option>
+                                        <option value="2024">Año</option>
+                                    </select>
+                                    <a class="link-secondary text-muted" id="pdf_net_income" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                        <i data-feather="download"></i>
+                                    </a>
                                 </div>
+                            </div>
+                            <div>
+                                <form class="row g-3">
+                                    <div class="col-md-4">
+                                        <input type="week" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-select" name="" id="">
+                                            <option selected disabled value="2021">Mes</option>
+                                            <option value="1">Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="year" class="form-control" id="inputEmail4">
+                                    </div>
+                                </form>
                             </div>
 
                             <div id="net_income_container">
@@ -226,6 +241,111 @@
                 </div>
             </div>
 
+
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start flex-wrap justify-content-between">
+                                <div>
+                                    <h4 class="card-title">Productos mas vendidos</h4>
+                                    <p class="fs-6">Semana 14 de Febrero del 2025</p>
+                                </div>
+                                <div class=" d-flex align-items-center gap-2">
+                                    <select class="form-select" name="select" id="">
+                                        <option selected disabled value="2021">Tipo de filtro</option>
+                                        <option value="2022">Semana/mes/año</option>
+                                        <option value="2023">Mes/Año</option>
+                                        <option value="2024">Año</option>
+                                    </select>
+                                    <a class="link-secondary text-muted" id="pdf_net_income" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                        <i data-feather="download"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <form class="row g-3">
+                                    <div class="col-md-4">
+                                        <input type="week" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-select" name="" id="">
+                                            <option selected disabled value="2021">Mes</option>
+                                            <option value="1">Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="year" class="form-control" id="inputEmail4">
+                                    </div>
+                                </form>
+                            </div>
+                            <canvas class="mb-4" id="productMoreSales"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-start flex-wrap justify-content-between">
+                                <div>
+                                    <h4 class="card-title">Productos menos vendidos</h4>
+                                    <p class="fs-6">Semana 14 de Febrero del 2025</p>
+                                </div>
+                                <div class=" d-flex align-items-center gap-2">
+                                    <select class="form-select" name="select" id="">
+                                        <option selected disabled value="2021">Tipo de filtro</option>
+                                        <option value="2022">Semana/mes/año</option>
+                                        <option value="2023">Mes/Año</option>
+                                        <option value="2024">Año</option>
+                                    </select>
+                                    <a class="link-secondary text-muted" id="pdf_net_income" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                        <i data-feather="download"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <form class="row g-3">
+                                    <div class="col-md-4">
+                                        <input type="week" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <select class="form-select" name="" id="">
+                                            <option selected disabled value="2021">Mes</option>
+                                            <option value="1">Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="year" class="form-control" id="inputEmail4">
+                                    </div>
+                                </form>
+                            </div>
+                            <canvas class="mb-4" id="productMinSales"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

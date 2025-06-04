@@ -365,7 +365,8 @@ export default function functionGeneral() {
     data.append("descripcion", description);
     let search = await fetch("binnacle/add", { method: "POST", body: data });
   }
-  const print = async (search, template, container, modulePermission, inputs, binnacleDelete) => {
+  const print = async (config) => {
+    const { search, template, container, funtions } = config;
     let response = await search();
     let templatesWrapper = "";
     if (response.length == 0) {
@@ -382,14 +383,10 @@ export default function functionGeneral() {
       });
     }
     document.querySelector(container).innerHTML = templatesWrapper;
-    document.querySelectorAll(".edit_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
-    document.querySelectorAll(".trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
-    permission(modulePermission);
-    Delete(search, template, container, modulePermission, inputs, binnacleDelete);
-    edit(inputs);
     feather.replace();
+    funtions()
   };
-  const Delete = (search, template, container, modulePermission, inputs, binnacleDelete) => {
+  const Delete = (config, binnacleDelete) => {
     document.querySelectorAll(".trash_btn").forEach((element) => {
       element.addEventListener("click", () => {
         Swal.fire({
@@ -414,7 +411,7 @@ export default function functionGeneral() {
                     text: "El elemento fue eliminado correctamente",
                     icon: "success",
                   });
-                  print(search, template, container, modulePermission, inputs, binnacleDelete);
+                  print(config);
                   binnacleDelete()
                 } else {
                   Swal.fire({
@@ -432,7 +429,7 @@ export default function functionGeneral() {
       });
     });
   };
-  const add = async (search, module, data, template, container, permission, inputs, binnacleDelete, binnacleAdd) => {
+  const add = async (config, module, data, binnacleAdd) => {
     let action = await fetch(`${module}/add_many`, { method: "POST", body: data, });
     let response = await action.json()
     if (response.success == true) {
@@ -441,7 +438,7 @@ export default function functionGeneral() {
         text: "El elemento fue agregado correctamente",
         icon: "success",
       });
-      print(search, template, container, permission, inputs, binnacleDelete);
+      print(config);
       binnacleAdd()
     } else {
       Swal.fire({
@@ -465,7 +462,7 @@ export default function functionGeneral() {
     let response = await pet.json()
     return response
   };
-  const update = async (search, module, data, template, container, permission, inputs, binnacleDelete, binnacleAdd) => {
+  const update = async (config, module, data,binnacleAdd) => {
     let action = await fetch(`${module}/update`, {
       method: "POST",
       body: data,
@@ -477,7 +474,7 @@ export default function functionGeneral() {
         text: "El elemento fue actualizado correctamente",
         icon: "success",
       });
-      print(search, template, container, permission, inputs, binnacleDelete);
+      print(config);
       binnacleAdd()
     } else {
       Swal.fire({
@@ -630,6 +627,7 @@ export default function functionGeneral() {
     searchFilter,
     print,
     add,
+    Delete,
     edit,
     update,
     reindex,

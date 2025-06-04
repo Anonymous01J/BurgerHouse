@@ -1,34 +1,26 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, reindex, resetForm, viewImage, searchParam, print, add, update, permission, searchFilter, sessionInfo, binnacle } = functionGeneral();
+const { setValidationStyles, validateField, reindex, resetForm, viewImage, searchParam, print, add, update, permission, searchFilter, sessionInfo, binnacle, edit, Delete } = functionGeneral();
 const { elemenFormTables, targetTable } = Templates()
 let session = await sessionInfo()
+const config = {
+    search: () => searchParam({ active: 1, estado: "LIBRE" }, "table"),
+    template: targetTable,
+    container: ".cont_tables_free",
+    funtions: () => {
+        Delete(config, () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"));
+        edit((response) => editData(response));
+        document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
+    }
+}
 viewImage(".input-image")
 searchFilter("#SearchTablesFREE", (e) => {
-    if (e.target.value == "") {
-        print(() => searchParam({ active: 1, estado: "LIBRE" }, "table"),
-            targetTable,
-            ".cont_tables_free",
-            "table",
-            (response) => dataEdit(response),
-            () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
-        );
-    } else {
-        print(() => searchParam({ active: 1, nombre_like: e.target.value, estado: "LIBRE" }, "table"),
-            targetTable,
-            ".cont_tables_free",
-            "table",
-            (response) => dataEdit(response),
-            () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
-        );
-    }
+    if (e.target.value == "") print(config)
+    else print({ ...config, search: () => searchParam({ active: 1, nombre_like: e.target.value, estado: "LIBRE" }, "table") })
 })
 searchFilter("#SearchTablesOCCUPIED", (e) => {
-    if (e.target.value == "") {
-        print(() => searchParam({ active: 1, estado: "OCUPADA" }, "table"), targetTable, ".cont_tables_occupied", "table", (response) => dataEdit(response));
-    } else {
-        print(() => searchParam({ active: 1, nombre_like: e.target.value, estado: "OCUPADA" }, "table"), targetTable, ".cont_tables_occupied", "table", (response) => dataEdit(response));
-    }
+    if (e.target.value == "") print({ ...config, search: () => searchParam({ active: 1, estado: "OCUPADA" }, "table"), container: ".cont_tables_occupied" })
+    else print({ ...config, search: () => searchParam({ active: 1, nombre_like: e.target.value, estado: "OCUPADA" }, "table"), container: ".cont_tables_occupied" })
 })
 
 let TableCount = 1;
@@ -169,26 +161,17 @@ if (!form.dataset.listenerAttached) {
                 data.append(`lista[${index}][vip]`, table.vip == true ? 1 : 0);
             })
             resetForm("#tables-container .tables", form)
-            add(() => searchParam({ active: 1, estado: "LIBRE" }, "table"),
-                "table",
-                data,
-                targetTable,
-                ".cont_tables_free",
-                "table",
-                (response) => dataEdit(response),
-                () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
-                () => binnacle(session.message.id, "Mesas", "Agregar", "Se agrego una mesa")
-            )
+            add(config, "table", data, () => binnacle(session.message.id, "Mesas", "Agregar", "Se agrego una mesa"))
             bootstrap.Modal.getOrCreateInstance('#register-table').hide()
         }
     });
     form.dataset.listenerAttached = "true";
 }
-const dataEdit = (response) => {
+const editData = (response) => {
     let hasError = false
     document.querySelector("#input-name-table").value = response[0].nombre;
     document.querySelector("#input-chair-table").value = response[0].sillas;
-    document.querySelector("#img-table-response").src = "media/mesas/" + response[0].imagen;
+    document.querySelector("#img-table-response").src = "media/table/" + response[0].imagen;
     document.querySelector("#input-vip-table").checked = response[0].vip == 1 ? true : false;
     document.querySelector("#input-id-table").value = response[0].id;
     const data = {
@@ -227,16 +210,7 @@ const dataEdit = (response) => {
                     dataFinal.append(`imagen`, data.imagen);
                     dataFinal.append(`imagen_name`, data.imagen.name);
                 }
-                update(() => searchParam({ active: 1, estado: "LIBRE" }, "table"),
-                    "table",
-                    dataFinal,
-                    targetTable,
-                    ".cont_tables_free",
-                    "table",
-                    (response) => dataEdit(response),
-                    () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
-                    () => binnacle(session.message.id, "Mesas", "Edicion", "Se Edito un mesa")
-                )
+                update(config, "table", dataFinal, () => binnacle(session.message.id, "Mesas", "Edicion", "Se Edito un mesa"))
                 bootstrap.Modal.getOrCreateInstance('#edit-table').hide()
             }
         })
@@ -244,17 +218,5 @@ const dataEdit = (response) => {
     }
 }
 attachValidationListeners(1);
-print(() => searchParam({ active: 1, estado: "LIBRE" }, "table"),
-    targetTable,
-    ".cont_tables_free",
-    "table",
-    (response) => dataEdit(response),
-    () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
-);
-print(() => searchParam({ active: 1, estado: "OCUPADA" }, "table"),
-    targetTable,
-    ".cont_tables_occupied",
-    "table",
-    (response) => dataEdit(response),
-    () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"),
-);
+print(config);
+print({ ...config, search: () => searchParam({ active: 1, estado: "OCUPADA" }, "table"), container: ".cont_tables_occupied" });

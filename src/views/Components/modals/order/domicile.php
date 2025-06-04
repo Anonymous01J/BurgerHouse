@@ -101,9 +101,10 @@
 									</div>
 								</form>
 								<div class="row cont_client-order">
-									<div class="col-md-12 d-flex justify-content-center align-items-center my-5 loader_client_order">
+									<div class="col-md-12 d-flex justify-content-center align-items-center my-2 loader_client_order">
 										<h3>No hay clientes seleccionados</h3>
-										<div class="d-flex align-items-center gap-2 d-none">
+										<section class="target_client_order w-100 d-none"></section>
+										<div class="d-flex align-items-center gap-2 d-none loader">
 											<div class="spinner-grow" style="color: #FF4B00" role="status">
 												<span class="visually-hidden">Loading...</span>
 											</div>

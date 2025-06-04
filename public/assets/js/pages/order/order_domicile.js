@@ -213,7 +213,8 @@ let formClient = document.getElementById("form-search-client-order")
 formClient.addEventListener("submit", async (e) => {
     e.preventDefault()
     document.querySelector(".loader_client_order").querySelector("h3").classList.add("d-none")
-    document.querySelector(".loader_client_order").querySelector("div").classList.remove("d-none")
+    document.querySelector(".target_client_order").classList.add("d-none")
+    document.querySelector(".loader_client_order").querySelector(".loader").classList.remove("d-none")
     let data = new FormData()
     data.append("cedula", formClient.querySelector("input").value);
     let pet = await fetch(`login/cedula`, { method: "POST", body: data })
@@ -223,7 +224,9 @@ formClient.addEventListener("submit", async (e) => {
         let pet = await searchParam({ active: 1, documento: response.nacionalidad + "-" + response.cedula }, "clients", 1)
         if (pet.length > 0) {
             let template = targetClienteOrder(pet[0])
-            document.querySelector(".cont_client-order").innerHTML = template
+            document.querySelector(".loader_client_order").querySelector(".loader").classList.add("d-none")
+            document.querySelector(".target_client_order").innerHTML = template
+            document.querySelector(".target_client_order").classList.remove("d-none")
         } else {
             let data = new FormData()
             data.append("nombre", response.primer_nombre);
@@ -235,7 +238,9 @@ formClient.addEventListener("submit", async (e) => {
             console.log(pet2);
             if (pet2.length > 0) {
                 let template = targetClienteOrder(pet2[0])
-                document.querySelector(".cont_client-order").innerHTML = template
+                document.querySelector(".loader_client_order").querySelector(".loader").classList.add("d-none")
+                document.querySelector(".target_client_order").innerHTML = template
+                document.querySelector(".target_client_order").classList.remove("d-none")
             } else {
                 toas("error", "Error al registrar el cliente")
             }
@@ -512,7 +517,6 @@ btnSendOrder.addEventListener("click", async () => {
             order.append(`lista_detalle_procesado[${index}][cantidad]`, product.cantidad);
             index++
         })
-
         let groupedAdicionales = {};
         productPreparedData.forEach((product) => {
             product.adicionales.forEach((aditional) => {
@@ -527,7 +531,7 @@ btnSendOrder.addEventListener("click", async () => {
             order.append(`lista_detalle_preparado[${index}][cantidad]`, aditional.cantidad);
             index++
         })
-        
+
 
         let petOrder = await fetch("order/add", { method: "POST", body: order })
         let resOrder = await petOrder.json()

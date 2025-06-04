@@ -1,8 +1,7 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-
-const { InputPrice, selectOptionAll, setValidationStyles, validateField, reindex, resetForm, edit, searchParam, sessionInfo, binnacle } = functionGeneral();
-const { elemenFormRecipe, optionsRol, optionsRawMaterial, targetRecipe, itemIngredientes, elemenFormEditRecipe } = Templates()
+const { InputPrice, selectOptionAll, setValidationStyles, validateField, reindex, resetForm, edit, searchParam, sessionInfo, binnacle, print } = functionGeneral();
+const { elemenFormRecipe, optionsRol, optionsRawMaterial, targetRecipe, elemenFormEditRecipe } = Templates()
 InputPrice("[input_price]");
 selectOptionAll(".select_options_product", "productPrepared", optionsRol)
 selectOptionAll(".select_options_rawmaterial", "rawmaterial", optionsRawMaterial)
@@ -238,7 +237,7 @@ async function renderizarTarjetas(param) {
                     if (!formHasError) {
                         let unod = []
                         objectActual.forEach((item, i) => {
-                            unod.push({cantidad: item.cantidad, id_rawmaterial: item.id_materia_prima});
+                            unod.push({ cantidad: item.cantidad, id_rawmaterial: item.id_materia_prima });
                         })
                         const comparation = (a, b) => a.id_rawmaterial === b.id_rawmaterial && a.cantidad === b.cantidad;
                         const unicosEnUno = recetaData.filter(obj1 => !unod.some(obj2 => comparation(obj1, obj2)));

@@ -1,6 +1,6 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { selectOptionAll, setValidationStyles, validateField, searchAll, searchParam, searchFilter, print, add, update, reindex, resetForm, binnacle, sessionInfo } = functionGeneral();
+const { selectOptionAll, setValidationStyles, validateField, searchParam, searchFilter, print, add, update, reindex, resetForm, binnacle, sessionInfo, Delete, edit } = functionGeneral();
 const { elemenFormUser, optionsRol, targetUser } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 let session = await sessionInfo();
@@ -8,17 +8,20 @@ selectOptionAll(".select_options_td", null)
 selectOptionAll(".select_options_rol", "rol", optionsRol)
 selectOptionAll(".select_options_td_edit", null)
 selectOptionAll(".select_options_rol_edit", "rol", optionsRol)
+const config = {
+    search: () => searchParam({ active: 1 }, "users"),
+    template: targetUser,
+    container: ".container_users",
+    funtions: () => {
+        Delete(config, () => binnacle(session.message.id, "Usuario", "Eliminacion", "Se elimino un usuario"));
+        edit((response) => editData(response));
+        document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
+    },
+}
 //funcion del search para filtrar los usuarios
 searchFilter("#search-filter-users", (e) => {
-    if (e.target.value == "") {
-        print(() => searchParam({ active: 1 }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response),
-        () => binnacle(session.message.id, "Usuario", "Eliminacion", "Se elimino un usuario")
-    )
-    } else {
-        print(() => searchParam({ active: 1, nombre_like: e.target.value }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response),
-        () => binnacle(session.message.id, "Usuario", "Eliminacion", "Se elimino un usuario")
-    )
-    }
+    if (e.target.value == "") print(config)
+    else print({ ...config, search: () => searchParam({ active: 1, nombre_like: e.target.value }, "users") })
 })
 let UsersCount = 1;
 function addUsers() {
@@ -208,17 +211,14 @@ if (!form.dataset.listenerAttached) {
                 dataFinal.append(`lista[${index}][hash]`, user.hash)
             })
             resetForm("#users-container .users", form)
-            add(() => searchParam({ active: 1 }, "users"), 'users', dataFinal, targetUser, ".container_users", "usuarios", (response) => editData(response),
-                () => binnacle(session.message.id, "Usuarios", "Eliminacion", "Se elimino un usuario"),
-                () => binnacle(session.message.id, "Usuarios", "Agregar", "Se agrego un usuario")
-            )
+            add(config, "user", dataFinal, () => binnacle(session.message.id, "Usuarios", "Agregar", "Se agrego un usuario"))
             bootstrap.Modal.getOrCreateInstance('#register-user').hide()
         }
     })
     form.dataset.listenerAttached = "true";
 }
 attachValidationListeners(1)
-print(() => searchParam({ active: 1 }, "users"), targetUser, ".container_users", "usuarios", (response) => editData(response), () => binnacle(session.message.id, "Usuarios", "Eliminacion", "Se elimino un usuario"))
+print(config)
 //edicion de usuarios
 function editData(response) {
     document.querySelector(`#id-user`).value = response[0].id;
@@ -281,10 +281,7 @@ function editData(response) {
                 // dataFinal.append('hash', data.hash)
                 dataFinal.append('id', formEdit.querySelector(`input[name="id_user"]`).value)
 
-                update(() => searchParam({ active: 1 }, "users"), 'users', dataFinal, targetUser, ".container_users", "usuarios", (response) => editData(response),
-                    () => binnacle(session.message.id, "Usuarios", "Eliminacion", "Se elimino un usuario"),
-                    () => binnacle(session.message.id, "Usuarios", "Actualizacion", "Se edito un usuario")
-                )
+                update(config, "user", dataFinal, () => binnacle(session.message.id, "Usuarios", "Actualizacion", "Se edito un usuario"))
                 bootstrap.Modal.getOrCreateInstance('#edit-user').hide()
             }
         })
