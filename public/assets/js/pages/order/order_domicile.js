@@ -151,7 +151,7 @@ const products = async () => {
     let templatePrepared = "";
     let templateProcess = "";
     let productProcess = await searchParam({ active: 1 }, "productProcess", 100)
-    let productPrepared = await searchParam({ active: 1 }, "productPrepared", 100)
+    let productPrepared = await searchParam({ active: 1, tipo: "producto" }, "productPrepared", 100)
     productPrepared.forEach((product) => { templatePrepared += selectProduct(product, "productPrepared"); })
     productProcess.forEach((product) => { templateProcess += selectProduct(product, "productProcess"); })
     document.querySelector(".cont-select-product-order").insertAdjacentHTML("beforeend", templatePrepared)
