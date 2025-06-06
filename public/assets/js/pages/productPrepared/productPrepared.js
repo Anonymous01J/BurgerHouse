@@ -278,7 +278,6 @@ function editData(response) {
         datafinal.append("detalles", document.querySelector("#input-details-combo").value)
         datafinal.append("id", document.querySelector("#input-id-combo").value)
         if (document.querySelector("#input-image-combo").value != "") {
-          console.log("object");
           datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
           datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
         }

@@ -15,6 +15,7 @@ class Entrada_producto_procesado extends Db_base {
     private $cantidad;
     private $existencia;
     private $comprobante;
+    private $active;
     private $broken;
 
     public function __construct(
@@ -31,6 +32,7 @@ class Entrada_producto_procesado extends Db_base {
         $id_unidad = null,
         $fecha_vencimiento = null,
         $codigo = null,
+        $active = null,
         $imagen_name = null
     ) {
         parent::__construct("entradas_producto_procesado");
@@ -48,6 +50,7 @@ class Entrada_producto_procesado extends Db_base {
         $this->id_unidad = $id_unidad;
         $this->fecha_vencimiento = $fecha_vencimiento;
         $this->codigo = $codigo;
+        $this->active = $active;
     
 
         $this->add_variables([
@@ -64,14 +67,18 @@ class Entrada_producto_procesado extends Db_base {
             "a.cantidad" => $this->cantidad,
             "a.existencia" => $this->existencia,
             "a.comprobante" => $this->comprobante,
+            "a.active" => $this->active
         ]);
 
         $this->select_query = "
             a.id,
             proveedores.razon_social as nombre_proveedor,
+            proveedores.id as id_proveedor,
+            productos_procesados.id as id_producto,
             productos_procesados.nombre as nombre_producto,
             unidades.nombre as nombre_unidad,
             unidades.alias as alias_unidad,
+            unidades.id as id_unidad,
             a.fecha_compra,
             a.fecha_vencimiento,
             a.precio_compra,
@@ -80,14 +87,14 @@ class Entrada_producto_procesado extends Db_base {
             a.cantidad,
             a.existencia,
             a.comprobante,
-            a.broken
+            a.broken,
+            a.active
         ";
 
         $this->joins = "
             INNER JOIN productos_procesados ON productos_procesados.id = a.id_producto
             INNER JOIN proveedores ON proveedores.id = a.id_proveedor
             INNER JOIN unidades ON unidades.id = a.id_unidad
-            
         ";
     }
 }

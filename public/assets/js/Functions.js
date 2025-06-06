@@ -378,9 +378,9 @@ export default function functionGeneral() {
         </div>
       `;
     } else {
-      response.forEach((element) => {
-        templatesWrapper += template(element);
-      });
+      for (const element of response) {
+        templatesWrapper += await template(element);
+      }
     }
     document.querySelector(container).innerHTML = templatesWrapper;
     feather.replace();
@@ -462,7 +462,7 @@ export default function functionGeneral() {
     let response = await pet.json()
     return response
   };
-  const update = async (config, module, data,binnacleAdd) => {
+  const update = async (config, module, data, binnacleAdd) => {
     let action = await fetch(`${module}/update`, {
       method: "POST",
       body: data,

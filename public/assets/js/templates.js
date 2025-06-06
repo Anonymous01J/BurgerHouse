@@ -1,3 +1,10 @@
+import functionGeneral from "./Functions.js"
+const { searchParam, fecha, hora } = functionGeneral()
+const name_user = async (id_user) => {
+    let result = await searchParam({ id: id_user }, "users")
+    let nombre = result[0].nombre + " " + result[0].apellido
+    return nombre
+}
 export default function Templates() {
     function targetProductPrepared(objet) {
         return `
@@ -55,24 +62,7 @@ export default function Templates() {
         </div>
                 `
     }
-    function targetCash(objet) {
-        function hora(f) {
-            const fecha = new Date(f);
-            const horas = fecha.getHours();
-            const minutos = fecha.getMinutes();
-            const periodo = horas >= 12 ? "PM" : "AM";
-            const horas12 = horas % 12 || 12;
-            const horaFormateada = `${horas12}:${minutos < 10 ? `0${minutos}` : minutos} ${periodo}`;
-            return horaFormateada;
-        }
-        function fecha(f) {
-            const fecha = new Date(f);
-            const dia = fecha.getDate();
-            const mes = fecha.getMonth() + 1;
-            const anio = fecha.getFullYear();
-            const fechaFormateada = `${dia}/${mes}/${anio}`;
-            return fechaFormateada;
-        }
+    async function targetCash(objet) {
         return `
         <div class="col-md-4 col-lg-3 ">
             <div class="position-relative">
@@ -99,7 +89,7 @@ export default function Templates() {
                             <div class="d-flex flex-column gap-4">
                                 <div class="d-flex align-item-center justify-content-between text-start">
                                     <div>Usuario</div>
-                                    <div class="fs-6">${objet.nombre_usuario + " " + objet.apellido_usuario}</div>
+                                    <div class="fs-6">${await name_user(objet.id_usuario)}</div>
                                 </div>
 
                                 <div class="d-flex justify-content-center pt-3 border-top ${objet.estado == 1 ? "gap-3" : ""}">
@@ -115,23 +105,6 @@ export default function Templates() {
      `
     }
     function targetKitchen(objet) {
-        function hora(f) {
-            const fecha = new Date(f);
-            const horas = fecha.getHours();
-            const minutos = fecha.getMinutes();
-            const periodo = horas >= 12 ? "PM" : "AM";
-            const horas12 = horas % 12 || 12;
-            const horaFormateada = `${horas12}:${minutos < 10 ? `0${minutos}` : minutos} ${periodo}`;
-            return horaFormateada;
-        }
-        function fecha(f) {
-            const fecha = new Date(f);
-            const dia = fecha.getDate();
-            const mes = fecha.getMonth() + 1;
-            const anio = fecha.getFullYear();
-            const fechaFormateada = `${dia}/${mes}/${anio}`;
-            return fechaFormateada;
-        }
         return `
         <div class="col-md-4 col-lg-3"">
             <div class="m-auto">
@@ -156,7 +129,7 @@ export default function Templates() {
                                     <div class="fs-6">${objet.cliente_nombre + " " + objet.cliente_apellido}</div>
                                 </div>
                                 <div class="d-flex justify-content-around pt-3 border-top">
-                                    ${objet.status == 1 ? `<button class="btn bh_1 btn_prepared" id_order="${objet.id}" style="color: #fff;">Preparar</button>` : ""}
+                                    ${objet.status == 1 ? `<button class="btn bh_1 btn_prepared" id_order="${objet.id}" type_order="${objet.tipo}" style="color: #fff;">Preparar</button>` : ""}
                                     <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn bh_5" style="color: #fff;">Detalles</button>
                                 </div>
                             </div>
@@ -168,23 +141,6 @@ export default function Templates() {
         `
     }
     function targetDelivery(objet) {
-        function hora(f) {
-            const fecha = new Date(f);
-            const horas = fecha.getHours();
-            const minutos = fecha.getMinutes();
-            const periodo = horas >= 12 ? "PM" : "AM";
-            const horas12 = horas % 12 || 12;
-            const horaFormateada = `${horas12}:${minutos < 10 ? `0${minutos}` : minutos} ${periodo}`;
-            return horaFormateada;
-        }
-        function fecha(f) {
-            const fecha = new Date(f);
-            const dia = fecha.getDate();
-            const mes = fecha.getMonth() + 1;
-            const anio = fecha.getFullYear();
-            const fechaFormateada = `${dia}/${mes}/${anio}`;
-            return fechaFormateada;
-        }
         return `
         <div class="col-md-4 col-lg-3">
             <div class="m-auto">
@@ -1536,3 +1492,4 @@ export default function Templates() {
         elemenFormPaymentOrder
     }
 }
+

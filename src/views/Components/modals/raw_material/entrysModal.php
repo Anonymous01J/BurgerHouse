@@ -105,6 +105,113 @@
     </div>
 </div>
 
+<!-- modal para editar entradas -->
+<div class="modal fade" id="edit-entrys" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Editar entrada</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-submit-edit-entry" class="row g-2">
+                    <div id="entry-container">
+                        <div class="row g-2 entry" id="entry">
+                            <div class="col-md-12">
+                                <label for="inputEmail4" class="form-label">Codigo</label>
+                                <input type="text" class="form-control" placeholder="Codigo" id="input-code-entry" name="codigo">
+                                <div class="text-danger mt-1 fs-6" id="error-input-code-entry"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="inputCity" class="form-label">Materia Prima</label>
+                                <div class="dropdown select_options_raw_material_edit">
+                                    <div class="dropdown">
+                                        <div class="btn-group w-100" bis_skin_checked="1">
+                                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-rawmaterial-entry" name="id_materia_prima" data-id="Seleccione una opcion">
+                                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span> <i data-feather="chevron-down"></i></span>
+                                            </button>
+                                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                                <div>
+                                                    <input class="form-control search_select" type="search" placeholder="Buscar">
+                                                </div>
+                                                <div class="options_search">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-danger mt-1 fs-6" id="error-input-rawmaterial-entry"></div>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="inputCity" class="form-label">Proveedor</label>
+                                <div class="dropdown select_options_supplier_edit">
+                                    <div class="dropdown">
+                                        <div class="btn-group w-100" bis_skin_checked="1">
+                                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-supplier-entry" name="id_proveedor" data-id="Seleccione una opcion">
+                                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <span> <i data-feather="chevron-down"></i></span>
+                                            </button>
+                                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                                <div>
+                                                    <input class="form-control search_select" type="search" placeholder="Buscar">
+                                                </div>
+                                                <div class="options_search">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-danger mt-1 fs-6" id="error-input-supplier-entry"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputEmail4" class="form-label">Precio de compra</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-entry" name="precio">
+                                </div>
+                                <div class="text-danger mt-1 fs-6" id="error-input-price-entry"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputEmail4" class="form-label">Cantidad</label>
+                                <div class="input-group">
+                                    <span class="input-group-text type_unit type_unit_edit">0</span>
+                                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entry" name="cantidad">
+                                </div>
+                                <div class="text-danger mt-1 fs-6" id="error-input-quantity-entry"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="inputZip" class="form-label">F. Vencimiento</label>
+                                <input type="date" class="form-control" id="input-date-entry" name="fecha_vencimiento">
+                                <div class="text-danger mt-1 fs-6" id="error-input-date-entry"></div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="inputZip" class="form-label">Referencia</label>
+                                <input type="text" class="form-control" placeholder="Referencia" id="input-ref-entry" name="referencia">
+                                <div class="text-danger mt-1 fs-6" id="error-input-ref-entry"></div>
+                            </div>
+                            <div class="col-12">
+                                <label for="inputZip" class="form-label">Comprobante</label>
+                                <input class="form-control input-image" type="file" id="input-image-entry" name="imagen">
+                                <div class="text-danger mt-1 fs-6" id="error-input-image-entry"></div>
+                            </div>
+                            <img class="mt-3" id="img-entry-response" src="" alt="Vista previa" style="max-width: 200px;">
+                        </div>
+                    </div>
+                    <input type="submit" class="d-none" id="submit-entrys-edit">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn bh_5 text-white" data-bs-dismiss="modal">Cancelar</button>
+                <label for="submit-entrys-edit" class="btn bh_1 text-white">Guardar</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- modal para ver comprobantes -->
 <div class="modal fade" id="comprobante_view" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">

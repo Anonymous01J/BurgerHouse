@@ -1,9 +1,12 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 const { optionsSupplier, optionsRawMaterial, elementFormEntrysRawMaterial } = Templates()
-const { InputPrice, selectOptionAll, viewImage, reindex, resetForm, setValidationStyles, validateField, fecha, reference, searchParam, diasRestantesFechaVencimiento, sessionInfo, binnacle } = functionGeneral();
+const { InputPrice, selectOptionAll, viewImage, reindex, resetForm, setValidationStyles, validateField, fecha, reference, searchParam, diasRestantesFechaVencimiento, sessionInfo, binnacle, deleteDatatable, editDataTables, updateDataTables } = functionGeneral();
 selectOptionAll(".select_options_supplier", "supplier", optionsSupplier)
 selectOptionAll(".select_options_raw_material", "rawmaterial", optionsRawMaterial)
+selectOptionAll(".select_options_supplier_edit", "supplier", optionsSupplier)
+selectOptionAll(".select_options_raw_material_edit", "rawmaterial", optionsRawMaterial)
+
 InputPrice("[input_price]")
 viewImage(".input-image")
 let session = await sessionInfo()
@@ -31,7 +34,7 @@ let tableActive = $(".table_entrys_active").DataTable({
         dataSrc: function (json) {
             const EntrysActive = json.filter((element) => {
                 let diasRestantes = diasRestantesFechaVencimiento(element)
-                return diasRestantes > 10 && element.existencia > 0;
+                return diasRestantes > 10 && element.existencia > 0 && element.active == 1;
             });
             return EntrysActive;
         },
@@ -46,8 +49,21 @@ let tableActive = $(".table_entrys_active").DataTable({
         { data: null, render: function (data, type, row, meta) { return data.cantidad + " " + data.nombre_unidad } },
         { data: null, render: function (data, type, row, meta) { return data.existencia + " " + data.nombre_unidad } },
         { data: null, render: function (data, type, row, meta) { return "$ " + data.precio_compra } },
-        { data: null, render: function (data, type, row, meta) { return ` <a data-module="Entrada_materia_prima" class="reference_btn" data-id="${data.id}" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#comprobante_view">  <i data-feather="eye" class="text-white"></i></a> ` } },
-
+        { data: null, render: function (data, type, row, meta) { return `<i data-feather="eye" data-module="Entrada_materia_prima" class="reference_btn" data-id="${data.id}" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#comprobante_view"></i>` } },
+        {
+            data: null,
+            orderable: false,
+            render: function (data, type, row, meta) {
+                return `
+                <button data-id="${data.id}" data-module-edit="Entrada_materia_prima" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-entrys" data-bs-title="Editar Entrada" data-bs-placement="bottom">
+                    <i data-feather="edit" class="text-white"></i>
+                </button>
+                <button data-id="${data.id}" data-module-delete="Entrada_materia_prima" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Entrada" data-bs-placement="bottom">
+                    <i data-feather="trash" class="text-white"></i>
+                </button>
+                `;
+            }
+        }
     ],
     drawCallback: function (settings) {
         feather.replace();
@@ -165,6 +181,8 @@ $('#searchEntrysActive').on('keyup', function () { tableActive.search(this.value
 $('#searchEntrysPorVencer').on('keyup', function () { tablePorVencer.search(this.value).draw() });
 $('#searchEntrysVencidos').on('keyup', function () { tableVencidas.search(this.value).draw() });
 $('#searchEntrysSinStock').on('keyup', function () { tableSinStock.search(this.value).draw() });
+deleteDatatable(".table_entrys_active", tableActive, () => binnacle(session.message.id, "Entrada de Materia Prima", "Eliminacion", "Se ha eliminado una Entrada de Materia Prima"))
+
 let entrysCount = 1;
 function addEntrys() {
     entrysCount++;
@@ -187,6 +205,14 @@ function attachValidationListeners(index) {
         input.addEventListener("keyup", (e) => validateField(e, rules));
         input.addEventListener("blur", (e) => validateField(e, rules));
         input.addEventListener("change", (e) => validateField(e, rules));
+    })
+    const rowedit = document.querySelectorAll(`.entry`);
+    rowedit.forEach(row => {
+        row.querySelectorAll("input[type='text'], input[type='file'], input[type='date'], input[type='button']").forEach(input => {
+            input.addEventListener("keyup", (e) => validateField(e, rules2));
+            input.addEventListener("blur", (e) => validateField(e, rules2));
+            input.addEventListener("change", (e) => validateField(e, rules2));
+        })
     })
 }
 document.getElementById("add-entrys-btn").addEventListener("click", () => {
@@ -254,6 +280,59 @@ const rules = {
             allowEmpty: false,
             message: "^es requerido"
         }
+    },
+    cantidad: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        precio: { message: "^debe ser un número mayor a 0" }
+    },
+    fecha_vencimiento: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        datetime: {
+            dateOnly: true,
+            earliest: new Date(),
+            message: "^Debe ser una fecha válida"
+        }
+    },
+    referencia: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+    }
+};
+const rules2 = {
+    precio: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        precio: { message: "^debe ser un número mayor a 0" }
+    },
+    codigo: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+    },
+    id_materia_prima: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        validateCategoryAndRecipe: { message: "^es requerido" }
+    },
+    id_proveedor: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        validateCategoryAndRecipe: { message: "^es requerido" }
     },
     cantidad: {
         presence: {
@@ -363,4 +442,82 @@ if (!form.dataset.listenerAttached) {
     });
     form.dataset.listenerAttached = "true";
 }
+editDataTables(".table_entrys_active", (response) => {
+    let formHasError = false;
+    document.getElementById("input-code-entry").value = response[0].codigo;
+    document.getElementById("input-rawmaterial-entry").value = response[0].nombre_materia_prima;
+    document.getElementById("input-rawmaterial-entry").setAttribute("data-id", response[0].id_materia_prima);
+    document.getElementById("input-supplier-entry").value = response[0].nombre_proveedor;
+    document.getElementById("input-supplier-entry").setAttribute("data-id", response[0].id_proveedor);
+    document.getElementById("input-price-entry").value = response[0].precio_compra.toString().replace(/\./g, ',');
+    document.querySelector(".type_unit_edit").textContent = response[0].nombre_unidad.toString().replace(/\./g, ',');
+    document.getElementById("input-quantity-entry").value = response[0].cantidad.toString().replace(/\./g, ',');
+    document.getElementById("input-date-entry").value = new Date(response[0].fecha_vencimiento).toISOString().split('T')[0];
+    document.getElementById("input-ref-entry").value = response[0].referencia;
+    document.getElementById("img-entry-response").src = `media/entrada_materia_prima/${response[0].comprobante}`;
+    let data = {
+        codigo: document.querySelector(`#input-code-entry`).value,
+        precio: document.querySelector(`#input-price-entry`).value.replace(/\./g, '').replace(',', '.'),
+        id_materia_prima: document.querySelector(`#input-rawmaterial-entry`).getAttribute("data-id") ? document.querySelector(`#input-rawmaterial-entry`).getAttribute("data-id") : "",
+        id_proveedor: document.querySelector(`#input-supplier-entry`).getAttribute("data-id") ? document.querySelector(`#input-supplier-entry`).getAttribute("data-id") : "",
+        cantidad: document.querySelector(`#input-quantity-entry`).value.replace(/\./g, '').replace(',', '.'),
+        fecha_vencimiento: document.querySelector(`#input-date-entry`).value,
+        referencia: document.querySelector(`#input-ref-entry`).value,
+    }
+    const errors = validate(data, rules2);
+    setValidationStyles(`input-code-entry`, errors?.codigo ? errors.codigo[0] : null);
+    setValidationStyles(`input-price-entry`, errors?.precio ? errors.precio[0] : null);
+    setValidationStyles(`input-rawmaterial-entry`, errors?.id_materia_prima ? errors.id_materia_prima[0] : null);
+    setValidationStyles(`input-supplier-entry`, errors?.id_proveedor ? errors.id_proveedor[0] : null);
+    setValidationStyles(`input-quantity-entry`, errors?.cantidad ? errors.cantidad[0] : null);
+    setValidationStyles(`input-date-entry`, errors?.fecha_vencimiento ? errors.fecha_vencimiento[0] : null);
+    setValidationStyles(`input-ref-entry`, errors?.referencia ? errors.referencia[0] : null);
+    if (errors) formHasError = true;
+    console.log(formHasError);
+    let formEdit = document.getElementById("form-submit-edit-entry")
+    if (!formEdit.dataset.listenerAttached) {
+        formEdit.addEventListener("submit", (e) => {
+            e.preventDefault()
+            let data = {
+                codigo: document.querySelector(`#input-code-entry`).value,
+                precio: document.querySelector(`#input-price-entry`).value.replace(/\./g, '').replace(',', '.'),
+                id_materia_prima: document.querySelector(`#input-rawmaterial-entry`).getAttribute("data-id") ? document.querySelector(`#input-rawmaterial-entry`).getAttribute("data-id") : "",
+                id_proveedor: document.querySelector(`#input-supplier-entry`).getAttribute("data-id") ? document.querySelector(`#input-supplier-entry`).getAttribute("data-id") : "",
+                cantidad: document.querySelector(`#input-quantity-entry`).value.replace(/\./g, '').replace(',', '.'),
+                fecha_vencimiento: document.querySelector(`#input-date-entry`).value,
+                referencia: document.querySelector(`#input-ref-entry`).value,
+            }
+            const errors = validate(data, rules2);
+            setValidationStyles(`input-code-entry`, errors?.codigo ? errors.codigo[0] : null);
+            setValidationStyles(`input-price-entry`, errors?.precio ? errors.precio[0] : null);
+            setValidationStyles(`input-rawmaterial-entry`, errors?.id_materia_prima ? errors.id_materia_prima[0] : null);
+            setValidationStyles(`input-supplier-entry`, errors?.id_proveedor ? errors.id_proveedor[0] : null);
+            setValidationStyles(`input-quantity-entry`, errors?.cantidad ? errors.cantidad[0] : null);
+            setValidationStyles(`input-date-entry`, errors?.fecha_vencimiento ? errors.fecha_vencimiento[0] : null);
+            setValidationStyles(`input-ref-entry`, errors?.referencia ? errors.referencia[0] : null);
+            if (errors) formHasError = true;
+            else formHasError = false;
+
+            if (!formHasError) {
+                let dataFinal = new FormData()
+                dataFinal.append("codigo", data.codigo)
+                dataFinal.append("precio_compra", data.precio)
+                dataFinal.append("id_materia_prima", data.id_materia_prima)
+                dataFinal.append("id_proveedor", data.id_proveedor)
+                dataFinal.append("cantidad", data.cantidad)
+                dataFinal.append("existencia", data.cantidad)
+                dataFinal.append("fecha_vencimiento", data.fecha_vencimiento)
+                dataFinal.append("referencia", data.referencia)
+                dataFinal.append("id", response[0].id)
+                if (document.getElementById("input-image-entry").value != "") {
+                    dataFinal.append("imagen", document.getElementById("input-image-entry").files[0])
+                    dataFinal.append("imagen_name", document.getElementById("input-image-entry").files[0].name)
+                }
+                updateDataTables(tableActive, dataFinal, "Entrada_materia_prima", () => binnacle(session.message.id, "Entrada de Materia Prima", "Actualizacion", "Se actualizo una Entrada de Materia Prima"))
+                bootstrap.Modal.getOrCreateInstance('#edit-entrys').hide()
+            }
+        })
+        formEdit.dataset.listenerAttached = "true"
+    }
+})
 attachValidationListeners(1)

@@ -43,7 +43,7 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_5BG text-center">
-                                                    <h1 class="font-light text-white target_order_domicile_null">0</h1>
+                                                    <h1 class="font-light text-white target_order_delivery_null">0</h1>
                                                     <h6 class="text-white">Pagos nulos</h6>
                                                 </div>
                                             </div>
@@ -52,7 +52,7 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_1BG text-center">
-                                                    <h1 class="font-light text-white target_order_domicile_total">0</h1>
+                                                    <h1 class="font-light text-white target_order_delivery_total">0</h1>
                                                     <h6 class="text-white">Ordenes Totales</h6>
                                                 </div>
                                             </div>
@@ -61,16 +61,16 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_2 text-center">
-                                                    <h1 class="font-light text-white target_order_domicile_verify">0</h1>
+                                                    <h1 class="font-light text-white target_order_delivery_verify">0</h1>
                                                     <h6 class="text-white">Por Verificar</h6>
                                                 </div>
                                             </div>
                                         </div>
-                                         <!-- Column -->
-                                         <div class="col-md-6 col-lg col-xlg-3">
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
-                                                <div class="p-2 bh_1 text-center">
-                                                    <h1 class="font-light text-white target_order_domicile_kitchen">0</h1>
+                                                <div class="p-2 bh_6 text-center">
+                                                    <h1 class="font-light text-white target_order_delivery_kitchen">0</h1>
                                                     <h6 class="text-white">En cocina</h6>
                                                 </div>
                                             </div>
@@ -79,7 +79,7 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_4 text-center">
-                                                    <h1 class="font-light text-white target_order_domicile_delivery">0</h1>
+                                                    <h1 class="font-light text-white target_order_delivery_delivery">0</h1>
                                                     <h6 class="text-white">Por Despachar</h6>
                                                 </div>
                                             </div>
@@ -88,14 +88,14 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_5BG text-center">
-                                                    <h1 class="font-light text-white target_order_domicile_delivered">0</h1>
+                                                    <h1 class="font-light text-white target_order_delivery_delivered">0</h1>
                                                     <h6 class="text-white">Despachadas</h6>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <button type="button" class="btn bh_1 text-white mb-3 btnOrderDelivery" type_order="delivery" data-bs-toggle="modal" data-bs-target="#domicile">
+                                    <button type="button" class="btn bh_1 text-white mb-3 btnOrder" type_order="delivery">
                                         <i class="fas fa-plus"></i>
                                         Orden
                                     </button>
@@ -134,7 +134,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -186,7 +186,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        
+
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -194,14 +194,13 @@
                                     </div>
                                 </div>
 
-
                                 <div class="tab-pane fade" id="nav-llevar" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                                     <div class="row">
                                         <!-- Column -->
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_5BG text-center">
-                                                    <h1 class="font-light text-white">5</h1>
+                                                    <h1 class="font-light text-white target_order_llevar_null">0</h1>
                                                     <h6 class="text-white">Pagos nulos</h6>
                                                 </div>
                                             </div>
@@ -210,7 +209,7 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_1BG text-center">
-                                                    <h1 class="font-light text-white">2,064</h1>
+                                                    <h1 class="font-light text-white target_order_llevar_total">0</h1>
                                                     <h6 class="text-white">Ordenes Totales</h6>
                                                 </div>
                                             </div>
@@ -218,8 +217,26 @@
                                         <!-- Column -->
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
+                                                <div class="p-2 bh_2 text-center">
+                                                    <h1 class="font-light text-white target_order_llevar_verify">0</h1>
+                                                    <h6 class="text-white">Por Verificar</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_6 text-center">
+                                                    <h1 class="font-light text-white target_order_llevar_kitchen">0</h1>
+                                                    <h6 class="text-white">En cocina</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
                                                 <div class="p-2 bh_4 text-center">
-                                                    <h1 class="font-light text-white">1100</h1>
+                                                    <h1 class="font-light text-white target_order_llevar_delivery">0</h1>
                                                     <h6 class="text-white">Por Despachar</h6>
                                                 </div>
                                             </div>
@@ -227,15 +244,14 @@
                                         <!-- Column -->
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
-                                                <div class="p-2 bh_2 text-center">
-                                                    <h1 class="font-light text-white">964</h1>
+                                                <div class="p-2 bh_5BG text-center">
+                                                    <h1 class="font-light text-white target_order_llevar_delivered">0</h1>
                                                     <h6 class="text-white">Despachadas</h6>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                    <button type="button" class="btn bh_1 text-white mb-3 btnOrder" type_order="para llevar" data-bs-toggle="modal" data-bs-target="#domicile">
+                                    <button type="button" class="btn bh_1 text-white mb-3 btnOrder" type_order="llevar">
                                         <i class="fas fa-plus"></i>
                                         Orden
                                     </button>
@@ -250,6 +266,9 @@
                                         <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#process" type="button" role="tab">Procesadas</button>
                                         </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#orderParallevarAnuladas" type="button" role="tab">Anuladas</button>
+                                        </li>
                                     </ul>
                                     <div class="tab-content" id="myTabContent">
                                         <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
@@ -261,44 +280,19 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive mt-2">
-                                                <table class="table no-wrap table-order-llevar-pendientes table-dark-mode">
+                                                <table class="table no-wrap table-order-llevar-pendientes table-dark-mode w-100">
                                                     <thead>
                                                         <tr>
-                                                            <th>Status</th>
                                                             <th>N° Orden</th>
                                                             <th>Cliente</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
                                                             <th>Detalles</th>
-                                                            <th>N° Comp</th>
                                                             <th>Comprobante</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php for ($i = 0; $i < 2; $i++) { ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="badge text-bg-success badge-pill">ENTREGADO</span>
-
-                                                                </td>
-                                                                <td><span class="fs-6">6419619819</span></td>
-                                                                <td>Jose Escalona</td>
-                                                                <td>13-3-2025</td>
-                                                                <td>13:40</td>
-                                                                <td>detalle</td>
-                                                                <td class="fs-6">2560</td>
-                                                                <td>ver</td>
-                                                                <td>
-                                                                    <button class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
-                                                                        <i data-feather="check-circle" class="text-white"></i>
-                                                                    </button>
-                                                                    <button class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular" data-bs-placement="top">
-                                                                        <i data-feather="x-circle" class="text-white"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        <?php } ?>
 
                                                     </tbody>
                                                 </table>
@@ -313,41 +307,21 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive mt-2">
-                                                <table class="table no-wrap table-order-llevar-pordespachar table-dark-mode">
+                                                <table class="table no-wrap table-order-llevar-pordespachar table-dark-mode w-100">
                                                     <thead>
                                                         <tr>
-                                                            <th>Status</th>
+                                                        <tr>
                                                             <th>N° Orden</th>
                                                             <th>Cliente</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
                                                             <th>Detalles</th>
-                                                            <th>N° Comp</th>
                                                             <th>Comprobante</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php for ($i = 0; $i < 2; $i++) { ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="badge text-bg-success badge-pill">ENTREGADO</span>
 
-                                                                </td>
-                                                                <td><span class="fs-6">6419619819</span></td>
-                                                                <td>Jose Escalona</td>
-                                                                <td>13-3-2025</td>
-                                                                <td>13:40</td>
-                                                                <td>detalle</td>
-                                                                <td class="fs-6">2560</td>
-                                                                <td>ver</td>
-                                                                <td>
-                                                                    <button class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Verificar pago" data-bs-placement="top">
-                                                                        <i data-feather="check-circle" class="text-white"></i>
-                                                                    </button>
-                                                                </td>
-                                                            </tr>
-                                                        <?php } ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -361,41 +335,51 @@
                                                 </div>
                                             </div>
                                             <div class="table-responsive mt-2">
-                                                <table class="table no-wrap table-order-llevar-procesadas table-dark-mode">
+                                                <table class="table no-wrap table-order-llevar-procesadas table-dark-mode w-100">
                                                     <thead>
                                                         <tr>
-                                                            <th>Status</th>
                                                             <th>N° Orden</th>
                                                             <th>Cliente</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
                                                             <th>Detalles</th>
-                                                            <th>N° Comp</th>
                                                             <th>Comprobante</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php for ($i = 0; $i < 2; $i++) { ?>
-                                                            <tr>
-                                                                <td>
-                                                                    <span class="badge text-bg-success badge-pill">ENTREGADO</span>
-                                                                </td>
-                                                                <td><span class="fs-6">6419619819</span></td>
-                                                                <td>Jose Escalona</td>
-                                                                <td>13-3-2025</td>
-                                                                <td>13:40</td>
-                                                                <td>detalle</td>
-                                                                <td class="fs-6">2560</td>
-                                                                <td>ver</td>
-                                                            </tr>
-                                                        <?php } ?>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade show" id="orderParallevarAnuladas" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                            <div class="row justify-content-between mt-3">
+                                                <div class="col-md-6 col-lg-3">
+                                                    <input type="text" class="form-control" id="searchBoxllevarAnuladas" placeholder="Buscar">
+                                                </div>
+                                                <div class="col-md-6 col-lg-9">
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive mt-2">
+                                                <table class="table no-wrap table-order-llevar-anuladas table-dark-mode w-100">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>N° Orden</th>
+                                                            <th>Cliente</th>
+                                                            <th>Fecha</th>
+                                                            <th>Hora</th>
+                                                            <th>Detalles</th>
+                                                            <th>Comprobante</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
 
                                 <div class="tab-pane fade" id="nav-local" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">2</div>
                             </div>

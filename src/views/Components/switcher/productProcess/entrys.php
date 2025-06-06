@@ -81,15 +81,16 @@
                             <table class="table table-dark-mode no-wrap w-100 table_entrys_active">
                                 <thead>
                                     <tr>
-                                        <th>Codigo</th>
-                                        <th>Producto</th>
-                                        <th>Prove.</th>
+                                        <th>Cod.</th>
+                                        <th>Produc.</th>
+                                        <th>Provee.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
-                                        <th>Cantidad</th>
-                                        <th>Existencia</th>
+                                        <th>Cant.</th>
+                                        <th>Exis.</th>
                                         <th>P.COMPRA</th>
-                                        <th>Comprobante</th>
+                                        <th>C.PAGO</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -108,15 +109,15 @@
                             <table class="table table-dark-mode no-wrap w-100 table_entrys_por_vencer">
                                 <thead>
                                     <tr>
-                                        <th>Codigo</th>
-                                        <th>Producto</th>
-                                        <th>Prove.</th>
+                                        <th>Cod.</th>
+                                        <th>Produc.</th>
+                                        <th>Provee.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
-                                        <th>Cantidad</th>
-                                        <th>Existencia</th>
+                                        <th>Cant.</th>
+                                        <th>Exis.</th>
                                         <th>P.COMPRA</th>
-                                        <th>Comprobante</th>
+                                        <th>C.PAGO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -135,15 +136,15 @@
                             <table class="table table-dark-mode no-wrap w-100 table_entrys_vencidos">
                                 <thead>
                                     <tr>
-                                        <th>Codigo</th>
-                                        <th>Producto</th>
-                                        <th>Prove.</th>
+                                        <th>Cod.</th>
+                                        <th>Produc.</th>
+                                        <th>Provee.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
-                                        <th>Cantidad</th>
-                                        <th>Existencia</th>
+                                        <th>Cant.</th>
+                                        <th>Exis.</th>
                                         <th>P.COMPRA</th>
-                                        <th>Comprobante</th>
+                                        <th>C.PAGO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -162,15 +163,15 @@
                             <table class="table table-dark-mode no-wrap w-100 table_entrys_sin_stock">
                                 <thead>
                                     <tr>
-                                        <th>Codigo</th>
-                                        <th>Producto</th>
-                                        <th>Prove.</th>
+                                        <th>Cod.</th>
+                                        <th>Produc.</th>
+                                        <th>Provee.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
-                                        <th>Cantidad</th>
-                                        <th>Existencia</th>
+                                        <th>Cant.</th>
+                                        <th>Exis.</th>
                                         <th>P.COMPRA</th>
-                                        <th>Comprobante</th>
+                                        <th>C.PAGO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
