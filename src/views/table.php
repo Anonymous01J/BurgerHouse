@@ -46,7 +46,7 @@
                         <div class="col-auto">
                             <input type="search" id="SearchTablesFREE" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
-                        <button data-bs-toggle="modal" data-bs-target="#register-table" type="button" class="btn bh_1 btn-circle text-white">
+                        <button id="register-table-button" data-bs-toggle="modal" data-bs-target="#register-table" type="button" class="btn bh_1 btn-circle text-white">
                             <i data-feather="plus" class="svg-icon"></i>
                         </button>
                     </div>

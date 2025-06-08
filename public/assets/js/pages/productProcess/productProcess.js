@@ -287,3 +287,46 @@ function editData(response) {
     form.dataset.listenerAttached = "true";
   }
 }
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+  if (typeof introJs !== 'undefined') {
+      let intro = introJs();
+      intro.setOptions({
+          steps: [
+            {
+              element: '.page-title',
+              intro: 'Esta es la sección de productos procesados, donde puedes gestionar los productos disponibles en el sistema.',
+              position: 'bottom'
+            },
+            {
+                element: '#searchProduct',
+                intro: 'Utiliza este cuadro de búsqueda para filtrar los productos procesados.',
+                position: 'top'
+            },
+            {
+                element: '.btn-add-tooltip',
+                intro: 'Haz clic aquí para agregar un nuevo producto preparado.',
+                position: 'top'
+            },
+            {
+              element: '#categories',
+              intro: 'Aquí puedes ver las categorías disponibles para los productos procesados. Selecciona una categoría para filtrar los productos procesados por tipo.',
+              position: 'top'
+            },
+            {
+                element: '.cont-product',
+                intro: 'Este contenedor muestra los productos procesados disponibles. Puedes editarlos o eliminarlos.',
+                position: 'top'
+            },
+            {
+                element: '#top-products',
+                intro: 'Esta sección muestra los productos más vendidos y su rendimiento.',
+                position: 'top'
+            }
+          ],
+          showBullets: true,
+          exitOnOverlayClick: false,
+          showProgress: true
+      });
+      intro.start();
+  }
+});

@@ -488,3 +488,98 @@ document.querySelectorAll(".btnOrder").forEach((btn) => {
     bootstrap.Modal.getOrCreateInstance('#domicile').show()
   })
 })
+// IntroJs
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+  if (typeof introJs !== 'undefined') {
+      let intro = introJs();
+      intro.setOptions({
+          steps: [
+              {
+                  element: document.querySelector('.page-wrapper'),
+                  intro: 'Bienvenido a la seccion de ordenes a domicilio, para llevar y del local, aqui podras gestionar todas las ordenes de tu negocio.',
+                  position: 'bottom'
+              },
+              {
+                  element: document.querySelector('#nav-domicilio-tab'),
+                  intro: 'Aqui podras ver todas las ordenes a domicilio, puedes filtrar por estado.',
+                  position: 'bottom'
+              },
+              {
+                  element: document.querySelector('#nav-llevar-tab'),
+                  intro: 'Aqui podras ver todas las ordenes para llevar, puedes filtrar por estado.',
+                  position: 'bottom'
+              },
+              {
+                  element: document.querySelector('#nav-local-tab'),
+                  intro: 'Aqui podras ver todas las ordenes locales, puedes filtrar por estado.',
+                  position: 'bottom'
+              },
+              {
+                  element: document.querySelector('.target_order_delivery_null'),
+                  intro: 'Ordenes anuladas a domicilio',
+                  position: 'bottom'
+              },
+              {
+                  element: document.querySelector('.target_order_delivery_total'),
+                  intro: 'Total de ordenes a domicilio',
+                  position: 'bottom'
+              },
+              {
+                  element: document.querySelector('.target_order_delivery_verify'),
+                  intro: 'Ordenes a domicilio por verificar',
+                  position: 'bottom'
+              },
+              {
+                  element: document.querySelector('.target_order_delivery_kitchen'),
+                  intro: 'Ordenes para llevar en cocina',
+                  position: 'bottom'
+              },
+              {
+                  element: document.querySelector('.target_order_delivery_delivery'),
+                  intro: 'Ordenes a domicilio en proceso de entrega',
+                  position: 'bottom'
+              },
+              {
+                  element: document.querySelector('.target_order_delivery_delivered'),
+                  intro: 'Ordenes a domicilio entregadas',
+                  position: 'bottom'
+              },  
+              {
+                  element: document.querySelector('.btnOrder'),
+                  intro: 'Generar una nueva orden a domicilio.',
+                  position: 'bottom'
+              },  
+              {
+                  element: document.querySelector('#home-tab'),
+                  intro: 'Ordenes a domicilio por verificar ',
+                  position: 'bottom'
+              },
+              {
+                  element: document.querySelector('#profile-tab'),
+                  intro: 'Ordenes a domicilio en proceso',
+                  position: 'bottom'
+              },
+              {
+                  element: document.querySelector('#null_order'),
+                  intro: 'Ordenes a domicilio anuladas',
+                  position: 'bottom'
+              },
+              {
+                element: '#searchBoxDomicilioPending',
+                intro: 'Utiliza este cuadro de búsqueda para filtrar las órdenes pendientes a domicilio.',
+                position: 'bottom'
+              },
+              {
+                  element: document.querySelector('.table-order-domicilio-pendientes'),
+                  intro: 'Tabla de ordenes a domicilio pendientes, puedes ver el detalle de la orden, los datos del pago y verificar o anular la orden.',
+                  position: 'bottom'
+              }
+
+          ],
+          showBullets: true,
+          exitOnOverlayClick: false,
+          showProgress: true
+      });
+      intro.start();
+  }
+});

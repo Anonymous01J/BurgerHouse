@@ -252,5 +252,37 @@ async function renderizarTarjetas(param) {
     })
 
 }
-
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+    if (typeof introJs !== 'undefined') {
+        let intro = introJs();
+        intro.setOptions({
+            steps: [
+                {
+                    element: '.page-title',
+                    intro: 'Esta es la sección de recetas, donde puedes gestionar las recetas de los productos preparados.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#inputPassword6',
+                    intro: 'Utiliza este cuadro de búsqueda para filtrar las recetas disponibles.',
+                    position: 'top'
+                },
+                {
+                    element: '.btn-circle',
+                    intro: 'Haz clic aquí para agregar una nueva receta.',
+                    position: 'top'
+                },
+                {
+                    element: '.cont_recipe',
+                    intro: 'Este contenedor muestra las recetas disponibles. Puedes editarlas o eliminarlas.',
+                    position: 'top'
+                },
+            ],
+            showBullets: true,
+            exitOnOverlayClick: false,
+            showProgress: true
+        });
+        intro.start();
+    }
+});
 renderizarTarjetas({});

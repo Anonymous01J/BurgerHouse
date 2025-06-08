@@ -42,7 +42,7 @@
                                     <p class="fs-6">Semana 14 de Febrero del 2025</p>
                                 </div>
                                 <div class=" d-flex align-items-center gap-2">
-                                    <select class="form-select" name="select" id="">
+                                    <select id="filter-ticketChart" class="form-select" name="select" id="">
                                         <option selected disabled value="2021">Tipo de filtro</option>
                                         <option value="2022">Semana/mes/año</option>
                                         <option value="2023">Mes/Año</option>

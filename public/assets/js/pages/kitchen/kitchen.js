@@ -67,3 +67,37 @@ const preparedKitchen = () => {
         })
     })
 }
+// IntroJs
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+    if (typeof introJs !== 'undefined') {
+        let intro = introJs();
+        intro.setOptions({
+            steps: [
+                {
+                    element: document.querySelector('.page-wrapper'),
+                    intro: 'Bienvenido a la seccion de cocina, aqui podras ver todas las ordenes por preparar de tu negocio.',
+                    position: 'bottom'
+                },
+                {
+                    element: document.querySelector('#home-tab'),
+                    intro: 'Aqui podras ver todas las ordenes por preparar pendientes.',
+                    position: 'bottom'
+                },
+                {
+                    element: document.querySelector('#profile-tab'),
+                    intro: 'Aqui podras ver las ordenes que ya han sido preparadas.',
+                    position: 'bottom'
+                },
+                {
+                    element: document.querySelector('.card'),
+                    intro: 'Tarjeta de ordenes a domicilio pendientes, puedes ver los detalles de la orden y confirmar la preparación de dicha orden.',
+                    position: 'bottom'
+                }
+            ],
+            showBullets: true,
+            exitOnOverlayClick: false,
+            showProgress: true
+        });
+        intro.start();
+    }
+});

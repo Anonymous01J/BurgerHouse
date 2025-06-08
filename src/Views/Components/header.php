@@ -20,7 +20,10 @@
     <link rel="stylesheet" href="./assets/libs/libs/intl-tel-input/css/intlTelInput.css">
     <link rel="stylesheet" href="./assets/libs/libs/chart.js/dist/Chart.min.css">
     <link rel="stylesheet" href="./assets/libs/libs/sweetalert/sweetalert2.min.css">
+    <link rel="stylesheet" href="./assets/libs/libs/IntroJS/introjs.min.css">
+    <link rel="stylesheet" href="./assets/libs/libs/IntroJS/introjs-modern.css">
     <script src="./assets/libs/libs/sweetalert/sweetalert2.all.min.js"></script>
+    <script src="./assets/libs/libs/IntroJS/intro.min.js"></script>
     <script src="./assets/libs/libs/validatejs/validate.min.js"></script>
 
 

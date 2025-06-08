@@ -217,6 +217,50 @@ const editData = (response) => {
         form.dataset.listenerAttached = "true";
     }
 }
+// IntroJs
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+    if (typeof introJs !== 'undefined') {
+        let intro = introJs();
+        intro.setOptions({
+            steps: [
+                {
+                    element: document.querySelector('.page-wrapper'),
+                    intro: 'Bienvenido a la seccion de mesas, aqui podras ver y gestionr todas las mesas registradas de tu negocio.',
+                    position: 'bottom'
+                },
+                {
+                    element: document.querySelector('#home-tab'),
+                    intro: 'Aqui podrás ver las mesas que estan libres, puedes agregar, editar o eliminar mesas.',
+                    position: 'bottom'
+                },
+                {
+                    element: document.querySelector('#profile-tab'),
+                    intro: 'Aqui podras ver las mesas que estan ocupadas, puedes ver los detalles de las mesas.',
+                    position: 'bottom'
+                },
+                {
+                    element: document.querySelector('#SearchTablesFREE'),
+                    intro: 'Puedes buscar mesas por nombre, si no hay resultados se mostrará una marca de agua con el logo del negocio.',
+                    position: 'bottom'
+                },
+                {
+                    element: document.querySelector('#register-table-button'),
+                    intro: 'Puedes registrar una nueva mesa, debes ingresar el nombre de la mesa, la cantidad de sillas, una imagen representativa de la mesa y si es VIP.',
+                    position: 'bottom'
+                },
+                {
+                    element: document.querySelector('.card'),
+                    intro: 'Puedes ver los detalles de la mesa, puedes editar o eliminar la mesa.',
+                    position: 'bottom'
+                }
+            ],
+            showBullets: true,
+            exitOnOverlayClick: false,
+            showProgress: true
+        });
+        intro.start();
+    }
+});
 attachValidationListeners(1);
 print(config);
 print({ ...config, search: () => searchParam({ active: 1, estado: "OCUPADA" }, "table"), container: ".cont_tables_occupied" });

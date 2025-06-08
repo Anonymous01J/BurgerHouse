@@ -266,4 +266,75 @@ $(function () {
     $(window).on('resize', function () {
         chart.update();
     });
+    // IntroJs
+    document.getElementById('navbarDropdown').addEventListener('click', function () {
+        if (typeof introJs !== 'undefined') {
+            let intro = introJs();
+            intro.setOptions({
+                steps: [
+                    {
+                        element: '.page-title',
+                        intro: 'Este es el título principal del dashboard, donde se muestra un saludo personalizado.',
+                        position: 'bottom'
+                    },
+                    {
+                        element: '.breadcrumb',
+                        intro: 'Aquí puedes navegar entre las secciones del dashboard.',
+                        position: 'top'
+                    },
+                    {
+                        element: '.col-sm-6:nth-child(1)',
+                        intro: 'Esta tarjeta muestra el número de nuevos clientes registrados.',
+                        position: 'right'
+                    },
+                    {
+                        element: '.col-sm-6:nth-child(2)',
+                        intro: 'Aquí puedes ver las ganancias del mes.',
+                        position: 'right'
+                    },
+                    {
+                        element: '.col-sm-6:nth-child(3)',
+                        intro: 'Esta tarjeta muestra las órdenes completadas.',
+                        position: 'right'
+                    },
+                    {
+                        element: '.col-sm-6:nth-child(4)',
+                        intro: 'Aquí puedes ver el número de mesas disponibles.',
+                        position: 'right'
+                    },
+                    {
+                        element: '#campaign-v2',
+                        intro: 'Este gráfico muestra el total de ventas divididas entre Delivery y Local.',
+                        position: 'top'
+                    },
+                    {
+                        element: '.net-income',
+                        intro: 'Este gráfico muestra la ganancia neta y permite buscar datos por año.',
+                        position: 'top'
+                    },
+                    {
+                        element: '.stats',
+                        intro: 'Este gráfico muestra las ganancias semanales.',
+                        position: 'top'
+                    },
+                    {
+                        element: '.activity',
+                        intro: 'Aquí puedes ver la actividad reciente, como nuevas órdenes y alertas de stock.',
+                        position: 'top'
+                    },
+                    {
+                        element: '.table',
+                        intro: 'Esta tabla muestra información sobre los clientes frecuentes.',
+                        position: 'top'
+                    }
+
+                ],
+                showBullets: true,
+                exitOnOverlayClick: false,
+                showProgress: true
+            });
+            intro.start();
+        }
+    });
+    
 })

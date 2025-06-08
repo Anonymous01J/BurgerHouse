@@ -80,5 +80,39 @@ const printDeliveyOff = async () => {
     }
     document.querySelector(".cont-delivery-off").innerHTML = template
 }
+// IntroJs
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+    if (typeof introJs !== 'undefined') {
+        let intro = introJs();
+        intro.setOptions({
+            steps: [
+                {
+                    element: document.querySelector('.page-wrapper'),
+                    intro: 'Bienvenido a la seccion de delivery, aqui podras ver todas las ordenes a domicilio de tu negocio.',
+                    position: 'bottom'
+                },
+                {
+                    element: document.querySelector('#home-tab'),
+                    intro: 'Aqui podras ver todas las ordenes a domicilio, pendientes para entregar.',
+                    position: 'bottom'
+                },
+                {
+                    element: document.querySelector('#profile-tab'),
+                    intro: 'Aqui podras ver todas las ordenes para llevar ya entregadas.',
+                    position: 'bottom'
+                },
+                {
+                    element: document.querySelector('.card'),
+                    intro: 'Tarjeta de ordenes a domicilio pendientes, puedes ver los detalles de la orden y aceptar la entrega.',
+                    position: 'bottom'
+                }
+            ],
+            showBullets: true,
+            exitOnOverlayClick: false,
+            showProgress: true
+        });
+        intro.start();
+    }
+});
 print(config)
 printDeliveyOff()

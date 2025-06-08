@@ -81,4 +81,58 @@ form.addEventListener("submit", (e) => {
         document.getElementById("input-price-bs-cash").classList.remove("is-valid", "is-invalid")
         bootstrap.Modal.getOrCreateInstance('#register-cash').hide()
     }
-})
+});
+// IntroJs
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+    if (typeof introJs !== 'undefined') {
+        let intro = introJs();
+        intro.setOptions({
+            steps: [
+                {
+                    element: '.page-title',
+                    intro: 'Esta es la sección de caja, donde puedes gestionar las cajas abiertas y cerradas.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#home-tab',
+                    intro: 'Aquí puedes ver las cajas abiertas actualmente.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#profile-tab',
+                    intro: 'Aquí puedes consultar las cajas cerradas previamente.',
+                    position: 'bottom'
+                },
+                {
+                    element: '.cont-cash_open',
+                    intro: 'Este contenedor muestra las cajas abiertas con sus detalles.',
+                    position: 'top'
+                },
+                {
+                    element: '.cont-cash_close',
+                    intro: 'Este contenedor muestra las cajas cerradas con sus detalles.',
+                    position: 'top'
+                },
+                {
+                    element: '#inputPassword6',
+                    intro: 'Utiliza este cuadro de búsqueda para filtrar las cajas abiertas o cerradas.',
+                    position: 'top'
+                },
+                {
+                    element: '.btn-circle',
+                    intro: 'Haz clic aquí para registrar una nueva caja.',
+                    position: 'top'
+                },
+                {
+                    element: '#register-cash',
+                    intro: 'Este es el modal para registrar una nueva caja. Aquí puedes ingresar los montos iniciales.',
+                    position: 'top'
+                }
+            ],
+            showBullets: true,
+            exitOnOverlayClick: false,
+            showProgress: true
+        });
+        intro.start();
+    }
+});
