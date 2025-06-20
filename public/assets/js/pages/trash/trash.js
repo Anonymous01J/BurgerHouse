@@ -1,5 +1,5 @@
 import functionGeneral from "../../Functions.js";
-const { sessionInfo, binnacle } = functionGeneral();
+const { sessionInfo, binnacle, fecha } = functionGeneral();
 let session = await sessionInfo()
 const modulesConfig = {
     mesas: {
@@ -329,6 +329,60 @@ const modulesConfig = {
             }
         ]
     },
+    entry_raw_material: {
+        ajax: {
+            url: 'entrada_materia_prima/get_all/0/10000000/id/asc',
+            dataSrc: '',
+            type: 'POST',
+            data: {
+                active: 0,
+            }
+        },
+        columns: [
+            { title: "#", data: 'id' },
+            { title: "Codigo", data: 'codigo' },
+            { title: "M.P", data: 'nombre_materia_prima' },
+            { title: "Provee.", data: 'nombre_proveedor' },
+            { title: "Cantidad", data: 'cantidad' },
+            { title: "Fecha", data: false, render: (data, type, row) => { return fecha(row.fecha_compra) } },
+            {
+                title: 'Acciones',
+                data: null,
+                render: (data) =>
+                    `
+                <button data-id="${data.id}" data-module-restore="entrada_materia_prima" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Entrada" data-bs-placement="bottom">
+                    <i data-feather="refresh-ccw" class="text-white"></i>
+                </button>
+                `
+            }
+        ]
+    },
+    entry_product_processed: {
+        ajax: {
+            url: 'entrada_producto_procesado/get_all/0/10000000/id/asc',
+            dataSrc: '',
+            type: 'POST',
+            data: { active: 0 }
+        },
+        columns: [
+            { title: "#", data: 'id' },
+            { title: "Codigo", data: 'codigo' },
+            { title: "Product.", data: 'nombre_producto' },
+            { title: "Provee.", data: 'nombre_proveedor' },
+            { title: "Cantidad", data: 'cantidad' },
+            { title: "Fecha", data: false, render: (data, type, row) => { return fecha(row.fecha_compra) } },
+            {
+                title: 'Acciones',
+                data: null,
+                render: (data) =>
+                    `
+                <button data-id="${data.id}" data-module-restore="entrada_producto_procesado" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Entrada" data-bs-placement="bottom">
+                    <i data-feather="refresh-ccw" class="text-white"></i>
+                </button>
+                `
+            }
+        ]
+    }
 };
 
 let table;

@@ -31,9 +31,7 @@
                             <img src="./assets/img/bh_logo.png" alt="wrapkit" width="70">
                         </div>
                         <h3 class="mt-3 text-center">Cambiar Contraseña</h3>
-                        <!-- Contenedor del formulario multi‑pasos -->
                         <div class="container-form">
-                            <!-- Único formulario que contiene todos los pasos -->
                             <form autocomplete="off" class="steps">
                                 <!-- Paso 1 -->
                                 <div class="stepes" id="step1">
@@ -41,16 +39,20 @@
                                         <label class="form-label text-dark" for="uname">Correo Electrónico</label>
                                         <input class="form-control" autocomplete="off" id="email" type="email" placeholder="Correo Electrónico" style="width: 33% !important">
                                     </div>
-                                    <button type="button" class="btn text-white bh_1 next" data-validate="email" style="margin-left: 6rem;">Siguiente</button>
+                                    <button type="button" class="btn text-white bh_1 next d-flex justify-content-center align-items-center gap-2" data-validate="email" style="margin-left: 6rem;">
+                                        <div class="spinner-border text-light d-none" role="status" style="width: 20px; height: 20px;">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                        Siguiente
+                                    </button>
                                 </div>
                                 <!-- Paso 2 -->
                                 <div class="stepes" id="step2">
-                                    <!-- Contenido estilo "form-card" -->
                                     <div class="form-card">
                                         <p class="form-card-title">Hemos enviado un código a tu correo</p>
                                         <p class="form-card-prompt">Ingresa el código de 4 dígitos que recibiste</p>
                                         <div class="form-card-input-wrapper">
-                                            <input class="form-card-input" placeholder="____" maxlength="4" type="tel" id="token">
+                                            <input class="form-card-input" placeholder="____" maxlength="4" type="tel" id="token" autocomplete="off">
                                             <div class="form-card-input-bg"></div>
                                         </div>
                                         <div class="call-again d-flex justify-content-center align-items-center gap-2">
@@ -87,12 +89,7 @@
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-
-
         <script src="./assets/libs/libs/jquery/dist/jquery.min.js "></script>
         <script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js "></script>
         <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.min.js "></script>

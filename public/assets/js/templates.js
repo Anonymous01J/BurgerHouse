@@ -93,8 +93,8 @@ export default function Templates() {
                                 </div>
 
                                 <div class="d-flex justify-content-center pt-3 border-top ${objet.estado == 1 ? "gap-3" : ""}">
-                                    ${objet.estado == 1 ? `<button class="btn bh_1" style="color: #fff;">Cerrar</button>` : ""}
-                                    <button class="btn bh_5" style="color: #fff;">Detalles</button>
+                                    ${objet.estado == 1 ? `<button class="btn bh_1 text-white close_cash" data-id="${objet.id}">Cerrar</button>` : ""}
+                                    <button class="btn bh_5 text-white datails_cash" data-id="${objet.id}">Detalles</button>
                                 </div>
                             </div>
                         </div>
@@ -128,9 +128,13 @@ export default function Templates() {
                                     <div>Cliente</div>
                                     <div class="fs-6">${objet.cliente_nombre + " " + objet.cliente_apellido}</div>
                                 </div>
+                                <div class="d-flex align-item-center justify-content-between text-start">
+                                    <div>Tipo</div>
+                                    <div class="fs-6 badge bg-secondary">${objet.tipo}</div>
+                                </div>
                                 <div class="d-flex justify-content-around pt-3 border-top">
                                     ${objet.status == 1 ? `<button class="btn bh_1 btn_prepared" id_order="${objet.id}" type_order="${objet.tipo}" style="color: #fff;">Preparar</button>` : ""}
-                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn bh_5" style="color: #fff;">Detalles</button>
+                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn bh_5 text-white btn-details-kitchen-delivery" data-id="${objet.id}">Detalles</button>
                                 </div>
                             </div>
                         </div>
@@ -172,9 +176,13 @@ export default function Templates() {
                                     <div class="text-start">Direccion</div>
                                     <p class="fs-6 w-100 text-truncate">${objet.direccion}</p>
                                 </div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <div class="text-start">Tipo</div>
+                                    <div class="fs-6 badge bg-secondary">${objet.tipo}</div>
+                                </div>
                                 <div class="d-flex justify-content-around pt-3 border-top">
                                     ${objet.status == 2 ? `<button class="btn btn-sm bh_1 text-white btn_sale" id_order="${objet.id}" id_venta="${objet.id_venta}">Aceptar Entrega</button>` : ""}
-                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
+                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn btn-sm bh_5 text-white btn-details-kitchen-delivery" data-id="${objet.id}">Detalles</button>
                                 </div>
                             </div>
                         </div>
@@ -1450,6 +1458,136 @@ export default function Templates() {
         </div>
         `
     }
+
+    //template de los detalles de caja
+    async function infoCash(objet) {
+        let user = await searchParam({ id: objet.id_usuario }, "users", 1)
+        user = user[0].nombre + " " + user[0].apellido
+        return `
+        
+        <div class="d-flex justify-content-between align-items-center">
+            <h2>CAJA NRO ${objet.id}</h2>
+            <i class="btn_print" data-bs-toggle="tooltip" data-bs-title="Imprimir" data-feather="printer" data-id="${objet.id}" style="cursor: pointer"></i>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="d-flex">
+                    <h4 class="fw-bold">Usuario:</h4>
+                    <p class="ms-2">${user}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex">
+                    <h4 class="fw-bold">Fecha:</h4>
+                    <p class="ms-2">${fecha(objet.fecha_apertura)}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex">
+                    <h4 class="fw-bold">Valor inicial Bs:</h4>
+                    <p class="ms-2">${objet.monto_inicial_bs}</p>
+                </div>
+                <div class="d-flex">
+                    <h4 class="fw-bold">Valor inicial $:</h4>
+                    <p class="ms-2">${objet.monto_inicial_dolar}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="d-flex">
+                    <h4 class="fw-bold">Estado:</h4>
+                    <p class="ms-2">${objet.estado == 1 ? "Abierta" : "Cerrada"}</p>
+                </div>
+            </div>
+        </div>
+        <hr>
+        `
+    }
+    function amountCash(objet) {
+        return `
+        <div>
+            <h5>${objet.metodo_pago}</h5>
+            <p>${objet.metodo_pago.toLowerCase() == "transferencia" || objet.metodo_pago.toLowerCase() == "pago movil" ? "Bs" : "$"} ${objet.monto.toFixed(2)}</p>
+        </div>
+        `
+    }
+    function cashDetail(objet, objet2) {
+        let template = "";
+        objet2.forEach((item) => {
+            template += `
+                 <div class="d-flex gap-4">
+                     <p class="fs-6"> PAGO DE VENTA DE ${item.cliente} POR ORDEN NRO ${item.nro_orden}</p>
+                     <p class="fw-bold">${item.metodo_pago.toLowerCase() == "transferencia" || item.metodo_pago.toLowerCase() == "pago movil" ? "Bs" : "$"} ${(item.monto * item.tasa).toFixed(2)}</p>
+                 </div>
+                `
+        })
+        return `
+        <div>
+            <h3 class="ms-3 fw-bold">INGRESOS EN ${objet.toUpperCase()}</h3>
+            <div class="ms-5">
+                ${template}
+            </div>
+        </div>
+        `
+    }
+
+
+    //template de detalles de delivery y cocina
+    function infoKitchenDelivery(objet) {
+        return `
+        <div class="row">
+            <div class="col-md-6 col-lg-6 d-flex gap-3">
+                <i class="btn_print" data-feather="printer" data-bs-toggle="tooltip" data-bs-title="Imprimir" style="cursor: pointer"></i>
+            </div>
+            <div class="col-md-6 col-lg-6 d-flex justify-content-end gap-3">
+                <h5>Fecha</h5>
+                <p class="mb-0">${fecha(objet.fecha)}</p>
+            </div>
+        </div>
+        <div class="row border-bottom border-2">
+            <div class="col-md-6 w-50 col-lg-6 d-flex gap-3">
+                <h5>Nro de orden</h5>
+                <p class="fw-bolder">${objet.nro_orden}</p>
+            </div>
+            <div class="col-md-6 w-50 col-lg-6 d-flex justify-content-end gap-3">
+                <h5>Hora</h5>
+                <p>${hora(objet.fecha)}</p>
+            </div>
+        </div>
+        <div class="row mt-3 border-bottom border-2">
+            <div class="col-12 d-flex gap-3">
+                <h5>Cliente</h5>
+                <p class="fw-bolder">${objet.cliente_nombre + " " + objet.cliente_apellido}</p>
+            </div>
+            <div class="col-12 d-flex gap-3">
+                <h5>Dirección</h5>
+                <p class="fw-bolder">${objet.direccion}</p>
+            </div>
+            <div class="col-12 d-flex gap-3">
+                <h5>Telefono</h5>
+                <p class="fw-bolder">${objet.cliente_telefono ? objet.cliente_telefono : "S/T"}</p>
+            </div>
+        </div>
+        `
+    }
+    function detailsKitchenDelivery(objet, type) {
+        if (objet.tipo != "adicional" || objet.tipo == undefined) {
+            let details = `
+         <ul class="ms-2 list-unstyled">
+            ${objet.descripcion != null && objet.descripcion != "" ? `<li><strong class="fw-bold">• Descripcion:</strong> ${objet.descripcion}</li>` : ""}
+            ${objet.adicionales != null && objet.adicionales != "" ? `<li><strong class="fw-bold">• Adicionales:</strong> ${objet.adicionales}</li>` : ""}
+        </ul>`
+
+            return `
+        <div class="container border-bottom border-2 mb-3">
+            <h3 class="fw-bold">${objet.cantidad + " x " + objet.nombre}</h3>
+            ${type == "prepared" ? details : ""}
+        </div>
+        `
+        }
+        return ""
+    }
+
     return {
         targetProductPrepared,
         targetProductProcess,
@@ -1489,7 +1627,11 @@ export default function Templates() {
         targetDetailOtherOrder,
         tagAdditional,
         targetClienteOrder,
-        elemenFormPaymentOrder
+        elemenFormPaymentOrder,
+        infoCash,
+        amountCash,
+        cashDetail,
+        infoKitchenDelivery,
+        detailsKitchenDelivery
     }
 }
-

@@ -6,6 +6,9 @@
         data-bs-placement="top">
         <i data-feather="plus" class="svg-icon"></i>
     </button>
+    <button data-bs-toggle="tooltip" type="button" class="btn bh_1 btn-circle ms-2 text-white" data-bs-title="Reporte de inventario" data-bs-placement="top" id="btn-report">
+        <i data-feather="file-minus" class="svg-icon"></i>
+    </button>
 </div>
 
 <div class="row">

@@ -37,30 +37,61 @@
             </ul>
 
             <div class="tab-content" id="myTabContent">
-
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                     <div class="row g-3 align-items-center my-4">
                         <div class="col-auto">
-                            <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                            <input type="search" id="searchDeliveryPending" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
                     </div>
-
+                    <div class="d-flex gap-2 justify-content-start flex-wrap ps-0 mb-4">
+                        <div>
+                            <input type="radio" class="btn-check btn_check_pending" name="data-filter-1" data-filter="all" id="delivery_all_pending" autocomplete="off" checked>
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_all_pending">Todos</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_pending" name="data-filter-1" data-filter="all" id="delivery_delivery_pending" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_delivery_pending">Delivery</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_pending" name="data-filter-1" data-filter="all" id="delivery_takeaway_pending" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_takeaway_pending">Para llevar</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_pending" name="data-filter-1" data-filter="all" id="delivery_local_pending" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_local_pending">Local</label>
+                        </div>
+                    </div>
                     <div class="row cont-delivery-pending">
-                        
+
                     </div>
                 </div>
-
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                     <div class="row g-3 align-items-center my-4">
                         <div class="col-auto">
-                            <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                            <input type="search" id="searchDeliveryOff" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
                     </div>
-
-                    <div class="row cont-delivery-off">
-                        
+                    <div class="d-flex gap-2 justify-content-start flex-wrap ps-0 mb-4">
+                        <div>
+                            <input type="radio" class="btn-check btn_check_off" name="data-filter-2" data-filter="all" id="delivery_all_off" autocomplete="off" checked>
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_all_off">Todos</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_off" name="data-filter-2" data-filter="all" id="delivery_delivery_off" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_delivery_off">Delivery</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_off" name="data-filter-2" data-filter="all" id="delivery_takeaway_off" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_takeaway_off">Para llevar</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_off" name="data-filter-2" data-filter="all" id="delivery_local_off" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_local_off">Local</label>
+                        </div>
                     </div>
+                    <div class="row cont-delivery-off">
 
+                    </div>
                 </div>
             </div>
         </div>
@@ -75,4 +106,5 @@
     <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
+    <script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
     <script type="module" src="./assets/js/pages/delivery/delivery.js"></script>

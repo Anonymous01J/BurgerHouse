@@ -40,10 +40,9 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">15</h2>
-                                        <span class="badge bg-primary font-12 text-white font-weight-medium rounded-pill ms-2 d-lg-block d-md-none">+18.33%</span>
+                                        <h2 class="text-dark mb-1 font-weight-medium nro_clientes">0</h2>
                                     </div>
-                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Nuevos Clientes
+                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Clientes
                                     </h6>
                                 </div>
                                 <div class="ms-auto mt-md-3 mt-lg-0">
@@ -58,8 +57,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium"><sup
-                                            class="set-doller">$</sup>18,306</h2>
+                                    <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium ganancias"></h2>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Ganancias del Mes
                                     </h6>
                                 </div>
@@ -76,8 +74,7 @@
                             <div class="d-flex align-items-center">
                                 <div>
                                     <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">25</h2>
-                                        <!-- <span class="badge bg-danger font-12 text-white font-weight-medium rounded-pill ms-2 d-md-none d-lg-block">-18.33%</span> -->
+                                        <h2 class="text-dark mb-1 font-weight-medium order_completed">0</h2>
                                     </div>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Ordenes Completadas
                                     </h6>
@@ -94,7 +91,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h2 class="text-dark mb-1 font-weight-medium">8</h2>
+                                    <h2 class="text-dark mb-1 font-weight-medium table_available">0</h2>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Mesas Disponibles</h6>
                                 </div>
                                 <div class="ms-auto mt-md-3 mt-lg-0">
@@ -107,164 +104,194 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-4 col-md-12">
+                <div class="col-lg-5 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Total de ventas</h4>
-                            <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
-                            <ul class="list-style-none mb-0">
-                                <li>
-                                    <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                    <span class="text-muted">Delivery</span>
-                                    <span class="text-dark float-end font-weight-medium">$2346</span>
-                                </li>
-                                <li class="mt-3">
-                                    <i class="fas fa-circle text-danger font-10 me-2"></i>
-                                    <span class="text-muted">Local</span>
-                                    <span class="text-dark float-end font-weight-medium">$2108</span>
-                                </li>
-                                <li class="mt-3">
-                                    <!-- <i class="fas fa-circle text-cyan font-10 me-2"></i>
-                                    <span class="text-muted">Affiliate Sales</span>
-                                    <span class="text-dark float-end font-weight-medium">$1204</span> -->
-                                </li>
-                            </ul>
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="mb-1">
+                                    <h4 class="card-title">Total de ventas</h4>
+                                    <p class="fs-6 type_flter_date" type_temporality="anual">Semana 14 de Febrero del 2025</p>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <select class="form-select form_select_type_filter" graphic="Total de ventas">
+                                        <option disabled value="s/v">Tipo de filtro</option>
+                                        <option value="Semana/mes/año">Semana/mes/año</option>
+                                        <option value="Mes/Año">Mes/Año</option>
+                                        <option selected value="Año">Año</option>
+                                    </select>
+                                    <a class="link-secondary text-muted  btn_print_graphic" graphic="Total de ventas" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                        <i data-feather="download"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div>
+                                <form class="row g-3 container_inputs_filter" graphic="Total de ventas">
+                                    <div class="col-md-6 d-none" type="week">
+                                        <input type="week" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="col-md-4 d-none" type="month">
+                                        <select class="form-select" name="" id="">
+                                            <option selected disabled value="s/v">Mes</option>
+                                            <option value="1">Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4" type="year">
+                                        <input type="year" placeholder="2025" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <article class="col-md-3" type="submit">
+                                        <button type="submit" class="btn bh_1 text-white">aplicar</button>
+                                    </article>
+                                </form>
+                            </div>
+                            <div class="d-flex justify-content-center mt-3 mb-2">
+                                <canvas class="w-75 h-25" id="myDonutChart"></canvas>
+                            </div>
+                            <div class="container_leyend_total_ventas">
+                                <!-- leyenda -->
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-12">
+                <div class="col-lg-7 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <h4 class="card-title">Ganancia Neta</h4>
-                                <div class="ms-auto">
-                                    <div class="dropdown sub-dropdown">
-                                        <a class="link-secondary text-muted" id="pdf_net_income" style="cursor: pointer">
-                                            <i data-feather="download"></i>
-                                        </a>
-                                        <button class="btn btn-link text-muted dropdown-toggle" type="button"
-                                            id="dd1" data-bs-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i data-feather="more-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dd1">
-                                            <div class="row p-3">
-                                                <div class="col-md-12">
-                                                    <label for="inputEmail4" class="form-label">Ingrese año</label>
-                                                    <input type="text" class="form-control" placeholder="Año" id="year_net_income">
-                                                    <div class="d-flex justify-content-center mt-3">
-                                                        <button class="btn bh_1 text-white mx-auto" id="search_net_income">Buscar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="d-flex align-items-start flex-wrap justify-content-between">
+                                <div>
+                                    <h4 class="card-title">Utilidad neta</h4>
+                                    <p class="fs-6 type_flter_date" type_temporality="anio">Semana 14 de Febrero del 2025</p>
                                 </div>
+                                <div class=" d-flex align-items-center gap-2">
+                                    <select class="form-select form_select_type_filter" graphic="Utilidad neta">
+                                        <option disabled value="s/v">Tipo de filtro</option>
+                                        <option value="Semana/mes/año">Semana/mes/año</option>
+                                        <option value="Mes/Año">Mes/Año</option>
+                                        <option selected value="Año">Año</option>
+                                    </select>
+                                    <a class="link-secondary text-muted  btn_print_graphic" graphic="Utilidad neta" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                        <i data-feather="download"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div>
+                                <form class="row g-3 container_inputs_filter" graphic="Utilidad neta">
+                                    <div class="col-md-4 d-none" type="week">
+                                        <input type="week" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="col-md-3 d-none" type="month">
+                                        <select class="form-select" name="" id="">
+                                            <option selected disabled value="s/v">Mes</option>
+                                            <option value="1">Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3" type="year">
+                                        <input type="year" placeholder="2025" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <article class="col-md-3" type="submit">
+                                        <button type="submit" class="btn bh_1 text-white">aplicar</button>
+                                    </article>
+                                </form>
                             </div>
 
                             <div id="net_income_container">
-                                <div class="net-income mt-1 position-relative mt-2" style="height:294px;"></div>
-                                <div class="d-flex align-items-center gap-4 mt-3">
-                                    <div>
-                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                        <span class="text-muted me-1 fs-6">Mejor rendimiento</span>
-                                        <span class="fs-6 mesMax">Ene con 25$</span>
-                                    </div>
-                                    <div>
-                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                        <span class="text-muted me-1 fs-6">Peor rendimiento</span>
-                                        <span class="fs-6 mesMin">Mar con 2$</span>
-                                    </div>
-                                    <div>
-                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                        <span class="text-muted me-1 fs-6">Promedio anual</span>
-                                        <span class="fs-6 promedio">5$</span>
-                                    </div>
+                                <canvas class="mt-1 position-relative mt-2 w-100 h-25" id="utilityChart"></canvas>
+                                <div class="container-leyend_utilidad">
+
                                 </div>
-                                <div class="d-flex align-items-center gap-4 mt-3">
-                                    <div>
-                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                        <span class="text-muted me-1 fs-6">Promedio 1er semestre</span>
-                                        <span class="fs-6 promedioS1">25$</span>
-                                    </div>
-                                    <div>
-                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                        <span class="text-muted me-1 fs-6">Promedio 2do semestre</span>
-                                        <span class="fs-6 promedioS2">12$</span>
-                                    </div>
-                                </div>
-                                <!-- <div id="resumen-anual" class="mt-3 fs-6"></div> -->
-                                <ul class="list-inline text-center mt-4 mb-2">
-                                    <li class="list-inline-item text-muted fst-italic fs-6">Ventas del Mes $</li>
-                                </ul>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-6 col-lg-8">
+                <div class="col-lg-8 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <h4 class="card-title mb-0">Ganancias</h4>
+                            <div class="d-flex align-items-start flex-wrap justify-content-between">
+                                <div>
+                                    <h4 class="card-title">Ingresos</h4>
+                                    <p class="fs-6 type_flter_date" type_temporality="anio">Semana 14 de Febrero del 2025</p>
+                                </div>
+                                <div class=" d-flex align-items-center gap-2">
+                                    <select class="form-select form_select_type_filter" graphic="Ingresos">
+                                        <option disabled value="s/v">Tipo de filtro</option>
+                                        <option selected value="Semana/mes/año">Semana/mes/año</option>
+                                        <option value="Mes/Año">Mes/Año</option>
+                                        <option value="Año">Año</option>
+                                    </select>
+                                    <a class="link-secondary text-muted btn_print_graphic" graphic="Ingresos" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                        <i data-feather="download"></i>
+                                    </a>
+                                </div>
                             </div>
-                            <div class="pl-4 mb-5">
-                                <div class="stats ct-charts position-relative" style="height: 315px;"></div>
+                            <div>
+                                <form class="row g-3 container_inputs_filter" graphic="Ingresos">
+                                    <div class="col-md-4" type="week">
+                                        <input type="week" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="col-md-3 d-none" type="month">
+                                        <select class="form-select" name="" id="">
+                                            <option selected disabled value="s/v">Mes</option>
+                                            <option value="1">Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 d-none" type="year">
+                                        <input type="year" placeholder="2025" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <article class="col-md-3" type="submit">
+                                        <button type="submit" class="btn bh_1 text-white">aplicar</button>
+                                    </article>
+                                </form>
                             </div>
-                            <ul class="list-inline text-center mt-4 mb-0">
-                                <li class="list-inline-item text-muted fst-italic">Ganancias de la semana $</li>
-                            </ul>
+
+                            <div id="net_income_container">
+                                <canvas class="mt-1 position-relative mt-2 w-100 h-25" id="ingresosChart"></canvas>
+                                <div class="container-leyend_ingresos mb-3">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-4 col-lg-4">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Actividad Reciente</h4>
+                            <h4 class="card-title">Mi Actividad Reciente</h4>
                             <div class="mt-4 activity">
-                                <div class="d-flex align-items-start border-left-line pb-3">
-                                    <div>
-                                        <a href="javascript:void(0)" class="btn btn-info btn-circle mb-2 btn-item">
-                                            <i data-feather="shopping-cart"></i>
-                                        </a>
-                                    </div>
-                                    <div class="ms-3 mt-2">
-                                        <h5 class="text-dark font-weight-medium mb-2">Nuevo Combo vendido!</h5>
-                                        <p class="font-14 mb-2 text-muted">Jose Perez a comprado pepito mixto
-                                        </p>
-                                        <span class="font-weight-light font-14 text-muted">Hace 10 min</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-start border-left-line pb-3">
-                                    <div>
-                                        <a href="javascript:void(0)"
-                                            class="btn btn-danger btn-circle mb-2 btn-item">
-                                            <i data-feather="message-square"></i>
-                                        </a>
-                                    </div>
-                                    <div class="ms-3 mt-2">
-                                        <h5 class="text-dark font-weight-medium mb-2">Nueva orden</h5>
-                                        <p class="font-14 mb-2 text-muted">Felix a creado una orden</p>
-                                        <span class="font-weight-light font-14 text-muted">Hace 4 hor</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-start border-left-line">
-                                    <div>
-                                        <a href="javascript:void(0)" class="btn btn-cyan btn-circle mb-2 btn-item">
-                                            <i data-feather="bell"></i>
-                                        </a>
-                                    </div>
-                                    <div class="ms-3 mt-2">
-                                        <h5 class="text-dark font-weight-medium mb-2">Niveles bajos de stock!
-                                        </h5>
-                                        <p class="font-14 mb-2 text-muted">Solomo bajo en stock</p>
-                                        <span class="font-weight-light font-14 mb-1 d-block text-muted">Hace 1 min</span>
-                                    </div>
-                                </div>
+                                <!-- con js -->
                             </div>
                         </div>
                     </div>
@@ -278,148 +305,24 @@
                             <div class="d-flex align-items-center mb-4">
                                 <h4 class="card-title">Clientes Frecuentes</h4>
                             </div>
+                            <div class="col-md-6 col-lg-3">
+                                <input type="search" class="form-control" id="searchClientFrequent" placeholder="Buscar">
+                            </div>
                             <div class="table-responsive">
-                                <table class="table no-wrap v-middle mb-0">
+                                <table class="table table-dark-mode no-wrap table_clients w-100">
                                     <thead>
                                         <tr class="border-0">
                                             <th class="border-0 font-14 font-weight-medium text-muted">Nombre
                                             </th>
-                                            <th class="border-0 font-14 font-weight-medium text-muted px-2">Combo mas consumido
+                                            <th class="border-0 font-14 font-weight-medium text-muted px-2">Producto mas consumido
                                             </th>
-                                            <th class="border-0 font-14 font-weight-medium text-muted">Reservacion</th>
-                                            <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                                Ultima Orden
-                                            </th>
+                                            <!-- <th class="border-0 font-14 font-weight-medium text-muted">Reservacion</th> -->
+                                            <th class="border-0 font-14 font-weight-medium text-muted text-center">Ultima Orden</th>
                                             <th class="border-0 font-14 font-weight-medium text-muted">Dinero gastado</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="border-top-0 px-2 py-4">
-                                                <div class="d-flex no-block align-items-center">
-                                                    <div class="me-3">
-                                                        <img
-                                                            src="./assets/img/users/widget-table-pic1.jpg"
-                                                            alt="user" class="rounded-circle" width="45"
-                                                            height="45" />
-                                                    </div>
-                                                    <div class="">
-                                                        <h5 class="text-dark mb-0 font-16 font-weight-medium">Hanna
-                                                            Gover</h5>
-                                                        <span class="text-muted font-14">04126742231</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="border-top-0 text-muted px-2 py-4 font-14">
-                                                <img src="./assets/img/big/banner_login.png" alt="user" class="rounded-circle" width="60" height="60" />
-                                                <img src="./assets/img/big/banner_login.png" alt="user" class="rounded-circle" width="60" height="60" />
-                                                <img src="./assets/img/big/banner_login.png" alt="user" class="rounded-circle" width="60" height="60" />
-                                            </td>
-                                            <td class="border-top-0 px-2 py-4">
-                                                <div class="popover-icon">
-                                                    <a class="btn btn-danger rounded-circle btn-circle font-12 popover-item"
-                                                        href="javascript:void(0)"></a>
-                                                </div>
-                                            </td>
-                                            <td
-                                                class="border-top-0 text-center font-weight-medium text-muted px-2 py-4">
-                                                25/4/2024
-                                            </td>
-                                            <td class="font-weight-medium text-dark border-top-0 px-2 py-4">$96K
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-2 py-4">
-                                                <div class="d-flex no-block align-items-center">
-                                                    <div class="me-3"><img
-                                                            src="./assets/img/users/widget-table-pic2.jpg"
-                                                            alt="user" class="rounded-circle" width="45"
-                                                            height="45" /></div>
-                                                    <div class="">
-                                                        <h5 class="text-dark mb-0 font-16 font-weight-medium">Daniel
-                                                            Kristeen
-                                                        </h5>
-                                                        <span class="text-muted font-14">04126742231</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-muted px-2 py-4 font-14">
-                                                <img src="./assets/img/big/banner_register.png" alt="user" class="rounded-circle" width="60" height="60" />
 
-                                            </td>
-                                            <td class="border-top-0 px-2 py-4">
-                                                <div class="popover-icon">
-                                                    <a class="btn btn-success rounded-circle btn-circle font-12 popover-item"
-                                                        href="javascript:void(0)"></a>
-                                                </div>
-                                            </td>
-
-                                            <td class="text-center text-muted font-weight-medium px-2 py-4">2/9/2024</td>
-                                            <td class="font-weight-medium text-dark px-2 py-4">$85K</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="px-2 py-4">
-                                                <div class="d-flex no-block align-items-center">
-                                                    <div class="me-3"><img
-                                                            src="./assets/img/users/widget-table-pic3.jpg"
-                                                            alt="user" class="rounded-circle" width="45"
-                                                            height="45" /></div>
-                                                    <div class="">
-                                                        <h5 class="text-dark mb-0 font-16 font-weight-medium">Julian
-                                                            Josephs
-                                                        </h5>
-                                                        <span class="text-muted font-14">04126742231</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="text-muted px-2 py-4 font-14">
-                                                <img src="./assets/img/big/banner_login.png" alt="user" class="rounded-circle" width="60" height="60" />
-                                                <img src="./assets/img/big/banner_captcha.png" alt="user" class="rounded-circle" width="60" height="60" />
-
-                                            </td>
-                                            <td class="px-2 py-4">
-                                                <div class="popover-icon">
-
-                                                    <a class="btn btn-danger rounded-circle btn-circle font-12 popover-item"
-                                                        href="javascript:void(0)"></a>
-                                                </div>
-                                            </td>
-                                            <td class="text-center text-muted font-weight-medium px-2 py-4">30/11/2024</td>
-                                            <td class="font-weight-medium text-dark px-2 py-4">$81K</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="border-bottom-0 px-2 py-4">
-                                                <div class="d-flex no-block align-items-center">
-                                                    <div class="me-3"><img
-                                                            src="./assets/img/users/widget-table-pic4.jpg"
-                                                            alt="user" class="rounded-circle" width="45"
-                                                            height="45" /></div>
-                                                    <div class="">
-                                                        <h5 class="text-dark mb-0 font-16 font-weight-medium">Jan
-                                                            Petrovic
-                                                        </h5>
-                                                        <span class="text-muted font-14">04126742231</span>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="border-bottom-0 text-muted px-2 py-4 font-14">
-                                                <img src="./assets/img/big/banner_login.png" alt="user" class="rounded-circle" width="60" height="60" />
-                                                <img src="./assets/img/big/banner_register.png" alt="user" class="rounded-circle" width="60" height="60" />
-                                                <img src="./assets/img/big/banner_captcha.png" alt="user" class="rounded-circle" width="60" height="60" />
-
-                                            </td>
-                                            <td class="border-top-0 px-2 py-4">
-                                                <div class="popover-icon">
-                                                    <a class="btn btn-danger rounded-circle btn-circle font-12 popover-item"
-                                                        href="javascript:void(0)"></a>
-                                                </div>
-                                            </td>
-                                            <td
-                                                class="border-bottom-0 text-center text-muted font-weight-medium px-2 py-4">
-                                                23</td>
-                                            <td class="border-bottom-0 font-weight-medium text-dark px-2 py-4">$80K
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -438,18 +341,18 @@
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module" src="./assets/js/prueba.js"></script>
 <script src="./assets/js/app-style-switcher.js"></script>
+<script src="./assets/libs/extra-libs/datatables.net/js/jquery.dataTables.js"></script>
+<script src="./assets/libs/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
 <script src="./assets/js/feather.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
-<script src="./assets/libs/extra-libs/c3/d3.min.js"></script>
-<script src="./assets/libs/extra-libs/c3/c3.min.js"></script>
-<script src="./assets/libs/libs/chartist/dist/chartist.min.js"></script>
-<script src="./assets/libs/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-<script defer src="./assets/js/pages/dashboards/dashboard1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/svg2pdf.js/dist/svg2pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js" integrity="sha512-01CJ9/g7e8cUmY0DFTMcUw/ikS799FHiOA0eyHsUWfOetgbx/t6oV4otQ5zXKQyIrQGTHSmRVPIgrgLcZi/WMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
+<script src="./assets/libs/libs/jspdf/jspdf.plugin.autotable.min.js"></script>
+<script src="./assets/libs/libs/chart.js/dist/Chart.min.js"></script>
+<script src="./assets/libs/libs/chart.js/dist/chartjs-plugin-datalabels.js"></script>
+<script type="module" defer src="./assets/js/pages/dashboards/dashboard1.js"></script>
+<script src="./assets/libs/libs/daysjs/dayjs.min.js"></script>
+<script src="./assets/libs/libs/daysjs/es.js"></script>
+<script src="./assets/libs/libs/daysjs/relativeTime.js"></script>

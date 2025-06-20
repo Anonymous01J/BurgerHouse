@@ -367,8 +367,17 @@ export default function functionGeneral() {
   }
   const print = async (config) => {
     const { search, template, container, funtions } = config;
-    let response = await search();
     let templatesWrapper = "";
+    let templateCharge = "";
+    templateCharge = `
+          <div class="col-12 d-flex justify-content-center align-items-center fs-1" style="height: 50vh;">
+            <div class="spinner-border" role="status" style="width: 150px; height: 150px; color: #c1c1c1;">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+          `
+    document.querySelector(container).innerHTML = templateCharge;
+    let response = await search();
     if (response.length == 0) {
       templatesWrapper = `
         <div class="col-12">
@@ -430,9 +439,16 @@ export default function functionGeneral() {
     });
   };
   const add = async (config, module, data, binnacleAdd) => {
+    Swal.fire({
+      title: 'Procesando...',
+      text: 'Por favor espera',
+      allowOutsideClick: false,
+      didOpen: () => { Swal.showLoading() }
+    });
     let action = await fetch(`${module}/add_many`, { method: "POST", body: data, });
     let response = await action.json()
     if (response.success == true) {
+      Swal.close();
       Swal.fire({
         title: `Exito!`,
         text: "El elemento fue agregado correctamente",
@@ -441,6 +457,7 @@ export default function functionGeneral() {
       print(config);
       binnacleAdd()
     } else {
+      Swal.close();
       Swal.fire({
         title: `Error!`,
         text: "El elemento no fue agregado",
@@ -463,12 +480,19 @@ export default function functionGeneral() {
     return response
   };
   const update = async (config, module, data, binnacleAdd) => {
+    Swal.fire({
+      title: 'Procesando...',
+      text: 'Por favor espera',
+      allowOutsideClick: false,
+      didOpen: () => { Swal.showLoading() }
+    });
     let action = await fetch(`${module}/update`, {
       method: "POST",
       body: data,
     });
     let response = await action.json();
     if (response.success == true) {
+      Swal.close();
       Swal.fire({
         title: `Exito!`,
         text: "El elemento fue actualizado correctamente",
@@ -477,6 +501,7 @@ export default function functionGeneral() {
       print(config);
       binnacleAdd()
     } else {
+      Swal.close();
       Swal.fire({
         title: `Error!`,
         text: "El elemento no fue actualizado",
@@ -549,12 +574,19 @@ export default function functionGeneral() {
     });
   };
   const addDataTables = async (table, data, module, binnacle) => {
+    Swal.fire({
+      title: 'Procesando...',
+      text: 'Por favor espera',
+      allowOutsideClick: false,
+      didOpen: () => { Swal.showLoading() }
+    });
     let pet = await fetch(`${module}/add_many`, {
       method: "POST",
       body: data,
     })
     let response = await pet.json()
     if (response.success == true) {
+      Swal.close();
       Swal.fire({
         title: `Exito!`,
         text: "El elemento fue agregado correctamente",
@@ -563,6 +595,7 @@ export default function functionGeneral() {
       table.ajax.reload();
       binnacle()
     } else {
+      Swal.close();
       Swal.fire({
         title: `Error!`,
         text: "El elemento no fue agregado",
@@ -585,13 +618,19 @@ export default function functionGeneral() {
     })
   }
   const updateDataTables = async (table, data, module, binnacle) => {
+    Swal.fire({
+      title: 'Procesando...',
+      text: 'Por favor espera',
+      allowOutsideClick: false,
+      didOpen: () => { Swal.showLoading() }
+    });
     let pet = await fetch(`${module}/update`, {
       method: "POST",
       body: data,
     })
     let response = await pet.json()
-    console.log(response);
     if (response.success == true) {
+      Swal.close();
       Swal.fire({
         title: `Exito!`,
         text: "El elemento fue actualizado correctamente",
@@ -600,6 +639,7 @@ export default function functionGeneral() {
       table.ajax.reload();
       binnacle()
     } else {
+      Swal.close();
       Swal.fire({
         title: `Error!`,
         text: "El elemento no fue actualizado",

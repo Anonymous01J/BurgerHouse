@@ -1,9 +1,13 @@
 <?php
+
 namespace Shtch\Burgerhouse\models;
 
 use Shtch\Burgerhouse\models\Db_base;
+use Exception;
+use PDO;
 
-class Caja extends Db_base {
+class Caja extends Db_base
+{
     private $id;
     private $id_usuario;
     private $monto_inicial_dolar;
@@ -14,6 +18,9 @@ class Caja extends Db_base {
     private $fecha_cierre;
     private $estado;
     private $total_ventas;
+    private $fecha_inicio;
+    private $fecha_final;
+
 
     public function __construct(
         $id = null,
@@ -25,10 +32,13 @@ class Caja extends Db_base {
         $fecha_apertura = null,
         $fecha_cierre = null,
         $estado = null,
-        $total_ventas = null
+        $total_ventas = null,
+        $fecha_inicio = null,
+        $fecha_final = null
+
     ) {
         parent::__construct("caja");
-        
+
         $this->id = $id;
         $this->id_usuario = $id_usuario;
         $this->monto_inicial_bs = $monto_inicial_bs;
@@ -39,6 +49,9 @@ class Caja extends Db_base {
         $this->fecha_cierre = $fecha_cierre;
         $this->estado = $estado;
         $this->total_ventas = $total_ventas;
+        $this->fecha_inicio = $fecha_inicio;
+        $this->fecha_final = $fecha_final;
+
 
         $this->add_variables([
             "a.id" => $this->id,
@@ -65,5 +78,33 @@ class Caja extends Db_base {
             a.estado,
             a.total_ventas
         ";
+        $this->add_variables_interval([
+            "a.fecha_apertura" => [
+                "inicio" => $this->fecha_inicio,
+                "fin" => $this->fecha_final
+            ],
+        ]);
+    }
+    public function cajaDetails(int $id)
+    {
+        try {
+            $query = $this->conn->prepare("CALL Caja(:id)");
+            $query->bindValue(':id', $id, PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    public function closeCash(int $id)
+    {
+        try {
+            $query = $this->conn->prepare("CALL CerrarCaja(:id)");
+            $query->bindValue(':id', $id, PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
     }
 }

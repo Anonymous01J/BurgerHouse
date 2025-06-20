@@ -1,7 +1,7 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js"
-import orderDomicile from "./order_domicile.js";
-const { searchParam, fecha, hora, sessionInfo, binnacle } = functionGeneral()
+import domicile_and_takeaway from "./domicile_and_takeaway.js";
+const { searchParam, fecha, hora, sessionInfo, binnacle, resetForm } = functionGeneral()
 let session = await sessionInfo();
 //tables de domicilio 
 let tableOrderDomicileoPendings = $('.table-order-domicilio-pendientes').DataTable({
@@ -268,10 +268,7 @@ $('#searchBoxLLevarPorDespachar').on('keyup', function () { tableOrderParaLlevar
 $('#searchBoxllevarProcesadas').on('keyup', function () { tableOrderParaLlevarProcess.search(this.value).draw(); });
 $('#searchBoxllevarAnuladas').on('keyup', function () { tableOrderParaLlevarNull.search(this.value).draw(); });
 
-window.stepper = new Stepper(document.querySelector('#stepper'), {
-  linear: true,
-  animation: true
-});
+window.stepper = new Stepper(document.querySelector('#stepper'), { linear: true, animation: true });
 const detailOrder = async (btn) => {
   let data = new FormData();
   let id_order = btn.getAttribute("data-id_order");
@@ -481,10 +478,27 @@ const targetUpdate = async (type) => {
 }
 targetUpdate("delivery")
 targetUpdate("llevar")
-
+const resetFormModal = () => {
+  document.querySelector(".cont-select-product-order").innerHTML = ""
+  const container = document.querySelector(".cont_category_product_orders");
+  container.innerHTML = container.children[0].outerHTML
+  document.querySelector(".target_client_order").innerHTML = ""
+  document.querySelector(".loader_client_order").querySelector("h3").classList.remove("d-none")
+  document.querySelector(".target_client_order").classList.add("d-none")
+  document.querySelector(".loader_client_order").querySelector(".loader").classList.add("d-none")
+  document.getElementById('form-search-client-order').reset()
+  document.querySelector(".direction_sale").value = ""
+  resetForm(".payments", document.getElementById("form-submit-payment"))
+}
 document.querySelectorAll(".btnOrder").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    orderDomicile(functionGeneral, Templates, btn.getAttribute("type_order"))
-    bootstrap.Modal.getOrCreateInstance('#domicile').show()
-  })
+  // if (!btn.dataset.listenerAttached) {
+    btn.addEventListener("click", (e) => {
+      window.type_order = btn.getAttribute("type_order")
+      stepper.to(0)
+      domicile_and_takeaway(functionGeneral, Templates, window.type_order, () => targetUpdate(btn.getAttribute("type_order")))
+      resetFormModal()
+      setTimeout(() => { bootstrap.Modal.getOrCreateInstance('#domicile_and_takeaway').show() }, 150)
+    })
+    // btn.dataset.listenerAttached = "true";
+  // }
 })

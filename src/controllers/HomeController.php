@@ -1,31 +1,24 @@
 <?php
+
 namespace Shtch\Burgerhouse\controllers;
 
 use Shtch\Burgerhouse\controllers\Controller_base;
+use Shtch\Burgerhouse\models\Estadisticas;
+use Exception;
 
-class HomeController extends Controller_base {
-
-    public function __construct(){
+class HomeController extends Controller_base
+{
+    public function __construct()
+    {
         parent::__construct(module_name: 'index');
+        $this->db = new Estadisticas();
     }
-
-    public function index() {
-        // Verifica si la petición es AJAX
-        if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-            // Leer los datos enviados con FormData
-            $nombre = $_POST['nombre'] ?? null;
-            $mensaje = $_POST['mensaje'] ?? null;
-
-            // Respuesta en JSON
-            header('Content-Type: application/json');
-            echo json_encode([
-                'status' => 'success',
-                'nombre' => $nombre,
-                'mensaje' => $mensaje
-            ]);
-        } else {
-            // Para peticiones normales se carga la vista
-            include_once __DIR__ . '/../Views/index.php';
+    public function ClientesFrecuentes()
+    {
+        try {
+            echo json_encode($this->db->consultar_vista('vista_resumen_clientes'));
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 }

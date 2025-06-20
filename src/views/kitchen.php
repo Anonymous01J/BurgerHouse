@@ -38,7 +38,25 @@
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                     <div class="row g-3 align-items-center my-4">
                         <div class="col-auto">
-                            <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                            <input type="search" id="searchKitchenPending" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-start flex-wrap ps-0 mb-4">
+                        <div>
+                            <input type="radio" class="btn-check btn_check_pending" name="data-filter" data-filter="all" id="kitchen_all_pending" autocomplete="off" checked>
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_all_pending">Todos</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_pending" name="data-filter" data-filter="all" id="kitchen_delivery_pending" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_delivery_pending">Delivery</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_pending" name="data-filter" data-filter="all" id="kitchen_takeaway_pending" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_takeaway_pending">Para llevar</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_pending" name="data-filter" data-filter="all" id="kitchen_local_pending" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_local_pending">Local</label>
                         </div>
                     </div>
                     <div class="row kitchen-cont-prepared">
@@ -48,13 +66,30 @@
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                     <div class="row g-3 align-items-center my-4">
                         <div class="col-auto">
-                            <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                            <input type="search" id="searchKitchenPrepared" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-start flex-wrap ps-0 mb-4">
+                        <div>
+                            <input type="radio" class="btn-check btn_check_off" data-filter="all" id="kitchen_all_off" autocomplete="off" checked>
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_all_off">Todos</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_off" data-filter="all" id="kitchen_delivery_off" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_delivery_off">Delivery</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_off" data-filter="all" id="kitchen_takeaway_off" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_takeaway_off">Para llevar</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_off" data-filter="all" id="kitchen_local_off" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_local_off">Local</label>
                         </div>
                     </div>
                     <div class="row kitchen-cont-prepared-off">
-                        
+                        <!-- aqui cargan con js -->
                     </div>
-                    
                 </div>
                 <?php include_once __DIR__ . '/../Views/Components/modals/delivery-kitchen/modal.php' ?>
             </div>
@@ -69,4 +104,5 @@
     <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
+    <script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
     <script type="module" src="./assets/js/pages/kitchen/kitchen.js"></script>

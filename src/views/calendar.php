@@ -1,14 +1,9 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
-
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
-
     <div class="page-wrapper">
-
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-md-8 align-self-center">
@@ -22,12 +17,9 @@
                         </nav>
                     </div>
                 </div>
-                
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -54,7 +46,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-9">
-                                    <div class="card-body b-l calender-sidebar">
+                                    <div class="card-body ">
                                         <div id="calendar"></div>
                                     </div>
                                 </div>
@@ -78,7 +70,7 @@
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
 <script src="./assets/libs/libs/moment/min/moment.min.js"></script>
-<script src="./assets/libs/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="./assets/libs/libs/fullcalendar/index.global.min.js"></script>
+<script src="./assets/libs/libs/fullcalendar/index.global.js"></script>
+<script src="./assets/libs/libs/fullcalendar/es.global.min.js"></script>
 <script src="./assets/js/pages/calendar/cal-init.js"></script>
-<script src='./assets/libs/libs/fullcalendar/dist/locale/es.js'></script>
-

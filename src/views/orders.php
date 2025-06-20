@@ -391,7 +391,7 @@
         </div>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
-    <?php include_once __DIR__ . '/../Views/Components/modals/order/domicile.php' ?>
+    <?php include_once __DIR__ . '/../Views/Components/modals/order/domicile_and_takeaway.php' ?>
     <?php include_once __DIR__ . '/../Views/Components/modals/order/modalDetailsOrder.php' ?>
 </div>
 
@@ -408,5 +408,5 @@
 <script src="./assets/libs/libs/tagify/tagify.js"></script>
 <script src="./assets/libs/libs/tagify/tagify.polyfills.min.js"></script>
 <script type="module" src="./assets/js/pages/order/order.js"></script>
-<script type="module" src="./assets/js/pages/order/order_domicile.js"></script>
+<script type="module" src="./assets/js/pages/order/domicile_and_takeaway.js"></script>
 <script src="./assets/libs/libs/bs-stepper/bs-stepper.min.js"></script>

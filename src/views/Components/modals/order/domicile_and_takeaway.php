@@ -1,4 +1,4 @@
-<div class="modal fade" id="domicile" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="domicile_and_takeaway" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-fullscreen">
 		<div class="modal-content">
 			<div class="d-flex justify-content-end p-2">

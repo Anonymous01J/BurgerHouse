@@ -59,7 +59,12 @@
                                     <div class="cf-turnstile" data-sitekey="0x4AAAAAABDYzFakhjOmzEUX" data-theme="light" data-lenguage="es"></div>
                                 </div>
                                 <div class="col-lg-12 text-center">
-                                    <button type="submit" class="btn w-100 btn-dark">Ingresar</button>
+                                    <button type="submit" class="btn w-100 btn-dark d-flex justify-content-center align-items-center gap-2">
+                                        <div class="spinner-border text-primary d-none" role="status" style="width: 20px; height: 20px;">
+                                            <span class="visually-hidden">Loading...</span>
+                                        </div>
+                                        Ingresar
+                                    </button>
                                 </div>
                                 <div class="col-lg-12 text-center mt-4">
                                     <a href="Changepass" class="text-info">¿Olvidaste tu contraseña?</a>

@@ -12,6 +12,8 @@ class Orden extends Db_base
     private $fecha;
     private $tipo;
     private $status;
+    private $nombre_like;
+
 
     public function __construct(
         $id = null,
@@ -19,8 +21,8 @@ class Orden extends Db_base
         $id_cliente = null,
         $fecha = null,
         $tipo = null,
-        $status = null
-
+        $status = null,
+        $nombre_like = null,
     ) {
         parent::__construct("orden");
         $this->id = $id;
@@ -29,7 +31,7 @@ class Orden extends Db_base
         $this->fecha = $fecha;
         $this->tipo = $tipo;
         $this->status = $status;
-
+        $this->nombre_like = $nombre_like;
 
         $this->add_variables([
             "a.id" => $this->id,
@@ -39,6 +41,11 @@ class Orden extends Db_base
             "a.tipo" => $this->tipo,
             "a.status" => $this->status
         ]);
+
+        $this->add_variables_like([
+            "clientes.nombre" => $this->nombre_like
+        ]);
+
         $this->select_query = "
             a.id,
             a.nro_orden,
@@ -55,7 +62,6 @@ class Orden extends Db_base
         $this->joins = "
             INNER JOIN clientes ON clientes.id = a.id_cliente
             INNER JOIN ventas ON ventas.id_orden = a.id
-
         ";
     }
 }

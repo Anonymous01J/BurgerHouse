@@ -33,34 +33,34 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8 col-md-12">
+                <div class="col-lg-7 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex align-items-start flex-wrap justify-content-between prueba">
+                            <div class="d-flex align-items-start flex-wrap justify-content-between">
                                 <div>
                                     <h4 class="card-title">Gasto Promedio (Clientes)</h4>
-                                    <p class="fs-6">Semana 14 de Febrero del 2025</p>
+                                    <p class="fs-6 type_flter_date" type_temporality="week">Semana 14 de Febrero del 2025</p>
                                 </div>
                                 <div class=" d-flex align-items-center gap-2">
-                                    <select class="form-select" name="select" id="">
-                                        <option selected disabled value="2021">Tipo de filtro</option>
-                                        <option value="2022">Semana/mes/año</option>
-                                        <option value="2023">Mes/Año</option>
-                                        <option value="2024">Año</option>
+                                    <select class="form-select form_select_type_filter" graphic="Gasto Promedio">
+                                        <option disabled value="s/v">Tipo de filtro</option>
+                                        <option selected value="Semana/mes/año">Semana/mes/año</option>
+                                        <option value="Mes/Año">Mes/Año</option>
+                                        <option value="Año">Año</option>
                                     </select>
-                                    <a class="link-secondary text-muted" id="pdf_net_income" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                    <a class="link-secondary text-muted btn_print_graphic" graphic="Gasto Promedio" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
                                         <i data-feather="download"></i>
                                     </a>
                                 </div>
                             </div>
                             <div>
-                                <form class="row g-3">
-                                    <div class="col-md-4">
+                                <form class="row g-3 container_inputs_filter" graphic="Gasto Promedio">
+                                    <div class="col-md-4" type="week">
                                         <input type="week" class="form-control" id="inputEmail4">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3 d-none" type="month">
                                         <select class="form-select" name="" id="">
-                                            <option selected disabled value="2021">Mes</option>
+                                            <option selected disabled value="s/v">Mes</option>
                                             <option value="1">Enero</option>
                                             <option value="2">Febrero</option>
                                             <option value="3">Marzo</option>
@@ -75,97 +75,80 @@
                                             <option value="12">Diciembre</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-4">
-                                        <input type="year" class="form-control" id="inputEmail4">
+                                    <div class="col-md-3 d-none" type="year">
+                                        <input type="year" placeholder="2025" class="form-control" id="inputEmail4">
                                     </div>
+                                    <article class="col-md-3" type="submit">
+                                        <button type="submit" class="btn bh_1 text-white">aplicar</button>
+                                    </article>
                                 </form>
                             </div>
 
                             <div id="net_income_container">
                                 <canvas class="mt-1 position-relative mt-2 w-100 h-25" id="ticketChart"></canvas>
-                                <div class="d-flex align-items-center gap-4 mt-3">
-                                    <div>
-                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                        <span class="text-muted me-1 fs-6">Mejor rendimiento</span>
-                                        <span class="fs-6 mesMax">Ene con 25$</span>
-                                    </div>
-                                    <div>
-                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                        <span class="text-muted me-1 fs-6">Peor rendimiento</span>
-                                        <span class="fs-6 mesMin">Mar con 2$</span>
-                                    </div>
-                                    <div>
-                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                        <span class="text-muted me-1 fs-6">Promedio anual</span>
-                                        <span class="fs-6 promedio">5$</span>
-                                    </div>
-                                </div>
-                                <div class="d-flex align-items-center gap-4 mt-3">
-                                    <div>
-                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                        <span class="text-muted me-1 fs-6">Promedio 1er semestre</span>
-                                        <span class="fs-6 promedioS1">25$</span>
-                                    </div>
-                                    <div>
-                                        <i class="fas fa-circle text-primary font-10 me-2"></i>
-                                        <span class="text-muted me-1 fs-6">Promedio 2do semestre</span>
-                                        <span class="fs-6 promedioS2">12$</span>
-                                    </div>
+                                <div class="container-leyend_gasto_cliente">
+
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-12">
+                <div class="col-lg-5 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex">
-                                <div class="mb-4">
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="mb-1">
                                     <h4 class="card-title">Total de ventas</h4>
-                                    <p class="fs-6">Semana 14 de Febrero del 2025</p>
+                                    <p class="fs-6 type_flter_date" type_temporality="anual">Semana 14 de Febrero del 2025</p>
                                 </div>
-                                <div class="ms-auto">
-                                    <div class="dropdown sub-dropdown">
-                                        <a class="link-secondary text-muted" id="pdf_net_income" style="cursor: pointer">
-                                            <i data-feather="download"></i>
-                                        </a>
-                                        <button class="btn btn-link text-muted dropdown-toggle" type="button"
-                                            id="dd1" data-bs-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i data-feather="more-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dd1">
-                                            <div class="row p-3">
-                                                <div class="col-md-12">
-                                                    <label for="inputEmail4" class="form-label">Ingrese año</label>
-                                                    <input type="text" class="form-control" placeholder="Año" id="year_net_income">
-                                                    <div class="d-flex justify-content-center mt-3">
-                                                        <button class="btn bh_1 text-white mx-auto" id="search_net_income">Buscar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <select class="form-select form_select_type_filter" graphic="Total de ventas">
+                                        <option disabled value="s/v">Tipo de filtro</option>
+                                        <option value="Semana/mes/año">Semana/mes/año</option>
+                                        <option value="Mes/Año">Mes/Año</option>
+                                        <option selected value="Año">Año</option>
+                                    </select>
+                                    <a class="link-secondary text-muted btn_print_graphic" graphic="Total de ventas" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                        <i data-feather="download"></i>
+                                    </a>
                                 </div>
                             </div>
-                            <canvas class="mb-4" id="myDonutChart"></canvas>
-                            <ul class="list-style-none mb-0">
-                                <li>
-                                    <i class="fas fa-circle font-10 me-2" style="color: #FF4B00;"></i>
-                                    <span class="text-muted">Delivery</span>
-                                    <span class="text-dark float-end font-weight-medium">$2346</span>
-                                </li>
-                                <li class="mt-3">
-                                    <i class="fas fa-circle font-10 me-2" style="color: #FFB200;"></i>
-                                    <span class="text-muted">Local</span>
-                                    <span class="text-dark float-end font-weight-medium">$2108</span>
-                                </li>
-                                <li class="mt-3">
-                                    <!-- <i class="fas fa-circle text-cyan font-10 me-2"></i>
-                                    <span class="text-muted">Affiliate Sales</span>
-                                    <span class="text-dark float-end font-weight-medium">$1204</span> -->
-                                </li>
-                            </ul>
+                            <div>
+                                <form class="row g-3 container_inputs_filter" graphic="Total de ventas">
+                                    <div class="col-md-6 d-none" type="week">
+                                        <input type="week" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="col-md-4 d-none" type="month">
+                                        <select class="form-select" name="" id="">
+                                            <option selected disabled value="s/v">Mes</option>
+                                            <option value="1">Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4" type="year">
+                                        <input type="year" placeholder="2025" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <article class="col-md-3" type="submit">
+                                        <button type="submit" class="btn bh_1 text-white">aplicar</button>
+                                    </article>
+                                </form>
+                            </div>
+                            <div class="d-flex justify-content-center mt-3 mb-2">
+                                <canvas class="w-75 h-25" id="myDonutChart"></canvas>
+                            </div>
+                            <div class="container_leyend_total_ventas">
+                                <!-- leyenda -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -241,36 +224,35 @@
                 </div>
             </div>
 
-
             <div class="row">
-                <div class="col-lg-6 col-md-12">
+                <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-start flex-wrap justify-content-between">
                                 <div>
                                     <h4 class="card-title">Productos mas vendidos</h4>
-                                    <p class="fs-6">Semana 14 de Febrero del 2025</p>
+                                    <p class="fs-6 type_flter_date" type_temporality="anual">Semana 14 de Febrero del 2025</p>
                                 </div>
                                 <div class=" d-flex align-items-center gap-2">
-                                    <select class="form-select" name="select" id="">
-                                        <option selected disabled value="2021">Tipo de filtro</option>
-                                        <option value="2022">Semana/mes/año</option>
-                                        <option value="2023">Mes/Año</option>
-                                        <option value="2024">Año</option>
+                                    <select class="form-select form_select_type_filter" graphic="productos mas vendidos">
+                                        <option disabled value="s/v">Tipo de filtro</option>
+                                        <option value="Semana/mes/año">Semana/mes/año</option>
+                                        <option value="Mes/Año">Mes/Año</option>
+                                        <option selected value="Año">Año</option>
                                     </select>
-                                    <a class="link-secondary text-muted" id="pdf_net_income" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                    <a class="link-secondary text-muted btn_print_graphic" graphic="productos mas vendidos" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
                                         <i data-feather="download"></i>
                                     </a>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <form class="row g-3">
-                                    <div class="col-md-4">
+                                <form class="row g-3 container_inputs_filter" graphic="productos mas vendidos">
+                                    <div class="col-md-4 d-none" type="week">
                                         <input type="week" class="form-control" id="inputEmail4">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3 d-none" type="month">
                                         <select class="form-select" name="" id="">
-                                            <option selected disabled value="2021">Mes</option>
+                                            <option selected disabled value="s/v">Mes</option>
                                             <option value="1">Enero</option>
                                             <option value="2">Febrero</option>
                                             <option value="3">Marzo</option>
@@ -285,43 +267,51 @@
                                             <option value="12">Diciembre</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-4">
-                                        <input type="year" class="form-control" id="inputEmail4">
+                                    <div class="col-md-3" type="year">
+                                        <input type="year" placeholder="2025" class="form-control" id="inputEmail4">
                                     </div>
+                                    <article class="col-md-3" type="submit">
+                                        <button type="submit" class="btn bh_1 text-white">aplicar</button>
+                                    </article>
                                 </form>
                             </div>
-                            <canvas class="mb-4" id="productMoreSales"></canvas>
+                            <div>
+                                <canvas class="mb-4" id="productMoreSales"></canvas>
+                                <div class="container-leyend_product_more_sales">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-12">
+                <div class="col-lg-12 col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex align-items-start flex-wrap justify-content-between">
                                 <div>
                                     <h4 class="card-title">Productos menos vendidos</h4>
-                                    <p class="fs-6">Semana 14 de Febrero del 2025</p>
+                                    <p class="fs-6 type_flter_date" type_temporality="anual">Semana 14 de Febrero del 2025</p>
                                 </div>
                                 <div class=" d-flex align-items-center gap-2">
-                                    <select class="form-select" name="select" id="">
-                                        <option selected disabled value="2021">Tipo de filtro</option>
-                                        <option value="2022">Semana/mes/año</option>
-                                        <option value="2023">Mes/Año</option>
-                                        <option value="2024">Año</option>
+                                    <select class="form-select form_select_type_filter" graphic="productos menos vendidos">
+                                        <option disabled value="s/v">Tipo de filtro</option>
+                                        <option value="Semana/mes/año">Semana/mes/año</option>
+                                        <option value="Mes/Año">Mes/Año</option>
+                                        <option selected value="Año">Año</option>
                                     </select>
-                                    <a class="link-secondary text-muted" id="pdf_net_income" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                    <a class="link-secondary text-muted btn_print_graphic" graphic="productos menos vendidos" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
                                         <i data-feather="download"></i>
                                     </a>
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <form class="row g-3">
-                                    <div class="col-md-4">
+                                <form class="row g-3 container_inputs_filter" graphic="productos menos vendidos">
+                                    <div class="col-md-4 d-none" type="week">
                                         <input type="week" class="form-control" id="inputEmail4">
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-3 d-none" type="month">
                                         <select class="form-select" name="" id="">
-                                            <option selected disabled value="2021">Mes</option>
+                                            <option selected disabled value="s/v">Mes</option>
                                             <option value="1">Enero</option>
                                             <option value="2">Febrero</option>
                                             <option value="3">Marzo</option>
@@ -336,23 +326,28 @@
                                             <option value="12">Diciembre</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-4">
-                                        <input type="year" class="form-control" id="inputEmail4">
+                                    <div class="col-md-3" type="year">
+                                        <input type="year" placeholder="2025" class="form-control" id="inputEmail4">
                                     </div>
+                                    <article class="col-md-3" type="submit">
+                                        <button type="submit" class="btn bh_1 text-white">aplicar</button>
+                                    </article>
                                 </form>
                             </div>
-                            <canvas class="mb-4" id="productMinSales"></canvas>
+                            <div>
+                                <canvas class="mb-4" id="productMinSales"></canvas>
+                                <div class="container-leyend_product_min_sales">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
 </div>
-
-
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -366,4 +361,4 @@
 <script src="./assets/libs/libs/jspdf/jspdf.plugin.autotable.min.js"></script>
 <script src="./assets/libs/libs/chart.js/dist/Chart.min.js"></script>
 <script src="./assets/libs/libs/chart.js/dist/chartjs-plugin-datalabels.js"></script>
-<script src="./assets/js/pages/statistics/statistics.js"></script>
+<script type="module" src="./assets/js/pages/statistics/statistics.js"></script>

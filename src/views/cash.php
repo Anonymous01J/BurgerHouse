@@ -41,33 +41,58 @@
             </ul>
 
             <div class="tab-content" id="myTabContent">
-
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-
                     <div class="row g-3 align-items-center mb-5 mt-3">
                         <div class="col-auto">
-                            <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                            <input type="search" id="searchCashOpen" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
                         <button style="color: #fff;" type="button" class="btn bh_1 btn-circle" data-bs-toggle="modal" data-bs-target="#register-cash">
                             <i data-feather="plus" class="svg-icon"></i>
                         </button>
                     </div>
-
                     <div class="row cont-cash_open">
-                       <!-- js -->
+                        <!-- js -->
                     </div>
                 </div>
 
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-
                     <div class="row g-3 align-items-center my-4">
                         <div class="col-auto">
-                            <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                            <input type="search" id="searchCashClose" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                        </div>
+                        <button type="button" class="btn bh_1 btn-circle text-white" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i data-feather="filter" class="svg-icon"></i>
+                        </button>
+                        <div class="dropdown">
+                            <ul class="dropdown-menu p-4">
+                                <form id="form_cash_filter_date">
+                                    <div class="row g-3 align-items-center mb-3">
+                                        <div class="col-auto">
+                                            <label for="inputPassword6" class="col-form-label">Desde</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <input type="date" id="date_start" class="form-control" aria-describedby="passwordHelpInline">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center">
+                                        <div class="col-auto">
+                                            <label for="inputPassword6" class="col-form-label">Hasta</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <input type="date" id="date_end" class="form-control" aria-describedby="passwordHelpInline">
+                                        </div>
+                                    </div>
+                                    <div class="row g-3 align-items-center justify-content-center mt-3">
+                                        <div class="col-auto">
+                                            <button type="submit" class="btn bh_5 text-white">Aplicar</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </ul>
                         </div>
                     </div>
-
                     <div class="row cont-cash_close">
-                       <!-- js -->
+                        <!-- js -->
                     </div>
                 </div>
                 <?php include_once __DIR__ . '/../Views/Components/modals/cash/modal.php' ?>
@@ -85,4 +110,6 @@
     <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
+    <script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
     <script type="module" src="./assets/js/pages/cash/cash.js"></script>
+    <script type="module" src="./assets/js/pages/cash/report.js"></script>

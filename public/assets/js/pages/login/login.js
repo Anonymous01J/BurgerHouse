@@ -25,6 +25,7 @@ const rules = {
 
 login_form.addEventListener("submit", async (e) => {
   e.preventDefault()
+
   let dataform = {
     email: document.getElementById("login-correo").value,
     password: document.getElementById("login-password").value,
@@ -33,6 +34,8 @@ login_form.addEventListener("submit", async (e) => {
   setValidationStyles("login-correo", error?.email ? error.email[0] : null);
   setValidationStyles("login-password", error?.password ? error.password[0] : null);
   if (!error) {
+    login_form.querySelector(".spinner-border").classList.remove("d-none")
+    login_form.querySelector("button").setAttribute("disabled", true)
     let data = new FormData()
     data.append("email", document.getElementById("login-correo").value)
     data.append("password", document.getElementById("login-password").value)
@@ -60,6 +63,8 @@ login_form.addEventListener("submit", async (e) => {
           icon: "error",
           title: `${result.message}`
         });
+        login_form.querySelector(".spinner-border").classList.add("d-none")
+        login_form.querySelector("button").removeAttribute("disabled")
       }
     }
   }

@@ -125,6 +125,8 @@ nextButtons.forEach(button => {
     button.addEventListener('click', async () => {
         let data_validate = button.getAttribute('data-validate');
         if (data_validate == "email") {
+            button.querySelector(".spinner-border").classList.remove("d-none")
+            button.setAttribute("disabled", true)
             let email = button.closest('.stepes').querySelector("#email").value;
             let pet = await searchParam({ email: email }, "Changepass");
             if (pet.length > 0) {
@@ -138,20 +140,23 @@ nextButtons.forEach(button => {
                     currentStep++;
                     updateSteps();
                     toas("success", "Se envio un correo para restablecer la contraseña");
+                    button.querySelector(".spinner-border").classList.add("d-none")
+                    button.removeAttribute("disabled")
                 } else {
                     toas("error", "Hubo un error al enviar el correo");
+                    button.querySelector(".spinner-border").classList.add("d-none")
+                    button.removeAttribute("disabled")
                 }
             } else {
                 toas("error", "El correo no se encuentra registrado");
+                button.querySelector(".spinner-border").classList.add("d-none")
+                button.removeAttribute("disabled")
             }
         } else if (data_validate == "token") {
             let token = button.closest('.stepes').querySelector("#token").value;
             dataSendToken.append("token", token);
             let pet = await fetch(`changepass/validateToken`, { method: "POST", body: dataSendToken });
             let result = await pet.json()
-            // if (button.closest('.stepes').querySelector("input").value != "" && button.closest('.stepes').querySelector("input").value.length == 4 && result.success == true) {
-            //     clearInterval(time)
-            // }
             if (result.success == true) {
                 currentStep++;
                 updateSteps();
@@ -182,10 +187,8 @@ btnUpdateUser.addEventListener('click', async () => {
         let result = await send.json()
         if (result.success == true) {
             toas("success", "Contraseña actualizada");
-            binnacle(session.message.id, "Recuperar contraseña", "Actualizacion", "Se actualizo la contraseña");
-            setTimeout(() => {
-                window.location = "login"
-            }, 2000)
+            binnacle(session.message.id, `Recuperar contraseña", "Actualizacion", "Se actualizo la contraseña del usuario ${idUser}`);
+            setTimeout(() => { window.location = "login" }, 2000)
         } else {
             toas("error", "Hubo un error al actualizar la contraseña");
         }

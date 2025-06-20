@@ -42,7 +42,7 @@
                     <?php include_once __DIR__ . '/../Views/Components/switcher/productProcess/entrys.php' ?>
                 </div>
             </div>
-            
+
         </div>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/modals/productProcess/modal.php' ?>
@@ -60,5 +60,8 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
+<script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
+<script src="./assets/libs/libs/jspdf/jspdf.plugin.autotable.min.js"></script>
 <script type="module" defer src="./assets/js/pages/productProcess/productProcess.js"></script>
 <script type="module" defer src="./assets/js/pages/productProcess/entrys.js"></script>
+<script type="module" defer src="./assets/js/pages/productProcess/report.js"></script>
