@@ -330,3 +330,46 @@ editDataTables(".table_rawmaterial", (response) => {
         formEdit.dataset.listenerAttached = "true";
     }
 })
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+    if (typeof introJs !== 'undefined') {
+        let intro = introJs();
+        intro.setOptions({
+            steps: [
+                {
+                    element: '.page-title',
+                    intro: 'Esta es la sección de Materia Prima, donde puedes gestionar las materias primas utilizadas en los productos preparados.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#nav-home-tab',
+                    intro: 'Haz clic aquí para ver y gestionar las materias primas disponibles.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#nav-profile-tab',
+                    intro: 'Haz clic aquí para ver y gestionar las entradas de materias primas.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#searchRawmaterial',
+                    intro: 'Utiliza este cuadro de búsqueda para filtrar las materias primas disponibles.',
+                    position: 'top'
+                },
+                {
+                    element: '.btn-circle[data-bs-target="#register-rawMaterial"]',
+                    intro: 'Haz clic aquí para agregar una nueva materia prima.',
+                    position: 'top'
+                },
+                {
+                    element: '.table_rawmaterial',
+                    intro: 'Esta tabla muestra las materias primas disponibles. Puedes editarlas o eliminarlas.',
+                    position: 'top'
+                },
+            ],
+            showBullets: true,
+            exitOnOverlayClick: false,
+            showProgress: true
+        });
+        intro.start();
+    }
+});

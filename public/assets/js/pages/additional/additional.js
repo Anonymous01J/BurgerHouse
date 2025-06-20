@@ -244,5 +244,48 @@ editDataTables(".table_additional", (response) => {
         formEdit.dataset.listenerAttached = "true";
     }
 })
+    document.getElementById('navbarDropdown').addEventListener('click', function () {
+        if (typeof introJs !== 'undefined') {
+            let intro = introJs();
+            intro.setOptions({
+                steps: [
+                {
+                    element: '.page-title',
+                    intro: 'Esta es la sección de productos preparados, donde puedes gestionar los productos disponibles en el sistema.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#searchProduct',
+                    intro: 'Utiliza este cuadro de búsqueda para filtrar los productos preparados.',
+                    position: 'top'
+                },
+                {
+                    element: '.btn-add-tooltip',
+                    intro: 'Haz clic aquí para agregar un nuevo producto preparado.',
+                    position: 'top'
+                },
+                {
+                    element: '#categories',
+                    intro: 'Aquí puedes ver las categorías disponibles para los productos preparados. Selecciona una categoría para filtrar los productos preparados por tipo.',
+                    position: 'top'
+                },
+                {
+                    element: '.cont-product',
+                    intro: 'Este contenedor muestra los productos preparados disponibles. Puedes editarlos o eliminarlos.',
+                    position: 'top'
+                },
+                {
+                    element: '#top-products',
+                    intro: 'Esta sección muestra los productos más vendidos y su rendimiento.',
+                    position: 'top'
+                }
+                ],
+                showBullets: true,
+                exitOnOverlayClick: false,
+                showProgress: true
+            });
+            intro.start();
+        }
+    });
 deleteDatatable(".table_additional", n, () => binnacle(session.message.id, "Adicionales", "Eliminacion", "Se ha eliminado un adicional"))
 attachValidationListeners(1);

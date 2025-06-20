@@ -97,7 +97,7 @@ document.querySelectorAll(".container_inputs_filter").forEach(form => {
             else if (type == "productos mas vendidos") graphic5(anio, null, mes, "productosVendidosMes", () => printPDF())
             else if (type == "Total de ventas") graphic2(anio, null, mes, "totalVentaMes", () => printPDF())
             else if (type == "productos menos vendidos") graphic6(anio, null, mes, "productosMenosVendidosMes", () => printPDF())
-        
+
             form.parentElement.parentElement.parentElement.querySelector(".type_flter_date").textContent = formatearFecha(new Date(anio, mes - 1), "mes");
         } else {
             let anio = form.querySelector("input[type='year']").value;
@@ -111,3 +111,63 @@ document.querySelectorAll(".container_inputs_filter").forEach(form => {
         }
     })
 })
+
+// IntroJs
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+    if (typeof introJs !== 'undefined') {
+        let intro = introJs();
+        intro.setOptions({
+            steps: [
+                {
+                    element: '.page-title',
+                    intro: 'Esta es la sección de estadísticas, donde puedes analizar el rendimiento del restaurante.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#ticketChart',
+                    intro: 'Gráfica de gasto promedio por cliente. Aquí puedes observar el rendimiento semanal.',
+                    position: 'top'
+                },
+                {
+                    element: '#filter-ticketChart',
+                    intro: 'Utiliza este filtro para cambiar el rango de fechas de la gráfica de Gasto Promedio.',
+                    position: 'top'
+                },
+                {
+                    element: '#pdf_net_income',
+                    intro: 'Haz clic aquí para descargar un informe en PDF de las estadísticas actuales.',
+                    position: 'left'
+                },
+                {
+                    element: '#myDonutChart',
+                    intro: 'Gráfica de ventas totales divididas entre Delivery y Local.',
+                    position: 'top'
+                },
+                {
+                    element: '#ocupacionChart',
+                    intro: 'Gráfica de ocupación por horario. Muestra el porcentaje de mesas ocupadas en diferentes franjas horarias.',
+                    position: 'top'
+                },
+                {
+                    element: '#ReservasChart',
+                    intro: 'Gráfica de reservas por canales. Identifica los métodos de reserva más utilizados por los clientes.',
+                    position: 'top'
+                },
+                {
+                    element: '#productMoreSales',
+                    intro: 'Gráfica de productos más vendidos. Analiza los productos con mayor demanda.',
+                    position: 'top'
+                },
+                {
+                    element: '#productMinSales',
+                    intro: 'Gráfica de productos menos vendidos. Identifica los productos con menor rendimiento.',
+                    position: 'top'
+                },
+            ],
+            showBullets: true,
+            exitOnOverlayClick: false,
+            showProgress: true
+        });
+        intro.start();
+    }
+});

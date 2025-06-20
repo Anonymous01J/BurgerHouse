@@ -107,3 +107,42 @@ const algo = async () => {
     console.log(response)
 }
 // algo()
+// IntroJs
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+    if (typeof introJs !== 'undefined') {
+        let intro = introJs();
+        intro.setOptions({
+            steps: [
+                {
+                    element: '.page-title',
+                    intro: 'Esta es la sección de bitácora, donde puedes consultar las actividades realizadas por los usuarios y el sistema.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#home-tab',
+                    intro: 'Aquí puedes ver tu actividad personal registrada en la bitácora.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#profile-tab',
+                    intro: 'Aquí puedes consultar las actividades registradas por el sistema.',
+                    position: 'bottom'
+                },
+                {
+                    element: '#searchBinnacleUser',
+                    intro: 'Utiliza este cuadro de búsqueda para filtrar tu actividad en la bitácora.',
+                    position: 'top'
+                },
+                {
+                    element: '.table_binnacle_user',
+                    intro: 'Tabla que muestra tu actividad registrada, incluyendo descripción, fecha y hora.',
+                    position: 'top'
+                },
+            ],
+            showBullets: true,
+            exitOnOverlayClick: false,
+            showProgress: true
+        });
+        intro.start();
+    }
+});
