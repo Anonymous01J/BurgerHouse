@@ -309,4 +309,57 @@ const editData = (response) => {
         formEdit.dataset.listenerAttached = "true";
     }
 }
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+    if (typeof introJs !== 'undefined') {
+        let intro = introJs();
+        intro.setOptions({
+            steps: [
+                {
+                    element: '.page-title',
+                    intro: 'Esta es la sección de clientes, donde puedes gestionar los clientes registrados en el sistema.',
+                    position: 'bottom'
+                },
+                {
+                    element: '.breadcrumb',
+                    intro: 'Aquí puedes ver la ruta de navegación actual dentro de la aplicación.',
+                    position: 'top'
+                },
+                {
+                    element: '#SearchClients',
+                    intro: 'Utiliza este cuadro de búsqueda para filtrar los clientes registrados.',
+                    position: 'top'
+                },
+                {
+                    element: '.btn-circle[data-bs-target="#register-client"]',
+                    intro: 'Haz clic aquí para agregar un nuevo cliente.',
+                    position: 'top'
+                },
+                {
+                    element: '#btn-report',
+                    intro: 'Haz clic aquí para generar un reporte de los clientes registrados.',
+                    position: 'top'
+                },
+                {
+                    element: '.container_clients',
+                    intro: 'Este contenedor muestra los clientes registrados. Puedes editarlos o eliminarlos.',
+                    position: 'top'
+                },
+                {
+                    element: '.edit_btn[data-bs-target="#edit-client"]',
+                    intro: 'Este es el botón para editar un cliente existente. Aquí puedes actualizar los detalles del cliente.',
+                    position: 'top'
+                },
+                {
+                    element: '.trash_btn',
+                    intro: 'Este es el modal para registrar un nuevo cliente. Aquí puedes ingresar los detalles del cliente.',
+                    position: 'top'
+                },
+            ],
+            showBullets: true,
+            exitOnOverlayClick: false,
+            showProgress: true
+        });
+        intro.start();
+    }
+});
 attachValidationListeners(1)

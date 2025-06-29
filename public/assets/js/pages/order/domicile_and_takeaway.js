@@ -166,7 +166,7 @@ export default async function domicile_and_takeaway(functions, templates, type_o
         productPrepared.forEach((product) => { templatePrepared += selectProduct(product, "productPrepared"); })
         productProcess.forEach((product) => { templateProcess += selectProduct(product, "productProcess"); })
         document.querySelector(".cont-select-product-order").insertAdjacentHTML("beforeend", templatePrepared)
-        document.querySelector(".cont-select-product-order").insertAdjace   ntHTML("beforeend", templateProcess)
+        document.querySelector(".cont-select-product-order").insertAdjacentHTML("beforeend", templateProcess)
         categoryFilter()
         plusBtn()
         productForDetails()

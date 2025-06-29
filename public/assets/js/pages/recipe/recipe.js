@@ -268,13 +268,13 @@ document.getElementById('navbarDropdown').addEventListener('click', function () 
                     position: 'top'
                 },
                 {
-                    element: '.btn-circle',
+                    element: '.bh_1',
                     intro: 'Haz clic aquí para agregar una nueva receta.',
                     position: 'top'
                 },
                 {
                     element: '.cont_recipe',
-                    intro: 'Este contenedor muestra las recetas disponibles. Puedes editarlas o eliminarlas.',
+                    intro: 'Este contenedor muestra las recetas disponibles. Puedes editarlas.',
                     position: 'top'
                 },
             ],
