@@ -10,10 +10,20 @@ const { targetCategories, targetProductsPrepared } = Templates();
   /**
    * Apply .scrolled class to the body as the page is scrolled down
   */
-  print(() => searchParam({ active: 1 }, "categoryProducto", 10000000000000), targetCategories, "#categories-container");
-  print(() => searchParam({ active: 1, tipo: "producto" }, "productPrepared", 10000000000000), targetProductsPrepared, "#productsPrepared-container");
-  let data = searchParam({ active: 1, tipo: "producto"}, "productPrepared");
-  console.log(data);
+  const configProducts = {
+    search: () => searchParam({ active: 1, tipo: "producto" }, "productPrepared"),
+    template: targetProductsPrepared,
+    container: "#productsPrepared-container",
+    funtions: ""
+  };
+  const configCategories = {
+    search: () => searchParam({ active: 1}, "categoryProducto"),
+    template: targetCategories,
+    container: "#categories-container",
+    funtions: ""
+  };
+  print(configCategories);
+  print(configProducts);
   function toggleScrolled() {
     const selectBody = document.querySelector("body");
     const selectHeader = document.querySelector("#header");

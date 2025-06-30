@@ -47,7 +47,7 @@ const config = {
     },
 }
 let form = document.getElementById("form-submit-cash")
-validate.validators.precio = function (value, options) {
+validate.validators.precio = function (value, options, key, attributes) {
     if (!value) return;
     const cleanValue = value.replace(/\./g, '').replace(',', '.');
     const numberValue = parseFloat(cleanValue);
@@ -76,13 +76,13 @@ const rules = {
     },
 };
 print(config)
-print({ ...config, search: () => searchParam({ estado: 0 }, "cash", 10000000), container: ".cont-cash_close" })
-
+print({...config, search: () => searchParam({ estado: 0 }, "cash"), container: ".cont-cash_close"})
 form.querySelectorAll("input").forEach((input) => {
     input.addEventListener("keyup", (e) => validateField(e, rules));
     input.addEventListener("blur", (e) => validateField(e, rules));
     input.addEventListener("change", (e) => validateField(e, rules));
 });
+
 form.addEventListener("submit", (e) => {
     e.preventDefault();
     let data = { precio_bs: document.getElementById("input-price-bs-cash").value, precio_usd: document.getElementById("input-price-usd-cash").value }
@@ -248,6 +248,11 @@ document.getElementById('navbarDropdown').addEventListener('click', function () 
                     position: 'bottom'
                 },
                 {
+                    element: '.cash_status',
+                    intro: 'El estado de la caja actual se muestra aquí. Si está abierta, será verde; si está cerrada, será roja.',
+                    position: 'top'
+                },
+                {
                     element: '#home-tab',
                     intro: 'Aquí puedes ver las cajas abiertas actualmente.',
                     position: 'bottom'
@@ -258,30 +263,25 @@ document.getElementById('navbarDropdown').addEventListener('click', function () 
                     position: 'bottom'
                 },
                 {
-                    element: '.cont-cash_open',
-                    intro: 'Este contenedor muestra las cajas abiertas con sus detalles.',
-                    position: 'top'
-                },
-                {
-                    element: '.cont-cash_close',
-                    intro: 'Este contenedor muestra las cajas cerradas con sus detalles.',
-                    position: 'top'
-                },
-                {
                     element: '#inputPassword6',
                     intro: 'Utiliza este cuadro de búsqueda para filtrar las cajas abiertas o cerradas.',
                     position: 'top'
                 },
                 {
-                    element: '.btn-circle',
+                    element: '.bh_1[data-bs-target="#register-cash"]',
                     intro: 'Haz clic aquí para registrar una nueva caja.',
                     position: 'top'
                 },
                 {
-                    element: '#register-cash',
-                    intro: 'Este es el modal para registrar una nueva caja. Aquí puedes ingresar los montos iniciales.',
+                    element: '.bh_1',
+                    intro: 'Haz clic aquí para cerrar esta caja.',
                     position: 'top'
-                }
+                },
+                {
+                    element: '.bh_5',
+                    intro: 'Haz clic aquí para ver los detalles de esta caja.',
+                    position: 'top'
+                },
             ],
             showBullets: true,
             exitOnOverlayClick: false,

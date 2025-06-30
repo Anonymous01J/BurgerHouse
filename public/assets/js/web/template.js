@@ -1,6 +1,6 @@
 export default function Templates() {
   function targetCategories(data) {
-   return`<li data-filter=".filter-${data.id}">${data.nombre}</li>`;
+    return`<li data-filter=".filter-${data.id}">${data.nombre}</li>`;
   }
   function targetProductsPrepared(data) {
       return `<div class="col-lg-6 menu-item isotope-item filter-${data.id_categoria}">

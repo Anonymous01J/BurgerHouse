@@ -17758,7 +17758,9 @@ strong {
   margin: 5px;
   font-size: 11px;
 }
-
+.introjs-progressbar {
+  background: linear-gradient(to right, #FFFF00, #FFD700, #FFA500, #FF8C00, #FF4500)!important;
+}	
 @media (max-width: 575.98px) {
   .fc-toolbar .fc-left,
 .fc-toolbar .fc-right,

@@ -253,22 +253,22 @@ document.getElementById('navbarDropdown').addEventListener('click', function () 
             steps: [
                 {
                     element: '.page-title',
-                    intro: 'Esta es la sección de productos preparados, donde puedes gestionar los productos disponibles en el sistema.',
+                    intro: 'Esta es la sección de Adicionales, donde puedes gestionar los productos disponibles en el sistema.',
                     position: 'bottom'
                 },
                 {
-                    element: '#searchProduct',
-                    intro: 'Utiliza este cuadro de búsqueda para filtrar los productos preparados.',
+                    element: '#searchAdditional',
+                    intro: 'Utiliza este cuadro de búsqueda para filtrar los adicionales disponibles.',
                     position: 'top'
                 },
                 {
                     element: '.btn-add-tooltip',
-                    intro: 'Haz clic aquí para agregar un nuevo producto preparado.',
+                    intro: 'Haz clic aquí para agregar un nuevo adicional.',
                     position: 'top'
                 },
                 {
-                    element: '#categories',
-                    intro: 'Aquí puedes ver las categorías disponibles para los productos preparados. Selecciona una categoría para filtrar los productos preparados por tipo.',
+                    element: '.card-body',
+                    intro: 'Aquí puedes ver la lista de adicionales disponibles. Puedes editar o eliminar cada adicional.',
                     position: 'top'
                 },
                 {
