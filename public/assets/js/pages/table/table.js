@@ -1,8 +1,9 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, reindex, resetForm, viewImage, searchParam, print, add, update, permission, searchFilter, sessionInfo, binnacle, edit, Delete } = functionGeneral();
+const { setValidationStyles, validateField, reindex, resetForm, viewImage, searchParam, print, add, update, permission, searchFilter, sessionInfo, binnacle, edit, Delete, pagination } = functionGeneral();
 const { elemenFormTables, targetTable } = Templates()
 let session = await sessionInfo()
+permission("mesas")
 const config = {
     search: () => searchParam({ active: 1, estado: "LIBRE" }, "table"),
     template: targetTable,
@@ -11,6 +12,7 @@ const config = {
         Delete(config, () => binnacle(session.message.id, "Mesas", "Eliminacion", "Se Elimino un mesa"));
         edit((response) => editData(response));
         document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
+        permission("mesas");
     }
 }
 viewImage(".input-image")
@@ -22,7 +24,6 @@ searchFilter("#SearchTablesOCCUPIED", (e) => {
     if (e.target.value == "") print({ ...config, search: () => searchParam({ active: 1, estado: "OCUPADA" }, "table"), container: ".cont_tables_occupied" })
     else print({ ...config, search: () => searchParam({ active: 1, nombre_like: e.target.value, estado: "OCUPADA" }, "table"), container: ".cont_tables_occupied" })
 })
-
 let TableCount = 1;
 function addTable() {
     TableCount++;
@@ -264,3 +265,8 @@ document.getElementById('navbarDropdown').addEventListener('click', function () 
 attachValidationListeners(1);
 print(config);
 print({ ...config, search: () => searchParam({ active: 1, estado: "OCUPADA" }, "table"), container: ".cont_tables_occupied" });
+
+// paginacion
+
+pagination((page) => print({ ...config, search: () => searchParam({ active: 1, estado: "OCUPADA" }, "table", null, page), container: ".cont_tables_occupied" }), ".pagination_occupied")
+pagination((page) => print({ ...config, search: () => searchParam({ active: 1, estado: "LIBRE" }, "table", null, page), container: ".cont_tables_free" }), ".pagination_free")

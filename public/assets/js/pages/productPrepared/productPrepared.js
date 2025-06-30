@@ -1,17 +1,19 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, Delete, edit, print, add, reindex, resetForm, permission, searchFilter, sessionInfo, binnacle } = functionGeneral();
+const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, Delete, edit, print, add, reindex, resetForm, permission, searchFilter, sessionInfo, binnacle, pagination } = functionGeneral();
 const { targetProductPrepared, elemenFormCombo, optionsRol } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 InputPrice("[input_price]");
 selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 viewImage(".input-image")
+permission("Producto preparado")
 let session = await sessionInfo();
 const config = {
-  search: () => searchParam({ active: 1, tipo: "producto" }, "productPrepared"),
+  search: () => searchParam({ active: 1, tipo: "producto" }, "productPrepared", null, 0),
   template: targetProductPrepared,
   container: ".cont-product",
   funtions: () => {
+    permission("Producto preparado")
     Delete(config, () => binnacle(session.message.id, 'Productos Preparados', 'Eliminacion', 'Se elimino un producto preparado'));
     edit((response) => editData(response));
     document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
@@ -19,7 +21,7 @@ const config = {
 }
 searchFilter("#searchProduct", (e) => {
   if (e.target.value == "") print(config)
-  else print({ ...config, search: () => searchParam({ active: 1, tipo: "producto", nombre_like: e.target.value }, "productPrepared") })
+  else print({ ...config, search: () => searchParam({ active: 1, tipo: "producto", nombre_like: e.target.value }, "productPrepared", 1000) })
 })
 // ------------------Validacion de Formulario---------------------------
 
@@ -291,44 +293,46 @@ function editData(response) {
 }
 document.getElementById('navbarDropdown').addEventListener('click', function () {
   if (typeof introJs !== 'undefined') {
-      let intro = introJs();
-      intro.setOptions({
-          steps: [
-            {
-              element: '.page-title',
-              intro: 'Esta es la sección de productos preparados, donde puedes gestionar los productos disponibles en el sistema.',
-              position: 'bottom'
-            },
-            {
-                element: '#searchProduct',
-                intro: 'Utiliza este cuadro de búsqueda para filtrar los productos preparados.',
-                position: 'top'
-            },
-            {
-                element: '.btn-add-tooltip',
-                intro: 'Haz clic aquí para agregar un nuevo producto preparado.',
-                position: 'top'
-            },
-            {
-              element: '#categories',
-              intro: 'Aquí puedes ver las categorías disponibles para los productos preparados. Selecciona una categoría para filtrar los productos preparados por tipo.',
-              position: 'top'
-            },
-            {
-                element: '.cont-product',
-                intro: 'Este contenedor muestra los productos preparados disponibles. Puedes editarlos o eliminarlos.',
-                position: 'top'
-            },
-            {
-                element: '#top-products',
-                intro: 'Esta sección muestra los productos más vendidos y su rendimiento.',
-                position: 'top'
-            }
-          ],
-          showBullets: true,
-          exitOnOverlayClick: false,
-          showProgress: true
-      });
-      intro.start();
+    let intro = introJs();
+    intro.setOptions({
+      steps: [
+        {
+          element: '.page-title',
+          intro: 'Esta es la sección de productos preparados, donde puedes gestionar los productos disponibles en el sistema.',
+          position: 'bottom'
+        },
+        {
+          element: '#searchProduct',
+          intro: 'Utiliza este cuadro de búsqueda para filtrar los productos preparados.',
+          position: 'top'
+        },
+        {
+          element: '.btn-add-tooltip',
+          intro: 'Haz clic aquí para agregar un nuevo producto preparado.',
+          position: 'top'
+        },
+        {
+          element: '#categories',
+          intro: 'Aquí puedes ver las categorías disponibles para los productos preparados. Selecciona una categoría para filtrar los productos preparados por tipo.',
+          position: 'top'
+        },
+        {
+          element: '.cont-product',
+          intro: 'Este contenedor muestra los productos preparados disponibles. Puedes editarlos o eliminarlos.',
+          position: 'top'
+        },
+        {
+          element: '#top-products',
+          intro: 'Esta sección muestra los productos más vendidos y su rendimiento.',
+          position: 'top'
+        }
+      ],
+      showBullets: true,
+      exitOnOverlayClick: false,
+      showProgress: true
+    });
+    intro.start();
   }
 });
+
+pagination((page) => print({ ...config, search: () => searchParam({ active: 1, tipo: "producto" }, "productPrepared", null, page) }), ".pagination")

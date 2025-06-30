@@ -1,8 +1,9 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 const { optionsSupplier, elemenFormEntrysProductProcess, optionsRol } = Templates()
-const { InputPrice, selectOptionAll, viewImage, reindex, resetForm, setValidationStyles, validateField, fecha, reference, searchParam, diasRestantesFechaVencimiento, sessionInfo, binnacle, editDataTables, updateDataTables, deleteDatatable } = functionGeneral();
+const { InputPrice, selectOptionAll, viewImage, reindex, resetForm, setValidationStyles, validateField, fecha, reference, searchParam, diasRestantesFechaVencimiento, sessionInfo, binnacle, editDataTables, updateDataTables, deleteDatatable, permission } = functionGeneral();
 let session = await sessionInfo();
+permission("Entradas de productos procesados")
 selectOptionAll(".select_options_supplier", "supplier", optionsSupplier)
 selectOptionAll(".select_options_product", "productProcess", optionsRol)
 selectOptionAll(".select_options_unit", "units", optionsRol)
@@ -55,10 +56,10 @@ let tableActive = $(".table_entrys_active").DataTable({
             orderable: false,
             render: function (data, type, row, meta) {
                 return `
-                <button data-id="${data.id}" data-module-edit="Entrada_producto_procesado" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-entrys" data-bs-title="Editar Entrada" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-edit="Entrada_producto_procesado" data-module-edit="Entradas de productos procesados" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-entrys" data-bs-title="Editar Entrada" data-bs-placement="bottom">
                     <i data-feather="edit" class="text-white"></i>
                 </button>
-                <button data-id="${data.id}" data-module-delete="Entrada_producto_procesado" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Entrada" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-delete="Entrada_producto_procesado" data-module-delete="Entradas de productos procesados" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Entrada" data-bs-placement="bottom">
                     <i data-feather="trash" class="text-white"></i>
                 </button>
                 `;
@@ -68,6 +69,7 @@ let tableActive = $(".table_entrys_active").DataTable({
     drawCallback: function (settings) {
         feather.replace();
         reference("#comprobante_view", "entradas_producto_procesado");
+        permission("Entradas de productos procesados")
     },
     "dom": 'tipr',
     "paging": true,

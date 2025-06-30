@@ -1,5 +1,5 @@
 import functionGeneral from "../../Functions.js";
-const { sessionInfo, binnacle, fecha } = functionGeneral();
+const { sessionInfo, binnacle, fecha, permission } = functionGeneral();
 let session = await sessionInfo()
 const modulesConfig = {
     mesas: {
@@ -19,7 +19,7 @@ const modulesConfig = {
                 data: null,
                 orderable: false,
                 render: (data) => `
-                <button data-id="${data.id}" data-module-restore="table" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Mesa" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="table" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Mesa" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>`
             }
@@ -43,7 +43,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="productPrepared" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Producto" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="productPrepared" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Producto" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -69,7 +69,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="productProcess" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Producto" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="productProcess" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Producto" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -94,7 +94,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                  <button data-id="${data.id}" data-module-restore="supplier" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Proveedor" data-bs-placement="bottom">
+                  <button data-id="${data.id}" data-module-restore="Papelera" module-restore="supplier" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Proveedor" data-bs-placement="bottom">
                       <i data-feather="refresh-ccw" class="text-white"></i>
                   </button>
                   `
@@ -119,7 +119,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="clients" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Cliente" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="clients" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Cliente" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -145,7 +145,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="units" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Unidad" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="units" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Unidad" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -175,7 +175,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="rawmaterial" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Unidad" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="rawmaterial" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Unidad" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -199,7 +199,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                  <button data-id="${data.id}" data-module-restore="categoryProducto" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Categoria" data-bs-placement="bottom">
+                  <button data-id="${data.id}" data-module-restore="Papelera" module-restore="categoryProducto" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Categoria" data-bs-placement="bottom">
                       <i data-feather="refresh-ccw" class="text-white"></i>
                   </button>
                   `
@@ -223,7 +223,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="categoryMateriaPrima" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Categoria" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="categoryMateriaPrima" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Categoria" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -247,7 +247,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="paymentMethod" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Metodo de pago" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="paymentMethod" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Metodo de pago" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -272,7 +272,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="rol" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Rol" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="rol" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Rol" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -299,7 +299,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="users" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Usuario" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="users" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Usuario" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -322,7 +322,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="additional" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Adicional" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="additional" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Adicional" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -350,7 +350,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="entrada_materia_prima" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Entrada" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="entrada_materia_prima" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Entrada" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -376,7 +376,7 @@ const modulesConfig = {
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="entrada_producto_procesado" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Entrada" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="entrada_producto_procesado" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Entrada" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
@@ -386,7 +386,6 @@ const modulesConfig = {
 };
 
 let table;
-
 function initTable(moduleKey) {
     const config = modulesConfig[moduleKey];
     if (!config) {
@@ -405,11 +404,7 @@ function initTable(moduleKey) {
     $('.table_trash tbody').empty();
     // Reconstruye <thead>
     $('.table_trash thead').append('<tr></tr>');
-    config.columns.forEach(col => {
-        $('.table_trash thead tr').append(`<th>${col.title}</th>`);
-    });
-
-    // Inicializa DataTable con destroy automático
+    config.columns.forEach(col => { $('.table_trash thead tr').append(`<th>${col.title}</th>`) });
     table = $('.table_trash').DataTable({
         destroy: true,
         ajax: config.ajax,
@@ -417,21 +412,14 @@ function initTable(moduleKey) {
         language: { url: './assets/libs/extra-libs/datatables.net/js/es-Es.json' },
         drawCallback: function () {
             feather.replace();
-            document.querySelectorAll(".btn_datatable_restore")
-                .forEach(btn => new bootstrap.Tooltip(btn));
+            document.querySelectorAll(".btn_datatable_restore").forEach(btn => new bootstrap.Tooltip(btn));
+            permission("Papelera")
         },
         dom: 'tipr',
         paging: true,
         info: true,
-        serverSide: !!config.serverSide,
-        processing: !!config.serverSide
     });
-
-    $('#SearchTrash').on('keyup', function () {
-        table.search(this.value).draw();
-    });
-
-    // Evento de restaurar
+    $('#SearchTrash').on('keyup', function () { table.search(this.value).draw() });
     $('.table_trash tbody').off('click', 'button.btn_datatable_restore').on('click', 'button.btn_datatable_restore', function () {
         Swal.fire({
             title: "¿Deseas Restaurar este elemento?",
@@ -443,7 +431,7 @@ function initTable(moduleKey) {
         }).then((result) => {
             if (result.isConfirmed) {
                 const id = this.getAttribute('data-id');
-                const module = this.getAttribute('data-module-restore');
+                const module = this.getAttribute('module-restore');
                 $.ajax({
                     type: "POST",
                     url: `${module}/update`,
@@ -472,7 +460,6 @@ function initTable(moduleKey) {
 }
 let select = document.querySelector(".select_options_module")
 let options = select.querySelectorAll(".dropdown-item")
-
 options.forEach((option) => {
     option.addEventListener("click", () => {
         let moduleKey = option.getAttribute("data-key");

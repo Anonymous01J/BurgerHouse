@@ -1,8 +1,7 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
     <div class="page-wrapper">
@@ -32,7 +31,7 @@
                                 <div class="col-md-6 col-lg-3">
                                     <input type="search" class="form-control" id="searchPayments" placeholder="Buscar">
                                 </div>
-                                <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="combo" data-bs-toggle="modal" data-bs-target="#register-payments" data-bs-title="Agregar Metodo de pago" data-bs-placement="bottom">
+                                <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="metodo pago" data-bs-toggle="modal" data-bs-target="#register-payments" data-bs-title="Agregar Metodo de pago" data-bs-placement="bottom">
                                     <i data-feather="plus" class="svg-icon"></i>
                                 </button>
                             </div>

@@ -2,7 +2,7 @@
     <div class="col-auto">
         <input type="search" id="searchProduct" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
     </div>
-    <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="product" data-bs-toggle="modal" data-bs-target="#register-product" data-bs-title="Agregar Producto"
+    <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="Producto procesado" data-bs-toggle="modal" data-bs-target="#register-product" data-bs-title="Agregar Producto"
         data-bs-placement="top">
         <i data-feather="plus" class="svg-icon"></i>
     </button>

@@ -1,6 +1,7 @@
 import functionGeneral from "../../Functions.js"
-const { fecha, hora, setValidationStyles, addDataTables, binnacle, sessionInfo } = functionGeneral()
+const { fecha, hora, setValidationStyles, addDataTables, binnacle, sessionInfo, permission } = functionGeneral()
 let session = await sessionInfo()
+permission("capital")
 let n = $(".table_movimientos_capital").DataTable({
     order: [[0, "desc"]],
     language: {
@@ -32,7 +33,6 @@ const target = async () => {
     document.querySelector(".capital_utilidad").textContent = data[0].utilidad_neta + " $"
 }
 target()
-
 document.querySelectorAll(".btn_type_action").forEach(btn => {
     btn.addEventListener("click", (e) => {
         let type_action = btn.textContent

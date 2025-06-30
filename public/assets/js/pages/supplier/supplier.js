@@ -1,8 +1,9 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { selectOptionAll, setValidationStyles, validateField, searchParam, print, add, reindex, resetForm, update, searchFilter, sessionInfo, binnacle, edit, Delete } = functionGeneral();
+const { selectOptionAll, setValidationStyles, validateField, searchParam, print, add, reindex, resetForm, update, searchFilter, sessionInfo, binnacle, edit, Delete, permission } = functionGeneral();
 const { elemenFormSupplier, targetSupplier } = Templates()
 let session = await sessionInfo()
+permission("proveedores")
 const config = {
     search: () => searchParam({ active: 1 }, "supplier"),
     template: targetSupplier,
@@ -11,6 +12,7 @@ const config = {
         Delete(config, () => binnacle(session.message.id, 'Proveedores', 'Eliminacion', 'Se Elimino un proveedor'));
         edit((response) => editData(response));
         document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
+        permission("proveedores")
     }
 }
 searchFilter("#SearchSupplier", (e) => {
@@ -19,7 +21,6 @@ searchFilter("#SearchSupplier", (e) => {
 })
 selectOptionAll(".select_options_td", null)
 selectOptionAll(".select_options_td_edit", null)
-
 let iti = window.intlTelInput(document.querySelector("#input-num1-supplier-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
 window.intlTelInput(document.querySelector("#input-num2-supplier-1"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js", });
 let itiEdit = window.intlTelInput(document.querySelector("#input-num1-supplier"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js", });

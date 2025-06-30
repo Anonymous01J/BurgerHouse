@@ -108,18 +108,18 @@ document.querySelectorAll(".container_inputs_filter").forEach(form => {
     })
 })
 const activity = async () => {
+    let color = ['bh_1', 'bh_2', 'bh_4', 'bh_5', 'bh_6'];
     let pet = await searchParam({}, "binnacle", 5)
     let template = ""
     let icon = ""
     let title = ""
-    let color = ['bh_1', 'bh_2', 'bh_4', 'bh_5', 'bh_6'];
     pet.forEach((item, index) => {
         if (item.descripcion.includes("Se agrego ") || item.descripcion.includes("Se creo ")) icon = "plus"
         else if (item.descripcion.includes("Se elimino ")) icon = "trash"
         else if (item.descripcion.includes("Se actualizo ")) icon = "edit"
         else if (item.descripcion.includes("Se ha restaurado ")) icon = "refresh-cw"
         else if (item.descripcion.includes("Se abrio ")) icon = "book-open"
-        else if (item.descripcion.includes("Se ha cerrado ")) icon = "x"
+        else if (item.descripcion.includes("Se cerro ")) icon = "x"
         else if (item.descripcion.includes("Se preparo ")) icon = "coffee"
         else if (item.descripcion.includes("Se verifico ")) icon = "check"
         else if (item.descripcion.includes("Se anulo ")) icon = "x-circle"
@@ -153,7 +153,7 @@ const activity = async () => {
             <div class="ms-3 mt-2">
                 <h5 class="text-dark font-weight-medium mb-2">${title}!</h5>
                 <p class="font-14 mb-2 text-muted">
-                    ${item.nombre_usuario + " " + item.descripcion}
+                    ${item.nombre_usuario + " " + (item.descripcion).replace("Se", "")}
                 </p>
                 <span class="font-weight-light font-14 text-muted">${dayjs(item.fecha).fromNow()}</span>
             </div>

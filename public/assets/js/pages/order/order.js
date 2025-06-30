@@ -1,8 +1,18 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js"
 import domicile_and_takeaway from "./domicile_and_takeaway.js";
-const { searchParam, fecha, hora, sessionInfo, binnacle, resetForm } = functionGeneral()
+import {local} from "./local.js";
+const { searchParam, fecha, hora, sessionInfo, binnacle, resetForm, permission } = functionGeneral()
 let session = await sessionInfo();
+permission("Ordenes (llevar)")
+permission("Ordenes (delivery)", () => {
+  for (const element of document.getElementById('nav-tabContent').children) {
+    let idTab = element.id
+    if (idTab == (document.getElementById('nav-tab').firstElementChild.id).replace("-tab", "")) {
+      element.classList.add("show", "active")
+    }
+  }
+})
 //tables de domicilio 
 let tableOrderDomicileoPendings = $('.table-order-domicilio-pendientes').DataTable({
   language: { url: './assets/libs/extra-libs/datatables.net/js/es-Es.json' },
@@ -25,10 +35,10 @@ let tableOrderDomicileoPendings = $('.table-order-domicilio-pendientes').DataTab
       orderable: false,
       render: function (data, type, row, meta) {
         return `
-           <button nro_orden="${data.nro_orden}" id_order="${data.id}" type_action="verify_orden" class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Orden Verificada" data-bs-placement="top">
+           <button nro_orden="${data.nro_orden}" id_order="${data.id}" data-module-verify="Ordenes (delivery)" type_action="verify_orden" class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Orden Verificada" data-bs-placement="top">
               <i data-feather="check-circle" class="text-white"></i>
             </button>
-            <button nro_orden="${data.nro_orden}" id_order="${data.id}" type_action="null_order" class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular Orden" data-bs-placement="top">
+            <button nro_orden="${data.nro_orden}" id_order="${data.id}" data-module-null="Ordenes (delivery)" type_action="null_order" class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular Orden" data-bs-placement="top">
               <i data-feather="x-circle" class="text-white"></i>
             </button>
           `;
@@ -45,6 +55,7 @@ let tableOrderDomicileoPendings = $('.table-order-domicilio-pendientes').DataTab
       let tooltip = new bootstrap.Tooltip(btn)
       btn.addEventListener("click", async () => actionOrder(btn, 1))
     })
+    permission("Ordenes (delivery)")
   },
   "dom": 'tipr',
   "paging": true,
@@ -136,10 +147,10 @@ let tableOrderParaLlevarPendingsVeryfy = $('.table-order-llevar-pendientes').Dat
       orderable: false,
       render: function (data, type, row, meta) {
         return `
-           <button nro_orden="${data.nro_orden}" id_order="${data.id}" type_action="verify_orden" class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Orden Verificada" data-bs-placement="top">
+           <button nro_orden="${data.nro_orden}" id_order="${data.id}" data-module-verify="Ordenes (llevar)" type_action="verify_orden" class="btn bh_1 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Orden Verificada" data-bs-placement="top">
               <i data-feather="check-circle" class="text-white"></i>
             </button>
-            <button nro_orden="${data.nro_orden}" id_order="${data.id}" type_action="null_order" class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular Orden" data-bs-placement="top">
+            <button nro_orden="${data.nro_orden}" id_order="${data.id}" data-module-null="Ordenes (llevar)" type_action="null_order" class="btn bh_5 rounded-circle btn-circle" data-bs-toggle="tooltip" data-bs-title="Anular Orden" data-bs-placement="top">
               <i data-feather="x-circle" class="text-white"></i>
             </button>
           `;
@@ -156,6 +167,8 @@ let tableOrderParaLlevarPendingsVeryfy = $('.table-order-llevar-pendientes').Dat
       let tooltip = new bootstrap.Tooltip(btn)
       btn.addEventListener("click", async () => actionOrder(btn, 1))
     })
+    permission("Ordenes (llevar)")
+
   },
   "dom": 'tipr',
   "paging": true,
@@ -241,7 +254,7 @@ let tableOrderParaLlevarPorDespachar = $('.table-order-llevar-pordespachar').Dat
       orderable: false,
       render: function (data, type, row, meta) {
         return `
-           <button nro_orden="${data.nro_orden}" id_order="${data.id}" type_action="sale_order" class="btn bh_1 rounded-circle btn-circle sale_order" data-bs-toggle="tooltip" data-bs-title="Entregar orden" data-bs-placement="top">
+           <button nro_orden="${data.nro_orden}" id_order="${data.id}" data-module-dispatch="Ordenes (llevar)" type_action="sale_order" class="btn bh_1 rounded-circle btn-circle sale_order" data-bs-toggle="tooltip" data-bs-title="Entregar orden" data-bs-placement="top">
               <i data-feather="check-circle" class="text-white"></i>
             </button>
           `;
@@ -258,6 +271,7 @@ let tableOrderParaLlevarPorDespachar = $('.table-order-llevar-pordespachar').Dat
       let tooltip = new bootstrap.Tooltip(btn)
       btn.addEventListener("click", async () => actionOrder(btn, 4))
     })
+    permission("Ordenes (llevar)")
   },
   "dom": 'tipr',
   "paging": true,
@@ -269,6 +283,8 @@ $('#searchBoxllevarProcesadas').on('keyup', function () { tableOrderParaLlevarPr
 $('#searchBoxllevarAnuladas').on('keyup', function () { tableOrderParaLlevarNull.search(this.value).draw(); });
 
 window.stepper = new Stepper(document.querySelector('#stepper'), { linear: true, animation: true });
+window.stepper2 = new Stepper(document.querySelector('#stepper-2'), { linear: true, animation: true });
+
 const detailOrder = async (btn) => {
   let data = new FormData();
   let id_order = btn.getAttribute("data-id_order");
@@ -501,6 +517,9 @@ document.querySelectorAll(".btnOrder").forEach((btn) => {
   })
   // btn.dataset.listenerAttached = "true";
   // }
+})
+document.querySelector(".btn_order_local").addEventListener("click", () => {
+  local(functionGeneral, Templates)
 })
 // IntroJs
 document.getElementById('navbarDropdown').addEventListener('click', function () {

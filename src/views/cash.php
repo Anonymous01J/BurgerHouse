@@ -1,15 +1,9 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
-
-
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
-
     <div class="page-wrapper">
         <div class="page-breadcrumb">
             <div class="row">
@@ -25,12 +19,10 @@
                     </div>
                 </div>
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
 
         <div class="container-fluid">
-
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Abiertas</button>
@@ -46,7 +38,7 @@
                         <div class="col-auto">
                             <input type="search" id="searchCashOpen" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
-                        <button style="color: #fff;" type="button" class="btn bh_1 btn-circle" data-bs-toggle="modal" data-bs-target="#register-cash">
+                        <button style="color: #fff;" type="button" data-module-open="caja" class="btn bh_1 btn-circle" data-bs-toggle="modal" data-bs-target="#register-cash">
                             <i data-feather="plus" class="svg-icon"></i>
                         </button>
                     </div>
@@ -100,8 +92,6 @@
         </div>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
-
-
 
     <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
     <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

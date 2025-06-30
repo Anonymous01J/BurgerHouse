@@ -2,16 +2,10 @@
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
 
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
-
-
     <div class="page-wrapper">
-
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-md-8 align-self-center">
@@ -25,14 +19,10 @@
                         </nav>
                     </div>
                 </div>
-
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
-
         <div class="container-fluid">
-
             <div class="row">
                 <div class="col-md-6 col-lg-12">
                     <div class="card">
@@ -42,7 +32,7 @@
                                     <div class="col-md-6 col-lg-3">
                                         <input type="search" class="form-control" id="searchUnits" placeholder="Buscar">
                                     </div>
-                                    <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="combo" data-bs-toggle="modal" data-bs-target="#register-unit" data-bs-title="Agregar unidad" data-bs-placement="top">
+                                    <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="unidades" data-bs-toggle="modal" data-bs-target="#register-unit" data-bs-title="Agregar unidad" data-bs-placement="top">
                                         <i data-feather="plus" class="svg-icon"></i>
                                     </button>
                                 </div>
@@ -69,9 +59,6 @@
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
 </div>
-</div>
-
-
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js"></script>

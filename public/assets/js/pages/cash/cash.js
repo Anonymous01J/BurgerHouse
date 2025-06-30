@@ -2,10 +2,11 @@ import funtionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 import { report } from "./report.js"
 const { targetCash, infoCash, amountCash, cashDetail } = Templates()
-const { validateField, setValidationStyles, sessionInfo, binnacle, print, add, searchParam, InputPrice, CheckCash, searchFilter } = funtionGeneral()
+const { validateField, setValidationStyles, sessionInfo, binnacle, print, add, searchParam, InputPrice, CheckCash, searchFilter, permission } = funtionGeneral()
 InputPrice("[input_price]")
 let session = await sessionInfo()
 let cash = await CheckCash()
+permission("caja")
 searchFilter('#searchCashClose', async (e) => {
     if (e.target.value == "") {
         print({ ...config, search: () => searchParam({ estado: 0 }, "cash"), container: ".cont-cash_close" })
@@ -42,6 +43,7 @@ const config = {
         document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
         modalDetail()
         closeCash()
+        permission("caja")
     },
 }
 let form = document.getElementById("form-submit-cash")
@@ -227,7 +229,6 @@ const closeCash = () => {
         })
     })
 }
-
 let formFilter = document.getElementById("form_cash_filter_date")
 formFilter.addEventListener("submit", (e) => {
     e.preventDefault()

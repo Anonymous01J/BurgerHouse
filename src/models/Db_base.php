@@ -202,7 +202,6 @@ abstract class Db_base extends Conexion
         $n = $n * $limite;
         $consulta->bindValue(':l', $limite, PDO::PARAM_INT);
         $consulta->bindValue(':n', $n, PDO::PARAM_INT);
-
         $consulta->execute();
         return $consulta->fetchAll();
     }

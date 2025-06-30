@@ -4,6 +4,7 @@ namespace Shtch\Burgerhouse\controllers;
 
 use Shtch\Burgerhouse\models\Db_base;
 use Shtch\Burgerhouse\models\Bitacora;
+use Shtch\Burgerhouse\models\Permiso;
 use Exception;
 
 class Controller_base
@@ -19,6 +20,10 @@ class Controller_base
 
     public function view()
     {
+        if (isset($_SESSION['id_rol'])) {
+            $permiso = new Permiso(id_rol: $_SESSION['id_rol']);
+            $_SESSION['permisos'] = $permiso->search(n: 0, limite: 2000);
+        }
         include_once __DIR__ . '/../views/' . $this->module_name . '.php';
     }
 

@@ -3,7 +3,7 @@
 namespace Shtch\Burgerhouse\controllers;
 
 use Shtch\Burgerhouse\controllers\Controller_base;
-
+use Shtch\Burgerhouse\models\Permiso;
 use Shtch\Burgerhouse\models\Usuario;
 
 class LoginController extends Controller_base
@@ -13,7 +13,6 @@ class LoginController extends Controller_base
         parent::__construct('login');
         // $this->db = new Usuario(nombre:$_POST['email'], hash:$_POST['password']);
     }
-
     public function login()
     {
         $this->db = new Usuario(email: $_POST['email'], hash: $_POST['password']);
@@ -35,22 +34,25 @@ class LoginController extends Controller_base
                 echo json_encode(['success' => false, 'message' => 'Error de verificación de captcha']);
             } else {
                 echo json_encode(['success' => true, 'message' => 'Usuario encontrado']);
+                $permission = new Permiso(id_rol: $result[0]['rol_id']);
+                $permisos = $permission->search(n:0, limite:2000);
+                $_SESSION['permisos'] = $permisos;
                 $_SESSION['id'] = $result[0]['id'];
                 $_SESSION['id_rol'] = $result[0]['rol_id'];
+                $_SESSION['rol'] = $result[0]['rol'];
                 $_SESSION['nombre'] = $result[0]['nombre'];
                 $_SESSION['apellido'] = $result[0]['apellido'];
                 $_SESSION['correo'] = $result[0]['email'];
                 $_SESSION['session_id'] = $result[0]['session_id'];
+                $_SESSION['imagen'] = $result[0]['imagen'];
             }
         }
     }
-
     public function logout()
     {
         session_destroy();
         exit;
     }
-
     public function cedula()
     {
         define('APPID_CEDULA', '1033');
@@ -83,13 +85,29 @@ class LoginController extends Controller_base
             echo json_encode(['success' => false, 'message' => $consulta]);
         }
     }
-
     public function SessionInfo()
     {
         if (!isset($_SESSION)) {
             echo json_encode(['success' => false, 'message' => 'Sesion no iniciada']);
         } else {
             echo json_encode(['success' => true, 'message' => $_SESSION]);
+        }
+    }
+    public function UpdateSession()
+    {
+        if (isset($_POST['imagen_name'])) {
+            $imagen = $_POST['imagen_name'];
+            $_SESSION['imagen'] = $imagen;
+        } else if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['email'])) {
+            $nombre = $_POST['nombre'];
+            $apellido = $_POST['apellido'];
+            $correo = $_POST['email'];
+            $_SESSION['nombre'] = $nombre;
+            $_SESSION['apellido'] = $apellido;
+            $_SESSION['correo'] = $correo;
+        } else {
+            $permisos = $_POST['permisos'];
+            $_SESSION['permisos'] = $permisos;
         }
     }
 }

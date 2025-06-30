@@ -7,7 +7,7 @@ let session = await sessionInfo()
 InputPrice("[input_price]");
 selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 viewImage(".input-image")
-// permission("Product")//verifica el btn de agg
+permission("Producto procesado")//verifica el btn de agg
 const config = {
   search: () => searchParam({ active: 1 }, "productProcess"),
   template: targetProductProcess,
@@ -16,6 +16,7 @@ const config = {
     Delete(config, () => binnacle(session.message.id, 'Productos Procesado', 'Eliminacion', 'Se elimino un producto procesado'));
     edit((response) => editData(response));
     document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
+    permission("Producto procesado")
   }
 }
 searchFilter("#searchProduct", (e) => {

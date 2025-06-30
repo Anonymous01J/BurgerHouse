@@ -60,8 +60,8 @@ class Orden extends Db_base
             a.tipo
         ";
         $this->joins = "
-            INNER JOIN clientes ON clientes.id = a.id_cliente
-            INNER JOIN ventas ON ventas.id_orden = a.id
+            LEFT JOIN clientes ON clientes.id = a.id_cliente
+            LEFT JOIN ventas ON ventas.id_orden = a.id
         ";
     }
 }

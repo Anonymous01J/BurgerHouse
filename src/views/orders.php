@@ -28,15 +28,15 @@
                 <div class="col-12">
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-domicilio-tab" data-bs-toggle="tab" data-bs-target="#nav-domicilio" type="button" role="tab" aria-controls="nav-home" aria-selected="true">A domicilio</button>
-                            <button class="nav-link" id="nav-llevar-tab" data-bs-toggle="tab" data-bs-target="#nav-llevar" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Para llevar</button>
+                            <button class="nav-link active module_link" data-module="Ordenes (delivery)" id="nav-domicilio-tab" data-bs-toggle="tab" data-bs-target="#nav-domicilio" type="button" role="tab" aria-controls="nav-home" aria-selected="true">A domicilio</button>
+                            <button class="nav-link module_link" data-module="Ordenes (llevar)" id="nav-llevar-tab" data-bs-toggle="tab" data-bs-target="#nav-llevar" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Para llevar</button>
                             <button class="nav-link" id="nav-local-tab" data-bs-toggle="tab" data-bs-target="#nav-local" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">En el local</button>
                         </div>
                     </nav>
                     <div class="card">
                         <div class="card-body">
                             <div class="tab-content" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-domicilio" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                                <div class="tab-pane fade" id="nav-domicilio" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
 
                                     <div class="row">
                                         <!-- Column -->
@@ -95,7 +95,7 @@
                                         </div>
                                     </div>
 
-                                    <button type="button" class="btn bh_1 text-white mb-3 btnOrder" type_order="delivery">
+                                    <button type="button" class="btn bh_1 text-white mb-3 btnOrder" data-module-create="Ordenes (delivery)" type_order="delivery">
                                         <i class="fas fa-plus"></i>
                                         Orden
                                     </button>
@@ -251,7 +251,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn bh_1 text-white mb-3 btnOrder" type_order="llevar">
+                                    <button type="button" class="btn bh_1 text-white mb-3 btnOrder" data-module-create="Ordenes (llevar)" type_order="llevar">
                                         <i class="fas fa-plus"></i>
                                         Orden
                                     </button>
@@ -381,9 +381,61 @@
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="nav-local" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">2</div>
-                            </div>
+                                <div class="tab-pane fade" id="nav-local" role="tabpanel" aria-labelledby="nav-contact-tab" tabindex="0">
+                                    <div class="row">
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_1BG text-center">
+                                                    <h1 class="font-light text-white target_order_local_total">0</h1>
+                                                    <h6 class="text-white">Ordenes Totales</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_2 text-center">
+                                                    <h1 class="font-light text-white target_order_local_perpayment">0</h1>
+                                                    <h6 class="text-white">Por Pagar</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_6 text-center">
+                                                    <h1 class="font-light text-white target_order_local_kitchen">0</h1>
+                                                    <h6 class="text-white">En cocina</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_4 text-center">
+                                                    <h1 class="font-light text-white target_order_local_dispatch">0</h1>
+                                                    <h6 class="text-white">Por Despachar</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_5BG text-center">
+                                                    <h1 class="font-light text-white target_order_local_delivered">0</h1>
+                                                    <h6 class="text-white">Despachadas</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <button type="button" class="btn bh_1 text-white mb-3 btn_order_local" data-bs-toggle="modal" data-bs-target="#product_and_table" type_order="local">
+                                        <i class="fas fa-plus"></i>
+                                        Orden
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -393,6 +445,8 @@
     </div>
     <?php include_once __DIR__ . '/../Views/Components/modals/order/domicile_and_takeaway.php' ?>
     <?php include_once __DIR__ . '/../Views/Components/modals/order/modalDetailsOrder.php' ?>
+    <?php include_once __DIR__ . '/../Views/Components/modals/order/local.php' ?>
+
 </div>
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>

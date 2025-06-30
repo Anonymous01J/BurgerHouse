@@ -1,9 +1,10 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { resetForm, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, sessionInfo, binnacle } = functionGeneral();
+const { resetForm, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, sessionInfo, binnacle, permission } = functionGeneral();
 const { elemenFormUnit } = Templates()
 let session = await sessionInfo();
 let tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
+permission("unidades")
 let n = $(".table_unit").DataTable({
     language: {
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
@@ -25,10 +26,10 @@ let n = $(".table_unit").DataTable({
             orderable: false,
             render: function (data, type, row, meta) {
                 return `
-                <button data-id="${data.id}" data-module-edit="units" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-unit" data-bs-title="Editar Unidad" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-edit="units" data-module-edit="unidades" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-unit" data-bs-title="Editar Unidad" data-bs-placement="bottom">
                     <i data-feather="edit" class="text-white"></i>
                 </button>
-                <button data-id="${data.id}" data-module-delete="units" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Unidad" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-delete="units" data-module-delete="unidades" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Unidad" data-bs-placement="bottom">
                     <i data-feather="trash" class="text-white"></i>
                 </button>
 `;
@@ -40,14 +41,13 @@ let n = $(".table_unit").DataTable({
         document.querySelectorAll(".trash_btn_datatable, .edit_btn_datatable").forEach((btn) => {
             let tooltip = new bootstrap.Tooltip(btn)
         })
+        permission("unidades")
     },
     "dom": 'tipr',
     "paging": true,
     "info": true,
 })
-$('#searchUnits').on('keyup', function () {
-    n.search(this.value).draw();
-});
+$('#searchUnits').on('keyup', function () { n.search(this.value).draw() });
 deleteDatatable(".table_unit", n, () => binnacle(session.message.id, "Unidades", "Eliminacion", "Se ha eliminado una Unidad"))
 
 let UnitsCount = 1;
@@ -109,7 +109,6 @@ const rules = {
         },
     }
 };
-
 let form = document.getElementById("form-submit-unit")
 if (!form.dataset.listenerAttached) {
     form.addEventListener("submit", (e) => {
@@ -145,7 +144,6 @@ if (!form.dataset.listenerAttached) {
     })
     form.dataset.listenerAttached = "true";
 }
-
 editDataTables(".table_unit", (response) => {
     let formHasError = false;
     document.querySelector("#input-name-unit").value = response[0].nombre;

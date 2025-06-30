@@ -46,7 +46,7 @@
 								<div class="row mb-5">
 									<div class="d-flex gap-2 justify-content-start flex-wrap ps-0 cont_category_product_orders">
 										<div>
-											<input type="radio" class="btn-check" data-filter="all" name="options-outlined" id="success-outlined" autocomplete="off" checked>
+											<input type="radio" class="btn-check btn-filter-product" data-filter="all" name="options-outlined" id="success-outlined" autocomplete="off" checked>
 											<label class="btn bh_1CHECKBOX rounded-pill" for="success-outlined">Todos</label>
 										</div>
 									</div>

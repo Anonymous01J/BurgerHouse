@@ -138,11 +138,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <img src="./assets/img/users/profile-pic.jpg" alt="user" class="rounded-circle"
-                            width="40">
-                        <span class="ms-2 d-none d-lg-inline-block"><span>Hola,</span> <span
-                                class="text-dark"><?php echo ucfirst($_SESSION['nombre'])." ".ucfirst($_SESSION['apellido']); ?></span> <i data-feather="chevron-down"
-                                class="svg-icon"></i></span>
+                        <img id="img_profile_header" alt="user" src="<?php $_SESSION['imagen'] ?  print_r("media/users/" . $_SESSION['imagen']) : print_r("./assets/img/users/1.jpg") ?>" class="rounded-circle" width="35" height="35" style="object-fit: cover">
+                        <span class="ms-2 d-none d-lg-inline-block"><span>Hola,</span> <span class="text-dark" id="name_profile_header"><?php echo ucfirst($_SESSION['nombre']) . " " . ucfirst($_SESSION['apellido']); ?></span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
                         <a class="dropdown-item" href="profile"><i data-feather="user"

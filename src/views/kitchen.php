@@ -62,6 +62,21 @@
                     <div class="row kitchen-cont-prepared">
                         <!-- dad -->
                     </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination_prepared justify-content-end">
+                            <li class="page-item" id="prev-page">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <!-- Aquí se insertan los números dinámicamente -->
+                            <li class="page-item" id="next-page">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                     <div class="row g-3 align-items-center my-4">
@@ -71,25 +86,40 @@
                     </div>
                     <div class="d-flex gap-2 justify-content-start flex-wrap ps-0 mb-4">
                         <div>
-                            <input type="radio" class="btn-check btn_check_off" data-filter="all" id="kitchen_all_off" autocomplete="off" checked>
+                            <input type="radio" class="btn-check btn_check_off" name="data-filter-off" data-filter="all" id="kitchen_all_off" autocomplete="off" checked>
                             <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_all_off">Todos</label>
                         </div>
                         <div>
-                            <input type="radio" class="btn-check btn_check_off" data-filter="all" id="kitchen_delivery_off" autocomplete="off">
+                            <input type="radio" class="btn-check btn_check_off" name="data-filter-off" data-filter="all" id="kitchen_delivery_off" autocomplete="off">
                             <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_delivery_off">Delivery</label>
                         </div>
                         <div>
-                            <input type="radio" class="btn-check btn_check_off" data-filter="all" id="kitchen_takeaway_off" autocomplete="off">
+                            <input type="radio" class="btn-check btn_check_off" name="data-filter-off" data-filter="all" id="kitchen_takeaway_off" autocomplete="off">
                             <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_takeaway_off">Para llevar</label>
                         </div>
                         <div>
-                            <input type="radio" class="btn-check btn_check_off" data-filter="all" id="kitchen_local_off" autocomplete="off">
+                            <input type="radio" class="btn-check btn_check_off" name="data-filter-off" data-filter="all" id="kitchen_local_off" autocomplete="off">
                             <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_local_off">Local</label>
                         </div>
                     </div>
                     <div class="row kitchen-cont-prepared-off">
                         <!-- aqui cargan con js -->
                     </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination_preparedoff justify-content-end">
+                            <li class="page-item" id="prev-page">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <!-- Aquí se insertan los números dinámicamente -->
+                            <li class="page-item" id="next-page">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
                 <?php include_once __DIR__ . '/../Views/Components/modals/delivery-kitchen/modal.php' ?>
             </div>
