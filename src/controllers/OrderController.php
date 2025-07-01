@@ -8,15 +8,12 @@ use Shtch\Burgerhouse\models\DetalleOrdenProductoProcesado;
 use Shtch\Burgerhouse\models\Orden;
 use Exception;
 
-class OrderController extends Controller_base
-{
-    public function __construct()
-    {
+class OrderController extends Controller_base{
+    public function __construct(){
         parent::__construct("orders");
         $this->db = new Orden();
     }
-    public function add()
-    {
+    public function add(){
         try {
             $this->db->clear();
             $l = $_POST;
