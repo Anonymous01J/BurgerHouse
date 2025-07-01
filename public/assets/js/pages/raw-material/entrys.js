@@ -1,12 +1,12 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 const { optionsSupplier, optionsRawMaterial, elementFormEntrysRawMaterial } = Templates()
-const { InputPrice, selectOptionAll, viewImage, reindex, resetForm, setValidationStyles, validateField, fecha, reference, searchParam, diasRestantesFechaVencimiento, sessionInfo, binnacle, deleteDatatable, editDataTables, updateDataTables } = functionGeneral();
+const { InputPrice, selectOptionAll, viewImage, reindex, resetForm, setValidationStyles, validateField, fecha, reference, searchParam, diasRestantesFechaVencimiento, sessionInfo, binnacle, deleteDatatable, editDataTables, updateDataTables, permission } = functionGeneral();
 selectOptionAll(".select_options_supplier", "supplier", optionsSupplier)
 selectOptionAll(".select_options_raw_material", "rawmaterial", optionsRawMaterial)
 selectOptionAll(".select_options_supplier_edit", "supplier", optionsSupplier)
 selectOptionAll(".select_options_raw_material_edit", "rawmaterial", optionsRawMaterial)
-
+permission("Entradas de materia prima")
 InputPrice("[input_price]")
 viewImage(".input-image")
 let session = await sessionInfo()
@@ -55,10 +55,10 @@ let tableActive = $(".table_entrys_active").DataTable({
             orderable: false,
             render: function (data, type, row, meta) {
                 return `
-                <button data-id="${data.id}" data-module-edit="Entrada_materia_prima" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-entrys" data-bs-title="Editar Entrada" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-edit="Entrada_materia_prima" data-module-edit="Entradas de materia prima" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-entrys" data-bs-title="Editar Entrada" data-bs-placement="bottom">
                     <i data-feather="edit" class="text-white"></i>
                 </button>
-                <button data-id="${data.id}" data-module-delete="Entrada_materia_prima" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Entrada" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-delete="Entrada_materia_prima" data-module-delete="Entradas de materia prima" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Entrada" data-bs-placement="bottom">
                     <i data-feather="trash" class="text-white"></i>
                 </button>
                 `;
@@ -68,6 +68,7 @@ let tableActive = $(".table_entrys_active").DataTable({
     drawCallback: function (settings) {
         feather.replace();
         reference("#comprobante_view", "entrada_materia_prima");
+        permission("Entradas de materia prima")
     },
     "dom": 'tipr',
     "paging": true,

@@ -1,8 +1,9 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { InputPrice, selectOptionAll, setValidationStyles, validateField, reindex, resetForm, edit, searchParam, sessionInfo, binnacle, print } = functionGeneral();
+const { InputPrice, selectOptionAll, setValidationStyles, validateField, reindex, resetForm, edit, searchParam, sessionInfo, binnacle, permission } = functionGeneral();
 const { elemenFormRecipe, optionsRol, optionsRawMaterial, targetRecipe, elemenFormEditRecipe } = Templates()
 InputPrice("[input_price]");
+permission("Recetas")
 selectOptionAll(".select_options_product", "productPrepared", optionsRol)
 selectOptionAll(".select_options_rawmaterial", "rawmaterial", optionsRawMaterial)
 let session = await sessionInfo()
@@ -30,7 +31,6 @@ function attachValidationListeners(index) {
     });
 }
 document.getElementById("input-product-recipe").addEventListener("change", (e) => validateField(e, rules2));
-
 document.getElementById("add-recipe-btn").addEventListener("click", () => {
     addRecipe()
     reindex("#recipes-container .recipes", "recipes", RecipeCount, "Item")
@@ -165,6 +165,7 @@ async function renderizarTarjetas(param) {
         let data2 = await searchParam({ id_receta: item.id }, "Detallerecipe", 468468468486)
         templatejk += targetRecipe(item, data2);
         document.querySelector(".cont_recipe").innerHTML = templatejk;
+        permission("Recetas")
         feather.replace();
         edit((response) => {
             let objectActual = response;

@@ -33,7 +33,7 @@
                                 <div class="col-md-6 col-lg-3">
                                     <input type="search" class="form-control" id="searchAdditional" placeholder="Buscar">
                                 </div>
-                                <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="combo" data-bs-toggle="modal" data-bs-target="#register-additional" data-bs-title="Agregar adicional" data-bs-placement="top">
+                                <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="Adicionales" data-bs-toggle="modal" data-bs-target="#register-additional" data-bs-title="Agregar adicional" data-bs-placement="top">
                                     <i data-feather="plus" class="svg-icon"></i>
                                 </button>
                             </div>

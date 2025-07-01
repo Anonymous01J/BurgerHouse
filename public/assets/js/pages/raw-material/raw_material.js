@@ -1,9 +1,9 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-
-const { validateField, setValidationStyles, selectOptionAll, reindex, resetForm, addDataTables, deleteDatatable, editDataTables, updateDataTables, sessionInfo, binnacle } = functionGeneral();
+const { validateField, setValidationStyles, selectOptionAll, reindex, resetForm, addDataTables, deleteDatatable, editDataTables, updateDataTables, sessionInfo, binnacle, permission } = functionGeneral();
 const { elemenFormRawMaterial, optionsRol } = Templates()
 let session = await sessionInfo()
+permission("Materia prima")
 selectOptionAll(".select_options_categorys_rawmaterial", "categoryMateriaPrima", optionsRol)
 selectOptionAll(".select_options_units_rawmaterial", "units", optionsRol)
 selectOptionAll(".select_options_categorys_rawmaterial_edit", "categoryMateriaPrima", optionsRol)
@@ -17,7 +17,7 @@ let n = $(".table_rawmaterial").DataTable({
         url: 'rawmaterial/get_all/0/10000000/id/asc',
         dataSrc: '',
         type: 'POST',
-        data: {active: 1,},
+        data: { active: 1, },
     },
     columns: [
         { data: 'nombre' },
@@ -31,10 +31,10 @@ let n = $(".table_rawmaterial").DataTable({
             orderable: false,
             render: function (data, type, row, meta) {
                 return `
-                <button data-id="${data.id}" data-module-edit="rawmaterial" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-rawMaterial" data-bs-title="Editar Materia Prima" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-edit="rawmaterial" data-module-edit="Materia prima" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-rawMaterial" data-bs-title="Editar Materia Prima" data-bs-placement="bottom">
                     <i data-feather="edit" class="text-white"></i>
                 </button>
-                <button data-id="${data.id}" data-module-delete="rawmaterial" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Materia Prima" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-delete="rawmaterial" data-module-delete="Materia prima" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Materia Prima" data-bs-placement="bottom">
                     <i data-feather="trash" class="text-white"></i>
                 </button>
 `;
@@ -46,6 +46,7 @@ let n = $(".table_rawmaterial").DataTable({
         document.querySelectorAll(".trash_btn_datatable, .edit_btn_datatable").forEach((btn) => {
             let tooltip = new bootstrap.Tooltip(btn)
         })
+        permission("Materia prima")
     },
     "dom": 'tipr',
     "paging": true,

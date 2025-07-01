@@ -1,7 +1,8 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm, sessionInfo, binnacle } = functionGeneral();
+const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm, sessionInfo, binnacle, permission } = functionGeneral();
 const { elemenFormPaymentMethod } = Templates()
+permission("metodo pago")
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 let table = $(".table_payment").DataTable({
     language: {
@@ -23,10 +24,10 @@ let table = $(".table_payment").DataTable({
             orderable: false,
             render: function (data, type, row, meta) {
                 return `
-                <button data-id="${data.id}" data-module-edit="paymentMethod" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-payment" data-bs-title="Editar Metodo de pago" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-edit="paymentMethod" data-module-edit="metodo pago" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-payment" data-bs-title="Editar Metodo de pago" data-bs-placement="bottom">
                     <i data-feather="edit" class="text-white"></i>
                 </button>
-                <button data-id="${data.id}" data-module-delete="paymentMethod" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable"  data-bs-toggle="tooltip" data-bs-title="Eliminar Metodo de pago" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-delete="paymentMethod" data-module-delete="metodo pago" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable"  data-bs-toggle="tooltip" data-bs-title="Eliminar Metodo de pago" data-bs-placement="bottom">
                     <i data-feather="trash" class="text-white"></i>
                 </button>`;
             }
@@ -37,6 +38,7 @@ let table = $(".table_payment").DataTable({
         document.querySelectorAll(".trash_btn_datatable, .edit_btn_datatable").forEach((btn) => {
             let tooltip = new bootstrap.Tooltip(btn)
         })
+        permission("metodo pago")
     },
     "dom": 'tipr',
     "paging": true,

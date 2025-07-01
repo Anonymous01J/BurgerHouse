@@ -49,8 +49,8 @@
                                             <div class="text-danger mt-1 fs-6" id="error-input-capital-description"></div>
                                         </div>
                                         <div class="mb-4">
-                                            <button type="submit" class="btn bh_5 text-white btn_type_action">Guardar Gasto</button>
-                                            <button type="submit" class="btn bh_1 text-white btn_type_action">Guardar Ingreso</button>
+                                            <button type="submit" data-module-gasto="capital" class="btn bh_5 text-white btn_type_action">Guardar Gasto</button>
+                                            <button type="submit" data-module-ingreso="capital" class="btn bh_1 text-white btn_type_action">Guardar Ingreso</button>
                                         </div>
                                     </form>
                                 </div>

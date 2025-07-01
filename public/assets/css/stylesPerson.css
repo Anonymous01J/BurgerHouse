@@ -84,6 +84,42 @@
 
 /* *********/
 
+/* label para cargar fotos de perfil */
+#input-file-user-profile-label {
+  position: relative;
+  display: inline-block;
+}
+
+#input-file-user-profile-label::before {
+  content: "➕  Subir Foto";
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  width: 100%;
+  height: 90%;
+  background-color: rgba(104, 205, 102, 0);
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  text-align: center;
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 100ms ease, background-color 100ms ease, transform 100ms ease;
+}
+#input-file-user-profile-label:hover::before {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.371);
+  transform: translate(-50%, -50%);
+}
+
+/* *********/
+
+
 .captcha_page {
   display: flex;
   transition: display .7s, transform .7s, opacity .7s;
@@ -238,7 +274,8 @@
 .bh_5 {
   background-color: #0B1B21;
 }
-.bh_6{
+
+.bh_6 {
   background-color: #b41a1a;
 }
 
@@ -262,7 +299,7 @@
   color: #FF4B00 !important;
 }
 
-.btn-check:checked + .bh_1CHECKBOX {
+.btn-check:checked+.bh_1CHECKBOX {
   background-color: #FF4B00 !important;
   color: #FFFFFF !important;
 }
@@ -727,9 +764,11 @@
 .dark-mode .c3-tooltip-container {
   color: #000 !important;
 }
-.dark-mode .popover-body{
+
+.dark-mode .popover-body {
   background-color: var(--bg-secondary) !important;
 }
+
 /* Tipografía */
 .dark-mode h1,
 .dark-mode h2,
@@ -794,13 +833,24 @@
 .dark-mode .fc-unthemed td.fc-today {
   background: var(--bg-secondary);
 }
-.tagify__input::before{
+
+.dark-mode #swal-input-password {
+  color: #000 !important;
+  border-color: #c2c2c2 !important;
+}
+
+.dark-mode .swal2-input{
+  color: #000 !important;
+  border-color: #c2c2c2 !important;
+}
+
+.tagify__input::before {
   color: #aaa !important;
 }
 
 
 
-.tags-look .tagify__dropdown__item{
+.tags-look .tagify__dropdown__item {
   display: inline-block;
   vertical-align: middle;
   border-radius: 3px;
@@ -813,11 +863,11 @@
   transition: 0s;
 }
 
-.tags-look .tagify__dropdown__item--active{
+.tags-look .tagify__dropdown__item--active {
   border-color: black;
 }
 
-.tags-look .tagify__dropdown__item:hover{
+.tags-look .tagify__dropdown__item:hover {
   background: lightyellow;
   border-color: gold;
 }
@@ -831,6 +881,3 @@
   text-indent: -20px;
   border: 0;
 }
-
-
-

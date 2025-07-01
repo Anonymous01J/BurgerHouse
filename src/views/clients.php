@@ -1,15 +1,9 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
-
-
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
-
     <div class="page-wrapper">
         <div class="page-breadcrumb">
             <div class="row">
@@ -24,19 +18,15 @@
                         </nav>
                     </div>
                 </div>
-
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
-
         <div class="container-fluid">
-
             <div class="row g-3 align-items-center mb-5 gap-2">
                 <div class="col-auto">
                     <input type="search" id="SearchClients" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
-                <button data-bs-toggle="modal" data-bs-target="#register-client" style="color: #fff;" type="button" class="btn bh_1 btn-circle btn-add-tooltip" data-bs-title="Agregar Cliente" data-bs-placement="top">
+                <button data-bs-toggle="modal" data-bs-target="#register-client" data-module-add="clientes" style="color: #fff;" type="button" class="btn bh_1 btn-circle btn-add-tooltip" data-bs-title="Agregar Cliente" data-bs-placement="top">
                     <i data-feather="plus" class="svg-icon"></i>
                 </button>
                 <button data-bs-toggle="tooltip"  type="button" class="btn bh_1 btn-circle btn-add-tooltip text-white" data-bs-title="Reporte de clientes" data-bs-placement="top" id="btn-report">
@@ -47,10 +37,8 @@
                 <!-- aqui se cargan con ajax -->
             </div>
         </div>
-
         <?php include_once __DIR__ . '/../Views/Components/modals/client/modal.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
-
     </div>
 
     <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>

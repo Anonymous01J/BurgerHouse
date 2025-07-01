@@ -1,8 +1,7 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
 
@@ -32,7 +31,7 @@
                 <div class="col-auto">
                     <input type="search" id="search-filter-users" placeholder="Buscar" class="form-control">
                 </div>
-                <button data-bs-toggle="modal" data-bs-target="#register-user" type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-bs-title="Agregar Usuario" 
+                <button data-bs-toggle="modal" data-bs-target="#register-user" data-module-add="usuarios" type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-bs-title="Agregar Usuario" 
                 data-bs-placement="top">
                     <i data-feather="user-plus" class="svg-icon"></i>
                 </button>

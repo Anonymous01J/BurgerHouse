@@ -136,7 +136,7 @@ export default async function domicile_and_takeaway(functions, templates, type_o
     }
     // funcion para los filtros de productos y carga de productos
     const filter = () => {
-        let inputs = document.querySelectorAll(".btn-check")
+        let inputs = document.querySelectorAll(".btn-filter-product")
         inputs.forEach((input) => {
             input.addEventListener("click", () => {
                 let filter = input.getAttribute("data-filter");

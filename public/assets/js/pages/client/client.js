@@ -1,8 +1,9 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { selectOptionAll, setValidationStyles, validateField, searchParam, searchFilter, print, add, update, reindex, resetForm, sessionInfo, binnacle, edit, Delete } = functionGeneral();
+const { selectOptionAll, setValidationStyles, validateField, searchParam, searchFilter, print, add, update, reindex, resetForm, sessionInfo, binnacle, edit, Delete, permission } = functionGeneral();
 const { elemenFormClient, targetClient } = Templates()
 let session = await sessionInfo();
+permission('clientes')
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 const config = {
     search: () => searchParam({ active: 1 }, "clients"),
@@ -12,6 +13,7 @@ const config = {
         Delete(config, () => binnacle(session.message.id, "Clientes", "Eliminacion", "Se elimino un cliente"));
         edit((response) => editData(response));
         document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
+        permission('clientes')
     }
 }
 searchFilter("#SearchClients", (e) => {

@@ -1,17 +1,50 @@
 import funtionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { targetCash } = Templates()
-const { validateField, setValidationStyles, sessionInfo, binnacle, print, add, searchParam, InputPrice, resetForm, CheckCash, update } = funtionGeneral()
+import { report } from "./report.js"
+const { targetCash, infoCash, amountCash, cashDetail } = Templates()
+const { validateField, setValidationStyles, sessionInfo, binnacle, print, add, searchParam, InputPrice, CheckCash, searchFilter, permission } = funtionGeneral()
 InputPrice("[input_price]")
 let session = await sessionInfo()
 let cash = await CheckCash()
+permission("caja")
+searchFilter('#searchCashClose', async (e) => {
+    if (e.target.value == "") {
+        print({ ...config, search: () => searchParam({ estado: 0 }, "cash"), container: ".cont-cash_close" })
+    } else {
+        let user = await searchParam({ active: 1, nombre_like: e.target.value }, "users")
+        if (user.length != 0) {
+            user.forEach((user) => {
+                print({ ...config, search: () => searchParam({ id_usuario: user.id, estado: 0 }, "cash"), container: ".cont-cash_close" })
+            })
+        } else {
+            print({ ...config, search: () => searchParam({ estado: 25 }, "cash"), container: ".cont-cash_close" })
+        }
+    }
+})
+searchFilter('#searchCashOpen', async (e) => {
+    if (e.target.value == "") {
+        print(config)
+    } else {
+        let user = await searchParam({ active: 1, nombre_like: e.target.value }, "users")
+        if (user.length != 0) {
+            user.forEach((user) => {
+                print({ ...config, search: () => searchParam({ id_usuario: user.id, estado: 1 }, "cash") })
+            })
+        } else {
+            print({ ...config, search: () => searchParam({ estado: 25 }, "cash") })
+        }
+    }
+})
 const config = {
-  search: () => searchParam({ estado: 1}, "cash"),
-  template: targetCash,
-  container: ".cont-cash_open",
-  funtions: () => {
-    document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
-  },
+    search: () => searchParam({ estado: 1 }, "cash"),
+    template: targetCash,
+    container: ".cont-cash_open",
+    funtions: () => {
+        document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
+        modalDetail()
+        closeCash()
+        permission("caja")
+    },
 }
 let form = document.getElementById("form-submit-cash")
 validate.validators.precio = function (value, options, key, attributes) {
@@ -81,7 +114,128 @@ form.addEventListener("submit", (e) => {
         document.getElementById("input-price-bs-cash").classList.remove("is-valid", "is-invalid")
         bootstrap.Modal.getOrCreateInstance('#register-cash').hide()
     }
-});
+})
+//modal de detalles
+const modalDetail = () => {
+    let btn = document.querySelectorAll(".datails_cash")
+    btn.forEach((btn) => {
+        if (!btn.dataset.listenerAttached) {
+            btn.addEventListener("click", async (e) => {
+                let info = await searchParam({ id: btn.getAttribute("data-id") }, "cash")
+                document.querySelector(".infoCash").innerHTML = await infoCash(info[0])
+                feather.replace()
+                new bootstrap.Tooltip(document.querySelector(".btn_print"))
+                let id = btn.getAttribute("data-id")
+                let data = new FormData();
+                data.append("id", id);
+                let pet = await fetch(`cash/detailCash`, { method: "POST", body: data })
+                let response = await pet.json()
+                let group = {}
+                let detailsCash = {}
+                response.forEach((item) => {
+                    if (group[item.metodo_pago]) group[item.metodo_pago].push(item)
+                    else group[item.metodo_pago] = [item]
+                    if (item.cliente != null) {
+                        if (detailsCash[item.metodo_pago]) detailsCash[item.metodo_pago].push(item)
+                        else detailsCash[item.metodo_pago] = [item]
+                    }
+                })
+                Object.keys(group).forEach((key) => {
+                    let monto_dolar = group[key].reduce((acc, item) => acc + item.monto, 0)
+                    let tasaPlus = group[key].reduce((acc, item) => item.tasa > acc ? acc = item.tasa : acc, 0)
+                    let monto_bs = monto_dolar * tasaPlus
+                    group[key].forEach((item) => {
+                        if (item.metodo_pago.toLowerCase() == "transferencia" || item.metodo_pago.toLowerCase() == "pago movil") {
+                            group[key] = {
+                                "metodo_pago": item.metodo_pago,
+                                "monto": monto_bs
+                            }
+                        } else {
+                            group[key] = {
+                                "metodo_pago": item.metodo_pago,
+                                "monto": monto_dolar
+                            }
+                        }
+                    })
+                })
+                group = Object.values(group)
+                let template = ""
+                let total_bs = []
+                let total_dolar = []
+                group.forEach((item) => {
+                    template += amountCash(item)
+                    if (item.metodo_pago.toLowerCase() == "transferencia" || item.metodo_pago.toLowerCase() == "pago movil") total_bs.push(item.monto)
+                    else total_dolar.push(item.monto)
+                })
+                document.querySelector(".amountCash").innerHTML = template
+                document.querySelector(".total_bs_cash").textContent = "Bs " + (total_bs.reduce((acc, item) => acc + item, 0) + info[0].monto_inicial_bs).toFixed(2)
+                document.querySelector(".total_usd_cash").textContent = "$ " + (total_dolar.reduce((acc, item) => acc + item, 0) + info[0].monto_inicial_dolar).toFixed(2)
+                let templateDetails = ""
+                Object.keys(detailsCash).forEach((key) => {
+                    templateDetails += cashDetail(key, detailsCash[key])
+                })
+                document.querySelector(".detailsCash").innerHTML = templateDetails
+                report(group, detailsCash, total_bs, total_dolar)
+                bootstrap.Modal.getOrCreateInstance('#details-cash').show()
+            })
+            btn.dataset.listenerAttached = "true"
+        }
+    })
+}
+const closeCash = () => {
+    document.querySelectorAll(".close_cash").forEach((btn) => {
+        btn.addEventListener("click", async (e) => {
+            swal.fire({
+                title: 'Cerrar caja',
+                text: "¿Desea cerrar la caja?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: "#FF4B00",
+                confirmButtonText: 'Si, cerrar',
+                cancelButtonText: 'Cancelar'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    let id = btn.getAttribute("data-id")
+                    let data = new FormData();
+                    data.append("id", id);
+                    let pet = await fetch(`cash/closeCash`, { method: "POST", body: data })
+                    let response = await pet.json()
+                    console.log(response);
+                    if (response.success) {
+                        swal.fire({
+                            icon: 'success',
+                            title: 'Exito',
+                            text: "Se ha cerrado la caja correctamente",
+                        })
+                        binnacle(session.message.id, 'Caja', 'Cerrar', `Se cerro la caja ${id}`)
+                        document.querySelector(".cash_status").classList.add("bg-danger")
+                        document.querySelector(".cash_status").classList.remove("bg-success")
+                        const tooltip = bootstrap.Tooltip.getInstance(document.querySelector(".cash_status"));
+                        if (tooltip) {
+                            tooltip._config.title = "Estado de caja: Cerrada";
+                            tooltip.update();
+                        }
+                        print(config)
+                        print({ ...config, search: () => searchParam({ estado: 0 }, "cash"), container: ".cont-cash_close" })
+                    } else {
+                        swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: "No se pudo cerrar la caja",
+                        })
+                    }
+                }
+            })
+        })
+    })
+}
+let formFilter = document.getElementById("form_cash_filter_date")
+formFilter.addEventListener("submit", (e) => {
+    e.preventDefault()
+    let init = formFilter.querySelector("#date_start").value
+    let end = formFilter.querySelector("#date_end").value
+    console.log(searchParam({ init: init, end: end }, "cash"));
+})
 // IntroJs
 document.getElementById('navbarDropdown').addEventListener('click', function () {
     if (typeof introJs !== 'undefined') {

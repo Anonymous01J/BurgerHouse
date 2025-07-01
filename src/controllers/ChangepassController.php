@@ -48,7 +48,7 @@ class ChangepassController extends Controller_base
             $mail->Body = '
                 <html>
                     <body>
-                        <img src="cid:logo_cid" alt="Logo">
+                        <img src="cid:logo_cid" alt="Logo" width="300">
                         <h1 style="color:##FF4B00; font-family: Arial, sans-serif; text-align: center;">¡Hola, ' . $_POST['name'] . '!</h1>
                         <p style="font-size: 14px; line-height: 1.5;">Has solicitado restablecer tu contraseña en Burger House.</p>
                         <h3 style="font-family: Arial, sans-serif;">Tu código de verificación es: ' . $token . '</h3>

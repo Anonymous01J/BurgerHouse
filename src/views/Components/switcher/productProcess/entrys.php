@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="mb-4">
-                        <button data-bs-toggle="modal" data-bs-target="#register-entrys" type="button" class="btn bh_1 text-white mt-3">
+                        <button data-bs-toggle="modal" data-bs-target="#register-entrys" data-module-add="Entradas de productos procesados" type="button" class="btn bh_1 text-white mt-3">
                             <i class="fas fa-plus"></i>
                             Entrada
                         </button>

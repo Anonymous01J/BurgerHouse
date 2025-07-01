@@ -23,6 +23,15 @@ class Router
                 exit;
             }
         }
+        //validar si la url es un archivo de configuracion
+        // if (strpos($url[0], 'db.config.json') === 0) {
+        //     $filePath = '../' . implode('/', $url);
+        //     if (file_exists($filePath)) {
+        //         echo json_encode(json_decode(file_get_contents($filePath)));;
+        //     } else {
+        //         echo "Archivo no encontrado.";
+        //     }
+        // }
 
         $controllerName = !empty($url[0]) ? ucfirst($url[0]) . 'Controller' : 'HomeController';
         $methodName = isset($url[1]) ? $url[1] : 'view';

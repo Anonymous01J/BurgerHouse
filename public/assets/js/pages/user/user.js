@@ -1,9 +1,10 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { selectOptionAll, setValidationStyles, validateField, searchParam, searchFilter, print, add, update, reindex, resetForm, binnacle, sessionInfo, Delete, edit } = functionGeneral();
+const { selectOptionAll, setValidationStyles, validateField, searchParam, searchFilter, print, add, update, reindex, resetForm, binnacle, sessionInfo, Delete, edit, permission } = functionGeneral();
 const { elemenFormUser, optionsRol, targetUser } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 let session = await sessionInfo();
+permission("usuarios")
 selectOptionAll(".select_options_td", null)
 selectOptionAll(".select_options_rol", "rol", optionsRol)
 selectOptionAll(".select_options_td_edit", null)
@@ -16,6 +17,7 @@ const config = {
         Delete(config, () => binnacle(session.message.id, "Usuario", "Eliminacion", "Se elimino un usuario"));
         edit((response) => editData(response));
         document.querySelectorAll(".edit_btn, .trash_btn").forEach((element) => { let tooltip = new bootstrap.Tooltip(element) });
+        permission("usuarios")
     },
 }
 //funcion del search para filtrar los usuarios
@@ -45,8 +47,8 @@ function attachValidationListeners(index) {
     });
     const productElement2 = document.getElementById(`user`);
     productElement2.querySelectorAll("input[type='text'], input[type='button'], input[type='password']").forEach(input => {
-        input.addEventListener("keyup", (e) => validateField(e, rules));
-        input.addEventListener("blur", (e) => validateField(e, rules));
+        input.addEventListener("keyup", (e) => validateField(e, rules2));
+        input.addEventListener("blur", (e) => validateField(e, rules2));
     });
 }
 document.getElementById("add-user-btn").addEventListener("click", () => {
@@ -168,6 +170,80 @@ const rules = {
         email: { validateEmail: "^El correo electrónico no es válido" }
     }
 };
+const rules2 = {
+    nombre: {
+        nombreValidator: {
+            uppercaseMessage: "^debe tener la primera letra en mayúscula.",
+            specialCharMessage: "^No se permiten signos como puntos (.) o comas (,)."
+        },
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        length: {
+            minimum: 2,
+            message: "^debe tener al menos 2 caracteres"
+        },
+    },
+    apellido: {
+        nombreValidator: {
+            uppercaseMessage: "^debe tener la primera letra en mayúscula.",
+            specialCharMessage: "^No se permiten signos como puntos (.) o comas (,)."
+        },
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        length: {
+            minimum: 2,
+            message: "^debe tener al menos 2 caracteres"
+        },
+    },
+    // rif: {
+    //     presence: {
+    //         allowEmpty: false,
+    //         message: "^es requerida"
+    //     },
+    //     format: {
+    //         pattern: "^[0-9]+$",
+    //         message: "^solo puede tener numeros"
+    //     }
+    // },
+    // tipo_documento: {
+    //     presence: {
+    //         allowEmpty: false,
+    //         message: "^es requerida"
+    //     },
+    //     validateTD: { message: "^es requerido" }
+    // },
+    id_rol: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerida"
+        },
+        validateTD: { message: "^es requerido" }
+    },
+    // hash: {
+    //     presence: {
+    //         allowEmpty: false,
+    //         message: "^es requerido"
+    //     },
+    //     password: {
+    //         onceDigit: "^Al menos un dígito.",
+    //         onceLower: "^Al menos una letra minúscula.",
+    //         onceSpecial: "^Al menos un carácter especial.",
+    //         noSpace: "^Sin espacios en blanco.",
+    //         length: "^Longitud entre 8 y 15 caracteres."
+    //     }
+    // },
+    email: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        email: { validateEmail: "^El correo electrónico no es válido" }
+    }
+};
 let form = document.getElementById("form-submit-users")
 if (!form.dataset.listenerAttached) {
     form.addEventListener("submit", (e) => {
@@ -211,7 +287,7 @@ if (!form.dataset.listenerAttached) {
                 dataFinal.append(`lista[${index}][hash]`, user.hash)
             })
             resetForm("#users-container .users", form)
-            add(config, "user", dataFinal, () => binnacle(session.message.id, "Usuarios", "Agregar", "Se agrego un usuario"))
+            add(config, "users", dataFinal, () => binnacle(session.message.id, "Usuarios", "Agregar", "Se agrego un usuario"))
             bootstrap.Modal.getOrCreateInstance('#register-user').hide()
         }
     })
@@ -252,6 +328,7 @@ function editData(response) {
     let formEdit = document.getElementById("form-submit-edit-user")
     if (!formEdit.dataset.listenerAttached) {
         formEdit.addEventListener("submit", (e) => {
+            let hasError = false
             e.preventDefault();
             const data = {
                 nombre: formEdit.querySelector(`input[name="nombre"]`).value,
@@ -262,7 +339,7 @@ function editData(response) {
                 id_rol: formEdit.querySelector(`input[name="id_rol"]`).getAttribute("data-id"),
                 // hash: formEdit.querySelector(`input[name="hash"]`).value
             }
-            const errors = validate(data, rules);
+            const errors = validate(data, rules2);
             setValidationStyles(`input-name-user`, errors?.nombre ? errors.nombre[0] : null);
             setValidationStyles(`input-lastname-user`, errors?.apellido ? errors.apellido[0] : null);
             // setValidationStyles(`input-td-user`, errors?.tipo_documento ? errors.tipo_documento[0] : null);
@@ -271,7 +348,10 @@ function editData(response) {
             // setValidationStyles(`input-password-user`, errors?.hash ? errors.hash[0] : null);
             setValidationStyles(`input-rol-user`, errors?.id_rol ? errors.id_rol[0] : null);
 
-            if (!errors) {
+            if (errors) hasError = true;
+            else hasError = false
+               
+            if (!hasError) {
                 let dataFinal = new FormData()
                 dataFinal.append('nombre', data.nombre)
                 dataFinal.append('apellido', data.apellido)
@@ -280,8 +360,7 @@ function editData(response) {
                 dataFinal.append('id_rol', data.id_rol)
                 // dataFinal.append('hash', data.hash)
                 dataFinal.append('id', formEdit.querySelector(`input[name="id_user"]`).value)
-
-                update(config, "user", dataFinal, () => binnacle(session.message.id, "Usuarios", "Actualizacion", "Se edito un usuario"))
+                update(config, "users", dataFinal, () => binnacle(session.message.id, "Usuarios", "Actualizacion", "Se actualizo un usuario"))
                 bootstrap.Modal.getOrCreateInstance('#edit-user').hide()
             }
         })

@@ -20,10 +20,10 @@ export default function Templates() {
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <p class="mb-0">Precio: ${objet.precio}$</p>
                             <div class="d-flex gap-3">
-                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="productPrepared" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-product" data-bs-title="Editar Producto" data-bs-placement="bottom">
+                                <a class="link-secondary edit_btn" data-id="${objet.id}" module-edit="productPrepared" data-module-edit="Producto preparado"  style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-product" data-bs-title="Editar Producto" data-bs-placement="bottom">
                                     <i data-feather="edit"></i>
                                 </a>
-                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="productPrepared" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Producto" data-bs-placement="bottom">
+                                <a class="link-secondary trash_btn" data-id="${objet.id}" module-delete="productPrepared" data-module-delete="Producto preparado"  style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Producto" data-bs-placement="bottom">
                                     <i data-feather="trash-2"></i>
                                 </a>
                             </div>
@@ -48,10 +48,10 @@ export default function Templates() {
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <p class="mb-0">Precio: ${objet.precio}$</p>
                             <div class="d-flex gap-3">
-                                <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="productProcess" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-product" data-bs-title="Editar Producto" data-bs-placement="bottom">
+                                <a class="link-secondary edit_btn" data-id="${objet.id}" module-edit="productProcess" data-module-edit="Producto procesado" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-product" data-bs-title="Editar Producto" data-bs-placement="bottom">
                                     <i data-feather="edit"></i>
                                 </a>
-                                <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="productProcess" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Producto" data-bs-placement="bottom">
+                                <a class="link-secondary trash_btn" data-id="${objet.id}" module-delete="productProcess" data-module-delete="Producto procesado" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Producto" data-bs-placement="bottom">
                                     <i data-feather="trash-2"></i>
                                 </a>
                             </div>
@@ -93,8 +93,8 @@ export default function Templates() {
                                 </div>
 
                                 <div class="d-flex justify-content-center pt-3 border-top ${objet.estado == 1 ? "gap-3" : ""}">
-                                    ${objet.estado == 1 ? `<button class="btn bh_1 text-white close_cash" data-id="${objet.id}">Cerrar</button>` : ""}
-                                    <button class="btn bh_5 text-white datails_cash" data-id="${objet.id}">Detalles</button>
+                                    ${objet.estado == 1 ? `<button class="btn bh_1 text-white close_cash" data-module-close="caja" data-id="${objet.id}">Cerrar</button>` : ""}
+                                    <button class="btn bh_5 text-white datails_cash" data-id="${objet.id}" data-module-details="caja">Detalles</button>
                                 </div>
                             </div>
                         </div>
@@ -133,8 +133,8 @@ export default function Templates() {
                                     <div class="fs-6 badge bg-secondary">${objet.tipo}</div>
                                 </div>
                                 <div class="d-flex justify-content-around pt-3 border-top">
-                                    ${objet.status == 1 ? `<button class="btn bh_1 btn_prepared" id_order="${objet.id}" type_order="${objet.tipo}" style="color: #fff;">Preparar</button>` : ""}
-                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" class="btn bh_5 text-white btn-details-kitchen-delivery" data-id="${objet.id}">Detalles</button>
+                                    ${objet.status == 1 ? `<button class="btn bh_1 btn_prepared" data-module-prepared="cocina" id_order="${objet.id}" type_order="${objet.tipo}" style="color: #fff;">Preparar</button>` : ""}
+                                    <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" data-module-details="cocina" class="btn bh_5 text-white btn-details-kitchen-delivery" data-id="${objet.id}">Detalles</button>
                                 </div>
                             </div>
                         </div>
@@ -229,10 +229,10 @@ export default function Templates() {
                         <small class="text-body-secondary">
                             <div style="display: flex; justify-content: end; align-items: center;">
                                 <div class="d-flex gap-3">
-                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="supplier" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-supplier" data-bs-title="Editar Proveedor" data-bs-placement="bottom">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" module-edit="supplier" data-module-edit="proveedores" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-supplier" data-bs-title="Editar Proveedor" data-bs-placement="bottom">
                                         <i data-feather="edit"></i>
                                     </a>
-                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="supplier" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Proveedor" data-bs-placement="bottom">
+                                    <a class="link-secondary trash_btn" data-id="${objet.id}" module-delete="supplier" data-module-delete="proveedores" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Proveedor" data-bs-placement="bottom">
                                         <i data-feather="trash-2"></i>
                                     </a>
                                 </div>
@@ -277,10 +277,10 @@ export default function Templates() {
                         <small class="text-body-secondary">
                             <div style="display: flex; justify-content: end; align-items: center;">
                                 <div class="d-flex gap-3">
-                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="users" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-user" data-bs-title="Editar Usuario" data-bs-placement="bottom">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" module-edit="users" data-module-edit="usuarios" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-user" data-bs-title="Editar Usuario" data-bs-placement="bottom">
                                         <i data-feather="edit"></i>
                                     </a>
-                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="users" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Usuario" data-bs-placement="bottom">
+                                    <a class="link-secondary trash_btn" data-id="${objet.id}" module-delete="users" data-module-delete="usuarios" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Usuario" data-bs-placement="bottom">
                                         <i data-feather="trash-2"></i>
                                     </a>
                                 </div>
@@ -317,10 +317,10 @@ export default function Templates() {
                         <small class="text-body-secondary">
                             <div style="display: flex; justify-content: end; align-items: center;">
                                 <div class="d-flex gap-3">
-                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="clients" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-client" data-bs-title="Editar Cliente" data-bs-placement="bottom">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" module-edit="clients" data-module-edit="clientes" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-client" data-bs-title="Editar Cliente" data-bs-placement="bottom">
                                         <i data-feather="edit"></i>
                                     </a>
-                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="clients" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Cliente" data-bs-placement="bottom">
+                                    <a class="link-secondary trash_btn" data-id="${objet.id}" module-delete="clients" data-module-delete="clientes" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Cliente" data-bs-placement="bottom">
                                         <i data-feather="trash-2"></i>
                                     </a>
                                 </div>
@@ -360,10 +360,10 @@ export default function Templates() {
                         <small class="text-body-secondary">
                             <div style="display: flex; justify-content: end; align-items: center;">
                                 <div class="d-flex gap-3">
-                                    <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="rol" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Editar Permiso" data-bs-placement="bottom">
+                                    <a class="link-secondary edit_btn" data-id="${objet.id}" module-edit="rol" data-module-edit="roles y permisos" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Editar Permiso" data-bs-placement="bottom">
                                         <i data-feather="edit"></i>
                                     </a>
-                                    <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="rol" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Permiso" data-bs-placement="bottom">
+                                    <a class="link-secondary trash_btn" data-id="${objet.id}" module-delete="rol" data-module-delete="roles y permisos" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Permiso" data-bs-placement="bottom">
                                         <i data-feather="trash-2"></i>
                                     </a>
                                 </div>
@@ -382,10 +382,10 @@ export default function Templates() {
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <p class="mb-0">Estado: <span class="badge text-bg-${objet.estado == "LIBRE" ? 'success' : 'secondary'}">${objet.estado}</span></p>
                     <div class="d-flex gap-3">
-                        <a class="link-secondary edit_btn" data-id="${objet.id}" data-module-edit="table" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-table" data-bs-title="Editar Mesa" data-bs-placement="bottom">
+                        <a class="link-secondary edit_btn" data-id="${objet.id}" module-edit="table" data-module-edit="mesas" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-table" data-bs-title="Editar Mesa" data-bs-placement="bottom">
                             <i data-feather="edit"></i>
                         </a>
-                        <a class="link-secondary trash_btn" data-id="${objet.id}" data-module-delete="table" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Mesa" data-bs-placement="bottom">
+                        <a class="link-secondary trash_btn" data-id="${objet.id}" module-delete="table" data-module-delete="mesas" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-title="Eliminar Mesa" data-bs-placement="bottom">
                             <i data-feather="trash-2"></i>
                         </a>
                     </div>
@@ -450,7 +450,7 @@ export default function Templates() {
                         <small class="text-body-secondary">
                             <div style="display: flex; justify-content: end; align-items: center;">
                                 <div class="d-flex gap-3">
-                                    <a class="link-secondary edit_btn" data-id="${object1.id}" data-module-edit="Detallerecipe" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-recipe" data-bs-title="Editar Receta" data-bs-placement="bottom">
+                                    <a class="link-secondary edit_btn" data-id="${object1.id}" module-edit="Detallerecipe" data-module-edit="Recetas" style="cursor: pointer" data-bs-toggle="modal" data-bs-target="#edit-recipe" data-bs-title="Editar Receta" data-bs-placement="bottom">
                                         <i data-feather="edit"></i>
                                     </a>
                                 </div>
@@ -1262,7 +1262,7 @@ export default function Templates() {
     function tagFilterProduct(objet) {
         return `
         <div>
-            <input type="radio" class="btn-check" name="options-outlined" data-filter="${objet.nombre}" id="${objet.id + objet.nombre}" autocomplete="off">
+            <input type="radio" class="btn-check btn-filter-product" name="options-outlined" data-filter="${objet.nombre}" id="${objet.id + objet.nombre}" autocomplete="off">
             <label class="btn bh_1CHECKBOX rounded-pill" for="${objet.id + objet.nombre}">${objet.nombre}</label>
         </div>
         `
@@ -1458,6 +1458,29 @@ export default function Templates() {
         </div>
         `
     }
+    const selectTable = (objet) => {
+        return `
+        <div class="col-md-6 col-lg-3 mt-3">
+            <div class="card position-relative">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 align-items-center d-flex justify-content-center">
+                            <img src="${objet.imagen ? "media/table/" + objet.imagen : "./assets/img/big/banner_login.png" }" class="rounded-full" width="100" height="100" alt="">
+                        </div>
+                        <div class="col-md-8 d-flex flex-column justify-content-center">
+                            <h4>${objet.nombre}</h4>
+                            <p>capacidad: ${objet.sillas + " personas"}</p>
+                            <div>
+                                <input type="checkbox" id_table="${objet.id}" table_name="${objet.nombre}" class="btn-check btn_table_order" id="btn-check-outlined-${objet.id}" autocomplete="off">
+                                <label class="btn bh_1CHECKBOX" for="btn-check-outlined-${objet.id}">SELECCIONAR</label><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+    }
 
     //template de los detalles de caja
     async function infoCash(objet) {
@@ -1623,6 +1646,7 @@ export default function Templates() {
         Watermark,
         tagFilterProduct,
         selectProduct,
+        selectTable,
         targetDetailProductOrder,
         targetDetailOtherOrder,
         tagAdditional,

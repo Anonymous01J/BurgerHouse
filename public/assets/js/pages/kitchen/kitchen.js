@@ -1,16 +1,17 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 import { report } from "./report.js"
-const { print, searchParam, binnacle, sessionInfo, searchFilter } = functionGeneral();
+const { print, searchParam, binnacle, sessionInfo, searchFilter, permission, pagination } = functionGeneral();
 const { targetKitchen, infoKitchenDelivery, detailsKitchenDelivery } = Templates();
 let session = await sessionInfo()
 const config = {
-    search: () => searchParam({ status: 1 }, "order", 1000000000),
+    search: () => searchParam({ status: 1 }, "order", 12),
     template: targetKitchen,
     container: ".kitchen-cont-prepared",
     funtions: () => {
         preparedKitchen()
         modalDetails()
+        permission("cocina")
     }
 }
 print(config)
@@ -22,55 +23,57 @@ searchFilter("#searchKitchenPrepared", (e) => {
     if (e.target.value == "") printTargetPreparedOff("search", null, order => order.status > 1)
     else printTargetPreparedOff("like", e.target.value, order => order.status > 1)
 })
+// const printTargetPreparedOff = async (type, type_filter, condition, pagination, page) => {
+//     let templateCharge = "";
+//     templateCharge = `
+//           <div class="col-12 d-flex justify-content-center align-items-center fs-1" style="height: 50vh;">
+//             <div class="spinner-border" role="status" style="width: 150px; height: 150px; color: #c1c1c1;">
+//               <span class="visually-hidden">Loading...</span>
+//             </div>
+//           </div>
+//           `
+//     document.querySelector(".kitchen-cont-prepared-off").innerHTML = templateCharge;
+//     let result
+//     if (type == "search") result = await searchParam({}, "order", pagination, page);
+//     else if (type == "like") result = await searchParam({ nombre_like: type_filter }, "order");
+//     else result = await searchParam({ tipo: type_filter }, "order");
+//     let template = ""
+//     let template2 = ""
+//     let count = []
+//     if (result.length > 0) result.forEach((order) => {
+//         if (condition(order)) {
+//             template += targetKitchen(order)
+//             count.push({ id: order.id, status: order.status })
+//         } else {
+//             template2 = `
+//                 <div class="col-12">
+//                     <div class="d-flex justify-content-center align-items-center">
+//                         <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
+//                     </div>
+//                 </div>
+//                 `
+//         }
+//     })
+//     else {
+//         template = `
+//             <div class="col-12">
+//                 <div class="d-flex justify-content-center align-items-center">
+//                     <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
+//                 </div>
+//             </div>
+//             `
+//     }
+//     if (template != "") {
+//         document.querySelector(".kitchen-cont-prepared-off").innerHTML = template
+//         modalDetails()
+//     }
+//     else {
+//         document.querySelector(".kitchen-cont-prepared-off").innerHTML = template2
+//         modalDetails()
+//     }
+// }
+// printTargetPreparedOff("search", null, order => order.status > 1, 12, null)
 
-const printTargetPreparedOff = async (type, type_filter, condition) => {
-    let templateCharge = "";
-    templateCharge = `
-          <div class="col-12 d-flex justify-content-center align-items-center fs-1" style="height: 50vh;">
-            <div class="spinner-border" role="status" style="width: 150px; height: 150px; color: #c1c1c1;">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-          `
-    document.querySelector(".kitchen-cont-prepared-off").innerHTML = templateCharge;
-    let result
-    if (type == "search") result = await searchParam({}, "order");
-    else if (type == "like") result = await searchParam({ nombre_like: type_filter }, "order");
-    else result = await searchParam({ tipo: type_filter }, "order", 1000000000);
-    let template = ""
-    let template2 = ""
-    if (result.length > 0) result.forEach((order) => {
-        if (condition(order)) {
-            template += targetKitchen(order)
-        } else {
-            template2 = `
-                <div class="col-12">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
-                    </div>
-                </div>
-                `
-        }
-    })
-    else {
-        template = `
-            <div class="col-12">
-                <div class="d-flex justify-content-center align-items-center">
-                    <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
-                </div>
-            </div>
-            `
-    }
-    if (template != "") {
-        document.querySelector(".kitchen-cont-prepared-off").innerHTML = template
-        modalDetails()
-    }
-    else {
-        document.querySelector(".kitchen-cont-prepared-off").innerHTML = template2
-        modalDetails()
-    }
-}
-printTargetPreparedOff("search", null, order => order.status > 1)
 const preparedKitchen = () => {
     document.querySelectorAll(".btn_prepared").forEach(item => {
         item.addEventListener("click", async () => {
@@ -188,3 +191,72 @@ document.getElementById('navbarDropdown').addEventListener('click', function () 
         intro.start();
     }
 });
+
+pagination((page) => {
+    print({ ...config, search: () => searchParam({ status: 1 }, "order", 12, page) })
+}, ".pagination_prepared")
+
+const printTargetPreparedOff = async (
+    type,
+    type_filter,
+    condition,
+    pageSize = 12,
+    currentPage = 1
+) => {
+    document.querySelector(".kitchen-cont-prepared-off").innerHTML = `
+    <div class="col-12 d-flex justify-content-center align-items-center fs-1" style="height: 50vh;">
+      <div class="spinner-border" role="status" style="width: 150px; height: 150px; color: #c1c1c1;">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>`;
+
+    let result;
+    if (type === "search") {
+        result = await searchParam({}, "order", 10000000, 0);
+    } else if (type === "like") {
+        result = await searchParam({ nombre_like: type_filter }, "order", 10000000, null);
+    } else {
+        result = await searchParam({ tipo: type_filter }, "order", 10000000, null);
+    }
+
+    const filtered = result.filter(condition);
+    const totalPages = Math.max(Math.ceil(filtered.length / pageSize), 1);
+    currentPage = Math.min(Math.max(currentPage, 1), totalPages);
+    const start = (currentPage - 1) * pageSize;
+    const pageData = filtered.slice(start, start + pageSize);
+    let template = pageData.map(order => targetKitchen(order)).join("");
+    if (!template) {
+        template = `
+      <div class="col-12">
+        <div class="d-flex justify-content-center align-items-center">
+          <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
+        </div>
+      </div>`;
+    }
+    document.querySelector(".kitchen-cont-prepared-off").innerHTML = template;
+    modalDetails();
+    buildPreparedOffPager(totalPages, currentPage, page =>
+        printTargetPreparedOff(type, type_filter, condition, pageSize, page)
+    );
+};
+function buildPreparedOffPager(totalPages, currentPage, onChange) {
+    const ul = document.querySelector(".pagination_preparedoff");
+    ul.innerHTML = "";
+    const makeItem = (label, page, disabled = false, active = false) => {
+        const li = document.createElement("li");
+        li.className = `page-item ${disabled ? "disabled" : ""} ${active ? "active" : ""}`;
+        const a = document.createElement("a");
+        a.className = "page-link";
+        a.href = "#";
+        a.innerHTML = label;
+        if (!disabled) a.addEventListener("click", () => onChange(page));
+        li.appendChild(a);
+        ul.appendChild(li);
+    };
+    makeItem("&laquo;", currentPage - 1, currentPage === 1);
+    for (let i = 1; i <= totalPages; i++) {
+        makeItem(i, i, false, i === currentPage);
+    }
+    makeItem("&raquo;", currentPage + 1, currentPage === totalPages);
+}
+printTargetPreparedOff("search", null, (order) => order.status > 1, 12, 1);

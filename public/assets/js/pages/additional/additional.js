@@ -1,9 +1,10 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { resetForm, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, InputPrice, sessionInfo, viewImage, binnacle } = functionGeneral();
+const { resetForm, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, InputPrice, sessionInfo, viewImage, binnacle, permission } = functionGeneral();
 const { elemenFormAdditional } = Templates()
 InputPrice("[input_price]");
 viewImage(".input-image")
+permission("Adicionales")
 let session = await sessionInfo();
 let tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 let n = $(".table_additional").DataTable({
@@ -25,10 +26,10 @@ let n = $(".table_additional").DataTable({
             orderable: false,
             render: function (data, type, row, meta) {
                 return `
-                <button data-id="${data.id}" data-module-edit="additional" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-additional" data-bs-title="Editar Adicional" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-edit="additional" data-module-edit="Adicionales" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-additional" data-bs-title="Editar Adicional" data-bs-placement="bottom">
                     <i data-feather="edit" class="text-white"></i>
                 </button>
-                <button data-id="${data.id}" data-module-delete="additional" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Adicional" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-delete="additional" data-module-delete="Adicionales" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Adicional" data-bs-placement="bottom">
                     <i data-feather="trash" class="text-white"></i>
                 </button>
 `;
@@ -40,6 +41,7 @@ let n = $(".table_additional").DataTable({
         document.querySelectorAll(".trash_btn_datatable, .edit_btn_datatable").forEach((btn) => {
             let tooltip = new bootstrap.Tooltip(btn)
         })
+        permission("Adicionales")
     },
     "dom": 'tipr',
     "paging": true,
@@ -244,11 +246,11 @@ editDataTables(".table_additional", (response) => {
         formEdit.dataset.listenerAttached = "true";
     }
 })
-    document.getElementById('navbarDropdown').addEventListener('click', function () {
-        if (typeof introJs !== 'undefined') {
-            let intro = introJs();
-            intro.setOptions({
-                steps: [
+document.getElementById('navbarDropdown').addEventListener('click', function () {
+    if (typeof introJs !== 'undefined') {
+        let intro = introJs();
+        intro.setOptions({
+            steps: [
                 {
                     element: '.page-title',
                     intro: 'Esta es la sección de Adicionales, donde puedes gestionar los productos disponibles en el sistema.',
@@ -269,13 +271,23 @@ editDataTables(".table_additional", (response) => {
                     intro: 'Aquí puedes ver la lista de adicionales disponibles. Puedes editar o eliminar cada adicional.',
                     position: 'top'
                 },
-                ],
-                showBullets: true,
-                exitOnOverlayClick: false,
-                showProgress: true
-            });
-            intro.start();
-        }
-    });
+                {
+                    element: '.cont-product',
+                    intro: 'Este contenedor muestra los productos preparados disponibles. Puedes editarlos o eliminarlos.',
+                    position: 'top'
+                },
+                {
+                    element: '#top-products',
+                    intro: 'Esta sección muestra los productos más vendidos y su rendimiento.',
+                    position: 'top'
+                }
+            ],
+            showBullets: true,
+            exitOnOverlayClick: false,
+            showProgress: true
+        });
+        intro.start();
+    }
+});
 deleteDatatable(".table_additional", n, () => binnacle(session.message.id, "Adicionales", "Eliminacion", "Se ha eliminado un adicional"))
 attachValidationListeners(1);

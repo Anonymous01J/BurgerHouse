@@ -1,15 +1,9 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
-
-
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
-
     <div class="page-wrapper">
         <div class="page-breadcrumb">
             <div class="row">
@@ -24,14 +18,11 @@
                         </nav>
                     </div>
                 </div>
-
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
 
         <div class="container-fluid">
-
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Libres</button>
@@ -46,14 +37,30 @@
                         <div class="col-auto">
                             <input type="search" id="SearchTablesFREE" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
-                        <button id="register-table-button" data-bs-toggle="modal" data-bs-target="#register-table" type="button" class="btn bh_1 btn-circle text-white">
+                        <button id="register-table-button" data-bs-toggle="modal" data-module-add="mesas" data-bs-target="#register-table" type="button" class="btn bh_1 btn-circle text-white">
                             <i data-feather="plus" class="svg-icon"></i>
                         </button>
                     </div>
 
-                    <div class="row cont_tables_free">
+                    <div class="row cont_tables_free mb-5">
                         <!-- aqui se cargan las mesas libres -->
                     </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination_free justify-content-end">
+                            <li class="page-item" id="prev-page">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <!-- Aquí se insertan los números dinámicamente -->
+                            <li class="page-item" id="next-page">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
                 </div>
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                     <div class="row g-3 align-items-center mb-5 mt-3">
@@ -62,9 +69,25 @@
                         </div>
                     </div>
 
-                    <div class="row cont_tables_occupied">
+                    <div class="row cont_tables_occupied mb-5">
                         <!-- aqui se cargan las mesas ocupadas -->
                     </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination pagination_occupied justify-content-end">
+                            <li class="page-item" id="prev-page">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <!-- Aquí se insertan los números dinámicamente -->
+                            <li class="page-item" id="next-page">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
                 </div>
             </div>
 

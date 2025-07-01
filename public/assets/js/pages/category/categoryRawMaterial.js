@@ -1,6 +1,6 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
-const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm, sessionInfo, binnacle } = functionGeneral();
+const { setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, resetForm, sessionInfo, binnacle, permission } = functionGeneral();
 const { elemenFormCategoryRawmaterial } = Templates()
 let session = await sessionInfo();
 document.querySelectorAll(".btn-add-tooltip").forEach((btn) => { new bootstrap.Tooltip(btn) })
@@ -24,10 +24,10 @@ let table = $(".table_category_rawmaterial").DataTable({
             orderable: false,
             render: function (data, type, row, meta) {
                 return `
-                <button data-id="${data.id}" data-module-edit="categoryMateriaPrima" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-categoryRawMaterial" data-bs-title="Editar Categoria" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-edit="categoryMateriaPrima" data-module-edit="categorias" class="btn bh_1 rounded-circle btn-circle edit_btn_datatable" data-bs-toggle="modal" data-bs-target="#edit-categoryRawMaterial" data-bs-title="Editar Categoria" data-bs-placement="bottom">
                     <i data-feather="edit" class="text-white"></i>
                 </button>
-                <button data-id="${data.id}" data-module-delete="categoryMateriaPrima" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Categoria" data-bs-placement="bottom">
+                <button data-id="${data.id}" module-delete="categoryMateriaPrima" data-module-delete="categorias" class="btn bh_5 rounded-circle btn-circle trash_btn_datatable" data-bs-toggle="tooltip" data-bs-title="Eliminar Categoria" data-bs-placement="bottom">
                     <i data-feather="trash" class="text-white"></i>
                 </button>
 `;
@@ -39,14 +39,13 @@ let table = $(".table_category_rawmaterial").DataTable({
         document.querySelectorAll(".trash_btn_datatable, .edit_btn_datatable").forEach((btn) => {
             let tooltip = new bootstrap.Tooltip(btn)
         })
+        permission("categorias")
     },
     "dom": 'tipr',
     "paging": true,
     "info": true,
 })
-$('#searchCategoryRawMaterials').on('keyup', function () {
-    table.search(this.value).draw();
-});
+$('#searchCategoryRawMaterials').on('keyup', function () { table.search(this.value).draw() });
 deleteDatatable(".table_category_rawmaterial", table, () => binnacle(session.user_id, "Materia Prima", "Eliminacion", "Eliminacion de categoria de materia prima"))
 
 let CategoryRawMaterialCount = 1;
@@ -128,7 +127,7 @@ if (!form.dataset.listenerAttached) {
             datacategoryRawMaterial.forEach((category, index) => {
                 dataFinal.append(`lista[${index}][nombre]`, category.nombre)
             })
-            addDataTables(table, dataFinal, "categoryMateriaPrima",  binnacle(session.user_id, "Materia Prima", "Agregar", "Se agrego una nueva categoria materia prima"))
+            addDataTables(table, dataFinal, "categoryMateriaPrima", binnacle(session.user_id, "Materia Prima", "Agregar", "Se agrego una nueva categoria materia prima"))
             resetForm(".categoryRawMaterials", form)
             bootstrap.Modal.getOrCreateInstance('#register-categoryRawMaterials').hide()
         }

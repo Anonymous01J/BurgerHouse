@@ -1,12 +1,11 @@
 import functionGeneral from "./Functions.js";
-const { permission, searchParam, fecha, CheckCash } = functionGeneral()
+const { permission, searchParam, fecha, CheckCash, sessionInfo } = functionGeneral()
 let title = document.getElementById('titlePage');
 let url = window.location.href;
 let urlArray = url.split('/');
 title.textContent = "Burger House | " + urlArray[4].toLocaleUpperCase();
 
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const savedTheme = localStorage.getItem('darkMode');
     const check = localStorage.getItem('check');
     const isDark = savedTheme === 'true';
@@ -41,7 +40,6 @@ document.querySelectorAll(".logout_btn").forEach((btn) => {
         window.location = "login"
     })
 })
-
 //caja
 if (await CheckCash() != null) {
     document.querySelector(".cash_status").classList.add("bg-success")
@@ -60,24 +58,3 @@ if (await CheckCash() != null) {
         tooltip.update();
     }
 }
-
-let uno = [
-    {
-        id_rawmaterial: 1,
-        cantidad: 1
-    },
-    {
-        id_rawmaterial: 2,
-        cantidad: 3
-    }
-]
-let dos = [
-    {
-        id_rawmaterial: 2,
-        cantidad: 3
-    }
-]
-
-const sonIguales = (a, b) => a.id_rawmaterial === b.id_rawmaterial && a.cantidad === b.cantidad;
-const unicosEnUno = uno.filter(obj1 => !dos.some(obj2 => sonIguales(obj1, obj2)));
-const unicosEnDos = dos.filter(obj2 => !uno.some(obj1 => sonIguales(obj1, obj2)));

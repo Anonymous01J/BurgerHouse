@@ -1,27 +1,67 @@
 export default function functionGeneral() {
-  async function permission(module = null) {
+  async function permission(module = null, funtion = null) {
     if (module != null) {
-      let data = await fetch("./assets/js/permission_example.json");
-      let response = await data.json();
-      const permiss = response.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) ? response.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) : null;
-
+      let session = await sessionInfo();
+      let data = await searchParam({ id_rol: session.message.id_rol }, "permissions", 100000000)
+      const permiss = data.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) ? data.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) : null;
       if (permiss != null) {
         let permissions = permiss.permisos.split(",");
-        if (!permissions.includes("agregar") && document.querySelector(`[data-module-add='${module.toLocaleLowerCase()}']`)) {
-          document.querySelectorAll(`[data-module-add='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
+        if (!permissions.includes("agregar") && document.querySelector(`[data-module-add='${module}']`)) {
+          document.querySelectorAll(`[data-module-add='${module}']`).forEach((d) => d.remove())
         }
         if (!permissions.includes("editar")) {
-          document.querySelectorAll(`[data-module-edit='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove())
+          document.querySelectorAll(`[data-module-edit='${module}']`).forEach((d) => d.remove())
         }
         if (!permissions.includes("eliminar")) {
-          document.querySelectorAll(`[data-module-delete='${module.toLocaleLowerCase()}']`).forEach((d) => d.remove());
+          document.querySelectorAll(`[data-module-delete='${module}']`).forEach((d) => d.remove());
         }
         if (!permissions.includes("consultar")) {
           document.querySelectorAll(`[data-module='${module}']`).forEach((d) => d.remove());
         }
-      } else if (document.querySelector(`[data-module='${module}']`)) {
-        document.querySelector(`[data-module='${module}']`).remove();
+        if (!permissions.includes("verificar")) {
+          document.querySelectorAll(`[data-module-verify='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("anular")) {
+          document.querySelectorAll(`[data-module-null='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("crear")) {
+          document.querySelectorAll(`[data-module-create='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("despachar")) {
+          document.querySelectorAll(`[data-module-dispatch='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("preparar")) {
+          document.querySelectorAll(`[data-module-prepared='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("ver detalles")) {
+          document.querySelectorAll(`[data-module-details='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("guardar gasto")) {
+          document.querySelectorAll(`[data-module-gasto='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("guardar ingreso")) {
+          document.querySelectorAll(`[data-module-ingreso='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("restaurar")) {
+          document.querySelectorAll(`[data-module-restore='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("abrir")) {
+          document.querySelectorAll(`[data-module-open='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("cerrar")) {
+          document.querySelectorAll(`[data-module-close='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("asignar roles")) {
+          document.querySelectorAll(`[data-module-assign_rol='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("importar")) {
+          document.querySelectorAll(`[data-module-import='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("exportar")) {
+          document.querySelectorAll(`[data-module-export='${module}']`).forEach((d) => d.remove())
+        }
       }
+      if (typeof funtion == "function") funtion()
     }
   }
   function InputPrice(input) {
@@ -408,7 +448,7 @@ export default function functionGeneral() {
         }).then((result) => {
           if (result.isConfirmed) {
             let id = element.getAttribute("data-id");
-            let module = element.getAttribute("data-module-delete");
+            let module = element.getAttribute("module-delete");
             $.ajax({
               type: "POST",
               url: `${module}/update`,
@@ -465,14 +505,14 @@ export default function functionGeneral() {
       });
     }
   };
-  const searchParam = async (param, module, pagination = null) => {
+  const searchParam = async (param, module, pagination = null, nro_page = null) => {
     let data = new FormData()
     if (Object.keys(param).length != 0) {
       Object.keys(param).forEach((key) => {
         data.append(`${key}`, `${param[key]}`)
       })
     }
-    let pet = await fetch(`${module}/get_all/0/${pagination == null ? 6 : pagination}/id/desc`, {
+    let pet = await fetch(`${module}/get_all/${nro_page == null ? 0 : nro_page}/${pagination == null ? 6 : pagination}/id/desc`, {
       method: "POST",
       body: data
     });
@@ -513,7 +553,7 @@ export default function functionGeneral() {
     document.querySelectorAll(".edit_btn").forEach(btn => {
       btn.addEventListener("click", async () => {
         let id = btn.getAttribute("data-id")
-        let module = btn.getAttribute("data-module-edit")
+        let module = btn.getAttribute("module-edit")
         let data = new FormData();
         module == "Detallerecipe" ? data.append("id_receta", id) : data.append("id", id);
         let pet = await fetch(`${module}/get_all`, {
@@ -533,6 +573,73 @@ export default function functionGeneral() {
       searchLike(e)
     });
   }
+  const pagination = (print, pagItem) => {
+    document.querySelectorAll(pagItem).forEach((pagination) => {
+      let page = 0;
+      const renderPagination = () => {
+        pagination.querySelectorAll(".page-number").forEach(el => el.remove());
+        const prevBtn = pagination.querySelector("#prev-page");
+        const nextBtn = pagination.querySelector("#next-page");
+        if (page > 0) {
+          const prevNum = document.createElement("li");
+          prevNum.className = "page-item page-number";
+          prevNum.innerHTML = `<a class="page-link" href="#">${page}</a>`;
+          prevNum.addEventListener("click", (e) => {
+            e.preventDefault();
+            page = page - 1;
+            updatePag();
+          });
+          pagination.insertBefore(prevNum, nextBtn);
+        }
+
+        const current = document.createElement("li");
+        current.className = "page-item page-number active";
+        current.innerHTML = `<span class="page-link">${page + 1}</span>`;
+        pagination.insertBefore(current, nextBtn);
+
+        const nextNum = document.createElement("li");
+        nextNum.className = "page-item page-number";
+        nextNum.innerHTML = `<a class="page-link" href="#">${page + 2}</a>`;
+        nextNum.addEventListener("click", (e) => {
+          e.preventDefault();
+          page = page + 1;
+          updatePag();
+        });
+        pagination.insertBefore(nextNum, nextBtn);
+
+        if (prevBtn) {
+          prevBtn.classList.toggle("disabled", page === 0);
+        }
+      };
+
+      const updatePag = () => {
+        print(page);
+        renderPagination();
+      };
+
+      const prevBtn = pagination.querySelector("#prev-page");
+      const nextBtn = pagination.querySelector("#next-page");
+
+      if (prevBtn) {
+        prevBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          if (page > 0) {
+            page--;
+            updatePag();
+          }
+        });
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          page++;
+          updatePag();
+        });
+      }
+      updatePag();
+    });
+  };
+
   //--------------funciones para el manejo de peticiones ajax para las datatables------------------
   const deleteDatatable = (tableItem, table, binnacle) => {
     $(`${tableItem} tbody`).on("click", ".trash_btn_datatable", function () {
@@ -546,7 +653,7 @@ export default function functionGeneral() {
       }).then((result) => {
         if (result.isConfirmed) {
           let id = this.getAttribute("data-id");
-          let module = this.getAttribute("data-module-delete");
+          let module = this.getAttribute("module-delete");
           $.ajax({
             type: "POST",
             url: `${module}/update`,
@@ -606,7 +713,7 @@ export default function functionGeneral() {
   const editDataTables = async (tableItem, inputs) => {
     $(`${tableItem} tbody`).on("click", ".edit_btn_datatable", function () {
       let id = this.getAttribute("data-id")
-      let module = this.getAttribute("data-module-edit")
+      let module = this.getAttribute("module-edit")
       $.ajax({
         type: "POST",
         url: `${module}/get_all`,
@@ -665,6 +772,7 @@ export default function functionGeneral() {
     searchAll,
     searchParam,
     searchFilter,
+    pagination,
     print,
     add,
     Delete,

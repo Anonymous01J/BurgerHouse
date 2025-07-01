@@ -6,7 +6,7 @@
                     <div class="col-md-6 col-lg-3">
                         <input type="search" class="form-control" id="searchCategoryRawMaterials" placeholder="Buscar">
                     </div>
-                    <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="combo" data-bs-toggle="modal" data-bs-target="#register-categoryRawMaterials" data-bs-title="Agregar Categoria" data-bs-placement="right">
+                    <button type="button" class="btn bh_1 btn-circle text-white btn-add-tooltip" data-module-add="categorias" data-bs-toggle="modal" data-bs-target="#register-categoryRawMaterials" data-bs-title="Agregar Categoria" data-bs-placement="right">
                         <i data-feather="plus" class="svg-icon"></i>
                     </button>
                 </div>
