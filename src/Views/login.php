@@ -14,8 +14,6 @@
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <link rel="stylesheet" href="./assets/libs/libs/sweetalert/sweetalert2.min.css">
     <script src="./assets/libs/libs/sweetalert/sweetalert2.all.min.js"></script>
-
-
 </head>
 
 <body>
@@ -23,9 +21,7 @@
         <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
 
-        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative overflow-hidden"
-            style="background:url(./assets/img/big/auth-bg.jpg) no-repeat center center;">
-
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative overflow-hidden" style="background:url(./assets/img/big/auth-bg.jpg) no-repeat center center;">
             <div class="auth-box row login_page">
                 <div class="col-lg-7 col-md-5 modal-bg-img" style="background-image: url(./assets/img/big/banner_login.png);">
                 </div>
@@ -56,7 +52,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-12 d-flex justify-content-center mb-3">
-                                    <div class="cf-turnstile" data-sitekey="0x4AAAAAABDYzFakhjOmzEUX" data-theme="light" data-lenguage="es"></div>
+                                    <div class="cf-turnstile" data-sitekey="0x4AAAAAABDYzFakhjOmzEUX" data-theme="light" data-lenguage="es" data-callback="captchaVerify"></div>
                                 </div>
                                 <div class="col-lg-12 text-center">
                                     <button type="submit" class="btn w-100 btn-dark d-flex justify-content-center align-items-center gap-2">
@@ -83,7 +79,7 @@
     <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.min.js "></script>
     <script src="./assets/libs/libs/validatejs/validate.min.js"></script>
     <script type="module" src="./assets/js/pages/login/login.js"></script>
-
+    </script>
 </body>
 
 </html>
