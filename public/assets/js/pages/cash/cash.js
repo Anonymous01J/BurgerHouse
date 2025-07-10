@@ -1,9 +1,12 @@
 import funtionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 import { report } from "./report.js"
+import introTooltip from "../../intro-tooltip.js"
+const {cash} = introTooltip()
 const { targetCash, infoCash, amountCash, cashDetail } = Templates()
 const { validateField, setValidationStyles, sessionInfo, binnacle, print, add, searchParam, InputPrice, CheckCash, searchFilter, permission } = funtionGeneral()
 InputPrice("[input_price]")
+cash('navbarDropdown')
 let session = await sessionInfo()
 let cash = await CheckCash()
 permission("caja")
@@ -236,57 +239,3 @@ formFilter.addEventListener("submit", (e) => {
     let end = formFilter.querySelector("#date_end").value
     console.log(searchParam({ init: init, end: end }, "cash"));
 })
-// IntroJs
-document.getElementById('navbarDropdown').addEventListener('click', function () {
-    if (typeof introJs !== 'undefined') {
-        let intro = introJs();
-        intro.setOptions({
-            steps: [
-                {
-                    element: '.page-title',
-                    intro: 'Esta es la sección de caja, donde puedes gestionar las cajas abiertas y cerradas.',
-                    position: 'bottom'
-                },
-                {
-                    element: '.cash_status',
-                    intro: 'El estado de la caja actual se muestra aquí. Si está abierta, será verde; si está cerrada, será roja.',
-                    position: 'top'
-                },
-                {
-                    element: '#home-tab',
-                    intro: 'Aquí puedes ver las cajas abiertas actualmente.',
-                    position: 'bottom'
-                },
-                {
-                    element: '#profile-tab',
-                    intro: 'Aquí puedes consultar las cajas cerradas previamente.',
-                    position: 'bottom'
-                },
-                {
-                    element: '#inputPassword6',
-                    intro: 'Utiliza este cuadro de búsqueda para filtrar las cajas abiertas o cerradas.',
-                    position: 'top'
-                },
-                {
-                    element: '.bh_1[data-bs-target="#register-cash"]',
-                    intro: 'Haz clic aquí para registrar una nueva caja.',
-                    position: 'top'
-                },
-                {
-                    element: '.bh_1',
-                    intro: 'Haz clic aquí para cerrar esta caja.',
-                    position: 'top'
-                },
-                {
-                    element: '.bh_5',
-                    intro: 'Haz clic aquí para ver los detalles de esta caja.',
-                    position: 'top'
-                },
-            ],
-            showBullets: true,
-            exitOnOverlayClick: false,
-            showProgress: true
-        });
-        intro.start();
-    }
-});

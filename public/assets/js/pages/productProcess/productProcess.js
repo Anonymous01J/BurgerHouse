@@ -1,9 +1,12 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
+import introTooltip from "../../intro-tooltip.js"
+const {productProcess} = introTooltip()
 const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, print, add, reindex, resetForm, permission, searchFilter, sessionInfo, binnacle, edit, Delete } = functionGeneral();
 const { targetProductProcess, elemenFormCombo, optionsRol } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 let session = await sessionInfo()
+productProcess('navbarDropdown')
 InputPrice("[input_price]");
 selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 viewImage(".input-image")
@@ -288,7 +291,6 @@ function editData(response) {
     form.dataset.listenerAttached = "true";
   }
 }
-document.getElementById('navbarDropdown').addEventListener('click', function () {
   if (typeof introJs !== 'undefined') {
       let intro = introJs();
       intro.setOptions({

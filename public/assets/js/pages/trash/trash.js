@@ -1,6 +1,9 @@
 import functionGeneral from "../../Functions.js";
+import introTooltip from "../../intro-tooltip.js"
+const {trash} = introTooltip()
 const { sessionInfo, binnacle, fecha, permission } = functionGeneral();
 let session = await sessionInfo()
+trash('navbarDropdown')
 const modulesConfig = {
     mesas: {
         ajax: {
@@ -467,39 +470,5 @@ options.forEach((option) => {
         select.querySelector("input[type='button']").value = moduleName
         initTable(moduleKey);
     });
-});
-// IntroJs
-document.getElementById('navbarDropdown').addEventListener('click', function () {
-    if (typeof introJs !== 'undefined') {
-        let intro = introJs();
-        intro.setOptions({
-            steps: [
-                {
-                    element: '.page-title',
-                    intro: 'Esta es la sección de papelera, donde puedes gestionar los elementos eliminados de diferentes módulos.',
-                    position: 'bottom'
-                },
-                {
-                    element: '#SearchTrash',
-                    intro: 'Utiliza este cuadro de búsqueda para filtrar los elementos eliminados en la papelera.',
-                    position: 'top'
-                },
-                {
-                    element: '.select_options_module',
-                    intro: 'Selecciona un módulo para filtrar los elementos eliminados específicos de ese módulo.',
-                    position: 'top'
-                },
-                {
-                    element: '.table_trash',
-                    intro: 'Esta tabla muestra los elementos eliminados. Si deseas puedes restaurarlos.',
-                    position: 'top'
-                }
-            ],
-            showBullets: true,
-            exitOnOverlayClick: false,
-            showProgress: true
-        });
-        intro.start();
-    }
 });
 initTable("mesas");

@@ -1,7 +1,10 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
+import introTooltip from "../../intro-tooltip.js"
 const { resetForm, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, InputPrice, sessionInfo, viewImage, binnacle, permission } = functionGeneral();
 const { elemenFormAdditional } = Templates()
+const {additional} = introTooltip()
+additional('navbarDropdown')
 InputPrice("[input_price]");
 viewImage(".input-image")
 permission("Adicionales")
@@ -246,48 +249,5 @@ editDataTables(".table_additional", (response) => {
         formEdit.dataset.listenerAttached = "true";
     }
 })
-document.getElementById('navbarDropdown').addEventListener('click', function () {
-    if (typeof introJs !== 'undefined') {
-        let intro = introJs();
-        intro.setOptions({
-            steps: [
-                {
-                    element: '.page-title',
-                    intro: 'Esta es la sección de Adicionales, donde puedes gestionar los productos disponibles en el sistema.',
-                    position: 'bottom'
-                },
-                {
-                    element: '#searchAdditional',
-                    intro: 'Utiliza este cuadro de búsqueda para filtrar los adicionales disponibles.',
-                    position: 'top'
-                },
-                {
-                    element: '.btn-add-tooltip',
-                    intro: 'Haz clic aquí para agregar un nuevo adicional.',
-                    position: 'top'
-                },
-                {
-                    element: '.card-body',
-                    intro: 'Aquí puedes ver la lista de adicionales disponibles. Puedes editar o eliminar cada adicional.',
-                    position: 'top'
-                },
-                {
-                    element: '.cont-product',
-                    intro: 'Este contenedor muestra los productos preparados disponibles. Puedes editarlos o eliminarlos.',
-                    position: 'top'
-                },
-                {
-                    element: '#top-products',
-                    intro: 'Esta sección muestra los productos más vendidos y su rendimiento.',
-                    position: 'top'
-                }
-            ],
-            showBullets: true,
-            exitOnOverlayClick: false,
-            showProgress: true
-        });
-        intro.start();
-    }
-});
 deleteDatatable(".table_additional", n, () => binnacle(session.message.id, "Adicionales", "Eliminacion", "Se ha eliminado un adicional"))
 attachValidationListeners(1);
