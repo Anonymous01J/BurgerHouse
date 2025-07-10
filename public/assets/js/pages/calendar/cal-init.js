@@ -1,3 +1,6 @@
+import introTooltip from "../../intro-tooltip.js"
+const {calendar} = introTooltip()
+calendar('navbarDropdown')
 const calendarEl = document.getElementById('calendar');
 
 const calendar = new FullCalendar.Calendar(calendarEl, {

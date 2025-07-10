@@ -1,8 +1,11 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
+import introTooltip from "../../intro-tooltip.js"
+const {productPrepared} = introTooltip()
 const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, Delete, edit, print, add, reindex, resetForm, permission, searchFilter, sessionInfo, binnacle, pagination } = functionGeneral();
 const { targetProductPrepared, elemenFormCombo, optionsRol } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
+productPrepared('navbarDropdown')
 InputPrice("[input_price]");
 selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 viewImage(".input-image")
@@ -291,48 +294,5 @@ function editData(response) {
     form.dataset.listenerAttached = "true";
   }
 }
-document.getElementById('navbarDropdown').addEventListener('click', function () {
-  if (typeof introJs !== 'undefined') {
-    let intro = introJs();
-    intro.setOptions({
-      steps: [
-        {
-          element: '.page-title',
-          intro: 'Esta es la sección de productos preparados, donde puedes gestionar los productos disponibles en el sistema.',
-          position: 'bottom'
-        },
-        {
-          element: '#searchProduct',
-          intro: 'Utiliza este cuadro de búsqueda para filtrar los productos preparados.',
-          position: 'top'
-        },
-        {
-          element: '.btn-add-tooltip',
-          intro: 'Haz clic aquí para agregar un nuevo producto preparado.',
-          position: 'top'
-        },
-        {
-          element: '#categories',
-          intro: 'Aquí puedes ver las categorías disponibles para los productos preparados. Selecciona una categoría para filtrar los productos preparados por tipo.',
-          position: 'top'
-        },
-        {
-          element: '.cont-product',
-          intro: 'Este contenedor muestra los productos preparados disponibles. Puedes editarlos o eliminarlos.',
-          position: 'top'
-        },
-        {
-          element: '#top-products',
-          intro: 'Esta sección muestra los productos más vendidos y su rendimiento.',
-          position: 'top'
-        }
-      ],
-      showBullets: true,
-      exitOnOverlayClick: false,
-      showProgress: true
-    });
-    intro.start();
-  }
-});
 
 pagination((page) => print({ ...config, search: () => searchParam({ active: 1, tipo: "producto" }, "productPrepared", null, page) }), ".pagination")
