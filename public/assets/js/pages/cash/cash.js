@@ -143,7 +143,7 @@ const modalDetail = () => {
                 Object.keys(group).forEach((key) => {
                     let monto_dolar = group[key].reduce((acc, item) => acc + item.monto, 0)
                     let tasaPlus = group[key].reduce((acc, item) => item.tasa > acc ? acc = item.tasa : acc, 0)
-                    let monto_bs = monto_dolar * tasaPlus
+                    let monto_bs = monto_dolar
                     group[key].forEach((item) => {
                         if (item.metodo_pago.toLowerCase() == "transferencia" || item.metodo_pago.toLowerCase() == "pago movil") {
                             group[key] = {

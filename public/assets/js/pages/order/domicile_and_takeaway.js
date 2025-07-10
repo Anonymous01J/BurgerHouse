@@ -1,9 +1,11 @@
-export default async function domicile_and_takeaway(functions, templates, type_order, targetUpdate) {
+export default async function domicile_and_takeaway(functions, templates, report, targetUpdate) {
     const { searchParam, amountDolar, viewImage, InputPrice, selectOptionAll, validateField, setValidationStyles, reindex, CheckCash, sessionInfo, binnacle, resetForm } = functions()
     const { tagFilterProduct, selectProduct, targetDetailProductOrder, targetDetailOtherOrder, targetClienteOrder, optionsRol, elemenFormPaymentOrder } = templates()
     viewImage(".input-image")
     InputPrice("[input_price]");
     selectOptionAll(".select_options_payment", "paymentMethod", optionsRol);
+    let iti = window.intlTelInput(document.querySelector("#input-tel-client-order"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
+
     const resetFormModal = () => {
         document.querySelector(".cont-select-product-order").innerHTML = ""
         const container = document.querySelector(".cont_category_product_orders");
@@ -14,6 +16,8 @@ export default async function domicile_and_takeaway(functions, templates, type_o
         document.querySelector(".loader_client_order").querySelector(".loader").classList.add("d-none")
         document.getElementById('form-search-client-order').reset()
         document.querySelector(".direction_sale").value = ""
+        document.querySelector("#input-tel-client-order").value = ""
+        document.querySelector("#input-tel-client-order").classList.remove("is-invalid", "is-valid")
         resetForm(".payments", document.getElementById("form-submit-payment"))
     }
     let session = await sessionInfo()
@@ -125,14 +129,17 @@ export default async function domicile_and_takeaway(functions, templates, type_o
             subT.push(price * quantity)
         }
 
+        let iva = ((subT.reduce((a, b) => a + b, 0) + priceAdditional.reduce((a, b) => a + b, 0)) * 0.16).toFixed(2)
+        let subtotal = (subT.reduce((a, b) => a + b, 0) + priceAdditional.reduce((a, b) => a + b, 0)).toFixed(2)
+        let total = parseFloat(subtotal) + parseFloat(iva)
         //MONTOS DE EL DETALLE
-        document.querySelector(".subtotal").textContent = "SUBTOTAL: " + (subT.reduce((a, b) => a + b, 0) + priceAdditional.reduce((a, b) => a + b, 0)).toFixed(2) + " $"
-        document.querySelector(".iva").textContent = "IVA: " + ((subT.reduce((a, b) => a + b, 0) + priceAdditional.reduce((a, b) => a + b, 0)) * 0.16).toFixed(2) + " $"
-        document.querySelector(".total-amount").textContent = "TOTAL: " + ((subT.reduce((a, b) => a + b, 0) + priceAdditional.reduce((a, b) => a + b, 0)) + subT.reduce((a, b) => a + b, 0) * 0.16).toFixed(2) + " $" + " ------ " + (((subT.reduce((a, b) => a + b, 0) + priceAdditional.reduce((a, b) => a + b, 0)) + subT.reduce((a, b) => a + b, 0) * 0.16) * await amountDolar()).toFixed(2) + " BS"
+        document.querySelector(".subtotal").textContent = "SUBTOTAL: " + subtotal + " $"
+        document.querySelector(".iva").textContent = "IVA: " + iva + " $"
+        document.querySelector(".total-amount").textContent = "TOTAL: " + total.toFixed(2) + " $" + " ------ " + (total * await amountDolar()).toFixed(2) + " BS"
 
         //MONTOS DE EL PAGO
-        document.querySelector(".amount_payment_usd").textContent = ((subT.reduce((a, b) => a + b, 0) + priceAdditional.reduce((a, b) => a + b, 0)) + subT.reduce((a, b) => a + b, 0) * 0.16).toFixed(2)
-        document.querySelector(".amount_payment_bs").textContent = (((subT.reduce((a, b) => a + b, 0) + priceAdditional.reduce((a, b) => a + b, 0)) + subT.reduce((a, b) => a + b, 0) * 0.16) * await amountDolar()).toFixed(2)
+        document.querySelector(".amount_payment_usd").textContent = (total).toFixed(2)
+        document.querySelector(".amount_payment_bs").textContent = ((total) * await amountDolar()).toFixed(2)
     }
     // funcion para los filtros de productos y carga de productos
     const filter = () => {
@@ -226,40 +233,43 @@ export default async function domicile_and_takeaway(functions, templates, type_o
         document.querySelector(".loader_client_order").querySelector("h3").classList.add("d-none")
         document.querySelector(".target_client_order").classList.add("d-none")
         document.querySelector(".loader_client_order").querySelector(".loader").classList.remove("d-none")
-        let data = new FormData()
-        data.append("cedula", formClient.querySelector("input").value);
-        let pet = await fetch(`login/cedula`, { method: "POST", body: data })
-        let res = await pet.json()
-        if (res.success == true) {
-            let response = res.message
-            let pet = await searchParam({ active: 1, documento: response.nacionalidad + "-" + response.cedula }, "clients", 1)
-            if (pet.length > 0) {
-                let template = targetClienteOrder(pet[0])
-                document.querySelector(".loader_client_order").querySelector(".loader").classList.add("d-none")
-                document.querySelector(".target_client_order").innerHTML = template
-                document.querySelector(".target_client_order").classList.remove("d-none")
-            } else {
+        let pet = await searchParam({ active: 1 }, "clients", 100000)
+        let result = pet.find((client) => { return client.documento.includes(formClient.querySelector("input").value) })
+        if (result != undefined) {
+            let template = targetClienteOrder(result)
+            iti.setNumber(result.telefono)
+            document.querySelector(".loader_client_order").querySelector(".loader").classList.add("d-none")
+            document.querySelector(".target_client_order").innerHTML = template
+            document.querySelector(".target_client_order").classList.remove("d-none")
+        } else {
+            let data = new FormData()
+            data.append("cedula", formClient.querySelector("input").value);
+            let pet = await fetch(`login/cedula`, { method: "POST", body: data })
+            let res = await pet.json()
+            if (res.success == true) {
                 let data = new FormData()
-                data.append("nombre", response.primer_nombre);
-                data.append("apellido", response.primer_apellido);
-                data.append("documento", response.nacionalidad + "-" + response.cedula);
-                let pet = await fetch(`clients/add`, { method: "POST", body: data })
-                let res = await pet.json()
-                let pet2 = await searchParam({ active: 1, id: res.last_id }, "clients", 1);
-                console.log(pet2);
-                if (pet2.length > 0) {
-                    let template = targetClienteOrder(pet2[0])
+                data.append("nombre", res.message.primer_nombre);
+                data.append("apellido", res.message.primer_apellido);
+                data.append("documento", res.message.nacionalidad + "-" + res.message.cedula);
+                let pet2 = await fetch(`clients/add`, { method: "POST", body: data })
+                let res2 = await pet2.json()
+                if (res2.success == true) {
+                    let pet3 = await searchParam({ active: 1, id: res2.last_id }, "clients", 1);
+                    let template = targetClienteOrder(pet3[0])
                     document.querySelector(".loader_client_order").querySelector(".loader").classList.add("d-none")
                     document.querySelector(".target_client_order").innerHTML = template
                     document.querySelector(".target_client_order").classList.remove("d-none")
                 } else {
                     toas("error", "Error al registrar el cliente")
+                    document.querySelector(".loader_client_order").querySelector(".loader").classList.add("d-none")
+                    document.querySelector(".target_client_order").innerHTML = template
+                    document.querySelector(".target_client_order").classList.remove("d-none")
                 }
+            } else {
+                toas("error", "Cliente no encontrado")
+                document.querySelector(".loader_client_order").querySelector("h3").classList.remove("d-none")
+                document.querySelector(".loader_client_order").querySelector("div").classList.add("d-none")
             }
-        } else {
-            toas("error", "Cliente no encontrado")
-            document.querySelector(".loader_client_order").querySelector("h3").classList.remove("d-none")
-            document.querySelector(".loader_client_order").querySelector("div").classList.add("d-none")
         }
     })
     //validacion de pago ------------------------------------------------------------------
@@ -285,6 +295,7 @@ export default async function domicile_and_takeaway(functions, templates, type_o
             input.addEventListener("blur", (e) => validateField(e, rules));
             input.addEventListener("change", (e) => validateField(e, rules));
         });
+        document.getElementById("input-tel-client-order").addEventListener("keyup", (e) => validateField(e, rules_tel));
     }
     document.getElementById("add-payment-order-btn").addEventListener("click", () => {
         addPayment();
@@ -315,6 +326,13 @@ export default async function domicile_and_takeaway(functions, templates, type_o
 
         if (!/^[0-9]/.test(value)) {
             return options.notnumber;
+        }
+    };
+    validate.validators.telefonoValido = function (value) {
+        if (!value) return
+        if (!iti.isValidNumber()) {
+            const pais = iti.getSelectedCountryData().name;
+            return `^Número inválido para ${pais}`;
         }
     };
     const rules = {
@@ -348,9 +366,20 @@ export default async function domicile_and_takeaway(functions, templates, type_o
             }
         },
     };
+    const rules_tel = {
+        telefono: {
+            presence: {
+                allowEmpty: false,
+                message: "^es requerida"
+            },
+            telefonoValido: true
+
+        }
+    }
     let btn_next_payment = document.querySelector(".btn_next_payment");
     btn_next_payment.addEventListener("click", () => {
         let hasError = false;
+        let hasErrorTel = false;
         const payment = document.querySelectorAll(".payments");
         payment.forEach((payment, i) => {
             const index = i + 1;
@@ -367,8 +396,15 @@ export default async function domicile_and_takeaway(functions, templates, type_o
             setValidationStyles(`input-comprobante-order-${index}`, errors?.imagen ? errors.imagen[0] : null);
             if (errors) hasError = true
         });
+        let tel = iti.getNumber();
+        const errors = validate({ telefono: tel }, rules_tel);
+        setValidationStyles(`input-tel-client-order`, errors?.telefono ? errors.telefono[0] : null);
+        if (errors) hasErrorTel = true
+        else hasErrorTel = false
         if (!document.querySelector(".cont_client-order").querySelector("h4")) {
             toas("error", "Seleccione un cliente");
+        } else if (hasErrorTel) {
+            toas("error", "Complete todos los campos");
         } else if (hasError) {
             toas("error", "Complete todos los campos");
         } else {
@@ -421,11 +457,14 @@ export default async function domicile_and_takeaway(functions, templates, type_o
         let clientData = {
             id_cliente: document.querySelector(".cont_client-order").querySelector("h4[id]").getAttribute("id"),
             nameClient: document.querySelector(".cont_client-order").querySelector(".nombre_client").textContent,
-            documentClient: document.querySelector(".cont_client-order").querySelector(".document_client").textContent
+            documentClient: document.querySelector(".cont_client-order").querySelector(".document_client").textContent,
+            telefonoClient: iti.getNumber()
         };
         let amountTotal = {
             total_dolares: document.querySelector(".amount_payment_usd").textContent,
-            total_bs: document.querySelector(".amount_payment_bs").textContent
+            total_bs: document.querySelector(".amount_payment_bs").textContent,
+            subtotal: document.querySelector(".subtotal").textContent,
+            iva: document.querySelector(".iva").textContent
         }
         let directionSale = document.querySelector(".direction_sale").value;
         let dataPayment = [];
@@ -505,24 +544,30 @@ export default async function domicile_and_takeaway(functions, templates, type_o
     if (!btnSendOrder.dataset.listenerAttached) {
         btnSendOrder.addEventListener("click", async () => {
             const { productPreparedData, productProcessData, clientData, dataPayment, directionSale, amountTotal } = finalData()
-            bootstrap.Modal.getOrCreateInstance('#domicile_and_takeaway').hide()
-            Swal.fire({
-                title: 'Procesando...',
-                text: 'Por favor espera',
-                allowOutsideClick: false,
-                didOpen: () => { Swal.showLoading() }
-            });
             if (directionSale == "") {
                 toas("error", "Ingrese una direccion de entrega")
             } else if (await CheckCash() == null) {
                 toas("error", "No hay cajas abiertas")
             } else {
+                Swal.fire({
+                    title: 'Procesando...',
+                    text: 'Por favor espera',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading() }
+                });
+                bootstrap.Modal.getOrCreateInstance('#domicile_and_takeaway').hide()
+                let DataTelClient = new FormData();
+                DataTelClient.append("id", clientData.id_cliente);
+                DataTelClient.append("telefono", clientData.telefonoClient);
+                let updateTelClient = await fetch("clients/update", { method: "POST", body: DataTelClient })
+                let responseTelClient = await updateTelClient.json()
+                console.log(responseTelClient);
                 let order = new FormData();
                 let nro_orden = Math.floor(Math.random() * (99999999 - 10000000 + 1)) + 10000000
                 order.append("id_cliente", clientData.id_cliente);
                 order.append("tipo", window.type_order)
                 order.append("nro_orden", nro_orden)
-                order.append("status", 1)
+                order.append("status", "en cocina")
                 let index = 0;
                 productPreparedData.forEach((product) => {
                     let additionalText = product.adicionales.map((index) => index.nombre).join(",");
@@ -554,6 +599,7 @@ export default async function domicile_and_takeaway(functions, templates, type_o
                 let resOrder = await petOrder.json()
                 console.log(resOrder);
                 let id_orden = resOrder.last_id
+                window.id_orden_invoice = id_orden
                 let dataSale = new FormData();
                 dataSale.append("id_orden", id_orden)
                 dataSale.append("id_caja", await CheckCash())
@@ -567,7 +613,6 @@ export default async function domicile_and_takeaway(functions, templates, type_o
                 let dolar = await amountDolar()
                 let paymentData = new FormData();
                 dataPayment.forEach((payment, index) => {
-                    paymentData.append(`lista[${index}][id_venta]`, id_venta)
                     paymentData.append(`lista[${index}][id_metodo_pago]`, payment.id_metodo_pago)
                     paymentData.append(`lista[${index}][monto]`, payment.cantidad)
                     paymentData.append(`lista[${index}][tasa]`, dolar)
@@ -578,8 +623,24 @@ export default async function domicile_and_takeaway(functions, templates, type_o
                 let petPayment = await fetch("payment/add_many", { method: "POST", body: paymentData })
                 let resPayment = await petPayment.json()
                 console.log(resPayment);
+                let id_payments = resPayment.lista
+                let dataPaymentDetails = new FormData();
 
-                if (resPayment.success == true) {
+                id_payments.forEach((payment, index) => {
+                    dataPaymentDetails.append(`lista[${index}][id_pago]`, payment)
+                    dataPaymentDetails.append(`lista[${index}][id_venta]`, id_venta)
+                })
+                let petPaymentDetails = await fetch("paymentSale/add_many", { method: "POST", body: dataPaymentDetails })
+                let resPaymentDetails = await petPaymentDetails.json()
+                console.log(resPaymentDetails);
+                let invoice = await report(productPreparedData, productProcessData, clientData, dataPayment, directionSale, amountTotal, "invoice")
+                let invoiceData = new FormData();
+                invoiceData.append("pdf", invoice, "factura.pdf");
+                let send = await fetch("order/sendInvoice", { method: "POST", body: invoiceData });
+                let dataResInvoice = await send.json();
+                const mensaje = `*FACTURA DE ORDEN* \n\n*${clientData.nameClient}*\n\n${dataResInvoice.url}`;
+                const url = `https://wa.me/${clientData.telefonoClient}?text=${encodeURIComponent(mensaje)}`;
+                if (dataResInvoice.url) {
                     Swal.close();
                     Swal.fire({
                         title: `Exito!`,
@@ -589,6 +650,7 @@ export default async function domicile_and_takeaway(functions, templates, type_o
                     binnacle(session.message.id, 'Orden de domicilio', 'Creacion', `Se creo una orden de ${window.type_order}`)
                     resetFormModal()
                     targetUpdate()
+                    window.open(url, '_blank');
                 } else {
                     Swal.fire({
                         title: `Error!`,

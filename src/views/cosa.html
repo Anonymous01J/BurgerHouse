@@ -2,146 +2,45 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gráfico de Ingresos Netos con Bootstrap</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Font Awesome para los íconos -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Chart.js Plugin Datalabels -->
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+  <title>Factura directa a Dropbox</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
-  <div class="container py-5">
-    <h2 class="mb-4 text-center">Ingresos Netos Mensuales</h2>
-    <button onclick="exportarAPDF()">Exportar a PDF</button>
-    <canvas id="netIncomeChart"></canvas>
-    <!-- Leyenda personalizada -->
-    <div class="d-flex flex-wrap align-items-center gap-4 mt-4">
-      <div>
-        <i class="fas fa-circle text-primary me-2"></i>
-        <span class="text-muted me-1">Mejor rendimiento:</span>
-        <span id="mesMax" class="fw-bold"></span>
-      </div>
-      <div>
-        <i class="fas fa-circle text-danger me-2"></i>
-        <span class="text-muted me-1">Peor rendimiento:</span>
-        <span id="mesMin" class="fw-bold"></span>
-      </div>
-      <div>
-        <i class="fas fa-circle text-success me-2"></i>
-        <span class="text-muted me-1">Promedio anual:</span>
-        <span id="promedio" class="fw-bold"></span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bootstrap JS Bundle (incluye Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <h2>Generar PDF y subir a Dropbox sin guardar</h2>
+  <button id="btn">Generar y subir factura</button>
+  <p id="resultado"></p>
 
   <script>
+    document.getElementById('btn').onclick = async () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.text("Factura sin guardar archivo físico", 10, 10);
+      
+      const pdfBlob = doc.output('blob');
 
-function exportarAPDF() {
-  const canvas = document.getElementById('netIncomeChart');
-  const imgData = canvas.toDataURL('image/png');
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-  doc.addImage(imgData, 'PNG', 10, 10, 180, 160); // Ajusta las coordenadas y dimensiones según sea necesario
-  doc.save('grafico.pdf');
-}
-    // Datos del gráfico
-    const data = {
-      labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-      datasets: [{
-        label: 'Ingresos Netos',
-        data: [5, 4, 1, 7, 5, 10, 5, 4, 3, 7, 5, 10],
-        backgroundColor: 'rgb(95 118 232)',
-        borderColor: 'rgb(95 118 232)',
-        borderWidth: 1,
-        barPercentage: 0.9,
-        categoryPercentage: 0.8,
-        barThickness: 20
-      }]
-    };
+      const formData = new FormData();
+      formData.append('pdf', pdfBlob, 'factura.pdf');
 
-    // Opciones del gráfico
-    const options = {
-      responsive: true,
-      plugins: {
-        title: {
-          display: false,
-          text: 'Ingresos Netos Mensuales'
-        },
-        legend: {
-          display: false // Oculta la leyenda
-        },
-        tooltip: {
-          enabled: true
-        },
-        datalabels: {
-          anchor: 'end',
-          align: 'top',
-          color: 'rgb(95 118 232)',
-          formatter: (value) => value + "$",
-          font: {
-            weight: 'bolder'
-          }
+      document.getElementById('resultado').textContent = "Subiendo a Dropbox...";
+
+      try {
+        const res = await fetch('../controllers/OrderController.php', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await res.json();
+
+        if (data.url) {
+          document.getElementById('resultado').innerHTML = 
+            `✅ Factura subida. <a href="${data.url}" target="_blank">Ver factura</a>`;
+        } else {
+          document.getElementById('resultado').textContent = "Error: " + (data.error || 'desconocido');
         }
-      },
-      scales: {
-        x: {
-          grid: {
-            display: false,
-            color: 'rgba(0, 0, 0, 0.1)'
-          },
-          
-        },
-        y: {
-          beginAtZero: true,
-          grid: {
-            // display: false,
-            borderDash: [5, 5]
-          },
-          
-        }
-      },
-      layout: {
-        padding: {
-          top: 25,
-          right: 15,
-          bottom: 5,
-          left: 0
-        }
+      } catch (e) {
+        document.getElementById('resultado').textContent = "Error: " + e.message;
       }
     };
-
-    // Inicializa el gráfico
-    const ctx = document.getElementById('netIncomeChart').getContext('2d');
-    const netIncomeChart = new Chart(ctx, {
-      type: 'bar',
-      data: data,
-      options: options,
-      plugins: [ChartDataLabels]
-    });
-
-    // Cálculo de estadísticas para la leyenda personalizada
-    const ingresos = data.datasets[0].data;
-    const labels = data.labels;
-
-    const maxIngreso = Math.max(...ingresos);
-    const minIngreso = Math.min(...ingresos);
-    const promedioIngreso = ingresos.reduce((a, b) => a + b, 0) / ingresos.length;
-
-    const mesMax = labels[ingresos.indexOf(maxIngreso)];
-    const mesMin = labels[ingresos.indexOf(minIngreso)];
-
-    // Actualización de la leyenda personalizada
-    document.getElementById('mesMax').textContent = `${mesMax} con ${maxIngreso}$`;
-    document.getElementById('mesMin').textContent = `${mesMin} con ${minIngreso}$`;
-    document.getElementById('promedio').textContent = `${promedioIngreso.toFixed(2)}$`;
   </script>
 </body>
 </html>

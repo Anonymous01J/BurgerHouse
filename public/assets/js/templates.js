@@ -105,6 +105,12 @@ export default function Templates() {
      `
     }
     function targetKitchen(objet) {
+        let text
+        if (objet.status == "en cocina") {
+            text = "preparar"
+        } else {
+            text = "Entregar"
+        }
         return `
         <div class="col-md-4 col-lg-3"">
             <div class="m-auto">
@@ -126,14 +132,14 @@ export default function Templates() {
                             <div class="d-flex flex-column gap-4">
                                 <div class="d-flex align-item-center justify-content-between text-start">
                                     <div>Cliente</div>
-                                    <div class="fs-6">${objet.cliente_nombre + " " + objet.cliente_apellido}</div>
+                                    <div class="fs-6">${objet.cliente_nombre ? objet.cliente_nombre + " " + objet.cliente_apellido : "POR ASIGNAR"}</div>
                                 </div>
                                 <div class="d-flex align-item-center justify-content-between text-start">
                                     <div>Tipo</div>
                                     <div class="fs-6 badge bg-secondary">${objet.tipo}</div>
                                 </div>
                                 <div class="d-flex justify-content-around pt-3 border-top">
-                                    ${objet.status == 1 ? `<button class="btn bh_1 btn_prepared" data-module-prepared="cocina" id_order="${objet.id}" type_order="${objet.tipo}" style="color: #fff;">Preparar</button>` : ""}
+                                    ${objet.status == "en cocina" || objet.status == "en preparacion" ? `<button class="btn bh_1 btn_prepared" data-module-prepared="cocina" id_order="${objet.id}" type_order="${objet.tipo}" action="${objet.status}" style="color: #fff;">${text}</button>` : ""}
                                     <button data-bs-toggle="modal" data-bs-target="#delivery-kitchen" data-module-details="cocina" class="btn bh_5 text-white btn-details-kitchen-delivery" data-id="${objet.id}">Detalles</button>
                                 </div>
                             </div>
@@ -1458,6 +1464,59 @@ export default function Templates() {
         </div>
         `
     }
+    function elemenFormPaymentOrderLocal(objet) {
+        return `
+        <div class="row g-2 payments-local" id="payments-local-${objet}">
+            <div class="d-flex align-items-center gap-4 mb-3 mt-5">
+                <h4 class="m-0">Pago ${objet}</h4>
+                <button type="button" class="btn btn-circle btn-secondary remove-payments-local">
+                    <i data-feather="trash"></i>
+                </button>
+            </div>
+            <div class="col-md-6">
+                <label for="inputCity" class="form-label">Metodo de pago</label>
+                <div class="dropdown select_options_payment_local">
+                    <div class="dropdown">
+                        <div class="btn-group w-100" bis_skin_checked="1">
+                            <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-payment-orderLocal-${objet}" name="id_metodo_pago" data-id="Seleccione una opcion">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span> <i data-feather="chevron-down"></i></span>
+                            </button>
+                            <div class="dropdown-menu p-2" bis_skin_checked="1">
+                                <div>
+                                    <input class="form-control search_select" type="search" placeholder="Buscar">
+                                </div>
+                                <div class="options_search">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger mt-1 fs-6" id="error-input-payment-orderLocal-${objet}"></div>
+            </div>
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">Cantidad</label>
+                <div class="input-group">
+                    <span class="input-group-text type_payment">N/S</span>
+                    <input type="text" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-orderLocal-${objet}" name="cantidad">
+                    <div class="text-danger mt-1 fs-6" id="error-input-quantity-orderLocal-${objet}"></div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <label for="inputEmail4" class="form-label">Referencia</label>
+                <input type="text" class="form-control" placeholder="Referencia" id="input-reference-orderLocal-${objet}" name="referencia">
+                <div class="text-danger mt-1 fs-6" id="error-input-reference-orderLocal-${objet}"></div>
+            </div>
+            <div class="col-12">
+                <label for="inputZip" class="form-label">Comprobante</label>
+                <input class="form-control input-image" type="file" id="input-comprobante-orderLocal-${objet}" name="imagen">
+                <div class="text-danger mt-1 fs-6" id="error-input-comprobante-orderLocal-${objet}"></div>
+            </div>
+            <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
+        </div>
+        `
+    }
     const selectTable = (objet) => {
         return `
         <div class="col-md-6 col-lg-3 mt-3">
@@ -1465,7 +1524,7 @@ export default function Templates() {
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4 align-items-center d-flex justify-content-center">
-                            <img src="${objet.imagen ? "media/table/" + objet.imagen : "./assets/img/big/banner_login.png" }" class="rounded-full" width="100" height="100" alt="">
+                            <img src="${objet.imagen ? "media/table/" + objet.imagen : "./assets/img/big/banner_login.png"}" class="rounded-full" width="100" height="100" alt="">
                         </div>
                         <div class="col-md-8 d-flex flex-column justify-content-center">
                             <h4>${objet.nombre}</h4>
@@ -1540,7 +1599,9 @@ export default function Templates() {
             template += `
                  <div class="d-flex gap-4">
                      <p class="fs-6"> PAGO DE VENTA DE ${item.cliente} POR ORDEN NRO ${item.nro_orden}</p>
-                     <p class="fw-bold">${item.metodo_pago.toLowerCase() == "transferencia" || item.metodo_pago.toLowerCase() == "pago movil" ? "Bs" : "$"} ${(item.monto * item.tasa).toFixed(2)}</p>
+                     <p class="fw-bold">${item.metodo_pago.toLowerCase() == "transferencia" || item.metodo_pago.toLowerCase() == "pago movil" ? "Bs" : "$"} ${(
+                    item.metodo_pago.toLowerCase() == "transferencia" || item.metodo_pago.toLowerCase() == "pago movil" ? item.monto : item.monto
+                ).toFixed(2)}</p>
                  </div>
                 `
         })
@@ -1580,11 +1641,11 @@ export default function Templates() {
         <div class="row mt-3 border-bottom border-2">
             <div class="col-12 d-flex gap-3">
                 <h5>Cliente</h5>
-                <p class="fw-bolder">${objet.cliente_nombre + " " + objet.cliente_apellido}</p>
+                <p class="fw-bolder">${objet.cliente ? objet.cliente_nombre + " " + objet.cliente_apellido : "POR ASIGNAR"}</p>
             </div>
             <div class="col-12 d-flex gap-3">
                 <h5>Dirección</h5>
-                <p class="fw-bolder">${objet.direccion}</p>
+                <p class="fw-bolder">${objet.direccion || "POR ASIGNAR"}</p>
             </div>
             <div class="col-12 d-flex gap-3">
                 <h5>Telefono</h5>
@@ -1652,6 +1713,7 @@ export default function Templates() {
         tagAdditional,
         targetClienteOrder,
         elemenFormPaymentOrder,
+        elemenFormPaymentOrderLocal,
         infoCash,
         amountCash,
         cashDetail,

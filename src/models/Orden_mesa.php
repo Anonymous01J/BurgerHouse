@@ -28,10 +28,11 @@ class Orden_mesa extends Db_base
         $this->select_query = "
         a.id,
         a.id_mesa,
-        a.id_orden
+        a.id_orden,
+        m.nombre
         ";
         $this->joins = "
-        LEFT JOIN mesas m ON a.id_mesa = m.id
+        INNER JOIN mesas m ON a.id_mesa = m.id
         ";
     }
 }

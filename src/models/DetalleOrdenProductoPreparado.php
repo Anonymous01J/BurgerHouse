@@ -47,7 +47,8 @@ class DetalleOrdenProductoPreparado extends Db_base
         a.descripcion,
         a.adicionales,
         productos_preparados.nombre,
-        productos_preparados.tipo
+        productos_preparados.tipo,
+        productos_preparados.precio
     ";
 
         $this->joins = "

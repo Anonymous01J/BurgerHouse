@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon.png">
+
   <title>404 Not Found</title>
   <style>
     body {
@@ -35,8 +37,9 @@
       color: #fff;
       text-decoration: underline;
     }
-    .cont{
-      display: flex; 
+
+    .cont {
+      display: flex;
       justify-content: center;
       align-items: center;
       gap: 3rem;

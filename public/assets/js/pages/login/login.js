@@ -69,5 +69,6 @@ login_form.addEventListener("submit", async (e) => {
 })
 
 window.captchaVerify = (token) => {
+  console.log(token)
   login_form.querySelector("button").disabled = false
 }

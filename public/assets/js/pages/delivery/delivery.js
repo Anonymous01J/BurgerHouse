@@ -5,7 +5,7 @@ const { searchParam, binnacle, sessionInfo, print, searchFilter } = functionGene
 const { targetDelivery, infoKitchenDelivery, detailsKitchenDelivery } = Templates();
 let session = await sessionInfo()
 const config = {
-    search: () => searchParam({ status: 2 }, "order"),
+    search: () => searchParam({ status: 'en delivery' }, "order"),
     template: targetDelivery,
     container: ".cont-delivery-pending",
     funtions: () => {
@@ -14,10 +14,10 @@ const config = {
 }
 searchFilter("#searchDeliveryPending", (e) => {
     if (e.target.value == "") print(config)
-    else print({ ...config, search: () => searchParam({ status: 2, nombre_like: e.target.value }, "order") })
+    else print({ ...config, search: () => searchParam({ status: "en delivery", nombre_like: e.target.value }, "order") })
 })
 searchFilter("#searchDeliveryOff", (e) => {
-    if (e.target.value == "") printDeliveyOff("search", null, order => order.status > 2)
+    if (e.target.value == "") printDeliveyOff("search", null, order => order.status == "entregada")
     else printDeliveyOff("like", e.target.value, order => order.status > 2)
 })
 const saleBTN = async (config, binnacleSale) => {
@@ -35,7 +35,7 @@ const saleBTN = async (config, binnacleSale) => {
                     let id = item.getAttribute("id_order")
                     let data = new FormData();
                     data.append("id", id)
-                    let verify = await searchParam({ id: id, status: 2 }, "order")
+                    let verify = await searchParam({ id: id, status: 'en delivery' }, "order")
                     if (verify.length == 0) {
                         Swal.fire({
                             title: `Error!`,
@@ -43,7 +43,7 @@ const saleBTN = async (config, binnacleSale) => {
                             icon: "error",
                         });
                     } else {
-                        data.append("status", 3)
+                        data.append("status", "en camino")
                         let pet = await fetch('order/update', { method: "POST", body: data })
                         let res = await pet.json()
                         if (res.success == true) {
@@ -53,7 +53,7 @@ const saleBTN = async (config, binnacleSale) => {
                                 icon: "success",
                             });
                             print(config)
-                            printDeliveyOff("search", null, order => order.status > 2)
+                            printDeliveyOff("search", null, order => order.status == "en camino")
                             binnacleSale()
                             let deliveryData = new FormData();
                             deliveryData.append("id_venta", item.getAttribute("id_venta"))

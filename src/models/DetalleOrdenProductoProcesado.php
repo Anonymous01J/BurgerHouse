@@ -39,7 +39,8 @@ class DetalleOrdenProductoProcesado extends Db_base
         a.id_producto,
         a.id_orden,
         a.cantidad,
-        productos_procesados.nombre
+        productos_procesados.nombre,
+        productos_procesados.precio
         ";
         $this->joins = "
         INNER JOIN productos_procesados ON productos_procesados.id = a.id_producto

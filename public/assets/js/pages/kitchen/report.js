@@ -27,10 +27,9 @@ export function report(info, productPrepared, productProcess) {
         doc.setFontSize(10);
         doc.setTextColor(41, 40, 37)
         doc.text(`..................................................................................................................................................................................................................................................................`, 10, 90);
-        doc.text(`CLIENTE: ${(info[0].cliente_nombre + " " + info[0].cliente_apellido).toUpperCase()}`, 10, 100);
+        doc.text(`CLIENTE: ${info[0].cliente ? (info[0].cliente_nombre + " " + info[0].cliente_apellido).toUpperCase() : "POR ASIGNAR"}`, 10, 100);
         doc.text(`FECHA: ${fecha(info[0].fecha) + " A LAS " + hora(info[0].fecha)}`, 80, 100);
-        doc.setFont("Poppins", "bold");
-        doc.text(`DIRECCION: ${info[0].direccion}`, 10, 108);
+        doc.text(`DIRECCION: ${info[0].direccion || "POR ASIGNAR"}`, 10, 108);
         doc.text(`TELEFONO: ${info[0].cliente_telefono || "S/T"}`, 10, 115);
         doc.setFont("Poppins", "normal");
         doc.text(`..................................................................................................................................................................................................................................................................`, 10, 122);
@@ -63,7 +62,13 @@ export function report(info, productPrepared, productProcess) {
                 currentY += 4;
             }
         })
+        let group = {}
         productProcess.forEach((item) => {
+            if (!group[item.nombre]) group[item.nombre] = item;
+            else group[item.nombre] = { ...item, cantidad: parseInt(group[item.nombre].cantidad) + parseInt(item.cantidad) };
+        })
+        group = Object.entries(group).map(([key, value]) => ({ nombre: key, ...value }));
+        group.forEach((item) => {
             if (currentY + lineHeight > pageHeight - 20) {
                 doc.addPage();
                 currentY = 85;

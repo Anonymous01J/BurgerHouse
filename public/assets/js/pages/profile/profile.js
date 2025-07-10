@@ -11,7 +11,7 @@ const activity = async () => {
     let icon = ""
     let title = ""
     pet.forEach((item, index) => {
-        if (item.descripcion.includes("Se agrego ") || item.descripcion.includes("Se creo ")) icon = "plus"
+         if (item.descripcion.includes("Se agrego ") || item.descripcion.includes("Se creo ")) icon = "plus"
         else if (item.descripcion.includes("Se elimino ")) icon = "trash"
         else if (item.descripcion.includes("Se actualizo ")) icon = "edit"
         else if (item.descripcion.includes("Se ha restaurado ")) icon = "refresh-cw"
@@ -23,6 +23,9 @@ const activity = async () => {
         else if (item.descripcion.includes("Se acepto ")) icon = "check-circle"
         else if (item.descripcion.includes("inicio de sesion")) icon = "log-in"
         else if (item.descripcion.includes("Se ha agregado")) icon = "plus-circle"
+        else if (item.descripcion.includes("Se despacho")) icon = "log-in"
+        else if (item.descripcion.includes("Se envio")) icon = "log-out"
+        else if (item.descripcion.includes("Se creo")) icon = "plus-circle"
         else if (item.descripcion.includes("Guardar Gasto") || item.descripcion.includes("Guardar Ingreso")) icon = "dollar-sign"
 
         if (item.descripcion.includes("Se agrego ") || item.descripcion.includes("Se creo ")) title = "Nuevo elemento agregado"
@@ -37,6 +40,8 @@ const activity = async () => {
         else if (item.descripcion.includes("Se acepto ")) title = "Elemento aceptado"
         else if (item.descripcion.includes("inicio de sesion")) title = "Inicio de sesion"
         else if (item.descripcion.includes("Se ha agregado")) title = "Nuevo elemento agregado"
+        else if (item.descripcion.includes("Se despacho")) title = "Nuevo despacho"
+        else if (item.descripcion.includes("Se envio")) title = "Nuevo envio"
         else if (item.descripcion.includes("Guardar Gasto") || item.descripcion.includes("Guardar Ingreso")) title = "Nuevo movimiento de dinero"
 
 

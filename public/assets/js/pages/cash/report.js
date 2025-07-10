@@ -82,7 +82,7 @@ export function report(amountCash, detailsCash, totalBs, totalDolar) {
                 doc.setFontSize(10);
                 doc.text(`● PAGO DE VENTA DE ${item.cliente.toUpperCase()} POR ORDEN NRO: ${item.nro_orden}`, 20, currentY);
                 doc.setFont("Poppins", "bold");
-                let monto = item.metodo_pago.toLowerCase() == "transferencia" || item.metodo_pago.toLowerCase() == "pago movil" ? item.monto * item.tasa : item.monto
+                let monto = item.metodo_pago.toLowerCase() == "transferencia" || item.metodo_pago.toLowerCase() == "pago movil" ? item.monto : item.monto
                 doc.text(`${monto.toFixed(2)} ${money}`, startX, currentY, { align: "right" });
                 currentY += 7;
             });

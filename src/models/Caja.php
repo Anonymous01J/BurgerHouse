@@ -88,7 +88,7 @@ class Caja extends Db_base
     public function cajaDetails(int $id)
     {
         try {
-            $query = $this->conn->prepare("CALL Caja(:id)");
+            $query = $this->conn->prepare("CALL Caja2(:id)");
             $query->bindValue(':id', $id, PDO::PARAM_INT);
             $query->execute();
             return $query->fetchAll(PDO::FETCH_ASSOC);

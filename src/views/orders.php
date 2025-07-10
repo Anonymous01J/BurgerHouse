@@ -261,9 +261,6 @@
                                             <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab">Pendientes</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="cosa-tab" data-bs-toggle="tab" data-bs-target="#pordespachar" type="button" role="tab">Para despachar</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
                                             <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#process" type="button" role="tab">Procesadas</button>
                                         </li>
                                         <li class="nav-item" role="presentation">
@@ -279,44 +276,15 @@
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
                                             </div>
-                                            <div class="table-responsive mt-2">
+                                            <div class="mt-2 table-responsive" style="min-height: 290px;">
                                                 <table class="table no-wrap table-order-llevar-pendientes table-dark-mode w-100">
                                                     <thead>
                                                         <tr>
+                                                            <th>Estado</th>
                                                             <th>N° Orden</th>
                                                             <th>Cliente</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
-                                                            <th>Detalles</th>
-                                                            <th>Comprobante</th>
-                                                            <th>Acciones</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade show" id="pordespachar" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                                            <div class="row justify-content-between mt-3">
-                                                <div class="col-md-6 col-lg-3">
-                                                    <input type="text" class="form-control" id="searchBoxLLevarPorDespachar" placeholder="Buscar">
-                                                </div>
-                                                <div class="col-md-6 col-lg-9">
-                                                </div>
-                                            </div>
-                                            <div class="table-responsive mt-2">
-                                                <table class="table no-wrap table-order-llevar-pordespachar table-dark-mode w-100">
-                                                    <thead>
-                                                        <tr>
-                                                        <tr>
-                                                            <th>N° Orden</th>
-                                                            <th>Cliente</th>
-                                                            <th>Fecha</th>
-                                                            <th>Hora</th>
-                                                            <th>Detalles</th>
-                                                            <th>Comprobante</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
@@ -334,16 +302,16 @@
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
                                             </div>
-                                            <div class="table-responsive mt-2">
+                                            <div class="table-responsive mt-2" style="min-height: 250px;">
                                                 <table class="table no-wrap table-order-llevar-procesadas table-dark-mode w-100">
                                                     <thead>
                                                         <tr>
+                                                            <th>Estado</th>
                                                             <th>N° Orden</th>
                                                             <th>Cliente</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
-                                                            <th>Detalles</th>
-                                                            <th>Comprobante</th>
+                                                            <th>Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -360,16 +328,16 @@
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
                                             </div>
-                                            <div class="table-responsive mt-2">
+                                            <div class="table-responsive mt-2" style="min-height: 250px;">
                                                 <table class="table no-wrap table-order-llevar-anuladas table-dark-mode w-100">
                                                     <thead>
                                                         <tr>
+                                                            <th>Estado</th>
                                                             <th>N° Orden</th>
                                                             <th>Cliente</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
-                                                            <th>Detalles</th>
-                                                            <th>Comprobante</th>
+                                                            <th>Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -434,6 +402,68 @@
                                         <i class="fas fa-plus"></i>
                                         Orden
                                     </button>
+
+                                    <ul class="nav nav-tabs" id="myTab2" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="home-tab2" data-bs-toggle="tab" data-bs-target="#home-tab-pane2" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Pendientes</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="profile-tab2" data-bs-toggle="tab" data-bs-target="#profile-tab-pane2" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Procesadas</button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="home-tab-pane2" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                            <div class="row justify-content-between mt-3">
+                                                <div class="col-md-6 col-lg-3">
+                                                    <input type="text" class="form-control" id="searchBoxLocalPending" placeholder="Buscar">
+                                                </div>
+                                                <div class="col-md-6 col-lg-9">
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive mt-2" style="min-height: 290px;">
+                                                <table class="table no-wrap table-order-local-pendientes table-dark-mode w-100">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Estado</th>
+                                                            <th>N° Orden</th>
+                                                            <th>Fecha</th>
+                                                            <th>Hora</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="profile-tab-pane2" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                            <div class="row justify-content-between mt-3">
+                                                <div class="col-md-6 col-lg-3">
+                                                    <input type="text" class="form-control" id="searchBoxLocalProcesadas" placeholder="Buscar">
+                                                </div>
+                                                <div class="col-md-6 col-lg-9">
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive mt-2" style="min-height: 290px;">
+                                                <table class="table no-wrap table-order-local-procesadas table-dark-mode w-100">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Estado</th>
+                                                            <th>N° Orden</th>
+                                                            <th>Cliente</th>
+                                                            <th>Fecha</th>
+                                                            <th>Hora</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -446,6 +476,8 @@
     <?php include_once __DIR__ . '/../Views/Components/modals/order/domicile_and_takeaway.php' ?>
     <?php include_once __DIR__ . '/../Views/Components/modals/order/modalDetailsOrder.php' ?>
     <?php include_once __DIR__ . '/../Views/Components/modals/order/local.php' ?>
+    <?php include_once __DIR__ . '/../Views/Components/modals/order/more_products.php' ?>
+    <?php include_once __DIR__ . '/../Views/Components/modals/order/payment_order_local.php' ?>
 
 </div>
 
@@ -459,8 +491,10 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
+<script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
 <script src="./assets/libs/libs/tagify/tagify.js"></script>
 <script src="./assets/libs/libs/tagify/tagify.polyfills.min.js"></script>
 <script type="module" src="./assets/js/pages/order/order.js"></script>
 <script type="module" src="./assets/js/pages/order/domicile_and_takeaway.js"></script>
+<script type="module" src="./assets/js/pages/order/local.js"></script>
 <script src="./assets/libs/libs/bs-stepper/bs-stepper.min.js"></script>

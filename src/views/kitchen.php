@@ -31,6 +31,9 @@
                     <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Pendientes</button>
                 </li>
                 <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="incomplete-tab" data-bs-toggle="tab" data-bs-target="#incomplete-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">En preparación</button>
+                </li>
+                <li class="nav-item" role="presentation">
                     <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Preparados</button>
                 </li>
             </ul>
@@ -77,6 +80,39 @@
                             </li>
                         </ul>
                     </nav>
+                </div>
+                <div class="tab-pane fade" id="incomplete-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+
+                    <div class="row g-3 align-items-center my-4">
+                        <div class="col-auto">
+                            <input type="search" id="searchKitchenInPrepared" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2 justify-content-start flex-wrap ps-0 mb-4">
+                        <div>
+                            <input type="radio" class="btn-check btn_check_inprepared" name="data-filter" data-filter="all" id="kitchen_all_inprepared" autocomplete="off" checked>
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_all_inprepared">Todos</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_inprepared" name="data-filter" data-filter="all" id="kitchen_delivery_inprepared" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_delivery_inprepared">Delivery</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_inprepared" name="data-filter" data-filter="all" id="kitchen_takeaway_inprepared" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_takeaway_inprepared">Para llevar</label>
+                        </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_inprepared" name="data-filter" data-filter="all" id="kitchen_local_inprepared" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_local_inprepared">Local</label>
+                        </div>
+                    </div>
+                    <div class="row kitchen-cont-inprepared">
+                        <!-- dad -->
+                    </div>
+
+
+
+
                 </div>
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                     <div class="row g-3 align-items-center my-4">

@@ -103,7 +103,9 @@
 								<div class="row cont_client-order">
 									<div class="col-md-12 d-flex justify-content-center align-items-center my-2 loader_client_order">
 										<h3>No hay clientes seleccionados</h3>
-										<section class="target_client_order w-100 d-none"></section>
+										<section class="target_client_order w-100 d-none">
+											<!-- Clientes -->
+										</section>
 										<div class="d-flex align-items-center gap-2 d-none loader">
 											<div class="spinner-grow" style="color: #FF4B00" role="status">
 												<span class="visually-hidden">Loading...</span>
@@ -122,9 +124,19 @@
 											</div>
 										</div>
 									</div>
-									<!-- Clientes -->
 								</div>
 							</div>
+							<hr>
+							<div class="mt-3 mb-5">
+								<h4 class="mb-3">NUMERO DE TELEFONO</h4>
+								<div class="row">
+									<div class="col-md-6">
+										<input type="tel" class="form-control"  id="input-tel-client-order" name="telefono">
+										<div class="text-danger mt-1 fs-6" id="error-input-tel-client-order"></div>
+									</div>
+								</div>
+							</div>
+							<hr>
 							<h4>METODOS DE PAGO</h4>
 							<hr>
 							<div class="row">
@@ -261,3 +273,5 @@
 		</div>
 	</div>
 </div>
+
+<script src="./assets/libs/libs/intl-tel-input/js/intlTelInput.js"></script>

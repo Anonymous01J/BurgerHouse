@@ -37,7 +37,7 @@
                                         <button type="submit" class="btn bh_1 text-white mb-3">Buscar</button>
                                     </div>
                                 </form>
-                                <div class="row cont_client-order">
+                                <div class="row cont_client-order-local">
                                     <div class="col-md-12 d-flex justify-content-center align-items-center my-2 loader_client_order_local">
                                         <h3>No hay clientes seleccionados</h3>
                                         <section class="target_client_order_local w-100 d-none">
@@ -93,14 +93,14 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <form class="row g-2" id="form-submit-payment-local">
-                                                <div id="payments-container">
+                                                <div id="payments-container-local">
                                                     <div class="row g-2 payments-local" id="payments-local-1">
                                                         <div class="col-md-6">
                                                             <label for="inputCity" class="form-label">Metodo de pago</label>
                                                             <div class="dropdown select_options_payment_local">
                                                                 <div class="dropdown">
                                                                     <div class="btn-group w-100" bis_skin_checked="1">
-                                                                        <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-payment-order-local-1" name="id_metodo_pago" data-id="Seleccione una opcion">
+                                                                        <input type="button" class="btn btn-light w-75 text-start fs-6" value="Seleccione una opcion" id="input-payment-orderLocal-1" name="id_metodo_pago" data-id="Seleccione una opcion">
                                                                         <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                             <span> <i data-feather="chevron-down"></i></span>
                                                                         </button>
@@ -115,31 +115,30 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="text-danger mt-1 fs-6" id="error-input-payment-order-local-1"></div>
+                                                            <div class="text-danger mt-1 fs-6" id="error-input-payment-orderLocal-1"></div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <label for="inputEmail4" class="form-label">Cantidad</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-text type_payment">N/S</span>
-                                                                <input type="text" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-order-local-1" name="cantidad">
-                                                                <div class="text-danger mt-1 fs-6" id="error-input-quantity-order-local-1"></div>
+                                                                <input type="text" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-orderLocal-1" name="cantidad">
+                                                                <div class="text-danger mt-1 fs-6" id="error-input-quantity-orderLocal-1"></div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
                                                             <label for="inputEmail4" class="form-label">Referencia</label>
-                                                            <input type="text" class="form-control" placeholder="Referencia" id="input-reference-order-local-1" name="referencia">
-                                                            <div class="text-danger mt-1 fs-6" id="error-input-reference-order-local-1"></div>
+                                                            <input type="text" class="form-control" placeholder="Referencia" id="input-reference-orderLocal-1" name="referencia">
+                                                            <div class="text-danger mt-1 fs-6" id="error-input-reference-orderLocal-1"></div>
                                                         </div>
                                                         <div class="col-12">
                                                             <label for="inputZip" class="form-label">Comprobante</label>
-                                                            <input class="form-control input-image" type="file" id="input-comprobante-order-local-1" name="imagen">
-                                                            <div class="text-danger mt-1 fs-6" id="error-input-comprobante-order-local-1"></div>
+                                                            <input class="form-control input-image" type="file" id="input-comprobante-orderLocal-1" name="imagen">
+                                                            <div class="text-danger mt-1 fs-6" id="error-input-comprobante-orderLocal-1"></div>
                                                         </div>
                                                         <img class="mt-3" src="" alt="Vista previa" style="max-width: 200px; display: none;">
                                                     </div>
                                                 </div>
                                                 <button type="button" id="add-payment-order-local-btn" class="btn btn-secondary mt-3">Agregar Pago</button>
-                                                <input type="submit" class="d-none" id="submit-payment-order-local">
                                             </form>
                                         </div>
                                     </div>
