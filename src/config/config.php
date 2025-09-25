@@ -3,12 +3,12 @@
         'host' => 'localhost',
         'name' => 'burgerhouse',
         'user' => 'root',
-        'pass' => '12345'
+        'pass' => '1234'
     ];
     $GLOBALS['db2'] = [
         'host' => 'localhost',
         'name' => 'usuarios_burgerhouse',
         'user' => 'root',
-        'pass' => '12345'
+        'pass' => '1234'
     ];
 ?>

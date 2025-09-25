@@ -1,4 +1,2 @@
-﻿no tiene views la base de datos, asi que jose, arregla eso xD
-
-el usuario es: Admin;
+﻿el usuario es: Admin;
 la contraseña es: (Tocuyo#123).
