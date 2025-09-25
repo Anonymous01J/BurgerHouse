@@ -3,49 +3,36 @@
 namespace Shtch\Burgerhouse\controllers;
 
 use Shtch\Burgerhouse\controllers\Controller_base;
+use Shtch\Burgerhouse\models\Permiso;
 use Shtch\Burgerhouse\models\Usuario;
 
-class LoginController extends Controller_base{
-    public function __construct(){
+class LoginController extends Controller_base
+{
+    public function __construct()
+    {
         parent::__construct('login');
-        $this->db = new Usuario();
+        // $this->db = new Usuario(nombre:$_POST['email'], hash:$_POST['password']);
     }
-
-    public function login()    {
-        header('Content-Type: application/json');
-        $token = $_POST['token'];
-        $secretKey = '0x4AAAAAABDYzHAap8ofRwK1xEfj_e_rKz8';
-
-        $response = file_get_contents("https://challenges.cloudflare.com/turnstile/v0/siteverify", false, stream_context_create([
-            'http' => [
-                'method' => 'POST',
-                'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
-                'content' => http_build_query(['secret' => $secretKey, 'response' => $token])
-            ]
-        ]));
-        $resultado = json_decode($response, true);
-        if (!$resultado['success']) {
-            echo json_encode(['success' => false]);
-            return;
-            die;
-        }
+    public function login()
+    {
+        $this->db = new Usuario(email: $_POST['email'], hash: $_POST['password']);
         $result = $this->db->search();
         if (empty($result)) {
             echo json_encode(['success' => false, 'message' => 'Usuario o contraseña incorrectos']);
         } else {
-            // $token = $_POST['token'];
-            // $secretKey = '0x4AAAAAABDYzHAap8ofRwK1xEfj_e_rKz8';
-            // $response = file_get_contents("https://challenges.cloudflare.com/turnstile/v0/siteverify", false, stream_context_create([
-            //     'http' => [
-            //         'method' => 'POST',
-            //         'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
-            //         'content' => http_build_query(['secret' => $secretKey, 'response' => $token])
-            //     ]
-            // ]));
-            // $resultado = json_decode($response, true);
-            // if (!$resultado['success']) {
-            //     echo json_encode(['success' => false, 'message' => 'Error de verificación de captcha']);
-            // } else {
+            $token = $_POST['token'];
+            $secretKey = '0x4AAAAAABDYzHAap8ofRwK1xEfj_e_rKz8';
+            $response = file_get_contents("https://challenges.cloudflare.com/turnstile/v0/siteverify", false, stream_context_create([
+                'http' => [
+                    'method' => 'POST',
+                    'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
+                    'content' => http_build_query(['secret' => $secretKey, 'response' => $token])
+                ]
+            ]));
+            $resultado = json_decode($response, true);
+            if (!$resultado['success']) {
+                echo json_encode(['success' => false, 'message' => 'Error de verificación de captcha']);
+            } else {
                 echo json_encode(['success' => true, 'message' => 'Usuario encontrado']);
                 $permission = new Permiso(id_rol: $result[0]['rol_id']);
                 $permisos = $permission->search(n:0, limite:2000);
@@ -57,14 +44,17 @@ class LoginController extends Controller_base{
                 $_SESSION['apellido'] = $result[0]['apellido'];
                 $_SESSION['correo'] = $result[0]['email'];
                 $_SESSION['session_id'] = $result[0]['session_id'];
-            // }
+                $_SESSION['imagen'] = $result[0]['imagen'];
+            }
         }
-        echo json_encode(['success' => true]);
-        return;
-        die;
-
     }
-    public function cedula(){
+    public function logout()
+    {
+        session_destroy();
+        exit;
+    }
+    public function cedula()
+    {
         define('APPID_CEDULA', '1033');
         define('TOKEN_CEDULA', '2e40fcab6d2f933e63fa9be82cdbd1be');
         function getCurlData($url)

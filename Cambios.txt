@@ -1,4 +1,11 @@
 # ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
+
+1) CRUD de permisos
+2) Arreglo para pasar variables tanto para agregar como para buscar (get_all), para todos los modulos.
+3) evita que las variables que se le pasen al modelo sean listas.
+4) algunos try catch mas para el resto del CRUD.
+
+# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
 27/3/2025
 
 Nuevos controladores y modelos para:

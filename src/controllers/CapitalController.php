@@ -1,14 +1,19 @@
 <?php
 namespace Shtch\Burgerhouse\controllers;
+use Shtch\Burgerhouse\controllers\Controller_base;
+use Shtch\Burgerhouse\models\Movimiento_capital;
+use Exception;
 
-class CapitalController {
-
-    public function index() {
-        if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
-            header('Content-Type: application/json');
-            echo json_encode(['mensaje' => 'Bienvenido al Home (AJAX)']);
-        } else {
-            include_once __DIR__ . '/../views/capital.php';
+class CapitalController extends Controller_base {
+    public function __construct() {
+        parent::__construct("capital");
+        $this->db = new Movimiento_capital();
+    }
+    public function GetCapital() {
+        try {
+            echo json_encode($this->db->consultar_vista("vista_resumen_financiero"));
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     }
 }

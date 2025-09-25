@@ -15,10 +15,12 @@ class Usuario extends Db_base
     private $session_id;
     private $email;
     private $token;
+    private $imagen;
     private $token_expiracion;
     private $nombre_like;
 
-    function __construct($id = null, $nombre = null, $hash = null, $id_rol = null, $active = null, $session_id = null, $email = null, $apellido = null, $nombre_like = null, $token = null, $token_expiracion = null){
+    function __construct($id = null, $nombre = null, $hash = null, $id_rol = null, $active = null, $session_id = null, $email = null, $apellido = null, $nombre_like = null, $token = null, $token_expiracion = null, $imagen_name = null)
+    {
         parent::__construct("usuario", 2);
         $this->id = $id;
         $this->nombre = $nombre;
@@ -31,6 +33,8 @@ class Usuario extends Db_base
         $this->token = $token;
         $this->token_expiracion = $token_expiracion;
         $this->nombre_like = $nombre_like;
+        $this->imagen = $imagen_name;
+
         $this->add_variables([
             "a.id" => $this->id,
             "a.nombre" => $this->nombre,
@@ -42,6 +46,7 @@ class Usuario extends Db_base
             "a.apellido" => $this->apellido,
             "a.token" => $this->token,
             "a.token_expiracion" => $this->token_expiracion,
+            "a.imagen" => $this->imagen
         ]);
         $this->select_query = "
                 a.id,
@@ -54,7 +59,8 @@ class Usuario extends Db_base
                 a.email,
                 a.apellido,
                 a.token,
-                a.token_expiracion
+                a.token_expiracion,
+                a.imagen
             ";
         $this->joins = "
                 INNER JOIN roles ON roles.id = a.id_rol

@@ -1,17 +1,12 @@
 <?php include_once __DIR__ . '/../Views/Components/header.php' ?>
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
-
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
-
     <div class="page-wrapper">
-
         <div class="page-breadcrumb">
             <div class="row">
-                <div class="col-7 align-self-center">
+                <div class="col-md-8 align-self-center">
                     <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">Calendario</h4>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
@@ -22,12 +17,9 @@
                         </nav>
                     </div>
                 </div>
-                
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
@@ -54,7 +46,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-9">
-                                    <div class="card-body b-l calender-sidebar">
+                                    <div class="card-body ">
                                         <div id="calendar"></div>
                                     </div>
                                 </div>
@@ -64,13 +56,11 @@
                 </div>
             </div>
         </div>
-
+        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
-
 </div>
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
-<script src="./assets/libs/extra-libs/taskboard/js/jquery.ui.touch-punch-improved.js"></script>
 <script src="./assets/libs/extra-libs/taskboard/js/jquery-ui.min.js"></script>
 <script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -80,7 +70,7 @@
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
 <script src="./assets/libs/libs/moment/min/moment.min.js"></script>
-<script src="./assets/libs/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="./assets/libs/libs/fullcalendar/index.global.min.js"></script>
+<script src="./assets/libs/libs/fullcalendar/index.global.js"></script>
+<script src="./assets/libs/libs/fullcalendar/es.global.min.js"></script>
 <script src="./assets/js/pages/calendar/cal-init.js"></script>
-
-<?php include_once __DIR__ . '/../Views/Components/footer.php' ?>

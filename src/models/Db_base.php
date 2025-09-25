@@ -1,208 +1,263 @@
 <?php
-    namespace Shtch\Burgerhouse\models;
-    use Shtch\Burgerhouse\models\Conexion;
 
-    use PDO;
-    abstract class Db_base extends Conexion{
-        // Ejemplo
-        // $this->add_variables([
-        //      "id" => $this->id,
-        //      "nombre"=> $this->nombre,
-        //      ...
-        // ]);
-        // $this->add_variables_like([
-        //     "nombre" => $this->like
-        // ]);
-        // $this->add_variables_interval([
-        //     "a.fecha" => $this->between_fecha
-        // ]);
-        // $this->tabla = 'productos';
-        // $this->select_query = "
-        //     a.id,
-        //     a.id_categoria,
-        //     b.nombre categoria,
-        //     a.id_unidad,
-        //     c.nombre unidad,
-        //     a.nombre,
-        //     a.id_marca,
-        //     m.nombre marca,
-        //     a.valor_unidad,
-        //     a.imagen,
-        //     (SELECT SUM(entradas_2.existencia) FROM entradas_2 Where id_producto = a.id AND entradas_2.fecha_vencimiento > NOW()) as stock,
-        //     a.stock_min,
-        //     a.stock_max,
-        //     a.precio_venta,
-        //     a.IVA,
-        //     a.codigo
-        // ";
-        // $this->joins = '
-        //     INNER JOIN categoria b ON b.id = a.id_categoria 
-        //     INNER JOIN unidades c ON c.id = a.id_unidad
-        //     INNER JOIN marcas m ON m.id = a.id_marca 
-        // ';
-        private $variables;
-        private $variables_like;
-        public $tabla;
-        public $joins;
-        public $select_query;
-        public $variables_interval;
-        public function __construct($tabla=""){
-            $this->variables = array();
-            $this->tabla = $tabla;
-            $this->variables_like = array();
-            $this->joins = "";
-            $this->select_query = " a.* ";
-            $this->variables_interval = array();
-            Conexion::__construct();
-        }
-        public function add_variables(array $variables) : void {
-            $this->variables = array_filter($variables, fn($value) => !is_null($value));
-        }
-        public function add_variables_like(array $variables) : void {
-            $this->variables_like = array_filter($variables, fn($value) => !is_null($value));
-        }
-        public function add_variables_interval(array $variables) : void {
-            $this->variables_interval = array_filter($variables, fn($value) => !is_null($value));
-        }
-        private function normalizeKey($key) {
-            if (str_contains($key, '.')){
-                // return explode(".", $key)[1];
-                return implode("",explode(".", $key));
-            }
-            return $key;
-        }
-        private function normalizeKey2($key) {
-            if (str_contains($key, '.')){
-                return explode(".", $key)[1];
-                // return implode("",explode(".", $key));
-            }
-            return $key;
-        }
-        public function agregar() : int{
-            $lista_vars = array();
-            foreach ($this->variables as $key => $value){
-                $lista_vars[$this->normalizeKey2($key)] = $value;
-            }
-            $sql = "INSERT INTO ".$this->tabla."(";
-            $sql .= implode(",", array_keys($lista_vars));
-            $sql .= ") VALUES(:";
-            $sql .= implode(",:", array_keys($lista_vars));
-            $sql .= ") ";
+namespace Shtch\Burgerhouse\models;
 
-            // echo "\n";
-            // echo "Consulta SQL: " . $sql . "\n";
-            // print_r($lista_vars);
-            // $sql = str_replace("a.", "", $sql);
-            // print_r($sql);
-            $query = $this->conn->prepare($sql);
-            $query->execute($lista_vars);
-            return $this->conn->lastInsertId();
-        }
-        public function actualizar() : void {
-            if (!isset($this->variables['a.id']) or $this->variables['a.id'] == null){
-                return;
-            }
-            $lista_vars = array();
-            foreach ($this->variables as $key => $value){
-                $lista_vars[$this->normalizeKey2($key)] = $value;
-            }
-            $sql = "UPDATE $this->tabla SET ";
-            foreach ($lista_vars as $key => $value){
-                if ($key == 'id'){
-                    continue;
-                }
-                $sql .= "$key=:$key, ";
-            }
-            $sql = substr($sql, 0, -2);
-            $sql .= " WHERE id=:id";
-            $query = $this->conn->prepare($sql);
-            $query->execute($lista_vars);
-        }
-        public function borrar() : void {
-            $query = $this->conn->prepare("DELETE FROM $this->tabla WHERE id=:id");
-            $query->bindValue(':id',$this->variables['a.id'], PDO::PARAM_INT);
-            $query->execute();
-        }
-        public function search($n=0,$limite=9, string $order_by='id', string $order_type='ASC') : Array{
-            $query = "SELECT $this->select_query FROM $this->tabla AS a $this->joins WHERE 1";
-            foreach ($this->variables_like as $key => $value){
-                $query .= ' AND '.$key.' LIKE :like'.$this->normalizeKey($key);
-            }
-            foreach ($this->variables as $key => $value){
-                $query .= ' AND '.$key.' = :'.$this->normalizeKey($key);
-            }
-            foreach ($this->variables_interval as $key => $value){
-                $query .= ' AND '.$key.' BETWEEN :'.$this->normalizeKey($key).' AND :'.$this->normalizeKey($key).'2';
-            }
+use Shtch\Burgerhouse\models\Conexion;
+use Exception;
+use PDO;
 
-            // $order_by = $this->conn->quote($order_by, PDO::PARAM_STR);
-            // $order_type = $this->conn->quote($order_type, PDO::PARAM_STR);
-            
-            if (str_contains($this->select_query, $order_by) && in_array(strtoupper($order_type), ['ASC', 'DESC'])) {
-                $query .= " ORDER BY $order_by $order_type";
-            }
+abstract class Db_base extends Conexion
+{
+    // Ejemplo
+    // $this->add_variables([
+    //      "id" => $this->id,
+    //      "nombre"=> $this->nombre,
+    //      ...
+    // ]);
+    // $this->add_variables_like([
+    //     "nombre" => $this->like
+    // ]);
+    // $this->add_variables_interval([
+    //     "a.fecha" => $this->between_fecha
+    // ]);
+    // $this->tabla = 'productos';
+    // $this->select_query = "
+    //     a.id,
+    //     a.id_categoria,
+    //     b.nombre categoria,
+    //     a.id_unidad,
+    //     c.nombre unidad,
+    //     a.nombre,
+    //     a.id_marca,
+    //     m.nombre marca,
+    //     a.valor_unidad,
+    //     a.imagen,
+    //     (SELECT SUM(entradas_2.existencia) FROM entradas_2 Where id_producto = a.id AND entradas_2.fecha_vencimiento > NOW()) as stock,
+    //     a.stock_min,
+    //     a.stock_max,
+    //     a.precio_venta,
+    //     a.IVA,
+    //     a.codigo
+    // ";
+    // $this->joins = '
+    //     INNER JOIN categoria b ON b.id = a.id_categoria 
+    //     INNER JOIN unidades c ON c.id = a.id_unidad
+    //     INNER JOIN marcas m ON m.id = a.id_marca 
+    // ';
+    public $variables;
+    public $variables_like;
+    public $tabla;
+    public $joins;
+    public $select_query;
+    public $variables_interval;
+    protected function __construct($tabla = "", $db_n = 1)
+    {
+        $this->variables = array();
+        $this->tabla = $tabla;
+        $this->variables_like = array();
+        $this->joins = "";
+        $this->select_query = " a.* ";
+        $this->variables_interval = array();
+        Conexion::__construct($db_n);
+    }
+    public function add_variables(array $variables): void
+    {
+        $this->variables = array_filter($variables, fn($value) => (!is_null($value) and !is_array($value)));
+    }
+    public function add_variables_like(array $variables): void
+    {
+        $this->variables_like = array_filter($variables, fn($value) => (!is_null($value) and !is_array($value)));
+    }
+    public function add_variables_interval(array $variables): void
+    {
+        $this->variables_interval = array_filter($variables, fn($value) => (!is_null($value) and !is_array($value)));
+    }
 
-            $query .= " LIMIT :l OFFSET :n ";
-            
-            // print_r("\n");
-            // print_r($query);
-            // print_r("\n");
-            // Creamos la consulta
-            $consulta = $this->conn->prepare($query);
-            // Asignamos los parametros   
-            foreach ($this->variables as $key => $value){
-                $consulta->bindValue(':'.$this->normalizeKey($key),$value);
-            }
-            foreach ($this->variables_like as $key => $value){
-                $value2 = $value.'%';
-                $consulta->bindValue(':like'.$this->normalizeKey($key),$value2, PDO::PARAM_STR);
-            }
-            foreach ($this->variables_interval as $key => $value){
-                $consulta->bindValue(':'.$this->normalizeKey($key),$value["inicio"]);
-                $consulta->bindValue(':'.$this->normalizeKey($key).'2',$value["fin"]);
-            }
-            $n = $n*$limite;
-            $consulta->bindValue(':l',$limite, PDO::PARAM_INT);
-            $consulta->bindValue(':n',$n, PDO::PARAM_INT);
+    public function clear(): void
+    {
+        $this->variables = array();
+        $this->variables_like = array();
+        $this->variables_interval = array();
+    }
 
-            $consulta->execute();
-            return $consulta->fetchAll();
+    private function normalizeKey($key)
+    {
+        if (str_contains($key, '.')) {
+            // return explode(".", $key)[1];
+            return implode("", explode(".", $key));
         }
-        public function COUNT() : int{
-            $query = "SELECT COUNT(*) as 'total' FROM $this->tabla AS a $this->joins WHERE 1";
-            
-            foreach ($this->variables as $key => $value){
-                $query .= ' AND '.$key.'=:a'.$this->normalizeKey($key);
-            }
-            foreach ($this->variables_like as $key => $value){
-                $query .= ' AND '.$key.' LIKE :alike'.$this->normalizeKey($key);
-            }
-            foreach ($this->variables_interval as $key => $value){
-                $query .= ' AND '.$key.' BETWEEN :'.$this->normalizeKey($key).' AND :'.$this->normalizeKey($key).'2';
-            }
-            
-            // Creamos la consulta
-            $consulta = $this->conn->prepare($query);
-            
-            // Asignamos los parametros   
-            foreach ($this->variables as $key => $value){
-                $consulta->bindValue(':a'.$this->normalizeKey($key),$value);
-            }
-            foreach ($this->variables_like as $key => $value){
-                $value2 = '%'.$value.'%';
-                $consulta->bindValue(':alike'.$this->normalizeKey($key),$value2);
-            }
-            foreach ($this->variables_interval as $key => $value){
-                $consulta->bindValue(':'.$this->normalizeKey($key),$value["inicio"]);
-                $consulta->bindValue(':'.$this->normalizeKey($key).'2',$value["fin"]);
-            }
-            $consulta->execute();
-            return $consulta->fetch()['total'];
+        return $key;
+    }
+    private function normalizeKey2($key)
+    {
+        if (str_contains($key, '.')) {
+            return explode(".", $key)[1];
+            // return implode("",explode(".", $key));
         }
-        public function get($key){
-            return $this->variables[$key];
+        return $key;
+    }
+    public function agregar(): int
+    {
+        $lista_vars = array();
+        foreach ($this->variables as $key => $value) {
+            $lista_vars[$this->normalizeKey2($key)] = $value;
         }
-        public function set($key,$value){
-            return $this->variables[$key] = $value;
+        $sql = "INSERT INTO " . $this->tabla . "(";
+        $sql .= implode(",", array_keys($lista_vars));
+        $sql .= ") VALUES(:";
+        $sql .= implode(",:", array_keys($lista_vars));
+        $sql .= ") ";
+
+        // echo "\n";
+        // echo "linea 100";
+        // echo "Consulta SQL: " . $sql . "\n";
+        // print_r($lista_vars);
+        // print_r($_POST);
+        // $sql = str_replace("a.", "", $sql);
+        // print_r($sql);
+        $query = $this->conn->prepare($sql);
+        $query->execute($lista_vars);
+        return $this->conn->lastInsertId();
+    }
+    public function actualizar(): array
+    {
+        if ((!isset($this->variables['a.id']) or $this->variables['a.id'] == null) and
+            (!isset($this->variables['id']) or $this->variables['id'] == null)
+        ) {
+            return ['success' => false, 'message' => 'No se pudo actualizar el registro, falta el id'];
+        }
+        $lista_vars = array();
+        foreach ($this->variables as $key => $value) {
+            $lista_vars[$this->normalizeKey2($key)] = $value;
+        }
+        $sql = "UPDATE $this->tabla SET ";
+        foreach ($lista_vars as $key => $value) {
+            if ($key == 'id') {
+                continue;
+            }
+            $sql .= "$key=:$key, ";
+        }
+        $sql = substr($sql, 0, -2);
+        $sql .= " WHERE id=:id";
+        $query = $this->conn->prepare($sql);
+        try {
+            return ['success' => true, 'message' => $query->execute($lista_vars)];
+        } catch (Exception $e) {
+            return ['success' => false, 'message' => $e->getMessage()];
         }
     }
+    public function borrar(): bool
+    {
+        try {
+            $query = $this->conn->prepare("DELETE FROM $this->tabla WHERE id=:id");
+            if (!isset($this->variables['a.id'])) {
+                return false;
+            }
+            $query->bindValue(':id', $this->variables['a.id'], PDO::PARAM_INT);
+            return $query->execute();
+        } catch (Exception $e) {
+            return 0;
+        }
+    }
+    public function search($n = 0, $limite = 9, string $order_by = 'id', string $order_type = 'ASC'): array
+    {
+        $query = "SELECT $this->select_query FROM $this->tabla AS a $this->joins WHERE 1";
+        foreach ($this->variables_like as $key => $value) {
+            $query .= ' AND ' . $key . ' LIKE :like' . $this->normalizeKey($key);
+        }
+        foreach ($this->variables as $key => $value) {
+            $query .= ' AND ' . $key . ' = :' . $this->normalizeKey($key);
+        }
+        foreach ($this->variables_interval as $key => $value) {
+            $query .= ' AND ' . $key . ' BETWEEN :' . $this->normalizeKey($key) . ' AND :' . $this->normalizeKey($key) . '2';
+        }
+
+        // $order_by = $this->conn->quote($order_by, PDO::PARAM_STR);
+        // $order_type = $this->conn->quote($order_type, PDO::PARAM_STR);
+
+        if (str_contains($this->select_query, $order_by) && in_array(strtoupper($order_type), ['ASC', 'DESC'])) {
+            $query .= " ORDER BY $order_by $order_type";
+        }
+
+        $query .= " LIMIT :l OFFSET :n ";
+
+        // print_r("\n");
+        // print_r($query);
+        // print_r("\n");
+        // Creamos la consulta
+        $consulta = $this->conn->prepare($query);
+        // Asignamos los parametros   
+        // print_r($this->variables);
+        foreach ($this->variables as $key => $value) {
+            $consulta->bindValue(':' . $this->normalizeKey($key), $value);
+        }
+        foreach ($this->variables_like as $key => $value) {
+            $value2 = '%' . $value . '%';
+            $consulta->bindValue(':like' . $this->normalizeKey($key), $value2, PDO::PARAM_STR);
+        }
+        foreach ($this->variables_interval as $key => $value) {
+            $consulta->bindValue(':' . $this->normalizeKey($key), $value["inicio"]);
+            $consulta->bindValue(':' . $this->normalizeKey($key) . '2', $value["fin"]);
+        }
+        $n = $n * $limite;
+        $consulta->bindValue(':l', $limite, PDO::PARAM_INT);
+        $consulta->bindValue(':n', $n, PDO::PARAM_INT);
+        $consulta->execute();
+        return $consulta->fetchAll();
+    }
+    public function COUNT(): int
+    {
+        $query = "SELECT COUNT(*) as 'total' FROM $this->tabla AS a $this->joins WHERE 1";
+
+        foreach ($this->variables as $key => $value) {
+            $query .= ' AND ' . $key . '=:a' . $this->normalizeKey($key);
+        }
+        foreach ($this->variables_like as $key => $value) {
+            $query .= ' AND ' . $key . ' LIKE :alike' . $this->normalizeKey($key);
+        }
+        foreach ($this->variables_interval as $key => $value) {
+            $query .= ' AND ' . $key . ' BETWEEN :' . $this->normalizeKey($key) . ' AND :' . $this->normalizeKey($key) . '2';
+        }
+
+        // Creamos la consulta
+        $consulta = $this->conn->prepare($query);
+
+        // Asignamos los parametros   
+        foreach ($this->variables as $key => $value) {
+            $consulta->bindValue(':a' . $this->normalizeKey($key), $value);
+        }
+        foreach ($this->variables_like as $key => $value) {
+            $value2 = '%' . $value . '%';
+            $consulta->bindValue(':alike' . $this->normalizeKey($key), $value2);
+        }
+        foreach ($this->variables_interval as $key => $value) {
+            $consulta->bindValue(':' . $this->normalizeKey($key), $value["inicio"]);
+            $consulta->bindValue(':' . $this->normalizeKey($key) . '2', $value["fin"]);
+        }
+        $consulta->execute();
+        return $consulta->fetch()['total'];
+    }
+    public function consultar_vista($vista)
+    {
+        try {
+            $query = "SELECT * FROM $vista";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return ['error' => true, 'message' => $e->getMessage()];
+        }
+    }
+    public function get($key)
+    {
+        return $this->variables[$key];
+    }
+    public function set($key, $value)
+    {
+        return $this->variables[$key] = $value;
+    }
+    public function __toString()
+    {
+        return json_encode($this->variables);
+    }
+}

@@ -6,7 +6,7 @@
 
             <div class="navbar-brand justify-content-center">
                 <a href="home">
-                    <img src="./assets/img/logo_letras.svg" alt="" class="img-fluid items-center">
+                    <img src="./assets/img/logo_letras.svg" alt="" class="img-fluid items-center" style="z-index: 1000;">
                 </a>
             </div>
 
@@ -16,7 +16,7 @@
                     class="ti-more"></i></a>
         </div>
 
-        <div class="navbar-collapse collapse" id="navbarSupportedContent">
+        <div class="navbar-collapse collapse position-relative" style="z-index: 500;" id="navbarSupportedContent">
 
             <ul class="navbar-nav float-left me-auto ms-3 ps-1">
                 <!-- Notification -->
@@ -94,8 +94,6 @@
                         </ul>
                     </div>
                 </li>
-
-
                 <li class="nav-item" data-bs-toggle="tooltip" data-bs-title="Ayuda Interactiva" data-bs-placement="top">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -140,11 +138,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <img src="./assets/img/users/profile-pic.jpg" alt="user" class="rounded-circle"
-                            width="40">
-                        <span class="ms-2 d-none d-lg-inline-block"><span>Hola,</span> <span
-                                class="text-dark">Felix Dominguez</span> <i data-feather="chevron-down"
-                                class="svg-icon"></i></span>
+                        <img id="img_profile_header" alt="user" src="<?php $_SESSION['imagen'] ?  print_r("media/users/" . $_SESSION['imagen']) : print_r("./assets/img/users/1.jpg") ?>" class="rounded-circle" width="35" height="35" style="object-fit: cover">
+                        <span class="ms-2 d-none d-lg-inline-block"><span>Hola,</span> <span class="text-dark" id="name_profile_header"><?php echo ucfirst($_SESSION['nombre']) . " " . ucfirst($_SESSION['apellido']); ?></span> <i data-feather="chevron-down" class="svg-icon"></i></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-right user-dd animated flipInY">
                         <a class="dropdown-item" href="profile"><i data-feather="user"
@@ -152,9 +147,9 @@
                             Mi perfil</a>
 
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="login"><i data-feather="power"
+                        <a class="dropdown-item logout_btn"><i data-feather="power"
                                 class="svg-icon me-2 ms-1"></i>
-                            Logout</a>
+                            Cerrar Sesión</a>
                     </div>
                 </li>
 
