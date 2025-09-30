@@ -1,64 +1,110 @@
 <?php
-namespace Shtechnologyx\Pt3\Model;
 
-use Shtechnologyx\Pt3\Model\Db_base;
+namespace Shtch\Burgerhouse\models;
 
-class Caja extends Db_base {
+use Shtch\Burgerhouse\models\Db_base;
+use Exception;
+use PDO;
+
+class Caja extends Db_base
+{
     private $id;
-    private $usuario;
-    private $monto_inicial;
-    private $monto_final;
-    private $fecha;
-    private $monto_credito;
+    private $id_usuario;
+    private $monto_inicial_dolar;
+    private $monto_inicial_bs;
+    private $monto_final_dolar;
+    private $monto_final_bs;
+    private $fecha_apertura;
+    private $fecha_cierre;
+    private $estado;
     private $total_ventas;
+    private $fecha_inicio;
+    private $fecha_final;
+
 
     public function __construct(
         $id = null,
-        $usuario = null,
-        $monto_inicial = null,
-        $monto_final = null,
-        $fecha = null,
-        $monto_credito = null,
-        $total_ventas = null
+        $id_usuario = null,
+        $monto_inicial_dolar = null,
+        $monto_inicial_bs = null,
+        $monto_final_dolar = null,
+        $monto_final_bs = null,
+        $fecha_apertura = null,
+        $fecha_cierre = null,
+        $estado = null,
+        $total_ventas = null,
+        $fecha_inicio = null,
+        $fecha_final = null
+
     ) {
-        parent::__construct($id, "caja");
-        
+        parent::__construct("caja");
+
         $this->id = $id;
-        $this->usuario = $usuario;
-        $this->monto_inicial = $monto_inicial;
-        $this->monto_final = $monto_final;
-        $this->fecha = $fecha;
-        $this->monto_credito = $monto_credito;
+        $this->id_usuario = $id_usuario;
+        $this->monto_inicial_bs = $monto_inicial_bs;
+        $this->monto_inicial_dolar = $monto_inicial_dolar;
+        $this->monto_final_bs = $monto_final_bs;
+        $this->monto_final_dolar = $monto_final_dolar;
+        $this->fecha_apertura = $fecha_apertura;
+        $this->fecha_cierre = $fecha_cierre;
+        $this->estado = $estado;
         $this->total_ventas = $total_ventas;
+        $this->fecha_inicio = $fecha_inicio;
+        $this->fecha_final = $fecha_final;
+
 
         $this->add_variables([
             "a.id" => $this->id,
-            "a.usuario" => $this->usuario,
-            "a.monto_inicial" => $this->monto_inicial,
-            "a.monto_final" => $this->monto_final,
-            "a.fecha" => $this->fecha,
-            "a.monto_credito" => $this->monto_credito,
+            "a.id_usuario" => $this->id_usuario,
+            "a.monto_inicial_bs" => $this->monto_inicial_bs,
+            "a.monto_inicial_dolar" => $this->monto_inicial_dolar,
+            "a.monto_final_bs" => $this->monto_final_bs,
+            "a.monto_final_dolar" => $this->monto_final_dolar,
+            "a.fecha_apertura" => $this->fecha_apertura,
+            "a.fecha_cierre" => $this->fecha_cierre,
+            "a.estado" => $this->estado,
             "a.total_ventas" => $this->total_ventas
-        ]);
-
-        $this->add_variables_like([
-            "a.id" => $this->id,
-            "a.usuario" => $this->usuario
         ]);
 
         $this->select_query = "
             a.id,
-            a.usuario,
-            b.nombre AS nombre_usuario,
-            a.monto_inicial,
-            a.monto_final,
-            a.fecha,
-            a.monto_credito,
+            a.id_usuario,
+            a.monto_inicial_bs,
+            a.monto_inicial_dolar,
+            a.monto_final_bs,
+            a.monto_final_dolar,
+            a.fecha_apertura,
+            a.fecha_cierre,
+            a.estado,
             a.total_ventas
         ";
-
-        $this->joins = "
-            INNER JOIN usuario b ON b.usuario = a.usuario
-        ";
+        $this->add_variables_interval([
+            "a.fecha_apertura" => [
+                "inicio" => $this->fecha_inicio,
+                "fin" => $this->fecha_final
+            ],
+        ]);
+    }
+    public function cajaDetails(int $id)
+    {
+        try {
+            $query = $this->conn->prepare("CALL Caja(:id)");
+            $query->bindValue(':id', $id, PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    public function closeCash(int $id)
+    {
+        try {
+            $query = $this->conn->prepare("CALL CerrarCaja(:id)");
+            $query->bindValue(':id', $id, PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
     }
 }

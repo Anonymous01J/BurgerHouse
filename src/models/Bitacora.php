@@ -1,61 +1,55 @@
 <?php
-namespace Shtechnologyx\Pt3\Model;
+namespace Shtch\Burgerhouse\models;
 
-use Shtechnologyx\Pt3\Model\Db_base;
+use Shtch\Burgerhouse\models\Db_base;
 
 class Bitacora extends Db_base {
     private $id;
-    private $usuario;
+    private $id_usuario;
     private $tabla_str;
     private $accion;
     private $fecha;
-    private $detalles;
+    private $descripcion;
 
     public function __construct(
         $id = null,
-        $usuario = null,
+        $id_usuario = null,
         $tabla = null,
         $accion = null,
         $fecha = null,
-        $detalles = null
+        $descripcion = null
     ) {
-        parent::__construct($id, "bitacora");
+        parent::__construct("bitacora",2);
         
         $this->id = $id;
-        $this->usuario = $usuario;
+        $this->id_usuario = $id_usuario;
         $this->tabla_str = $tabla;
         $this->accion = $accion;
         $this->fecha = $fecha;
-        $this->detalles = $detalles;
+        $this->descripcion = $descripcion;
 
         $this->add_variables([
             "a.id" => $this->id,
-            "a.usuario" => $this->usuario,
+            "a.id_usuario" => $this->id_usuario,
             "a.tabla" => $this->tabla_str,
             "a.accion" => $this->accion,
             "a.fecha" => $this->fecha,
-            "a.detalles" => $this->detalles
-        ]);
-
-        $this->add_variables_like([
-            "a.id" => $this->id,
-            "a.usuario" => $this->usuario,
-            "a.tabla" => $this->tabla_str,
-            "a.accion" => $this->accion
+            "a.descripcion" => $this->descripcion
         ]);
 
         $this->select_query = "
             a.id,
-            a.usuario,
+            a.id_usuario,
             b.nombre AS nombre_usuario,
+            b.apellido AS apellido_usuario,
             a.tabla,
             a.accion,
             a.fecha,
-            a.detalles
+            a.descripcion
         ";
 
         $this->joins = "
-            INNER JOIN usuario b ON b.usuario = a.usuario
+            INNER JOIN usuario b ON b.id = a.id_usuario
         ";
     }
 }

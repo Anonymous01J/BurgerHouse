@@ -13,7 +13,7 @@
     <div class="page-wrapper">
         <div class="page-breadcrumb">
             <div class="row">
-                <div class="col-7 align-self-center">
+                <div class="col-md-8 align-self-center">
                     <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Creditos</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
@@ -40,10 +40,6 @@
                 
                 <button type="button" class="btn bh_1 btn-circle text-white" data-bs-toggle="dropdown" aria-expanded="false">
                     <i data-feather="filter" class="svg-icon"></i>
-                </button>
-
-                <button style="color: #fff;" type="button" class="btn bh_1 btn-circle">
-                    <i data-feather="file-plus" class="svg-icon"></i>
                 </button>
 
                 <div class="dropdown">

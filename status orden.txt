@@ -1,0 +1,5 @@
+0 por verificar
+1 verificado(en cocina)
+2 por despachar
+3 en camino
+4 entregado

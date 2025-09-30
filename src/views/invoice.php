@@ -2,18 +2,13 @@
 <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
 
 
-
-<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-
+<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
-
     <div class="page-wrapper">
         <div class="page-breadcrumb">
             <div class="row">
-                <div class="col-7 align-self-center">
+                <div class="col-md-8 align-self-center">
                     <h3 class="page-title text-truncate text-dark font-weight-medium mb-1">Facturas</h3>
                     <div class="d-flex align-items-center">
                         <nav aria-label="breadcrumb">
@@ -25,110 +20,126 @@
                         </nav>
                     </div>
                 </div>
-
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
 
         <div class="container-fluid">
-
-            <div class="row gap-2 align-items-center mb-5">
-                <div class="col-auto">
-                    <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Ordenes</button>
+                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Reservaciones</button>
                 </div>
-                <button type="button" class="btn bh_1 btn-circle text-white" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i data-feather="filter" class="svg-icon"></i>
-                </button>
-
-                <button type="button" class="btn bh_1 btn-circle text-white">
-                    <i data-feather="file-plus" class="svg-icon"></i>
-                </button>
-
-                <div class="dropdown">
-                    <ul class="dropdown-menu p-4">
-                        <div class="row g-3 align-items-center mb-3">
-                            <div class="col-auto">
-                                <label for="inputPassword6" class="col-form-label">Desde</label>
-                            </div>
-                            <div class="col-auto">
-                                <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                            </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
+                    <div class="row gap-2 align-items-center mb-5 mt-4">
+                        <div class="col-auto">
+                            <input type="search" id="searchInvoice" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
-                        <div class="row g-3 align-items-center">
-                            <div class="col-auto">
-                                <label for="inputPassword6" class="col-form-label">Hasta</label>
-                            </div>
-                            <div class="col-auto">
-                                <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                            </div>
-                        </div>
-                        <div class="row g-3 align-items-center justify-content-center mt-3">
-                            <div class="col-auto">
-                                <button class="btn bh_5 text-white">Aplicar</button>
-                            </div>
-                        </div>
-                    </ul>
-                </div>
-            </div>
+                        <button type="button" class="btn bh_1 btn-circle text-white" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i data-feather="filter" class="svg-icon"></i>
+                        </button>
 
-            <div class="row">
-                <div class="col-md-4 col-lg-3 ">
-                    <div class="position-relative">
-                        <span class="badge bh_1 d-flex justify-content-center align-items-center position-absolute rounded-circle" style="z-index: 1; width: 40px; height: 40px; top: -15px; right: -10px;">
-                            <span><i style="font-size: 20px;" data-feather="clipboard" class="svg-icon"></i></span>
-                        </span>
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="mb-3 border-bottom">
-                                    <div class="d-flex justify-content-between ">
-                                        <h5 class="card-title">Nro Factura</h5>
-                                        <div>
-                                            <p class="fs-6">454558</p>
-                                        </div>
+                        <div class="dropdown">
+                            <ul class="dropdown-menu p-4">
+                                <div class="row g-3 align-items-center mb-3">
+                                    <div class="col-auto">
+                                        <label for="inputPassword6" class="col-form-label">Desde</label>
                                     </div>
-                                    <div class="d-flex justify-content-between">
-                                        <p class="fw-lighter fs-6">Fecha: 15/3/2025</p>
-                                        <p class="fw-lighter fs-6">Hora: 13:40</p>
+                                    <div class="col-auto">
+                                        <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
                                     </div>
                                 </div>
-
-
-                                <div class="row gap-3">
-                                    <div class="d-flex flex-column gap-3">
-                                        <div class="d-flex align-item-center justify-content-between text-start">
-                                            <div>Cliente</div>
-                                            <div class="fs-6">Jose Escalona</div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <div class="text-start">Vendedor</div>
-                                            <div class=" text-end fs-6 w-50 text-truncate">Kevin</div>
-                                        </div>
-                                        <div class="d-flex justify-content-between">
-                                            <div class="text-start">Total</div>
-                                            <div class=" text-end fs-6 w-50 text-truncate">756 Bs</div>
-                                        </div>
-                                        <span class="badge text-bg-success badge-pill">Pagado</span>
-                                        <div class="d-flex justify-content-center pt-3 border-top">
-                                            <button class="btn btn-sm bh_5" style="color: #fff;">Detalles</button>
-                                        </div>
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-auto">
+                                        <label for="inputPassword6" class="col-form-label">Hasta</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
                                     </div>
                                 </div>
+                                <div class="row g-3 align-items-center justify-content-center mt-3">
+                                    <div class="col-auto">
+                                        <button class="btn bh_5 text-white">Aplicar</button>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="d-flex gap-2 justify-content-start flex-wrap ps-0 mb-4">
+                                <div>
+                                    <input type="radio" class="btn-check btn_check" name="data-filter" data-filter="all" id="invoice_delivery" autocomplete="off" checked>
+                                    <label class="btn bh_1CHECKBOX rounded-pill" for="invoice_delivery">Delivery</label>
+                                </div>
+                                <div>
+                                    <input type="radio" class="btn-check btn_check" name="data-filter" data-filter="all" id="invoice_takeaway" autocomplete="off">
+                                    <label class="btn bh_1CHECKBOX rounded-pill" for="invoice_takeaway">Para llevar</label>
+                                </div>
+                                <div>
+                                    <input type="radio" class="btn-check btn_check" name="data-filter" data-filter="all" id="invoice_local" autocomplete="off">
+                                    <label class="btn bh_1CHECKBOX rounded-pill" for="invoice_local">Local</label>
+                                </div>
                             </div>
+                        </div>
+                        <div class="row cont_invoice">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                    <div class="row gap-2 align-items-center mb-5 mt-4">
+                        <div class="col-auto">
+                            <input type="search" id="searchInvoiceRes" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                        </div>
+                        <button type="button" class="btn bh_1 btn-circle text-white" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i data-feather="filter" class="svg-icon"></i>
+                        </button>
+
+                        <div class="dropdown">
+                            <ul class="dropdown-menu p-4">
+                                <div class="row g-3 align-items-center mb-3">
+                                    <div class="col-auto">
+                                        <label for="inputPassword6" class="col-form-label">Desde</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-auto">
+                                        <label for="inputPassword6" class="col-form-label">Hasta</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                                    </div>
+                                </div>
+                                <div class="row g-3 align-items-center justify-content-center mt-3">
+                                    <div class="col-auto">
+                                        <button class="btn bh_5 text-white">Aplicar</button>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="row cont_invoice_reservation">
+
                         </div>
                     </div>
                 </div>
             </div>
 
+
         </div>
-
-        <?php include_once __DIR__ . '/../Views/Components/modals/Confirm.php' ?>
-
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
+        <?php include_once __DIR__ . '/../Views/Components/modals/invoice/modal.php' ?>
 
     </div>
-
-
 
     <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
     <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -137,3 +148,5 @@
     <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
+    <script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
+    <script type="module" src="./assets/js/pages/invoice/invoice.js"></script>

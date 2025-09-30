@@ -1,4 +1,64 @@
 # ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
+
+1) CRUD de permisos
+2) Arreglo para pasar variables tanto para agregar como para buscar (get_all), para todos los modulos.
+3) evita que las variables que se le pasen al modelo sean listas.
+4) algunos try catch mas para el resto del CRUD.
+
+# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
+27/3/2025
+
+Nuevos controladores y modelos para:
+ - Bitacora
+ - Caja
+ - Categoria_materia_prima
+ - Categorias_productos
+ - Configuraciones
+ - Clientes
+ - Credito
+ - Entradas_materia_prima
+ - Ingredientes_producto
+ - Movimientos_capital
+ - Notificaciones
+ - Pagos
+ - Productos
+ - Proveedores
+ - Usuarios
+ - Unidades
+ - Ventas
+ - Roles
+ - Permiso
+ - Permiso_rol
+ - Metodo de pago
+
+Ya se puede enviar peticiones a la API para consultar los datos de la base de datos con "get_all".
+"http://localhost/BurgerHouse/usuarios/get_all"
+asi que ya el frontend puede ir rellenando las paginas con datos.
+
+# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
+24/3/2025
+
+Correcciones:
+ - Realmente la Db_Base no necesita recibir el id aparte.
+ - Corregido el modelo de configuraciones para usar Db_Base.
+
+# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
+24/3/2025
+
+Novedades:
+ - Memento base de datos:
+ - - para las unidades ya se puede usar la base de datos, detalles en el archivo API_usage.txt.
+
+Correcciones:
+ - Algunas url de modelos en los modelos.
+ - Añadido session_id y recovery_token a la tabla usuarios.
+
+Cosas Nuevas:
+ - Añadida API para obtener informacion de la base de datos, detallada en el archivo API_usage.txt.
+ - Añadidos los parametros globales en un archivo config.php.
+ - Añadido controlador y modelo para Unidades y usuarios.
+
+# ------------------------------ ||||||||||||||||||||||||||||||||||||||||| ------------------------------ #
 17/3/2025
 
 Cambios:
