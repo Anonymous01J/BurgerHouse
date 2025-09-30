@@ -28,9 +28,19 @@ class Controller_base
         if (in_array($this->module_name, ["login", "recover_password", "index", "profile", "notifications"])) {
             include_once __DIR__ . '/../views/' . $this->module_name . '.php';
         } else {
-            if (Auth::AuthController($this->module_name)) {
-                include_once __DIR__ . '/../views/' . $this->module_name . '.php';
+            if ($_SESSION['id_rol']==1 || Auth::AuthController($this->module_name)) {
+                header("HTTP/1.1 200 OK");
+                try {
+                    include_once __DIR__ . '/../views/' . $this->module_name . '.php';
+
+                }
+                catch (Exception $e) {
+                    header("HTTP/1.0 500 Internal Server Error");
+                    echo "Error 500: Error al cargar la vista " . $this->module_name;
+                    // include_once __DIR__ . '/../views/error-500.php';
+                }
             } else {
+                header("HTTP/1.0 404 Not Found");
                 include_once __DIR__ . '/../views/error-404.php';
             }
         }

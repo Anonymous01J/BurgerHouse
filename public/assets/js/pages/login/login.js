@@ -7,7 +7,7 @@ document.querySelectorAll("#login_form #login-correo, #login_form #login-passwor
 })
 $(".preloader ").fadeOut();
 let login_form = document.getElementById("login_form")
-login_form.querySelector("button").disabled = true
+// login_form.querySelector("button").disabled = true
 
 const rules = {
   email: {
@@ -39,7 +39,7 @@ login_form.addEventListener("submit", async (e) => {
     let data = new FormData()
     data.append("email", document.getElementById("login-correo").value)
     data.append("password", document.getElementById("login-password").value)
-    data.append("token", document.querySelector('.cf-turnstile input[name="cf-turnstile-response"]').value)
+    // data.append("token", document.querySelector('.cf-turnstile input[name="cf-turnstile-response"]').value)
     let validate = await fetch("login/login", { method: "POST", body: data })
     let result = await validate.json()
     if (result.success == true) {
@@ -69,6 +69,5 @@ login_form.addEventListener("submit", async (e) => {
 })
 
 window.captchaVerify = (token) => {
-  console.log(token)
-  login_form.querySelector("button").disabled = false
+  // login_form.querySelector("button").disabled = false
 }
