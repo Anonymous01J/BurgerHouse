@@ -158,67 +158,120 @@
                 <div class="col-lg-6 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <h4 class="card-title">Porcentaje de reservacion por horario (2025)</h4>
-                                <div class="ms-auto">
-                                    <div class="dropdown sub-dropdown">
-                                        <a class="link-secondary text-muted" id="porcentajeReservacion" style="cursor: pointer">
-                                            <i data-feather="download"></i>
-                                        </a>
-                                        <button class="btn btn-link text-muted dropdown-toggle" type="button"
-                                            id="dd1" data-bs-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i data-feather="more-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dd1">
-                                            <div class="row p-3">
-                                                <div class="col-md-12">
-                                                    <label for="inputEmail4" class="form-label">Ingrese año</label>
-                                                    <input type="text" class="form-control" placeholder="Año" id="year_net_income">
-                                                    <div class="d-flex justify-content-center mt-3">
-                                                        <button class="btn bh_1 text-white mx-auto" id="search_net_income">Buscar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="mb-1">
+                                    <h4 class="card-title">Porcentaje de reservaciones(horario)</h4>
+                                    <p class="fs-6 type_flter_date" type_temporality="anual"></p>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <select class="form-select form_select_type_filter" graphic="Porcentaje de reservaciones">
+                                        <option disabled value="s/v">Tipo de filtro</option>
+                                        <option value="Semana/mes/año">Semana/mes/año</option>
+                                        <option value="Mes/Año">Mes/Año</option>
+                                        <option selected value="Año">Año</option>
+                                    </select>
+                                    <a class="link-secondary text-muted btn_print_graphic" graphic="Porcentaje de reservaciones" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                        <i data-feather="download"></i>
+                                    </a>
                                 </div>
                             </div>
-                            <canvas id="ocupacionChart"></canvas>
-
+                            <div>
+                                <form class="row g-3 container_inputs_filter" graphic="Porcentaje de reservaciones">
+                                    <div class="col-md-6 d-none" type="week">
+                                        <input type="week" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="col-md-4 d-none" type="month">
+                                        <select class="form-select" name="" id="">
+                                            <option selected disabled value="s/v">Mes</option>
+                                            <option value="1">Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4" type="year">
+                                        <input type="year" placeholder="2025" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <article class="col-md-3" type="submit">
+                                        <button type="submit" class="btn bh_1 text-white">aplicar</button>
+                                    </article>
+                                </form>
+                            </div>
+                            <div class="d-flex justify-content-center mt-3 mb-2">
+                                <canvas id="ocupacionChart" class="w-100"></canvas>
+                            </div>
+                            <div class="container_leyend_porcentaje_reservas">
+                                <!-- leyenda -->
+                            </div>
                         </div>
                     </div>
+
+
                 </div>
                 <div class="col-lg-6 col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="d-flex align-items-start">
-                                <h4 class="card-title">Porcentaje de reservas por canales (2025)</h4>
-                                <div class="ms-auto">
-                                    <div class="dropdown sub-dropdown">
-                                        <a class="link-secondary text-muted" id="canalesReservacion" style="cursor: pointer">
-                                            <i data-feather="download"></i>
-                                        </a>
-                                        <button class="btn btn-link text-muted dropdown-toggle" type="button"
-                                            id="dd1" data-bs-toggle="dropdown" aria-haspopup="true"
-                                            aria-expanded="false">
-                                            <i data-feather="more-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dd1">
-                                            <div class="row p-3">
-                                                <div class="col-md-12">
-                                                    <label for="inputEmail4" class="form-label">Ingrese año</label>
-                                                    <input type="text" class="form-control" placeholder="Año" id="year_net_income">
-                                                    <div class="d-flex justify-content-center mt-3">
-                                                        <button class="btn bh_1 text-white mx-auto" id="search_net_income">Buscar</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div class="d-flex align-items-start justify-content-between">
+                                <div class="mb-1">
+                                    <h4 class="card-title">Porcentaje de reservaciones(metodo)</h4>
+                                    <p class="fs-6 type_flter_date" type_temporality="anual"></p>
+                                </div>
+                                <div class="d-flex align-items-center gap-2">
+                                    <select class="form-select form_select_type_filter" graphic="reservaciones por metodo">
+                                        <option disabled value="s/v">Tipo de filtro</option>
+                                        <option value="Semana/mes/año">Semana/mes/año</option>
+                                        <option value="Mes/Año">Mes/Año</option>
+                                        <option selected value="Año">Año</option>
+                                    </select>
+                                    <a class="link-secondary text-muted btn_print_graphic" graphic="reservaciones por metodo" style="cursor: pointer" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Descargar PDF">
+                                        <i data-feather="download"></i>
+                                    </a>
                                 </div>
                             </div>
-                            <canvas id="ReservasChart"></canvas>
+                            <div>
+                                <form class="row g-3 container_inputs_filter" graphic="reservaciones por metodo">
+                                    <div class="col-md-6 d-none" type="week">
+                                        <input type="week" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <div class="col-md-4 d-none" type="month">
+                                        <select class="form-select" name="" id="">
+                                            <option selected disabled value="s/v">Mes</option>
+                                            <option value="1">Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Septiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4" type="year">
+                                        <input type="year" placeholder="2025" class="form-control" id="inputEmail4">
+                                    </div>
+                                    <article class="col-md-3" type="submit">
+                                        <button type="submit" class="btn bh_1 text-white">aplicar</button>
+                                    </article>
+                                </form>
+                            </div>
+                            <div class="d-flex justify-content-center mt-3 mb-2">
+                                <canvas id="ReservasChart"></canvas>
+                            </div>
+                            <div class="container_leyend_reservas_metodo mt-3">
+                                <!-- leyenda -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -351,7 +404,6 @@
 
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-<script src="./assets/js/prueba.js"></script>
 <script src="./assets/js/app-style-switcher.js"></script>
 <script src="./assets/js/feather.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>

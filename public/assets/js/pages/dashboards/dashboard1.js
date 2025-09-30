@@ -132,6 +132,7 @@ const activity = async () => {
         else if (item.descripcion.includes("Se despacho")) icon = "log-in"
         else if (item.descripcion.includes("Se envio")) icon = "log-out"
         else if (item.descripcion.includes("Guardar Gasto") || item.descripcion.includes("Guardar Ingreso")) icon = "dollar-sign"
+        else if (item.descripcion.includes("Se pago")) icon = "dollar-sign"
 
         if (item.descripcion.includes("Se agrego ") || item.descripcion.includes("Se creo ")) title = "Nuevo elemento agregado"
         else if (item.descripcion.includes("Se elimino ")) title = "Elemento eliminado"
@@ -147,6 +148,8 @@ const activity = async () => {
         else if (item.descripcion.includes("Se ha agregado")) title = "Nuevo elemento agregado"
         else if (item.descripcion.includes("Se despacho")) title = "Nuevo despacho"
         else if (item.descripcion.includes("Se envio")) title = "Nuevo envio"
+        else if (item.descripcion.includes("Se pago")) title = "Pago realizado"
+
         else if (item.descripcion.includes("Guardar Gasto") || item.descripcion.includes("Guardar Ingreso")) title = "Nuevo movimiento de dinero"
 
 

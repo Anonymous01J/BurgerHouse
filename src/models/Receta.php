@@ -30,6 +30,7 @@ class Receta extends Db_base {
             a.id,
             a.id_producto,
             productos_preparados.nombre as nombre_producto,
+            productos_preparados.tipo,
             a.active
         ";
 

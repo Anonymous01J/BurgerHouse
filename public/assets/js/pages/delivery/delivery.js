@@ -1,28 +1,31 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 import { report } from "./report.js"
-const { searchParam, binnacle, sessionInfo, print, searchFilter } = functionGeneral();
+const { searchParam, binnacle, sessionInfo, print, searchFilter, permission, notification, notificationAlert } = functionGeneral();
 const { targetDelivery, infoKitchenDelivery, detailsKitchenDelivery } = Templates();
 let session = await sessionInfo()
 const config = {
-    search: () => searchParam({ status: 'en delivery' }, "order"),
+    search: () => searchParam({ status: 'para despachar', tipo: "delivery" }, "order", 12),
     template: targetDelivery,
     container: ".cont-delivery-pending",
     funtions: () => {
         saleBTN(config, () => binnacle(session.message.id, 'Orden de delivery', 'Orden aceptada', 'Se acepto una orden de delivery'))
+        modalDetails()
+        permission("delivery")
     },
 }
 searchFilter("#searchDeliveryPending", (e) => {
     if (e.target.value == "") print(config)
-    else print({ ...config, search: () => searchParam({ status: "en delivery", nombre_like: e.target.value }, "order") })
+    else print({ ...config, search: () => searchParam({ status: "para despachar", nombre_like: e.target.value }, "order") })
 })
 searchFilter("#searchDeliveryOff", (e) => {
-    if (e.target.value == "") printDeliveyOff("search", null, order => order.status == "entregada")
-    else printDeliveyOff("like", e.target.value, order => order.status > 2)
+    if (e.target.value == "") print({ ...config, search: () => searchParam({ status: "entregado", tipo: "delivery" }, "order"), container: ".cont-delivery-off" })
+    else print({ ...config, search: () => searchParam({ status: "entregado", nombre_like: e.target.value, tipo: "delivery" }, "order"), container: ".cont-delivery-off" })
 })
 const saleBTN = async (config, binnacleSale) => {
     document.querySelectorAll(".btn_sale").forEach(item => {
         item.addEventListener("click", async () => {
+
             Swal.fire({
                 title: "¿Deseas entregar esta orden?",
                 icon: "warning",
@@ -32,92 +35,69 @@ const saleBTN = async (config, binnacleSale) => {
                 confirmButtonColor: "#FF4B00",
             }).then(async (result) => {
                 if (result.isConfirmed) {
+                    Swal.fire({
+                    title: 'Procesando...',
+                    text: 'Por favor espera',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading() }
+                });
                     let id = item.getAttribute("id_order")
                     let data = new FormData();
                     data.append("id", id)
-                    let verify = await searchParam({ id: id, status: 'en delivery' }, "order")
-                    if (verify.length == 0) {
+                    let verify = await searchParam({ id: id, status: 'en camino' }, "order")
+                    if (verify.length > 0) {
                         Swal.fire({
                             title: `Error!`,
                             text: "No se puede aceptar la orden",
                             icon: "error",
                         });
+                        Swal.close();
                     } else {
                         data.append("status", "en camino")
                         let pet = await fetch('order/update', { method: "POST", body: data })
                         let res = await pet.json()
                         if (res.success == true) {
+                            Swal.close();
                             Swal.fire({
                                 title: `Exito!`,
                                 text: "La orden se acepto correctamente",
                                 icon: "success",
                             });
                             print(config)
-                            printDeliveyOff("search", null, order => order.status == "en camino")
+                            print({ ...config, search: () => searchParam({ status: "entregada", tipo: "delivery" }, "order", 12), container: ".cont-delivery-off" })
                             binnacleSale()
                             let deliveryData = new FormData();
                             deliveryData.append("id_venta", item.getAttribute("id_venta"))
                             deliveryData.append("id_usuario_delivery", session.message.id)
                             let deliveryName = await fetch("delivery/add", { method: "POST", body: deliveryData })
+                            notification({
+                                id_usuario: session.message.id,
+                                titulo: `Orden tomada`,
+                                mensaje: `La orden ${id.toString().padStart(4, '0')} esta en camino para despachar`,
+                            })
+                            notificationAlert({
+                                channel: "Order",
+                                message: `La orden ${id.toString().padStart(4, '0')} esta en camino para despachar`,
+                                event: "order"
+                            })
+                            notificationAlert({
+                                channel: "General",
+                                message: `La orden ${id.toString().padStart(4, '0')} esta en camino para despachar`,
+                                event: "notificaciones"
+                            })
                         } else {
                             Swal.fire({
                                 title: `Error!`,
                                 text: "No se puede aceptar la orden",
                                 icon: "error",
                             });
+                            Swal.close();
                         }
                     }
                 }
             });
         })
     })
-}
-const printDeliveyOff = async (type, type_filter, condition) => {
-    let templateCharge = "";
-    templateCharge = `
-          <div class="col-12 d-flex justify-content-center align-items-center fs-1" style="height: 50vh;">
-            <div class="spinner-border" role="status" style="width: 150px; height: 150px; color: #c1c1c1;">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-          `
-    document.querySelector(".cont-delivery-off").innerHTML = templateCharge;
-    let result
-    if (type == "search") result = await searchParam({}, "order");
-    else if (type == "like") result = await searchParam({ nombre_like: type_filter }, "order");
-    else result = await searchParam({ tipo: type_filter }, "order", 1000000000);
-    let template = ""
-    let template2 = ""
-    if (result.length > 0) result.forEach((order) => {
-        if (condition(order)) {
-            template += targetDelivery(order)
-        } else {
-            template2 = `
-                <div class="col-12">
-                    <div class="d-flex justify-content-center align-items-center">
-                        <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
-                    </div>
-                </div>
-                `
-        }
-    })
-    else {
-        template = `
-            <div class="col-12">
-                <div class="d-flex justify-content-center align-items-center">
-                    <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
-                </div>
-            </div>
-            `
-    }
-    if (template != "") {
-        document.querySelector(".cont-delivery-off").innerHTML = template
-        modalDetails()
-    }
-    else {
-        document.querySelector(".cont-delivery-off").innerHTML = template2
-        modalDetails()
-    }
 }
 // IntroJs
 document.getElementById('navbarDropdown').addEventListener('click', function () {
@@ -154,25 +134,7 @@ document.getElementById('navbarDropdown').addEventListener('click', function () 
     }
 });
 print(config)
-printDeliveyOff("search", null, order => order.status > 2)
-document.querySelectorAll(".btn_check_pending").forEach(item => {
-    item.addEventListener("click", () => {
-        let type = item.id
-        if (type == "delivery_all_pending") print(config)
-        else if (type == "delivery_delivery_pending") print({ ...config, search: () => searchParam({ tipo: "delivery", status: 2 }, "order", 1000000000) })
-        else if (type == "delivery_takeaway_pending") print({ ...config, search: () => searchParam({ tipo: "llevar", status: 2 }, "order", 1000000000) })
-        else if (type == "delivery_local_pending") print({ ...config, search: () => searchParam({ tipo: "local", status: 2 }, "order", 1000000000) })
-    })
-})
-document.querySelectorAll(".btn_check_off").forEach(item => {
-    item.addEventListener("click", () => {
-        let type = item.id
-        if (type == "delivery_all_off") printDeliveyOff("search", null, order => order.status > 2)
-        else if (type == "delivery_delivery_off") printDeliveyOff("filter", "delivery", order => order.status > 2)
-        else if (type == "delivery_takeaway_off") printDeliveyOff("filter", "llevar", order => order.status > 2)
-        else if (type == "delivery_local_off") printDeliveyOff("filter", "local", order => order.status > 2)
-    })
-})
+print({ ...config, search: () => searchParam({ status: "entregada", tipo: "delivery" }, "order", 12), container: ".cont-delivery-off" })
 //modal de detalles
 const modalDetails = () => {
     document.querySelectorAll(".btn-details-kitchen-delivery").forEach(item => {
@@ -196,3 +158,17 @@ const modalDetails = () => {
         })
     })
 }
+const pusher = new Pusher('2a7ca356d030e2945ae9', { cluster: 'us2' });
+const channelKitchen = pusher.subscribe('Delivery');
+channelKitchen.bind('delivery', function (data) {
+    const toas = document.querySelector(".toast-container")
+    toas.querySelector("strong").textContent = data.event
+    dayjs.extend(window.dayjs_plugin_relativeTime);
+    dayjs.locale('es');
+    toas.querySelector("small").textContent = dayjs(data.time).fromNow()
+    toas.querySelector(".toast-body").textContent = data.message
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toas.querySelector("#liveToast"), { delay: 5000 })
+    toastBootstrap.show()
+    print(config)
+    print({ ...config, search: () => searchParam({ status: "entregada", tipo: "delivery" }, "order", 12), container: ".cont-delivery-off" })
+});

@@ -35,7 +35,7 @@
                         </a>
                         <ul aria-expanded="false" class="collapse first-level base-level-line">
                             <?php if ($tieneOrdenes) { ?>
-                                <li class="sidebar-item module_link" >
+                                <li class="sidebar-item module_link">
                                     <a href="order" class="sidebar-link">
                                         <span class="hide-menu">Ordenes</span>
                                     </a>
@@ -84,15 +84,45 @@
                             </a>
                         </li>
                     <?php } ?>
+
                 <?php  } ?>
 
-                <li class="sidebar-item module_link" data-module="Calendario">
-                    <a class="sidebar-link sidebar-link" href="calendar"
-                        aria-expanded="false">
-                        <i data-feather="calendar" class="feather-icon"></i>
-                        <span class="hide-menu">Calendario</span>
-                    </a>
-                </li>
+                <?php
+                $reservaciones = false;
+                $paquetes = false;
+
+                foreach ($_SESSION['permisos'] as $permiso) {
+                    $mod = strtolower($permiso['modulo']);
+                    $act = $permiso['permisos'];
+                    if ($mod === 'paquetes' && $act) $paquetes = true;
+                    if ($mod === 'reservaciones' && $act) $reservaciones = true;
+                }
+
+                if ($paquetes || $reservaciones) { ?>
+                    <li class="sidebar-item">
+                        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                            <i data-feather="calendar" class="feather-icon"></i>
+                            <span class="hide-menu">Calendario</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse first-level base-level-line">
+                            <?php if ($reservaciones) { ?>
+                                <li class="sidebar-item module_link">
+                                    <a href="calendar" class="sidebar-link">
+                                        <span class="hide-menu">Reservaciones</span>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            <?php if ($paquetes) { ?>
+                                <li class="sidebar-item module_link">
+                                    <a href="package_reservation" class="sidebar-link">
+                                        <span class="hide-menu">Paquetes de reservaciones</span>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </li>
+                <?php } ?>
+
 
                 <?php for ($i = 0; $i < count($_SESSION['permisos']); $i++) { ?>
                     <?php if (strtolower($_SESSION['permisos'][$i]['modulo']) == 'bitacora' && $_SESSION['permisos'][$i]['permisos']) { ?>
@@ -232,22 +262,36 @@
                     <?php } ?>
                 <?php  } ?>
 
-                <li class="sidebar-item" data-module="Facturacion">
-                    <a class="sidebar-link has-arrow" href="javascript:void(0)"
-                        aria-expanded="false">
-                        <i data-feather="shopping-bag" class="feather-icon"></i>
-                        <span class="hide-menu">Facturación</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse  first-level base-level-line">
-                        <li class="sidebar-item">
-                            <a href="invoice" class="sidebar-link">
-                                <span
-                                    class="hide-menu">Facturas
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+
+
+                <?php
+                $invoice = false;
+
+                foreach ($_SESSION['permisos'] as $permiso) {
+                    $mod = strtolower($permiso['modulo']);
+                    $act = $permiso['permisos'];
+                    if ($mod === 'facturas' && $act) $invoice = true;
+                }
+
+                if ($invoice) { ?>
+                    <li class="sidebar-item" data-module="Facturacion">
+                        <a class="sidebar-link has-arrow" href="javascript:void(0)"
+                            aria-expanded="false">
+                            <i data-feather="shopping-bag" class="feather-icon"></i>
+                            <span class="hide-menu">Facturación</span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level base-level-line">
+                            <li class="sidebar-item">
+                                <a href="invoice" class="sidebar-link">
+                                    <span
+                                        class="hide-menu">Facturas
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php } ?>
+
 
                 <?php for ($i = 0; $i < count($_SESSION['permisos']); $i++) { ?>
                     <?php if (strtolower($_SESSION['permisos'][$i]['modulo']) == 'unidades' && $_SESSION['permisos'][$i]['permisos']) { ?>

@@ -3,6 +3,8 @@
 namespace Shtch\Burgerhouse\models;
 
 use Shtch\Burgerhouse\models\Db_base;
+use Exception;
+use PDO;
 
 class Orden extends Db_base
 {
@@ -54,14 +56,39 @@ class Orden extends Db_base
             clientes.nombre AS cliente_nombre,
             clientes.apellido AS cliente_apellido,
             clientes.telefono AS cliente_telefono,
+            clientes.documento AS cliente_documento,
             ventas.direccion as direccion,
             a.fecha,
             a.status,
-            a.tipo
+            a.tipo,
+            ventas.monto_final
         ";
         $this->joins = "
             LEFT JOIN clientes ON clientes.id = a.id_cliente
             LEFT JOIN ventas ON ventas.id_orden = a.id
         ";
+    }
+
+    public function getMateriaPrima($id)
+    {
+         try {
+            $query = "
+            SELECT 
+            entradas_materia_prima.existencia,
+            materia_prima.nombre,
+            entradas_materia_prima.fecha_compra
+            FROM recetas
+            INNER JOIN detalles_receta ON detalles_receta.id_receta = recetas.id
+            INNER JOIN materia_prima ON materia_prima.id = detalles_receta.id_materia_prima
+            INNER JOIN entradas_materia_prima ON entradas_materia_prima.id_materia_prima = materia_prima.id
+            WHERE recetas.id_producto = $id AND entradas_materia_prima.fecha_vencimiento > NOW()
+            ORDER BY entradas_materia_prima.fecha_compra ASC
+            ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return ['error' => true, 'message' => $e->getMessage()];
+        }
     }
 }

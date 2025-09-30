@@ -1,12 +1,12 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 import introTooltip from "../../intro-tooltip.js"
-const {productProcess} = introTooltip()
+const { productProcessIntro } = introTooltip()
 const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, print, add, reindex, resetForm, permission, searchFilter, sessionInfo, binnacle, edit, Delete } = functionGeneral();
-const { targetProductProcess, elemenFormCombo, optionsRol } = Templates()
+const { targetProductProcess, elemenFormProductProcess, optionsRol } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
 let session = await sessionInfo()
-productProcess('navbarDropdown')
+productProcessIntro('navbarDropdown')
 InputPrice("[input_price]");
 selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 viewImage(".input-image")
@@ -31,7 +31,7 @@ searchFilter("#searchProduct", (e) => {
 let productCount = 1;
 function addProduct() {
   productCount++;
-  document.getElementById("products-container").insertAdjacentHTML('beforeend', elemenFormCombo(productCount));
+  document.getElementById("products-container").insertAdjacentHTML('beforeend', elemenFormProductProcess(productCount));
   feather.replace();
   selectOptionAll(".select_options_category_combo", "categoryProducto", optionsRol)
 
@@ -54,11 +54,52 @@ function attachValidationListeners(index) {
     input.addEventListener("change", (e) => validateField(e, rules));
   });
 
+  ["min", "max"].forEach(name => {
+    const input = productElement.querySelector(`input[name="${name}"]`);
+    input.addEventListener("keyup", () => {
+      const minVal = Number(productElement.querySelector(`input[name="min"]`).value);
+      const maxVal = Number(productElement.querySelector(`input[name="max"]`).value);
+      let minError = null;
+      let maxError = null;
+
+      if (isNaN(minVal) || minVal <= 0) minError = "Debe ser un número mayor que 0";
+
+      if (isNaN(maxVal) || maxVal <= 0) maxError = "Debe ser un número mayor que 0";
+
+      if (minError === null && maxError === null) {
+        if (maxVal < minVal) maxError = "No puede ser menor que Stock Min";
+      }
+
+      setValidationStyles(`input-min-combo-${index}`, minError);
+      setValidationStyles(`input-max-combo-${index}`, maxError);
+    });
+  });
+
   const productElement2 = document.getElementById(`product-container`);
   productElement2.querySelectorAll("input[type='text'], textarea, input[type='button']").forEach(input => {
     input.addEventListener("keyup", (e) => validateField(e, rules));
     input.addEventListener("blur", (e) => validateField(e, rules));
     input.addEventListener("change", (e) => validateField(e, rules));
+  });
+
+  ["min", "max"].forEach(name => {
+    const input = productElement2.querySelector(`input[name="${name}"]`);
+    input.addEventListener("keyup", () => {
+      const minVal = Number(productElement2.querySelector(`input[name="min"]`).value);
+      const maxVal = Number(productElement2.querySelector(`input[name="max"]`).value);
+      let minError = null;
+      let maxError = null;
+
+      if (isNaN(minVal) || minVal <= 0) minError = "Debe ser un número mayor que 0";
+
+      if (isNaN(maxVal) || maxVal <= 0) maxError = "Debe ser un número mayor que 0";
+
+      if (minError === null && maxError === null) {
+        if (maxVal < minVal) maxError = "No puede ser menor que Stock Min";
+      }
+      setValidationStyles(`input-min-combo`, minError);
+      setValidationStyles(`input-max-combo`, maxError);
+    });
   });
 }
 document.getElementById("add-product-btn").addEventListener("click", () => {
@@ -96,6 +137,16 @@ validate.validators.nombreValidator = function (value, options, key, attributes)
     return options.specialCharMessage;
   }
 };
+validate.validators.stockValidator = function (value, options, key, attributes) {
+  // Si uno de los dos no está presente, no hacemos nada
+  if (value == null || attributes[options.field] == null) return;
+  const val = Number(value);
+  const other = Number(attributes[options.field]);
+  if (isNaN(val) || isNaN(other)) return;
+  if (val < other) {
+    return options.message || `no puede ser menor que ${options.field}`;
+  }
+};
 const rules = {
   nombre: {
     nombreValidator: {
@@ -125,7 +176,6 @@ const rules = {
     },
     validateCategoryAndRecipe: { message: "^es requerido" }
   },
-
   detalles: {
     presence: {
       allowEmpty: false,
@@ -142,6 +192,32 @@ const rules = {
       message: "^es requerido"
     }
   },
+  min: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    numericality: {
+      onlyInteger: true,
+      greaterThan: 0,
+      message: "^debe ser un número mayor que 0"
+    }
+  },
+  max: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    numericality: {
+      onlyInteger: true,
+      greaterThan: 0,
+      message: "^debe ser un número mayor que 0"
+    },
+    stockValidator: {
+      field: "min",
+      message: "^no puede ser menor que Stock Min"
+    }
+  }
 };
 const rules2 = {
   nombre: {
@@ -172,7 +248,6 @@ const rules2 = {
     },
     validateCategoryAndRecipe: { message: "^es requerido" }
   },
-
   detalles: {
     presence: {
       allowEmpty: false,
@@ -183,6 +258,32 @@ const rules2 = {
       message: "^debe tener al menos 15 caracteres"
     }
   },
+  min: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    numericality: {
+      onlyInteger: true,
+      greaterThan: 0,
+      message: "^debe ser un número mayor que 0"
+    }
+  },
+  max: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    numericality: {
+      onlyInteger: true,
+      greaterThan: 0,
+      message: "^debe ser un número mayor que 0"
+    },
+    stockValidator: {
+      field: "min",
+      message: "^no puede ser menor que Stock Min"
+    }
+  }
 };
 let form = document.getElementById("form-submit-combo")
 if (!form.dataset.listenerAttached) {
@@ -198,7 +299,9 @@ if (!form.dataset.listenerAttached) {
         precio: product.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
         id_categoria: product.querySelector(`input[name="id_categoria"]`).getAttribute("data-id"),
         detalles: product.querySelector(`textarea[name="detalles"]`) ? product.querySelector(`textarea[name="detalles"]`).value : "",
-        imagen: product.querySelector(`input[name="imagen"]`) ? product.querySelector(`input[name="imagen"]`).files[0] : ""
+        imagen: product.querySelector(`input[name="imagen"]`) ? product.querySelector(`input[name="imagen"]`).files[0] : "",
+        min: product.querySelector(`input[name="min"]`).value,
+        max: product.querySelector(`input[name="max"]`).value
       };
       combo.push(data)
 
@@ -208,6 +311,8 @@ if (!form.dataset.listenerAttached) {
       setValidationStyles(`input-category-combo-${index}`, errors?.id_categoria ? errors.id_categoria[0] : null);
       setValidationStyles(`input-details-combo-${index}`, errors?.detalles ? errors.detalles[0] : null);
       setValidationStyles(`input-image-combo-${index}`, errors?.imagen ? errors.imagen[0] : null);
+      setValidationStyles(`input-min-combo-${index}`, errors?.min ? errors.min[0] : null);
+      setValidationStyles(`input-max-combo-${index}`, errors?.max ? errors.max[0] : null);
       if (errors) {
         formHasError = true;
       }
@@ -221,6 +326,8 @@ if (!form.dataset.listenerAttached) {
         data.append(`lista[${index}][detalles]`, combo.detalles);
         data.append(`lista[${index}][imagen_name]`, combo.imagen.name);
         data.append(`lista[${index}][imagen]`, combo.imagen);
+        data.append(`lista[${index}][stock_min]`, combo.min);
+        data.append(`lista[${index}][stock_max]`, combo.max);
       })
       resetForm("#products-container .product", form)
       add(config, 'productProcess', data, () => binnacle(session.message.id, 'Producto procesado', 'Agregar', 'Se agrego un producto procesado'))
@@ -240,11 +347,15 @@ function editData(response) {
   document.querySelector("#input-category-combo").setAttribute("data-id", response[0].id_categoria)
   document.querySelector("#input-details-combo").value = response[0].detalles
   document.querySelector("#img-combo-response").src = `media/productProcess/${response[0].imagen}`
+  document.querySelector("#input-min-combo").value = response[0].stock_min
+  document.querySelector("#input-max-combo").value = response[0].stock_max
   let data = {
     nombre: document.querySelector(`#input-name-combo`).value,
     precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
     id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
     detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
+    min: document.querySelector(`#input-min-combo`).value,
+    max: document.querySelector(`#input-max-combo`).value
   }
   const errors = validate(data, rules2);
   if (errors) hasError = true
@@ -252,6 +363,8 @@ function editData(response) {
   setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
   setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
   setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
+  setValidationStyles(`input-min-combo`, errors?.min ? errors.min[0] : null);
+  setValidationStyles(`input-max-combo`, errors?.max ? errors.max[0] : null);
 
   let formEdit = document.getElementById("form-submit-edit-combo")
   if (!formEdit.dataset.listenerAttached) {
@@ -262,6 +375,8 @@ function editData(response) {
         precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
         id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
         detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
+        min: document.querySelector(`#input-min-combo`).value,
+        max: document.querySelector(`#input-max-combo`).value
       }
       const errors = validate(data, rules2);
       if (errors) hasError = true
@@ -270,6 +385,8 @@ function editData(response) {
       setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
       setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
       setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
+      setValidationStyles(`input-min-combo`, errors?.min ? errors.min[0] : null);
+      setValidationStyles(`input-max-combo`, errors?.max ? errors.max[0] : null);
 
       if (!hasError) {
         let datafinal = new FormData()
@@ -278,6 +395,8 @@ function editData(response) {
         datafinal.append("id_categoria", document.querySelector("#input-category-combo").getAttribute("data-id"))
         datafinal.append("detalles", document.querySelector("#input-details-combo").value)
         datafinal.append("id", document.querySelector("#input-id-combo").value)
+        datafinal.append("stock_min", document.querySelector("#input-min-combo").value)
+        datafinal.append("stock_max", document.querySelector("#input-max-combo").value)
         if (document.querySelector("#input-image-combo").value != "") {
           console.log("object");
           datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
@@ -291,45 +410,3 @@ function editData(response) {
     form.dataset.listenerAttached = "true";
   }
 }
-  if (typeof introJs !== 'undefined') {
-      let intro = introJs();
-      intro.setOptions({
-          steps: [
-            {
-              element: '.page-title',
-              intro: 'Esta es la sección de productos procesados, donde puedes gestionar los productos disponibles en el sistema.',
-              position: 'bottom'
-            },
-            {
-                element: '#searchProduct',
-                intro: 'Utiliza este cuadro de búsqueda para filtrar los productos procesados.',
-                position: 'top'
-            },
-            {
-                element: '.btn-add-tooltip',
-                intro: 'Haz clic aquí para agregar un nuevo producto preparado.',
-                position: 'top'
-            },
-            {
-              element: '#categories',
-              intro: 'Aquí puedes ver las categorías disponibles para los productos procesados. Selecciona una categoría para filtrar los productos procesados por tipo.',
-              position: 'top'
-            },
-            {
-                element: '.cont-product',
-                intro: 'Este contenedor muestra los productos procesados disponibles. Puedes editarlos o eliminarlos.',
-                position: 'top'
-            },
-            {
-                element: '#top-products',
-                intro: 'Esta sección muestra los productos más vendidos y su rendimiento.',
-                position: 'top'
-            }
-          ],
-          showBullets: true,
-          exitOnOverlayClick: false,
-          showProgress: true
-      });
-      intro.start();
-  }
-});

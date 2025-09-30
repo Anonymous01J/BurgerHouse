@@ -81,16 +81,14 @@
                             <table class="table table-dark-mode no-wrap w-100 table_entrys_active">
                                 <thead>
                                     <tr>
-                                        <th>Cod.</th>
+                                        <th>Nro compra</th>
                                         <th>M.Prima</th>
                                         <th>Provee.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
                                         <th>Cant</th>
-                                        <th>Exis.</th>
-                                        <th>P.COMPRA</th>
-                                        <th>C.PAGO</th>
-                                        <th></th>
+                                        <th>Exist.</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -115,9 +113,8 @@
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
                                         <th>Cant</th>
-                                        <th>Exis.</th>
-                                        <th>P.COMPRA</th>
-                                        <th>C.PAGO</th>
+                                        <th>Exist.</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -142,9 +139,8 @@
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
                                         <th>Cant</th>
-                                        <th>Exis.</th>
-                                        <th>P.COMPRA</th>
-                                        <th>C.PAGO</th>
+                                        <th>Exist.</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -169,9 +165,8 @@
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
                                         <th>Cant</th>
-                                        <th>Exis.</th>
-                                        <th>P.COMPRA</th>
-                                        <th>C.PAGO</th>
+                                        <th>Exist.</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -185,3 +180,5 @@
         </div>
     </div>
 </div>
+
+

@@ -82,15 +82,13 @@
                                 <thead>
                                     <tr>
                                         <th>Cod.</th>
-                                        <th>Produc.</th>
+                                        <th>Producto</th>
                                         <th>Provee.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
-                                        <th>Cant.</th>
-                                        <th>Exis.</th>
-                                        <th>P.COMPRA</th>
-                                        <th>C.PAGO</th>
-                                        <th></th>
+                                        <th>Cant</th>
+                                        <th>Exist.</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -110,14 +108,13 @@
                                 <thead>
                                     <tr>
                                         <th>Cod.</th>
-                                        <th>Produc.</th>
+                                        <th>Producto</th>
                                         <th>Provee.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
-                                        <th>Cant.</th>
-                                        <th>Exis.</th>
-                                        <th>P.COMPRA</th>
-                                        <th>C.PAGO</th>
+                                        <th>Cant</th>
+                                        <th>Exist.</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -137,14 +134,13 @@
                                 <thead>
                                     <tr>
                                         <th>Cod.</th>
-                                        <th>Produc.</th>
+                                        <th>Producto</th>
                                         <th>Provee.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
-                                        <th>Cant.</th>
-                                        <th>Exis.</th>
-                                        <th>P.COMPRA</th>
-                                        <th>C.PAGO</th>
+                                        <th>Cant</th>
+                                        <th>Exist.</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -164,14 +160,13 @@
                                 <thead>
                                     <tr>
                                         <th>Cod.</th>
-                                        <th>Produc.</th>
+                                        <th>Producto</th>
                                         <th>Provee.</th>
                                         <th>F.COMP</th>
                                         <th>F.VENC</th>
-                                        <th>Cant.</th>
-                                        <th>Exis.</th>
-                                        <th>P.COMPRA</th>
-                                        <th>C.PAGO</th>
+                                        <th>Cant</th>
+                                        <th>Exist.</th>
+                                        <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>

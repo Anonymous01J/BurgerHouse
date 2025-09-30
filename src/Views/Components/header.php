@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon.png">
-    <title id="titlePage">Inicio</title>
+    <title id="titlePage"><?php print_r("Burger House | " . strtoupper(explode("/", $_SERVER['REQUEST_URI'])[2])) ?></title>
     <link href="./assets/libs/extra-libs/c3/c3.min.css" rel="stylesheet">
     <link href="./assets/libs/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="./assets/libs/extra-libs/jvector/jquery-jvectormap-2.0.2.css" rel="stylesheet" />

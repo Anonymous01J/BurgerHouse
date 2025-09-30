@@ -25,7 +25,7 @@ class Controller_base
             $permiso = new Permiso(id_rol: $_SESSION['id_rol']);
             $_SESSION['permisos'] = $permiso->search(n: 0, limite: 2000);
         }
-        if (in_array($this->module_name, ["login", "recover_password", "index", "profile"])) {
+        if (in_array($this->module_name, ["login", "recover_password", "index", "profile", "notifications"])) {
             include_once __DIR__ . '/../views/' . $this->module_name . '.php';
         } else {
             if (Auth::AuthController($this->module_name)) {
@@ -99,6 +99,23 @@ class Controller_base
         }
     }
 
+    public function delete_many()
+    {
+        try {
+            for ($i = 0; $i < count($_POST['lista']); $i++) {
+                $this->db->__construct(...$_POST['lista'][$i]);
+                $result = $this->db->borrar();
+            }
+            if ($result === 0 or $result === false) {
+                echo json_encode(['success' => false, 'message' => 'No se pudo eliminar el registro']);
+            } else {
+                echo json_encode(['success' => true]);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
     public function update()
     {
         header('Content-Type: application/json');
@@ -108,6 +125,27 @@ class Controller_base
             $result = $this->db->actualizar();
             if (isset($_FILES['imagen'])) {
                 $this->guardar_imagen_single();
+            }
+            if ($result == false or $result == 0) {
+                echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);
+            } else {
+                echo json_encode(['success' => true]);
+            }
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function updateMany()
+    {
+        try {
+
+            for ($i = 0; $i < count($_POST['lista']); $i++) {
+                $this->db->__construct(...$_POST['lista'][$i]);
+                if (isset($_FILES['lista'])) {
+                    $this->guardar_imagen_mult($i);
+                }
+                $result = $this->db->actualizar();
             }
             if ($result == false or $result == 0) {
                 echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);

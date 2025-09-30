@@ -73,6 +73,15 @@ class Translator
             case 'Mantenimiento':
                 return 'maintenance';
                 break;
+            case 'paquetes':
+                return 'package_reservation';
+                break;
+            case 'reservaciones':
+                return 'calendar';
+                break;
+            case 'facturas':
+                return 'invoice';
+                break;
             default:
                 return "home";
                 break;

@@ -1,9 +1,6 @@
-import functionGeneral from "../../Functions.js";
-const { amountDolar } = functionGeneral()
 import { Poppins_normal } from "../../../libs/libs/jspdf/poppins.js"
 import { poppins_bold } from "../../../libs/libs/jspdf/poppins_bold.js"
 const { jsPDF } = window.jspdf;
-let dolar = await amountDolar()
 const info = async () => {
     let pet = await fetch(`Entrada_producto_procesado/inventario`);
     let response = await pet.json();
@@ -14,11 +11,17 @@ let btn = document.getElementById("btn-report");
 btn.addEventListener("click", async () => {
     let result = await info();
     let valor_total = []
-    const columns = ["Producto", "Categoria", "Stock", "Estado de Stock"];
+    const columns = ["Producto", "Entradas", "Salidas", "Valor de stock", "Stock actual"];
     const rows = [];
     result.forEach(element => {
-        valor_total.push(element.valor_total)
-        rows.push([element.producto, element.categoria, element.existencia_actual + " " + element.unidad, element.estado]);
+        valor_total.push(parseFloat(element.valor_stock))
+        rows.push([
+            element.producto,
+            element.entradas,
+            element.salidas,
+            element.valor_stock + " USD",
+            element.stock_actual
+        ]);
     });
     doc.addFileToVFS("Poppins-Regular.ttf", Poppins_normal);
     doc.addFont("Poppins-Regular.ttf", "Poppins", "normal");
@@ -26,12 +29,12 @@ btn.addEventListener("click", async () => {
     doc.addFont("Poppins-Bold.ttf", "Poppins", "bold");
     doc.setFont("Poppins", "bold");
     doc.setTextColor(41, 40, 37)
-    doc.addImage("./assets/img/reportes_banners/reporte_inventario_pp.webp", 'WEBP', 0, 0, 210, 297);
+    doc.addImage("./assets/img/reportes_banners/reporte_inventario_ppro.webp", 'WEBP', 0, 0, 210, 297);
     doc.setFontSize(12);
     doc.text(`FECHA: ${new Date().toLocaleDateString()}`, 165, 37);
     doc.text(`VALOR TOTAL DE INVENTARIO: ${(valor_total.reduce((a, b) => a + b, 0)).toFixed(2)} $`, 15, 80);
     doc.internal.events.subscribe('addPage', () => {
-        doc.addImage("./assets/img/reportes_banners/reporte_inventario_pp.webp", 'WEBP', 0, 0, 210, 297);
+        doc.addImage("./assets/img/reportes_banners/reporte_inventario_ppro.webp", 'WEBP', 0, 0, 210, 297);
         doc.text(`FECHA: ${new Date().toLocaleDateString()}`, 165, 37);
     });
     doc.setFont("Poppins", "normal");

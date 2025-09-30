@@ -13,6 +13,8 @@ export const printPDF = () => {
                 else if (graphic == "Utilidad neta") pdfGraphic1Dashboard({ ...window.currentGraphic1DashboardData, temporality: temporality, canvas: canvas })
                 else if (graphic == "Ingresos") pdfGraphic2Dashboard({ ...window.currentGraphic2DashboardData, temporality: temporality, canvas: canvas })
                 else if (graphic == "productos menos vendidos") pdfGraphic6({ ...window.currentGraphic6Data, temporality: temporality, canvas: canvas })
+                else if (graphic == "Porcentaje de reservaciones") pdfGraphic3({ ...window.currentGraphic3Data, temporality: temporality, canvas: canvas })
+                else if (graphic == "reservaciones por metodo") pdfGraphic4(window.currentGraphic4Data, { temporality: temporality, canvas: canvas })
             })
             btn.dataset.listenerAttached = true
         }
@@ -101,6 +103,93 @@ const pdfGraphic2 = (data, { canvas, temporality }) => {
     doc.setFillColor("#0B1B21");
     doc.circle(10, 230, 2, 'F');
     doc.text(doc.splitTextToSize(`TOTAL DE ORDENES: ${data.reduce((a, b) => a + b.total_ordenes, 0)}`, 180), 14, 231);
+    window.open(doc.output('bloburl'), '_blank');
+}
+const pdfGraphic3 = (data) => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const imgData = data.canvas.toDataURL('image/png');
+    doc.addFileToVFS("Poppins-Regular.ttf", Poppins_normal);
+    doc.addFont("Poppins-Regular.ttf", "Poppins", "normal");
+    doc.addFileToVFS("Poppins-Bold.ttf", poppins_bold);
+    doc.addFont("Poppins-Bold.ttf", "Poppins", "bold");
+    doc.setFont("Poppins", "normal");
+    doc.setFontSize(33, 7);
+    doc.setFont("Poppins", "bold");
+    doc.setTextColor(41, 40, 37)
+    doc.addImage("./assets/img/reportes_banners/reporte_estadisticas.webp", 'WEBP', 0, 0, 210, 297);
+    doc.text(`RESERVACIONES POR`, 60, 43);
+    doc.text(`HORARIO`, 60, 55);
+    doc.internal.events.subscribe('addPage', () => {
+        doc.addImage("./assets/img/reportes_banners/reporte_estadisticas.webp", 'WEBP', 0, 0, 210, 297);
+    });
+    doc.setTextColor(255, 75, 0)
+    doc.setFontSize(16);
+    doc.text(`${(data.temporality).toUpperCase()}`, 10, 85);
+    doc.setTextColor(41, 40, 37)
+    doc.setFont("Poppins", "normal");
+    doc.setFontSize(10);
+    doc.text(`FECHA DE IMPRESION: ${new Date().toLocaleDateString()}`, 140, 85);
+    doc.setFontSize(10);
+    doc.setTextColor(41, 40, 37)
+    doc.text(`..................................................................................................................................................................................................................................................................`, 10, 90);
+    let diasMax = `HORA CON MAS RESERVACIONES: ${data.gasto_max_labels} con ${data.gasto_max.toFixed(2)} reservaciones`
+    let diasMin = `HORA CON MENOS RESERVACIONES: ${data.gasto_min_labels} con ${data.gasto_min.toFixed(2)} reservaciones`
+
+    doc.addImage(imgData, 'PNG', 10, 100, 185, 100)
+    doc.setFillColor(255, 75, 0);
+    doc.circle(10, 210, 2, 'F');
+    doc.text(doc.splitTextToSize(diasMax, 180), 14, 211);
+    doc.setFillColor(255, 75, 0);
+    doc.circle(10, 220, 2, 'F');
+    doc.text(doc.splitTextToSize(diasMin, 180), 14, 221);
+    doc.setFillColor(255, 178, 0);
+    doc.circle(10, 230, 2, 'F');
+    doc.text(`PROMEDIO DE RESERVACIONES POR HORA: ${(data.promedio).toFixed(2)}`, 14, 231);
+
+    let nota = `# NOTA: LOS VALORES POR ENCIMA DEL PROMEDIO, INDICAN QUE SE HICIERON MAS RESERVACIONES DE LAS QUE SE ESPERABA. LOS VALORES POR DEBAJO DEL PROMEDIO INDICAN QUE SE HICIERON MENOS RESERVACIONES DE LAS QUE SE ESPERABA.`
+    doc.text(doc.splitTextToSize(nota, 190), 10, 250);
+    window.open(doc.output('bloburl'), '_blank');
+}
+const pdfGraphic4 = (data, { canvas, temporality }) => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const imgData = canvas.toDataURL('image/png');
+    doc.addFileToVFS("Poppins-Regular.ttf", Poppins_normal);
+    doc.addFont("Poppins-Regular.ttf", "Poppins", "normal");
+    doc.addFileToVFS("Poppins-Bold.ttf", poppins_bold);
+    doc.addFont("Poppins-Bold.ttf", "Poppins", "bold");
+    doc.setFont("Poppins", "normal");
+    doc.setFontSize(33, 7);
+    doc.setFont("Poppins", "bold");
+    doc.setTextColor(41, 40, 37)
+    doc.addImage("./assets/img/reportes_banners/reporte_estadisticas.webp", 'WEBP', 0, 0, 210, 297);
+    doc.text(`RESERVACIONES POR`, 60, 43);
+    doc.text(`CANALES`, 60, 55);
+    doc.internal.events.subscribe('addPage', () => {
+        doc.addImage("./assets/img/reportes_banners/reporte_estadisticas.webp", 'WEBP', 0, 0, 210, 297);
+    });
+    doc.setTextColor(255, 75, 0)
+    doc.setFontSize(16);
+    doc.text(`${(temporality).toUpperCase()}`, 10, 85);
+    doc.setTextColor(41, 40, 37)
+    doc.setFont("Poppins", "normal");
+    doc.setFontSize(10);
+    doc.text(`FECHA DE IMPRESION: ${new Date().toLocaleDateString()}`, 140, 85);
+    doc.setFontSize(10);
+    doc.setTextColor(41, 40, 37)
+    doc.text(`..................................................................................................................................................................................................................................................................`, 10, 90);
+    doc.addImage(imgData, 'PNG', 10, 100, 185, 100)
+    let color = ["#FF4B00", "#FFB200", "#b41a1a"]
+    data.forEach((item, index) => {
+        doc.setFillColor(color[index]);
+        doc.circle(10, 208 + (index * 10), 2, 'F');
+        doc.text(doc.splitTextToSize((item.metodo_pedido + ": con " + item.cantidad_reservas + " reservas "), 180), 14, 210 + (index * 10));
+    })
+    doc.setFillColor("#0B1B21");
+    doc.circle(10, 230, 2, 'F');
+    doc.text(doc.splitTextToSize(`TOTAL DE ORDENES: ${data.reduce((a, b) => a + b.cantidad_reservas, 0)}`, 180), 14, 231);
+    doc.text(doc.splitTextToSize(`ACTUALMENTE DE LAS ${data.reduce((a, b) => a + b.cantidad_reservas, 0)} RESERVACIONES, LAS RESERVAS A TRAVES DEL LOS DISTINTOS CANALES, EL MAS USADO ES: ${data.reduce((a, b) => a.cantidad_reservas > b.cantidad_reservas ? a : b).metodo_pedido}`, 180), 14, 250);
     window.open(doc.output('bloburl'), '_blank');
 }
 const pdfGraphic5 = (data) => {

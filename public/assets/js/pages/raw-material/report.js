@@ -1,9 +1,6 @@
-import functionGeneral from "../../Functions.js";
-const { amountDolar } = functionGeneral()
 import { Poppins_normal } from "../../../libs/libs/jspdf/poppins.js"
 import { poppins_bold } from "../../../libs/libs/jspdf/poppins_bold.js"
 const { jsPDF } = window.jspdf;
-let dolar = await amountDolar()
 const info = async () => {
     let pet = await fetch(`entrada_materia_prima/inventario`);
     let response = await pet.json();
@@ -14,11 +11,17 @@ let btn = document.getElementById("btn-report");
 btn.addEventListener("click", async () => {
     let result = await info();
     let valor_total = []
-    const columns = ["Materia Prima", "Categoria", "Stock", "Estado de Stock"];
+    const columns = ["Materia Prima", "Entradas", "Salidas", "Valor de stock", "Stock actual"];
     const rows = [];
     result.forEach(element => {
-        valor_total.push(element.valor_total)
-        rows.push([element.materia_prima, element.categoria, element.existencia_actual + " " + element.unidad, element.estado_stock]);
+        valor_total.push(parseFloat(element.valor_stock))
+        rows.push([
+            element.materia_prima,
+            element.entradas + " " + element.unidad,
+            element.salidas + " " + element.unidad,
+            element.valor_stock + " USD",
+            element.stock_actual + " " + element.unidad
+        ]);
     });
     doc.addFileToVFS("Poppins-Regular.ttf", Poppins_normal);
     doc.addFont("Poppins-Regular.ttf", "Poppins", "normal");

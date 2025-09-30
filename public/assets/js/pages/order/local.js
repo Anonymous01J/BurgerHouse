@@ -1,21 +1,16 @@
-export async function local(functions, templates) {
+export async function local(functions, templates, reload) {
     const { searchParam, amountDolar, viewImage, InputPrice, selectOptionAll, validateField, setValidationStyles, reindex, CheckCash, sessionInfo, binnacle, resetForm } = functions()
     const { tagFilterProduct, selectProduct, targetDetailProductOrder, targetDetailOtherOrder, targetClienteOrder, optionsRol, elemenFormPaymentOrder, selectTable } = templates()
     viewImage(".input-image")
+    stepper2
     InputPrice("[input_price]");
     selectOptionAll(".select_options_payment", "paymentMethod", optionsRol);
     const resetFormModal = () => {
-        document.querySelector(".cont-select-product-order").innerHTML = ""
-        const container = document.querySelector(".cont_category_product_orders");
+        document.querySelector(".cont-select-product-order_local_more").innerHTML = ""
+        const container = document.querySelector(".cont_category_product_orders_local_more");
         container.innerHTML = container.children[0].outerHTML
-        document.querySelector(".target_client_order").innerHTML = ""
-        document.querySelector(".loader_client_order").querySelector("h3").classList.remove("d-none")
-        document.querySelector(".target_client_order").classList.add("d-none")
-        document.querySelector(".loader_client_order").querySelector(".loader").classList.add("d-none")
-        document.getElementById('form-search-client-order').reset()
-        document.querySelector(".direction_sale").value = ""
-        resetForm(".payments", document.getElementById("form-submit-payment"))
     }
+    resetFormModal()
     let session = await sessionInfo()
     let toas = (type, msj) => {
         const Toast = Swal.mixin({
@@ -83,8 +78,15 @@ export async function local(functions, templates) {
     }
     const initPopover = async () => {
         let data = []
-        let pet = await searchParam({ active: 1, tipo: "adicional" }, "additional", 100);
-        pet.forEach((item) => {
+        let elements = []
+        let recipeDetails = await searchParam({}, "recipe", 5000)
+        for (const item of recipeDetails) {
+            let pet = await searchParam({ active: 1, tipo: "adicional", id: item.id_producto }, "additional", 100);
+            for (const el of pet) {
+                elements.push(el)
+            }
+        }
+        elements.forEach((item) => {
             data.push({
                 value: item.nombre,
                 id: item.id,
@@ -161,9 +163,13 @@ export async function local(functions, templates) {
     const products = async () => {
         let templatePrepared = "";
         let templateProcess = "";
+        let recipeDetails = await searchParam({}, "recipe", 5000)
+        for (const recipe of recipeDetails) {
+            const id = recipe.id_producto
+            let product = await searchParam({ id: id, tipo: "producto" }, "productPrepared", 100)
+            product.forEach((product) => { templatePrepared += selectProduct(product, "productPrepared"); })
+        }
         let productProcess = await searchParam({ active: 1 }, "productProcess", 100)
-        let productPrepared = await searchParam({ active: 1, tipo: "producto" }, "productPrepared", 100)
-        productPrepared.forEach((product) => { templatePrepared += selectProduct(product, "productPrepared"); })
         productProcess.forEach((product) => { templateProcess += selectProduct(product, "productProcess"); })
         document.querySelector(".cont-select-product-order_local").insertAdjacentHTML("beforeend", templatePrepared)
         document.querySelector(".cont-select-product-order_local").insertAdjacentHTML("beforeend", templateProcess)
@@ -318,63 +324,95 @@ export async function local(functions, templates) {
         document.querySelector(".cont_confirm_product_order_local").innerHTML += templateProductProcess;
     }
     const sendOrder = async () => {
-        document.querySelector(".confirm_order_local").addEventListener("click", async () => {
-            let { productPreparedData, productProcessData, tablesData } = finalData()
-            let order = new FormData();
-            let nro_orden = Math.floor(Math.random() * (99999999 - 10000000 + 1)) + 10000000
-            order.append("tipo", 'local')
-            order.append("nro_orden", nro_orden)
-            order.append("status", "en cocina")
-            let index = 0;
-            productPreparedData.forEach((product) => {
-                let additionalText = product.adicionales.map((index) => index.nombre).join(",");
-                order.append(`lista_detalle_preparado[${index}][id_producto]`, product.id_producto);
-                order.append(`lista_detalle_preparado[${index}][cantidad]`, product.cantidad);
-                order.append(`lista_detalle_preparado[${index}][adicionales]`, additionalText);
-                order.append(`lista_detalle_preparado[${index}][descripcion]`, product.detalles);
-                index++
-            })
-            productProcessData.forEach((product, i) => {
-                order.append(`lista_detalle_procesado[${i}][id_producto]`, product.id_producto);
-                order.append(`lista_detalle_procesado[${i}][cantidad]`, product.cantidad);
-            })
-            let groupedAdicionales = {};
-            productPreparedData.forEach((product) => {
-                product.adicionales.forEach((aditional) => {
-                    const key = aditional.id_producto;
-                    if (!groupedAdicionales[key]) groupedAdicionales[key] = { ...aditional };
-                    else groupedAdicionales[key].cantidad += aditional.cantidad;
+        let btn = document.querySelector(".confirm_order_local")
+        if (!btn.dataset.listenerAttached) {
+            btn.addEventListener("click", async () => {
+                Swal.fire({
+                    title: 'Procesando...',
+                    text: 'Por favor espera',
+                    allowOutsideClick: false,
+                    didOpen: () => { Swal.showLoading() }
                 });
-            });
-            let result = Object.values(groupedAdicionales);
-            result.forEach((aditional) => {
-                order.append(`lista_detalle_preparado[${index}][id_producto]`, aditional.id_producto);
-                order.append(`lista_detalle_preparado[${index}][cantidad]`, aditional.cantidad);
-                index++
+                bootstrap.Modal.getOrCreateInstance('#product_and_table').hide()
+                let { productPreparedData, productProcessData, tablesData } = finalData()
+                let order = new FormData();
+                let nro_orden = Math.floor(Math.random() * (99999999 - 10000000 + 1)) + 10000000
+                order.append("tipo", 'local')
+                order.append("nro_orden", nro_orden)
+                order.append("status", "en cocina")
+                let index = 0;
+                productPreparedData.forEach((product) => {
+                    let additionalText = product.adicionales.map((index) => index.nombre).join(",");
+                    order.append(`lista_detalle_preparado[${index}][id_producto]`, product.id_producto);
+                    order.append(`lista_detalle_preparado[${index}][cantidad]`, product.cantidad);
+                    order.append(`lista_detalle_preparado[${index}][adicionales]`, additionalText);
+                    order.append(`lista_detalle_preparado[${index}][descripcion]`, product.detalles);
+                    index++
+                })
+                productProcessData.forEach((product, i) => {
+                    order.append(`lista_detalle_procesado[${i}][id_producto]`, product.id_producto);
+                    order.append(`lista_detalle_procesado[${i}][cantidad]`, product.cantidad);
+                })
+                let groupedAdicionales = {};
+                productPreparedData.forEach((product) => {
+                    product.adicionales.forEach((aditional) => {
+                        const key = aditional.id_producto;
+                        if (!groupedAdicionales[key]) groupedAdicionales[key] = { ...aditional };
+                        else groupedAdicionales[key].cantidad += aditional.cantidad;
+                    });
+                });
+                let result = Object.values(groupedAdicionales);
+                result.forEach((aditional) => {
+                    order.append(`lista_detalle_preparado[${index}][id_producto]`, aditional.id_producto);
+                    order.append(`lista_detalle_preparado[${index}][cantidad]`, aditional.cantidad);
+                    index++
+                })
+                if (await CheckCash() == null) {
+                    toas("error", "No hay cajas abiertas")
+                } else {
+                    let petOrder = await fetch("order/add", { method: "POST", body: order })
+                    let resOrder = await petOrder.json()
+                    let lastId = resOrder.last_id
+                    let order_table = tablesData.map((table) => { return { id_mesa: table.id, id_order: lastId } })
+                    let tablesBlock = new FormData();
+                    order_table.forEach(async (table, index) => {
+                        tablesBlock.append(`lista[${index}][id_mesa]`, table.id_mesa);
+                        tablesBlock.append(`lista[${index}][id_orden]`, table.id_order);
+                    })
+                    let blockTable = await fetch("order_table/add_many", { method: "POST", body: tablesBlock })
+                    let resBlockTable = await blockTable.json()
+                    console.log(resBlockTable);
+                    if (resBlockTable.success == true) {
+                        Swal.close()
+                        Swal.fire({
+                            title: `Exito!`,
+                            text: "Se creo la orden con exito",
+                            icon: "success",
+                        });
+                        binnacle(session.message.id, 'Orden local', 'Creacion', `Se creo una orden local`)
+                        reload()
+                    } else {
+                        Swal.close()
+                        Swal.fire({
+                            title: `Error!`,
+                            text: "Hubo un error al crear la orden",
+                            icon: "error",
+                        })
+                    }
+                    resetFormModal()
+                }
             })
-            let petOrder = await fetch("order/add", { method: "POST", body: order })
-            let resOrder = await petOrder.json()
-            let lastId = resOrder.last_id
-            let order_table = tablesData.map((table) => { return { id_mesa: table.id, id_order: lastId } })
-            let tablesBlock = new FormData();
-            order_table.forEach(async (table, index) => {
-                tablesBlock.append(`lista[${index}][id_mesa]`, table.id_mesa);
-                tablesBlock.append(`lista[${index}][id_orden]`, table.id_order);
-            })
-            let blockTable = await fetch("order_table/add_many", { method: "POST", body: tablesBlock })
-            let resBlockTable = await blockTable.json()
-            console.log(resBlockTable);
-        })
+            btn.dataset.listenerAttached = "true"
+        }
+
     }
-
     sendOrder()
-
     verifyTables()
     tablesOrder()
     products()
 }
 
-export async function more_product_local_order(functions, templates) {
+export async function more_product_local_order(functions, templates, reload) {
     const { searchParam, amountDolar, viewImage, InputPrice, selectOptionAll, validateField, setValidationStyles, reindex, CheckCash, sessionInfo, binnacle, resetForm } = functions()
     const { tagFilterProduct, selectProduct, targetDetailProductOrder, targetDetailOtherOrder, targetClienteOrder, optionsRol, elemenFormPaymentOrder, selectTable } = templates()
     viewImage(".input-image")
@@ -454,8 +492,15 @@ export async function more_product_local_order(functions, templates) {
     }
     const initPopover = async () => {
         let data = []
-        let pet = await searchParam({ active: 1, tipo: "adicional" }, "additional", 100);
-        pet.forEach((item) => {
+        let elements = []
+        let recipeDetails = await searchParam({}, "recipe", 5000)
+        for (const item of recipeDetails) {
+            let pet = await searchParam({ active: 1, tipo: "adicional", id: item.id_producto }, "additional", 100);
+            for (const el of pet) {
+                elements.push(el)
+            }
+        }
+        elements.forEach((item) => {
             data.push({
                 value: item.nombre,
                 id: item.id,
@@ -532,10 +577,14 @@ export async function more_product_local_order(functions, templates) {
     const products = async () => {
         let templatePrepared = "";
         let templateProcess = "";
+        let recipeDetails = await searchParam({}, "recipe", 5000)
+        for (const recipe of recipeDetails) {
+            const id = recipe.id_producto
+            let product = await searchParam({ id: id, tipo: "producto" }, "productPrepared", 1000)
+            product.forEach((product) => { templatePrepared += selectProduct(product, "productPrepared") })
+        }
         let productProcess = await searchParam({ active: 1 }, "productProcess", 100)
-        let productPrepared = await searchParam({ active: 1, tipo: "producto" }, "productPrepared", 100)
-        productPrepared.forEach((product) => { templatePrepared += selectProduct(product, "productPrepared"); })
-        productProcess.forEach((product) => { templateProcess += selectProduct(product, "productProcess"); })
+        productProcess.forEach((product) => { templateProcess += selectProduct(product, "productProcess") })
         document.querySelector(".cont-select-product-order_local_more").insertAdjacentHTML("beforeend", templatePrepared)
         document.querySelector(".cont-select-product-order_local_more").insertAdjacentHTML("beforeend", templateProcess)
         categoryFilter()
@@ -635,8 +684,14 @@ export async function more_product_local_order(functions, templates) {
         else return { productPreparedData, productProcessData }
     }
     const printConfirmDetailsOrder = async (productPreparedData, productProcessData) => {
-        let detailsTables = await searchParam({ id_orden: window.id_orden }, "order_table", 1000)
-        document.querySelector(".table_confirm_order_local_more").textContent = detailsTables.map((index) => index.nombre).join(", ")
+        if (window.type_order_resLocal == "local") {
+            let detailsTables = await searchParam({ id_orden: window.id_orden }, "order_table", 1000)
+            document.querySelector(".table_confirm_order_local_more").textContent = detailsTables.map((index) => index.nombre).join(", ")
+        } else {
+            let detailsTables = await searchParam({ id: window.id_reservation }, "calendar", 1000)
+            document.querySelector(".table_confirm_order_local_more").textContent = detailsTables.map((index) => index.paquete).join(", ")
+        }
+
         let templateProductPrepared = "";
         let templateProductProcess = "";
         productPreparedData.forEach((product) => {
@@ -681,22 +736,21 @@ export async function more_product_local_order(functions, templates) {
                     didOpen: () => { Swal.showLoading() }
                 });
                 let { productPreparedData, productProcessData } = finalData()
-                let productPreparedOrder = new FormData();
-                let productProcessOrder = new FormData();
+                let productDetails = new FormData();
                 let index = 0;
                 productPreparedData.forEach((product) => {
                     let additionalText = product.adicionales.map((index) => index.nombre).join(",");
-                    productPreparedOrder.append(`lista[${index}][id_producto]`, product.id_producto);
-                    productPreparedOrder.append(`lista[${index}][cantidad]`, product.cantidad);
-                    productPreparedOrder.append(`lista[${index}][adicionales]`, additionalText);
-                    productPreparedOrder.append(`lista[${index}][descripcion]`, product.detalles);
-                    productPreparedOrder.append(`lista[${index}][id_orden]`, window.id_orden);
+                    productDetails.append(`lista_detalle_preparado[${index}][id_producto]`, product.id_producto);
+                    productDetails.append(`lista_detalle_preparado[${index}][cantidad]`, product.cantidad);
+                    productDetails.append(`lista_detalle_preparado[${index}][adicionales]`, additionalText);
+                    productDetails.append(`lista_detalle_preparado[${index}][descripcion]`, product.detalles);
+                    productDetails.append(`lista_detalle_preparado[${index}][id_orden]`, window.id_orden);
                     index++
                 })
                 productProcessData.forEach((product, i) => {
-                    productProcessOrder.append(`lista[${i}][id_producto]`, product.id_producto);
-                    productProcessOrder.append(`lista[${i}][cantidad]`, product.cantidad);
-                    productProcessOrder.append(`lista[${i}][id_orden]`, window.id_orden);
+                    productDetails.append(`lista_detalle_procesado[${i}][id_producto]`, product.id_producto);
+                    productDetails.append(`lista_detalle_procesado[${i}][cantidad]`, product.cantidad);
+                    productDetails.append(`lista_detalle_procesado[${i}][id_orden]`, window.id_orden);
                 })
                 let groupedAdicionales = {};
                 productPreparedData.forEach((product) => {
@@ -708,23 +762,18 @@ export async function more_product_local_order(functions, templates) {
                 });
                 let result = Object.values(groupedAdicionales);
                 result.forEach((aditional) => {
-                    productPreparedOrder.append(`lista[${index}][id_producto]`, aditional.id_producto);
-                    productPreparedOrder.append(`lista[${index}][cantidad]`, aditional.cantidad);
-                    productPreparedOrder.append(`lista[${index}][id_orden]`, window.id_orden);
+                    productDetails.append(`lista_detalle_preparado[${index}][id_producto]`, aditional.id_producto);
+                    productDetails.append(`lista_detalle_preparado[${index}][cantidad]`, aditional.cantidad);
+                    productDetails.append(`lista_detalle_preparado[${index}][id_orden]`, window.id_orden);
                     index++
                 })
-                let res = []
-                if (productPreparedData.length > 0) {
-                    let petOrderPrepared = await fetch("Detalle_orden_producto_preparado/add_many", { method: "POST", body: productPreparedOrder })
-                    let ResPetOrderPrepared = await petOrderPrepared.json()
-                    res.push(ResPetOrderPrepared)
-                }
-                if (productProcessData.length > 0) {
-                    let petOrderProcess = await fetch("Detalle_orden_producto_procesado/add_many", { method: "POST", body: productProcessOrder })
-                    let ResPetOrderProcess = await petOrderProcess.json()
-                    res.push(ResPetOrderProcess)
-                }
-                if (res[0].success == true && (res[1] == undefined || res[1].success == true)) {
+                let petAddProduct = await fetch("order/add_process_and_prepared", { method: "POST", body: productDetails })
+                let res = await petAddProduct.json()
+                if (res.success == true) {
+                    let data = new FormData()
+                    data.append("id", window.id_orden)
+                    data.append("status", "en cocina")
+                    let pet = await fetch("order/update", { method: "POST", body: data })
                     Swal.close();
                     Swal.fire({
                         title: 'Exito!',
@@ -733,6 +782,55 @@ export async function more_product_local_order(functions, templates) {
                         confirmButtonText: 'Aceptar',
                         confirmButtonColor: '#FF4B00',
                     })
+                    reload()
+                } else {
+                    Swal.close();
+                    const error = res.message
+                    const product = []
+                    if (error.detalle_preparado) {
+                        error.detalle_preparado.forEach((item) => {
+                            if (!product.includes(item.producto)) product.push(item.producto)
+                        });
+                    }
+
+                    if (error.detalle_procesado) {
+                        error.detalle_procesado.forEach((item) => {
+                            if (!product.includes(item.producto)) product.push(item.producto)
+                        });
+                    }
+                    let title
+                    if (product.includes("No hay una receta asignada")) {
+                        title = `
+                                <p>Actualmente, algunos productos no cuentan con una <strong class="text-danger">receta asignada</strong></p>
+                                <p class="mt-2 fst-italic text-secondary">Por favor, revise las recetas registradas.</p>
+                        `
+                    } else if (product.includes("No hay existencia en inventario")) {
+                        title = `
+                         <p>No se encontro existencia en inventario para algunos productos</p>
+                        <p class="mt-2 fst-italic text-secondary">Por favor, revise el inventario y las recetas.</p>
+                        `
+                    } else {
+                        title = `
+                                <p>Los siguientes productos no tienen <strong class="text-danger">stock suficiente</strong>:</p>
+                                <p>
+                                    ${product.map(p => `<span class="badge bg-danger me-1">${p}</span>`).join('')}
+                                </p>
+                                <p class="mt-2 fst-italic text-secondary">Por favor, revise el inventario.</p>
+                                `
+                    }
+
+                    Swal.fire({
+                        title: `Error!`,
+                        html: title,
+                        icon: "error",
+                    });
+
+                    //   <p>Los siguientes productos no tienen <strong class="text-danger">stock suficiente</strong>:</p>
+                    //         <ul class="list-group text-start">
+                    //             ${product.map(p => `<li class="list-group-item list-group-item-danger">${p}</li>`).join('')}
+                    //         </ul>
+                    //         <p class="mt-2 fst-italic text-secondary">Por favor, revise los niveles de stock.</p>
+
                 }
             })
             btn.dataset.listenerAttached = "true"
@@ -742,13 +840,15 @@ export async function more_product_local_order(functions, templates) {
     products()
 }
 
-export async function payOrder(functions, templates, id) {
-    const { searchParam, amountDolar, viewImage, InputPrice, selectOptionAll, validateField, setValidationStyles, reindex, CheckCash, sessionInfo, binnacle, resetForm } = functions()
+export async function payOrder(functions, templates, invoice, reload) {
+    const { searchParam, amountDolar, viewImage, InputPrice, selectOptionAll, validateField, setValidationStyles, reindex, CheckCash, sessionInfo, binnacle, resetForm, notification, notificationAlert } = functions()
     const { tagFilterProduct, selectProduct, targetDetailProductOrder, targetDetailOtherOrder, targetClienteOrder, optionsRol, elemenFormPaymentOrderLocal, selectTable } = templates()
     viewImage(".input-image")
     InputPrice("[input_price]");
+    let session = await sessionInfo()
+    document.querySelector(".amount_payment_usd_local").textContent = window.amountTotalOrderLocalPayment.total_dolares
+    document.querySelector(".amount_payment_bs_local").textContent = window.amountTotalOrderLocalPayment.total_bs
     stepper4.to(0)
-    console.log(id);
     selectOptionAll(".select_options_payment_local", "paymentMethod", optionsRol);
     let iti = window.intlTelInput(document.querySelector("#input-tel-client-order-local"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
     let toas = (type, msj) => {
@@ -768,6 +868,17 @@ export async function payOrder(functions, templates, id) {
             title: `${msj}`
         });
     }
+    const resetFormModal = () => {
+        document.querySelector(".target_client_order_local").innerHTML = ""
+        document.querySelector(".loader_client_order_local").querySelector("h3").classList.remove("d-none")
+        document.querySelector(".target_client_order_local").classList.add("d-none")
+        document.querySelector(".loader_client_order_local").querySelector(".loader").classList.add("d-none")
+        document.getElementById('form-search-client-order-local').reset()
+        document.querySelector("#input-tel-client-order-local").value = ""
+        document.querySelector("#input-tel-client-order-local").classList.remove("is-invalid", "is-valid")
+        resetForm(".payments-local", document.getElementById("form-submit-payment-local"))
+    }
+    resetFormModal()
     let formClient = document.getElementById("form-search-client-order-local")
     //validacion de cliente
     formClient.addEventListener("submit", async (e) => {
@@ -918,44 +1029,264 @@ export async function payOrder(functions, templates, id) {
         }
     }
     attachValidationListeners(1);
-
     let btn_next_payment = document.querySelector(".btn_next_payment_local");
-    btn_next_payment.addEventListener("click", () => {
-        let hasError = false;
-        let hasErrorTel = false;
-        const payment = document.querySelectorAll(".payments-local");
-        payment.forEach((payment, i) => {
-            console.log(payment);
-            const index = i + 1;
-            const data = {
-                id_metodo_pago: payment.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
-                cantidad: payment.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
-                referencia: payment.querySelector(`input[name="referencia"]`).value,
-                imagen: payment.querySelector(`input[name="imagen"]`) ? payment.querySelector(`input[name="imagen"]`).files[0] : ""
-            };
-            const errors = validate(data, rules);
-            setValidationStyles(`input-payment-orderLocal-${index}`, errors?.id_metodo_pago ? errors.id_metodo_pago[0] : null);
-            setValidationStyles(`input-quantity-orderLocal-${index}`, errors?.cantidad ? errors.cantidad[0] : null);
-            setValidationStyles(`input-reference-orderLocal-${index}`, errors?.referencia ? errors.referencia[0] : null);
-            setValidationStyles(`input-comprobante-orderLocal-${index}`, errors?.imagen ? errors.imagen[0] : null);
-            if (errors) hasError = true
-            else hasError = false
-        });
-        let tel = iti.getNumber();
-        const errors = validate({ telefono: tel }, rules_tel);
-        setValidationStyles(`input-tel-client-order-local`, errors?.telefono ? errors.telefono[0] : null);
-        if (errors) hasErrorTel = true
-        else hasErrorTel = false
-        if (!document.querySelector(".cont_client-order-local").querySelector("h4")) {
-            toas("error", "Seleccione un cliente");
-        } else if (hasErrorTel) {
-            toas("error", "Complete todos los campos");
-        } else if (hasError) {
-            toas("error", "Complete todos los campos");
-        } else {
-            stepper4.next()
-            // finalData(printConfirmDetailsOrder);
-        }
-    })
+    if (!btn_next_payment.dataset.listenerAttached) {
+        btn_next_payment.addEventListener("click", async () => {
+            let hasError = false;
+            let hasErrorTel = false;
+            const payment = document.querySelectorAll(".payments-local");
+            payment.forEach((payment, i) => {
+                const index = i + 1;
+                const data = {
+                    id_metodo_pago: payment.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
+                    cantidad: payment.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
+                    referencia: payment.querySelector(`input[name="referencia"]`).value,
+                    imagen: payment.querySelector(`input[name="imagen"]`) ? payment.querySelector(`input[name="imagen"]`).files[0] : ""
+                };
+                const errors = validate(data, rules);
+                setValidationStyles(`input-payment-orderLocal-${index}`, errors?.id_metodo_pago ? errors.id_metodo_pago[0] : null);
+                setValidationStyles(`input-quantity-orderLocal-${index}`, errors?.cantidad ? errors.cantidad[0] : null);
+                setValidationStyles(`input-reference-orderLocal-${index}`, errors?.referencia ? errors.referencia[0] : null);
+                setValidationStyles(`input-comprobante-orderLocal-${index}`, errors?.imagen ? errors.imagen[0] : null);
+                if (errors) hasError = true
+                else hasError = false
+            });
+            let tel = iti.getNumber();
+            const errors = validate({ telefono: tel }, rules_tel);
+            setValidationStyles(`input-tel-client-order-local`, errors?.telefono ? errors.telefono[0] : null);
+            if (errors) hasErrorTel = true
+            else hasErrorTel = false
+            if (!document.querySelector(".cont_client-order-local").querySelector("h4")) {
+                toas("error", "Seleccione un cliente");
+            } else if (hasErrorTel) {
+                toas("error", "Complete todos los campos");
+            } else if (hasError) {
+                toas("error", "Complete todos los campos");
+            } else {
+                let dataPayment = [];
+                const payment = document.querySelectorAll(".payments-local");
+                payment.forEach((payment) => {
+                    const data = {
+                        id_metodo_pago: payment.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
+                        metodo: payment.querySelector(`input[name="id_metodo_pago"]`).value,
+                        cantidad: payment.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
+                        referencia: payment.querySelector(`input[name="referencia"]`).value,
+                        imagen: payment.querySelector(`input[name="imagen"]`) ? payment.querySelector(`input[name="imagen"]`).files[0] : ""
+                    };
+                    dataPayment.push(data)
+                });
+                let group = {};
+                dataPayment.forEach((payment) => {
+                    const metodo = payment.metodo;
+                    const cantidad = parseFloat(payment.cantidad);
+                    if (!group[metodo]) group[metodo] = { metodo: metodo, cantidad: cantidad };
+                    else group[metodo].cantidad += cantidad;
+                });
+                group = Object.values(group);
+                let amountVerify = []
+                group.forEach(async (payment) => {
+                    if ((payment.metodo).toLowerCase() == "pago movil" || (payment.metodo).toLowerCase() == "transferencia" || (payment.metodo).toLowerCase() == "efectivo") {
+                        amountVerify.push({
+                            total_bs: payment.cantidad,
+                        })
+                    } else amountVerify.push({ total_usd: payment.cantidad })
+                });
+                amountVerify = amountVerify.reduce((a, b) => {
+                    return {
+                        total_bs: parseFloat(((a.total_bs || 0) + (b.total_bs || 0)).toFixed(2)),
+                        total_usd: (a.total_usd || 0) + (b.total_usd || 0)
+                    };
+                });
+                console.log(amountVerify);
+                let dolar = parseFloat(await amountDolar())
+                let propina
+                let total_amount_verify_bs = parseFloat((parseFloat(window.amountTotalOrderLocalPayment.total_bs) - amountVerify.total_bs).toFixed(2));
+                let total_amount_verify_usd = parseFloat((window.amountTotalOrderLocalPayment.total_dolares).replace("TOTAL: ", "")) - amountVerify.total_usd
+                let verifyDivisa = dataPayment.find((payment) => (payment.metodo).toLowerCase() == "divisa");
+                let verifyBs = dataPayment.find((payment) => (payment.metodo).toLowerCase() != "divisa");
 
+                if (verifyBs != undefined) propina = (total_amount_verify_bs * -1) + " Bs"
+                else if (verifyDivisa != undefined) propina = (total_amount_verify_usd * -1) + " USD"
+
+                if (verifyDivisa != undefined && verifyBs != undefined) {
+                    let total_verify = (total_amount_verify_usd * dolar) + total_amount_verify_bs;
+                    let total__order = parseFloat(window.amountTotalOrderLocalPayment.total_bs)
+                    if (total_verify < total__order) toas("error", "El total de la orden no puede ser menor al total de la orden");
+                    else {
+                        stepper4.next()
+                        propina = total__order - total_verify + " Bs";
+                    }
+                } else {
+                    console.log(total_amount_verify_bs, parseFloat(window.amountTotalOrderLocalPayment.total_bs));
+                    if (amountVerify.total_bs >= parseFloat(window.amountTotalOrderLocalPayment.total_bs) || amountVerify.total_usd >= parseFloat(window.amountTotalOrderLocalPayment.total_dolares.replace("TOTAL: ", ""))) {
+                        stepper4.next()
+                        let templatePayment = "";
+                        dataPayment.forEach((payment) => {
+                            const file = payment.imagen;
+                            const reader = new FileReader();
+                            let cantidad
+                            if (payment.metodo.toLowerCase() == "efectivo") {
+                                cantidad = payment.cantidad + " Bs";
+                            } else if (payment.metodo.toLowerCase() == "transferencia") {
+                                cantidad = payment.cantidad + " Bs";
+                            } else if (payment.metodo.toLowerCase() == "pago movil") {
+                                cantidad = payment.cantidad + " Bs";
+                            } else {
+                                cantidad = payment.cantidad + " $";
+                            }
+                            reader.onload = (event) => {
+                                const imgresult = event.target.result;
+                                templatePayment +=
+                                    `<tr>
+                        <td>${payment.metodo}</td>
+                        <td>${cantidad}</td>
+                        <td>${payment.referencia}</td>
+                        <td><img src="${imgresult}" alt="Comprobante" style="max-width: 100px; max-height: 100px;"></td>
+                    </tr>`;
+
+                                document.querySelector(".cont_confirm_payment_order_local").innerHTML = templatePayment;
+                            };
+                            reader.readAsDataURL(file);
+                        });
+                        document.querySelector(".total_usd_confirm_payment").textContent = (window.amountTotalOrderLocalPayment.total_dolares.replace("TOTAL:", ""))
+                        document.querySelector(".total_bs_confirm_payment").textContent = window.amountTotalOrderLocalPayment.total_bs
+                        if (propina.includes("Bs")) {
+                            document.querySelector(".propina_bs").textContent = propina
+                        } else if (propina.includes("USD")) {
+                            document.querySelector(".propina_usd").textContent = propina
+                        }
+
+                        let btnsend = document.querySelector(".confirm_order_local_payment");
+                        if (!btnsend.dataset.listenerAttached) {
+                            btnsend.addEventListener("click", async () => {
+                                Swal.fire({
+                                    title: 'Procesando...',
+                                    text: 'Por favor espera',
+                                    allowOutsideClick: false,
+                                    didOpen: () => { Swal.showLoading() }
+                                });
+                                let info = await searchParam({ id: window.IdOrderPaymentLocal }, "order")
+                                bootstrap.Modal.getOrCreateInstance('#payment_order_local').hide()
+                                if (info[0].status == "pagado") {
+                                    Swal.close();
+                                    Swal.fire({
+                                        title: `Error!`,
+                                        text: "La orden ya fue pagada",
+                                        icon: "error",
+                                    });
+                                } else if (await CheckCash() == null) {
+                                    Swal.close();
+                                    Swal.fire({
+                                        title: `Error!`,
+                                        text: "No hay cajas abierta",
+                                        icon: "error",
+                                    })
+                                } else {
+                                    let dataOrder = new FormData();
+                                    dataOrder.append("id", window.IdOrderPaymentLocal)
+                                    dataOrder.append("id_cliente", document.querySelector(".cont_client-order-local").querySelector("h4[id]").getAttribute("id"))
+                                    dataOrder.append("status", "pagado")
+                                    let petOrder = await fetch("order/update", { method: "POST", body: dataOrder })
+                                    console.log(await petOrder.json());
+                                    let infoOrderActualizada = await searchParam({ id: window.IdOrderPaymentLocal }, "order")
+                                    let dataSale = new FormData();
+                                    dataSale.append("id_orden", window.IdOrderPaymentLocal)
+                                    dataSale.append("id_caja", await CheckCash())
+                                    dataSale.append("monto_final", window.amountTotalOrderLocalPayment.total_dolares.replace("TOTAL: ", ""))
+                                    dataSale.append("direccion", "BURGER HOUSE")
+                                    let petSale = await fetch("sale/add", { method: "POST", body: dataSale })
+                                    let resSale = await petSale.json()
+                                    console.log(resSale);
+                                    let id_venta = resSale.last_id
+                                    let paymentData = new FormData();
+                                    dataPayment.forEach((payment, index) => {
+                                        paymentData.append(`lista[${index}][id_metodo_pago]`, payment.id_metodo_pago)
+                                        paymentData.append(`lista[${index}][monto]`, payment.cantidad)
+                                        paymentData.append(`lista[${index}][tasa]`, dolar)
+                                        paymentData.append(`lista[${index}][referencia]`, payment.referencia)
+                                        paymentData.append(`lista[${index}][imagen]`, payment.imagen)
+                                        paymentData.append(`lista[${index}][imagen_name]`, payment.imagen.name)
+                                    })
+                                    let petPayment = await fetch("payment/add_many", { method: "POST", body: paymentData })
+                                    let resPayment = await petPayment.json()
+                                    console.log(resPayment);
+                                    let id_payments = resPayment.lista
+                                    let dataPaymentDetails = new FormData();
+                                    id_payments.forEach((payment, index) => {
+                                        dataPaymentDetails.append(`lista[${index}][id_pago]`, payment)
+                                        dataPaymentDetails.append(`lista[${index}][id_venta]`, id_venta)
+                                    })
+                                    let petPaymentDetails = await fetch("paymentSale/add_many", { method: "POST", body: dataPaymentDetails })
+                                    let resPaymentDetails = await petPaymentDetails.json()
+                                    console.log(resPaymentDetails);
+
+                                    let detailsPrepered = await searchParam({ id_orden: window.IdOrderPaymentLocal }, "Detalle_orden_producto_preparado")
+                                    let detailsProcess = await searchParam({ id_orden: window.IdOrderPaymentLocal }, "Detalle_orden_producto_procesado")
+                                    let totalAmountPrepared = detailsPrepered.map(item => item.precio * item.cantidad).reduce((a, b) => a + b, 0)
+                                    let totalAmountProcess = detailsProcess.map(item => item.precio * item.cantidad).reduce((a, b) => a + b, 0)
+                                    let iva = (totalAmountPrepared + totalAmountProcess) * 0.16
+                                    let clientData = {
+                                        id_cliente: infoOrderActualizada[0].id_cliente ? infoOrderActualizada[0].id_cliente : "POR ASIGNAR",
+                                        nameClient: infoOrderActualizada[0].cliente_nombre ? infoOrderActualizada[0].cliente_nombre + " " + infoOrderActualizada[0].cliente_apellido : "POR ASIGNAR",
+                                        telefonoClient: infoOrderActualizada[0].cliente_telefono ? infoOrderActualizada[0].cliente_telefono : "POR ASIGNAR"
+                                    };
+                                    let amountTotal = {
+                                        total_dolares: "TOTAL: " + (((totalAmountPrepared + totalAmountProcess) + iva).toFixed(2)),
+                                        total_bs: (((totalAmountPrepared + totalAmountProcess) + iva) * await amountDolar()).toFixed(2),
+                                        subtotal: "SUBTOTAL: " + ((totalAmountPrepared + totalAmountProcess).toFixed(2)),
+                                        iva: "IVA: " + (iva.toFixed(2))
+                                    }
+                                    let directionSale = "BURGER HOUSE"
+
+                                    let invoiceBlob = await invoice(detailsPrepered, detailsProcess, clientData, window.IdOrderPaymentLocal, directionSale, amountTotal, "invoice")
+                                    let invoiceData = new FormData();
+                                    invoiceData.append("pdf", invoiceBlob, "factura.pdf");
+                                    let send = await fetch("order/sendInvoice", { method: "POST", body: invoiceData });
+                                    let dataResInvoice = await send.json();
+                                    const mensaje = `*FACTURA DE ORDEN* \n\n*${clientData.nameClient}*\n\n${dataResInvoice.url}`;
+                                    const url = `https://wa.me/${clientData.telefonoClient}?text=${encodeURIComponent(mensaje)}`;
+                                    if (dataResInvoice.url) {
+                                        Swal.close();
+                                        Swal.fire({
+                                            title: `Exito!`,
+                                            text: "Se pago la orden",
+                                            icon: "success",
+                                        });
+                                        binnacle(session.message.id, 'Orden local', 'Pago', `Se pago la orden ${window.IdOrderPaymentLocal}`);
+                                        resetFormModal()
+                                        reload()
+                                        notification({
+                                            id_usuario: session.message.id,
+                                            titulo: `Se ha pagado una orden`,
+                                            mensaje: `Se ha pagado una orden con el nro ${window.IdOrderPaymentLocal.toString().padStart(4, '0')}`,
+                                        })
+                                        notificationAlert({
+                                            channel: "Kitchen",
+                                            message: `Se ha creado una nueva orden para preparar con el nro ${window.IdOrderPaymentLocal.toString().padStart(4, '0')}`,
+                                            event: "orden de cocina"
+                                        })
+                                        notificationAlert({
+                                            channel: "General",
+                                            message: `Se ha creado una nueva orden para preparar con el nro ${window.IdOrderPaymentLocal.toString().padStart(4, '0')}`,
+                                            event: "notificaciones"
+                                        })
+                                        window.open(url, '_blank');
+                                    } else {
+                                        Swal.fire({
+                                            title: `Error!`,
+                                            text: "Hubo un error al pagar la orden",
+                                            icon: "error",
+                                        });
+                                    }
+                                    resetFormModal()
+                                }
+                            });
+                            btnsend.dataset.listenerAttached = "true";
+                        }
+                    } else toas("error", "La cantidad de pago no puede ser menor al total de la orden");
+                }
+            }
+        })
+        btn_next_payment.dataset.listenerAttached = "true";
+    }
 }

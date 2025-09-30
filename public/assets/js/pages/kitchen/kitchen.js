@@ -1,7 +1,7 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 import { report } from "./report.js"
-const { print, searchParam, binnacle, sessionInfo, searchFilter, permission, pagination } = functionGeneral();
+const { print, searchParam, binnacle, sessionInfo, searchFilter, permission, pagination, notification, notificationAlert } = functionGeneral();
 const { targetKitchen, infoKitchenDelivery, detailsKitchenDelivery } = Templates();
 let session = await sessionInfo()
 const config = {
@@ -68,9 +68,31 @@ const preparedKitchen = () => {
                                 });
                                 print(config)
                                 print({ ...config, search: () => searchParam({ status: "en preparacion" }, "order"), container: ".kitchen-cont-inprepared" })
-
-                                // printTargetPreparedOff("search", null, order => order.status != "en cocina" && order.status != "por verificar")
+                                print({ ...config, search: () => searchParam({ status: "para despachar" }, "order"), container: ".kitchen-cont-prepared-off" })
                                 binnacle(session.message.id, 'Orden de cocina', action == "en cocina" ? "La orden se encuentra en preparacion" : 'La orden se encuentra para despachar', action == "en cocina" ? 'Se envio una orden a preparar' : 'Se envio una orden a despachar')
+                                notification({
+                                    id_usuario: session.message.id,
+                                    titulo: `${action == "en cocina" ? "La orden se encuentra en preparacion" : 'La orden se encuentra para despachar'}`,
+                                    mensaje: `${action == "en cocina" ? 'Se envio una orden a preparar' : 'Se envio una orden a despachar'} con el nro ${id.toString().padStart(4, '0')}`,
+                                })
+                                notificationAlert({
+                                    channel: "Order",
+                                    message: `${action == "en cocina" ? "Se ha enviado a preparar la orden" : "Se ha enviado a despachar la orden"} con el nro ${id.toString().padStart(4, '0')}`,
+                                    event: "order"
+                                })
+                                notificationAlert({
+                                    channel: "General",
+                                    message: `${action == "en cocina" ? "Se ha enviado a preparar la orden" : "Se ha enviado a despachar la orden"} con el nro ${id.toString().padStart(4, '0')}`,
+                                    event: "notificaciones"
+                                })
+                                if (action != "en cocina") {
+                                    notificationAlert({
+                                        channel: "Delivery",
+                                        message: `Nueva orden para despachar con el nro ${id.toString().padStart(4, '0')}`,
+                                        event: "delivery"
+                                    })
+                                }
+
                             } else {
                                 Swal.fire({
                                     title: `Error!`,
@@ -94,6 +116,7 @@ document.querySelectorAll(".btn_check_pending").forEach(item => {
         else if (type == "kitchen_delivery_pending") print({ ...config, search: () => searchParam({ tipo: "delivery", status: "en cocina" }, "order", 1000000000) })
         else if (type == "kitchen_takeaway_pending") print({ ...config, search: () => searchParam({ tipo: "llevar", status: "en cocina" }, "order", 1000000000) })
         else if (type == "kitchen_local_pending") print({ ...config, search: () => searchParam({ tipo: "local", status: "en cocina" }, "order", 1000000000) })
+        else print({ ...config, search: () => searchParam({ tipo: "reserva", status: "en cocina" }, "order", 1000000000) })
     })
 })
 document.querySelectorAll(".btn_check_off").forEach(item => {
@@ -103,6 +126,8 @@ document.querySelectorAll(".btn_check_off").forEach(item => {
         else if (type == "kitchen_delivery_off") print({ ...config, search: () => searchParam({ status: "para despachar", tipo: "delivery" }, "order"), container: ".kitchen-cont-prepared-off" })
         else if (type == "kitchen_takeaway_off") print({ ...config, search: () => searchParam({ status: "para despachar", tipo: "llevar" }, "order"), container: ".kitchen-cont-prepared-off" })
         else if (type == "kitchen_local_off") print({ ...config, search: () => searchParam({ status: "para despachar", tipo: "local" }, "order"), container: ".kitchen-cont-prepared-off" })
+        else print({ ...config, search: () => searchParam({ tipo: "reserva", status: "para despachar" }, "order", 1000000000), container: ".kitchen-cont-prepared-off" })
+
     })
 })
 document.querySelectorAll(".btn_check_inprepared").forEach(item => {
@@ -112,6 +137,8 @@ document.querySelectorAll(".btn_check_inprepared").forEach(item => {
         else if (type == "kitchen_delivery_inprepared") print({ ...config, search: () => searchParam({ status: "en preparacion", tipo: "delivery" }, "order"), container: ".kitchen-cont-inprepared" })
         else if (type == "kitchen_takeaway_inprepared") print({ ...config, search: () => searchParam({ status: "en preparacion", tipo: "llevar" }, "order"), container: ".kitchen-cont-inprepared" })
         else if (type == "kitchen_local_inprepared") print({ ...config, search: () => searchParam({ status: "en preparacion", tipo: "local" }, "order"), container: ".kitchen-cont-inprepared" })
+        else print({ ...config, search: () => searchParam({ tipo: "reserva", status: "en preparacion" }, "order", 1000000000), container: ".kitchen-cont-inprepared" })
+
     })
 })
 //modal de detalles
@@ -182,110 +209,18 @@ pagination((page) => {
     print({ ...config, search: () => searchParam({ status: "en cocina" }, "order", 12, page) })
 }, ".pagination_prepared")
 
-// const printTargetPreparedOff = async (
-//     type,
-//     type_filter,
-//     condition,
-//     pageSize = 12,
-//     currentPage = 1
-// ) => {
-//     document.querySelector(".kitchen-cont-prepared-off").innerHTML = `
-//     <div class="col-12 d-flex justify-content-center align-items-center fs-1" style="height: 50vh;">
-//       <div class="spinner-border" role="status" style="width: 150px; height: 150px; color: #c1c1c1;">
-//         <span class="visually-hidden">Loading...</span>
-//       </div>
-//     </div>`;
-
-//     let result;
-//     if (type === "search") {
-//         result = await searchParam({}, "order", 10000000, 0);
-//     } else if (type === "like") {
-//         result = await searchParam({ nombre_like: type_filter }, "order", 10000000, null);
-//     } else {
-//         result = await searchParam({ tipo: type_filter }, "order", 10000000, null);
-//     }
-
-//     const filtered = result.filter(condition);
-//     const totalPages = Math.max(Math.ceil(filtered.length / pageSize), 1);
-//     currentPage = Math.min(Math.max(currentPage, 1), totalPages);
-//     const start = (currentPage - 1) * pageSize;
-//     const pageData = filtered.slice(start, start + pageSize);
-//     let template = pageData.map(order => targetKitchen(order)).join("");
-//     if (!template) {
-//         template = `
-//       <div class="col-12">
-//         <div class="d-flex justify-content-center align-items-center">
-//           <img src="./assets/img/bh_logo.png" alt="Logo" class="img-fluid opacity-25">
-//         </div>
-//       </div>`;
-//     }
-//     document.querySelector(".kitchen-cont-prepared-off").innerHTML = template;
-//     modalDetails();
-//     buildPreparedOffPager(totalPages, currentPage, page =>
-//         printTargetPreparedOff(type, type_filter, condition, pageSize, page)
-//     );
-// };
-// function buildPreparedOffPager(totalPages, currentPage, onChange) {
-//     const ul = document.querySelector(".pagination_preparedoff");
-//     ul.innerHTML = "";
-//     const makeItem = (label, page, disabled = false, active = false) => {
-//         const li = document.createElement("li");
-//         li.className = `page-item ${disabled ? "disabled" : ""} ${active ? "active" : ""}`;
-//         const a = document.createElement("a");
-//         a.className = "page-link";
-//         a.href = "#";
-//         a.innerHTML = label;
-//         if (!disabled) a.addEventListener("click", () => onChange(page));
-//         li.appendChild(a);
-//         ul.appendChild(li);
-//     };
-//     makeItem("&laquo;", currentPage - 1, currentPage === 1);
-//     for (let i = 1; i <= totalPages; i++) {
-//         makeItem(i, i, false, i === currentPage);
-//     }
-//     makeItem("&raquo;", currentPage + 1, currentPage === totalPages);
-// }
-// printTargetPreparedOff("search", null, (order) => order.status != "en cocina" && order.status != "por verificar", 12, 1);
-
-
-// const preparedKitchen = () => {
-//     document.querySelectorAll(".btn_prepared").forEach(item => {
-//         item.addEventListener("click", async () => {
-//             Swal.fire({
-//                 title: "¿Deseas preparar la orden?",
-//                 icon: "warning",
-//                 showCancelButton: true,
-//                 confirmButtonText: "Si, estoy seguro",
-//                 cancelButtonText: "Cancelar",
-//                 confirmButtonColor: "#FF4B00",
-//             }).then(async (result) => {
-//                 if (result.isConfirmed) {
-//                     let id = item.getAttribute("id_order")
-//                     let type = item.getAttribute("type_order")
-//                     let data = new FormData();
-//                     data.append("id", id)
-//                     if (type == "llevar") data.append("status", "por despachar")
-//                     else data.append("status", "en delivery")
-//                     let pet = await fetch('order/update', { method: "POST", body: data })
-//                     let res = await pet.json()
-//                     if (res.success == true) {
-//                         Swal.fire({
-//                             title: `Exito!`,
-//                             text: "La orden se preparo correctamente",
-//                             icon: "success",
-//                         });
-//                         print(config)
-//                         printTargetPreparedOff("search", null, order => order.status != "en cocina" && order.status != "por verificar")
-//                         binnacle(session.message.id, 'Orden de cocina', 'Preparado', 'Se preparo una orden de cocina')
-//                     } else {
-//                         Swal.fire({
-//                             title: `Error!`,
-//                             text: "No se pudo preparar la orden",
-//                             icon: "error",
-//                         });
-//                     }
-//                 }
-//             });
-//         })
-//     })
-// }
+const pusher = new Pusher('2a7ca356d030e2945ae9', { cluster: 'us2' });
+const channelKitchen = pusher.subscribe('Kitchen');
+channelKitchen.bind('orden de cocina', function (data) {
+    const toas = document.querySelector(".toast-container")
+    toas.querySelector("strong").textContent = data.event
+    dayjs.extend(window.dayjs_plugin_relativeTime);
+    dayjs.locale('es');
+    toas.querySelector("small").textContent = dayjs(data.time).fromNow()
+    toas.querySelector(".toast-body").textContent = data.message
+    const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toas.querySelector("#liveToast"), { delay: 5000 })
+    toastBootstrap.show()
+    print(config)
+    print({ ...config, search: () => searchParam({ status: "en preparacion" }, "order"), container: ".kitchen-cont-inprepared" })
+    print({ ...config, search: () => searchParam({ status: "para despachar" }, "order"), container: ".kitchen-cont-prepared-off" })
+});

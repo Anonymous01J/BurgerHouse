@@ -1,6 +1,7 @@
 <?php
 
 namespace Shtch\Burgerhouse\models;
+
 use Shtch\Burgerhouse\models\Db_base;
 
 class Pago_reserva extends Db_base
@@ -28,7 +29,18 @@ class Pago_reserva extends Db_base
         $this->select_query = "
         a.id,
         a.id_reserva,
-        a.id_pago
+        a.id_pago,
+        p.comprobante,
+        p.referencia,
+        mp.nombre as metodo_pago,
+        p.monto,
+        o.id as id_orden
+        ";
+        $this->joins = "
+        INNER JOIN reservaciones r ON a.id_reserva = r.id
+        INNER JOIN pagos p ON a.id_pago = p.id
+        INNER JOIN metodo_pago mp ON p.id_metodo_pago = mp.id
+        INNER JOIN orden o ON r.id_orden = o.id
         ";
     }
 }

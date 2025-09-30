@@ -44,7 +44,7 @@ export default function introTooltip() {
 			}
 		});
 	}
-	function binnacle(element) {
+	function binnacleIntro(element) {
 		document.getElementById(element).addEventListener('click', function () {
 			if (typeof introJs !== 'undefined') {
 				let intro = introJs();
@@ -84,7 +84,7 @@ export default function introTooltip() {
 			}
 		});
 	}
-	function calendar(element) {
+	function calendarIntro(element) {
 		document.getElementById(element).addEventListener('click', function () {
 			if (typeof introJs !== 'undefined') {
 				let intro = introJs();
@@ -150,7 +150,7 @@ export default function introTooltip() {
 			//null
 		});
 	}
-	function cash(element) {
+	function cashIntro(element) {
 		document.getElementById(element).addEventListener('click', function () {
 			if (typeof introJs !== 'undefined') {
 				let intro = introJs();
@@ -471,7 +471,7 @@ export default function introTooltip() {
 			}
 		});
 	}
-	function productproductProcess(element) {
+	function productProcessIntro(element) {
 		document.getElementById(element).addEventListener('click', function () {
 			if (typeof introJs !== 'undefined') {
 				let intro = introJs();
@@ -788,15 +788,15 @@ export default function introTooltip() {
 	}
 	return {
 		additional,
-		binnacle,
-		calendar,
+		binnacleIntro,
+		calendarIntro,
 		capital,
-		cash,
+		cashIntro,
 		client,
 		dashboard,
 		order,
 		productPrepared,
-		productproductProcess,
+		productProcessIntro,
 		rawMaterial,
 		recipe,
 		statistics,

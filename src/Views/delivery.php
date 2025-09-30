@@ -43,24 +43,6 @@
                             <input type="search" id="searchDeliveryPending" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
                     </div>
-                    <div class="d-flex gap-2 justify-content-start flex-wrap ps-0 mb-4">
-                        <div>
-                            <input type="radio" class="btn-check btn_check_pending" name="data-filter-1" data-filter="all" id="delivery_all_pending" autocomplete="off" checked>
-                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_all_pending">Todos</label>
-                        </div>
-                        <div>
-                            <input type="radio" class="btn-check btn_check_pending" name="data-filter-1" data-filter="all" id="delivery_delivery_pending" autocomplete="off">
-                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_delivery_pending">Delivery</label>
-                        </div>
-                        <div>
-                            <input type="radio" class="btn-check btn_check_pending" name="data-filter-1" data-filter="all" id="delivery_takeaway_pending" autocomplete="off">
-                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_takeaway_pending">Para llevar</label>
-                        </div>
-                        <div>
-                            <input type="radio" class="btn-check btn_check_pending" name="data-filter-1" data-filter="all" id="delivery_local_pending" autocomplete="off">
-                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_local_pending">Local</label>
-                        </div>
-                    </div>
                     <div class="row cont-delivery-pending">
 
                     </div>
@@ -71,24 +53,6 @@
                             <input type="search" id="searchDeliveryOff" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                         </div>
                     </div>
-                    <div class="d-flex gap-2 justify-content-start flex-wrap ps-0 mb-4">
-                        <div>
-                            <input type="radio" class="btn-check btn_check_off" name="data-filter-2" data-filter="all" id="delivery_all_off" autocomplete="off" checked>
-                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_all_off">Todos</label>
-                        </div>
-                        <div>
-                            <input type="radio" class="btn-check btn_check_off" name="data-filter-2" data-filter="all" id="delivery_delivery_off" autocomplete="off">
-                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_delivery_off">Delivery</label>
-                        </div>
-                        <div>
-                            <input type="radio" class="btn-check btn_check_off" name="data-filter-2" data-filter="all" id="delivery_takeaway_off" autocomplete="off">
-                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_takeaway_off">Para llevar</label>
-                        </div>
-                        <div>
-                            <input type="radio" class="btn-check btn_check_off" name="data-filter-2" data-filter="all" id="delivery_local_off" autocomplete="off">
-                            <label class="btn bh_1CHECKBOX rounded-pill" for="delivery_local_off">Local</label>
-                        </div>
-                    </div>
                     <div class="row cont-delivery-off">
 
                     </div>
@@ -97,6 +61,23 @@
         </div>
         <?php include_once __DIR__ . '/../Views/Components/modals/delivery-kitchen/modal.php' ?>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
+
+
+        <!-- Toast -->
+        <div class="toast-container position-fixed bottom-0 end-0 p-3">
+            <div id="liveToast" class="toast border-0" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header bh_1 text-white">
+                    <i class="me-2" data-feather="alert-circle"></i>
+                    <strong class="me-auto">Bootstrap</strong>
+                    <small>11 mins ago</small>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body bh_1 text-white">
+                    Hello, world! This is a toast message.
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
@@ -107,4 +88,7 @@
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
     <script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
+    <script src="./assets/libs/libs/daysjs/dayjs.min.js"></script>
+    <script src="./assets/libs/libs/daysjs/es.js"></script>
+    <script src="./assets/libs/libs/daysjs/relativeTime.js"></script>
     <script type="module" src="./assets/js/pages/delivery/delivery.js"></script>

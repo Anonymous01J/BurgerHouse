@@ -28,9 +28,10 @@
                 <div class="col-12">
                     <nav>
                         <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active module_link" data-module="Ordenes (delivery)" id="nav-domicilio-tab" data-bs-toggle="tab" data-bs-target="#nav-domicilio" type="button" role="tab" aria-controls="nav-home" aria-selected="true">A domicilio</button>
+                            <button class="nav-link module_link" data-module="Ordenes (delivery)" id="nav-domicilio-tab" data-bs-toggle="tab" data-bs-target="#nav-domicilio" type="button" role="tab" aria-controls="nav-home" aria-selected="true">A domicilio</button>
                             <button class="nav-link module_link" data-module="Ordenes (llevar)" id="nav-llevar-tab" data-bs-toggle="tab" data-bs-target="#nav-llevar" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Para llevar</button>
-                            <button class="nav-link" id="nav-local-tab" data-bs-toggle="tab" data-bs-target="#nav-local" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">En el local</button>
+                            <button class="nav-link module_link" data-module="Ordenes (local)" id="nav-local-tab" data-bs-toggle="tab" data-bs-target="#nav-local" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">En el local</button>
+                            <button class="nav-link" data-module="Ordenes (reservas)" id="nav-res-tab" data-bs-toggle="tab" data-bs-target="#nav-res" type="button" role="tab" aria-controls="res-contact" aria-selected="false">Reservaciones</button>
                         </div>
                     </nav>
                     <div class="card">
@@ -84,6 +85,17 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_1 text-center">
+                                                    <h1 class="font-light text-white target_order_delivery_running">0</h1>
+                                                    <h6 class="text-white">En camino</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <!-- Column -->
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
@@ -124,12 +136,11 @@
                                                 <table class="table no-wrap table-order-domicilio-pendientes table-dark-mode w-100">
                                                     <thead>
                                                         <tr>
+                                                            <th>Estado</th>
                                                             <th>N° Orden</th>
                                                             <th>Cliente</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
-                                                            <th>Detalles</th>
-                                                            <th>Comprobante</th>
                                                             <th>Acciones</th>
                                                         </tr>
                                                     </thead>
@@ -151,12 +162,12 @@
                                                 <table class="table no-wrap table-order-domicilio-procesadas table-dark-mode w-100">
                                                     <thead>
                                                         <tr>
+                                                            <th>Estado</th>
                                                             <th>N° Orden</th>
                                                             <th>Cliente</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
-                                                            <th>Detalles</th>
-                                                            <th>Comprobante</th>
+                                                            <th>Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -177,12 +188,12 @@
                                                 <table class="table no-wrap table-order-domicilio-null table-dark-mode w-100">
                                                     <thead>
                                                         <tr>
+                                                            <th>Estado</th>
                                                             <th>N° Orden</th>
                                                             <th>Cliente</th>
                                                             <th>Fecha</th>
                                                             <th>Hora</th>
-                                                            <th>Detalles</th>
-                                                            <th>Comprobante</th>
+                                                            <th>Acciones</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -382,8 +393,8 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_4 text-center">
-                                                    <h1 class="font-light text-white target_order_local_dispatch">0</h1>
-                                                    <h6 class="text-white">Por Despachar</h6>
+                                                    <h1 class="font-light text-white target_order_local_intable">0</h1>
+                                                    <h6 class="text-white">En mesa</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -391,14 +402,14 @@
                                         <div class="col-md-6 col-lg col-xlg-3">
                                             <div class="card card-hover">
                                                 <div class="p-2 bh_5BG text-center">
-                                                    <h1 class="font-light text-white target_order_local_delivered">0</h1>
-                                                    <h6 class="text-white">Despachadas</h6>
+                                                    <h1 class="font-light text-white target_order_local_payed">0</h1>
+                                                    <h6 class="text-white">Pagadas</h6>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <button type="button" class="btn bh_1 text-white mb-3 btn_order_local" data-bs-toggle="modal" data-bs-target="#product_and_table" type_order="local">
+                                    <button type="button" class="btn bh_1 text-white mb-3 btn_order_local" data-module-create="Ordenes (local)" type_order="local">
                                         <i class="fas fa-plus"></i>
                                         Orden
                                     </button>
@@ -465,6 +476,108 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="tab-pane fade" id="nav-res" role="tabpanel" aria-labelledby="nav-res-tab" tabindex="0">
+                                    <div class="row">
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_1BG text-center">
+                                                    <h1 class="font-light text-white target_order_reserva_total">0</h1>
+                                                    <h6 class="text-white">Ordenes Totales</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_6 text-center">
+                                                    <h1 class="font-light text-white target_order_reserva_kitchen">0</h1>
+                                                    <h6 class="text-white">En cocina</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_2 text-center">
+                                                    <h1 class="font-light text-white target_order_reserva_intable">0</h1>
+                                                    <h6 class="text-white">En mesa</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Column -->
+                                        <div class="col-md-6 col-lg col-xlg-3">
+                                            <div class="card card-hover">
+                                                <div class="p-2 bh_5BG text-center">
+                                                    <h1 class="font-light text-white target_order_reserva_payed">0</h1>
+                                                    <h6 class="text-white">Despachadas</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <ul class="nav nav-tabs" id="myTab3" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="home-tab3" data-bs-toggle="tab" data-bs-target="#home-tab-pane3" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Pendientes</button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="profile-tab3" data-bs-toggle="tab" data-bs-target="#profile-tab-pane3" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Procesadas</button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="home-tab-pane3" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+                                            <div class="row justify-content-between mt-3">
+                                                <div class="col-md-6 col-lg-3">
+                                                    <input type="text" class="form-control" id="searchBoxResPending" placeholder="Buscar">
+                                                </div>
+                                                <div class="col-md-6 col-lg-9">
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive mt-2" style="min-height: 290px;">
+                                                <table class="table no-wrap table-order-res-pendientes table-dark-mode w-100">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Estado</th>
+                                                            <th>N° Orden</th>
+                                                            <th>Fecha Reser.</th>
+                                                            <th>Hora Reser.</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="profile-tab-pane3" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
+                                            <div class="row justify-content-between mt-3">
+                                                <div class="col-md-6 col-lg-3">
+                                                    <input type="text" class="form-control" id="searchBoxResProcesadas" placeholder="Buscar">
+                                                </div>
+                                                <div class="col-md-6 col-lg-9">
+                                                </div>
+                                            </div>
+                                            <div class="table-responsive mt-2" style="min-height: 290px;">
+                                                <table class="table no-wrap table-order-res-procesadas table-dark-mode w-100">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Estado</th>
+                                                            <th>N° Orden</th>
+                                                            <th>Fecha Reser.</th>
+                                                            <th>Hora Reser.</th>
+                                                            <th>Acciones</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -478,6 +591,22 @@
     <?php include_once __DIR__ . '/../Views/Components/modals/order/local.php' ?>
     <?php include_once __DIR__ . '/../Views/Components/modals/order/more_products.php' ?>
     <?php include_once __DIR__ . '/../Views/Components/modals/order/payment_order_local.php' ?>
+    <?php include_once __DIR__ . '/../Views/Components/modals/order/payment_order_reservation.php' ?>
+
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bh_1 text-white">
+                <i class="me-2" data-feather="alert-circle"></i>
+                <strong class="me-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body bh_1 text-white">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+    </div>
 
 </div>
 
@@ -491,6 +620,9 @@
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>
+<script src="./assets/libs/libs/daysjs/dayjs.min.js"></script>
+<script src="./assets/libs/libs/daysjs/es.js"></script>
+<script src="./assets/libs/libs/daysjs/relativeTime.js"></script>
 <script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
 <script src="./assets/libs/libs/tagify/tagify.js"></script>
 <script src="./assets/libs/libs/tagify/tagify.polyfills.min.js"></script>

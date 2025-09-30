@@ -3347,9 +3347,9 @@ textarea.form-control-lg {
   box-shadow: var(--bs-btn-box-shadow), var(--bs-btn-focus-box-shadow);
 }
 .btn-check:checked + .btn, :not(.btn-check) + .btn:active, .btn:first-child:active, .btn.active, .btn.show {
-  color: var(--bs-btn-active-color);
+  color: #FF4B00 !important;
   background-color: var(--bs-btn-active-bg);
-  border-color: var(--bs-btn-active-border-color);
+  border-color: #FF4B00;
   box-shadow: var(--bs-btn-active-shadow);
 }
 .btn-check:checked + .btn:focus-visible, :not(.btn-check) + .btn:active:focus-visible, .btn:first-child:active:focus-visible, .btn.active:focus-visible, .btn.show:focus-visible {

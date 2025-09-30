@@ -26,14 +26,36 @@
         <div class="container-fluid">
             <div class="row g-3 align-items-center mb-5">
                 <div class="col-auto">
-                    <input type="search" id="inputPassword6" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                    <input type="search" id="searchRecipe" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
                 </div>
                 <button type="button" class="btn bh_1 btn-circle text-white" data-module-add="Recetas" data-bs-toggle="modal" data-bs-target="#register-recipe">
                     <i data-feather="plus" class="svg-icon"></i>
                 </button>
+                 <button type="button" class="btn bh_1 btn-circle text-white btn_print_all_recipe ms-2">
+                    <i data-feather="printer" class="svg-icon"></i>
+                </button>
             </div>
-            <div class="row mt-4 cont_recipe">
-                
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-dark-mode table_recipe no-wrap w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Tipo</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
@@ -44,8 +66,11 @@
 <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
 <script src="./assets/libs/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/libs/extra-libs/datatables.net/js/jquery.dataTables.js"></script>
+<script src="./assets/libs/extra-libs/datatables.net-bs4/js/dataTables.responsive.min.js"></script>
 <script src="./assets/js/app-style-switcher.js"></script>
 <script src="./assets/js/feather.min.js"></script>
+<script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
 <script src="./assets/libs/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
 <script src="./assets/js/sidebarmenu.js"></script>
 <script src="./assets/js/custom.min.js"></script>

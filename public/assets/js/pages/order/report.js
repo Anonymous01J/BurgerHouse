@@ -89,7 +89,7 @@ export async function report(info, productPrepared, productProcess, totalAmount)
     })
     window.open(doc.output('bloburl'), '_blank');
 }
-export async function invoice(productPrepared, productProcess, clientData, id_order = window.id_orden_invoice, direccion, totalAmount, funtionality = "print") {
+export async function invoice(productPrepared, productProcess, clientData, id_order = window.id_orden_invoice, direccion, totalAmount, funtionality = "print", info = null, abono = null) {
     let dolar = await amountDolar()
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -109,11 +109,11 @@ export async function invoice(productPrepared, productProcess, clientData, id_or
     doc.setTextColor(41, 40, 37)
     doc.setFont("Poppins", "normal");
     doc.setFontSize(10);
-    doc.text(`FECHA DE IMPRESION: ${new Date().toLocaleDateString()}`, 140, 85);
+    doc.text(`FECHA DE IMPRESION: ${info == null ? new Date().toLocaleString().split(",")[0] : fecha(info[0].fecha)}`, 140, 85);
     doc.setFontSize(10);
     doc.setTextColor(41, 40, 37)
     doc.text(`..................................................................................................................................................................................................................................................................`, 10, 90);
-    doc.text(`CLIENTE: ${clientData.nameClient.toUpperCase()}`, 10, 100);
+    doc.text(`CLIENTE: ${clientData.nameClient.toUpperCase() ?? "POR ASIGNAR"}`, 10, 100);
     doc.text(`DIRECCION: ${direccion}`, 10, 108);
     doc.text(`TELEFONO: ${clientData.telefonoClient}`, 10, 115);
 
@@ -122,6 +122,9 @@ export async function invoice(productPrepared, productProcess, clientData, id_or
     doc.text(`${totalAmount.subtotal}`, 100, 100);
     doc.text(`${totalAmount.iva}`, 100, 108);
     doc.text(`TOTAL DE ORDEN ${totalAmount.total_dolares + " USD" + " (" + totalAmount.total_bs + " Bs)"}`, 100, 115);
+    if (abono != null) {
+        doc.text(`ABONO DE RESERVA ${(abono.montoDolar == 0 ? (abono.montoBs / dolar).toFixed(2) + " USD" : abono.montoDolar) + " (" + abono.montoBs + " Bs)"}`, 100, 120);
+    }
 
     doc.setFont("Poppins", "normal");
     doc.text(`..................................................................................................................................................................................................................................................................`, 10, 122);
@@ -161,8 +164,8 @@ export async function invoice(productPrepared, productProcess, clientData, id_or
                 item.adicionales != "" && item.adicionales != null ? currentY += 6 : ""
                 currentY += 4;
             } else {
-                item.adicionales != "" && item.adicionales != null ? doc.text(`ADICIONALES: ${item.adicionales.map((adicional) => adicional.nombre).join(", ")}`, 15, currentY) : ""
-                item.adicionales != "" && item.adicionales != null ? doc.text(`................................ ${item.adicionales.reduce((total, adicional) => total + parseFloat(adicional.precio), 0)} USD`, 120, currentY) : ""
+                item.adicionales != "" && item.adicionales != null ? doc.text(`ADICIONALES: ${adicionales.map((adicional) => adicional.nombre).join(", ")}`, 15, currentY) : ""
+                item.adicionales != "" && item.adicionales != null ? doc.text(`................................ ${adicionales.reduce((total, adicional) => total + parseFloat(adicional.precio), 0)} USD`, 120, currentY) : ""
                 item.adicionales != "" && item.adicionales != null ? currentY += 6 : ""
                 currentY += 4;
             }

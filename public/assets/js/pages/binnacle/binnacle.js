@@ -1,7 +1,7 @@
 import functionGeneral from "../../Functions.js";
 import introTooltip from "../../intro-tooltip.js"
 const { sessionInfo, binnacle, fecha, hora } = functionGeneral();
-const {binnacle} = introTooltip()
+const { binnacleIntro } = introTooltip()
 binnacle('navbarDropdown')
 let session = await sessionInfo();
 

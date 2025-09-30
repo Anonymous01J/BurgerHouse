@@ -149,7 +149,43 @@
                             </div>
                         </div>
                         <div id="step-2" class="content" role="tabpanel" aria-labelledby="steppertrigger2">
-                            <div>hola</div>
+                            <h4>DETALLES DE PAGO</h4>
+							<div class="table-responsive mb-5">
+								<table class="table table-dark-mode">
+									<thead>
+										<th>METODO</th>
+										<th>CANTIDAD</th>
+										<th>REFERENCIA</th>
+										<th>COMPROBANTE</th>
+									</thead>
+									<tbody class="cont_confirm_payment_order_local">
+
+									</tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2">TOTAL USD</td>
+                                            <td class="total_usd_confirm_payment">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">TOTAL BS</td>
+                                            <td class="total_bs_confirm_payment">0</td>
+                                        </tr>
+                                        <hr>
+                                        <tr>
+                                            <td colspan="2">CAMBIO USD</td>
+                                            <td class="propina_usd">0</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">CAMBIO BS</td>
+                                            <td class="propina_bs">0</td>
+                                        </tr>
+                                    </tfoot>
+								</table>
+							</div>
+                            <div class="d-flex justify-content-end position-sticky start-100 bottom-0">
+                                <button class="btn btn-secondary mt-3 me-2" onclick="stepper4.previous()">Anterior</button>
+                                <button class="btn btn-success mt-3 confirm_order_local_payment">Enviar</button>
+                            </div>
                         </div>
                     </div>
                 </div>

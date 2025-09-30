@@ -2,11 +2,11 @@ import funtionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 import { report } from "./report.js"
 import introTooltip from "../../intro-tooltip.js"
-const {cash} = introTooltip()
+const { cashIntro } = introTooltip()
 const { targetCash, infoCash, amountCash, cashDetail } = Templates()
 const { validateField, setValidationStyles, sessionInfo, binnacle, print, add, searchParam, InputPrice, CheckCash, searchFilter, permission } = funtionGeneral()
 InputPrice("[input_price]")
-cash('navbarDropdown')
+cashIntro('navbarDropdown')
 let session = await sessionInfo()
 let cash = await CheckCash()
 permission("caja")
@@ -79,7 +79,7 @@ const rules = {
     },
 };
 print(config)
-print({...config, search: () => searchParam({ estado: 0 }, "cash"), container: ".cont-cash_close"})
+print({ ...config, search: () => searchParam({ estado: 0 }, "cash"), container: ".cont-cash_close" })
 form.querySelectorAll("input").forEach((input) => {
     input.addEventListener("keyup", (e) => validateField(e, rules));
     input.addEventListener("blur", (e) => validateField(e, rules));

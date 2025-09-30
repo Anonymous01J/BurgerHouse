@@ -1,11 +1,10 @@
-export default async function domicile_and_takeaway(functions, templates, report, targetUpdate) {
-    const { searchParam, amountDolar, viewImage, InputPrice, selectOptionAll, validateField, setValidationStyles, reindex, CheckCash, sessionInfo, binnacle, resetForm } = functions()
+export default async function domicile_and_takeaway(functions, templates, report, targetUpdate, table_reload) {
+    const { searchParam, amountDolar, viewImage, InputPrice, selectOptionAll, validateField, setValidationStyles, reindex, CheckCash, sessionInfo, binnacle, resetForm, notification, notificationAlert } = functions()
     const { tagFilterProduct, selectProduct, targetDetailProductOrder, targetDetailOtherOrder, targetClienteOrder, optionsRol, elemenFormPaymentOrder } = templates()
     viewImage(".input-image")
     InputPrice("[input_price]");
     selectOptionAll(".select_options_payment", "paymentMethod", optionsRol);
     let iti = window.intlTelInput(document.querySelector("#input-tel-client-order"), { initialCountry: "ve", separateDialCode: true, utilsScript: "./assets/libs/libs/intl-tel-input/js/utils.js" });
-
     const resetFormModal = () => {
         document.querySelector(".cont-select-product-order").innerHTML = ""
         const container = document.querySelector(".cont_category_product_orders");
@@ -87,8 +86,15 @@ export default async function domicile_and_takeaway(functions, templates, report
     }
     const initPopover = async () => {
         let data = []
-        let pet = await searchParam({ active: 1, tipo: "adicional" }, "additional", 100);
-        pet.forEach((item) => {
+        let elements = []
+        let recipeDetails = await searchParam({}, "recipe", 5000)
+        for (const item of recipeDetails) {
+            let pet = await searchParam({ active: 1, tipo: "adicional", id: item.id_producto }, "additional", 100);
+            for (const el of pet) {
+                elements.push(el)
+            }
+        }
+        elements.forEach((item) => {
             data.push({
                 value: item.nombre,
                 id: item.id,
@@ -168,10 +174,14 @@ export default async function domicile_and_takeaway(functions, templates, report
     const products = async () => {
         let templatePrepared = "";
         let templateProcess = "";
+        let recipeDetails = await searchParam({}, "recipe", 5000)
+        for (const recipe of recipeDetails) {
+            const id = recipe.id_producto
+            let product = await searchParam({ id: id, tipo: "producto" }, "productPrepared", 100)
+            product.forEach((product) => { templatePrepared += selectProduct(product, "productPrepared") })
+        }
         let productProcess = await searchParam({ active: 1 }, "productProcess", 100)
-        let productPrepared = await searchParam({ active: 1, tipo: "producto" }, "productPrepared", 100)
-        productPrepared.forEach((product) => { templatePrepared += selectProduct(product, "productPrepared"); })
-        productProcess.forEach((product) => { templateProcess += selectProduct(product, "productProcess"); })
+        productProcess.forEach((product) => { templateProcess += selectProduct(product, "productProcess") })
         document.querySelector(".cont-select-product-order").insertAdjacentHTML("beforeend", templatePrepared)
         document.querySelector(".cont-select-product-order").insertAdjacentHTML("beforeend", templateProcess)
         categoryFilter()
@@ -597,67 +607,133 @@ export default async function domicile_and_takeaway(functions, templates, report
                 })
                 let petOrder = await fetch("order/add", { method: "POST", body: order })
                 let resOrder = await petOrder.json()
-                console.log(resOrder);
-                let id_orden = resOrder.last_id
-                window.id_orden_invoice = id_orden
-                let dataSale = new FormData();
-                dataSale.append("id_orden", id_orden)
-                dataSale.append("id_caja", await CheckCash())
-                dataSale.append("monto_final", amountTotal.total_dolares)
-                dataSale.append("direccion", directionSale)
-                let petSale = await fetch("sale/add", { method: "POST", body: dataSale })
-                let resSale = await petSale.json()
-                console.log(resSale);
-                let id_venta = resSale.last_id
+                if (resOrder.success == true) {
+                    let id_orden = resOrder.last_id
+                    window.id_orden_invoice = id_orden
+                    let dataSale = new FormData();
+                    dataSale.append("id_orden", id_orden)
+                    dataSale.append("id_caja", await CheckCash())
+                    dataSale.append("monto_final", amountTotal.total_dolares)
+                    dataSale.append("direccion", directionSale)
+                    let petSale = await fetch("sale/add", { method: "POST", body: dataSale })
+                    let resSale = await petSale.json()
+                    console.log(resSale);
+                    let id_venta = resSale.last_id
 
-                let dolar = await amountDolar()
-                let paymentData = new FormData();
-                dataPayment.forEach((payment, index) => {
-                    paymentData.append(`lista[${index}][id_metodo_pago]`, payment.id_metodo_pago)
-                    paymentData.append(`lista[${index}][monto]`, payment.cantidad)
-                    paymentData.append(`lista[${index}][tasa]`, dolar)
-                    paymentData.append(`lista[${index}][referencia]`, payment.referencia)
-                    paymentData.append(`lista[${index}][imagen]`, payment.imagen)
-                    paymentData.append(`lista[${index}][imagen_name]`, payment.imagen.name)
-                })
-                let petPayment = await fetch("payment/add_many", { method: "POST", body: paymentData })
-                let resPayment = await petPayment.json()
-                console.log(resPayment);
-                let id_payments = resPayment.lista
-                let dataPaymentDetails = new FormData();
+                    let dolar = await amountDolar()
+                    let paymentData = new FormData();
+                    dataPayment.forEach((payment, index) => {
+                        paymentData.append(`lista[${index}][id_metodo_pago]`, payment.id_metodo_pago)
+                        paymentData.append(`lista[${index}][monto]`, payment.cantidad)
+                        paymentData.append(`lista[${index}][tasa]`, dolar)
+                        paymentData.append(`lista[${index}][referencia]`, payment.referencia)
+                        paymentData.append(`lista[${index}][imagen]`, payment.imagen)
+                        paymentData.append(`lista[${index}][imagen_name]`, payment.imagen.name)
+                    })
+                    let petPayment = await fetch("payment/add_many", { method: "POST", body: paymentData })
+                    let resPayment = await petPayment.json()
+                    console.log(resPayment);
+                    let id_payments = resPayment.lista
+                    let dataPaymentDetails = new FormData();
 
-                id_payments.forEach((payment, index) => {
-                    dataPaymentDetails.append(`lista[${index}][id_pago]`, payment)
-                    dataPaymentDetails.append(`lista[${index}][id_venta]`, id_venta)
-                })
-                let petPaymentDetails = await fetch("paymentSale/add_many", { method: "POST", body: dataPaymentDetails })
-                let resPaymentDetails = await petPaymentDetails.json()
-                console.log(resPaymentDetails);
-                let invoice = await report(productPreparedData, productProcessData, clientData, dataPayment, directionSale, amountTotal, "invoice")
-                let invoiceData = new FormData();
-                invoiceData.append("pdf", invoice, "factura.pdf");
-                let send = await fetch("order/sendInvoice", { method: "POST", body: invoiceData });
-                let dataResInvoice = await send.json();
-                const mensaje = `*FACTURA DE ORDEN* \n\n*${clientData.nameClient}*\n\n${dataResInvoice.url}`;
-                const url = `https://wa.me/${clientData.telefonoClient}?text=${encodeURIComponent(mensaje)}`;
-                if (dataResInvoice.url) {
-                    Swal.close();
-                    Swal.fire({
-                        title: `Exito!`,
-                        text: "Se creo la orden de domicilio",
-                        icon: "success",
-                    });
-                    binnacle(session.message.id, 'Orden de domicilio', 'Creacion', `Se creo una orden de ${window.type_order}`)
-                    resetFormModal()
-                    targetUpdate()
-                    window.open(url, '_blank');
+                    id_payments.forEach((payment, index) => {
+                        dataPaymentDetails.append(`lista[${index}][id_pago]`, payment)
+                        dataPaymentDetails.append(`lista[${index}][id_venta]`, id_venta)
+                    })
+                    let petPaymentDetails = await fetch("paymentSale/add_many", { method: "POST", body: dataPaymentDetails })
+                    let resPaymentDetails = await petPaymentDetails.json()
+                    console.log(resPaymentDetails);
+                    let invoice = await report(productPreparedData, productProcessData, clientData, window.id_orden_invoice, directionSale, amountTotal, "invoice")
+                    let invoiceData = new FormData();
+                    invoiceData.append("pdf", invoice, "factura.pdf");
+                    let send = await fetch("order/sendInvoice", { method: "POST", body: invoiceData });
+                    let dataResInvoice = await send.json();
+                    const mensaje = `*FACTURA DE ORDEN* \n\n*${clientData.nameClient}*\n\n${dataResInvoice.url}`;
+                    const url = `https://wa.me/${clientData.telefonoClient}?text=${encodeURIComponent(mensaje)}`;
+                    if (dataResInvoice.url) {
+                        Swal.close();
+                        Swal.fire({
+                            title: `Exito!`,
+                            text: "Se creo la orden de domicilio",
+                            icon: "success",
+                        });
+                        binnacle(session.message.id, 'Orden de domicilio', 'Creacion', `Se creo una orden de ${window.type_order}`)
+                        resetFormModal()
+                        targetUpdate()
+                        notification({
+                            id_usuario: session.message.id,
+                            titulo: `Nueva orden para preparar`,
+                            mensaje: `Se ha creado una nueva orden para preparar con el nro ${window.id_orden_invoice.toString().padStart(4, '0')}`,
+                        })
+                        notificationAlert({
+                            channel: "Kitchen",
+                            message: `Se ha creado una nueva orden para preparar con el nro ${window.id_orden_invoice.toString().padStart(4, '0')}`,
+                            event: "orden de cocina"
+                        })
+                        notificationAlert({
+                            channel: "General",
+                            message: `Se ha creado una nueva orden para preparar con el nro ${id_orden.toString().padStart(4, '0')}`,
+                            event: "notificaciones"
+                        })
+                        table_reload()
+                        window.open(url, '_blank');
+                    } else {
+                        Swal.fire({
+                            title: `Error!`,
+                            text: "Hubo un error al crear la orden",
+                            icon: "error",
+                        });
+                    }
                 } else {
+                    Swal.close();
+                    const error = resOrder.message
+                    const product = []
+                    if (error.detalle_preparado) {
+                        error.detalle_preparado.forEach((item) => {
+                            if (!product.includes(item.producto)) product.push(item.producto)
+                        });
+                    }
+
+                    if (error.detalle_procesado) {
+                        error.detalle_procesado.forEach((item) => {
+                            if (!product.includes(item.producto)) product.push(item.producto)
+                        });
+                    }
+                    let title
+                    if (product.includes("No hay una receta asignada")) {
+                        title = `
+                                <p>Actualmente, algunos productos no cuentan con una <strong class="text-danger">receta asignada</strong></p>
+                                <p class="mt-2 fst-italic text-secondary">Por favor, revise las recetas registradas.</p>
+                        `
+                    } else if (product.includes("No hay existencia en inventario")) {
+                        title = `
+                         <p>No se encontro existencia en inventario para algunos productos</p>
+                        <p class="mt-2 fst-italic text-secondary">Por favor, revise el inventario y las recetas.</p>
+                        `
+                    } else {
+                        title = `
+                                <p>Los siguientes productos no tienen <strong class="text-danger">stock suficiente</strong>:</p>
+                                <p>
+                                    ${product.map(p => `<span class="badge bg-danger me-1">${p}</span>`).join('')}
+                                </p>
+                                <p class="mt-2 fst-italic text-secondary">Por favor, revise el inventario.</p>
+                                `
+                    }
+
                     Swal.fire({
                         title: `Error!`,
-                        text: "Hubo un error al crear la orden",
+                        html: title,
                         icon: "error",
                     });
+
+                    //   <p>Los siguientes productos no tienen <strong class="text-danger">stock suficiente</strong>:</p>
+                    //         <ul class="list-group text-start">
+                    //             ${product.map(p => `<li class="list-group-item list-group-item-danger">${p}</li>`).join('')}
+                    //         </ul>
+                    //         <p class="mt-2 fst-italic text-secondary">Por favor, revise los niveles de stock.</p>
+
                 }
+
             }
         })
         btnSendOrder.dataset.listenerAttached = "true";

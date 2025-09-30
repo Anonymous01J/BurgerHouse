@@ -4,6 +4,7 @@ export default function functionGeneral() {
       let session = await sessionInfo();
       let data = await searchParam({ id_rol: session.message.id_rol }, "permissions", 100000000)
       const permiss = data.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) ? data.find((e) => e.modulo.toLocaleLowerCase() == module.toLocaleLowerCase()) : null;
+
       if (permiss != null) {
         let permissions = permiss.permisos.split(",");
         if (!permissions.includes("agregar") && document.querySelector(`[data-module-add='${module}']`)) {
@@ -60,6 +61,28 @@ export default function functionGeneral() {
         if (!permissions.includes("exportar")) {
           document.querySelectorAll(`[data-module-export='${module}']`).forEach((d) => d.remove())
         }
+        if (!permissions.includes("agregar productos")) {
+          document.querySelectorAll(`[data-module-moreProducts='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("pagar")) {
+          document.querySelectorAll(`[data-module-PayOrder='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("aceptar entrega")) {
+          document.querySelectorAll(`[data-module-acceptDelivery='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("agendar reservacion")) {
+          document.querySelectorAll(`[data-module-schedule='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("anular reservacion")) {
+          document.querySelectorAll(`[data-module-nullSchedule='${module}']`).forEach((d) => d.remove())
+        }
+        if (!permissions.includes("verificar reservacion")) {
+          document.querySelectorAll(`[data-module-verifySchedule='${module}']`).forEach((d) => d.remove())
+        }
+      } else {
+        if (document.querySelector(`[data-module='${module}']`)) {
+          document.querySelectorAll(`[data-module='${module}']`).forEach((d) => d.remove());
+        }
       }
       if (typeof funtion == "function") funtion()
     }
@@ -85,7 +108,6 @@ export default function functionGeneral() {
     if (caja.length > 0) {
       caja.forEach((e) => {
         if ((fecha(e.fecha_apertura) == fecha(new Date())) && e.estado == 1) {
-          id_cash = e.id
           id_cash = e.id
         }
       })
@@ -639,7 +661,26 @@ export default function functionGeneral() {
       updatePag();
     });
   };
-
+  const notificationAlert = async (data) => {
+    const { channel, message, event } = data
+    let dataNotification = new FormData()
+    dataNotification.append("channel", channel)
+    dataNotification.append("message", message)
+    dataNotification.append("event", event)
+    const pet = await fetch(`notification/sendNotifications`, { method: "POST", body: dataNotification })
+    const response = await pet.json()
+    console.log(response);
+  }
+  const notification = async (data) => {
+    const { id_usuario, titulo, mensaje } = data
+    let dataNotification = new FormData()
+    dataNotification.append("id_usuario", id_usuario)
+    dataNotification.append("mensaje", mensaje)
+    dataNotification.append("titulo", titulo)
+    const pet = await fetch(`notification/add`, { method: "POST", body: dataNotification })
+    const response = await pet.json()
+    console.log(response);
+  }
   //--------------funciones para el manejo de peticiones ajax para las datatables------------------
   const deleteDatatable = (tableItem, table, binnacle) => {
     $(`${tableItem} tbody`).on("click", ".trash_btn_datatable", function () {
@@ -763,6 +804,8 @@ export default function functionGeneral() {
     setValidationStyles,
     validateField,
     binnacle,
+    notification,
+    notificationAlert,
     reference,
     sessionInfo,
     SelectOption,

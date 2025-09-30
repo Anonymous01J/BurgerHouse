@@ -61,6 +61,10 @@
                             <input type="radio" class="btn-check btn_check_pending" name="data-filter" data-filter="all" id="kitchen_local_pending" autocomplete="off">
                             <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_local_pending">Local</label>
                         </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_pending" name="data-filter" data-filter="all" id="kitchen_reservation_pending" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_reservation_pending">Reservas</label>
+                        </div>
                     </div>
                     <div class="row kitchen-cont-prepared">
                         <!-- dad -->
@@ -105,6 +109,10 @@
                             <input type="radio" class="btn-check btn_check_inprepared" name="data-filter" data-filter="all" id="kitchen_local_inprepared" autocomplete="off">
                             <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_local_inprepared">Local</label>
                         </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_inprepared" name="data-filter" data-filter="all" id="kitchen_reservation_inprepared" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_reservation_inprepared">Reservas</label>
+                        </div>
                     </div>
                     <div class="row kitchen-cont-inprepared">
                         <!-- dad -->
@@ -137,6 +145,10 @@
                             <input type="radio" class="btn-check btn_check_off" name="data-filter-off" data-filter="all" id="kitchen_local_off" autocomplete="off">
                             <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_local_off">Local</label>
                         </div>
+                        <div>
+                            <input type="radio" class="btn-check btn_check_off" name="data-filter-off" data-filter="all" id="kitchen_reservation_off" autocomplete="off">
+                            <label class="btn bh_1CHECKBOX rounded-pill" for="kitchen_reservation_off">Reservas</label>
+                        </div>
                     </div>
                     <div class="row kitchen-cont-prepared-off">
                         <!-- aqui cargan con js -->
@@ -163,6 +175,22 @@
         <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
     </div>
 
+    <!-- Toast -->
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast" class="toast border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header bh_1 text-white">
+                <i class="me-2" data-feather="alert-circle"></i>
+                <strong class="me-auto">Bootstrap</strong>
+                <small>11 mins ago</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body bh_1 text-white">
+                Hello, world! This is a toast message.
+            </div>
+        </div>
+    </div>
+
+
     <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>
     <script src="./assets/libs/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/app-style-switcher.js"></script>
@@ -171,4 +199,7 @@
     <script src="./assets/js/sidebarmenu.js"></script>
     <script src="./assets/js/custom.min.js"></script>
     <script src="./assets/libs/libs/jspdf/jspdf.umd.min.js"></script>
+    <script src="./assets/libs/libs/daysjs/dayjs.min.js"></script>
+    <script src="./assets/libs/libs/daysjs/es.js"></script>
+    <script src="./assets/libs/libs/daysjs/relativeTime.js"></script>
     <script type="module" src="./assets/js/pages/kitchen/kitchen.js"></script>

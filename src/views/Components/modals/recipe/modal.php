@@ -88,6 +88,7 @@
             </div>
             <div class="modal-body">
                 <form id="form-submit-edit-recipe">
+                    <input type="hidden" name="id" id="input-id-recipe-edit">
                     <div id="recipe-edit-container">
                         <div class="row g-2 recipe-edit" id="recipe-edit-1">
                             <div class="col-md-6">
@@ -135,3 +136,23 @@
     </div>
 </div>
 
+
+<!-- modal para ever detalle de receta -->
+<div class="modal fade" id="details-recipe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="d-flex align-items-center gap-3">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Detalles Receta</h1>
+                    <i data-feather="printer" class="btn-print-recipe" style="cursor: pointer;"></i>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

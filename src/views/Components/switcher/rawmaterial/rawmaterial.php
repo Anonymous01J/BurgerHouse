@@ -19,7 +19,6 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Categoria</th>
-                                <th>Unidad</th>
                                 <th>Stock Minimo</th>
                                 <th>Stock Maximo</th>
                                 <th>Existencia</th>

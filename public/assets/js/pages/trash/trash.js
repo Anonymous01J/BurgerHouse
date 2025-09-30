@@ -14,7 +14,7 @@ const modulesConfig = {
         },
         columns: [
             { title: 'ID', data: 'id' },
-            { title: 'Imagen', data: null, render: (data) => `<img src='${"media/mesas/" + data.imagen}' width='50px' height='50px'>` },
+            { title: 'Imagen', data: null, render: (data) => `<img src='${"media/table/" + data.imagen}' width='50px' height='50px'>` },
             { title: 'Nombre', data: 'nombre' },
             { title: 'Sillas', data: 'sillas' },
             {

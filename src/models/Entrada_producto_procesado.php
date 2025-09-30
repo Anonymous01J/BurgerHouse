@@ -10,11 +10,8 @@ class Entrada_producto_procesado extends Db_base {
     private $id_unidad;
     private $fecha_vencimiento;
     private $fecha_compra;
-    private $precio_compra;
-    private $referencia;
     private $cantidad;
     private $existencia;
-    private $comprobante;
     private $active;
     private $broken;
 
@@ -23,17 +20,13 @@ class Entrada_producto_procesado extends Db_base {
         $id_producto = null,
         $id_proveedor = null,
         $fecha_compra = null,
-        $precio_compra = null,
-        $referencia = null,
         $cantidad = null,
         $existencia = null,
-        $comprobante = null,
         $broken = null,
         $id_unidad = null,
         $fecha_vencimiento = null,
         $codigo = null,
         $active = null,
-        $imagen_name = null
     ) {
         parent::__construct("entradas_producto_procesado");
         
@@ -41,11 +34,8 @@ class Entrada_producto_procesado extends Db_base {
         $this->id_producto = $id_producto;
         $this->id_proveedor = $id_proveedor;
         $this->fecha_compra = $fecha_compra;
-        $this->precio_compra = $precio_compra;
-        $this->referencia = $referencia;
         $this->cantidad = $cantidad;
         $this->existencia = $existencia;
-        $this->comprobante = $imagen_name;
         $this->broken = $broken;
         $this->id_unidad = $id_unidad;
         $this->fecha_vencimiento = $fecha_vencimiento;
@@ -62,11 +52,8 @@ class Entrada_producto_procesado extends Db_base {
             "a.id_producto" => $this->id_producto,
             "a.id_proveedor" => $this->id_proveedor,
             "a.fecha_compra" => $this->fecha_compra,
-            "a.precio_compra" => $this->precio_compra,
-            "a.referencia" => $this->referencia,
             "a.cantidad" => $this->cantidad,
             "a.existencia" => $this->existencia,
-            "a.comprobante" => $this->comprobante,
             "a.active" => $this->active
         ]);
 
@@ -81,12 +68,9 @@ class Entrada_producto_procesado extends Db_base {
             unidades.id as id_unidad,
             a.fecha_compra,
             a.fecha_vencimiento,
-            a.precio_compra,
             a.codigo,
-            a.referencia,
             a.cantidad,
             a.existencia,
-            a.comprobante,
             a.broken,
             a.active
         ";

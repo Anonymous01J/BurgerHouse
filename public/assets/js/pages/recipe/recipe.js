@@ -1,7 +1,8 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 import introTooltip from "../../intro-tooltip.js"
-const {recipe} = introTooltip()
+import { recipe_detail, recipe_detail_all } from "./report.js"
+const { recipe } = introTooltip()
 const { InputPrice, selectOptionAll, setValidationStyles, validateField, reindex, resetForm, edit, searchParam, sessionInfo, binnacle, permission } = functionGeneral();
 const { elemenFormRecipe, optionsRol, optionsRawMaterial, targetRecipe, elemenFormEditRecipe } = Templates()
 recipe('navbarDropdown')
@@ -140,7 +141,7 @@ if (!form.dataset.listenerAttached) {
                         text: "El elemento fue agregado correctamente",
                         icon: "success",
                     });
-                    renderizarTarjetas({});
+                    // renderizarTarjetas({});
                     binnacle(session.message.id, "Recetas", "Agregar", "Se agrego una nueva receta")
                 } else {
                     Swal.fire({
@@ -161,25 +162,48 @@ if (!form.dataset.listenerAttached) {
 }
 attachValidationListeners(1);
 
-async function renderizarTarjetas(param) {
-    let templatejk = "";
-    const data = await searchParam(param, "recipe")
-    data.forEach(async (item) => {
-        let data2 = await searchParam({ id_receta: item.id }, "Detallerecipe", 468468468486)
-        templatejk += targetRecipe(item, data2);
-        document.querySelector(".cont_recipe").innerHTML = templatejk;
-        permission("Recetas")
+let n = $(".table_recipe").DataTable({
+    language: {
+        url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
+    },
+    ajax: {
+        url: 'recipe/get_all/0/10000000/id/asc',
+        dataSrc: '',
+        type: 'POST',
+        data: { active: 1 },
+    },
+    columns: [
+        { data: 'nombre_producto' },
+        { data: 'tipo' },
+        {
+            data: null,
+            orderable: false,
+            render: function (data, type, row, meta) {
+                return `
+                <div class="dropdown dropstart">
+                    <i data-feather="more-horizontal" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer"></i>
+                    <ul class="dropdown-menu" data-bs-boundary="viewport">
+                        <li><a data-id="${data.id}" module-edit="Detallerecipe" data-module-edit="Recetas" class="edit_btn dropdown-item" data-bs-title="Editar Receta" data-bs-placement="bottom"><i class="me-1" data-feather="edit"></i>Editar</a></li>
+                        <li><a class="details_recipe dropdown-item" data-id="${data.id}" style="cursor: pointer"><i class="me-1" data-feather="eye"></i>Ver detalles</a></li>
+                    </ul>
+                </div>
+                `;
+            }
+        }
+    ],
+    drawCallback: function (settings) {
         feather.replace();
+        document.querySelectorAll(".trash_btn_datatable, .edit_btn_datatable").forEach((btn) => {
+            let tooltip = new bootstrap.Tooltip(btn)
+        })
         edit((response) => {
-            let objectActual = response;
-            let objectSend = [];
-            let data = new FormData();
+            document.getElementById("input-id-recipe-edit").value = response[0].id_receta;
             let template = "";
             let index = 0;
             document.getElementById("recipe-edit-container").innerHTML = "";
             response.forEach((item, i) => {
                 index++;
-                template += elemenFormEditRecipe(index, item);
+                template += elemenFormEditRecipe(index, item, "false");
             });
             document.getElementById("recipe-edit-container").innerHTML = template;
             selectOptionAll(".select_options_edit_rawmaterial", "rawmaterial", optionsRawMaterial);
@@ -189,11 +213,20 @@ async function renderizarTarjetas(param) {
                 item.querySelectorAll("input[type='text'], input[type='button']").forEach((input) => {
                     input.addEventListener("keyup", (e) => validateField(e, rules));
                 });
+
+                let index = i + 1;
+                let data = {
+                    cantidad: item.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
+                    id_rawmaterial: item.querySelector(`input[name="id_rawmaterial"]`).getAttribute("data-id"),
+                };
+                const errors = validate(data, rules);
+                setValidationStyles(`input-edit-quantity-${index}`, errors?.cantidad ? errors.cantidad[0] : null);
+                setValidationStyles(`input-edit-rawmaterial-${index}`, errors?.id_rawmaterial ? errors.id_rawmaterial[0] : null);
             });
             if (!document.getElementById("add-recipe-edit-btn").dataset.listenerAttached) {
                 document.getElementById("add-recipe-edit-btn").addEventListener("click", async () => {
                     index++;
-                    document.getElementById("recipe-edit-container").innerHTML += elemenFormEditRecipe(index);
+                    document.getElementById("recipe-edit-container").innerHTML += elemenFormEditRecipe(index, null, "true");
                     feather.replace();
                     selectOptionAll(".select_options_edit_rawmaterial", "rawmaterial", optionsRawMaterial);
                     InputPrice("[input_price]");
@@ -210,11 +243,41 @@ async function renderizarTarjetas(param) {
             const deleteItem = async () => {
                 document.querySelectorAll(".remove-recipe").forEach((item, i) => {
                     item.addEventListener("click", async function () {
-                        item.closest(".recipe-edit").remove();
-                        let id = item.getAttribute("data-id");
-                        data.append(`id`, id);
-                        let pet = await fetch(`Detallerecipe/delete`, { method: "POST", body: data });
-                        reindex("#recipe-edit-container .recipe-edit", "recipe-edit", index, "Item");
+                        let conditions = item.getAttribute("isNew");
+                        if (conditions == "true") {
+                            item.closest(".recipe-edit").remove();
+                            reindex("#recipe-edit-container .recipe-edit", "recipe-edit", index, "Item");
+                        } else {
+                            Swal.fire({
+                                title: "¿Deseas eliminar este elemento?",
+                                text: "No podras revertir esta accion",
+                                icon: "warning",
+                                showCancelButton: true,
+                                confirmButtonText: "Eliminar",
+                                cancelButtonText: "Cancelar",
+                                confirmButtonColor: "#FF4B00",
+                            }).then(async (result) => {
+                                if (result.isConfirmed) {
+                                    let id = item.getAttribute("data-id");
+                                    let data = new FormData();
+                                    data.append(`id`, id);
+                                    let pet = await fetch(`Detallerecipe/delete`, { method: "POST", body: data });
+                                    let petRes = await pet.json();
+                                    if (petRes.success == true) {
+                                        item.closest(".recipe-edit").remove();
+                                        reindex("#recipe-edit-container .recipe-edit", "recipe-edit", index, "Item");
+                                    } else {
+                                        Swal.fire({
+                                            title: `Error!`,
+                                            text: "El elemento no fue eliminado",
+                                            icon: "error",
+                                        });
+                                    }
+                                }
+                            });
+
+
+                        }
                     });
                 });
             };
@@ -222,38 +285,146 @@ async function renderizarTarjetas(param) {
 
             let formEdit = document.getElementById("form-submit-edit-recipe");
             if (!formEdit.dataset.listenerAttached) {
-                formEdit.addEventListener("submit", function (e) {
+                formEdit.addEventListener("submit", async function (e) {
                     e.preventDefault();
                     let formHasError = false;
-                    let recetaData = [];
+                    let elementInsert = [];
+                    let elementUpdate = [];
                     formEdit.querySelectorAll(".recipe-edit").forEach((recipe, i) => {
+                        let conditions = recipe.querySelector("[isNew]").getAttribute("isNew")
                         let index = i + 1;
                         let data = {
                             cantidad: recipe.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
                             id_rawmaterial: recipe.querySelector(`input[name="id_rawmaterial"]`).getAttribute("data-id"),
                         };
-                        recetaData.push(data);
                         const errors = validate(data, rules);
                         setValidationStyles(`input-edit-quantity-${index}`, errors?.cantidad ? errors.cantidad[0] : null);
                         setValidationStyles(`input-edit-rawmaterial-${index}`, errors?.id_rawmaterial ? errors.id_rawmaterial[0] : null);
                         if (errors) formHasError = true;
+                        else {
+                            formHasError = false;
+                            if (conditions == "true") {
+                                let id_receta = document.getElementById("input-id-recipe-edit").value;
+                                elementInsert.push({ ...data, id_receta: id_receta });
+                            } else {
+                                let id = recipe.getAttribute("id_details");
+                                elementUpdate.push({ ...data, id: id });
+                            }
+                        }
                     });
                     if (!formHasError) {
-                        let unod = []
-                        objectActual.forEach((item, i) => {
-                            unod.push({ cantidad: item.cantidad, id_rawmaterial: item.id_materia_prima });
-                        })
-                        const comparation = (a, b) => a.id_rawmaterial === b.id_rawmaterial && a.cantidad === b.cantidad;
-                        const unicosEnUno = recetaData.filter(obj1 => !unod.some(obj2 => comparation(obj1, obj2)));
-                        const unicosEnDos = unod.filter(obj2 => !recetaData.some(obj1 => comparation(obj1, obj2)));
-                        console.log("receta nueva", unicosEnUno);
-                        console.log("receta vieja", unicosEnDos);
+                        let petInsertAlert = null;
+                        if (elementInsert.length != 0) {
+                            let dataInsert = new FormData();
+                            elementInsert.forEach((item, index) => {
+                                dataInsert.append(`lista[${index}][cantidad]`, item.cantidad);
+                                dataInsert.append(`lista[${index}][id_materia_prima]`, item.id_rawmaterial);
+                                dataInsert.append(`lista[${index}][id_receta]`, item.id_receta);
+                            });
+                            let petInsert = await fetch(`Detallerecipe/add_many`, { method: "POST", body: dataInsert });
+                            let petResInsert = await petInsert.json();
+                            petInsertAlert = petResInsert
+                        }
+                        let dataUpdate = new FormData();
+                        elementUpdate.forEach((item, index) => {
+                            dataUpdate.append(`lista[${index}][cantidad]`, item.cantidad);
+                            dataUpdate.append(`lista[${index}][id_materia_prima]`, item.id_rawmaterial);
+                            dataUpdate.append(`lista[${index}][id]`, item.id);
+                        });
+                        let petUpdate = await fetch(`Detallerecipe/updateMany`, { method: "POST", body: dataUpdate });
+                        let petResUpdate = await petUpdate.json();
+
+                        if (petResUpdate.success == true && (petInsertAlert != null && petInsertAlert.success == true)) {
+                            Swal.fire({
+                                title: `Exito!`,
+                                text: "El elemento fue actualizado correctamente",
+                                icon: "success",
+                            })
+                            n.ajax.reload();
+                            binnacle(session.message.id, "Recetas", "Actualizar", "Se actualizo una receta")
+                            bootstrap.Modal.getOrCreateInstance('#edit-recipe').hide()
+                        } else {
+                            Swal.fire({
+                                title: `Error!`,
+                                text: "El elemento no fue actualizado",
+                                icon: "error",
+                            });
+                        }
                     }
                 });
                 formEdit.dataset.listenerAttached = "true";
             }
+            bootstrap.Modal.getOrCreateInstance('#edit-recipe').show()
         });
-    })
+        details_recipe()
+        permission("Recetas")
+    },
+    "dom": 'tipr',
+    "paging": true,
+    "info": true,
+})
+$('#searchRecipe').on('keyup', function () { n.search(this.value).draw() });
 
+const details_recipe = () => {
+    document.querySelectorAll(".details_recipe").forEach((item) => {
+        if (!item.dataset.listenerAttached) {
+            item.addEventListener("click", async () => {
+                let id = item.getAttribute("data-id");
+                document.querySelector(".btn-print-recipe").setAttribute("data-id", id);
+                const data = await searchParam({ id_receta: id }, "Detallerecipe", 10000);
+                let template = "";
+                data.forEach((item, index) => {
+                    template += `
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex gap-3 align-items-center">
+                                    <i data-feather="star"></i>
+                                    <h5 class="card-title text-center mb-0">${item.ingrediente}</h5>
+                                </div>
+                                <p class="card-text mt-3">Cantidad: <strong class="text-uppercase">${item.cantidad} ${item.unidad}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                })
+                document.querySelector("#details-recipe .modal-body .row").innerHTML = template
+                feather.replace()
+                bootstrap.Modal.getOrCreateInstance('#details-recipe').show()
+                print_single_recipe()
+
+            });
+            item.dataset.listenerAttached = "true";
+        }
+    });
 }
-renderizarTarjetas({});
+const print_single_recipe = () => {
+    let btn = document.querySelector(".btn-print-recipe")
+    if (!btn.dataset.listenerAttached) {
+        btn.addEventListener("click", async () => {
+            let id = document.querySelector(".btn-print-recipe").getAttribute("data-id");
+            let data = await searchParam({ id_receta: id }, "Detallerecipe", 10000);
+            let nombre_producto = data[0].nombre.toUpperCase()
+            recipe_detail(nombre_producto, data)
+        })
+        btn.dataset.listenerAttached = "true"
+    }
+}
+
+const print_all_recipe = () => {
+    let btn = document.querySelector(".btn_print_all_recipe")
+    if (!btn.dataset.listenerAttached) {
+        btn.addEventListener("click", async () => {
+            let data = await searchParam({}, "Detallerecipe", 10000);
+            let group = {}
+            data.forEach(item => {
+                if (!group[item.nombre]) group[item.nombre] = [{ ingrediente: item.ingrediente, cantidad: item.cantidad, unidad: item.unidad }];
+                else group[item.nombre].push({ ingrediente: item.ingrediente, cantidad: item.cantidad, unidad: item.unidad });
+            })
+            group = Object.keys(group).map((item) => { return { name: item, data: group[item] } })
+            recipe_detail_all(group)
+        })
+        btn.dataset.listenerAttached = "true"
+    }
+}
+print_all_recipe()

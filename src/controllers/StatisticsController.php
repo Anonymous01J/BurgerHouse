@@ -163,4 +163,65 @@ class StatisticsController extends Controller_base
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     }
+
+
+    public function ReservaHorarioSemana()
+    {
+        try {
+            $anio = $_POST['anio'];
+            $semana = $_POST['semana'];
+            echo json_encode($this->conn->porcentajeReservasSemana($anio, $semana));
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    public function ReservaHorarioMes()
+    {
+        try {
+            $anio = $_POST['anio'];
+            $mes = $_POST['mes'];
+            echo json_encode($this->conn->porcentajeReservasMes($anio, $mes));
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    public function ReservaHorarioAnio()
+    {
+        try {
+            $anio = $_POST['anio'];
+            echo json_encode($this->conn->porcentajeReservasAnio($anio));
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function ReservasPorMetodoSemana()
+    {
+        try {
+            $anio = $_POST['anio'];
+            $semana = $_POST['semana'];
+            echo json_encode($this->conn->porcentajeReservasMetodoSemana($anio, $semana));
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    public function ReservasPorMetodoMes()
+    {
+        try {
+            $anio = $_POST['anio'];
+            $mes = $_POST['mes'];
+            echo json_encode($this->conn->porcentajeReservasMetodoMes($anio, $mes));
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    public function ReservasPorMetodoAnio()
+    {
+        try {
+            $anio = $_POST['anio'];
+            echo json_encode($this->conn->porcentajeReservasMetodoAnio($anio));
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
 }

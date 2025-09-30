@@ -31,12 +31,15 @@ class Pago_venta extends Db_base
         a.id_pago,
         a.id_venta,
         p.comprobante,
-        p.referencia
+        p.referencia,
+        mp.nombre as metodo_pago,
+        p.monto
         ";
 
         $this->joins = "
         INNER JOIN ventas v ON a.id_venta = v.id
         INNER JOIN pagos p ON a.id_pago = p.id
+        INNER JOIN metodo_pago mp ON p.id_metodo_pago = mp.id
         ";
     }
 }

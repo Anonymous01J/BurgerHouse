@@ -3,14 +3,10 @@
 
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
 
-
     <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-
     <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
 
-
     <div class="page-wrapper">
-
         <div class="page-breadcrumb">
             <div class="row">
                 <div class="col-md-8 align-self-center">
@@ -24,15 +20,10 @@
                         </nav>
                     </div>
                 </div>
-
                 <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
-
             </div>
         </div>
-
         <div class="container-fluid">
-
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -41,7 +32,7 @@
                                 <div class="col-md-6 col-lg-5">
                                     <form id="formCapital">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" id="input-capital-monto" placeholder="Monto" name="monto">
+                                            <input type="text" class="form-control" id="input-capital-monto" placeholder="Monto" input_price name="monto">
                                             <div class="text-danger mt-1 fs-6" id="error-input-capital-monto"></div>
                                         </div>
                                         <div class="mb-3">

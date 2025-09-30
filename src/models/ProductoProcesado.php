@@ -10,6 +10,9 @@
         private $imagen;
         private $precio;
         private $detalles;
+        private $stock_min;
+        private $stock_max;
+        private $existencia;
         private $active;
         private $nombre_like;
 
@@ -21,6 +24,9 @@
             $precio = null,
             $detalles = null,
             $active = null,
+            $stock_max = null,
+            $stock_min = null,
+            $existencia = null,
             $nombre_like = null,
             $imagen_name = null
         ) {
@@ -33,6 +39,9 @@
             $this->precio = $precio;
             $this->detalles = $detalles;
             $this->active = $active;
+            $this->stock_max = $stock_max;
+            $this->stock_min = $stock_min;
+            $this->existencia = $existencia;
             $this->nombre_like = $nombre_like;
 
             $this->add_variables([
@@ -43,6 +52,9 @@
                 "a.precio" => $this->precio,
                 "a.detalles" => $this->detalles,
                 "a.active" => $this->active,
+                "a.stock_max" => $this->stock_max,
+                "a.stock_min" => $this->stock_min,
+                "a.existencia" => $this->existencia
             ]);
 
             $this->add_variables_like([
@@ -57,11 +69,13 @@
                 a.imagen,
                 a.precio,
                 a.detalles,
-                a.active
+                a.active,
+                a.stock_max,
+                a.stock_min,
+                a.existencia
             ";
             $this->joins = "
                 INNER JOIN categorias_productos ON categorias_productos.id = a.id_categoria
-                
             ";
         }
     }

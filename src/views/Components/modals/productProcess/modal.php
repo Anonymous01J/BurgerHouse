@@ -48,7 +48,16 @@
                                 </div>
                                 <div class="text-danger mt-1 fs-6" id="error-input-category-combo-1"></div>
                             </div>
-
+                            <div class="col-md-6">
+                                <label for="inputEmail4" class="form-label">Stock Min</label>
+                                <input type="number" class="form-control" placeholder="Nombre" id="input-min-combo-1" name="min">
+                                <div class="text-danger mt-1 fs-6" id="error-input-min-combo-1"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputEmail4" class="form-label">Stock Max</label>
+                                <input type="number" class="form-control" placeholder="Nombre" id="input-max-combo-1" name="max">
+                                <div class="text-danger mt-1 fs-6" id="error-input-max-combo-1"></div>
+                            </div>
                             <div class="col-12">
                                 <label for="inputAddress2" class="form-label">Detalles</label>
                                 <textarea placeholder="Detalles" class="form-control" id="input-details-combo-1" rows="5" name="detalles"></textarea>
@@ -122,6 +131,17 @@
                                     </div>
                                 </div>
                                 <div class="text-danger mt-1 fs-6" id="error-input-category-combo"></div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="inputEmail4" class="form-label">Stock Min</label>
+                                <input type="number" class="form-control" placeholder="Nombre" id="input-min-combo" name="min">
+                                <div class="text-danger mt-1 fs-6" id="error-input-min-combo"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="inputEmail4" class="form-label">Stock Max</label>
+                                <input type="number" class="form-control" placeholder="Nombre" id="input-max-combo" name="max">
+                                <div class="text-danger mt-1 fs-6" id="error-input-max-combo"></div>
                             </div>
 
                             <div class="col-12">

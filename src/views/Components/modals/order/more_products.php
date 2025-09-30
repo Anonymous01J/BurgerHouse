@@ -84,7 +84,7 @@
                             <div class="row mb-4">
                                 <div class="d-flex justify-content-start gap-3">
                                     <div class="d-flex align-items-center gap-3">
-                                        <h4 class="m-0">MESA/MESAS:</h4>
+                                        <h4 class="m-0">MESA/PAQUETE</h4>
                                         <p class="m-0 table_confirm_order_local_more">1</p>
                                     </div>
                                 </div>

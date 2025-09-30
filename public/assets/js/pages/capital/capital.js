@@ -1,8 +1,9 @@
 import introTooltip from "../../intro-tooltip.js"
 import functionGeneral from "../../Functions.js"
 const {capital} = introTooltip()
-const { fecha, hora, setValidationStyles, addDataTables, binnacle, sessionInfo, permission } = functionGeneral()
+const { fecha, hora, setValidationStyles, addDataTables, binnacle, sessionInfo, permission, InputPrice } = functionGeneral()
 capital('navbarDropdown')
+InputPrice("[input_price]")
 let session = await sessionInfo()
 permission("capital")
 let n = $(".table_movimientos_capital").DataTable({

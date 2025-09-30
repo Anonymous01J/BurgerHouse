@@ -71,6 +71,62 @@ const leyendGrapic2 = async (array) => {
 `
     document.querySelector(".container_leyend_total_ventas").innerHTML = template
 }
+const leyendGrapic3 = async (max, maxLabel, min, minLabel, promedio, total_res) => {
+    let template = `
+    <div class="d-flex align-items-center flex-wrap gap-4 mt-4">
+        <div>
+            <i class="fas fa-circle font-10 me-2" style="color: #FF4B00"></i>
+            <span class="text-muted me-1 fs-6">Mejor rendimiento</span>
+            <span class="fs-6">${maxLabel} con ${max.toFixed(2)} % de reservaciones</span>
+        </div>
+        <div>
+            <i class="fas fa-circle font-10 me-2" style="color: #FF4B00"></i>
+            <span class="text-muted me-1 fs-6">Peor rendimiento</span>
+            <span class="fs-6 mesMin">${minLabel} con ${min.toFixed(2)} % de reservaciones</span>
+        </div>
+        <div>
+            <i class="fas fa-circle font-10 me-2" style="color: #FF4B00"></i>
+            <span class="text-muted me-1 fs-6">Promedio</span>
+            <span class="fs-6 promedio">${promedio.toFixed(2)} % reservaciones</span>
+        </div>
+        <div>
+            <i class="fas fa-circle font-10 me-2" style="color: #FF4B00"></i>
+            <span class="text-muted me-1 fs-6">Total de reservaciones</span>
+            <span class="fs-6 promedio">${total_res}</span>
+        </div>
+    </div>
+`
+    document.querySelector(".container_leyend_porcentaje_reservas").innerHTML = template
+}
+const leyendGrapic4 = async (array) => {
+    let color = ['#FF4B00', '#FFB200', "#b41a1a"]
+    let template3 = ``
+    let template2 = ``
+    let total = array.reduce((total, item) => total + parseInt(item.cantidad_reservas), 0);
+    template3 += `
+        <div>
+            <i class="fas fa-circle font-10 me-1" style="color: #0B1B21"></i>
+            <span class="text-muted me-1 fs-6">RESERVAS TOTALES</span>
+            <span class="fs-6">${total} RESERVAS</span>
+        </div>
+    `
+    array.forEach((item, index) => {
+        template2 += `
+        <div>
+            <i class="fas fa-circle font-10 me-2" style="color: ${color[index]}"></i>
+            <span class="text-muted me-1 fs-6">${item.metodo_pedido.toUpperCase()}</span>
+            <span class="fs-6">${item.cantidad_reservas} RESERVAS</span>
+        </div>
+        `
+    })
+    let template = `
+    <div class="d-flex align-items-center flex-wrap gap-4 mt-3">
+        ${template2}
+        ${template3}
+    </div>
+`
+    document.querySelector(".container_leyend_reservas_metodo").innerHTML = template
+}
 const leyendGrapic5 = async (max, maxLabel, min, minLabel, promedio, product, product2) => {
     let template = `
     <div class="d-flex align-items-center flex-wrap gap-4 mt-3">
@@ -284,7 +340,7 @@ export default function graphicInstance() {
                 y: { beginAtZero: false, title: { display: false, } },
             },
             legend: { display: false },
-            layout: { padding: { top: 25, right: 50, bottom: 5, left: 0 } }
+            
         };
         const ctx = document.getElementById('ticketChart').getContext('2d');
         if (graphic1ChartInstance) {
@@ -342,7 +398,7 @@ export default function graphicInstance() {
             datasets: [{
                 label: 'Ventas',
                 data: ticketData,
-                backgroundColor: ['#FF4B00', '#FFB200'],
+                backgroundColor: ['#FF4B00', '#FFB200', "#b41a1a"],
                 borderWidth: 2,
                 borderColor: '#fff',
                 cutout: '60%',
@@ -390,91 +446,157 @@ export default function graphicInstance() {
         pdf()
         window.currentGraphic2Data = pet;
     }
-    function graphic3() {
-        const franjasHorarias = ['10-12 AM', '12-2 PM', '2-4 PM', '4-6 PM', '6-8 PM', '8-10 PM'];
-        const ocupacion = [65, 90, 50, 40, 85, 70];
+    async function graphic3(anio, semana, mes, statistics, pdf) {
+        const ticketLabels = [];
+        const ticketData = [];
+        let res = await searchProcedure(anio, semana, mes, statistics)
+        for (const element of res) {
+            ticketLabels.push(element.hora);
+            ticketData.push(element.porcentaje);
+        }
 
         const ctx = document.getElementById('ocupacionChart').getContext('2d');
 
-        const ocupacionChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: franjasHorarias,
-                datasets: [{
-                    label: 'Tasa de ocupación (%)',
-                    data: ocupacion,
-                    backgroundColor: '#FF4B00',
-                    borderColor: '#FF4B00',
-                    borderWidth: 1,
-                    barPercentage: 0.9,
-                    categoryPercentage: 0.8,
-                    barThickness: 30
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100,
-                        ticks: {
-                            callback: function (value) { return value + '%'; }
-                        },
-                        title: {
-                            display: false,
-                            text: 'Porcentaje de ocupación'
-                        }
+        const data = {
+            label: 'Tasa de ocupación (%)',
+            data: ticketData,
+            backgroundColor: '#FF4B00',
+            borderColor: '#FF4B00',
+            borderWidth: 1,
+            barPercentage: 0.9,
+            categoryPercentage: 0.8,
+            barThickness: 50
+        };
+
+        const config = {
+            layout: { padding: { top: 25, right: 50, bottom: 5, left: 0 } },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        callback: function (value) { return value + '%'; }
                     },
-                    x: {
-                        title: {
-                            display: false,
-                            text: 'Franja horaria'
-                        },
-                        grid: {
-                            display: false
-                        }
+                    title: {
+                        display: false,
+                        text: 'Porcentaje de ocupación'
                     }
                 },
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            label: ctx => `Ocupación: ${ctx.parsed.y}%`
-                        }
+                x: {
+                    title: {
+                        display: false,
+                        text: 'Franja horaria'
                     },
-                    datalabels: {
-                        color: 'white',
-                        anchor: 'center',
-                        align: 'center',
-                        font: {
-                            size: 12
-                        },
-                        formatter: value => `${value}%`
+                    grid: {
+                        display: false
                     }
                 }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: ctx => `Ocupación: ${ctx.parsed.y}%`
+                    }
+                },
+                datalabels: {
+                    color: 'white',
+                    anchor: 'center',
+                    align: 'center',
+                    font: {
+                        size: 10
+                    },
+                    formatter: value => `${value}%`
+                }
             }
-        });
+        }
+        const promedio = res.reduce((sum, val) => sum + parseFloat(val.cantidad), 0) / res.length;
+        const frecuencia = {};
+        ticketData.forEach(val => { frecuencia[val] = (frecuencia[val] || 0) + 1; });
+        const max = Math.max(...ticketData);
+        const min = Math.min(...ticketData);
+        const maxLabels = ticketLabels.filter((_, i) => ticketData[i] == max);
+        const minLabels = ticketLabels.filter((_, i) => ticketData[i] == min);
+        const total_res = res.reduce((sum, val) => sum + parseFloat(val.cantidad), 0);
+        leyendGrapic3(
+            max,
+            maxLabels.join(', '),
+            min,
+            minLabels.join(', '),
+            promedio,
+            total_res
+        );
+        const lineaPromedio = {
+            label: 'Promedio',
+            type: 'line',
+            data: ticketLabels.map(() => promedio),
+            borderWidth: 1,
+            borderDash: [5, 5],
+            borderColor: 'rgb(255, 178, 0)',
+            pointRadius: 0,
+            fill: true,
+            datalabels: {
+                display: (ctx) => ctx.dataIndex === ctx.chart.data.labels.length - 1,
+                align: 'top',
+                anchor: 'end',
+                color: 'rgb(255, 178, 0)',
+                font: { weight: 'bold', size: 12 },
+                formatter: (value, ctx) => {
+                    return `Promedio: $${promedio.toFixed(2)}`;
+                }
+            }
+        };
+        if (graphic3ChartInstance) {
+            graphic3ChartInstance.data.labels = ticketLabels;
+            graphic3ChartInstance.data.datasets[0].data = ticketData;
+            graphic3ChartInstance.update();
+        } else {
+            graphic3ChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: { labels: ticketLabels, datasets: [data, lineaPromedio] },
+                options: config
+            });
+        }
+
+        pdf()
+        window.currentGraphic3Data = {
+            gasto_max: max,
+            gasto_max_labels: maxLabels.join(', '),
+            gasto_min: min,
+            gasto_min_labels: minLabels.join(', '),
+            promedio: promedio,
+            total_res: total_res
+        }
     }
-    function graphic4() {
-        const franjasHorarias = ["Local y otros", "Pagina web"];
-        const ocupacion = [65, 90];
+    async function graphic4(anio, semana, mes, statistics, pdf) {
+
+        const ticketLabels = [];
+        const ticketData = [];
+        let res = await searchProcedure(anio, semana, mes, statistics)
+        for (const element of res) {
+            ticketLabels.push(element.metodo_pedido);
+            ticketData.push(element.cantidad_reservas);
+        }
 
         const ctx = document.getElementById('ReservasChart').getContext('2d');
 
-        const ocupacionChart = new Chart(ctx, {
+        const data = {
+            labels: ticketLabels,
+            datasets: [{
+                label: 'Tasa de ocupación (%)',
+                data: ticketData,
+                backgroundColor: ['#FF4B00', '#FFB200', "#b41a1a"],
+                borderColor: '#FFB200',
+                borderWidth: 1,
+                barPercentage: 0.9,
+                categoryPercentage: 0.8,
+                barThickness: 30
+            }]
+        };
+        leyendGrapic4(res)
+        const config = {
             type: 'bar',
-            data: {
-                labels: franjasHorarias,
-                datasets: [{
-                    label: 'Tasa de ocupación (%)',
-                    data: ocupacion,
-                    backgroundColor: '#FFB200',
-                    borderColor: '#FFB200',
-                    borderWidth: 1,
-                    barPercentage: 0.9,
-                    categoryPercentage: 0.8,
-                    barThickness: 30
-                }]
-            },
+            data: data,
             options: {
                 indexAxis: 'y',
                 scales: {
@@ -505,11 +627,26 @@ export default function graphicInstance() {
                         font: {
                             size: 12
                         },
-                        formatter: value => `${value}%`
+                        formatter: value => {
+                            const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            return (value / total * 100).toFixed(1) + '%';
+                        }
                     }
                 }
             }
-        });
+        }
+
+        if (graphic4ChartInstance) {
+            graphic4ChartInstance.data.labels = ticketLabels;
+            graphic4ChartInstance.data.datasets[0].data = ticketData;
+            graphic4ChartInstance.update();
+        } else {
+            graphic4ChartInstance = new Chart(ctx, config);
+        }
+
+        pdf()
+        window.currentGraphic4Data = res;
+
     }
     async function graphic5(anio, semana, mes, statistics, pdf) {
         const ticketLabels = [];
@@ -1026,8 +1163,8 @@ export default function graphicInstance() {
     function instance() {
         graphic1(new Date().getFullYear(), getNumeroSemana(new Date()), new Date().getMonth() + 1, "GastoClienteSemana", () => printPDF())
         graphic2(new Date().getFullYear(), getNumeroSemana(new Date()), new Date().getMonth() + 1, "totalVentaAnio", () => printPDF())
-        graphic3()
-        graphic4();
+        graphic3(new Date().getFullYear(), getNumeroSemana(new Date()), new Date().getMonth() + 1, "ReservaHorarioAnio", () => printPDF())
+        graphic4(new Date().getFullYear(), getNumeroSemana(new Date()), new Date().getMonth() + 1, "ReservasPorMetodoAnio", () => printPDF());
         graphic5(new Date().getFullYear(), getNumeroSemana(new Date()), new Date().getMonth() + 1, "productosVendidosAnual", () => printPDF())
         graphic6(new Date().getFullYear(), getNumeroSemana(new Date()), new Date().getMonth() + 1, "productosMenosVendidosAnual", () => printPDF())
     }

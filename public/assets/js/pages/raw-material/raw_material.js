@@ -1,7 +1,7 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 import introTooltip from "../../intro-tooltip.js"
-const {rawMaterial} = introTooltip()
+const { rawMaterial } = introTooltip()
 const { validateField, setValidationStyles, selectOptionAll, reindex, resetForm, addDataTables, deleteDatatable, editDataTables, updateDataTables, sessionInfo, binnacle, permission } = functionGeneral();
 const { elemenFormRawMaterial, optionsRol } = Templates()
 let session = await sessionInfo()
@@ -25,10 +25,19 @@ let n = $(".table_rawmaterial").DataTable({
     columns: [
         { data: 'nombre' },
         { data: 'nombre_categoria' },
-        { data: 'alias_unidad' },
         { data: 'stock_min' },
         { data: 'stock_max' },
-        { data: 'existencia' },
+        { data: null, render: function (data, type, row, meta) { 
+            if (data.existencia > data.stock_min && data.existencia < data.stock_max) {
+                return `<span class="badge text-bg-success fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
+            } else if (data.existencia <= data.stock_min && data.existencia > 0) {
+                return `<span class="badge text-bg-warning fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
+            } else if (data.existencia >= data.stock_max && data.existencia > 0) {
+                return `<span class="badge text-bg-danger fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
+            } else if (parseFloat(data.existencia) == 0) {
+                return `<span class="badge text-bg-secondary fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
+            }
+         } },
         {
             data: null,
             orderable: false,
@@ -55,9 +64,8 @@ let n = $(".table_rawmaterial").DataTable({
     "paging": true,
     "info": true,
 })
-$('#searchRawmaterial').on('keyup', function () {
-    n.search(this.value).draw();
-});
+export const tableRawMaterial = n
+$('#searchRawmaterial').on('keyup', function () { n.search(this.value).draw() });
 deleteDatatable(".table_rawmaterial", n, () => binnacle(session.message.id, "Materia Prima", "Eliminacion", "Se ha eliminado una Materia Prima"))
 // ------------------Funcion de select de categoria y receta---------------------------
 

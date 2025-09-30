@@ -67,6 +67,29 @@
                                             <td></td>
                                         </tr>
                                         <tr>
+                                            <td>PAQUETES DE RESERVACION</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="paquetes" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="paquetes" data-action="agregar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="paquetes" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="paquetes" data-action="eliminar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
                                             <td>PRODUCTOS PREPARADOS</td>
                                             <td>
                                                 <div class="form-check form-switch">
@@ -254,6 +277,17 @@
                                             <td>
                                                 <div class="form-check form-switch">
                                                     <input class="form-check-input" data-module="estadisticas" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>FACTURAS</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="facturas" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
                                                 </div>
                                             </td>
                                             <td></td>
@@ -512,6 +546,94 @@
 
                             <div class="table-responsive mt-3 table_permissions_special">
                                 <h3 class="m-0 d-flex align-items-center gap-4">
+                                    ORDENES (LOCAL)
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" data-module="Ordenes (local)" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                    </div>
+                                </h3>
+                                <table class="table table-striped table-dark-mode">
+                                    <thead>
+                                        <tr>
+                                            <th>MODULO</th>
+                                            <th>AGREGAR PRODUCTOS</th>
+                                            <th>PAGAR ORDEN</th>
+                                            <th>DESPACAHAR ORDEN</th>
+                                            <th>CREAR ORDEN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ORDENES (LOCAL)</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="Ordenes (local)" data-action="agregar productos" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="Ordenes (local)" data-action="pagar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="Ordenes (local)" data-action="despachar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="Ordenes (local)" data-action="crear" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <div class="table-responsive mt-3 table_permissions_special">
+                                <h3 class="m-0 d-flex align-items-center gap-4">
+                                    ORDENES (RESERVACIONES)
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" data-module="Ordenes (reservas)" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                    </div>
+                                </h3>
+                                <table class="table table-striped table-dark-mode">
+                                    <thead>
+                                        <tr>
+                                            <th>MODULO</th>
+                                            <th>AGREGAR PRODUCTOS</th>
+                                            <th>PAGAR ORDEN</th>
+                                            <th>DESPACAHAR ORDEN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ORDENES (RESERVACIONES)</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="Ordenes (reservas)" data-action="agregar productos" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="Ordenes (reservas)" data-action="pagar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="Ordenes (reservas)" data-action="despachar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                            <div class="table-responsive mt-3 table_permissions_special">
+                                <h3 class="m-0 d-flex align-items-center gap-4">
                                     DELIVERY
                                     <div class="form-check form-switch">
                                         <input class="form-check-input" data-module="delivery" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
@@ -579,6 +701,59 @@
                                     </tbody>
                                 </table>
                             </div>
+
+
+                            <div class="table-responsive mt-3 table_permissions_special">
+                                <h3 class="m-0 d-flex align-items-center gap-4">
+                                    RESERVACIONES
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" data-module="reservaciones" data-action="consultar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                    </div>
+                                </h3>
+                                <table class="table table-striped table-dark-mode">
+                                    <thead>
+                                        <tr>
+                                            <th>MODULO</th>
+                                            <th>AGENDAR RESERVACION</th>
+                                            <th>ANULAR RESERVACION</th>
+                                            <th>VERIFICAR RESERVACION</th>
+                                            <th>EDITAR RESERVACION</th>
+                                            <th>BLOQUEAR MESAS</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>RESERVACIONES</td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="reservaciones" data-action="agendar reservacion" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="reservaciones" data-action="anular reservacion" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="reservaciones" data-action="verificar reservacion" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="reservaciones" data-action="editar" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-check form-switch">
+                                                    <input class="form-check-input" data-module="reservaciones" data-action="bloquear mesas" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
 
                             <div class="table-responsive mt-3 table_permissions_special">
                                 <h3 class="m-0 d-flex align-items-center gap-4">

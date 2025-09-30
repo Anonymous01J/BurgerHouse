@@ -191,4 +191,77 @@ class Estadisticas extends Db_base
             echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
     }
+
+
+    public function porcentajeReservasSemana(int $anio, int $semana)
+    {
+        try {
+            $query = $this->conn->prepare("CALL porcentaje_reservaciones_semana(:semana, :anio)");
+            $query->bindValue(':anio', $anio, PDO::PARAM_INT);
+            $query->bindValue(':semana', $semana, PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    public function porcentajeReservasMes(int $anio, int $mes)
+    {
+        try {
+            $query = $this->conn->prepare("CALL porcentaje_reservaciones_mes(:mes, :anio)");
+            $query->bindValue(':anio', $anio, PDO::PARAM_INT);
+            $query->bindValue(':mes', $mes, PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    public function porcentajeReservasAnio(int $anio)
+    {
+        try {
+            $query = $this->conn->prepare("CALL porcentaje_reservaciones_anio(:anio)");
+            $query->bindValue(':anio', $anio, PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function porcentajeReservasMetodoSemana(int $anio, int $semana)
+    {
+        try {
+            $query = $this->conn->prepare("CALL ReservasPorMetodoSemana(:anio, :semana)");
+            $query->bindValue(':anio', $anio, PDO::PARAM_INT);
+            $query->bindValue(':semana', $semana, PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    public function porcentajeReservasMetodoMes(int $anio, int $mes)
+    {
+        try {
+            $query = $this->conn->prepare("CALL ReservasPorMetodoMes(:anio, :mes)");
+            $query->bindValue(':anio', $anio, PDO::PARAM_INT);
+            $query->bindValue(':mes', $mes, PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
+    public function porcentajeReservasMetodoAnio(int $anio)
+    {
+        try {
+            $query = $this->conn->prepare("CALL ReservasPorMetodoAnual(:anio)");
+            $query->bindValue(':anio', $anio, PDO::PARAM_INT);
+            $query->execute();
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        }
+    }
 }
