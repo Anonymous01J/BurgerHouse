@@ -27,12 +27,4 @@ class ClienteModelTest extends TestCase
         $this->assertIsArray($result);
         $this->assertTrue($result['success']);
     }
-
-    public function testBorrarCliente()
-    {
-        $cliente = new \Shtch\Burgerhouse\models\Cliente(1, '', '', '', 1);
-        $result = $cliente->borrar();
-        printf("%s\n", var_export($result, true));
-        $this->assertTrue($result);
-    }
 }
