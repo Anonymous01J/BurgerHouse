@@ -14,7 +14,9 @@ class PermisoModelTest extends TestCase
 
     public function testAgregarPermiso()
     {
-        $permiso = new \Shtch\Burgerhouse\models\Permiso(null, 1, 'modulo', 'accion');
+        $rol = new \Shtch\Burgerhouse\models\Rol();
+        $id_rol = $rol->search()[0]['id'];
+        $permiso = new \Shtch\Burgerhouse\models\Permiso(null, $id_rol, 'modulo', 'accion');
         $id = $permiso->agregar();
         $this->assertIsInt($id);
         $this->assertGreaterThan(0, $id);
