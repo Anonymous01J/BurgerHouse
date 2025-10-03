@@ -24,7 +24,9 @@ class PermisoModelTest extends TestCase
 
     public function testActualizarPermiso()
     {
-        $permiso = new \Shtch\Burgerhouse\models\Permiso(1, 1, 'modulo', 'accion_modificada');
+        $c4 = new \Shtch\Burgerhouse\models\Permiso();
+        $id_ultimo_permiso = $c4->search(order_type: 'DESC')[0]['id'];
+        $permiso = new \Shtch\Burgerhouse\models\Permiso($id_ultimo_permiso, 1, 'modulo', 'accion_modificada');
         $result = $permiso->actualizar();
         $this->assertIsArray($result);
         $this->assertTrue($result['success']);
@@ -32,7 +34,9 @@ class PermisoModelTest extends TestCase
 
     public function testBorrarPermiso()
     {
-        $permiso = new \Shtch\Burgerhouse\models\Permiso(1, 1, '', '');
+        $c4 = new \Shtch\Burgerhouse\models\Permiso();
+        $id_ultimo_permiso = $c4->search(order_type: 'DESC')[0]['id'];
+        $permiso = new \Shtch\Burgerhouse\models\Permiso($id_ultimo_permiso);
         $result = $permiso->borrar();
         $this->assertIsBool($result);
     }

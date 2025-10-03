@@ -20,10 +20,7 @@ class EntradaMateriaPrimaModelTest extends TestCase
         $c2 = new \Shtch\Burgerhouse\models\Proveedor();
         $id_proveedor = $c2->search()[0]['id'];
 
-        $c3 = new \Shtch\Burgerhouse\models\Unidad();
-        $id_unidad = $c3->search()[0]['id'];
-
-        $entrada = new \Shtch\Burgerhouse\models\Entrada_materia_prima(null, $id_materia, $id_proveedor, '000001', '2025-10-02', '2025-10-02', 1, id_unidad:$id_unidad, cantidad:10, existencia:10, imagen_name:'000000');
+        $entrada = new \Shtch\Burgerhouse\models\Entrada_materia_prima(null, $id_materia, $id_proveedor, '000001', '2025-10-02', '2025-10-02', 1, cantidad:10, existencia:10, imagen_name:'000000');
         $id = $entrada->agregar();
         $this->assertIsInt($id);
         $this->assertGreaterThan(0, $id);
@@ -31,7 +28,9 @@ class EntradaMateriaPrimaModelTest extends TestCase
 
     public function testActualizarEntradaMateriaPrima()
     {
-        $entrada = new \Shtch\Burgerhouse\models\Entrada_materia_prima(1, 1, 10, '000001', '2025-10-02', '2025-10-02', 1,cantidad:10, existencia:10, imagen_name:'000000');
+        $c4 = new \Shtch\Burgerhouse\models\Entrada_materia_prima();
+        $id_ultima_entrada = $c4->search(order_type: 'DESC')[0]['id'];
+        $entrada = new \Shtch\Burgerhouse\models\Entrada_materia_prima($id_ultima_entrada, cantidad:20, existencia:20);
         $result = $entrada->actualizar();
         $this->assertIsArray($result);
         $this->assertTrue($result['success']);
@@ -39,7 +38,9 @@ class EntradaMateriaPrimaModelTest extends TestCase
 
     public function testBorrarEntradaMateriaPrima()
     {
-        $entrada = new \Shtch\Burgerhouse\models\Entrada_materia_prima(1, 1, 0, '', 1);
+        $c4 = new \Shtch\Burgerhouse\models\Entrada_materia_prima();
+        $id_ultima_entrada = $c4->search(order_type: 'DESC')[0]['id'];
+        $entrada = new \Shtch\Burgerhouse\models\Entrada_materia_prima($id_ultima_entrada);
         $result = $entrada->borrar();
         $this->assertIsBool($result);
     }

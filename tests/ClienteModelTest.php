@@ -22,9 +22,19 @@ class ClienteModelTest extends TestCase
 
     public function testActualizarCliente()
     {
-        $cliente = new \Shtch\Burgerhouse\models\Cliente(1, 'Juan Actualizado', 'juan2@example.com', '87654321', 1);
+        $c4 = new \Shtch\Burgerhouse\models\Cliente();
+        $id_ultimo_cliente = $c4->search(order_type: 'DESC')[0]['id'];
+        $cliente = new \Shtch\Burgerhouse\models\Cliente($id_ultimo_cliente, 'Juan Actualizado', 'juan2@example.com', '87654321', 1);
         $result = $cliente->actualizar();
         $this->assertIsArray($result);
         $this->assertTrue($result['success']);
+    }
+    public function testBorrarCliente()
+    {
+        $c4 = new \Shtch\Burgerhouse\models\Cliente();
+        $id_ultimo_cliente = $c4->search(order_type: 'DESC')[0]['id'];
+        $cliente = new \Shtch\Burgerhouse\models\Cliente($id_ultimo_cliente);
+        $result = $cliente->borrar();
+        $this->assertIsBool($result);
     }
 }

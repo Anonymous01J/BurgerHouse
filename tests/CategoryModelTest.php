@@ -24,7 +24,9 @@ class CategoryModelTest extends TestCase
 
     public function testActualizarCategoriaProducto()
     {
-        $categoria = new \Shtch\Burgerhouse\models\Categoria_producto(1, 'Bebidas', 1);
+        $c4 = new \Shtch\Burgerhouse\models\Categoria_producto();
+        $id_ultima_categoria = $c4->search(order_type: 'DESC')[0]['id'];
+        $categoria = new \Shtch\Burgerhouse\models\Categoria_producto($id_ultima_categoria, 'Bebidas', 1);
         $result = $categoria->actualizar();
         $this->assertIsArray($result);
         $this->assertTrue($result['success']);
@@ -32,7 +34,9 @@ class CategoryModelTest extends TestCase
 
     public function testBorrarCategoriaProducto()
     {
-        $categoria = new \Shtch\Burgerhouse\models\Categoria_producto(1, '', 1);
+        $c4 = new \Shtch\Burgerhouse\models\Categoria_producto();
+        $id_ultima_categoria = $c4->search(order_type: 'DESC')[0]['id'];
+        $categoria = new \Shtch\Burgerhouse\models\Categoria_producto($id_ultima_categoria);
         $result = $categoria->borrar();
         $this->assertIsBool($result);
     }

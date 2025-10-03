@@ -37,15 +37,22 @@ class EntradaProductoProcesadoModelTest extends TestCase
         // unidad
         $c3 = new \Shtch\Burgerhouse\models\Unidad();
         $id_unidad = $c3->search()[0]['id'];
-        $entrada = new \Shtch\Burgerhouse\models\Entrada_producto_procesado($this->id, cantidad:10, existencia:10);
+
+        $c4 = new \Shtch\Burgerhouse\models\Entrada_producto_procesado();
+        $id_ultima_entrada = $c4->search(order_type: 'DESC')[0]['id'];
+        $entrada = new \Shtch\Burgerhouse\models\Entrada_producto_procesado($id_ultima_entrada, cantidad:10, existencia:10);
         $result = $entrada->actualizar();
+
         $this->assertIsArray($result);
         $this->assertTrue($result['success']);
     }
 
     public function testBorrarEntradaProductoProcesado()
     {
-        $entrada = new \Shtch\Burgerhouse\models\Entrada_producto_procesado($this->id);
+        $c4 = new \Shtch\Burgerhouse\models\Entrada_producto_procesado();
+        $id_ultima_entrada = $c4->search(order_type: 'DESC')[0]['id'];
+        
+        $entrada = new \Shtch\Burgerhouse\models\Entrada_producto_procesado($id_ultima_entrada);
         $result = $entrada->borrar();
         $this->assertIsBool($result);
     }
