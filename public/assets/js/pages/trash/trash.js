@@ -293,10 +293,8 @@ const modulesConfig = {
         },
         columns: [
             { title: 'ID', data: 'id' },
-            { title: 'Nombre', data: 'nombre' + " " + "apellido" },
-            { title: 'Documento', data: 'documento' },
+            { title: 'Nombre', data: null, render: (data) => { return `${data.nombre} ${data.apellido}` } },
             { title: 'Correo', data: 'email' },
-            { title: 'Descripcion', data: 'descripcion' },
             {
                 title: 'Acciones',
                 data: null,
@@ -334,7 +332,7 @@ const modulesConfig = {
     },
     entry_raw_material: {
         ajax: {
-            url: 'entrada_materia_prima/get_all/0/10000000/id/asc',
+            url: 'Entry_rawmaterial_details/get_all/0/10000000/id/asc',
             dataSrc: '',
             type: 'POST',
             data: {
@@ -347,13 +345,13 @@ const modulesConfig = {
             { title: "M.P", data: 'nombre_materia_prima' },
             { title: "Provee.", data: 'nombre_proveedor' },
             { title: "Cantidad", data: 'cantidad' },
-            { title: "Fecha", data: false, render: (data, type, row) => { return fecha(row.fecha_compra) } },
+            { title: "Fecha vencimiento", data: false, render: (data, type, row) => { return fecha(row.fecha_vencimiento) } },
             {
                 title: 'Acciones',
                 data: null,
                 render: (data) =>
                     `
-                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="entrada_materia_prima" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Entrada" data-bs-placement="bottom">
+                <button data-id="${data.id}" data-module-restore="Papelera" module-restore="Entry_rawmaterial_details" class="btn bh_1 rounded-circle btn-circle btn_datatable_restore" data-bs-toggle="tooltip" data-bs-title="Restaurar Entrada" data-bs-placement="bottom">
                     <i data-feather="refresh-ccw" class="text-white"></i>
                 </button>
                 `
