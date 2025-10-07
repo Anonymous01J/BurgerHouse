@@ -17,9 +17,11 @@ class UnitsModelTest extends TestCase
     public function testAgregarUnidad()
     {
         $unidad = new \Shtch\Burgerhouse\models\Unidad(null, 'Litro', 'L', 1);
+        $unidad->conn->beginTransaction();
         $id = $unidad->agregar();
         $this->assertIsInt($id);
         $this->assertGreaterThan(0, $id);
+        $unidad->conn->rollBack();
     }
 
     public function testActualizarUnidad()
@@ -27,9 +29,11 @@ class UnitsModelTest extends TestCase
         $c4 = new \Shtch\Burgerhouse\models\Unidad();
         $id_ultima_unidad = $c4->search(order_type: 'DESC')[0]['id'];
         $unidad = new \Shtch\Burgerhouse\models\Unidad($id_ultima_unidad, 'Mililitro', 'ml', 1);
+        $unidad->conn->beginTransaction();
         $result = $unidad->actualizar();
         $this->assertIsArray($result);
         $this->assertTrue($result['success']);
+        $unidad->conn->rollBack();
     }
 
     public function testBorrarUnidad()
@@ -37,7 +41,9 @@ class UnitsModelTest extends TestCase
         $c4 = new \Shtch\Burgerhouse\models\Unidad();
         $id_ultima_unidad = $c4->search(order_type: 'DESC')[0]['id'];
         $unidad = new \Shtch\Burgerhouse\models\Unidad($id_ultima_unidad);
+        $unidad->conn->beginTransaction();
         $result = $unidad->borrar();
         $this->assertIsBool($result);
+        $unidad->conn->rollBack();
     }
 }
