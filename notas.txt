@@ -1,2 +1,4 @@
 ﻿el usuario es: Admin;
 la contraseña es: (Tocuyo#123).
+
+vendor\bin\phpunit tests
