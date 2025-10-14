@@ -3,7 +3,7 @@ require_once __DIR__ . '/../src/config/config.php';
 
 use PHPUnit\Framework\TestCase;
 
-class EntradaMateriaPrimaModelTest extends TestCase
+class PaquetesMesaModelTest extends TestCase
 {
     public function setUp(): void
     {
@@ -14,10 +14,10 @@ class EntradaMateriaPrimaModelTest extends TestCase
         $_SESSION['permisos'] = [];
     }
 
-    public function testBuscarEntradaMateriaPrima()
+    public function testBuscarPaquetesMesa()
     {
-        $entrada = new \Shtch\Burgerhouse\models\Entrada_materia_prima();
-        $resultados = $entrada->search(limite: 10);
+        $paquete_mesa = new \Shtch\Burgerhouse\models\Paquetes_mesa();
+        $resultados = $paquete_mesa->search(limite: 10);
         
         $this->assertIsArray($resultados);
     }

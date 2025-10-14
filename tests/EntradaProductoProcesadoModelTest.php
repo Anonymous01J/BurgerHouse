@@ -25,7 +25,7 @@ class EntradaProductoProcesadoModelTest extends TestCase
     $c3 = new \Shtch\Burgerhouse\models\Unidad();
     $id_unidad = $c3->search()[0]['id'];
 
-    $entrada = new \Shtch\Burgerhouse\models\Entrada_producto_procesado(null, $id_producto, $id_proveedor, '2025-10-02', 1, id_unidad:$id_unidad, cantidad:5, existencia:5, imagen_name:'000000');
+    $entrada = new \Shtch\Burgerhouse\models\Entrada_producto_procesado(null, $id_producto, $id_proveedor, '2025-10-02', id_unidad:$id_unidad, cantidad:5, existencia:5);
     $entrada->conn->beginTransaction();
     $this->id = $entrada->agregar();
     $entrada->conn->rollBack();

@@ -9,8 +9,9 @@
         private $key;
 		function __construct($id=null, $key=null,$value=null) {
 			parent::__construct("configuraciones");
-
             $this->id = $id;
+            $this->value = $value;
+            $this->key = $key;
             $this->add_variables([
                 "a.id" => $this->id,
                 "a.valor" => $this->value,
