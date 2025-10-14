@@ -1,13 +1,13 @@
-<?php include_once __DIR__ . '/../Views/Components/header.php' ?>
-<?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
+<?php include_once __DIR__ . '/../views/Components/header.php' ?>
+<?php include_once __DIR__ . '/../views/Components/preloader.php' ?>
 
 
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
 
-    <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
+    <?php include_once __DIR__ . '/../views/Components/topBar.php' ?>
 
-    <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
+    <?php include_once __DIR__ . '/../views/Components/aside.php' ?>
 
     <div class="page-wrapper">
         <div class="page-breadcrumb">
@@ -24,7 +24,7 @@
                         </nav>
                     </div>
                 </div>
-                <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
+                <?php include_once __DIR__ . '/../views/Components/BoxAndDolar.php' ?>
             </div>
         </div>
         <div class="container-fluid">
@@ -36,17 +36,17 @@
             </nav>
             <div class="tab-content" id="nav-tabContent">
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
-                    <?php include_once __DIR__ . '/../Views/Components/switcher/productProcess/productProcess.php' ?>
+                    <?php include_once __DIR__ . '/../views/Components/switcher/productProcess/productProcess.php' ?>
                 </div>
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                    <?php include_once __DIR__ . '/../Views/Components/switcher/productProcess/entrys.php' ?>
+                    <?php include_once __DIR__ . '/../views/Components/switcher/productProcess/entrys.php' ?>
                 </div>
             </div>
 
         </div>
-        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
-        <?php include_once __DIR__ . '/../Views/Components/modals/productProcess/modal.php' ?>
-        <?php include_once __DIR__ . '/../Views/Components/modals/productProcess/entrysModal.php' ?>
+        <?php include_once __DIR__ . '/../views/Components/footer.php' ?>
+        <?php include_once __DIR__ . '/../views/Components/modals/productProcess/modal.php' ?>
+        <?php include_once __DIR__ . '/../views/Components/modals/productProcess/entrysModal.php' ?>
     </div>
 </div>
 

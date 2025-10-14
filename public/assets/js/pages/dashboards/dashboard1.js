@@ -118,7 +118,7 @@ const activity = async () => {
     let title = ""
     pet.forEach((item, index) => {
         if (item.descripcion.includes("Se agrego ") || item.descripcion.includes("Se creo ")) icon = "plus"
-        else if (item.descripcion.includes("Se elimino ")) icon = "trash"
+        else if (item.descripcion.includes("Se elimino ") || item.descripcion.includes("Se Elimino")) icon = "trash"
         else if (item.descripcion.includes("Se actualizo ")) icon = "edit"
         else if (item.descripcion.includes("Se ha restaurado ")) icon = "refresh-cw"
         else if (item.descripcion.includes("Se abrio ")) icon = "book-open"

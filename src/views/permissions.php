@@ -1,9 +1,9 @@
-<?php include_once __DIR__ . '/../Views/Components/header.php' ?>
-<?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
+<?php include_once __DIR__ . '/../views/Components/header.php' ?>
+<?php include_once __DIR__ . '/../views/Components/preloader.php' ?>
 
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-    <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-    <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
+    <?php include_once __DIR__ . '/../views/Components/topBar.php' ?>
+    <?php include_once __DIR__ . '/../views/Components/aside.php' ?>
     <div class="page-wrapper">
         <div class="page-breadcrumb">
             <div class="row">
@@ -18,7 +18,7 @@
                         </nav>
                     </div>
                 </div>
-                <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
+                <?php include_once __DIR__ . '/../views/Components/BoxAndDolar.php' ?>
             </div>
         </div>
         <div class="container-fluid">
@@ -32,16 +32,16 @@
             </ul>
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
-                    <?php include_once __DIR__ . '/../Views/Components/switcher/permission/roles.php' ?>
+                    <?php include_once __DIR__ . '/../views/Components/switcher/permission/roles.php' ?>
                 </div>
 
                 <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-                    <?php include_once __DIR__ . '/../Views/Components/switcher/permission/addRol.php' ?>
+                    <?php include_once __DIR__ . '/../views/Components/switcher/permission/addRol.php' ?>
                 </div>
             </div>
         </div>
-        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
-        <?php include_once __DIR__ . '/../Views/Components/modals/permissions/modal.php' ?>
+        <?php include_once __DIR__ . '/../views/Components/footer.php' ?>
+        <?php include_once __DIR__ . '/../views/Components/modals/permissions/modal.php' ?>
 
     </div>
 </div>

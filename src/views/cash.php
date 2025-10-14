@@ -1,9 +1,9 @@
-<?php include_once __DIR__ . '/../Views/Components/header.php' ?>
-<?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
+<?php include_once __DIR__ . '/../views/Components/header.php' ?>
+<?php include_once __DIR__ . '/../views/Components/preloader.php' ?>
 
 <div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full" data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
-    <?php include_once __DIR__ . '/../Views/Components/topBar.php' ?>
-    <?php include_once __DIR__ . '/../Views/Components/aside.php' ?>
+    <?php include_once __DIR__ . '/../views/Components/topBar.php' ?>
+    <?php include_once __DIR__ . '/../views/Components/aside.php' ?>
     <div class="page-wrapper">
         <div class="page-breadcrumb">
             <div class="row">
@@ -18,7 +18,7 @@
                         </nav>
                     </div>
                 </div>
-                <?php include_once __DIR__ . '/../Views/Components/BoxAndDolar.php' ?>
+                <?php include_once __DIR__ . '/../views/Components/BoxAndDolar.php' ?>
             </div>
         </div>
 
@@ -87,10 +87,10 @@
                         <!-- js -->
                     </div>
                 </div>
-                <?php include_once __DIR__ . '/../Views/Components/modals/cash/modal.php' ?>
+                <?php include_once __DIR__ . '/../views/Components/modals/cash/modal.php' ?>
             </div>
         </div>
-        <?php include_once __DIR__ . '/../Views/Components/footer.php' ?>
+        <?php include_once __DIR__ . '/../views/Components/footer.php' ?>
     </div>
 
     <script src="./assets/libs/libs/jquery/dist/jquery.min.js"></script>

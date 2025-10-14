@@ -5,27 +5,26 @@ dayjs.locale('es');
 const session = await sessionInfo();
 
 const activity = async () => {
-    let color = ['bh_1', 'bh_2', 'bh_6', 'bh_4', 'bh_5', 'bh_6'];
-    let pet = await searchParam({}, "binnacle", 6)
+    let color = ['bh_1', 'bh_2', 'bh_4', 'bh_5', 'bh_6'];
+    let pet = await searchParam({}, "binnacle", 5)
     let template = ""
     let icon = ""
     let title = ""
     pet.forEach((item, index) => {
         if (item.descripcion.includes("Se agrego ") || item.descripcion.includes("Se creo ")) icon = "plus"
-        else if (item.descripcion.includes("Se elimino ")) icon = "trash"
+        else if (item.descripcion.includes("Se elimino ") || item.descripcion.includes("Se Elimino ")) icon = "trash"
         else if (item.descripcion.includes("Se actualizo ")) icon = "edit"
         else if (item.descripcion.includes("Se ha restaurado ")) icon = "refresh-cw"
         else if (item.descripcion.includes("Se abrio ")) icon = "book-open"
         else if (item.descripcion.includes("Se cerro ")) icon = "x"
         else if (item.descripcion.includes("Se preparo ")) icon = "coffee"
-        else if (item.descripcion.includes("Se verifico ")) icon = "check"
+        else if (item.descripcion.includes("Se verifico ")) icon = "check" 
         else if (item.descripcion.includes("Se anulo ")) icon = "x-circle"
         else if (item.descripcion.includes("Se acepto ")) icon = "check-circle"
         else if (item.descripcion.includes("inicio de sesion")) icon = "log-in"
         else if (item.descripcion.includes("Se ha agregado")) icon = "plus-circle"
         else if (item.descripcion.includes("Se despacho")) icon = "log-in"
         else if (item.descripcion.includes("Se envio")) icon = "log-out"
-        else if (item.descripcion.includes("Se creo")) icon = "plus-circle"
         else if (item.descripcion.includes("Guardar Gasto") || item.descripcion.includes("Guardar Ingreso")) icon = "dollar-sign"
         else if (item.descripcion.includes("Se pago")) icon = "dollar-sign"
 
@@ -43,8 +42,9 @@ const activity = async () => {
         else if (item.descripcion.includes("Se ha agregado")) title = "Nuevo elemento agregado"
         else if (item.descripcion.includes("Se despacho")) title = "Nuevo despacho"
         else if (item.descripcion.includes("Se envio")) title = "Nuevo envio"
-        else if (item.descripcion.includes("Guardar Gasto") || item.descripcion.includes("Guardar Ingreso")) title = "Nuevo movimiento de dinero"
         else if (item.descripcion.includes("Se pago")) title = "Pago realizado"
+
+        else if (item.descripcion.includes("Guardar Gasto") || item.descripcion.includes("Guardar Ingreso")) title = "Nuevo movimiento de dinero"
 
 
         template += `

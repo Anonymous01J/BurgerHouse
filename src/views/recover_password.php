@@ -18,7 +18,7 @@
 <body>
     <div class="main-wrapper">
 
-        <?php include_once __DIR__ . '/../Views/Components/preloader.php' ?>
+        <?php include_once __DIR__ . '/../views/Components/preloader.php' ?>
 
         <div class="auth-wrapper d-flex no-block justify-content-center align-items-center position-relative"
             style="background:url(./assets/img/big/auth-bg.jpg) no-repeat center center;">
