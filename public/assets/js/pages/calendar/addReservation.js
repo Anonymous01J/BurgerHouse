@@ -51,7 +51,7 @@ export async function payReservation(functions, templates, calendar) {
             let result = pet.find((client) => { return client.documento.includes(formClient.querySelector("input").value) })
             if (result != undefined) {
                 let template = targetClienteOrder(result)
-                iti.setNumber(result.telefono)
+                result.telefono != null ? iti.setNumber(result.telefono) : iti.setNumber("")
                 document.querySelector(".loader_client_reservation").querySelector(".loader").classList.add("d-none")
                 document.querySelector(".target_client_reservation").innerHTML = template
                 document.querySelector(".target_client_reservation").classList.remove("d-none")

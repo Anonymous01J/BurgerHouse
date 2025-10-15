@@ -141,7 +141,6 @@ if (!form.dataset.listenerAttached) {
                         text: "El elemento fue agregado correctamente",
                         icon: "success",
                     });
-                    // renderizarTarjetas({});
                     binnacle(session.message.id, "Recetas", "Agregar", "Se agrego una nueva receta")
                 } else {
                     Swal.fire({
@@ -152,6 +151,8 @@ if (!form.dataset.listenerAttached) {
                 }
             }
             add()
+            n.ajax.reload();
+            bootstrap.Modal.getOrCreateInstance('#register-recipe').hide()
             resetForm("#recipes-container .recipes", form)
             document.getElementById("input-product-recipe").classList.remove("is-invalid", "is-valid");
             document.getElementById("input-product-recipe").value = "Seleccione una opcion";
@@ -213,7 +214,6 @@ let n = $(".table_recipe").DataTable({
                 item.querySelectorAll("input[type='text'], input[type='button']").forEach((input) => {
                     input.addEventListener("keyup", (e) => validateField(e, rules));
                 });
-
                 let index = i + 1;
                 let data = {
                     cantidad: item.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
@@ -333,8 +333,9 @@ let n = $(".table_recipe").DataTable({
                         });
                         let petUpdate = await fetch(`Detallerecipe/updateMany`, { method: "POST", body: dataUpdate });
                         let petResUpdate = await petUpdate.json();
+                        console.log(petResUpdate);
 
-                        if (petResUpdate.success == true && (petInsertAlert != null && petInsertAlert.success == true)) {
+                        if (petResUpdate.success == true) {
                             Swal.fire({
                                 title: `Exito!`,
                                 text: "El elemento fue actualizado correctamente",

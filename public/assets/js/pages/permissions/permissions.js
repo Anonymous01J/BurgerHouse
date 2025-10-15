@@ -125,25 +125,27 @@ form_check_input.forEach(input => {
 })
 //funcion del select
 let select = document.querySelector(".select_rol")
-let option = await searchParam({ active: 1 }, "rol")
-option.forEach((element) => { select.insertAdjacentHTML("beforeend", `<option value="${element.id}">${element.nombre}</option>`) })
-select.addEventListener("change", async (e) => {
-    let idRol = e.target.value
-    let pet = await searchParam({ id_rol: idRol }, "permissions", 100000000)
-    if (pet.length != 0) {
-        cargarPermisos(pet)
-    } else {
-        document.querySelector(".table_permissions_normal").querySelectorAll(".form-check-input").forEach(input => {
-            input.checked = false
-        })
-        document.querySelectorAll(".table_permissions_special").forEach(input => {
-            input.querySelectorAll(".form-check-input").forEach(input => {
+const SelectRol = async (select) => {
+    let option = await searchParam({ active: 1 }, "rol")
+    option.forEach((element) => { select.insertAdjacentHTML("beforeend", `<option value="${element.id}">${element.nombre}</option>`) })
+    select.addEventListener("change", async (e) => {
+        let idRol = e.target.value
+        let pet = await searchParam({ id_rol: idRol }, "permissions", 100000000)
+        if (pet.length != 0) {
+            cargarPermisos(pet)
+        } else {
+            document.querySelector(".table_permissions_normal").querySelectorAll(".form-check-input").forEach(input => {
                 input.checked = false
             })
-        })
-    }
-})
-
+            document.querySelectorAll(".table_permissions_special").forEach(input => {
+                input.querySelectorAll(".form-check-input").forEach(input => {
+                    input.checked = false
+                })
+            })
+        }
+    })
+}
+SelectRol(select)
 function cargarPermisos(response) {
     response.forEach(element => {
         let check = document.querySelectorAll(`[data-module='${element.modulo}']`)
@@ -351,6 +353,7 @@ if (!form.dataset.listenerAttached) {
             data.append("lista[0][descripcion]", form.querySelector("#input-description-permission").value)
             add(config, "rol", data, () => binnacle(session.message.id, 'Rol', 'Agregar', 'Se creo un rol'));
             bootstrap.Modal.getOrCreateInstance('#register-rol').hide()
+            SelectRol(select)
         }
     })
     form.dataset.listenerAttached = "true";

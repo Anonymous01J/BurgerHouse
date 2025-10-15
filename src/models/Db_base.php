@@ -156,7 +156,7 @@ abstract class Db_base extends Conexion
             $query->bindValue(':id', $this->variables['a.id'], PDO::PARAM_INT);
             return $query->execute();
         } catch (Exception $e) {
-            return false;
+            return 0;
         }
     }
     public function search($n = 0, $limite = 9, string $order_by = 'id', string $order_type = 'ASC'): array

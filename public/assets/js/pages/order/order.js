@@ -52,7 +52,7 @@ permission("Ordenes (reservas)", () => {
 //tables de domicilio 
 let tableOrderDomicileoPendings = $('.table-order-domicilio-pendientes').DataTable({
   language: { url: './assets/libs/extra-libs/datatables.net/js/es-Es.json' },
-  "order": [[0, "desc"]],
+  "order": [[1, "desc"]],
   ajax: {
     url: 'order/get_all/0/10000000/id/asc',
     dataSrc: function (json) {
@@ -126,7 +126,7 @@ let tableOrderDomicileoPendings = $('.table-order-domicilio-pendientes').DataTab
   "info": true,
 });
 let tableOrderDomicileProcess = $('.table-order-domicilio-procesadas').DataTable({
-  "order": [[0, "desc"]],
+  "order": [[1, "desc"]],
   language: { url: './assets/libs/extra-libs/datatables.net/js/es-Es.json' },
   ajax: {
     url: 'order/get_all/0/10000000/id/asc',
@@ -188,7 +188,7 @@ let tableOrderDomicileProcess = $('.table-order-domicilio-procesadas').DataTable
 });
 let tableOrderDomicileNull = $('.table-order-domicilio-null').DataTable({
   language: { url: './assets/libs/extra-libs/datatables.net/js/es-Es.json' },
-  "order": [[0, "desc"]],
+  "order": [[1, "desc"]],
   ajax: {
     url: 'order/get_all/0/10000000/id/asc',
     dataSrc: '',
@@ -258,7 +258,7 @@ $('#searchBoxDomicilioNull').on('keyup', function () { tableOrderDomicileNull.se
 //tables para llevar
 let tableOrderParaLlevarPendingsVeryfy = $('.table-order-llevar-pendientes').DataTable({
   language: { url: './assets/libs/extra-libs/datatables.net/js/es-Es.json' },
-  "order": [[0, "desc"]],
+  "order": [[1, "desc"]],
   ajax: {
     url: 'order/get_all/0/10000000/id/asc',
     dataSrc: function (json) {
@@ -332,7 +332,7 @@ let tableOrderParaLlevarPendingsVeryfy = $('.table-order-llevar-pendientes').Dat
   "info": true,
 });
 let tableOrderParaLlevarProcess = $('.table-order-llevar-procesadas').DataTable({
-  "order": [[0, "desc"]],
+  "order": [[1, "desc"]],
   language: { url: './assets/libs/extra-libs/datatables.net/js/es-Es.json' },
   ajax: {
     url: 'order/get_all/0/10000000/id/asc',
@@ -389,7 +389,7 @@ let tableOrderParaLlevarProcess = $('.table-order-llevar-procesadas').DataTable(
 });
 let tableOrderParaLlevarNull = $('.table-order-llevar-anuladas').DataTable({
   language: { url: './assets/libs/extra-libs/datatables.net/js/es-Es.json' },
-  "order": [[0, "desc"]],
+  "order": [[1, "desc"]],
   ajax: {
     url: 'order/get_all/0/10000000/id/asc',
     dataSrc: '',
@@ -513,7 +513,7 @@ let tableOrderLocalPendingsVeryfy = $('.table-order-local-pendientes').DataTable
   "info": true,
 });
 let tableOrderLocalProcess = $('.table-order-local-procesadas').DataTable({
-  "order": [[0, "desc"]],
+  "order": [[1, "desc"]],
   language: { url: './assets/libs/extra-libs/datatables.net/js/es-Es.json' },
   ajax: {
     url: 'order/get_all/0/10000000/id/asc',
@@ -836,7 +836,7 @@ const actionOrder = async (btn, status) => {
     if (resVerify[0].status == "en preparacion" || resVerify[0].status == "en cocina" || resVerify[0].status == "por verificar" || resVerify[0].status == "anulado" || resVerify[0].status == "pendiente" || resVerify[0].status == "pagado") {
       Swal.fire({
         title: `Error!`,
-        text: "La orden se encuentra no se puede entregar",
+        text: "La orden no se puede entregar",
         icon: "error",
       });
     } else {

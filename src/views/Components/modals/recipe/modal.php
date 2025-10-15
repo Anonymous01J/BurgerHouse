@@ -137,7 +137,7 @@
 </div>
 
 
-<!-- modal para ever detalle de receta -->
+<!-- modal para ver detalle de receta -->
 <div class="modal fade" id="details-recipe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
         <div class="modal-content">

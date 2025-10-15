@@ -86,6 +86,9 @@ validate.validators.password = function (value, options, key, attributes) {
     if (!/(?=.*[a-z])/.test(value)) {
         return options.onceLower
     }
+    if (!/(?=.*[A-Z])/.test(value)) {
+        return options.onceUpper
+    }
     if (!/(?=.*[^a-zA-Z0-9])/.test(value)) {
         return options.onceSpecial
     }
@@ -157,9 +160,10 @@ const rules = {
         password: {
             onceDigit: "^Al menos un dígito.",
             onceLower: "^Al menos una letra minúscula.",
+            onceUpper: "^Al menos una letra mayúscula",
             onceSpecial: "^Al menos un carácter especial.",
             noSpace: "^Sin espacios en blanco.",
-            length: "^Longitud entre 8 y 15 caracteres."
+            length: "^Longitud entre 8 y 15 caracteres.",
         }
     },
     email: {
@@ -350,7 +354,7 @@ function editData(response) {
 
             if (errors) hasError = true;
             else hasError = false
-               
+
             if (!hasError) {
                 let dataFinal = new FormData()
                 dataFinal.append('nombre', data.nombre)

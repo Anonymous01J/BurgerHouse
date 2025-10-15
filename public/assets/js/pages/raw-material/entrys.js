@@ -748,13 +748,7 @@ let form = document.getElementById("form-submit-entrys")
 if (!form.dataset.listenerAttached) {
     form.addEventListener("submit", function (e) {
         e.preventDefault();
-        bootstrap.Modal.getOrCreateInstance('#register-entrys').hide()
-        Swal.fire({
-            title: 'Procesando...',
-            text: 'Por favor espera',
-            allowOutsideClick: false,
-            didOpen: () => { Swal.showLoading() }
-        });
+
         const entryDetails = document.querySelectorAll(".entrys");
         const PayDetails = document.querySelectorAll(".payment_entry");
         let formHasErrorDetails = false;
@@ -798,6 +792,13 @@ if (!form.dataset.listenerAttached) {
         });
 
         if (!formHasErrorDetails && !formHasErrorPayment) {
+            bootstrap.Modal.getOrCreateInstance('#register-entrys').hide()
+            Swal.fire({
+                title: 'Procesando...',
+                text: 'Por favor espera',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading() }
+            });
             let data = new FormData()
             let entrys = document.querySelectorAll(".entrys");
             entrys.forEach((entry, i) => {

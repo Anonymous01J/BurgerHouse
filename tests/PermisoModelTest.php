@@ -28,7 +28,7 @@ class PermisoModelTest extends TestCase
     {
     $c4 = new \Shtch\Burgerhouse\models\Permiso();
     $id_ultimo_permiso = $c4->search(order_type: 'DESC')[0]['id'];
-    $permiso = new \Shtch\Burgerhouse\models\Permiso($id_ultimo_permiso, 1, 'modulo', 'accion_modificada');
+    $permiso = new \Shtch\Burgerhouse\models\Permiso($id_ultimo_permiso, 11, 'modulo', 'accion_modificada');
     $permiso->conn->beginTransaction();
     $result = $permiso->actualizar();
     $permiso->conn->rollBack();

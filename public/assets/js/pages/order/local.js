@@ -890,7 +890,7 @@ export async function payOrder(functions, templates, invoice, reload) {
         let result = pet.find((client) => { return client.documento.includes(formClient.querySelector("input").value) })
         if (result != undefined) {
             let template = targetClienteOrder(result)
-            iti.setNumber(result.telefono)
+            result.telefono != null ? iti.setNumber(result.telefono) : iti.setNumber("")
             document.querySelector(".loader_client_order_local").querySelector(".loader").classList.add("d-none")
             document.querySelector(".target_client_order_local").innerHTML = template
             document.querySelector(".target_client_order_local").classList.remove("d-none")

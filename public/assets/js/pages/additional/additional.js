@@ -3,7 +3,7 @@ import Templates from "../../templates.js";
 import introTooltip from "../../intro-tooltip.js"
 const { resetForm, setValidationStyles, validateField, addDataTables, reindex, deleteDatatable, editDataTables, updateDataTables, InputPrice, sessionInfo, viewImage, binnacle, permission } = functionGeneral();
 const { elemenFormAdditional } = Templates()
-const {additional} = introTooltip()
+const { additional } = introTooltip()
 additional('navbarDropdown')
 InputPrice("[input_price]");
 viewImage(".input-image")
@@ -195,7 +195,7 @@ if (!form.dataset.listenerAttached) {
                 dataFinal.append(`lista[${index}][imagen_name]`, additional.imagen.name)
                 dataFinal.append(`lista[${index}][tipo]`, "adicional")
             })
-            addDataTables(n, dataFinal, "additional", binnacle(session.message.id, "Adicionales", "Agregar", "Se agrego un nuevo adicional"))
+            addDataTables(n, dataFinal, "additional", () => binnacle(session.message.id, "Adicionales", "Agregar", "Se agrego un nuevo adicional"))
             resetForm(".additionals", form)
             bootstrap.Modal.getOrCreateInstance('#register-additional').hide()
         }
