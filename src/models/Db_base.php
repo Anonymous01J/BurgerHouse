@@ -3,6 +3,7 @@
 namespace Shtch\Burgerhouse\models;
 
 use Shtch\Burgerhouse\models\Conexion;
+use Shtch\Burgerhouse\function\Validaciones;
 use Exception;
 use PDO;
 
@@ -50,6 +51,7 @@ abstract class Db_base extends Conexion
     public $joins;
     public $select_query;
     public $variables_interval;
+    public $validaciones;
     protected function __construct($tabla = "", $db_n = 1)
     {
         $this->variables = array();
@@ -58,11 +60,27 @@ abstract class Db_base extends Conexion
         $this->joins = "";
         $this->select_query = " a.* ";
         $this->variables_interval = array();
+        $this->validaciones = new Validaciones();
         Conexion::__construct($db_n);
     }
     public function add_variables(array $variables): void
     {
-        $this->variables = array_filter($variables, fn($value) => (!is_null($value) and !is_array($value)));
+        foreach ($variables as $key => $value) {
+            $k = "validar_".trim(explode(".", $key)[1]);
+            if ($value == null) {
+                unset($this->variables[$key]);
+                continue;
+            }
+            if (method_exists($this->validaciones, $k)) {
+                if ($this->validaciones->$k($value)) {
+                    $this->variables[$key] = $value;
+                } else {
+                    throw new Exception("Error al validar $key($value)");
+                }
+            } else {
+                throw new Exception("funcion $k no existe");
+            }
+        }
     }
     public function add_variables_like(array $variables): void
     {
