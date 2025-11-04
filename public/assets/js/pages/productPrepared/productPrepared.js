@@ -1,7 +1,7 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 import introTooltip from "../../intro-tooltip.js"
-const {productPrepared} = introTooltip()
+const { productPrepared } = introTooltip()
 const { InputPrice, update, selectOptionAll, viewImage, setValidationStyles, validateField, searchParam, Delete, edit, print, add, reindex, resetForm, permission, searchFilter, sessionInfo, binnacle, pagination } = functionGeneral();
 const { targetProductPrepared, elemenFormCombo, optionsRol } = Templates()
 const tooltip = new bootstrap.Tooltip(document.querySelector(".btn-add-tooltip"))
@@ -97,6 +97,21 @@ validate.validators.nombreValidator = function (value, options, key, attributes)
     return options.specialCharMessage;
   }
 };
+validate.validators.fileType = function (value, options, key, attributes) {
+  if (!value) return
+  if (value.type) {
+    const typeFile = value.type.split("/")[1]
+    if (!options.types.includes(typeFile)) {
+      return `debe ser una imagen JPG, PNG o WEBP`;
+    }
+  } else {
+    const typeFile = value.split(".")[1]
+    if (!options.types.includes(typeFile)) {
+      return `debe ser una imagen JPG, PNG o WEBP`;
+    }
+  }
+
+};
 const rules = {
   nombre: {
     nombreValidator: {
@@ -126,7 +141,6 @@ const rules = {
     },
     validateCategoryAndRecipe: { message: "^es requerido" }
   },
-
   detalles: {
     presence: {
       allowEmpty: false,
@@ -141,6 +155,9 @@ const rules = {
     presence: {
       allowEmpty: false,
       message: "^es requerido"
+    },
+    fileType: {
+      types: ['jpeg', 'png', 'webp', 'jpg']
     }
   },
 };
@@ -182,6 +199,51 @@ const rules2 = {
     length: {
       minimum: 15,
       message: "^debe tener al menos 15 caracteres"
+    }
+  },
+};
+const rules3 = {
+  nombre: {
+    nombreValidator: {
+      uppercaseMessage: "^debe tener la primera letra en mayúscula.",
+      specialCharMessage: "^No se permiten signos como puntos (.) o comas (,)."
+    },
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    length: {
+      minimum: 4,
+      message: "^debe tener al menos 4 caracteres"
+    },
+  },
+  precio: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    precio: { message: "^debe ser un número mayor a 0" }
+  },
+  id_categoria: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerida"
+    },
+    validateCategoryAndRecipe: { message: "^es requerido" }
+  },
+  detalles: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    length: {
+      minimum: 15,
+      message: "^debe tener al menos 15 caracteres"
+    }
+  },
+  imagen: {
+    fileType: {
+      types: ['jpeg', 'png', 'webp', 'jpg']
     }
   },
 };
@@ -256,43 +318,45 @@ function editData(response) {
   setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
   setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
   setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
+}
+let formEdit = document.getElementById("form-submit-edit-combo")
+if (!formEdit.dataset.listenerAttached) {
+  formEdit.addEventListener("submit", function (e) {
+    let hasError = false
+    e.preventDefault();
+    let data = {
+      nombre: document.querySelector(`#input-name-combo`).value,
+      precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
+      id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
+      detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
+      imagen: document.querySelector(`#input-image-combo`).files[0]
+    }
+    const errors = validate(data, rules3);
+    if (errors) hasError = true
+    else hasError = false
+    setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
+    setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
+    setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
+    setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
+    setValidationStyles(`input-image-combo`, errors?.imagen ? errors.imagen[0] : null);
 
-  let formEdit = document.getElementById("form-submit-edit-combo")
-  if (!formEdit.dataset.listenerAttached) {
-    formEdit.addEventListener("submit", function (e) {
-      e.preventDefault();
-      let data = {
-        nombre: document.querySelector(`#input-name-combo`).value,
-        precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
-        id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
-        detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
+    if (!hasError) {
+      let datafinal = new FormData()
+      datafinal.append("nombre", document.querySelector("#input-name-combo").value)
+      datafinal.append("precio", document.querySelector("#input-price-combo").value.replace(/\./g, '').replace(',', '.'))
+      datafinal.append("id_categoria", document.querySelector("#input-category-combo").getAttribute("data-id"))
+      datafinal.append("detalles", document.querySelector("#input-details-combo").value)
+      datafinal.append("id", document.querySelector("#input-id-combo").value)
+      if (document.querySelector("#input-image-combo").value != "") {
+        datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
+        datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
       }
-      const errors = validate(data, rules2);
-      if (errors) hasError = true
-      else hasError = false
-      setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
-      setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
-      setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
-      setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
-
-      if (!hasError) {
-        let datafinal = new FormData()
-        datafinal.append("nombre", document.querySelector("#input-name-combo").value)
-        datafinal.append("precio", document.querySelector("#input-price-combo").value.replace(/\./g, '').replace(',', '.'))
-        datafinal.append("id_categoria", document.querySelector("#input-category-combo").getAttribute("data-id"))
-        datafinal.append("detalles", document.querySelector("#input-details-combo").value)
-        datafinal.append("id", document.querySelector("#input-id-combo").value)
-        if (document.querySelector("#input-image-combo").value != "") {
-          datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
-          datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
-        }
-        update(config, 'productPrepared', datafinal, () => binnacle(session.message.id, "Productos Preparados", "Actualizacion", "Se actualizo un producto preparado")
-        )
-        bootstrap.Modal.getOrCreateInstance('#edit-product').hide()
-      }
-    })
-    form.dataset.listenerAttached = "true";
-  }
+      update(config, 'productPrepared', datafinal, () => binnacle(session.message.id, "Productos Preparados", "Actualizacion", "Se actualizo un producto preparado")
+      )
+      bootstrap.Modal.getOrCreateInstance('#edit-product').hide()
+    }
+  })
+  form.dataset.listenerAttached = "true";
 }
 
 pagination((page) => print({ ...config, search: () => searchParam({ active: 1, tipo: "producto" }, "productPrepared", null, page) }), ".pagination")

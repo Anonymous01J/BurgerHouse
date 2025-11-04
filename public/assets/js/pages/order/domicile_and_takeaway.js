@@ -345,6 +345,21 @@ export default async function domicile_and_takeaway(functions, templates, report
             return `^Número inválido para ${pais}`;
         }
     };
+    validate.validators.fileType = function (value, options, key, attributes) {
+        if (!value) return
+        if (value.type) {
+            const typeFile = value.type.split("/")[1]
+            if (!options.types.includes(typeFile)) {
+                return `debe ser una imagen JPG, PNG o WEBP`;
+            }
+        } else {
+            const typeFile = value.split(".")[1]
+            if (!options.types.includes(typeFile)) {
+                return `debe ser una imagen JPG, PNG o WEBP`;
+            }
+        }
+
+    };
     const rules = {
         cantidad: {
             presence: {
@@ -373,6 +388,9 @@ export default async function domicile_and_takeaway(functions, templates, report
             presence: {
                 allowEmpty: false,
                 message: "^es requerido"
+            },
+            fileType: {
+                types: ['jpeg', 'png', 'webp', 'jpg']
             }
         },
     };
@@ -643,7 +661,8 @@ export default async function domicile_and_takeaway(functions, templates, report
                     let petPaymentDetails = await fetch("paymentSale/add_many", { method: "POST", body: dataPaymentDetails })
                     let resPaymentDetails = await petPaymentDetails.json()
                     console.log(resPaymentDetails);
-                    let invoice = await report(productPreparedData, productProcessData, clientData, window.id_orden_invoice, directionSale, amountTotal, "invoice")
+                    const paymentInvoice = dataPayment.map(PAY => ({ ...PAY, id_venta: id_venta, metodo_pago: PAY.metodo, monto: PAY.cantidad }));
+                    let invoice = await report(productPreparedData, productProcessData, clientData, window.id_orden_invoice, directionSale, amountTotal, "invoice", null, null, paymentInvoice)
                     let invoiceData = new FormData();
                     invoiceData.append("pdf", invoice, "factura.pdf");
                     let send = await fetch("order/sendInvoice", { method: "POST", body: invoiceData });

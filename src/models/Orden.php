@@ -15,6 +15,8 @@ class Orden extends Db_base
     private $tipo;
     private $status;
     private $nombre_like;
+    private $cedula_cliente;
+    private $between_fecha;
 
 
     public function __construct(
@@ -25,6 +27,8 @@ class Orden extends Db_base
         $tipo = null,
         $status = null,
         $nombre_like = null,
+        $between_fecha = null,
+        $cedula_cliente = null
     ) {
         parent::__construct("orden");
         $this->id = $id;
@@ -34,6 +38,7 @@ class Orden extends Db_base
         $this->tipo = $tipo;
         $this->status = $status;
         $this->nombre_like = $nombre_like;
+        $this->cedula_cliente = $cedula_cliente;
 
         $this->add_variables([
             "a.id" => $this->id,
@@ -45,7 +50,11 @@ class Orden extends Db_base
         ]);
 
         $this->add_variables_like([
-            "clientes.nombre" => $this->nombre_like
+            "clientes.nombre" => $this->nombre_like,
+            "clientes.documento" => $this->cedula_cliente
+        ]);
+        $this->add_variables_interval([
+            "a.fecha" => $between_fecha
         ]);
 
         $this->select_query = "
@@ -71,7 +80,7 @@ class Orden extends Db_base
 
     public function getMateriaPrima($id)
     {
-         try {
+        try {
             $query = "
             SELECT 
             entradas_materia_prima.existencia,

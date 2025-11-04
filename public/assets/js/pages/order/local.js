@@ -987,6 +987,21 @@ export async function payOrder(functions, templates, invoice, reload) {
             return `^Número inválido para ${pais}`;
         }
     };
+    validate.validators.fileType = function (value, options, key, attributes) {
+        if (!value) return
+        if (value.type) {
+            const typeFile = value.type.split("/")[1]
+            if (!options.types.includes(typeFile)) {
+                return `debe ser una imagen JPG, PNG o WEBP`;
+            }
+        } else {
+            const typeFile = value.split(".")[1]
+            if (!options.types.includes(typeFile)) {
+                return `debe ser una imagen JPG, PNG o WEBP`;
+            }
+        }
+
+    };
     const rules = {
         cantidad: {
             presence: {
@@ -1015,6 +1030,9 @@ export async function payOrder(functions, templates, invoice, reload) {
             presence: {
                 allowEmpty: false,
                 message: "^es requerido"
+            },
+            fileType: {
+                types: ['jpeg', 'png', 'webp', 'jpg']
             }
         },
     };
@@ -1237,8 +1255,13 @@ export async function payOrder(functions, templates, invoice, reload) {
                                         iva: "IVA: " + (iva.toFixed(2))
                                     }
                                     let directionSale = "BURGER HOUSE"
-
-                                    let invoiceBlob = await invoice(detailsPrepered, detailsProcess, clientData, window.IdOrderPaymentLocal, directionSale, amountTotal, "invoice")
+                                    const dataPaymentInvoice = dataPayment.map(pay => ({
+                                        ...pay,
+                                        id_venta: id_venta,
+                                        metodo_pago: pay.metodo,
+                                        monto: pay.cantidad
+                                    }))
+                                    let invoiceBlob = await invoice(detailsPrepered, detailsProcess, clientData, window.IdOrderPaymentLocal, directionSale, amountTotal, "invoice", null, null, dataPaymentInvoice)
                                     let invoiceData = new FormData();
                                     invoiceData.append("pdf", invoiceBlob, "factura.pdf");
                                     let send = await fetch("order/sendInvoice", { method: "POST", body: invoiceData });

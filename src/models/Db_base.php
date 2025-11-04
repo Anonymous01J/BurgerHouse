@@ -70,7 +70,7 @@ abstract class Db_base extends Conexion
     }
     public function add_variables_interval(array $variables): void
     {
-        $this->variables_interval = array_filter($variables, fn($value) => (!is_null($value) and !is_array($value)));
+        $this->variables_interval = array_filter($variables, fn($value) => (!is_null($value) and is_array($value)));
     }
 
     public function clear(): void
@@ -185,6 +185,7 @@ abstract class Db_base extends Conexion
         // print_r($query);
         // print_r("\n");
         // Creamos la consulta
+        print_r($query);
         $consulta = $this->conn->prepare($query);
         // Asignamos los parametros   
         // print_r($this->variables);

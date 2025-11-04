@@ -512,7 +512,7 @@ function attachValidationListeners() {
     })
     const rowedit = document.querySelectorAll(`.entry`);
     rowedit.forEach(row => {
-        row.querySelectorAll("input[type='text'], input[type='file'], input[type='date'], input[type='button']").forEach(input => {
+        row.querySelectorAll("input[type='text'], input[type='date'], input[type='button']").forEach(input => {
             input.addEventListener("keyup", (e) => validateField(e, rules));
             input.addEventListener("blur", (e) => validateField(e, rules));
             input.addEventListener("change", (e) => validateField(e, rules));
@@ -555,6 +555,21 @@ validate.validators.precio = function (value, options, key, attributes) {
         return options.message || "debe ser un número mayor a 0";
     }
 };
+validate.validators.fileType = function (value, options, key, attributes) {
+    if (!value) return
+    if (value.type) {
+        const typeFile = value.type.split("/")[1]
+        if (!options.types.includes(typeFile)) {
+            return `debe ser una imagen JPG, PNG o WEBP`;
+        }
+    } else {
+        const typeFile = value.split(".")[1]
+        if (!options.types.includes(typeFile)) {
+            return `debe ser una imagen JPG, PNG o WEBP`;
+        }
+    }
+
+};
 const rules = {
     precio: {
         presence: {
@@ -587,6 +602,9 @@ const rules = {
         presence: {
             allowEmpty: false,
             message: "^es requerido"
+        },
+        fileType: {
+            types: ['jpeg', 'png', 'webp', 'jpg']
         }
     },
     cantidad: {
@@ -646,6 +664,9 @@ const rules_payment = {
         presence: {
             allowEmpty: false,
             message: "^es requerido"
+        },
+        fileType: {
+            types: ['jpeg', 'png', 'webp', 'jpg']
         }
     },
 };
@@ -742,6 +763,33 @@ const rules_payment_edit = {
             message: "^es requerida"
         },
         validateCategoryAndRecipe: { message: "^es requerido" }
+    },
+};
+const rules_payment_edit2 = {
+    precio: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        precio: { message: "^debe ser un número mayor a 0" }
+    },
+    referencia: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+    },
+    id_metodo_pago: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerida"
+        },
+        validateCategoryAndRecipe: { message: "^es requerido" }
+    },
+    imagen: {
+        fileType: {
+            types: ['jpeg', 'png', 'webp', 'jpg']
+        }
     },
 };
 let form = document.getElementById("form-submit-entrys")
@@ -1050,181 +1098,185 @@ const editEntrys = () => {
             removePayEdit()
             removeProductEditOld()
             validateItems()
-            const formEdit = document.querySelector("#form-submit-edit-entry")
-            if (!formEdit.dataset.listenerAttached) {
-                formEdit.addEventListener("submit", async (e) => {
-                    e.preventDefault()
-                    Swal.fire({
-                        title: 'Procesando...',
-                        text: 'Por favor espera',
-                        allowOutsideClick: false,
-                        didOpen: () => { Swal.showLoading() }
-                    });
-                    let hasErrorDetails = false
-                    let hasErrorPayments = false
-                    let dataPaymentsUpdate = []
-                    let dataPaymentsInsert = []
-                    let dataEntrysUpdate = []
-                    let dataEntrysInsert = []
-                    document.querySelectorAll(".detail_entry-edit").forEach((detail, i) => {
-                        let index = i + 1
-                        const data = {
-                            codigo: detail.querySelector(`input[name="codigo"]`).value,
-                            id_materia_prima: detail.querySelector(`input[name="id_materia_prima"]`).getAttribute("data-id") ? detail.querySelector(`input[name="id_materia_prima"]`).getAttribute("data-id") : "",
-                            cantidad: detail.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
-                            fecha_vencimiento: detail.querySelector(`input[name="fecha_vencimiento"]`).value,
-                        }
-                        const errors = validate(data, rules_details_edit);
-                        setValidationStyles(`input-code-entryEdit-${index}`, errors?.codigo ? errors.codigo[0] : null);
-                        setValidationStyles(`input-quantity-entryEdit-${index}`, errors?.cantidad ? errors.cantidad[0] : null);
-                        setValidationStyles(`input-date-entryEdit-${index}`, errors?.fecha_vencimiento ? errors.fecha_vencimiento[0] : null);
-                        setValidationStyles(`input-rawmaterial-entryEdit-${index}`, errors?.id_materia_prima ? errors.id_materia_prima[0] : null);
-                        if (errors) {
-                            hasErrorDetails = true
-                        } else {
-                            hasErrorDetails = false
-                            detail.getAttribute("isNew") == "true" ? dataEntrysInsert.push(data) : dataEntrysUpdate.push({ ...data, id: detail.querySelector(`input[type="hidden"]`).value })
-                        }
-                    })
-                    document.querySelectorAll(".payment_entry_edit").forEach((detail, i) => {
-                        let ind = i + 1
-                        const img = detail.querySelector(`input[name="imagen"]`).parentElement.nextElementSibling.getAttribute("isImage")
-                        let data
-                        if (img == "true") {
-                            data = {
-                                precio: detail.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
-                                id_metodo_pago: detail.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
-                                referencia: detail.querySelector(`input[name="referencia"]`).value,
-                            };
-                            const errors = validate(data, rules_payment_edit);
-                            setValidationStyles(`input-price-entry-${ind}`, errors?.precio ? errors.precio[0] : null);
-                            setValidationStyles(`input-mp-entry-${ind}`, errors?.id_metodo_pago ? errors.id_metodo_pago[0] : null);
-                            setValidationStyles(`input-ref-entry-${ind}`, errors?.referencia ? errors.referencia[0] : null);
-                            if (errors) {
-                                hasErrorPayments = true
-                            } else {
-                                hasErrorPayments = false
-                                if (detail.querySelector(`input[name="imagen"]`).value == "") {
-                                    dataPaymentsUpdate.push({ ...data, id: detail.getAttribute("id-payment") })
-                                } else {
-                                    dataPaymentsUpdate.push({
-                                        ...data,
-                                        id: detail.getAttribute("id-payment"),
-                                        imagen: detail.querySelector(`input[name="imagen"]`).files[0]
-                                    })
-                                }
-                            }
-                        } else {
-                            data = {
-                                precio: detail.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
-                                id_metodo_pago: detail.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
-                                referencia: detail.querySelector(`input[name="referencia"]`).value,
-                                imagen: detail.querySelector(`input[name="imagen"]`) ? detail.querySelector(`input[name="imagen"]`).files[0] : "",
-                            };
-                            const errors = validate(data, rules_payment);
-                            setValidationStyles(`input-price-entry-${ind}`, errors?.precio ? errors.precio[0] : null);
-                            setValidationStyles(`input-mp-entry-${ind}`, errors?.id_metodo_pago ? errors.id_metodo_pago[0] : null);
-                            setValidationStyles(`input-ref-entry-${ind}`, errors?.referencia ? errors.referencia[0] : null);
-                            setValidationStyles(`input-image-entry-${ind}`, errors?.imagen ? errors.imagen[0] : null);
 
-                            if (errors) {
-                                hasErrorPayments = true
-                            } else {
-                                hasErrorPayments = false
-                                dataPaymentsInsert.push(data)
-                            }
-                        }
-                    })
-
-                    if (!hasErrorDetails && !hasErrorPayments) {
-                        let EntryUpdate = new FormData()
-                        let dataSupplier = new FormData()
-                        let dataPayUpdate = new FormData()
-                        dataSupplier.append("id_proveedor", document.querySelector("#input-supplier-entryEdit").getAttribute("data-id"))
-                        dataSupplier.append("id", document.querySelector("#input-id-entry-edit").value)
-                        dataEntrysUpdate.forEach((element, index) => {
-                            EntryUpdate.append(`lista[${index}][id]`, element.id)
-                            EntryUpdate.append(`lista[${index}][codigo]`, element.codigo)
-                            EntryUpdate.append(`lista[${index}][cantidad]`, element.cantidad)
-                            EntryUpdate.append(`lista[${index}][fecha_vencimiento]`, element.fecha_vencimiento)
-                            EntryUpdate.append(`lista[${index}][id_materia_prima]`, element.id_materia_prima)
-                        })
-                        dataPaymentsUpdate.forEach((element, index) => {
-                            dataPayUpdate.append(`lista[${index}][id]`, element.id)
-                            dataPayUpdate.append(`lista[${index}][precio_compra]`, element.precio)
-                            dataPayUpdate.append(`lista[${index}][id_metodo_pago]`, element.id_metodo_pago)
-                            dataPayUpdate.append(`lista[${index}][referencia]`, element.referencia)
-                            if (element.imagen) {
-                                dataPayUpdate.append(`lista[${index}][imagen]`, element.imagen)
-                                dataPayUpdate.append(`lista[${index}][imagen_name]`, element.imagen.name)
-                            }
-                        })
-                        if (dataEntrysInsert.length != 0) {
-                            let EntryInsert = new FormData()
-                            dataEntrysInsert.forEach((element, index) => {
-                                EntryInsert.append(`lista[${index}][codigo]`, element.codigo)
-                                EntryInsert.append(`lista[${index}][cantidad]`, element.cantidad)
-                                EntryInsert.append(`lista[${index}][fecha_vencimiento]`, element.fecha_vencimiento)
-                                EntryInsert.append(`lista[${index}][id_materia_prima]`, element.id_materia_prima)
-                            })
-                            let updateEntry = await fetch("Entry_rawmaterial_details/add_many", { method: "POST", body: EntryInsert })
-                            let responseEntry = await updateEntry.json()
-                            console.log(responseEntry);
-                        }
-                        if (dataPaymentsInsert.length != 0) {
-                            let dataPayInsert = new FormData()
-                            dataPayInsert.forEach((element, index) => {
-                                dataPayInsert.append(`lista[${index}][id_metodo_pago]`, element.id_metodo_pago)
-                                dataPayInsert.append(`lista[${index}][precio_compra]`, element.precio)
-                                dataPayInsert.append(`lista[${index}][referencia]`, element.referencia)
-                                dataPayInsert.append(`lista[${index}][imagen]`, element.imagen)
-                                dataPayInsert.append(`lista[${index}][imagen_name]`, element.imagen.name)
-                            })
-                            let insertPayment = await fetch("Entry_rawmaterial_payment/add_many", { method: "POST", body: dataPayInsert })
-                            let responseInsertPayment = await insertPayment.json()
-                            console.log(responseInsertPayment);
-                        }
-                        let updateEntry = await fetch("Entry_rawmaterial_details/updateMany", { method: "POST", body: EntryUpdate })
-                        let responseEntry = await updateEntry.json()
-                        let updatePayment = await fetch("Entry_rawmaterial_payment/updateMany", { method: "POST", body: dataPayUpdate })
-                        let responsePayment = await updatePayment.json()
-                        console.log(responsePayment);
-                        let updateEntrySupplier = await fetch("Entrada_materia_prima/update", { method: "POST", body: dataSupplier })
-                        let responseEntrySupplier = await updateEntrySupplier.json()
-                        console.log(responseEntrySupplier);
-
-                        if (responseEntry.success == true && responsePayment.success == true && responseEntrySupplier.success == true) {
-                            Swal.close()
-                            Swal.fire({
-                                title: `Exito!`,
-                                text: "El elemento fue actualizado correctamente",
-                                icon: "success",
-                            });
-                            tableActive.ajax.reload();
-                            tablePorVencer.ajax.reload();
-                            tableVencidas.ajax.reload();
-                            tableSinStock.ajax.reload();
-                            cardEntrys()
-                            binnacle(session.message.id, "Entradas", "Actualizado", "Se actualizo una entrada de materia prima")
-                            tableRawMaterial.ajax.reload();
-                            tableActive.ajax.reload();
-                            bootstrap.Modal.getOrCreateInstance('#edit-entrys').hide()
-
-                        } else {
-                            Swal.fire({
-                                title: `Error!`,
-                                text: "El elemento no fue actualizado",
-                                icon: "error",
-                            });
-
-                        }
-                    }
-                })
-                formEdit.dataset.listenerAttached = "true"
-            }
             bootstrap.Modal.getOrCreateInstance('#edit-entrys').show()
         })
     })
+}
+const formEdit = document.querySelector("#form-submit-edit-entry")
+if (!formEdit.dataset.listenerAttached) {
+    formEdit.addEventListener("submit", async (e) => {
+        e.preventDefault()
+
+        let hasErrorDetails = false
+        let hasErrorPayments = false
+        let dataPaymentsUpdate = []
+        let dataPaymentsInsert = []
+        let dataEntrysUpdate = []
+        let dataEntrysInsert = []
+        document.querySelectorAll(".detail_entry-edit").forEach((detail, i) => {
+            let index = i + 1
+            const data = {
+                codigo: detail.querySelector(`input[name="codigo"]`).value,
+                id_materia_prima: detail.querySelector(`input[name="id_materia_prima"]`).getAttribute("data-id") ? detail.querySelector(`input[name="id_materia_prima"]`).getAttribute("data-id") : "",
+                cantidad: detail.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
+                fecha_vencimiento: detail.querySelector(`input[name="fecha_vencimiento"]`).value,
+            }
+            const errors = validate(data, rules_details_edit);
+            setValidationStyles(`input-code-entryEdit-${index}`, errors?.codigo ? errors.codigo[0] : null);
+            setValidationStyles(`input-quantity-entryEdit-${index}`, errors?.cantidad ? errors.cantidad[0] : null);
+            setValidationStyles(`input-date-entryEdit-${index}`, errors?.fecha_vencimiento ? errors.fecha_vencimiento[0] : null);
+            setValidationStyles(`input-rawmaterial-entryEdit-${index}`, errors?.id_materia_prima ? errors.id_materia_prima[0] : null);
+            if (errors) {
+                hasErrorDetails = true
+            } else {
+                hasErrorDetails = false
+                detail.getAttribute("isNew") == "true" ? dataEntrysInsert.push(data) : dataEntrysUpdate.push({ ...data, id: detail.querySelector(`input[type="hidden"]`).value })
+            }
+        })
+        document.querySelectorAll(".payment_entry_edit").forEach((detail, i) => {
+            let ind = i + 1
+            const img = detail.querySelector(`input[name="imagen"]`).parentElement.nextElementSibling.getAttribute("isImage")
+            let data
+            if (img == "true") {
+                data = {
+                    precio: detail.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
+                    id_metodo_pago: detail.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
+                    referencia: detail.querySelector(`input[name="referencia"]`).value,
+                    imagen: detail.querySelector(`input[name="imagen"]`).files[0],
+                };
+                const errors = validate(data, rules_payment_edit2);
+                setValidationStyles(`input-price-entry-${ind}`, errors?.precio ? errors.precio[0] : null);
+                setValidationStyles(`input-mp-entry-${ind}`, errors?.id_metodo_pago ? errors.id_metodo_pago[0] : null);
+                setValidationStyles(`input-ref-entry-${ind}`, errors?.referencia ? errors.referencia[0] : null);
+                setValidationStyles(`input-image-entry-${ind}`, errors?.imagen ? errors.imagen[0] : null);
+                if (errors) {
+                    hasErrorPayments = true
+                } else {
+                    hasErrorPayments = false
+                    if (detail.querySelector(`input[name="imagen"]`).value == "") {
+                        dataPaymentsUpdate.push({ ...data, id: detail.getAttribute("id-payment") })
+                    } else {
+                        dataPaymentsUpdate.push({
+                            ...data,
+                            id: detail.getAttribute("id-payment"),
+                            imagen: detail.querySelector(`input[name="imagen"]`).files[0]
+                        })
+                    }
+                }
+            } else {
+                data = {
+                    precio: detail.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
+                    id_metodo_pago: detail.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
+                    referencia: detail.querySelector(`input[name="referencia"]`).value,
+                    imagen: detail.querySelector(`input[name="imagen"]`) ? detail.querySelector(`input[name="imagen"]`).files[0] : "",
+                };
+                const errors = validate(data, rules_payment);
+                setValidationStyles(`input-price-entry-${ind}`, errors?.precio ? errors.precio[0] : null);
+                setValidationStyles(`input-mp-entry-${ind}`, errors?.id_metodo_pago ? errors.id_metodo_pago[0] : null);
+                setValidationStyles(`input-ref-entry-${ind}`, errors?.referencia ? errors.referencia[0] : null);
+                setValidationStyles(`input-image-entry-${ind}`, errors?.imagen ? errors.imagen[0] : null);
+
+                if (errors) {
+                    hasErrorPayments = true
+                } else {
+                    hasErrorPayments = false
+                    dataPaymentsInsert.push(data)
+                }
+            }
+        })
+
+        if (!hasErrorDetails && !hasErrorPayments) {
+            Swal.fire({
+                title: 'Procesando...',
+                text: 'Por favor espera',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading() }
+            });
+            let EntryUpdate = new FormData()
+            let dataSupplier = new FormData()
+            let dataPayUpdate = new FormData()
+            dataSupplier.append("id_proveedor", document.querySelector("#input-supplier-entryEdit").getAttribute("data-id"))
+            dataSupplier.append("id", document.querySelector("#input-id-entry-edit").value)
+            dataEntrysUpdate.forEach((element, index) => {
+                EntryUpdate.append(`lista[${index}][id]`, element.id)
+                EntryUpdate.append(`lista[${index}][codigo]`, element.codigo)
+                EntryUpdate.append(`lista[${index}][cantidad]`, element.cantidad)
+                EntryUpdate.append(`lista[${index}][fecha_vencimiento]`, element.fecha_vencimiento)
+                EntryUpdate.append(`lista[${index}][id_materia_prima]`, element.id_materia_prima)
+            })
+            dataPaymentsUpdate.forEach((element, index) => {
+                dataPayUpdate.append(`lista[${index}][id]`, element.id)
+                dataPayUpdate.append(`lista[${index}][precio_compra]`, element.precio)
+                dataPayUpdate.append(`lista[${index}][id_metodo_pago]`, element.id_metodo_pago)
+                dataPayUpdate.append(`lista[${index}][referencia]`, element.referencia)
+                if (element.imagen) {
+                    dataPayUpdate.append(`lista[${index}][imagen]`, element.imagen)
+                    dataPayUpdate.append(`lista[${index}][imagen_name]`, element.imagen.name)
+                }
+            })
+            if (dataEntrysInsert.length != 0) {
+                let EntryInsert = new FormData()
+                dataEntrysInsert.forEach((element, index) => {
+                    EntryInsert.append(`lista[${index}][codigo]`, element.codigo)
+                    EntryInsert.append(`lista[${index}][cantidad]`, element.cantidad)
+                    EntryInsert.append(`lista[${index}][fecha_vencimiento]`, element.fecha_vencimiento)
+                    EntryInsert.append(`lista[${index}][id_materia_prima]`, element.id_materia_prima)
+                })
+                let updateEntry = await fetch("Entry_rawmaterial_details/add_many", { method: "POST", body: EntryInsert })
+                let responseEntry = await updateEntry.json()
+                console.log(responseEntry);
+            }
+            if (dataPaymentsInsert.length != 0) {
+                let dataPayInsert = new FormData()
+                dataPayInsert.forEach((element, index) => {
+                    dataPayInsert.append(`lista[${index}][id_metodo_pago]`, element.id_metodo_pago)
+                    dataPayInsert.append(`lista[${index}][precio_compra]`, element.precio)
+                    dataPayInsert.append(`lista[${index}][referencia]`, element.referencia)
+                    dataPayInsert.append(`lista[${index}][imagen]`, element.imagen)
+                    dataPayInsert.append(`lista[${index}][imagen_name]`, element.imagen.name)
+                })
+                let insertPayment = await fetch("Entry_rawmaterial_payment/add_many", { method: "POST", body: dataPayInsert })
+                let responseInsertPayment = await insertPayment.json()
+                console.log(responseInsertPayment);
+            }
+            let updateEntry = await fetch("Entry_rawmaterial_details/updateMany", { method: "POST", body: EntryUpdate })
+            let responseEntry = await updateEntry.json()
+            let updatePayment = await fetch("Entry_rawmaterial_payment/updateMany", { method: "POST", body: dataPayUpdate })
+            let responsePayment = await updatePayment.json()
+            console.log(responsePayment);
+            let updateEntrySupplier = await fetch("Entrada_materia_prima/update", { method: "POST", body: dataSupplier })
+            let responseEntrySupplier = await updateEntrySupplier.json()
+            console.log(responseEntrySupplier);
+
+            if (responseEntry.success == true && responsePayment.success == true && responseEntrySupplier.success == true) {
+                Swal.close()
+                Swal.fire({
+                    title: `Exito!`,
+                    text: "El elemento fue actualizado correctamente",
+                    icon: "success",
+                });
+                tableActive.ajax.reload();
+                tablePorVencer.ajax.reload();
+                tableVencidas.ajax.reload();
+                tableSinStock.ajax.reload();
+                cardEntrys()
+                binnacle(session.message.id, "Entradas", "Actualizado", "Se actualizo una entrada de materia prima")
+                tableRawMaterial.ajax.reload();
+                tableActive.ajax.reload();
+                bootstrap.Modal.getOrCreateInstance('#edit-entrys').hide()
+
+            } else {
+                Swal.fire({
+                    title: `Error!`,
+                    text: "El elemento no fue actualizado",
+                    icon: "error",
+                });
+
+            }
+        }
+    })
+    formEdit.dataset.listenerAttached = "true"
 }
 editEntrys()
 attachValidationListeners()

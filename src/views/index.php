@@ -57,7 +57,7 @@
                         <div class="card-body">
                             <div class="d-flex align-items-center">
                                 <div>
-                                    <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium ganancias"></h2>
+                                    <h2 class="text-dark mb-1 w-100 text-truncate font-weight-medium ganancias">0</h2>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">Ganancias del Mes
                                     </h6>
                                 </div>
@@ -286,7 +286,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-lg-4">
+                <div class="col-md-12 col-lg-4">
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Mi Actividad Reciente</h4>

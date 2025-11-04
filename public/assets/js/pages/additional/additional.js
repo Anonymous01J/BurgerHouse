@@ -109,7 +109,21 @@ validate.validators.nombreValidator = function (value, options, key, attributes)
         return options.specialCharMessage;
     }
 };
+validate.validators.fileType = function (value, options, key, attributes) {
+    if (!value) return
+    if (value.type) {
+        const typeFile = value.type.split("/")[1]
+        if (!options.types.includes(typeFile)) {
+            return `debe ser una imagen JPG, PNG o WEBP`;
+        }
+    } else {
+        const typeFile = value.split(".")[1]
+        if (!options.types.includes(typeFile)) {
+            return `debe ser una imagen JPG, PNG o WEBP`;
+        }
+    }
 
+};
 const rules = {
     nombre: {
         nombreValidator: {
@@ -136,6 +150,9 @@ const rules = {
         presence: {
             allowEmpty: false,
             message: "^es requerido"
+        },
+        fileType: {
+            types: ['jpeg', 'png', 'webp', 'jpg']
         }
     },
 };
@@ -160,6 +177,34 @@ const rules2 = {
             message: "^es requerido"
         },
         precio: { message: "^debe ser un número mayor a 0" }
+    },
+};
+const rules3 = {
+    nombre: {
+        nombreValidator: {
+            uppercaseMessage: "^debe tener la primera letra en mayúscula.",
+            specialCharMessage: "^No se permiten signos como puntos (.) o comas (,)."
+        },
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        length: {
+            minimum: 4,
+            message: "^debe tener al menos 4 caracteres"
+        },
+    },
+    precio: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        precio: { message: "^debe ser un número mayor a 0" }
+    },
+    imagen: {
+        fileType: {
+            types: ['jpeg', 'png', 'webp', 'jpg']
+        }
     },
 };
 
@@ -204,8 +249,10 @@ if (!form.dataset.listenerAttached) {
 }
 editDataTables(".table_additional", (response) => {
     let formHasError = false;
+    document.getElementById("form-submit-edit-additional").reset();
     document.querySelector(`#input-name-additional`).value = response[0].nombre,
-        document.querySelector(`#input-price-additional`).value = (response[0].precio).toString().replace(/\./g, ',')
+    document.querySelector(`#input-id-additional`).value = response[0].id,
+    document.querySelector(`#input-price-additional`).value = (response[0].precio).toString().replace(/\./g, ',')
     document.querySelector(`#img-additional-response`).src = `media/additional/${response[0].imagen}`
 
     const data = {
@@ -218,36 +265,41 @@ editDataTables(".table_additional", (response) => {
     setValidationStyles(`input-price-additional`, errors?.precio ? errors.precio[0] : null);
 
     if (errors) formHasError = true;
-    let formEdit = document.getElementById("form-submit-edit-additional")
-    if (!formEdit.dataset.listenerAttached) {
-        formEdit.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const data = {
-                nombre: document.querySelector(`#input-name-additional`).value,
-                precio: document.querySelector(`#input-price-additional`).value.replace(/\./g, '').replace(',', '.'),
-            }
-            const errors = validate(data, rules2);
-            setValidationStyles(`input-name-additional`, errors?.nombre ? errors.nombre[0] : null);
-            setValidationStyles(`input-price-additional`, errors?.precio ? errors.precio[0] : null);
 
-            if (errors) formHasError = true;
-            else formHasError = false;
-
-            if (!formHasError) {
-                let dataFinal = new FormData()
-                dataFinal.append(`id`, response[0].id)
-                dataFinal.append(`nombre`, document.querySelector(`#input-name-additional`).value)
-                dataFinal.append(`precio`, document.querySelector(`#input-price-additional`).value.replace(/\./g, '').replace(',', '.'))
-                if (document.querySelector(`#input-image-additional`).value != "") {
-                    dataFinal.append(`imagen`, document.querySelector(`#input-image-additional`).files[0])
-                    dataFinal.append(`imagen_name`, document.querySelector(`#input-image-additional`).files[0].name)
-                }
-                updateDataTables(n, dataFinal, "additional", binnacle(session.message.id, "Adicionales", "Actualizacion", "Se actualizo un adicional"))
-                bootstrap.Modal.getOrCreateInstance('#edit-additional').hide()
-            }
-        })
-        formEdit.dataset.listenerAttached = "true";
-    }
 })
+
+let formEdit = document.getElementById("form-submit-edit-additional")
+if (!formEdit.dataset.listenerAttached) {
+    formEdit.addEventListener("submit", (e) => {
+        let formHasError = false;
+        e.preventDefault();
+        const data = {
+            nombre: document.querySelector(`#input-name-additional`).value,
+            precio: document.querySelector(`#input-price-additional`).value.replace(/\./g, '').replace(',', '.'),
+            imagen: document.querySelector(`#input-image-additional`).files[0]
+        }
+        const errors = validate(data, rules3);
+        setValidationStyles(`input-name-additional`, errors?.nombre ? errors.nombre[0] : null);
+        setValidationStyles(`input-price-additional`, errors?.precio ? errors.precio[0] : null);
+        setValidationStyles(`input-image-additional`, errors?.imagen ? errors.imagen[0] : null);
+
+        if (errors) formHasError = true;
+        else formHasError = false;
+
+        if (!formHasError) {
+            let dataFinal = new FormData()
+            dataFinal.append(`id`, document.querySelector(`#input-id-additional`).value)
+            dataFinal.append(`nombre`, document.querySelector(`#input-name-additional`).value)
+            dataFinal.append(`precio`, document.querySelector(`#input-price-additional`).value.replace(/\./g, '').replace(',', '.'))
+            if (document.querySelector(`#input-image-additional`).value != "") {
+                dataFinal.append(`imagen`, document.querySelector(`#input-image-additional`).files[0])
+                dataFinal.append(`imagen_name`, document.querySelector(`#input-image-additional`).files[0].name)
+            }
+            updateDataTables(n, dataFinal, "additional", () => binnacle(session.message.id, "Adicionales", "Actualizacion", "Se actualizo un adicional"))
+            bootstrap.Modal.getOrCreateInstance('#edit-additional').hide()
+        }
+    })
+    formEdit.dataset.listenerAttached = "true";
+}
 deleteDatatable(".table_additional", n, () => binnacle(session.message.id, "Adicionales", "Eliminacion", "Se ha eliminado un adicional"))
 attachValidationListeners(1);

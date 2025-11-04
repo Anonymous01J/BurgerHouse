@@ -19,7 +19,6 @@ document.getElementById("themeToggle").addEventListener("click", () => {
     localStorage.setItem('darkMode', isDark);
     localStorage.setItem('check', isDark);
     if (localStorage.getItem("check") == "true") {
-        console.log("object");
         document.querySelector(".img-bcv").src = "./assets/img/bcv2.png"
     } else {
         document.querySelector(".img-bcv").src = "./assets/img/bcv.png"
@@ -130,6 +129,8 @@ const notificationSetStatus = async () => {
 bell.addEventListener("click", ()=>{
     setTimeout(notificationSetStatus, 3000)
 })
+
+
 
 // let data = new FormData();
 // data.append("id_cliente", 1);

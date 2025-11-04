@@ -33,9 +33,9 @@ class Router
             $methodName = 'view';
         }
 
-        if (!isset($_SESSION['id']) && $controllerName != "ChangepassController" && $controllerName != "WebController") {
-            $controller_class = 'Shtch\\Burgerhouse\\controllers\\LoginController';
-        }
+        // if (!isset($_SESSION['id']) && $controllerName != "ChangepassController" && $controllerName != "WebController") {
+        //     $controller_class = 'Shtch\\Burgerhouse\\controllers\\LoginController';
+        // }
         $controller = new $controller_class();
         $controller->$methodName(...array_slice($url, 2), ...$_GET);
 

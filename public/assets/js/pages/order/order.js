@@ -890,7 +890,6 @@ const actionOrder = async (btn, status) => {
     let id = btn.getAttribute('id_order')
     let id_reservation = 0
     if (btn.getAttribute('data_id_reservation')) id_reservation = btn.getAttribute('data_id_reservation')
-
     let info = await searchParam({ id: id }, "order")
     let detailsPrepered = await searchParam({ id_orden: id }, "Detalle_orden_producto_preparado")
     let detailsProcess = await searchParam({ id_orden: id }, "Detalle_orden_producto_procesado")
@@ -898,6 +897,8 @@ const actionOrder = async (btn, status) => {
     let totalAmountProcess = detailsProcess.map(item => item.precio * item.cantidad).reduce((a, b) => a + b, 0)
     let iva = (totalAmountPrepared + totalAmountProcess) * 0.16
     let dataPaymentAbove = await searchParam({ id_reserva: id_reservation }, "PaymentReservation")
+    let dataPayment = await searchParam({ id_venta:  info[0].id_venta }, "paymentSale", 10000)
+    console.log(dataPayment);
     let amountBs = []
     let amountUSD = []
     dataPaymentAbove.forEach(item => {
@@ -911,7 +912,6 @@ const actionOrder = async (btn, status) => {
       montoBs: amountBs.reduce((a, b) => a + b, 0),
       montoDolar: amountUSD.reduce((a, b) => a + b, 0)
     }
-
     let clientData = {
       id_cliente: info[0].id_cliente ?? "POR ASIGNAR",
       nameClient: info[0].cliente_nombre ? info[0].cliente_nombre + " " + info[0].cliente_apellido : "POR ASIGNAR",
@@ -919,11 +919,11 @@ const actionOrder = async (btn, status) => {
     };
     let amountTotal = {
       total_dolares: "TOTAL: " + (((totalAmountPrepared + totalAmountProcess) + iva).toFixed(2)),
-      total_bs: (((totalAmountPrepared + totalAmountProcess) + iva) * await amountDolar()).toFixed(2),
+      total_bs: (((totalAmountPrepared + totalAmountProcess) + iva) * parseFloat(dataPayment[0].tasa)).toFixed(2),
       subtotal: "SUBTOTAL: " + ((totalAmountPrepared + totalAmountProcess).toFixed(2)),
       iva: "IVA: " + (iva.toFixed(2))
     }
-    invoice(detailsPrepered, detailsProcess, clientData, info[0].id, info[0].direccion ?? "BURGER HOUSE", amountTotal, "print", info, above)
+    invoice(detailsPrepered, detailsProcess, clientData, info[0].id, info[0].direccion ?? "BURGER HOUSE", amountTotal, "print", info, above, dataPayment)
   } else if (action == "more_products") {
     window.id_orden = btn.getAttribute("id_order");
     window.type_order_resLocal = btn.getAttribute("type_module");

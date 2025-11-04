@@ -55,6 +55,7 @@
             </div>
             <div class="modal-body">
                 <form class="row g-2" id="form-submit-edit-additional">
+                    <input type="hidden" id="input-id-additional">
                     <div id="additional-container">
                         <div class="row g-2 additional" id="additional">
                             <div class="col-md-6">

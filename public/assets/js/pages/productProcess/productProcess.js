@@ -147,6 +147,21 @@ validate.validators.stockValidator = function (value, options, key, attributes) 
     return options.message || `no puede ser menor que ${options.field}`;
   }
 };
+validate.validators.fileType = function (value, options, key, attributes) {
+  if (!value) return
+  if (value.type) {
+    const typeFile = value.type.split("/")[1]
+    if (!options.types.includes(typeFile)) {
+      return `debe ser una imagen JPG, PNG o WEBP`;
+    }
+  } else {
+    const typeFile = value.split(".")[1]
+    if (!options.types.includes(typeFile)) {
+      return `debe ser una imagen JPG, PNG o WEBP`;
+    }
+  }
+
+};
 const rules = {
   nombre: {
     nombreValidator: {
@@ -190,6 +205,9 @@ const rules = {
     presence: {
       allowEmpty: false,
       message: "^es requerido"
+    },
+    fileType: {
+      types: ['jpeg', 'png', 'webp', 'jpg']
     }
   },
   min: {
@@ -285,6 +303,77 @@ const rules2 = {
     }
   }
 };
+const rules3 = {
+  nombre: {
+    nombreValidator: {
+      uppercaseMessage: "^debe tener la primera letra en mayúscula.",
+      specialCharMessage: "^No se permiten signos como puntos (.) o comas (,)."
+    },
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    length: {
+      minimum: 4,
+      message: "^debe tener al menos 4 caracteres"
+    },
+  },
+  precio: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    precio: { message: "^debe ser un número mayor a 0" }
+  },
+  id_categoria: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerida"
+    },
+    validateCategoryAndRecipe: { message: "^es requerido" }
+  },
+  detalles: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    length: {
+      minimum: 15,
+      message: "^debe tener al menos 15 caracteres"
+    }
+  },
+  imagen: {
+    fileType: {
+      types: ['jpeg', 'png', 'webp', 'jpg']
+    }
+  },
+  min: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    numericality: {
+      onlyInteger: true,
+      greaterThan: 0,
+      message: "^debe ser un número mayor que 0"
+    }
+  },
+  max: {
+    presence: {
+      allowEmpty: false,
+      message: "^es requerido"
+    },
+    numericality: {
+      onlyInteger: true,
+      greaterThan: 0,
+      message: "^debe ser un número mayor que 0"
+    },
+    stockValidator: {
+      field: "min",
+      message: "^no puede ser menor que Stock Min"
+    }
+  }
+};
 let form = document.getElementById("form-submit-combo")
 if (!form.dataset.listenerAttached) {
   form.addEventListener("submit", function (e) {
@@ -338,8 +427,8 @@ if (!form.dataset.listenerAttached) {
 }
 attachValidationListeners(1)
 print(config)
+let hasError = false
 function editData(response) {
-  let hasError = false
   document.querySelector("#input-name-combo").value = response[0].nombre
   document.querySelector("#input-id-combo").value = response[0].id
   document.querySelector("#input-price-combo").value = (response[0].precio).toString().replace(/\./g, ',')
@@ -365,48 +454,49 @@ function editData(response) {
   setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
   setValidationStyles(`input-min-combo`, errors?.min ? errors.min[0] : null);
   setValidationStyles(`input-max-combo`, errors?.max ? errors.max[0] : null);
+}
+let formEdit = document.getElementById("form-submit-edit-combo")
+if (!formEdit.dataset.listenerAttached) {
+  formEdit.addEventListener("submit", function (e) {
+    e.preventDefault();
+    let data = {
+      nombre: document.querySelector(`#input-name-combo`).value,
+      precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
+      imagen: document.querySelector(`#input-image-combo`).files[0],
+      id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
+      detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
+      min: document.querySelector(`#input-min-combo`).value,
+      max: document.querySelector(`#input-max-combo`).value
+    }
+    const errors = validate(data, rules3);
+    if (errors) hasError = true
+    else hasError = false
+    setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
+    setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
+    setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
+    setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
+    setValidationStyles(`input-min-combo`, errors?.min ? errors.min[0] : null);
+    setValidationStyles(`input-max-combo`, errors?.max ? errors.max[0] : null);
+    setValidationStyles(`input-image-combo`, errors?.imagen ? errors.imagen[0] : null);
 
-  let formEdit = document.getElementById("form-submit-edit-combo")
-  if (!formEdit.dataset.listenerAttached) {
-    formEdit.addEventListener("submit", function (e) {
-      e.preventDefault();
-      let data = {
-        nombre: document.querySelector(`#input-name-combo`).value,
-        precio: document.querySelector(`#input-price-combo`).value.replace(/\./g, '').replace(',', '.'),
-        id_categoria: document.querySelector(`#input-category-combo`).getAttribute("data-id"),
-        detalles: document.querySelector(`#input-details-combo`) ? document.querySelector(`#input-details-combo`).value : "",
-        min: document.querySelector(`#input-min-combo`).value,
-        max: document.querySelector(`#input-max-combo`).value
+    if (!hasError) {
+      let datafinal = new FormData()
+      datafinal.append("nombre", document.querySelector("#input-name-combo").value)
+      datafinal.append("precio", document.querySelector("#input-price-combo").value.replace(/\./g, '').replace(',', '.'))
+      datafinal.append("id_categoria", document.querySelector("#input-category-combo").getAttribute("data-id"))
+      datafinal.append("detalles", document.querySelector("#input-details-combo").value)
+      datafinal.append("id", document.querySelector("#input-id-combo").value)
+      datafinal.append("stock_min", document.querySelector("#input-min-combo").value)
+      datafinal.append("stock_max", document.querySelector("#input-max-combo").value)
+      if (document.querySelector("#input-image-combo").value != "") {
+        console.log("object");
+        datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
+        datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
       }
-      const errors = validate(data, rules2);
-      if (errors) hasError = true
-      else hasError = false
-      setValidationStyles(`input-name-combo`, errors?.nombre ? errors.nombre[0] : null);
-      setValidationStyles(`input-price-combo`, errors?.precio ? errors.precio[0] : null);
-      setValidationStyles(`input-category-combo`, errors?.id_categoria ? errors.id_categoria[0] : null);
-      setValidationStyles(`input-details-combo`, errors?.detalles ? errors.detalles[0] : null);
-      setValidationStyles(`input-min-combo`, errors?.min ? errors.min[0] : null);
-      setValidationStyles(`input-max-combo`, errors?.max ? errors.max[0] : null);
-
-      if (!hasError) {
-        let datafinal = new FormData()
-        datafinal.append("nombre", document.querySelector("#input-name-combo").value)
-        datafinal.append("precio", document.querySelector("#input-price-combo").value.replace(/\./g, '').replace(',', '.'))
-        datafinal.append("id_categoria", document.querySelector("#input-category-combo").getAttribute("data-id"))
-        datafinal.append("detalles", document.querySelector("#input-details-combo").value)
-        datafinal.append("id", document.querySelector("#input-id-combo").value)
-        datafinal.append("stock_min", document.querySelector("#input-min-combo").value)
-        datafinal.append("stock_max", document.querySelector("#input-max-combo").value)
-        if (document.querySelector("#input-image-combo").value != "") {
-          console.log("object");
-          datafinal.append("imagen_name", document.querySelector("#input-image-combo").files[0].name)
-          datafinal.append("imagen", document.querySelector("#input-image-combo").files[0])
-        }
-        update(config, 'productProcess', datafinal, () => binnacle(session.message.id, 'Producto procesado', 'Actualizacion', 'Se agrego un producto procesado')
-        )
-        bootstrap.Modal.getOrCreateInstance('#edit-product').hide()
-      }
-    })
-    form.dataset.listenerAttached = "true";
-  }
+      update(config, 'productProcess', datafinal, () => binnacle(session.message.id, 'Producto procesado', 'Actualizacion', 'Se agrego un producto procesado')
+      )
+      bootstrap.Modal.getOrCreateInstance('#edit-product').hide()
+    }
+  })
+  form.dataset.listenerAttached = "true";
 }

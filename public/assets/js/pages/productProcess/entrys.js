@@ -158,7 +158,7 @@ async function reference() {
 }
 //setear valores de las tarjetas de entradas
 const cardEntrys = async () => {
-    let entrysTotales = await searchParam({active: 1}, "entrada_producto_procesado")
+    let entrysTotales = await searchParam({ active: 1 }, "entrada_producto_procesado")
     let entrysVigentes = entrysTotales.filter((element) => diasRestantesFechaVencimiento(element) > 10 && element.existencia > 0);
     let entrysPorVencer = entrysTotales.filter((element) => diasRestantesFechaVencimiento(element) <= 10 && diasRestantesFechaVencimiento(element) > 0 && element.existencia > 0);
     let entrysVencidos = entrysTotales.filter((element) => diasRestantesFechaVencimiento(element) <= 0);
@@ -480,6 +480,21 @@ validate.validators.precio = function (value, options, key, attributes) {
         return options.message || "debe ser un número mayor a 0";
     }
 };
+validate.validators.fileType = function (value, options, key, attributes) {
+    if (!value) return
+    if (value.type) {
+        const typeFile = value.type.split("/")[1]
+        if (!options.types.includes(typeFile)) {
+            return `debe ser una imagen JPG, PNG o WEBP`;
+        }
+    } else {
+        const typeFile = value.split(".")[1]
+        if (!options.types.includes(typeFile)) {
+            return `debe ser una imagen JPG, PNG o WEBP`;
+        }
+    }
+
+};
 const rules = {
     precio: {
         presence: {
@@ -519,6 +534,9 @@ const rules = {
         presence: {
             allowEmpty: false,
             message: "^es requerido"
+        },
+        fileType: {
+            types: ['jpeg', 'png', 'webp', 'jpg']
         }
     },
     cantidad: {
@@ -631,6 +649,9 @@ const rules_payment = {
         presence: {
             allowEmpty: false,
             message: "^es requerido"
+        },
+        fileType: {
+            types: ['jpeg', 'png', 'webp', 'jpg']
         }
     },
 };
@@ -703,17 +724,37 @@ const rules_payment_edit = {
         validateCategoryAndRecipe: { message: "^es requerido" }
     },
 };
+const rules_payment_edit2 = {
+    precio: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+        precio: { message: "^debe ser un número mayor a 0" }
+    },
+    referencia: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        },
+    },
+    id_metodo_pago: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerida"
+        },
+        validateCategoryAndRecipe: { message: "^es requerido" }
+    },
+    imagen: {
+        fileType: {
+            types: ['jpeg', 'png', 'webp', 'jpg']
+        }
+    },
+};
 let form = document.getElementById("form-submit-entrys")
 if (!form.dataset.listenerAttached) {
     form.addEventListener("submit", function (e) {
         e.preventDefault();
-        bootstrap.Modal.getOrCreateInstance('#register-entrys').hide()
-        Swal.fire({
-            title: 'Procesando...',
-            text: 'Por favor espera',
-            allowOutsideClick: false,
-            didOpen: () => { Swal.showLoading() }
-        });
         const entryDetails = document.querySelectorAll(".details_entry");
         const PayDetails = document.querySelectorAll(".payment_entry");
         let formHasErrorDetails = false;
@@ -760,6 +801,13 @@ if (!form.dataset.listenerAttached) {
         });
 
         if (!formHasErrorDetails && !formHasErrorPayment) {
+            bootstrap.Modal.getOrCreateInstance('#register-entrys').hide()
+            Swal.fire({
+                title: 'Procesando...',
+                text: 'Por favor espera',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading() }
+            });
             let data = new FormData()
             let entrys = document.querySelectorAll(".entrys");
             entrys.forEach((entry, i) => {
@@ -834,7 +882,6 @@ editDataTables(".table_entrys_active", async (response) => {
     data.append("id_entrada", response[0].id);
     let pet = await fetch(`Entry_product_process_payment/get_all/0/100000`, { method: "POST", body: data });
     let petRes = await pet.json();
-    console.log(petRes);
     let template = ""
     for (const element of petRes) {
         template += elementFormPaymentEntrysProductProcessEdit(index, element)
@@ -933,165 +980,168 @@ editDataTables(".table_entrys_active", async (response) => {
         })
     })
 
-    const formEdit = document.querySelector("#form-submit-edit-entry")
-    if (!formEdit.dataset.listenerAttached) {
-        formEdit.addEventListener("submit", async (e) => {
-            e.preventDefault()
+    bootstrap.Modal.getOrCreateInstance('#edit-entrys').show()
+})
+
+const formEdit = document.querySelector("#form-submit-edit-entry")
+if (!formEdit.dataset.listenerAttached) {
+    formEdit.addEventListener("submit", async (e) => {
+        e.preventDefault()
+
+        let hasErrorDetails = false
+        let hasErrorPayments = false
+        let dataPaymentsUpdate = []
+        let dataPaymentsInsert = []
+        let dataEntrys = []
+        document.querySelectorAll(".detail_entry").forEach((detail, i) => {
+            let data = {
+                codigo: detail.querySelector("#input-code-entry").value,
+                cantidad: detail.querySelector("#input-quantity-entry").value.replace(/\./g, '').replace(',', '.'),
+                fecha_vencimiento: detail.querySelector("#input-date-entry").value,
+                id_producto: detail.querySelector("#input-product-entry").getAttribute("data-id"),
+                id_unidad: detail.querySelector("#input-unit-entry").getAttribute("data-id"),
+                id_proveedor: detail.querySelector("#input-supplier-entry").getAttribute("data-id"),
+            }
+            const errors = validate(data, rules_details);
+            setValidationStyles("input-code-entry", errors?.codigo ? errors.codigo[0] : null);
+            setValidationStyles("input-supplier-entry", errors?.id_proveedor ? errors.id_proveedor[0] : null);
+            setValidationStyles("input-product-entry", errors?.id_producto ? errors.id_producto[0] : null);
+            setValidationStyles("input-unit-entry", errors?.id_unidad ? errors.id_unidad[0] : null);
+            setValidationStyles("input-quantity-entry", errors?.cantidad ? errors.cantidad[0] : null);
+            setValidationStyles("input-date-entry", errors?.fecha_vencimiento ? errors.fecha_vencimiento[0] : null);
+            if (errors) {
+                hasErrorDetails = true
+            } else {
+                hasErrorDetails = false
+                dataEntrys.push(data)
+            }
+        })
+        document.querySelectorAll(".payment_entry_edit").forEach((detail, i) => {
+            let ind = i + 1
+            const img = detail.querySelector(`input[name="imagen"]`).parentElement.nextElementSibling.getAttribute("isImage")
+            let data
+            if (img == "true") {
+                data = {
+                    precio: detail.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
+                    id_metodo_pago: detail.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
+                    referencia: detail.querySelector(`input[name="referencia"]`).value,
+                    imagen: detail.querySelector(`input[name="imagen"]`).files[0]
+                };
+                const errors = validate(data, rules_payment_edit2);
+                setValidationStyles(`input-price-entry-${ind}`, errors?.precio ? errors.precio[0] : null);
+                setValidationStyles(`input-mp-entry-${ind}`, errors?.id_metodo_pago ? errors.id_metodo_pago[0] : null);
+                setValidationStyles(`input-ref-entry-${ind}`, errors?.referencia ? errors.referencia[0] : null);
+                setValidationStyles(`input-image-entry-${ind}`, errors?.imagen ? errors.imagen[0] : null);
+                if (errors) {
+                    hasErrorPayments = true
+                } else {
+                    hasErrorPayments = false
+                    if (detail.querySelector(`input[name="imagen"]`).value == "") {
+                        dataPaymentsUpdate.push({ ...data, id: detail.getAttribute("id-payment") })
+                    } else {
+                        dataPaymentsUpdate.push({
+                            ...data,
+                            id: detail.getAttribute("id-payment"),
+                            imagen: detail.querySelector(`input[name="imagen"]`).files[0]
+                        })
+                    }
+                }
+            } else {
+                data = {
+                    precio: detail.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
+                    id_metodo_pago: detail.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
+                    referencia: detail.querySelector(`input[name="referencia"]`).value,
+                    imagen: detail.querySelector(`input[name="imagen"]`) ? detail.querySelector(`input[name="imagen"]`).files[0] : "",
+                };
+                const errors = validate(data, rules_payment);
+                setValidationStyles(`input-price-entry-${ind}`, errors?.precio ? errors.precio[0] : null);
+                setValidationStyles(`input-mp-entry-${ind}`, errors?.id_metodo_pago ? errors.id_metodo_pago[0] : null);
+                setValidationStyles(`input-ref-entry-${ind}`, errors?.referencia ? errors.referencia[0] : null);
+                setValidationStyles(`input-image-entry-${ind}`, errors?.imagen ? errors.imagen[0] : null);
+
+                if (errors) {
+                    hasErrorPayments = true
+                } else {
+                    hasErrorPayments = false
+                    dataPaymentsInsert.push(data)
+                }
+            }
+        })
+
+        if (!hasErrorDetails && !hasErrorPayments) {
             Swal.fire({
                 title: 'Procesando...',
                 text: 'Por favor espera',
                 allowOutsideClick: false,
                 didOpen: () => { Swal.showLoading() }
             });
-            let hasErrorDetails = false
-            let hasErrorPayments = false
-            let dataPaymentsUpdate = []
-            let dataPaymentsInsert = []
-            let dataEntrys = []
-            document.querySelectorAll(".detail_entry").forEach((detail, i) => {
-                let data = {
-                    codigo: detail.querySelector("#input-code-entry").value,
-                    cantidad: detail.querySelector("#input-quantity-entry").value.replace(/\./g, '').replace(',', '.'),
-                    fecha_vencimiento: detail.querySelector("#input-date-entry").value,
-                    id_producto: detail.querySelector("#input-product-entry").getAttribute("data-id"),
-                    id_unidad: detail.querySelector("#input-unit-entry").getAttribute("data-id"),
-                    id_proveedor: detail.querySelector("#input-supplier-entry").getAttribute("data-id"),
-                }
-                const errors = validate(data, rules_details);
-                setValidationStyles("input-code-entry", errors?.codigo ? errors.codigo[0] : null);
-                setValidationStyles("input-supplier-entry", errors?.id_proveedor ? errors.id_proveedor[0] : null);
-                setValidationStyles("input-product-entry", errors?.id_producto ? errors.id_producto[0] : null);
-                setValidationStyles("input-unit-entry", errors?.id_unidad ? errors.id_unidad[0] : null);
-                setValidationStyles("input-quantity-entry", errors?.cantidad ? errors.cantidad[0] : null);
-                setValidationStyles("input-date-entry", errors?.fecha_vencimiento ? errors.fecha_vencimiento[0] : null);
-                if (errors) {
-                    hasErrorDetails = true
-                } else {
-                    hasErrorDetails = false
-                    dataEntrys.push(data)
+            let dataEntry = new FormData()
+            dataEntry.append("id", document.getElementById("input-id-entry").value)
+            dataEntry.append("id_proveedor", dataEntrys[0].id_proveedor)
+            dataEntry.append("id_producto", dataEntrys[0].id_producto)
+            dataEntry.append("cantidad", dataEntrys[0].cantidad)
+            dataEntry.append("fecha_vencimiento", dataEntrys[0].fecha_vencimiento)
+            dataEntry.append("id_unidad", dataEntrys[0].id_unidad)
+            dataEntry.append("codigo", dataEntrys[0].codigo)
+
+            console.log(dataPaymentsInsert);
+            console.log(dataPaymentsUpdate);
+            let dataPayInsert = new FormData()
+            let dataPayUpdate = new FormData()
+
+            dataPaymentsUpdate.forEach((element, index) => {
+                dataPayUpdate.append(`lista[${index}][id]`, element.id)
+                dataPayUpdate.append(`lista[${index}][precio_compra]`, element.precio)
+                dataPayUpdate.append(`lista[${index}][id_metodo_pago]`, element.id_metodo_pago)
+                dataPayUpdate.append(`lista[${index}][referencia]`, element.referencia)
+                if (element.imagen) {
+                    dataPayUpdate.append(`lista[${index}][imagen]`, element.imagen)
+                    dataPayUpdate.append(`lista[${index}][imagen_name]`, element.imagen.name)
                 }
             })
-            document.querySelectorAll(".payment_entry_edit").forEach((detail, i) => {
-                let ind = i + 1
-                const img = detail.querySelector(`input[name="imagen"]`).parentElement.nextElementSibling.getAttribute("isImage")
-                let data
-                if (img == "true") {
-                    data = {
-                        precio: detail.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
-                        id_metodo_pago: detail.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
-                        referencia: detail.querySelector(`input[name="referencia"]`).value,
-                    };
-                    const errors = validate(data, rules_payment_edit);
-                    setValidationStyles(`input-price-entry-${ind}`, errors?.precio ? errors.precio[0] : null);
-                    setValidationStyles(`input-mp-entry-${ind}`, errors?.id_metodo_pago ? errors.id_metodo_pago[0] : null);
-                    setValidationStyles(`input-ref-entry-${ind}`, errors?.referencia ? errors.referencia[0] : null);
-                    if (errors) {
-                        hasErrorPayments = true
-                    } else {
-                        hasErrorPayments = false
-                        if (detail.querySelector(`input[name="imagen"]`).value == "") {
-                            dataPaymentsUpdate.push({ ...data, id: detail.getAttribute("id-payment") })
-                        } else {
-                            dataPaymentsUpdate.push({
-                                ...data,
-                                id: detail.getAttribute("id-payment"),
-                                imagen: detail.querySelector(`input[name="imagen"]`).files[0]
-                            })
-                        }
-                    }
-                } else {
-                    data = {
-                        precio: detail.querySelector(`input[name="precio"]`).value.replace(/\./g, '').replace(',', '.'),
-                        id_metodo_pago: detail.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
-                        referencia: detail.querySelector(`input[name="referencia"]`).value,
-                        imagen: detail.querySelector(`input[name="imagen"]`) ? detail.querySelector(`input[name="imagen"]`).files[0] : "",
-                    };
-                    const errors = validate(data, rules_payment);
-                    setValidationStyles(`input-price-entry-${ind}`, errors?.precio ? errors.precio[0] : null);
-                    setValidationStyles(`input-mp-entry-${ind}`, errors?.id_metodo_pago ? errors.id_metodo_pago[0] : null);
-                    setValidationStyles(`input-ref-entry-${ind}`, errors?.referencia ? errors.referencia[0] : null);
-                    setValidationStyles(`input-image-entry-${ind}`, errors?.imagen ? errors.imagen[0] : null);
-
-                    if (errors) {
-                        hasErrorPayments = true
-                    } else {
-                        hasErrorPayments = false
-                        dataPaymentsInsert.push(data)
-                    }
-                }
-            })
-
-            if (!hasErrorDetails && !hasErrorPayments) {
-                let dataEntry = new FormData()
-                dataEntry.append("id", document.getElementById("input-id-entry").value)
-                dataEntry.append("id_proveedor", dataEntrys[0].id_proveedor)
-                dataEntry.append("id_producto", dataEntrys[0].id_producto)
-                dataEntry.append("cantidad", dataEntrys[0].cantidad)
-                dataEntry.append("fecha_vencimiento", dataEntrys[0].fecha_vencimiento)
-                dataEntry.append("id_unidad", dataEntrys[0].id_unidad)
-                dataEntry.append("codigo", dataEntrys[0].codigo)
-
-                console.log(dataPaymentsInsert);
-                console.log(dataPaymentsUpdate);
-                let dataPayInsert = new FormData()
-                let dataPayUpdate = new FormData()
-
-                dataPaymentsUpdate.forEach((element, index) => {
-                    dataPayUpdate.append(`lista[${index}][id]`, element.id)
-                    dataPayUpdate.append(`lista[${index}][precio_compra]`, element.precio)
-                    dataPayUpdate.append(`lista[${index}][id_metodo_pago]`, element.id_metodo_pago)
-                    dataPayUpdate.append(`lista[${index}][referencia]`, element.referencia)
-                    if (element.imagen) {
-                        dataPayUpdate.append(`lista[${index}][imagen]`, element.imagen)
-                        dataPayUpdate.append(`lista[${index}][imagen_name]`, element.imagen.name)
-                    }
+            if (dataPaymentsInsert.length != 0) {
+                dataPayInsert.forEach((element, index) => {
+                    dataPayInsert.append(`lista[${index}][id_metodo_pago]`, element.id_metodo_pago)
+                    dataPayInsert.append(`lista[${index}][precio_compra]`, element.precio)
+                    dataPayInsert.append(`lista[${index}][referencia]`, element.referencia)
+                    dataPayInsert.append(`lista[${index}][imagen]`, element.imagen)
+                    dataPayInsert.append(`lista[${index}][imagen_name]`, element.imagen.name)
                 })
-                if (dataPaymentsInsert.length != 0) {
-                    dataPayInsert.forEach((element, index) => {
-                        dataPayInsert.append(`lista[${index}][id_metodo_pago]`, element.id_metodo_pago)
-                        dataPayInsert.append(`lista[${index}][precio_compra]`, element.precio)
-                        dataPayInsert.append(`lista[${index}][referencia]`, element.referencia)
-                        dataPayInsert.append(`lista[${index}][imagen]`, element.imagen)
-                        dataPayInsert.append(`lista[${index}][imagen_name]`, element.imagen.name)
-                    })
-                    let insertPayment = await fetch("Entry_product_process_payment/add_many", { method: "POST", body: dataPayInsert })
-                    let responseInsertPayment = await insertPayment.json()
-                    console.log(responseInsertPayment);
-                }
-                let updateEntry = await fetch("Entrada_producto_procesado/update", { method: "POST", body: dataEntry })
-                let responseEntry = await updateEntry.json()
-                console.log(responseEntry);
-                let updatePayment = await fetch("Entry_product_process_payment/updateMany", { method: "POST", body: dataPayUpdate })
-                let responsePayment = await updatePayment.json()
-                console.log(responsePayment);
-
-                if (responseEntry.success == true && responsePayment.success == true) {
-                    Swal.close()
-                    Swal.fire({
-                        title: `Exito!`,
-                        text: "El elemento fue actualizado correctamente",
-                        icon: "success",
-                    });
-                    tableActive.ajax.reload();
-                    tablePorVencer.ajax.reload();
-                    tableVencidas.ajax.reload();
-                    tableSinStock.ajax.reload();
-                    cardEntrys()
-                    binnacle(session.message.id, "Entradas", "Actualizado", "Se actualizo una entrada de materia prima")
-                    bootstrap.Modal.getOrCreateInstance('#edit-entrys').hide()
-                } else {
-                    Swal.fire({
-                        title: `Error!`,
-                        text: "El elemento no fue actualizado",
-                        icon: "error",
-                    });
-
-                }
+                let insertPayment = await fetch("Entry_product_process_payment/add_many", { method: "POST", body: dataPayInsert })
+                let responseInsertPayment = await insertPayment.json()
+                console.log(responseInsertPayment);
             }
-        })
-        formEdit.dataset.listenerAttached = "true"
-    }
+            let updateEntry = await fetch("Entrada_producto_procesado/update", { method: "POST", body: dataEntry })
+            let responseEntry = await updateEntry.json()
+            console.log(responseEntry);
+            let updatePayment = await fetch("Entry_product_process_payment/updateMany", { method: "POST", body: dataPayUpdate })
+            let responsePayment = await updatePayment.json()
+            console.log(responsePayment);
 
-    bootstrap.Modal.getOrCreateInstance('#edit-entrys').show()
-})
+            if (responseEntry.success == true && responsePayment.success == true) {
+                Swal.close()
+                Swal.fire({
+                    title: `Exito!`,
+                    text: "El elemento fue actualizado correctamente",
+                    icon: "success",
+                });
+                tableActive.ajax.reload();
+                tablePorVencer.ajax.reload();
+                tableVencidas.ajax.reload();
+                tableSinStock.ajax.reload();
+                cardEntrys()
+                binnacle(session.message.id, "Entradas", "Actualizado", "Se actualizo una entrada de materia prima")
+                bootstrap.Modal.getOrCreateInstance('#edit-entrys').hide()
+            } else {
+                Swal.fire({
+                    title: `Error!`,
+                    text: "El elemento no fue actualizado",
+                    icon: "error",
+                });
+
+            }
+        }
+    })
+    formEdit.dataset.listenerAttached = "true"
+}
 attachValidationListeners()

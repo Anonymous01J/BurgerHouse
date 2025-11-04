@@ -98,6 +98,21 @@ export async function payOrderReservation(functions, templates, invoice, reload)
             return options.notnumber;
         }
     };
+    validate.validators.fileType = function (value, options, key, attributes) {
+        if (!value) return
+        if (value.type) {
+            const typeFile = value.type.split("/")[1]
+            if (!options.types.includes(typeFile)) {
+                return `debe ser una imagen JPG, PNG o WEBP`;
+            }
+        } else {
+            const typeFile = value.split(".")[1]
+            if (!options.types.includes(typeFile)) {
+                return `debe ser una imagen JPG, PNG o WEBP`;
+            }
+        }
+
+    };
     const rules = {
         cantidad: {
             presence: {
@@ -126,6 +141,9 @@ export async function payOrderReservation(functions, templates, invoice, reload)
             presence: {
                 allowEmpty: false,
                 message: "^es requerido"
+            },
+            fileType: {
+                types: ['jpeg', 'png', 'webp', 'jpg']
             }
         },
     };

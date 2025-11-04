@@ -32,6 +32,7 @@ class Pago_venta extends Db_base
         a.id_venta,
         p.comprobante,
         p.referencia,
+        p.tasa,
         mp.nombre as metodo_pago,
         p.monto
         ";

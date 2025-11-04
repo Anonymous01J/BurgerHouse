@@ -89,7 +89,7 @@ export async function report(info, productPrepared, productProcess, totalAmount)
     })
     window.open(doc.output('bloburl'), '_blank');
 }
-export async function invoice(productPrepared, productProcess, clientData, id_order = window.id_orden_invoice, direccion, totalAmount, funtionality = "print", info = null, abono = null) {
+export async function invoice(productPrepared, productProcess, clientData, id_order = window.id_orden_invoice, direccion, totalAmount, funtionality = "print", info = null, abono = null, payments) {
     let dolar = await amountDolar()
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -105,7 +105,7 @@ export async function invoice(productPrepared, productProcess, clientData, id_or
     });
     doc.setFontSize(18);
     doc.setFont("Poppins", "bold");
-    doc.text(`NRO DE FACTURA: ${id_order.toString().padStart(5, '0')}`, 10, 85);
+    doc.text(`NRO DE FACTURA: ${payments[0].id_venta.toString().padStart(6, '0')}`, 10, 85);
     doc.setTextColor(41, 40, 37)
     doc.setFont("Poppins", "normal");
     doc.setFontSize(10);
@@ -118,14 +118,9 @@ export async function invoice(productPrepared, productProcess, clientData, id_or
     doc.text(`TELEFONO: ${clientData.telefonoClient}`, 10, 115);
 
     doc.setFontSize(11);
-    doc.setFont("Poppins", "bold");
-    doc.text(`${totalAmount.subtotal}`, 100, 100);
-    doc.text(`${totalAmount.iva}`, 100, 108);
-    doc.text(`TOTAL DE ORDEN ${totalAmount.total_dolares + " USD" + " (" + totalAmount.total_bs + " Bs)"}`, 100, 115);
-    if (abono != null) {
-        doc.text(`ABONO DE RESERVA ${(abono.montoDolar == 0 ? (abono.montoBs / dolar).toFixed(2) + " USD" : abono.montoDolar) + " (" + abono.montoBs + " Bs)"}`, 100, 120);
-    }
+    doc.text(`NRO DE ORDEN: ${id_order.toString().padStart(5, '0')}`, 75, 100);
 
+    doc.setFontSize(10);
     doc.setFont("Poppins", "normal");
     doc.text(`..................................................................................................................................................................................................................................................................`, 10, 122);
     doc.setFontSize(18);
@@ -191,6 +186,44 @@ export async function invoice(productPrepared, productProcess, clientData, id_or
         doc.text(`${item.precio * item.cantidad + " USD"}`, 175, currentY);
         currentY += 8
     })
+
+    currentY += 4
+
+    doc.setFont("Poppins", "normal");
+    doc.setFontSize(10);
+    doc.text(`..................................................................................................................................................................................................................................................................`, 10, currentY);
+    doc.setFontSize(18);
+    currentY += 10
+    doc.setFont("Poppins", "bold");
+    doc.text(`PAGOS`, 90, currentY);
+    currentY += 6
+    doc.setFont("Poppins", "normal");
+    doc.setFontSize(10);
+    doc.text(`..................................................................................................................................................................................................................................................................`, 10, currentY);
+
+    currentY += 10;
+    payments.forEach((payment) => {
+        let money = payment.metodo_pago.toLowerCase() != "divisa" ? "Bs" : "USD";
+        doc.setFont("Poppins", "bold");
+        doc.setFontSize(15);
+        doc.text(`${payment.metodo_pago}`, 10, currentY);
+        doc.text(`..........................`, 50, currentY);
+        doc.text(`${payment.monto} ${money}`, 100, currentY);
+        currentY += 6
+    })
+    doc.setFont("Poppins", "normal");
+    doc.setFontSize(10);
+    currentY += 6;
+    doc.text(`${totalAmount.subtotal}`, 115, currentY);
+    currentY += 6;
+    doc.text(`${totalAmount.iva}`, 115, currentY);
+    currentY += 6;
+    doc.text(`TOTAL DE ORDEN ${totalAmount.total_dolares + " USD" + " (" + totalAmount.total_bs + " Bs)"}`, 115, currentY);
+    currentY += 6
+    if (abono != null) {
+        doc.text(`ABONO DE RESERVA ${(abono.montoDolar == 0 ? (abono.montoBs / dolar).toFixed(2) + " USD" : abono.montoDolar) + " (" + abono.montoBs + " Bs)"}`, 115, currentY);
+    }
+
     if (funtionality == "print") {
         window.open(doc.output('bloburl'), '_blank');
     } else {
