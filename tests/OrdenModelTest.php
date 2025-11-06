@@ -14,40 +14,40 @@ class OrdenModelTest extends TestCase
 
     public function testAgregarOrden()
     {
-    $c1 = new \Shtch\Burgerhouse\models\Cliente();
-    $id_cliente = $c1->search()[0]['id'];
+        $c1 = new \Shtch\Burgerhouse\models\Cliente();
+        $id_cliente = $c1->search()[0]['id'];
 
-    $c2 = new \Shtch\Burgerhouse\models\Mesa();
-    $id_mesa = $c2->search()[0]['id'];
+        $c2 = new \Shtch\Burgerhouse\models\Mesa();
+        $id_mesa = $c2->search()[0]['id'];
 
-    $orden = new \Shtch\Burgerhouse\models\Orden(null, $id_cliente, $id_mesa, '2025-10-06', 1);
-    $orden->conn->beginTransaction();
-    $id = $orden->agregar();
-    $orden->conn->rollBack();
-    $this->assertIsInt($id);
-    $this->assertGreaterThan(0, $id);
+        $orden = new \Shtch\Burgerhouse\models\Orden(null, "5867145", $id_cliente, '2025-10-06', "negocio");
+        $orden->conn->beginTransaction();
+        $id = $orden->agregar();
+        $orden->conn->rollBack();
+        $this->assertIsInt($id);
+        $this->assertGreaterThan(0, $id);
     }
 
     public function testActualizarOrden()
     {
-    $c4 = new \Shtch\Burgerhouse\models\Orden();
-    $id_ultima_orden = $c4->search(order_type: 'DESC')[0]['id'];
-    $orden = new \Shtch\Burgerhouse\models\Orden($id_ultima_orden, null, null, '2025-10-07', 2);
-    $orden->conn->beginTransaction();
-    $result = $orden->actualizar();
-    $orden->conn->rollBack();
-    $this->assertIsArray($result);
-    $this->assertTrue($result['success']);
+        $c4 = new \Shtch\Burgerhouse\models\Orden();
+        $id_ultima_orden = $c4->search(order_type: 'DESC')[0]['id'];
+        $orden = new \Shtch\Burgerhouse\models\Orden($id_ultima_orden, null, null, '2025-10-07');
+        $orden->conn->beginTransaction();
+        $result = $orden->actualizar();
+        $orden->conn->rollBack();
+        $this->assertIsArray($result);
+        $this->assertTrue($result['success']);
     }
 
     public function testBorrarOrden()
     {
-    $c4 = new \Shtch\Burgerhouse\models\Orden();
-    $id_ultima_orden = $c4->search(order_type: 'DESC')[0]['id'];
-    $orden = new \Shtch\Burgerhouse\models\Orden($id_ultima_orden);
-    $orden->conn->beginTransaction();
-    $result = $orden->borrar();
-    $orden->conn->rollBack();
-    $this->assertIsBool($result);
+        $c4 = new \Shtch\Burgerhouse\models\Orden();
+        $id_ultima_orden = $c4->search(order_type: 'DESC')[0]['id'];
+        $orden = new \Shtch\Burgerhouse\models\Orden($id_ultima_orden);
+        $orden->conn->beginTransaction();
+        $result = $orden->borrar();
+        $orden->conn->rollBack();
+        $this->assertIsBool($result);
     }
 }
