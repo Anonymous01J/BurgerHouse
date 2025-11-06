@@ -697,6 +697,7 @@ export default async function domicile_and_takeaway(functions, templates, report
                 })
                 let petOrder = await fetch("order/add", { method: "POST", body: order })
                 let resOrder = await petOrder.json()
+                console.log(resOrder);
                 if (resOrder.success == true) {
                     let id_orden = resOrder.last_id
                     window.id_orden_invoice = id_orden

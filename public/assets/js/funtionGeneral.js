@@ -1,8 +1,7 @@
 import functionGeneral from "./Functions.js";
 import Templates from "./templates.js";
-const { permission, searchParam, fecha, CheckCash, sessionInfo } = functionGeneral()
+const { CheckCash } = functionGeneral()
 const { notificationItem } = Templates()
-
 document.addEventListener('DOMContentLoaded', async () => {
     const savedTheme = localStorage.getItem('darkMode');
     const check = localStorage.getItem('check');
@@ -126,7 +125,7 @@ const notificationSetStatus = async () => {
     }
 
 }
-bell.addEventListener("click", ()=>{
+bell.addEventListener("click", () => {
     setTimeout(notificationSetStatus, 3000)
 })
 
