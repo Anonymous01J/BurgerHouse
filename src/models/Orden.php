@@ -15,7 +15,9 @@ class Orden extends Db_base
     private $tipo;
     private $status;
     private $nombre_like;
-    private $cedula_cliente;
+    private $apellido_like;
+    private $cedula_like;
+    private $nro_factura;
     private $between_fecha;
 
 
@@ -28,7 +30,9 @@ class Orden extends Db_base
         $status = null,
         $nombre_like = null,
         $between_fecha = null,
-        $cedula_cliente = null
+        $cedula_like = null,
+        $nro_factura = null,
+        $apellido_like = null
     ) {
         parent::__construct("orden");
         $this->id = $id;
@@ -38,7 +42,9 @@ class Orden extends Db_base
         $this->tipo = $tipo;
         $this->status = $status;
         $this->nombre_like = $nombre_like;
-        $this->cedula_cliente = $cedula_cliente;
+        $this->cedula_like = $cedula_like;
+        $this->nro_factura = $nro_factura;
+        $this->apellido_like = $apellido_like;
 
         $this->add_variables([
             "a.id" => $this->id,
@@ -51,7 +57,9 @@ class Orden extends Db_base
 
         $this->add_variables_like([
             "clientes.nombre" => $this->nombre_like,
-            "clientes.documento" => $this->cedula_cliente
+            "clientes.documento" => $this->cedula_like,
+            "ventas.id" => $this->nro_factura,
+            "clientes.apellido" => $this->apellido_like
         ]);
         $this->add_variables_interval([
             "a.fecha" => $between_fecha

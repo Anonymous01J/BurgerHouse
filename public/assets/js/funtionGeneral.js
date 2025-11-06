@@ -130,7 +130,9 @@ bell.addEventListener("click", ()=>{
     setTimeout(notificationSetStatus, 3000)
 })
 
-
+// const pet = await fetch("login/prueba")
+// const session = await pet.json()
+// console.log(session);
 
 // let data = new FormData();
 // data.append("id_cliente", 1);

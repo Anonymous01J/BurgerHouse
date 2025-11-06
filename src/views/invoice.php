@@ -35,35 +35,39 @@
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0">
                     <div class="row gap-2 align-items-center mb-5 mt-4">
                         <div class="col-auto">
-                            <input type="search" id="searchInvoice" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                            <input type="search" id="searchInvoice" placeholder="Buscar..." class="form-control" aria-describedby="passwordHelpInline">
                         </div>
                         <button type="button" class="btn bh_1 btn-circle text-white" data-bs-toggle="dropdown" aria-expanded="false">
                             <i data-feather="filter" class="svg-icon"></i>
                         </button>
 
-                        <div class="dropdown">
+                        <div class="dropdown" data-bs-auto-close="outside">
                             <ul class="dropdown-menu p-4">
-                                <div class="row g-3 align-items-center mb-3">
-                                    <div class="col-auto">
-                                        <label for="inputPassword6" class="col-form-label">Desde</label>
+                                <form id="filterInvoiceBetween">
+                                    <div class="row g-3 align-items-center mb-3">
+                                        <div class="col-auto">
+                                            <label for="inputPassword6" class="col-form-label">Desde</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <input type="date" id="initDate-invoice" class="form-control" aria-describedby="passwordHelpInline">
+                                            <div class="text-danger mt-1 fs-6" id="error-initDate-invoice"></div>
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                                    <div class="row g-3 align-items-center">
+                                        <div class="col-auto">
+                                            <label for="inputPassword6" class="col-form-label">Hasta</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <input type="date" id="endDate-invoice" class="form-control" aria-describedby="passwordHelpInline">
+                                            <div class="text-danger mt-1 fs-6" id="error-endDate-invoice"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row g-3 align-items-center">
-                                    <div class="col-auto">
-                                        <label for="inputPassword6" class="col-form-label">Hasta</label>
+                                    <div class="row g-3 align-items-center justify-content-center mt-3">
+                                        <div class="col-auto">
+                                            <button class="btn bh_5 text-white">Aplicar</button>
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                                    </div>
-                                </div>
-                                <div class="row g-3 align-items-center justify-content-center mt-3">
-                                    <div class="col-auto">
-                                        <button class="btn bh_5 text-white">Aplicar</button>
-                                    </div>
-                                </div>
+                                </form>
                             </ul>
                         </div>
                     </div>
@@ -93,7 +97,7 @@
                 <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
                     <div class="row gap-2 align-items-center mb-5 mt-4">
                         <div class="col-auto">
-                            <input type="search" id="searchInvoiceRes" placeholder="Buscar" class="form-control" aria-describedby="passwordHelpInline">
+                            <input type="search" id="searchInvoiceRes" placeholder="Cliente..." class="form-control" aria-describedby="passwordHelpInline">
                         </div>
                         <button type="button" class="btn bh_1 btn-circle text-white" data-bs-toggle="dropdown" aria-expanded="false">
                             <i data-feather="filter" class="svg-icon"></i>
@@ -101,27 +105,31 @@
 
                         <div class="dropdown">
                             <ul class="dropdown-menu p-4">
-                                <div class="row g-3 align-items-center mb-3">
-                                    <div class="col-auto">
-                                        <label for="inputPassword6" class="col-form-label">Desde</label>
+                                <form id="filterResBetween">
+                                    <div class="row g-3 align-items-center mb-3">
+                                        <div class="col-auto">
+                                            <label for="inputPassword6" class="col-form-label">Desde</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <input type="date" id="initDate-res" class="form-control" aria-describedby="passwordHelpInline">
+                                            <div class="text-danger mt-1 fs-6" id="error-initDate-res"></div>
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
+                                    <div class="row g-3 align-items-center">
+                                        <div class="col-auto">
+                                            <label for="inputPassword6" class="col-form-label">Hasta</label>
+                                        </div>
+                                        <div class="col-auto">
+                                            <input type="date" id="endDate-res" class="form-control" aria-describedby="passwordHelpInline">
+                                            <div class="text-danger mt-1 fs-6" id="error-endDate-res"></div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row g-3 align-items-center">
-                                    <div class="col-auto">
-                                        <label for="inputPassword6" class="col-form-label">Hasta</label>
+                                    <div class="row g-3 align-items-center justify-content-center mt-3">
+                                        <div class="col-auto">
+                                            <button class="btn bh_5 text-white">Aplicar</button>
+                                        </div>
                                     </div>
-                                    <div class="col-auto">
-                                        <input type="date" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline">
-                                    </div>
-                                </div>
-                                <div class="row g-3 align-items-center justify-content-center mt-3">
-                                    <div class="col-auto">
-                                        <button class="btn bh_5 text-white">Aplicar</button>
-                                    </div>
-                                </div>
+                                </form>
                             </ul>
                         </div>
                     </div>

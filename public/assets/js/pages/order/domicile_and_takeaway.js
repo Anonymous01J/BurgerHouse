@@ -182,6 +182,8 @@ export default async function domicile_and_takeaway(functions, templates, report
         }
         let productProcess = await searchParam({ active: 1 }, "productProcess", 100)
         productProcess.forEach((product) => { templateProcess += selectProduct(product, "productProcess") })
+
+        document.querySelector(".cont-select-product-order").innerHTML = "";
         document.querySelector(".cont-select-product-order").insertAdjacentHTML("beforeend", templatePrepared)
         document.querySelector(".cont-select-product-order").insertAdjacentHTML("beforeend", templateProcess)
         categoryFilter()
@@ -189,6 +191,16 @@ export default async function domicile_and_takeaway(functions, templates, report
         productForDetails()
         feather.replace()
     }
+    const loader = () => {
+        document.querySelector(".cont-select-product-order").innerHTML = `
+        <div class="col-12 d-flex justify-content-center align-items-center fs-1" style="height: 50vh;">
+            <div class="spinner-border" role="status" style="width: 150px; height: 150px; color: #c1c1c1;">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        `
+    }
+    loader()
     products()
     //valida q si no hay productos, no puede pasar al step 2
     const productForDetails = () => {
@@ -405,7 +417,7 @@ export default async function domicile_and_takeaway(functions, templates, report
         }
     }
     let btn_next_payment = document.querySelector(".btn_next_payment");
-    btn_next_payment.addEventListener("click", () => {
+    btn_next_payment.addEventListener("click", async () => {
         let hasError = false;
         let hasErrorTel = false;
         const payment = document.querySelectorAll(".payments");
@@ -436,8 +448,68 @@ export default async function domicile_and_takeaway(functions, templates, report
         } else if (hasError) {
             toas("error", "Complete todos los campos");
         } else {
-            stepper.next()
-            finalData(printConfirmDetailsOrder);
+            const { amountTotal } = finalData();
+            let dataPayment = [];
+            const payment = document.querySelectorAll(".payments");
+            payment.forEach((payment) => {
+                const data = {
+                    id_metodo_pago: payment.querySelector(`input[name="id_metodo_pago"]`).getAttribute("data-id"),
+                    metodo: payment.querySelector(`input[name="id_metodo_pago"]`).value,
+                    cantidad: payment.querySelector(`input[name="cantidad"]`).value.replace(/\./g, '').replace(',', '.'),
+                    referencia: payment.querySelector(`input[name="referencia"]`).value,
+                    imagen: payment.querySelector(`input[name="imagen"]`) ? payment.querySelector(`input[name="imagen"]`).files[0] : ""
+                };
+                dataPayment.push(data)
+            });
+            let group = {};
+            dataPayment.forEach((payment) => {
+                const metodo = payment.metodo;
+                const cantidad = parseFloat(payment.cantidad);
+                if (!group[metodo]) group[metodo] = { metodo: metodo, cantidad: cantidad };
+                else group[metodo].cantidad += cantidad;
+            });
+            group = Object.values(group);
+            let amountVerify = []
+            group.forEach(async (payment) => {
+                if ((payment.metodo).toLowerCase() != "divisa") {
+                    amountVerify.push({
+                        total_bs: payment.cantidad,
+                    })
+                } else amountVerify.push({ total_usd: payment.cantidad })
+            });
+            amountVerify = amountVerify.reduce((a, b) => {
+                return {
+                    total_bs: parseFloat(((a.total_bs || 0) + (b.total_bs || 0)).toFixed(2)),
+                    total_usd: (a.total_usd || 0) + (b.total_usd || 0)
+                };
+            });
+            console.log(amountVerify);
+            let dolar = parseFloat(await amountDolar())
+            let propina
+            let total_amount_verify_bs = parseFloat((parseFloat(amountTotal.total_bs) - amountVerify.total_bs).toFixed(2));
+            let total_amount_verify_usd = parseFloat((amountTotal.total_dolares).replace("TOTAL: ", "")) - amountVerify.total_usd
+            let verifyDivisa = dataPayment.find((payment) => (payment.metodo).toLowerCase() == "divisa");
+            let verifyBs = dataPayment.find((payment) => (payment.metodo).toLowerCase() != "divisa");
+            if (verifyBs != undefined) propina = (total_amount_verify_bs * -1) + " Bs"
+            else if (verifyDivisa != undefined) propina = (total_amount_verify_usd * -1) + " USD"
+
+
+            if (verifyDivisa != undefined && verifyBs != undefined) {
+                let total_verify = (total_amount_verify_usd * dolar) + total_amount_verify_bs;
+                let total__order = parseFloat(amountTotal.total_bs)
+                if (total_verify < total__order) toas("error", "El total de la orden no puede ser menor al total de la orden");
+                else {
+                    stepper.next()
+                    finalData(printConfirmDetailsOrder);
+                    propina = total__order - total_verify + " Bs";
+                }
+            } else {
+                if (amountVerify.total_bs >= parseFloat(amountTotal.total_bs) || amountVerify.total_usd >= parseFloat(amountTotal.total_dolares)) {
+                    stepper.next()
+                    finalData(printConfirmDetailsOrder);
+                } else toas("error", "La cantidad de pago no puede ser menor al total de la orden");
+            }
+
         }
     })
     const finalData = (funtion = null) => {

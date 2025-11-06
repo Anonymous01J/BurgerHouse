@@ -179,14 +179,15 @@ const targetItem = async () => {
     data.append("mes", new Date().getMonth() + 1);
     let numeroClientes = await searchParam({ active: 1 }, "clients", 1000000000);
     let tablesAvaliable = await searchParam({ active: 1, estado: "LIBRE" }, "table", 1000000000);
-    let orders = await searchParam({ status: 4 }, "order", 1000000000);
+    let orders = await searchParam({ status: "entregada" }, "order", 1000000000);
+    let orders2 = await searchParam({ status: "pagado" }, "order", 1000000000);
     let ganancias = await fetch("statistics/UtilidadNetaMes", { method: "POST", body: data });
     let res = await ganancias.json();
     let gananciasMes = res.reduce((acc, item) => acc + (item.ingresos || 0), 0);
 
     document.querySelector(".nro_clientes").textContent = numeroClientes.length;
     document.querySelector(".ganancias").innerHTML = `<sup class="set-doller">$</sup>${gananciasMes.toFixed(2)}`;
-    document.querySelector(".order_completed").textContent = orders.length;
+    document.querySelector(".order_completed").textContent = Number(orders.length) + Number(orders2.length);
     document.querySelector(".table_available").textContent = tablesAvaliable.length;
 }
 let clients = $(".table_clients").DataTable({

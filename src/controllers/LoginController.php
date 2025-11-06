@@ -33,6 +33,9 @@ class LoginController extends Controller_base
             if (!$resultado['success']) {
                 echo json_encode(['success' => false, 'message' => 'Error de verificación de captcha']);
             } else {
+                $session_id = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'), 0, 10);
+                $us = new Usuario(id: $result[0]['id'], session_id: $session_id);
+                $us->actualizar();
                 echo json_encode(['success' => true, 'message' => 'Usuario encontrado']);
                 $permission = new Permiso(id_rol: $result[0]['rol_id']);
                 $permisos = $permission->search(n:0, limite:2000);
@@ -43,7 +46,7 @@ class LoginController extends Controller_base
                 $_SESSION['nombre'] = $result[0]['nombre'];
                 $_SESSION['apellido'] = $result[0]['apellido'];
                 $_SESSION['correo'] = $result[0]['email'];
-                $_SESSION['session_id'] = $result[0]['session_id'];
+                $_SESSION['session_id'] = $session_id;
                 $_SESSION['imagen'] = $result[0]['imagen'];
             }
         }

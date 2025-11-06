@@ -201,7 +201,6 @@ export default function Templates() {
         `
     }
     async function targetInvoice(objet) {
-        let dolar = parseFloat(await amountDolar())
         return `
         <div class="col-md-4 col-lg-3 ">
             <div class="position-relative">
@@ -211,7 +210,7 @@ export default function Templates() {
                             <div class="d-flex justify-content-between ">
                                 <h5 class="card-title">Nro Factura</h5>
                                 <div>
-                                    <p class="fs-6">${objet.id.toString().padStart(6, "0")}</p>
+                                    <p class="fs-6">${objet.id_venta.toString().padStart(6, "0")}</p>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">
@@ -229,7 +228,7 @@ export default function Templates() {
                                 </div>
                                 <div class="d-flex justify-content-between">
                                     <div class="text-start">Total</div>
-                                    <div class=" text-end fs-6 w-50 ">${objet.monto_final}$ - ${(objet.monto_final * dolar).toFixed(2)}Bs</div>
+                                    <div class=" text-end fs-6 w-50 ">${objet.monto_final}$</div>
                                 </div>
                                 <div class="d-flex justify-content-center pt-3 border-top">
                                     <button class="btn btn-sm bh_5 text-white btn-details-invoice" type="order" data-id="${objet.id}" data-id-sale="${objet.id_venta}">Detalles</button>
@@ -253,7 +252,7 @@ export default function Templates() {
                             <div class="d-flex justify-content-between ">
                                 <h5 class="card-title">Nro Factura</h5>
                                 <div>
-                                    <p class="fs-6">${objet.id_orden.toString().padStart(6, "0")}</p>
+                                    <p class="fs-6">${objet.id.toString().padStart(6, "0")}</p>
                                 </div>
                             </div>
                             <div class="d-flex justify-content-between">

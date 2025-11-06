@@ -1,11 +1,10 @@
 <?php
 
 namespace Shtch\Burgerhouse\controllers;
-
 use Shtch\Burgerhouse\models\Db_base;
-use Shtch\Burgerhouse\models\Bitacora;
 use Shtch\Burgerhouse\models\Permiso;
 use Shtch\Burgerhouse\function\Auth;
+use Shtch\Burgerhouse\models\Usuario;
 use Exception;
 
 class Controller_base
@@ -17,6 +16,23 @@ class Controller_base
     public function __construct(string $module_name)
     {
         $this->module_name = $module_name;
+        $publicModules = ["login", "recover_password", "index"];
+
+        if (!in_array($module_name, $publicModules)) {
+            if (empty($_SESSION['id']) || empty($_SESSION['session_id'])) {
+                header("Location: login");
+                exit;
+            }
+
+            $usuario = new Usuario(id: $_SESSION['id']);
+            $result = $usuario->search();
+
+            if (empty($result) || $result[0]['session_id'] !== $_SESSION['session_id']) {
+                session_destroy();
+                header("Location: login");
+                exit;
+            }
+        }
     }
 
     public function view()
@@ -28,13 +44,11 @@ class Controller_base
         if (in_array($this->module_name, ["login", "recover_password", "index", "profile", "notifications"])) {
             include_once __DIR__ . '/../views/' . $this->module_name . '.php';
         } else {
-            if ($_SESSION['id_rol']==1 || Auth::AuthController($this->module_name)) {
+            if ($_SESSION['id_rol'] == 1 || Auth::AuthController($this->module_name)) {
                 header("HTTP/1.1 200 OK");
                 try {
                     include_once __DIR__ . '/../views/' . $this->module_name . '.php';
-
-                }
-                catch (Exception $e) {
+                } catch (Exception $e) {
                     header("HTTP/1.0 500 Internal Server Error");
                     echo "Error 500: Error al cargar la vista " . $this->module_name;
                     // include_once __DIR__ . '/../views/error-500.php';

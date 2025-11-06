@@ -18,8 +18,7 @@ class Caja extends Db_base
     private $fecha_cierre;
     private $estado;
     private $total_ventas;
-    private $fecha_inicio;
-    private $fecha_final;
+    private $between_fecha;
 
 
     public function __construct(
@@ -33,8 +32,7 @@ class Caja extends Db_base
         $fecha_cierre = null,
         $estado = null,
         $total_ventas = null,
-        $fecha_inicio = null,
-        $fecha_final = null
+        $between_fecha = null,
 
     ) {
         parent::__construct("caja");
@@ -49,8 +47,7 @@ class Caja extends Db_base
         $this->fecha_cierre = $fecha_cierre;
         $this->estado = $estado;
         $this->total_ventas = $total_ventas;
-        $this->fecha_inicio = $fecha_inicio;
-        $this->fecha_final = $fecha_final;
+        $this->between_fecha = $between_fecha;
 
 
         $this->add_variables([
@@ -78,12 +75,7 @@ class Caja extends Db_base
             a.estado,
             a.total_ventas
         ";
-        $this->add_variables_interval([
-            "a.fecha_apertura" => [
-                "inicio" => $this->fecha_inicio,
-                "fin" => $this->fecha_final
-            ],
-        ]);
+        
     }
     public function cajaDetails(int $id)
     {

@@ -17,7 +17,10 @@ class Reservacion extends Db_base
     private $metodo_pedido;
     private $status;
     private $nombre_like;
-
+    private $apellido_like;
+    private $cedula_like;
+    private $nro_factura;
+    private $between_fecha;
     public function __construct(
         $id = null,
         $id_paquete = null,
@@ -29,7 +32,11 @@ class Reservacion extends Db_base
         $fecha_bloqueo = null,
         $metodo_pedido = null,
         $status = null,
-        $nombre_like = null
+        $nombre_like = null,
+        $between_fecha = null,
+        $cedula_like = null,
+        $nro_factura = null,
+        $apellido_like = null
     ) {
         parent::__construct("reservaciones");
 
@@ -44,6 +51,9 @@ class Reservacion extends Db_base
         $this->metodo_pedido = $metodo_pedido;
         $this->status = $status;
         $this->nombre_like = $nombre_like;
+        $this->cedula_like = $cedula_like;
+        $this->nro_factura = $nro_factura;
+        $this->apellido_like = $apellido_like;
 
 
         $this->add_variables([
@@ -60,9 +70,15 @@ class Reservacion extends Db_base
         ]);
 
         $this->add_variables_like([
-            "c.nombre" => $this->nombre_like
+            "c.nombre" => $this->nombre_like,
+            "c.documento" => $this->cedula_like,
+            "a.id" => $this->nro_factura,
+            "c.apellido" => $this->apellido_like
         ]);
 
+        $this->add_variables_interval([
+            "a.fecha_inicio" => $between_fecha
+        ]);
 
         $this->select_query = "
         a.id,

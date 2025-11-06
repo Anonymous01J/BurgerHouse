@@ -1,9 +1,9 @@
 import functionGeneral from "../../Functions.js";
-const { fecha, hora, amountDolar } = functionGeneral()
+const { fecha, amountDolar } = functionGeneral()
 import { Poppins_normal } from "../../../libs/libs/jspdf/poppins.js"
 import { poppins_bold } from "../../../libs/libs/jspdf/poppins_bold.js"
 
-export async function invoice(productPrepared, productProcess, clientData, id_order, direccion, totalAmount, info, paymentData) {
+export async function invoice(productPrepared, productProcess, clientData, id_order, direccion, totalAmount, info, paymentData, id_venta) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     doc.addFileToVFS("Poppins-Regular.ttf", Poppins_normal);
@@ -18,7 +18,7 @@ export async function invoice(productPrepared, productProcess, clientData, id_or
     });
     doc.setFontSize(18);
     doc.setFont("Poppins", "bold");
-    doc.text(`NRO DE FACTURA: ${id_order.toString().padStart(5, '0')}`, 10, 85);
+    doc.text(`NRO DE FACTURA: ${id_venta.toString().padStart(5, '0')}`, 10, 85);
     doc.setTextColor(41, 40, 37)
     doc.setFont("Poppins", "normal");
     doc.setFontSize(10);
@@ -27,14 +27,10 @@ export async function invoice(productPrepared, productProcess, clientData, id_or
     doc.setTextColor(41, 40, 37)
     doc.text(`..................................................................................................................................................................................................................................................................`, 10, 90);
     doc.text(`CLIENTE: ${clientData.nameClient.toUpperCase() ?? "POR ASIGNAR"}`, 10, 100);
-    doc.text(`DIRECCION: ${direccion}`, 10, 108);
+    doc.text(`DIRECCION: ${direccion || 'BURGER HOUSE'}`, 10, 108);
     doc.text(`TELEFONO: ${clientData.telefonoClient}`, 10, 115);
-
     doc.setFontSize(11);
-    doc.setFont("Poppins", "bold");
-    doc.text(`${totalAmount.subtotal} USD`, 100, 100);
-    doc.text(`${totalAmount.iva} USD`, 100, 108);
-    doc.text(`TOTAL DE ORDEN ${totalAmount.total_dolares + " USD" + " (" + totalAmount.total_bs + " Bs)"}`, 100, 115);
+    doc.text(`NRO DE ORDEN: ${id_order.toString().padStart(5, '0')}`, 75, 100);
 
     doc.setFont("Poppins", "normal");
     doc.text(`..................................................................................................................................................................................................................................................................`, 10, 122);
@@ -107,7 +103,13 @@ export async function invoice(productPrepared, productProcess, clientData, id_or
     currentY += 8
     doc.text(`..................................................................................................................................................................................................................................................................`, 10, currentY);
     currentY += 10;
+    let groupPayment = {}
     paymentData.payments.forEach((item) => {
+        if (!groupPayment[item.metodo_pago]) groupPayment[item.metodo_pago] = item;
+        else groupPayment[item.metodo_pago] = { ...item, monto: parseFloat(groupPayment[item.metodo_pago].monto) + parseFloat(item.monto) };
+    })
+    groupPayment = Object.entries(groupPayment).map(([key, value]) => ({ metodo_pago: key, ...value }));
+    groupPayment.forEach((item) => {
         let signo = item.metodo_pago.toLowerCase() == "efectivo" || item.metodo_pago.toLowerCase() == "transferencia" || item.metodo_pago.toLowerCase() == "pago movil" ? "Bs" : "$";
         if (currentY + lineHeight > pageHeight - 20) {
             doc.addPage();
@@ -121,20 +123,42 @@ export async function invoice(productPrepared, productProcess, clientData, id_or
         doc.text(`${item.monto} ${signo}`, 70, currentY);
         currentY += 8
     })
+    let groupPaymentReservation = {}
     paymentData.reservation.forEach((item) => {
-        let signo = item.metodo_pago.toLowerCase() == "efectivo" || item.metodo_pago.toLowerCase() == "transferencia" || item.metodo_pago.toLowerCase() == "pago movil" ? "Bs" : "$";
+        if (!groupPaymentReservation[item.metodo_pago]) groupPaymentReservation[item.metodo_pago] = item;
+        else groupPaymentReservation[item.metodo_pago] = { ...item, monto: parseFloat(groupPaymentReservation[item.metodo_pago].monto) + parseFloat(item.monto) };
+    })
+    groupPaymentReservation = Object.entries(groupPaymentReservation).map(([key, value]) => ({ metodo_pago: key, ...value }));
+    groupPaymentReservation.forEach((item) => {
+        let signo = item.metodo_pago.toLowerCase() != "divisa" ? "Bs" : "$";
         if (currentY + lineHeight > pageHeight - 20) {
             doc.addPage();
             currentY = 85;
         }
-        doc.setFontSize(18);
+        doc.setFontSize(14);
         doc.setFont("Poppins", "bold");
         doc.text(`${item.metodo_pago}`, 10, currentY);
         doc.setFont("Poppins", "normal");
-        doc.setFontSize(13);
+        doc.setFontSize(12);
         doc.text(`${item.monto} ${signo}`, 70, currentY);
         currentY += 8
     })
+    console.log(groupPaymentReservation);
+    doc.setFont("Poppins", "normal");
+    doc.setFontSize(10);
+    currentY += 6;
+    doc.text(`${totalAmount.subtotal}`, 115, currentY);
+    currentY += 6;
+    doc.text(`${totalAmount.iva}`, 115, currentY);
+    currentY += 6;
+    doc.text(`TOTAL DE ORDEN ${totalAmount.total_dolares + " USD" + " (" + totalAmount.total_bs + " Bs)"}`, 115, currentY);
+    currentY += 6;
+    let aboveBs = groupPaymentReservation.reduce((total, item) => item.metodo_pago.toLowerCase() != "divisa" ? total + parseFloat(item.monto) : total, 0);
+    let aboveUsd = groupPaymentReservation.reduce((total, item) => item.metodo_pago.toLowerCase() == "divisa" ? total + parseFloat(item.monto) : total, 0);
+
+    doc.text(`ABONO DE RESERVA Bs ${aboveBs}`, 115, currentY);
+    currentY += 6;
+    doc.text(`ABONO DE RESERVA Usd ${aboveUsd}`, 115, currentY);
 
 
     window.open(doc.output('bloburl'), '_blank');

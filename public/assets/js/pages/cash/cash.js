@@ -39,7 +39,7 @@ searchFilter('#searchCashOpen', async (e) => {
     }
 })
 const config = {
-    search: () => searchParam({ estado: 1 }, "cash"),
+    search: () => searchParam({ estado: "1" }, "cash",12),
     template: targetCash,
     container: ".cont-cash_open",
     funtions: () => {

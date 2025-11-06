@@ -13,7 +13,8 @@
             <a class="topbartoggler d-block d-lg-none waves-effect waves-light" href="javascript:void(0)"
                 data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i
-                    class="ti-more"></i></a>
+                    class="ti-more"></i>
+            </a>
         </div>
 
         <div class="navbar-collapse collapse position-relative" style="z-index: 500;" id="navbarSupportedContent">
@@ -49,7 +50,7 @@
                         <i data-feather="info" class="svg-icon"></i>
                     </a>
                 </li>
-                <li class="nav-item d-none d-md-block">
+                <!-- <li class="nav-item d-none d-md-block">
                     <a class="nav-link" href="javascript:void(0)">
                         <div class="customize-input">
                             <select
@@ -59,7 +60,7 @@
                             </select>
                         </div>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-item" style="display: flex; align-items: center">
                     <label for="themeToggle" class="themeToggle st-sunMoonThemeToggleBtn" type="checkbox">
                         <input type="checkbox" checked id="themeToggle" class="themeToggleInput" />

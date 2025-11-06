@@ -509,6 +509,7 @@ export default function functionGeneral() {
     });
     let action = await fetch(`${module}/add_many`, { method: "POST", body: data, });
     let response = await action.json()
+    console.log(response);
     if (response.success == true) {
       Swal.close();
       Swal.fire({
@@ -522,18 +523,23 @@ export default function functionGeneral() {
       Swal.close();
       Swal.fire({
         title: `Error!`,
-        text: "El elemento no fue agregado",
+        text: `${response.message}`,
         icon: "error",
       });
     }
   };
   const searchParam = async (param, module, pagination = null, nro_page = null) => {
-    let data = new FormData()
-    if (Object.keys(param).length != 0) {
-      Object.keys(param).forEach((key) => {
-        data.append(`${key}`, `${param[key]}`)
-      })
-    }
+    let data = new FormData();
+    Object.entries(param).forEach(([key, value]) => {
+      if (value && typeof value === "object" && !Array.isArray(value)) {
+        Object.entries(value).forEach(([subKey, subValue]) => {
+          data.append(`${key}[${subKey}]`, subValue);
+        });
+      } else {
+        data.append(key, value);
+      }
+    });
+
     let pet = await fetch(`${module}/get_all/${nro_page == null ? 0 : nro_page}/${pagination == null ? 6 : pagination}/id/desc`, {
       method: "POST",
       body: data
@@ -541,6 +547,7 @@ export default function functionGeneral() {
     let response = await pet.json()
     return response
   };
+
   const update = async (config, module, data, binnacleAdd) => {
     Swal.fire({
       title: 'Procesando...',
@@ -592,6 +599,14 @@ export default function functionGeneral() {
   const searchFilter = (searchInput, searchLike) => {
     let search = document.querySelector(searchInput);
     search.addEventListener("keyup", async (e) => {
+      searchLike(e)
+    });
+  }
+  const searchBetween = (searchInput, searchLike) => {
+    let search = document.querySelector(searchInput);
+    search.addEventListener("submit", async (e) => {
+      e.preventDefault()
+      e.stopPropagation()
       searchLike(e)
     });
   }
@@ -815,6 +830,7 @@ export default function functionGeneral() {
     searchAll,
     searchParam,
     searchFilter,
+    searchBetween,
     pagination,
     print,
     add,

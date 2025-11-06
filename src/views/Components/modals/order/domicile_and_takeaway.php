@@ -42,7 +42,7 @@
 					<div class="bs-stepper-content">
 						<div id="step-1" class="content" role="tabpanel" aria-labelledby="steppertrigger1">
 							<h5 class="text-center fs-3 mt-2 mb-4">SELECCIONAR PRODUCTOS</h5>
-							<div class="row">
+							<div class="row cont_order_detail_product_category">
 								<div class="row mb-5">
 									<div class="d-flex gap-2 justify-content-start flex-wrap ps-0 cont_category_product_orders">
 										<div>

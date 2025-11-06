@@ -171,6 +171,7 @@ export async function local(functions, templates, reload) {
         }
         let productProcess = await searchParam({ active: 1 }, "productProcess", 100)
         productProcess.forEach((product) => { templateProcess += selectProduct(product, "productProcess"); })
+        document.querySelector(".cont-select-product-order_local").innerHTML = "";
         document.querySelector(".cont-select-product-order_local").insertAdjacentHTML("beforeend", templatePrepared)
         document.querySelector(".cont-select-product-order_local").insertAdjacentHTML("beforeend", templateProcess)
         categoryFilter()
@@ -178,6 +179,18 @@ export async function local(functions, templates, reload) {
         productForDetails()
         feather.replace()
     }
+    const loader = () => {
+        document.querySelector(".cont-select-product-order_local").innerHTML = `
+        <div class="col-12 d-flex justify-content-center align-items-center fs-1" style="height: 50vh;">
+            <div class="spinner-border" role="status" style="width: 150px; height: 150px; color: #c1c1c1;">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        `
+    }
+    loader()
+    await products()
+
     //valida q si no hay productos, no puede pasar al step 2
     const productForDetails = () => {
         let btn = document.querySelector(".select_product_btn_next_local")
@@ -409,7 +422,6 @@ export async function local(functions, templates, reload) {
     sendOrder()
     verifyTables()
     tablesOrder()
-    products()
 }
 
 export async function more_product_local_order(functions, templates, reload) {
@@ -585,6 +597,7 @@ export async function more_product_local_order(functions, templates, reload) {
         }
         let productProcess = await searchParam({ active: 1 }, "productProcess", 100)
         productProcess.forEach((product) => { templateProcess += selectProduct(product, "productProcess") })
+        document.querySelector(".cont-select-product-order_local_more").innerHTML = "";
         document.querySelector(".cont-select-product-order_local_more").insertAdjacentHTML("beforeend", templatePrepared)
         document.querySelector(".cont-select-product-order_local_more").insertAdjacentHTML("beforeend", templateProcess)
         categoryFilter()
@@ -592,6 +605,17 @@ export async function more_product_local_order(functions, templates, reload) {
         productForDetails()
         feather.replace()
     }
+    const loader = () => {
+        document.querySelector(".cont-select-product-order_local_more").innerHTML = `
+        <div class="col-12 d-flex justify-content-center align-items-center fs-1" style="height: 50vh;">
+            <div class="spinner-border" role="status" style="width: 150px; height: 150px; color: #c1c1c1;">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+        `
+    }
+    loader()
+    await products()
     //valida q si no hay productos, no puede pasar al step 2
     const productForDetails = () => {
         let btn = document.querySelector(".select_product_btn_next_local_more")
@@ -837,7 +861,7 @@ export async function more_product_local_order(functions, templates, reload) {
         }
     }
     sendOrder()
-    products()
+    
 }
 
 export async function payOrder(functions, templates, invoice, reload) {

@@ -870,6 +870,7 @@ if (!form.dataset.listenerAttached) {
             let send = async () => {
                 let pet = await fetch(`Entrada_materia_prima/add_many`, { method: "POST", body: data, })
                 let response = await pet.json()
+                console.log(response);
                 if (response.success == true) {
                     Swal.close()
                     Swal.fire({

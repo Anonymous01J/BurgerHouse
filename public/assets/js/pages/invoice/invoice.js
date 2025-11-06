@@ -1,12 +1,30 @@
 import functionGeneral from "../../Functions.js";
 import Templates from "../../templates.js";
 import { invoice } from "./report.js"
-
-const { print, searchParam, searchFilter, amountDolar } = functionGeneral()
+const { print, searchParam, searchFilter, searchBetween, amountDolar, setValidationStyles } = functionGeneral()
 const { targetInvoice, targetInvoiceReservation } = Templates()
 const dolar = parseFloat(await amountDolar())
+let typeFilter = "delivery"
+let filterClient = ""
+let filterClientRes = ""
+let data_between = ""
+let data_betweenRes = ""
+const rules_between = {
+    initDate: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        }
+    },
+    endDate: {
+        presence: {
+            allowEmpty: false,
+            message: "^es requerido"
+        }
+    }
+}
 const config = {
-    search: () => searchParam({ status: 'entregada', tipo: 'delivery' }, "order", 12),
+    search: () => searchParam({ status: typeFilter == "local" ? "pagado" : "entregada", tipo: typeFilter }, "order", 12),
     template: targetInvoice,
     container: ".cont_invoice",
     funtions: () => {
@@ -25,25 +43,222 @@ print(config)
 print(configRes)
 
 searchFilter("#searchInvoice", (e) => {
-    if (e.target.value == "") print(config)
-    else print({ ...config, search: () => searchParam({ nombre_like: e.target.value }, "order", 12) })
+    filterClient = e.target.value
+    if (filterClient == "") print(config)
+    else {
+        if (data_between != "") {
+            print({
+                ...config, search: () => searchParam({
+                    nombre_like: filterClient,
+                    cedula_like: filterClient,
+                    nro_factura: filterClient,
+                    apellido_like: filterClient,
+                    between_fecha: data_between,
+                    status: typeFilter == "local" ? "pagado" : "entregada",
+                    tipo: typeFilter
+                }, "order", 12)
+            })
+        } else {
+            print({
+                ...config, search: () => searchParam({
+                    nombre_like: filterClient,
+                    cedula_like: filterClient,
+                    nro_factura: filterClient,
+                    apellido_like: filterClient,
+                    status: typeFilter == "local" ? "pagado" : "entregada",
+                    tipo: typeFilter
+                }, "order", 12)
+            })
+        }
+    }
+})
+searchBetween("#filterInvoiceBetween", (e) => {
+    const form = e.target
+    const initDate = form.querySelector("#initDate-invoice").value
+    const endDate = form.querySelector("#endDate-invoice").value
+
+    const error = validate({ initDate, endDate }, rules_between)
+    setValidationStyles("initDate-invoice", error?.initDate ? error.initDate[0] : null)
+    setValidationStyles("endDate-invoice", error?.endDate ? error.endDate[0] : null)
+
+    if (!error) {
+        data_between = { inicio: initDate, fin: endDate }
+        print({
+            ...config, search: () => searchParam({
+                between_fecha: data_between,
+                nombre_like: filterClient,
+                cedula_like: filterClient,
+                nro_factura: filterClient,
+                apellido_like: filterClient,
+                status: typeFilter == "local" ? "pagado" : "entregada",
+                tipo: typeFilter
+            }, "order", 12)
+        })
+    }
 })
 searchFilter("#searchInvoiceRes", (e) => {
-    if (e.target.value == "") print(configRes)
-    else print({
-        ...config,
-        search: () => searchParam({ nombre_like: e.target.value }, "calendar", 12),
-        container: ".cont_invoice_reservation",
-        template: targetInvoiceReservation
-    })
+    filterClientRes = e.target.value
+
+    if (filterClientRes == "") {
+        if (data_betweenRes != "") {
+            print({
+                ...configRes,
+                search: () => searchParam({
+                    nombre_like: filterClientRes,
+                    cedula_like: filterClientRes,
+                    apellido_like: filterClientRes,
+                    nro_factura: filterClientRes,
+                    between_fecha: data_betweenRes,
+                    status: 'finalizada'
+                }, "calendar", 12),
+            })
+        } else {
+            print({
+                ...configRes,
+                search: () => searchParam({
+                    nombre_like: filterClientRes,
+                    cedula_like: filterClientRes,
+                    apellido_like: filterClientRes,
+                    nro_factura: filterClientRes,
+                    status: 'finalizada'
+                }, "calendar", 12),
+            })
+        }
+    }
+    else {
+        if (data_betweenRes != "") {
+            print({
+                ...configRes,
+                search: () => searchParam({
+                    nombre_like: filterClientRes,
+                    cedula_like: filterClientRes,
+                    apellido_like: filterClientRes,
+                    nro_factura: filterClientRes,
+                    between_fecha: data_betweenRes,
+                    status: 'finalizada'
+                }, "calendar", 12),
+            })
+        } else {
+            print({
+                ...configRes,
+                search: () => searchParam({
+                    nombre_like: filterClientRes,
+                    cedula_like: filterClientRes,
+                    apellido_like: filterClientRes,
+                    nro_factura: filterClientRes,
+                    status: 'finalizada'
+                }, "calendar", 12),
+            })
+        }
+    }
+})
+searchBetween("#filterResBetween", (e) => {
+    const form = e.target
+    const initDate = form.querySelector("#initDate-res").value
+    const endDate = form.querySelector("#endDate-res").value
+
+    const error = validate({ initDate, endDate }, rules_between)
+    setValidationStyles("initDate-res", error?.initDate ? error.initDate[0] : null)
+    setValidationStyles("endDate-res", error?.endDate ? error.endDate[0] : null)
+
+    if (!error) {
+        data_betweenRes = { inicio: initDate, fin: endDate }
+        print({
+            ...configRes, search: () => searchParam({
+                between_fecha: data_betweenRes,
+                nombre_like: filterClientRes,
+                cedula_like: filterClientRes,
+                nro_factura: filterClientRes,
+                apellido_like: filterClientRes,
+                status: 'finalizada'
+            }, "calendar", 12)
+        })
+    }
 })
 
 document.querySelectorAll(".btn_check").forEach(item => {
     item.addEventListener("click", () => {
-        let type = item.id
-        if (type == "invoice_delivery") print(config)
-        else if (type == "invoice_takeaway") print({ ...config, search: () => searchParam({ tipo: "llevar", status: "entregada" }, "order", 12) })
-        else if (type == "invoice_local") print({ ...config, search: () => searchParam({ tipo: "local", status: "pagado" }, "order", 12) })
+        typeFilter = item.id
+        if (typeFilter == "invoice_delivery") typeFilter = "delivery"
+        else if (typeFilter == "invoice_takeaway") typeFilter = "llevar"
+        else if (typeFilter == "invoice_local") typeFilter = "local"
+        const type = item.id
+        if (type == "invoice_delivery") {
+            if (data_between != "") {
+                print({
+                    ...config, search: () => searchParam({
+                        nombre_like: filterClient,
+                        cedula_like: filterClient,
+                        nro_factura: filterClient,
+                        apellido_like: filterClient,
+                        between_fecha: data_between,
+                        status: "entregada",
+                        tipo: "delivery"
+                    }, "order", 12)
+                })
+            } else {
+                print({
+                    ...config, search: () => searchParam({
+                        nombre_like: filterClient,
+                        cedula_like: filterClient,
+                        nro_factura: filterClient,
+                        apellido_like: filterClient,
+                        status: "entregada",
+                        tipo: "delivery"
+                    }, "order", 12)
+                })
+            }
+        } else if (type == "invoice_takeaway") {
+            if (data_between != "") {
+                print({
+                    ...config, search: () => searchParam({
+                        nombre_like: filterClient,
+                        cedula_like: filterClient,
+                        nro_factura: filterClient,
+                        apellido_like: filterClient,
+                        between_fecha: data_between,
+                        status: "entregada",
+                        tipo: "llevar"
+                    }, "order", 12)
+                })
+            } else {
+                print({
+                    ...config, search: () => searchParam({
+                        nombre_like: filterClient,
+                        cedula_like: filterClient,
+                        nro_factura: filterClient,
+                        apellido_like: filterClient,
+                        status: "entregada",
+                        tipo: "llevar"
+                    }, "order", 12)
+                })
+            }
+        } else if (type == "invoice_local") {
+            if (data_between != "") {
+                print({
+                    ...config, search: () => searchParam({
+                        nombre_like: filterClient,
+                        cedula_like: filterClient,
+                        nro_factura: filterClient,
+                        apellido_like: filterClient,
+                        between_fecha: data_between,
+                        status: "pagado",
+                        tipo: "local"
+                    }, "order", 12)
+                })
+            } else {
+                print({
+                    ...config, search: () => searchParam({
+                        nombre_like: filterClient,
+                        cedula_like: filterClient,
+                        nro_factura: filterClient,
+                        apellido_like: filterClient,
+                        status: "pagado",
+                        tipo: "local"
+                    }, "order", 12)
+                })
+            }
+        }
     })
 })
 const viewDetails = () => {
@@ -78,9 +293,11 @@ const viewDetails = () => {
                 document.querySelector(".tbody-detail-invoice").innerHTML = templateProductPrepared
                 document.querySelector(".tbody-detail-invoice").innerHTML += templateProductProcess
                 let template = ""
-                const templateSale = await detailsPay(petOrder[0].id_venta)
+                if (petOrder[0].id_venta != null) {
+                    const templateSale = await detailsPay(petOrder[0].id_venta)
+                    template += templateSale
+                }
                 const templateReservation = await detailsPayRes(id_reservation)
-                template += templateSale
                 template += templateReservation
                 document.querySelector(".cont-detail-payment").innerHTML = template
                 amount(id_order)
@@ -139,11 +356,14 @@ const detailsPay = async (id_venta) => {
     let templatePayment = ""
     let pet = await fetch("paymentSale/get_all/0/10000000/id/asc", { method: "POST", body: data })
     let res = await pet.json()
+    console.log(res);
     res.forEach((payment) => {
+        let type = payment.metodo_pago.toLowerCase() != "divisa" ? "bs" : "usd"
         templatePayment += `
-      <div class="col-md-7 mt-3 d-flex align-items-center justify-content-between">
+      <div class="col-md-10 mt-3 d-flex align-items-center justify-content-between">
           <h3>Tipo de pago: ${payment.metodo_pago}</h3>
-          <h3>Monto: ${payment.monto}</h3>
+          <h3>Monto: ${payment.monto} ${type}</h3>
+        ${type == "divisa" ? "" : `<h3>Tasa: ${payment.tasa} bs</h3>`}
       </div>`
     })
     return templatePayment
@@ -179,16 +399,19 @@ const amount = async (id_order) => {
     }
     document.querySelector(".iva-invoice").textContent = amountTotal.iva + " $"
     document.querySelector(".subtotal-invoice").textContent = amountTotal.subtotal + " $"
-    document.querySelector(".total-invoice").textContent = amountTotal.total_dolares + " $" + " / " + amountTotal.total_bs + " Bs"
+    document.querySelector(".total-invoice").textContent = amountTotal.total_dolares + " $"
 }
 const printInvoice = async () => {
     let btn = document.querySelector(".btn-print-invoice")
     btn.addEventListener("click", async () => {
         if (btn.getAttribute("type") == "order") {
             let id = btn.getAttribute("data-id")
+            let id_venta = btn.getAttribute("data-id-sale")
             let info = await searchParam({ id: id }, "order")
             let detailsPrepered = await searchParam({ id_orden: id }, "Detalle_orden_producto_preparado")
             let detailsProcess = await searchParam({ id_orden: id }, "Detalle_orden_producto_procesado")
+            let payment = await searchParam({ id_venta: id_venta }, "paymentSale")
+            let dolar = payment.reduce((a, b) => a > b.tasa ? a : b.tasa, 0)
             let totalAmountPrepared = detailsPrepered.map(item => item.precio * item.cantidad).reduce((a, b) => a + b, 0)
             let totalAmountProcess = detailsProcess.map(item => item.precio * item.cantidad).reduce((a, b) => a + b, 0)
             let iva = (totalAmountPrepared + totalAmountProcess) * 0.16
@@ -199,23 +422,23 @@ const printInvoice = async () => {
             };
             let amountTotal = {
                 total_dolares: "TOTAL: " + (((totalAmountPrepared + totalAmountProcess) + iva).toFixed(2)),
-                total_bs: (((totalAmountPrepared + totalAmountProcess) + iva) * await amountDolar()).toFixed(2),
+                total_bs: (((totalAmountPrepared + totalAmountProcess) + iva) * dolar).toFixed(2),
                 subtotal: "SUBTOTAL: " + ((totalAmountPrepared + totalAmountProcess).toFixed(2)),
                 iva: "IVA: " + (iva.toFixed(2))
             }
-
             let dataPayment = new FormData();
             dataPayment.append("id_venta", document.querySelector(".btn-print-invoice").getAttribute("data-id-sale"))
             let pet = await fetch("paymentSale/get_all/0/10000000/id/asc", { method: "POST", body: dataPayment })
             let payments = await pet.json()
-
-            invoice(detailsPrepered, detailsProcess, clientData, id, info[0].direccion, amountTotal, info, { payments, reservation: [] })
+            invoice(detailsPrepered, detailsProcess, clientData, id, info[0].direccion, amountTotal, info, { payments, reservation: [] }, id_venta)
         } else {
             let id = btn.getAttribute("data-id-order")
             let id_reservation = btn.getAttribute("data-id-reservation")
             let info = await searchParam({ id: id }, "order")
             let detailsPrepered = await searchParam({ id_orden: id }, "Detalle_orden_producto_preparado")
             let detailsProcess = await searchParam({ id_orden: id }, "Detalle_orden_producto_procesado")
+            let reservation = await searchParam({ id_reserva: id_reservation }, "paymentReservation", 100000)
+            let dolar = reservation.reduce((a, b) => a > Number(b.tasa) ? a : Number(b.tasa), 0)
             let totalAmountPrepared = detailsPrepered.map(item => item.precio * item.cantidad).reduce((a, b) => a + b, 0)
             let totalAmountProcess = detailsProcess.map(item => item.precio * item.cantidad).reduce((a, b) => a + b, 0)
             let iva = (totalAmountPrepared + totalAmountProcess) * 0.16
@@ -230,18 +453,9 @@ const printInvoice = async () => {
                 subtotal: "SUBTOTAL: " + ((totalAmountPrepared + totalAmountProcess).toFixed(2)),
                 iva: "IVA: " + (iva.toFixed(2))
             }
-
-            let dataPayment = new FormData();
-            dataPayment.append("id_venta", info[0].id_venta)
-            let pet = await fetch("paymentSale/get_all/0/10000000/id/asc", { method: "POST", body: dataPayment })
-            let payments = await pet.json()
-
-            let dataAbove = new FormData();
-            dataAbove.append("id_reserva", id_reservation)
-            let pet2 = await fetch("paymentReservation/get_all/0/10000000/id/asc", { method: "POST", body: dataAbove })
-            let reservation = await pet2.json()
-
-            invoice(detailsPrepered, detailsProcess, clientData, id, info[0].direccion, amountTotal, info, { payments, reservation })
+            let payments = []
+            if (info[0].id_venta) payments = await searchParam({ id_venta: info[0].id_venta }, "paymentSale", 10000)
+            invoice(detailsPrepered, detailsProcess, clientData, id, info[0].direccion, amountTotal, info, { payments, reservation }, id_reservation)
         }
 
     })

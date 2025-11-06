@@ -27,17 +27,19 @@ let n = $(".table_rawmaterial").DataTable({
         { data: 'nombre_categoria' },
         { data: 'stock_min' },
         { data: 'stock_max' },
-        { data: null, render: function (data, type, row, meta) { 
-            if (data.existencia > data.stock_min && data.existencia < data.stock_max) {
-                return `<span class="badge text-bg-success fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
-            } else if (data.existencia <= data.stock_min && data.existencia > 0) {
-                return `<span class="badge text-bg-warning fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
-            } else if (data.existencia >= data.stock_max && data.existencia > 0) {
-                return `<span class="badge text-bg-danger fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
-            } else if (parseFloat(data.existencia) == 0) {
-                return `<span class="badge text-bg-secondary fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
+        {
+            data: null, render: function (data, type, row, meta) {
+                if (data.existencia > data.stock_min && data.existencia < data.stock_max) {
+                    return `<span class="badge text-bg-success fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
+                } else if (data.existencia <= data.stock_min && data.existencia > 0) {
+                    return `<span class="badge text-bg-warning fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
+                } else if (data.existencia >= data.stock_max && data.existencia > 0) {
+                    return `<span class="badge text-bg-danger fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
+                } else if (parseFloat(data.existencia) == 0) {
+                    return `<span class="badge text-bg-secondary fw-bold fs-5"> ${data.existencia} ${data.alias_unidad}</span>`
+                }
             }
-         } },
+        },
         {
             data: null,
             orderable: false,
@@ -276,7 +278,7 @@ if (!form.dataset.listenerAttached) {
                 datafinal.append(`lista[${index}][stock_min]`, material.min)
                 datafinal.append(`lista[${index}][stock_max]`, material.max)
             })
-            addDataTables(n, datafinal, "rawmaterial", binnacle(session.message.id, "Materia Prima", "Agregar", "Se creo un nueva materia prima"))
+            addDataTables(n, datafinal, "rawmaterial", () => binnacle(session.message.id, "Materia Prima", "Agregar", "Se creo un nueva materia prima"))
             bootstrap.Modal.getOrCreateInstance('#register-rawMaterial').hide()
             resetForm("#rawmaterial-container .rawmaterial", form)
 

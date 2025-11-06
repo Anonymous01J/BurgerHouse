@@ -47,10 +47,10 @@ abstract class Db_base extends Conexion
     // ';
     public $variables;
     public $variables_like;
+    public $variables_interval;
     public $tabla;
     public $joins;
     public $select_query;
-    public $variables_interval;
     public $validaciones;
     protected function __construct($tabla = "", $db_n = 1)
     {
@@ -66,7 +66,7 @@ abstract class Db_base extends Conexion
     public function add_variables(array $variables): void
     {
         foreach ($variables as $key => $value) {
-            $k = "validar_".trim(explode(".", $key)[1]);
+            $k = "validar_" . trim(explode(".", $key)[1]);
             if ($value == null) {
                 unset($this->variables[$key]);
                 continue;
@@ -180,8 +180,19 @@ abstract class Db_base extends Conexion
     public function search($n = 0, $limite = 9, string $order_by = 'id', string $order_type = 'ASC'): array
     {
         $query = "SELECT $this->select_query FROM $this->tabla AS a $this->joins WHERE 1";
+
+        $first_like = true;
         foreach ($this->variables_like as $key => $value) {
-            $query .= ' AND ' . $key . ' LIKE :like' . $this->normalizeKey($key);
+            if ($first_like) {
+                $query .= ' AND (';
+                $first_like = false;
+            } else {
+                $query .= ' OR ';
+            }
+            $query .= $key . ' LIKE :like' . $this->normalizeKey($key);
+        }
+        if (!$first_like) {
+            $query .= ')';
         }
         foreach ($this->variables as $key => $value) {
             $query .= ' AND ' . $key . ' = :' . $this->normalizeKey($key);
@@ -203,7 +214,7 @@ abstract class Db_base extends Conexion
         // print_r($query);
         // print_r("\n");
         // Creamos la consulta
-        print_r($query);
+        // print_r($query);
         $consulta = $this->conn->prepare($query);
         // Asignamos los parametros   
         // print_r($this->variables);

@@ -30,6 +30,7 @@ class Pago_reserva extends Db_base
         a.id,
         a.id_reserva,
         a.id_pago,
+        p.tasa,
         p.comprobante,
         p.referencia,
         mp.nombre as metodo_pago,
