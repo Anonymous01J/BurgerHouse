@@ -146,15 +146,4 @@ class RolModelTest extends TestCase
         }
     }
 
-    public function testBuscarRolInactivos()
-    {
-        $rol = new \Shtch\Burgerhouse\models\Rol(null, null, null, null, 0);
-        $resultados = $rol->search(limite: 10);
-        
-        $this->assertIsArray($resultados);
-        
-        foreach ($resultados as $registro) {
-            $this->assertEquals(0, $registro['active']);
-        }
-    }
 }

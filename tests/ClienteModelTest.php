@@ -14,7 +14,7 @@ class ClienteModelTest extends TestCase
 
     public function testAgregarCliente()
     {
-        $cliente = new \Shtch\Burgerhouse\models\Cliente(null, 'Juan Perez', 'juan@example.com', '12345678', 1);
+        $cliente = new \Shtch\Burgerhouse\models\Cliente(null, 'Juan', 'Perez', 'V-12345678', telefono:'04123456789');
         $cliente->conn->beginTransaction();
         $id = $cliente->agregar();
         $this->assertIsInt($id);
@@ -26,7 +26,7 @@ class ClienteModelTest extends TestCase
     {
         $c4 = new \Shtch\Burgerhouse\models\Cliente();
         $id_ultimo_cliente = $c4->search(order_type: 'DESC')[0]['id'];
-        $cliente = new \Shtch\Burgerhouse\models\Cliente($id_ultimo_cliente, 'Juan Actualizado', 'juan2@example.com', '87654321', 1);
+        $cliente = new \Shtch\Burgerhouse\models\Cliente($id_ultimo_cliente, 'Juan', 'Actualizado', 'V-87654321', telefono:'04123456789');
         $cliente->conn->beginTransaction();
         $result = $cliente->actualizar();
         $this->assertIsArray($result);

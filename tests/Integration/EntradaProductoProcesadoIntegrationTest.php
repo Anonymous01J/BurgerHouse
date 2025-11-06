@@ -43,13 +43,13 @@ class EntradaProductoProcesadoIntegrationTest extends TestCase
                 null,
                 $productos[0]['id'],
                 $proveedores[0]['id'],
-                date('Y-m-d H:i:s'),
+                date('Y-m-d'),
                 50, // cantidad
                 50, // existencia
                 0, // broken
                 $unidades[0]['id'],
                 date('Y-m-d', strtotime('+6 months')), // fecha_vencimiento
-                'COD-PROC-' . time(),
+                'asdkaskdaksj',
                 1 // active
             );
             
@@ -66,7 +66,7 @@ class EntradaProductoProcesadoIntegrationTest extends TestCase
                 date('Y-m-d H:i:s'), // fecha
                 null, // comprobante (no se usa)
                 'REF-PROC-' . time(), // referencia
-                'COMP-PROC-' . time() // imagen_name (este es el que se usa como comprobante)
+                'ejemplo.jpg' // imagen_name (este es el que se usa como comprobante)
             );
             
             $id_pago = $pago->agregar();

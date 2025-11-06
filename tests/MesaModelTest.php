@@ -19,12 +19,11 @@ class MesaModelTest extends TestCase
         $mesa = new \Shtch\Burgerhouse\models\Mesa(
             null,
             'Mesa Test',
-            4,
-            1,
+            '4',
+            '1',
             'disponible',
             'default.jpg',
-            null,
-            0
+            vip:'0'
         );
         
         $mesa->conn->beginTransaction();

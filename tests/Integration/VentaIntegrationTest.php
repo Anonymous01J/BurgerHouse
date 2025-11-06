@@ -42,7 +42,7 @@ class VentaIntegrationTest extends TestCase
                 $ordenes[0]['id'],
                 16.00, // IVA
                 116.00, // Monto final
-                date('Y-m-d H:i:s'),
+                date('Y-m-d'),
                 'Dirección de prueba',
                 1
             );
@@ -55,7 +55,7 @@ class VentaIntegrationTest extends TestCase
                 null,
                 $metodos[0]['id'],
                 116.00,
-                date('Y-m-d H:i:s'),
+                date('Y-m-d'),
                 1.00, // tasa
                 'REF-001', // referencia
                 'Comprobante-TEST-001' // comprobante

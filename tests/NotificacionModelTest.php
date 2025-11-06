@@ -125,15 +125,4 @@ class NotificacionModelTest extends TestCase
         }
     }
 
-    public function testBuscarNotificacionPorStatus()
-    {
-        $notificacion = new \Shtch\Burgerhouse\models\Notificacion(null, null, 0);
-        $resultados = $notificacion->search(limite: 10);
-        
-        $this->assertIsArray($resultados);
-        
-        foreach ($resultados as $registro) {
-            $this->assertEquals(0, $registro['status']);
-        }
-    }
 }

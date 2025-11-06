@@ -369,4 +369,13 @@ class Validaciones {
     public static function validar_monto_final($monto_final) {
         return (bool)preg_match($GLOBALS['expresiones_regulares']['monto_final'], $monto_final);
     }
+    public static function validar_valor($valor) {
+        return (bool)preg_match($GLOBALS['expresiones_regulares']['valor'], $valor);
+    }
+    public static function validar_tabla($tabla) {
+        return (bool)preg_match($GLOBALS['expresiones_regulares']['tabla'], $tabla);
+    }
+    public static function validar_llave($llave) {
+        return (bool)preg_match($GLOBALS['expresiones_regulares']['llave'], $llave);
+    }
 }

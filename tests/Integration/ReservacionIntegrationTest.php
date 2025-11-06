@@ -45,8 +45,8 @@ class ReservacionIntegrationTest extends TestCase
                 $ordenes[0]['id'],
                 $cajas[0]['id'],
                 'Reservación de prueba integración',
-                date('Y-m-d H:i:s', strtotime('+1 day')),
-                date('Y-m-d H:i:s', strtotime('+2 days')),
+                date('Y-m-d', strtotime('+1 day')),
+                date('Y-m-d', strtotime('+2 days')),
                 null,
                 'online',
                 'confirmada'

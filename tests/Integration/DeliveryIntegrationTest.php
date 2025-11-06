@@ -42,7 +42,7 @@ class DeliveryIntegrationTest extends TestCase
                 $ordenes[0]['id'],
                 16.00,
                 116.00,
-                date('Y-m-d H:i:s'),
+                date('Y-m-d'),
                 'Calle Principal #123, Ciudad',
                 1
             );

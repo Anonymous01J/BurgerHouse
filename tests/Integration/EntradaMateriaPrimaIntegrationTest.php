@@ -37,7 +37,7 @@ class EntradaMateriaPrimaIntegrationTest extends TestCase
             $entrada = new \Shtch\Burgerhouse\models\Entrada_materia_prima(
                 null,
                 $proveedores[0]['id'],
-                date('Y-m-d H:i:s')
+                date('Y-m-d')
             );
             
             $id_entrada = $entrada->agregar();
@@ -50,7 +50,7 @@ class EntradaMateriaPrimaIntegrationTest extends TestCase
                 $detalle = new \Shtch\Burgerhouse\models\Detalle_entrada_materia_prima(
                     null, // id
                     $materia_prima['id'], // id_materia_prima
-                    'COD-' . str_pad($index + 1, 5, '0', STR_PAD_LEFT), // codigo
+                    'COD' . str_pad($index + 1, 5, '0', STR_PAD_LEFT), // codigo
                     date('Y-m-d', strtotime('+1 year')), // fecha_vencimiento
                     $id_entrada, // id_entrada
                     ($index + 1) * 5, // cantidad

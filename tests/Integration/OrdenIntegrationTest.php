@@ -37,7 +37,7 @@ class OrdenIntegrationTest extends TestCase
                 null,
                 rand(1000, 9999), // nro_orden
                 null, // id_cliente
-                date('Y-m-d H:i:s'), // fecha
+                date('Y-m-d'), // fecha
                 'local', // tipo
                 'preparacion' // status
             );
