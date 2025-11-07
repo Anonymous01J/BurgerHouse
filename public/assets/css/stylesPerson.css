@@ -896,3 +896,6 @@
 .dark-mode .itemNotification {
   background-color: var(--bg-modal) !important;
 }
+.dark-mode .bg-light-subtle {
+  background-color: var(--bg-primary) !important;
+}

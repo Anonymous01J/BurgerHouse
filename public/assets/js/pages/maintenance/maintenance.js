@@ -95,6 +95,7 @@ let table_backup_system = $('.table_db_backup_system').DataTable({
                     confirmButtonText: "Comprobar",
                     showLoaderOnConfirm: true,
                     preConfirm: async () => {
+
                         const password = document.getElementById("swal-input-password").value;
                         const type = btn.getAttribute("data-bs-title");
                         const id = btn.getAttribute("data-id");
@@ -122,6 +123,7 @@ let table_backup_system = $('.table_db_backup_system').DataTable({
                     allowOutsideClick: () => !Swal.isLoading()
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        console.log(result);
                         if (result.value.success == true) {
                             Swal.fire({
                                 title: `Exito!`,

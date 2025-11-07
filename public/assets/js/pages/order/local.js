@@ -189,7 +189,7 @@ export async function local(functions, templates, reload) {
         `
     }
     loader()
-    await products()
+    products()
 
     //valida q si no hay productos, no puede pasar al step 2
     const productForDetails = () => {
@@ -615,7 +615,7 @@ export async function more_product_local_order(functions, templates, reload) {
         `
     }
     loader()
-    await products()
+    products()
     //valida q si no hay productos, no puede pasar al step 2
     const productForDetails = () => {
         let btn = document.querySelector(".select_product_btn_next_local_more")
