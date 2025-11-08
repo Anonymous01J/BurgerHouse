@@ -1,11 +1,8 @@
 <?php
-namespace Shtch\Burgerhouse\controllers;
-use Shtch\Burgerhouse\controllers\Controller_base;
-
-class TrashController extends Controller_base {
-
-    public function __construct() {
-        parent::__construct("trash");
-    }
-    
+namespace Shtch\Burgerhouse\controllers\Trash;
+use function Shtch\Burgerhouse\controllers\{controller_init, base_view};
+controller_init('trash');
+function view()
+{
+    base_view('trash');
 }

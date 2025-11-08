@@ -1,34 +1,58 @@
 <?php
-
-namespace Shtch\Burgerhouse\controllers;
-
-use Shtch\Burgerhouse\controllers\Controller_base;
-use Shtch\Burgerhouse\models\Permiso;
+namespace Shtch\Burgerhouse\controllers\Rol;
 use Shtch\Burgerhouse\models\Rol;
+use function Shtch\Burgerhouse\controllers\{
+    controller_init,
+    base_view,
+    base_get_all,
+    base_add,
+    base_delete,
+    base_update,
+    base_add_many,
+    base_delete_many,
+    base_update_many,
+    base_guardar_imagen_mult,
+    base_guardar_imagen_single
+};
 
-class RolController extends Controller_base
+controller_init('roles', Rol::class);
+function view()
 {
-
-    public function __construct()
-    {
-        parent::__construct("roles");
-        $this->db = new Rol();
-    }
-
-
-    // public function agregar_rol(){
-    //     $data = json_decode($_POST['nose'], true)[0];
-    //     $nombre = $data['detalles']['nombre'];
-    //     $descripcion = $data['detalles']['descripcion'];
-    //     $db = new Rol(nombre: $nombre, descripcion: $descripcion);
-    //     $last_id = $db->agregar();
-
-    //     $lista_permisos = $data['permisos'];
-
-    //     for ($i = 0; $i < count($lista_permisos); $i++) {
-    //         $db= new Permiso(id_rol: $last_id, modulo: $lista_permisos[$i]['modulo'], permisos: $lista_permisos[$i]['permisos']);
-    //         $db->agregar();
-    //     }
-    // }
-
+    base_view('roles');
+}
+function get_all(...$args)
+{
+    base_get_all('roles', ...$args);
+}
+function add()
+{
+    base_add('roles');
+}
+function delete()
+{
+    base_delete('roles');
+}
+function update()
+{
+    base_update('roles');
+}
+function add_many()
+{
+    base_add_many('roles');
+}
+function delete_many()
+{
+    base_delete_many('roles');
+}
+function updateMany()
+{
+    base_update_many('roles');
+}
+function guardar_imagen_mult($index)
+{
+    base_guardar_imagen_mult('roles', $index);
+}
+function guardar_imagen_single()
+{
+    base_guardar_imagen_single('roles');
 }

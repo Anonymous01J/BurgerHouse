@@ -1,11 +1,8 @@
 <?php
-namespace Shtch\Burgerhouse\controllers;
-
-use Shtch\Burgerhouse\controllers\Controller_base;
-
-class Error404Controller extends Controller_base {
-
-    public function __construct(){
-        parent::__construct(module_name: 'error-404');
-    }
+namespace Shtch\Burgerhouse\controllers\Error404;
+use function Shtch\Burgerhouse\controllers\{controller_init, base_view};
+controller_init('error-404');
+function view()
+{
+    base_view('error-404');
 }

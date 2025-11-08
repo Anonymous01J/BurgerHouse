@@ -1,215 +1,252 @@
 <?php
-
 namespace Shtch\Burgerhouse\controllers;
-use Shtch\Burgerhouse\models\Db_base;
 use Shtch\Burgerhouse\models\Permiso;
 use Shtch\Burgerhouse\function\Auth;
 use Shtch\Burgerhouse\models\Usuario;
 use Exception;
 
-class Controller_base
+$GLOBALS['controller_instances'] = [];
+
+function controller_init($module_name,$model_class = null) {
+    $publicModules = ["login", "recover_password", "index", "changepass"];
+    if (!in_array($module_name, $publicModules)) {
+        if (empty($_SESSION['id']) || empty($_SESSION['session_id'])) {
+            header("Location: login");
+            exit;
+        }
+        $usuario = new Usuario(id: $_SESSION['id']);
+        $result = $usuario->search();
+
+        if (empty($result) || $result[0]['session_id'] !== $_SESSION['session_id']) {
+            session_destroy();
+            header("Location: login");
+            exit;
+        }
+    }
+    
+    $GLOBALS['controller_instances'][$module_name] = [
+        'module_name' => $module_name,
+        'db' => $model_class ? new $model_class() : null
+    ];
+    return $module_name;
+}
+
+function get_db($module_name)
 {
-    public $module_name;
-    public string $table_name;
-    public Db_base $db;
+    return $GLOBALS['controller_instances'][$module_name]['db'] ?? null;
+}
 
-    public function __construct(string $module_name)
-    {
-        $this->module_name = $module_name;
-        $publicModules = ["login", "recover_password", "index"];
+function get_module_name($module_name)
+{
+    return $GLOBALS['controller_instances'][$module_name]['module_name'] ?? $module_name;
+}
 
-        if (!in_array($module_name, $publicModules)) {
-            if (empty($_SESSION['id']) || empty($_SESSION['session_id'])) {
-                header("Location: login");
-                exit;
-            }
-
-            $usuario = new Usuario(id: $_SESSION['id']);
-            $result = $usuario->search();
-
-            if (empty($result) || $result[0]['session_id'] !== $_SESSION['session_id']) {
-                session_destroy();
-                header("Location: login");
-                exit;
-            }
-        }
+function base_view($module_name)
+{
+    if (isset($_SESSION['id_rol'])) {
+        $permiso = new Permiso(id_rol: $_SESSION['id_rol']);
+        $_SESSION['permisos'] = $permiso->search(n: 0, limite: 2000);
     }
 
-    public function view()
-    {
-        if (isset($_SESSION['id_rol'])) {
-            $permiso = new Permiso(id_rol: $_SESSION['id_rol']);
-            $_SESSION['permisos'] = $permiso->search(n: 0, limite: 2000);
-        }
-        if (in_array($this->module_name, ["login", "recover_password", "index", "profile", "notifications"])) {
-            include_once __DIR__ . '/../views/' . $this->module_name . '.php';
+    if (in_array($module_name, ["login", "recover_password", "index", "profile", "notifications"])) {
+        include_once __DIR__ . '/../views/' . $module_name . '.php';
+    } else {
+        if ($_SESSION['id_rol'] == 1 || Auth::AuthController($module_name)) {
+            header("HTTP/1.1 200 OK");
+            try {
+                include_once __DIR__ . '/../views/' . $module_name . '.php';
+            } catch (Exception $e) {
+                header("HTTP/1.0 500 Internal Server Error");
+                echo "Error 500: Error al cargar la vista " . $module_name;
+            }
         } else {
-            if ($_SESSION['id_rol'] == 1 || Auth::AuthController($this->module_name)) {
-                header("HTTP/1.1 200 OK");
-                try {
-                    include_once __DIR__ . '/../views/' . $this->module_name . '.php';
-                } catch (Exception $e) {
-                    header("HTTP/1.0 500 Internal Server Error");
-                    echo "Error 500: Error al cargar la vista " . $this->module_name;
-                    // include_once __DIR__ . '/../views/error-500.php';
-                }
+            header("HTTP/1.0 404 Not Found");
+            include_once __DIR__ . '/../views/error-404.php';
+        }
+    }
+}
+
+function base_get_all($module_name, ...$args)
+{
+    header('Content-Type: application/json');
+    try {
+        $db = get_db($module_name);
+        $db->clear();
+        $db->__construct(...$_POST);
+        echo json_encode($db->search(...$args));
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+function base_add($module_name, $imagen_callback = null)
+{
+    header('Content-Type: application/json');
+    try {
+        $db = get_db($module_name);
+        $db->clear();
+        $db->__construct(...$_POST);
+
+        if (isset($_FILES['imagen'])) {
+            if ($imagen_callback) {
+                $imagen_callback($module_name);
             } else {
-                header("HTTP/1.0 404 Not Found");
-                include_once __DIR__ . '/../views/error-404.php';
+                base_guardar_imagen_single($module_name);
             }
         }
-    }
 
-    public function get_all(...$args)
-    {
-        // print_r($this->db);
-        header('Content-Type: application/json');
-        try {
-            $this->db->clear();
-            $this->db->__construct(...$_POST);
-            echo json_encode($this->db->search(...$args));
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-        }
+        $id = $db->agregar();
+        echo json_encode(['success' => true, 'last_id' => $id]);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }
+}
 
-    public function add()
-    {
-        header('Content-Type: application/json');
-        try {
-            $this->db->clear();
-            $this->db->__construct(...$_POST);
-            if (isset($_FILES['imagen'])) {
-                $this->guardar_imagen_single();
-            }
-            $id = $this->db->agregar();
-            echo json_encode(['success' => true, 'last_id' => $id]);
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-        }
-    }
+function base_add_many($module_name, $imagen_callback = null)
+{
+    try {
+        $db = get_db($module_name);
+        for ($i = 0; $i < count($_POST['lista']); $i++) {
+            $db->__construct(...$_POST['lista'][$i]);
 
-    public function add_many()
-    {
-        // header('Content-Type: application/json');
-        try {
-            for ($i = 0; $i < count($_POST['lista']); $i++) {
-                $this->db->__construct(...$_POST['lista'][$i]);
-                if (isset($_FILES['lista'])) {
-                    $this->guardar_imagen_mult($i);
+            if (isset($_FILES['lista'])) {
+                if ($imagen_callback) {
+                    $imagen_callback($module_name, $i);
+                } else {
+                    base_guardar_imagen_mult($module_name, $i);
                 }
-                $id = $this->db->agregar();
             }
+
+            $db->agregar();
+        }
+        echo json_encode(['success' => true]);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+function base_delete($module_name)
+{
+    header('Content-Type: application/json');
+    try {
+        $db = get_db($module_name);
+        $db->clear();
+        $db->add_variables(["a.id" => $_POST['id']]);
+        $result = $db->borrar();
+
+        if ($result === 0 or $result === false) {
+            echo json_encode(['success' => false, 'message' => 'No se pudo eliminar el registro']);
+        } else {
             echo json_encode(['success' => true]);
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }
+}
 
-    public function delete()
-    {
-        header('Content-Type: application/json');
-        try {
-            $this->db->clear();
-            $this->db->add_variables(["a.id" => $_POST['id']]);
-            $result = $this->db->borrar();
-            if ($result === 0 or $result === false) {
-                echo json_encode(['success' => false, 'message' => 'No se pudo eliminar el registro']);
+function base_delete_many($module_name)
+{
+    try {
+        $db = get_db($module_name);
+        for ($i = 0; $i < count($_POST['lista']); $i++) {
+            $db->__construct(...$_POST['lista'][$i]);
+            $result = $db->borrar();
+        }
+
+        if ($result === 0 or $result === false) {
+            echo json_encode(['success' => false, 'message' => 'No se pudo eliminar el registro']);
+        } else {
+            echo json_encode(['success' => true]);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
+}
+
+function base_update($module_name, $imagen_callback = null)
+{
+    header('Content-Type: application/json');
+    try {
+        $db = get_db($module_name);
+        $db->clear();
+        $db->__construct(...$_POST);
+        $result = $db->actualizar();
+
+        if (isset($_FILES['imagen'])) {
+            if ($imagen_callback) {
+                $imagen_callback($module_name);
             } else {
-                echo json_encode(['success' => true]);
+                base_guardar_imagen_single($module_name);
             }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
         }
-    }
 
-    public function delete_many()
-    {
-        try {
-            for ($i = 0; $i < count($_POST['lista']); $i++) {
-                $this->db->__construct(...$_POST['lista'][$i]);
-                $result = $this->db->borrar();
-            }
-            if ($result === 0 or $result === false) {
-                echo json_encode(['success' => false, 'message' => 'No se pudo eliminar el registro']);
-            } else {
-                echo json_encode(['success' => true]);
-            }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+        if ($result == false or $result == 0) {
+            echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);
+        } else {
+            echo json_encode(['success' => true]);
         }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }
+}
 
-    public function update()
-    {
-        header('Content-Type: application/json');
-        try {
-            $this->db->clear();
-            $this->db->__construct(...$_POST);
-            $result = $this->db->actualizar();
-            if (isset($_FILES['imagen'])) {
-                $this->guardar_imagen_single();
-            }
-            if ($result == false or $result == 0) {
-                echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);
-            } else {
-                echo json_encode(['success' => true]);
-            }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
-        }
-    }
+function base_update_many($module_name, $imagen_callback = null)
+{
+    try {
+        $db = get_db($module_name);
+        for ($i = 0; $i < count($_POST['lista']); $i++) {
+            $db->__construct(...$_POST['lista'][$i]);
 
-    public function updateMany()
-    {
-        try {
-
-            for ($i = 0; $i < count($_POST['lista']); $i++) {
-                $this->db->__construct(...$_POST['lista'][$i]);
-                if (isset($_FILES['lista'])) {
-                    $this->guardar_imagen_mult($i);
+            if (isset($_FILES['lista'])) {
+                if ($imagen_callback) {
+                    $imagen_callback($module_name, $i);
+                } else {
+                    base_guardar_imagen_mult($module_name, $i);
                 }
-                $result = $this->db->actualizar();
             }
-            if ($result == false or $result == 0) {
-                echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);
-            } else {
-                echo json_encode(['success' => true]);
-            }
-        } catch (Exception $e) {
-            echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+
+            $result = $db->actualizar();
         }
-    }
 
-    public function guardar_imagen_mult($index)
-    {
-        is_dir("../src/media/" . $this->module_name) or mkdir("../src/media/" . $this->module_name);
-        $imagen = $_FILES['lista'];
-        $result = move_uploaded_file($imagen['tmp_name'][$index]['imagen'], '../src/media/' . $this->module_name . '/' . $imagen['name'][$index]['imagen']);
+        if ($result == false or $result == 0) {
+            echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);
+        } else {
+            echo json_encode(['success' => true]);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
     }
-    public function guardar_imagen_single()
-    {
-        is_dir("../src/media/" . $this->module_name) or mkdir("../src/media/" . $this->module_name);
-        $imagen = $_FILES['imagen'];
-        $result = move_uploaded_file($imagen['tmp_name'], '../src/media/' . $this->module_name . '/' . $imagen['name']);
-    }
+}
 
-    public function check(...$args)
-    {
-        echo "<pre>";
-        echo "POST:";
-        print_r($_POST);
-        echo "GET:";
-        print_r($_GET);
-        echo "</pre>";
-        print_r($args);
-        echo "</pre>";
-        echo "Session";
-        print_r($_SESSION);
-        echo "</pre>";
-        print_r($_FILES);
-        $data = $_POST;
-        unset($data['variable']);
-        print_r($_POST);
-    }
+function base_guardar_imagen_mult($module_name, int $index)
+{
+    is_dir("../src/media/" . $module_name) or mkdir("../src/media/" . $module_name);
+    $imagen = $_FILES['lista'];
+    move_uploaded_file(
+        $imagen['tmp_name'][$index]['imagen'],
+        '../src/media/' . $module_name . '/' . $imagen['name'][$index]['imagen']
+    );
+}
+
+function base_guardar_imagen_single($module_name)
+{
+    is_dir("../src/media/" . $module_name) or mkdir("../src/media/" . $module_name);
+    $imagen = $_FILES['imagen'];
+    move_uploaded_file($imagen['tmp_name'], '../src/media/' . $module_name . '/' . $imagen['name']);
+}
+
+function base_check(...$args)
+{
+    echo "<pre>";
+    echo "POST:";
+    print_r($_POST);
+    echo "GET:";
+    print_r($_GET);
+    echo "</pre>";
+    print_r($args);
+    echo "</pre>";
+    echo "Session";
+    print_r($_SESSION);
+    echo "</pre>";
+    print_r($_FILES);
 }

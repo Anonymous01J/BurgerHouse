@@ -1,11 +1,8 @@
 <?php
-namespace Shtch\Burgerhouse\controllers;
-use Shtch\Burgerhouse\controllers\Controller_base;
-
-
-class KitchenController extends Controller_base {
-
-    public function __construct() {
-        parent::__construct("kitchen");
-    }
+namespace Shtch\Burgerhouse\controllers\Kitchen;
+use function Shtch\Burgerhouse\controllers\{controller_init,base_view};
+controller_init('kitchen');
+function view()
+{
+    base_view('kitchen');
 }

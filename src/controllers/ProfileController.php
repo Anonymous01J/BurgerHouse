@@ -1,11 +1,9 @@
 <?php
-namespace Shtch\Burgerhouse\controllers;
-use Shtch\Burgerhouse\controllers\Controller_base;
 
-
-class ProfileController extends Controller_base {
-
-    public function __construct(){
-        parent::__construct(module_name: 'profile');
-    }
+namespace Shtch\Burgerhouse\controllers\Profile;
+use function Shtch\Burgerhouse\controllers\{controller_init, base_view};
+controller_init('additional');
+function view()
+{
+    base_view('additional');
 }

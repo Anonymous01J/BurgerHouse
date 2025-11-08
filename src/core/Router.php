@@ -8,9 +8,8 @@ class Router
     {
         session_start();
         require_once __DIR__ . '/../config/config.php';
+        require_once __DIR__ . '/../controllers/Controller_base.php';
         $url = $this->parseUrl();
-
-        //validar si la url es un archivo de media
         if (strpos($url[0], 'media') === 0) {
             $filePath = '../src/' . implode('/', $url);
             if (file_exists($filePath)) {
@@ -23,22 +22,30 @@ class Router
                 exit;
             }
         }
-
-        $controllerName = !empty($url[0]) ? ucfirst($url[0]) . 'Controller' : 'HomeController';
+        $controllerName = !empty($url[0]) ? $url[0] : 'Home';
         $methodName = isset($url[1]) ? $url[1] : 'view';
-        $controller_class = 'Shtch\\Burgerhouse\\controllers\\' . $controllerName;
-
-        if (!(class_exists($controller_class) && method_exists($controller_class, $methodName))) {
-            $controller_class = 'Shtch\\Burgerhouse\\controllers\\Error404Controller';
+        if (!isset($_SESSION['id']) && !in_array(strtolower($controllerName), ['login', 'changepass', 'recover_password'])) {
+            $controllerName = 'Login';
             $methodName = 'view';
         }
+        $controllerFile = __DIR__ . '/../controllers/' . ucfirst($controllerName) . 'Controller.php';
 
-        if (!isset($_SESSION['id']) && $controllerName != "ChangepassController" && $controllerName != "WebController") {
-            $controller_class = 'Shtch\\Burgerhouse\\controllers\\LoginController';
+        if (!file_exists($controllerFile)) {
+            $controllerFile = __DIR__ . '/../controllers/Error404Controller.php';
+            $controllerName = 'Error404';
+            $methodName = 'view';
         }
-        $controller = new $controller_class();
-        $controller->$methodName(...array_slice($url, 2), ...$_GET);
-
+        require_once $controllerFile;
+        $namespace = 'Shtch\\Burgerhouse\\controllers\\' . ucfirst($controllerName);
+        $functionName = $namespace . '\\' . $methodName;
+        if (function_exists($functionName)) {
+            $functionName(...array_slice($url, 2), ...$_GET);
+        } else {
+            $error404File = __DIR__ . '/../controllers/Error404Controller.php';
+            require_once $error404File;
+            $error404Function = 'Shtch\\Burgerhouse\\controllers\\Error404\\view';
+            $error404Function();
+        }
     }
 
     private function parseUrl()
