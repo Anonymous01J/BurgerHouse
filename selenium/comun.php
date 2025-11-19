@@ -23,7 +23,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
         }
 
         public function openSystemDSG($login = true){
-            $this->driver->get("http://localhost:8081/burgerhouse/");
+            $this->driver->get("http://localhost:80/burgerhouse/");
             if($login){
                 $this->login();
             }
@@ -33,7 +33,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
 
             try {
                 $this->driver->wait(5, 500)->until(
-                    WebDriverExpectedCondition::urlIs("http://localhost:8081/burgerhouse/")
+                    WebDriverExpectedCondition::urlIs("http://localhost:80/burgerhouse/")
                 );
                 $this->fillForms([
                     ['selector' => '#login-correo', 'value' => $usuario],

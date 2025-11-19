@@ -48,14 +48,14 @@
         'active' => '/^[0-1]+$/',
         'session_id' => '/^[a-zA-Z0-9]+$/',
         'token' => '/^[a-zA-Z0-9]+$/',
-        'token_expiracion' => '/^[0-9]+$/',
+        'token_expiracion' => '/^[0-9]{4}-[0-9]{2}-[0-9]{2}(?:[ T](?:[01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\.[0-9]{1,3})?)?$/',
         'imagen' => '/^[a-zA-Z0-9\.\- á-úÁ-Ú\(\)\s\']+$/',
         'hash' => '//', // aqui iria la expresion regular que tiene el js
         'nombre_like' => '/^[a-zA-Z ]+$/',
         'modulo' => '/^[a-zA-Z ]+$/',
         'accion' => '/^[a-zA-Z ]+$/',
         'permiso' => '/^[a-zA-Z ]+$/',
-        'monto' => '/^(?:\d{1,3}(?:[.,]\d{3})+|\d+)([.,]\d+)?$/',
+        'monto' => '/^-?(?:\d{1,3}(?:[.,]\d{3})+|\d+)([.,]\d+)?$/',
         'referencia' => '//',
         'comprobante' => '/^[\w,\s-]+\.(jpg|jpeg|png)$/i',
         'estado' => '/^[a-zA-Z0-9]+$/',
@@ -105,13 +105,13 @@
         'host' => 'localhost:3306',
         'name' => 'burgerhouse',
         'user' => 'root',
-        'pass' => '1234'
+        'pass' => '12345'
     ];
     $GLOBALS['db2'] = [
         'host' => 'localhost:3306',
         'name' => 'usuarios_burgerhouse',
         'user' => 'root',
-        'pass' => '1234'
+        'pass' => '12345'
     ];
     const CAPTCHA_CONTROL = false;
 ?>
