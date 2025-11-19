@@ -49,7 +49,7 @@
         'session_id' => '/^[a-zA-Z0-9]+$/',
         'token' => '/^[a-zA-Z0-9]+$/',
         'token_expiracion' => '/^[0-9]+$/',
-        'imagen' => '/^[a-zA-Z0-9\.]+$/',
+        'imagen' => '/^[a-zA-Z0-9\.\- á-úÁ-Ú\(\)\s\']+$/',
         'hash' => '//', // aqui iria la expresion regular que tiene el js
         'nombre_like' => '/^[a-zA-Z ]+$/',
         'modulo' => '/^[a-zA-Z ]+$/',
@@ -77,7 +77,7 @@
         'adicionales' => '/^[a-zA-Z0-9 ]+$/',
         'vip' => '/^[0-1]+$/',
         'sillas' => '/^[0-9]+$/',
-        'imagen_name' => '/^[a-zA-Z0-9]+$/',
+        'imagen_name' => '/^[a-zA-Z0-9\.\- á-úÁ-Ú\(\)\s\']+$/',
         'status' => '/^[a-zA-Z0-9 ]+$/',
         'titulo' => '/^[a-zA-Z ]+$/',
         'mensaje' => '/^[\p{L}\p{N}\s.,;:¡!¿?\\"\'()\-]+$/u',
@@ -105,13 +105,13 @@
         'host' => 'localhost:3306',
         'name' => 'burgerhouse',
         'user' => 'root',
-        'pass' => '12345'
+        'pass' => '1234'
     ];
     $GLOBALS['db2'] = [
         'host' => 'localhost:3306',
         'name' => 'usuarios_burgerhouse',
         'user' => 'root',
-        'pass' => '12345'
+        'pass' => '1234'
     ];
     const CAPTCHA_CONTROL = false;
 ?>
