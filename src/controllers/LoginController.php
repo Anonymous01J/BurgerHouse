@@ -93,7 +93,9 @@ function login()
             $_SESSION['session_id'] = $session_id;
             $_SESSION['imagen'] = $result[0]['imagen'];
         }
+
     }
+    die;
 }
 function logout()
 {
