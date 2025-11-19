@@ -32,10 +32,10 @@ class Reservacion extends Db_base
         $fecha_bloqueo = null,
         $metodo_pedido = null,
         $status = null,
+        $nro_factura = null,
         $nombre_like = null,
         $between_fecha = null,
         $cedula_like = null,
-        $nro_factura = null,
         $apellido_like = null
     ) {
         parent::__construct("reservaciones");

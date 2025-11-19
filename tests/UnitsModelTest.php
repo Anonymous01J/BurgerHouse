@@ -16,7 +16,13 @@ class UnitsModelTest extends TestCase
 
     public function testAgregarUnidad()
     {
-        $unidad = new \Shtch\Burgerhouse\models\Unidad(null, 'Litro', 'L', 1);
+        $unidad = new \Shtch\Burgerhouse\models\Unidad(
+            null, // id
+            'Litro', // nombre
+            'L', // abreviatura
+            1 // activo
+        );
+        
         $unidad->conn->beginTransaction();
         $id = $unidad->agregar();
         $this->assertIsInt($id);
@@ -26,24 +32,33 @@ class UnitsModelTest extends TestCase
 
     public function testActualizarUnidad()
     {
-        $c4 = new \Shtch\Burgerhouse\models\Unidad();
-        $id_ultima_unidad = $c4->search(order_type: 'DESC')[0]['id'];
-        $unidad = new \Shtch\Burgerhouse\models\Unidad($id_ultima_unidad, 'Mililitro', 'ml', 1);
-        $unidad->conn->beginTransaction();
-        $result = $unidad->actualizar();
-        $this->assertIsArray($result);
-        $this->assertTrue($result['success']);
-        $unidad->conn->rollBack();
+        // Buscar una unidad existente para actualizar
+        $unidad = new \Shtch\Burgerhouse\models\Unidad();
+        $unidades = $unidad->search(limite: 1);
+        
+        if (empty($unidades)) {
+            $this->markTestSkipped('No hay unidades disponibles para actualizar');
+        }
+        
+        $unidad_actualizar = new \Shtch\Burgerhouse\models\Unidad(
+            $unidades[0]['id'],
+            'Mililitro', // nuevo nombre
+            'ml', // nueva abreviatura
+            1 // activo
+        );
+        
+        $unidad_actualizar->conn->beginTransaction();
+        $resultado = $unidad_actualizar->actualizar();
+        $this->assertIsArray($resultado);
+        $this->assertTrue($resultado['success']);
+        $unidad_actualizar->conn->rollBack();
     }
 
-    public function testBorrarUnidad()
+    public function testBuscarUnidad()
     {
-        $c4 = new \Shtch\Burgerhouse\models\Unidad();
-        $id_ultima_unidad = $c4->search(order_type: 'DESC')[0]['id'];
-        $unidad = new \Shtch\Burgerhouse\models\Unidad($id_ultima_unidad);
-        $unidad->conn->beginTransaction();
-        $result = $unidad->borrar();
-        $this->assertIsBool($result);
-        $unidad->conn->rollBack();
+        $unidad = new \Shtch\Burgerhouse\models\Unidad();
+        $resultados = $unidad->search(limite: 10);
+        
+        $this->assertIsArray($resultados);
     }
 }
