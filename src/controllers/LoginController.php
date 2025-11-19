@@ -74,7 +74,7 @@ function login()
             ]
         ]));
         $resultado = json_decode($response, true);
-        if (!$resultado['success']) {
+        if (!$resultado['success'] && CAPTCHA_CONTROL) {
             echo json_encode(['success' => false, 'message' => 'Error de verificación de captcha']);
         } else {
             $session_id = substr(str_shuffle('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'), 0, 10);
@@ -93,7 +93,9 @@ function login()
             $_SESSION['session_id'] = $session_id;
             $_SESSION['imagen'] = $result[0]['imagen'];
         }
+
     }
+    die;
 }
 function logout()
 {

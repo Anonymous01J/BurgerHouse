@@ -102,15 +102,16 @@
         'llave' => '/^[a-zA-Z_]+$/'
     ];
     $GLOBALS['db1'] = [
-        'host' => 'localhost',
+        'host' => 'localhost:3306',
         'name' => 'burgerhouse',
         'user' => 'root',
         'pass' => '12345'
     ];
     $GLOBALS['db2'] = [
-        'host' => 'localhost',
+        'host' => 'localhost:3306',
         'name' => 'usuarios_burgerhouse',
         'user' => 'root',
         'pass' => '12345'
     ];
+    const CAPTCHA_CONTROL = false;
 ?>
