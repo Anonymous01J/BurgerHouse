@@ -1,5 +1,5 @@
 <?php
-namespace Shtch\Burgerhouse\controllers\Additional;
+namespace Shtch\Burgerhouse\controllers\Package_table;
 use Shtch\Burgerhouse\models\Paquetes_mesa;
 use function Shtch\Burgerhouse\controllers\{
     controller_init,

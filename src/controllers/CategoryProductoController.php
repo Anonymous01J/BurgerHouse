@@ -1,5 +1,5 @@
 <?php
-namespace Shtch\Burgerhouse\controllers\CategoryProductos;
+namespace Shtch\Burgerhouse\controllers\CategoryProducto;
 use Shtch\Burgerhouse\models\Categoria_producto;
 use function Shtch\Burgerhouse\controllers\{
     controller_init,

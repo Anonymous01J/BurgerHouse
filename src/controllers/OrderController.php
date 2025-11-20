@@ -1,5 +1,7 @@
 <?php
+
 namespace Shtch\Burgerhouse\controllers\Order;
+
 use Shtch\Burgerhouse\models\DetalleOrdenProductoPreparado;
 use Shtch\Burgerhouse\models\DetalleOrdenProductoProcesado;
 use Shtch\Burgerhouse\models\Orden;
@@ -26,7 +28,8 @@ use function Shtch\Burgerhouse\controllers\{
     base_delete_many,
     base_update_many,
     base_guardar_imagen_mult,
-    base_guardar_imagen_single
+    base_guardar_imagen_single,
+    base_check
 };
 
 controller_init('orders', Orden::class);
@@ -533,4 +536,9 @@ function verifyStockPrepared($detalles_receta)
             }
         }
     }
+}
+
+function check(...$args)
+{
+    base_check(...$args);
 }

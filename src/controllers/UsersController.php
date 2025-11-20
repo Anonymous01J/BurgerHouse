@@ -1,5 +1,7 @@
 <?php
+
 namespace Shtch\Burgerhouse\controllers\Users;
+
 use Shtch\Burgerhouse\models\Usuario;
 use function Shtch\Burgerhouse\controllers\{
     controller_init,
@@ -12,8 +14,10 @@ use function Shtch\Burgerhouse\controllers\{
     base_delete_many,
     base_update_many,
     base_guardar_imagen_mult,
-    base_guardar_imagen_single
+    base_guardar_imagen_single,
+    get_db
 };
+use Exception;
 
 controller_init('users', Usuario::class);
 function view()
@@ -24,9 +28,31 @@ function get_all(...$args)
 {
     base_get_all('users', ...$args);
 }
-function add()
+function add($imagen_callback = null)
 {
-    base_add('users');
+    header('Content-Type: application/json');
+    try {
+        $db = get_db("users");
+        $db->clear();
+        $data = $_POST;
+        if (isset($data['hash'])) {
+            $data['hash'] = password_hash($data['hash'], PASSWORD_DEFAULT);
+        }
+        $db->__construct(...$data);
+
+        if (isset($_FILES['imagen'])) {
+            if ($imagen_callback) {
+                $imagen_callback("users");
+            } else {
+                base_guardar_imagen_single("users");
+            }
+        }
+
+        $id = $db->agregar();
+        echo json_encode(['success' => true, 'last_id' => $id]);
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
 }
 function delete()
 {

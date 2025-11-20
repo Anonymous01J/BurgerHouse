@@ -1,5 +1,7 @@
 <?php
+
 namespace Shtch\Burgerhouse\controllers\Login;
+
 use Shtch\Burgerhouse\models\Permiso;
 use Shtch\Burgerhouse\models\Usuario;
 use function Shtch\Burgerhouse\controllers\{
@@ -59,10 +61,12 @@ function guardar_imagen_single()
 }
 function login()
 {
-    $user = new Usuario(email: $_POST['email'], hash: $_POST['password']);
+    $user = new Usuario(email: $_POST['email']);
     $result = $user->search();
     if (empty($result)) {
-        echo json_encode(['success' => false, 'message' => 'Usuario o contraseña incorrectos']);
+        echo json_encode(['success' => false, 'message' => 'El usuario no existe']);
+    } elseif (!password_verify($_POST['password'], $result[0]['hash'])) {
+        echo json_encode(['success' => false, 'message' => 'Contraseña incorrecta']);
     } else {
         $token = $_POST['token'];
         $secretKey = '0x4AAAAAABDYzHAap8ofRwK1xEfj_e_rKz8';
@@ -93,7 +97,6 @@ function login()
             $_SESSION['session_id'] = $session_id;
             $_SESSION['imagen'] = $result[0]['imagen'];
         }
-
     }
     die;
 }

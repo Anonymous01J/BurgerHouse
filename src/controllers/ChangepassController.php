@@ -1,12 +1,14 @@
 <?php
+
 namespace Shtch\Burgerhouse\controllers\Changepass;
+
 use Shtch\Burgerhouse\models\Usuario;
 use DateTime;
 use DateInterval;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use function Shtch\Burgerhouse\controllers\{
-   controller_init,
+    controller_init,
     base_view,
     base_get_all,
     base_add,
@@ -16,7 +18,8 @@ use function Shtch\Burgerhouse\controllers\{
     base_delete_many,
     base_update_many,
     base_guardar_imagen_mult,
-    base_guardar_imagen_single
+    base_guardar_imagen_single,
+    get_db
 };
 
 controller_init('recover_password', Usuario::class);
@@ -38,7 +41,24 @@ function delete()
 }
 function update()
 {
-    base_update('recover_password');
+    header('Content-Type: application/json');
+    try {
+        $db = get_db("recover_password");
+        $db->clear();
+        $data = $_POST;
+        if (isset($data['hash'])) {
+            $data['hash'] = password_hash($data['hash'], PASSWORD_DEFAULT);
+        }
+        $db->__construct(...$data);
+        $result = $db->actualizar();
+        if ($result == false or $result == 0) {
+            echo json_encode(['success' => false, 'message' => 'No se pudo actualizar el registro']);
+        } else {
+            echo json_encode(['success' => true]);
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => $e->getMessage()]);
+    }
 }
 function add_many()
 {
@@ -75,7 +95,7 @@ function sendEmail()
         $mail->Host       = 'smtp.gmail.com';
         $mail->SMTPAuth   = true;
         $mail->Username   = 'garnicaluis391@gmail.com';
-        $mail->Password   = 'iwqqzociqlbxlrvs';
+        $mail->Password   = 'cczxcuzcduloehqc';
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port       = 587;
 
@@ -115,7 +135,7 @@ function validateToken()
     $now  = new DateTime();
     $now->format('Y-m-d H:i:s');
     $user = new Usuario(token: $token);
-    $result = $user ->search();
+    $result = $user->search();
     if (!empty($result)) {
         $date_DB = new DateTime($result[0]['token_expiracion']);
         if ($now > $date_DB) {

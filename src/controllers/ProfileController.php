@@ -2,8 +2,8 @@
 
 namespace Shtch\Burgerhouse\controllers\Profile;
 use function Shtch\Burgerhouse\controllers\{controller_init, base_view};
-controller_init('additional');
+controller_init('profile');
 function view()
 {
-    base_view('additional');
+    base_view('profile');
 }

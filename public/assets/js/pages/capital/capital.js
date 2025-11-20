@@ -53,6 +53,7 @@ if (!form.dataset.listenerAttached) {
             descripcion: form.querySelector("#input-capital-description").value,
             monto: form.querySelector("#input-capital-monto").value,
         }
+        console.log(data);
         const errors = validate(data, rules)
         setValidationStyles("input-capital-description", errors?.descripcion ? errors.descripcion[0] : null);
         setValidationStyles("input-capital-monto", errors?.monto ? errors.monto[0] : null);
@@ -61,7 +62,7 @@ if (!form.dataset.listenerAttached) {
         if (!hasError) {
             let dataFinal = new FormData()
             dataFinal.append("lista[0][descripcion]", data.descripcion)
-            dataFinal.append("lista[0][monto]", type_action == "Guardar Gasto" ? -data.monto : data.monto)
+            dataFinal.append("lista[0][monto]", type_action == "Guardar Gasto" ? Number(-data.monto.replace(",", ".")) : Number(data.monto.replace(",", ".")))
             addDataTables(n, dataFinal, "capital", () => {
                 binnacle(session.message.id, "capital", `Agregar`, `${type_action} en capital de ${data.monto} $`)
                 target()

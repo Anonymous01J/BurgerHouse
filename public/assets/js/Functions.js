@@ -748,6 +748,7 @@ export default function functionGeneral() {
       body: data,
     })
     let response = await pet.json()
+    console.log(response);
     if (response.success == true) {
       Swal.close();
       Swal.fire({

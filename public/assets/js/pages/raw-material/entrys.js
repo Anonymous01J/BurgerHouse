@@ -201,7 +201,6 @@ async function reference() {
         }
     });
 }
-
 let tableActive = $(".table_entrys_active").DataTable({
     language: {
         url: './assets/libs/extra-libs/datatables.net/js/es-Es.json'
