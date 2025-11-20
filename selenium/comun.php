@@ -139,7 +139,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
         }
 
 
-        public function click($selector, $timeout = 3, $interval = 500){
+        public function click($selector, $force = false, $timeout = 3, $interval = 500){
             try {
                 $selector = $this->selector($selector);
                 if($timeout != 0){
@@ -147,7 +147,12 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
                         WebDriverExpectedCondition::visibilityOfElementLocated($selector),
                     );
                 }
-                $this->driver->findElement($selector)->click();
+                if($force){
+                    $this->driver->executeScript("arguments[0].click();", [$this->driver->findElement($selector)]);
+                }
+                else{
+                    $this->driver->findElement($selector)->click();
+                }
             } catch (\Exception $th) {
                 echo "Error al hacer click en el elemento :: {$th->getMessage()}\n" ;
             }
@@ -312,6 +317,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
 
             } catch (\Exception $th) {
                 echo "❌ Error al hacer scroll o esperar elemento: {$th->getMessage()}\n";
+                echo "path: ". $th->getTraceAsString() . "\n";
                 throw $th;
             }
         }
