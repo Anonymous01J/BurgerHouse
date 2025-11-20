@@ -324,14 +324,14 @@ public function reportTestStatusOnly(int|string $testCase, string $status, $dura
         $args = ["devKey" => new Value($this->userApiKey, "string")];
         $structValue = new Value($args, "struct");
         $request = new Request("tl.getProjects", [$structValue]);
+        //$request->setDebug(true);
         $response = $this->client->send($request);
-        echodebug($response);
+        
         
         if ($response->faultCode() != 0) {
             echo "❌ ERROR de API TestLink: " . $response->faultString() . "\n";
             return null;
         }
-        die;
 
         // El contenedor principal: es un array de proyectos
         $xmlRpcArray = $response->value(); 
