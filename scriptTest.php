@@ -8,7 +8,8 @@ require_once 'selenium/user_config.php';
     ✅
     🔎
 */
-define("LIST_TESTS", ["login"]);
+define("LIST_TESTS", ["login", "materiasPrimas", "orden"]);
+const DIRPROJECT = "http://localhost/burgerhouse/";
 
 
 
@@ -47,6 +48,10 @@ $listTest = LIST_TESTS;
 // los que este aca abajo agg en la linea 11
 
 if($__executeTest("login")) (new LoginSelenium($apicontroller))->testLogin();
+if($__executeTest("materiasPrimas")) (new MateriasPrimasSelenium($apicontroller))->testMateriasPrimas();
+if($__executeTest("orden")) (new OrdenSelenium($apicontroller))->testOrden();
+
+
 
 
 
@@ -71,4 +76,4 @@ echo "\n END \n";
  * @param mixed $url agrega al final de la url ej.(Area) http://localhost:8081/burgerhouse//
  * @return string
  */
-function url($url='') { return "http://localhost:8081/burgerhouse/".$url; }
+function url($url='') { return DIRPROJECT.$url; }

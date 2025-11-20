@@ -23,17 +23,17 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
         }
 
         public function openSystemDSG($login = true){
-            $this->driver->get("http://localhost:80/burgerhouse/");
+            $this->driver->get(DIRPROJECT);
             if($login){
                 $this->login();
             }
         }
         // MODIFICAR A PIE SEGUN TU SYTEM
-        public function login($clave = "Alejandro202**", $usuario = "garnicaluis391@gmail.com"){
+        public function login($clave = "Hola123", $usuario = "garnicaluis391@gmail.com"){
 
             try {
                 $this->driver->wait(5, 500)->until(
-                    WebDriverExpectedCondition::urlIs("http://localhost:80/burgerhouse/")
+                    WebDriverExpectedCondition::urlIs(DIRPROJECT)
                 );
                 $this->fillForms([
                     ['selector' => '#login-correo', 'value' => $usuario],
@@ -157,7 +157,6 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
                 $selectorOriginal = $selector;
                 $selector = $this->selector($selector);
                 if($timeout != 0){
-                    echo "timeout == 0";
                     $this->driver->wait($timeout, $interval)->until(
                         WebDriverExpectedCondition::visibilityOfElementLocated($selector),
                         $mensaje
@@ -167,8 +166,10 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
                 $this->driver->findElement($selector)->sendKeys($value);
             } catch (\Exception $th) {
                 if(is_string($selectorOriginal))echo "Selector: {$selectorOriginal}\n";
+                echo "Error al llenar el formulario :: {$th->getMessage()}\n" ;
             } catch (\Throwable $th) {
                 if(is_string($selectorOriginal))echo "Selector: {$selectorOriginal}\n";
+                echo "Error al llenar el formulario :: {$th->getMessage()}\n" ;
             }
         }
         /**
@@ -217,28 +218,29 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
         /**
          * Espera que una alerta se muestre
          * @param string $text
-         * @param 'success'|'danger' | 'warning' $type = 'success'
+         * @param 'swal2-success'|'swal2-error'|'swal2-warning' $type = 'swal2-success'
          * @param int $timeout
          * @param int $interval
          * @param string $mensaje
          * @return void
          */
-        public function waitAlert($text = '', $type = 'success', $timeout = 3, $interval = 500, $mensaje = ''){
+        public function waitAlert($type = 'swal2-success', $timeout = 3, $interval = 500, $mensaje = ''){
             try {
                 $condition = WebDriverExpectedCondition::visibilityOfElementLocated(
-                    WebDriverBy::cssSelector('div.toastify.on[style*="--bs-'.$type.'"]')
+                    WebDriverBy::cssSelector('.swal2-container.swal2-center.swal2-backdrop-show')
                 );
-                if(!empty($text)){
-                    $condition = WebDriverExpectedCondition::elementTextContains(
-                        WebDriverBy::cssSelector('div.toastify.on[style*="--bs-'.$type.'"]'),
-                        $text);
-                }
+                
                 $this->wait(
                     $condition,
                     $timeout,
                     $interval,
                     $mensaje
                 );
+                if($type != null){
+                    $swal = $this->waitElement(".swal2-container.swal2-center.swal2-backdrop-show");
+                    //$swal->findElement($this->selector(".swal2-icon.$type.swal2-icon-show"));
+                    $this->waitElement(".swal2-icon.$type.swal2-icon-show");
+                }
                 
             } catch (\Exception $th) {
                 $this->print("Error al esperar la alerta",6);
@@ -638,6 +640,13 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
                 echo "      {$th->getMessage()}\n";
                 throw $th;
             }
+        }
+
+
+        public function fillSelectBurger($selectorOrigen, $aTagNumber, $timeout = 3, $interval = 500, $mensaje = 'Elemento no encontrado') {
+            $select = $this->waitElement($this->selector($selectorOrigen), $timeout, $interval, $mensaje);
+            $select->findElement(WebDriverBy::xpath('.//following-sibling::button[1]'))->click();
+            $select->findElement(WebDriverBy::xpath(".//following-sibling::div[@class='dropdown-menu p-2 show']//a[$aTagNumber]"))->click();
         }
 
 
