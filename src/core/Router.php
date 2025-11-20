@@ -23,8 +23,9 @@ class Router
             }
         }
         
-        $controllerName = !empty($url[0]) ? $url[0] : 'Home';
-        $methodName = $url[1] ?? 'view';
+        $indice = (isset($url[0]) && $url[0] == 'burgerhouse') ? 1 : 0;
+        $controllerName = !empty($url[$indice]) ? $url[$indice] : 'Home';
+        $methodName = $url[$indice + 1] ?? 'view';
         if (!isset($_SESSION['id']) && !in_array(strtolower($controllerName), ['login', 'changepass', 'recover_password'])) {
             $controllerName = 'Login';
             $methodName = 'view';
