@@ -128,28 +128,3 @@ const notificationSetStatus = async () => {
 bell.addEventListener("click", () => {
     setTimeout(notificationSetStatus, 3000)
 })
-
-// const pet = await fetch("login/prueba")
-// const session = await pet.json()
-// console.log(session);
-
-// let data = new FormData();
-// data.append("id_cliente", 1);
-// data.append("tipo", "delivery");
-// data.append("nro_orden", 51689296);
-// data.append("status", "en cocina");
-// data.append("lista_detalle_procesado[0][id_producto]", 41)
-// data.append("lista_detalle_procesado[0][cantidad]", 1)
-// data.append("lista_detalle_preparado[0][id_producto]", 41);
-// data.append("lista_detalle_preparado[0][cantidad]", 2);
-// data.append("lista_detalle_preparado[0][adicionales]", "");
-// data.append("lista_detalle_preparado[0][descripcion]", "");
-// data.append("lista_detalle_preparado[1][id_producto]", 41);
-// data.append("lista_detalle_preparado[1][cantidad]", 1);
-// data.append("lista_detalle_preparado[1][adicionales]", "");
-// data.append("lista_detalle_preparado[1][descripcion]", "");
-// data.append("lista_detalle_preparado[2][id_producto]", 50);
-// data.append("lista_detalle_preparado[2][cantidad]", 1);
-// let pet = await fetch('order/add', { method: "POST", body: data })
-// let res = await pet.json()
-// console.log(res);

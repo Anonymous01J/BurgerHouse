@@ -147,6 +147,7 @@ const modalDetails = () => {
         item.addEventListener("click", async () => {
             let id = item.getAttribute('data-id')
             let info = await searchParam({ id: id }, "order")
+            console.log(info);
             let detailsPrepered = await searchParam({ id_orden: id }, "Detalle_orden_producto_preparado")
             let detailsProcess = await searchParam({ id_orden: id }, "Detalle_orden_producto_procesado")
             document.querySelector(".cont_info_kitchen_delivery").innerHTML = infoKitchenDelivery(info[0])

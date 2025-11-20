@@ -2292,7 +2292,7 @@ export default function Templates() {
         <div class="row mt-3 border-bottom border-2">
             <div class="col-12 d-flex gap-3">
                 <h5>Cliente</h5>
-                <p class="fw-bolder">${objet.cliente ? objet.cliente_nombre + " " + objet.cliente_apellido : "POR ASIGNAR"}</p>
+                <p class="fw-bolder">${objet.cliente_nombre ? objet.cliente_nombre + " " + objet.cliente_apellido : "POR ASIGNAR"}</p>
             </div>
             <div class="col-12 d-flex gap-3">
                 <h5>Dirección</h5>
