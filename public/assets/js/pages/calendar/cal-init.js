@@ -88,7 +88,9 @@ const calendar = new FullCalendar.Calendar(calendarEl, {
             document.querySelector(".btn-verify-reservation").setAttribute("data-id-reserva", id_reserva)
             document.querySelector(".btn-verify-reservation").setAttribute("data-id-order", id_orden)
         }
-
+        if (document.querySelector(".btn-block-reservation")) {
+            document.querySelector(".btn-block-reservation").setAttribute("data-id-package", id_paquete)
+        }
         bootstrap.Modal.getOrCreateInstance('#edit-reservation').show()
     },
 });
@@ -322,5 +324,55 @@ document.querySelector(".btn-verify-reservation").addEventListener("click", () =
             }
         }
     });
+
+})
+
+document.querySelector(".btn-block-reservation").addEventListener("click", async () => {
+
+    Swal.fire({
+        title: "¿Deseas bloquear las mesas de esta reserva?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#FF4B00",
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            bootstrap.Modal.getOrCreateInstance('#edit-reservation').hide()
+            Swal.fire({
+                title: 'Procesando...',
+                text: 'Por favor espera',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading() }
+            });
+            const data = new FormData();
+            const id_paquete = document.querySelector(".btn-block-reservation").getAttribute("data-id-package")
+            data.append("id_paquete", id_paquete)
+            const pet = await fetch("package_table/get_all/0/10000000/id/asc", { method: "POST", body: data })
+            const response = await pet.json()
+            const update = new FormData()
+            response.forEach((item, index) => {
+                update.append(`lista[${index}][id]`, item.id)
+                update.append(`lista[${index}][estado]`, "OCUPADA")
+            })
+            let petUpdate = await fetch("table/updateMany", { method: "POST", body: update })
+            let responseUpdate = await petUpdate.json()
+            if (responseUpdate.success == true) {
+                recargarEventos()
+                Swal.fire({
+                    title: `Exito!`,
+                    text: "Las mesas fueron bloqueadas correctamente",
+                    icon: "success",
+                });
+            } else {
+                Swal.fire({
+                    title: `Error!`,
+                    text: "Las mesas no pudieron ser bloqueadas",
+                    icon: "error",
+                });
+            }
+        }
+    });
+
 
 })
