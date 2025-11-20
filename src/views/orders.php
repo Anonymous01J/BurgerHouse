@@ -127,7 +127,7 @@
                                         <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                             <div class="row justify-content-between mt-3">
                                                 <div class="col-md-6 col-lg-3">
-                                                    <input type="text" class="form-control" id="searchBoxDomicilioPending" placeholder="Buscar">
+                                                    <input type="text" maxlength="50" class="form-control" id="searchBoxDomicilioPending" placeholder="Buscar">
                                                 </div>
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
@@ -153,7 +153,7 @@
                                         <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                                             <div class="row justify-content-between mt-3">
                                                 <div class="col-md-6 col-lg-3">
-                                                    <input type="text" class="form-control" id="searchBoxDomicilioProcesadas" placeholder="Buscar">
+                                                    <input type="text" maxlength="50" class="form-control" id="searchBoxDomicilioProcesadas" placeholder="Buscar">
                                                 </div>
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
@@ -179,7 +179,7 @@
                                         <div class="tab-pane fade" id="null_order_tab" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                                             <div class="row justify-content-between mt-3">
                                                 <div class="col-md-6 col-lg-3">
-                                                    <input type="text" class="form-control" id="searchBoxDomicilioNull" placeholder="Buscar">
+                                                    <input type="text" maxlength="50" class="form-control" id="searchBoxDomicilioNull" placeholder="Buscar">
                                                 </div>
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
@@ -282,7 +282,7 @@
                                         <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                             <div class="row justify-content-between mt-3">
                                                 <div class="col-md-6 col-lg-3">
-                                                    <input type="text" class="form-control" id="searchBoxLLevarPending" placeholder="Buscar">
+                                                    <input type="text" maxlength="50" class="form-control" id="searchBoxLLevarPending" placeholder="Buscar">
                                                 </div>
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
@@ -308,7 +308,7 @@
                                         <div class="tab-pane fade show" id="process" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                             <div class="row justify-content-between mt-3">
                                                 <div class="col-md-6 col-lg-3">
-                                                    <input type="text" class="form-control" id="searchBoxllevarProcesadas" placeholder="Buscar">
+                                                    <input type="text" maxlength="50" class="form-control" id="searchBoxllevarProcesadas" placeholder="Buscar">
                                                 </div>
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
@@ -334,7 +334,7 @@
                                         <div class="tab-pane fade show" id="orderParallevarAnuladas" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                             <div class="row justify-content-between mt-3">
                                                 <div class="col-md-6 col-lg-3">
-                                                    <input type="text" class="form-control" id="searchBoxllevarAnuladas" placeholder="Buscar">
+                                                    <input type="text" maxlength="50" class="form-control" id="searchBoxllevarAnuladas" placeholder="Buscar">
                                                 </div>
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
@@ -426,7 +426,7 @@
                                         <div class="tab-pane fade show active" id="home-tab-pane2" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                             <div class="row justify-content-between mt-3">
                                                 <div class="col-md-6 col-lg-3">
-                                                    <input type="text" class="form-control" id="searchBoxLocalPending" placeholder="Buscar">
+                                                    <input type="text" maxlength="50" class="form-control" id="searchBoxLocalPending" placeholder="Buscar">
                                                 </div>
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
@@ -451,7 +451,7 @@
                                         <div class="tab-pane fade" id="profile-tab-pane2" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                                             <div class="row justify-content-between mt-3">
                                                 <div class="col-md-6 col-lg-3">
-                                                    <input type="text" class="form-control" id="searchBoxLocalProcesadas" placeholder="Buscar">
+                                                    <input type="text" maxlength="50" class="form-control" id="searchBoxLocalProcesadas" placeholder="Buscar">
                                                 </div>
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
@@ -529,7 +529,7 @@
                                         <div class="tab-pane fade show active" id="home-tab-pane3" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                                             <div class="row justify-content-between mt-3">
                                                 <div class="col-md-6 col-lg-3">
-                                                    <input type="text" class="form-control" id="searchBoxResPending" placeholder="Buscar">
+                                                    <input type="text" maxlength="50" class="form-control" id="searchBoxResPending" placeholder="Buscar">
                                                 </div>
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>
@@ -554,7 +554,7 @@
                                         <div class="tab-pane fade" id="profile-tab-pane3" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
                                             <div class="row justify-content-between mt-3">
                                                 <div class="col-md-6 col-lg-3">
-                                                    <input type="text" class="form-control" id="searchBoxResProcesadas" placeholder="Buscar">
+                                                    <input type="text" maxlength="50" class="form-control" id="searchBoxResProcesadas" placeholder="Buscar">
                                                 </div>
                                                 <div class="col-md-6 col-lg-9">
                                                 </div>

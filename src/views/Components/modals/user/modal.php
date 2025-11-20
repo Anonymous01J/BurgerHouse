@@ -12,12 +12,12 @@
                         <div class="row g-2 users" id="user-1">
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-user-1" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-user-1" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-user-1"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" placeholder="Apellido" id="input-lastname-user-1" name="apellido">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Apellido" id="input-lastname-user-1" name="apellido">
                                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-user-1"></div>
                             </div>
                             <!-- <div class="col-md-6 ">
@@ -44,12 +44,12 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nro de documento</label>
-                                <input type="text" class="form-control" placeholder="Nro de documento" id="input-rif-user-1" name="rif">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nro de documento" id="input-rif-user-1" name="rif">
                                 <div class="text-danger mt-1 fs-6" id="error-input-rif-user-1"></div>
                             </div> -->
                             <div class="col-md-4">
                                 <label for="inputEmail4" class="form-label">Correo Electronico</label>
-                                <input type="text" class="form-control" placeholder="Correo Electronico" id="input-email-user-1" name="email" autocomplete="off">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Correo Electronico" id="input-email-user-1" name="email" autocomplete="off">
                                 <div class="text-danger mt-1 fs-6" id="error-input-email-user-1"></div>
                             </div>
                             <div class="col-md-4">
@@ -108,12 +108,12 @@
                         <div class="row g-2 user" id="user">
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-user" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-user" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-user"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" placeholder="Apellido" id="input-lastname-user" name="apellido">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Apellido" id="input-lastname-user" name="apellido">
                                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-user"></div>
                             </div>
                             <!-- <div class="col-md-6 ">
@@ -140,12 +140,12 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nro de documento</label>
-                                <input type="text" class="form-control" placeholder="Nro de documento" id="input-rif-user" name="rif">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nro de documento" id="input-rif-user" name="rif">
                                 <div class="text-danger mt-1 fs-6" id="error-input-rif-user"></div>
                             </div> -->
                             <div class="col-md-12">
                                 <label for="inputEmail4" class="form-label">Correo Electronico</label>
-                                <input type="text" class="form-control" placeholder="Correo Electronico" id="input-email-user" name="email" autocomplete="off">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Correo Electronico" id="input-email-user" name="email" autocomplete="off">
                                 <div class="text-danger mt-1 fs-6" id="error-input-email-user"></div>
                             </div>
                             <!-- <div class="col-md-12">

@@ -13,12 +13,12 @@
                             <h4>Paquete 1</h4>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-package-1" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-package-1" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-package-1"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Precio</label>
-                                <input type="text" class="form-control" placeholder="0.00" input-price id="input-price-package-1" name="precio">
+                                <input type="text" maxlength="50" class="form-control" placeholder="0.00" input-price id="input-price-package-1" name="precio">
                                 <div class="text-danger mt-1 fs-6" id="error-input-price-package-1"></div>
                             </div>
                             <div class="row mt-3">
@@ -58,12 +58,12 @@
                             <h4>Paquete 1</h4>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-package" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-package" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-package"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Precio</label>
-                                <input type="text" class="form-control" placeholder="0.00" input-price id="input-price-package" name="precio">
+                                <input type="text" maxlength="50" class="form-control" placeholder="0.00" input-price id="input-price-package" name="precio">
                                 <div class="text-danger mt-1 fs-6" id="error-input-price-package"></div>
                             </div>
                             <div class="row mt-3">

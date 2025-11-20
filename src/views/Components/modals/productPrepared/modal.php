@@ -13,14 +13,14 @@
                             <h4>Producto 1</h4>
                             <div class="col-md-4">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-combo-1" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" maxlength="50" placeholder="Nombre" id="input-name-combo-1" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-combo-1"></div>
                             </div>
                             <div class="col-md-4">
                                 <label for="inputEmail4" class="form-label">Precio</label>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
-                                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-combo-1" name="precio">
+                                    <input type="text" maxlength="50" class="form-control w-75" maxlength="50" placeholder="Precio" input_price id="input-price-combo-1" name="precio">
                                     <div class="text-danger mt-1 fs-6" id="error-input-price-combo-1"></div>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@
 
                             <div class="col-12">
                                 <label for="inputAddress2" class="form-label">Detalles</label>
-                                <textarea placeholder="Detalles" class="form-control" id="input-details-combo-1" rows="5" name="detalles"></textarea>
+                                <textarea placeholder="Detalles" maxlength="50" class="form-control" id="input-details-combo-1" rows="5" name="detalles"></textarea>
                                 <div class="text-danger mt-1 fs-6" id="error-input-details-combo-1"></div>
                             </div>
                             <div class="col-12">
@@ -90,14 +90,14 @@
                             <input type="hidden" id="input-id-combo">
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-combo" name="nombre">
+                                <input type="text" maxlength="50" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-combo" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-combo"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Precio</label>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
-                                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-combo" name="precio">
+                                    <input type="text" maxlength="50" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-combo" name="precio">
                                     <div class="text-danger mt-1 fs-6" id="error-input-price-combo"></div>
                                 </div>
                             </div>
@@ -126,7 +126,7 @@
 
                             <div class="col-12">
                                 <label for="inputAddress2" class="form-label">Detalles</label>
-                                <textarea placeholder="Detalles" class="form-control" id="input-details-combo" rows="5" name="detalles"></textarea>
+                                <textarea placeholder="Detalles" maxlength="50" class="form-control" id="input-details-combo" rows="5" name="detalles"></textarea>
                                 <div class="text-danger mt-1 fs-6" id="error-input-details-combo"></div>
                             </div>
                             <div class="col-12">

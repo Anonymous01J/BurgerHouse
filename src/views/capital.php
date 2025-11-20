@@ -32,11 +32,11 @@
                                 <div class="col-md-6 col-lg-5">
                                     <form id="formCapital">
                                         <div class="mb-3">
-                                            <input type="text" class="form-control" id="input-capital-monto" placeholder="Monto" input_price name="monto">
+                                            <input type="text" class="form-control" id="input-capital-monto" maxlength="50" placeholder="Monto" input_price name="monto">
                                             <div class="text-danger mt-1 fs-6" id="error-input-capital-monto"></div>
                                         </div>
                                         <div class="mb-3">
-                                            <textarea class="form-control" id="input-capital-description" placeholder="Descripcion" rows="4" name="descripcion"></textarea>
+                                            <textarea class="form-control" id="input-capital-description" maxlength="50" placeholder="Descripcion" rows="4" name="descripcion"></textarea>
                                             <div class="text-danger mt-1 fs-6" id="error-input-capital-description"></div>
                                         </div>
                                         <div class="mb-4">

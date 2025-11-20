@@ -13,12 +13,12 @@
                             <h4>Mesa 1</h4>
                             <div class="col-md-3">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-tables-1" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" maxlength="50" placeholder="Nombre" id="input-name-tables-1" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-tables-1"></div>
                             </div>
                             <div class="col-md-3">
                                 <label for="inputEmail4" class="form-label">Nro de sillas</label>
-                                <input type="number" class="form-control" placeholder="Nro de sillas" id="input-chair-tables-1" name="sillas">
+                                <input type="number" maxlength="50" class="form-control" maxlength="50" placeholder="Nro de sillas" id="input-chair-tables-1" name="sillas">
                                 <div class="text-danger mt-1 fs-6" id="error-input-chair-tables-1"></div>
                             </div>
                             <div class="col-md-1">
@@ -64,12 +64,12 @@
                         <div class="row g-2 table" id="table">
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-table" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" maxlength="50" placeholder="Nombre" id="input-name-table" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-table"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nro de sillas</label>
-                                <input type="number" class="form-control" placeholder="Nro de sillas" id="input-chair-table" name="sillas">
+                                <input type="number" maxlength="50" class="form-control" maxlength="50" placeholder="Nro de sillas" id="input-chair-table" name="sillas">
                                 <div class="text-danger mt-1 fs-6" id="error-input-chair-table"></div>
                             </div>
                             <div class="col-md-2">

@@ -17,7 +17,7 @@ class OrdenSelenium extends ComunSelenium{
         $this->openSystemDSG(true);
         $this->testCrearOrden();        
         sleep(5);
-        $this->closeBrowser();
+        // $this->closeBrowser();
 
 
     }
@@ -34,9 +34,10 @@ class OrdenSelenium extends ComunSelenium{
             $modal = $this->waitElement('#domicile_and_takeaway',mensaje:'No se encuentra el modal de domicilio');
             $con = $this;
             // funcion para agregar productos
-            $addProduct = function ($nombre, $cantidad) use ($con, $modal) {
-                //$con->scrollTo($con->selector('div[nombre="Pizza Max"]]'));
-                $elemeto = $modal->findElement($con->selector('div[data-id][nombre="'.$nombre.'"]'));
+            $addProduct = function ($dataId, $cantidad) use ($con, $modal) {
+                //$con->scrollTo($con->selector('div[dataId="Pizza Max"]]'));
+                sleep(1);
+                $elemeto = $modal->findElement($con->selector('div[data-id="'.$dataId.'"]'));
                 $con->driver->executeScript("arguments[0].scrollIntoView({behavior: 'instant', block: 'center', inline: 'nearest'});", [$elemeto]);
                 $plusTrigger = $elemeto->findElement($con->selector('button.plusTrigger'));
                 $con->driver->executeScript("arguments[0].click();", [$plusTrigger]);
@@ -46,11 +47,11 @@ class OrdenSelenium extends ComunSelenium{
                 }
             };
 
-            $addProduct('Pizza Max', 4);
-            $addProduct('Super Smasher', 3);
+            // $addProduct('Pizza Max', 4);
+            $addProduct('54', 3);
             $this->print("Agregar productos",4);
-
-            $modal->findElement($this->selector('button.select_product_btn_next'))->click();
+            $this->scrollTo($this->selector('.select_product_btn_next'));
+            $modal->findElement($this->selector('.select_product_btn_next'))->click();
             $this->print("Click al boton de siguiente",4);
             $this->waitElement("h4.subtotal");
             sleep(1);

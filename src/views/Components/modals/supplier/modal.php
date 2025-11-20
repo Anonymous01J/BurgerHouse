@@ -15,12 +15,12 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="inputEmail4" class="form-label">Nombre de acreditado</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-supplier-1" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-supplier-1" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-supplier-1"></div>
                             </div>
                             <div class="col-md-3">
                                 <label for="inputEmail4" class="form-label">Razon Social</label>
-                                <input type="text" class="form-control" placeholder="Razon Social" id="input-razonSocial-supplier-1" name="razonSocial">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Razon Social" id="input-razonSocial-supplier-1" name="razonSocial">
                                 <div class="text-danger mt-1 fs-6" id="error-input-razonSocial-supplier-1"></div>
                             </div>
                             <div class="col-md-3 mb-3">
@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-md-3">
                                 <label for="inputEmail4" class="form-label">Nro de documento</label>
-                                <input type="text" class="form-control" placeholder="Numero de documento" id="input-rif-supplier-1" name="rif">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Numero de documento" id="input-rif-supplier-1" name="rif">
                                 <div class="text-danger mt-1 fs-6" id="error-input-rif-supplier-1"></div>
                             </div>
                             <div class="col-6">
@@ -61,7 +61,7 @@
                             </div>
                             <div class="col-12">
                                 <label for="inputEmail4" class="form-label">Direccion</label>
-                                <textarea class="form-control" id="input-direction-supplier-1" name="direccion" rows="5"></textarea>
+                                <textarea maxlength="50" class="form-control" id="input-direction-supplier-1" name="direccion" rows="5"></textarea>
                                 <div class="text-danger mt-1 fs-6" id="error-input-direction-supplier-1"></div>
                             </div>
                         </div>
@@ -96,12 +96,12 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre de acreditado</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-supplier" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-supplier" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-supplier"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Razon Social</label>
-                                <input type="text" class="form-control" placeholder="Razon Social" id="input-razonSocial-supplier" name="razonSocial">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Razon Social" id="input-razonSocial-supplier" name="razonSocial">
                                 <div class="text-danger mt-1 fs-6" id="error-input-razonSocial-supplier"></div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -127,7 +127,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nro de documento</label>
-                                <input type="text" class="form-control" placeholder="Numero de documento" id="input-rif-supplier" name="rif">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Numero de documento" id="input-rif-supplier" name="rif">
                                 <div class="text-danger mt-1 fs-6" id="error-input-rif-supplier"></div>
                             </div>
                             <div class="col-6">
@@ -142,7 +142,7 @@
                             </div>
                             <div class="col-12">
                                 <label for="inputEmail4" class="form-label">Direccion</label>
-                                <textarea class="form-control" id="input-direction-supplier" name="direccion" rows="5"></textarea>
+                                <textarea maxlength="50" class="form-control" id="input-direction-supplier" name="direccion" rows="5"></textarea>
                                 <div class="text-danger mt-1 fs-6" id="error-input-direction-supplier"></div>
                             </div>
                         </div>

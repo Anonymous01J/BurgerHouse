@@ -12,12 +12,12 @@
                         <div class="row g-2 clients" id="clients-1">
                             <div class="col-md-4">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-client-1" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-client-1" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-client-1"></div>
                             </div>
                             <div class="col-md-4">
                                 <label for="inputEmail4" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" placeholder="Apellido" id="input-lastname-client-1" name="apellido">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Apellido" id="input-lastname-client-1" name="apellido">
                                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-client-1"></div>
                             </div>
                             <div class="col-md-6 ">
@@ -44,7 +44,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nro de documento</label>
-                                <input type="text" class="form-control" placeholder="Documento" id="input-doc-client-1" name="documento">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Documento" id="input-doc-client-1" name="documento">
                                 <div class="text-danger mt-1 fs-6" id="error-input-doc-client-1"></div>
                             </div>
                             <div class="col-md-4">
@@ -86,13 +86,13 @@
                             <input type="hidden" id="input-id-client">
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-client" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-client" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-client"></div>
 
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" placeholder="Apellido" id="input-lastname-client" name="apellido">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Apellido" id="input-lastname-client" name="apellido">
                                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-client"></div>
 
                             </div>
@@ -120,7 +120,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nro de documento</label>
-                                <input type="text" class="form-control" placeholder="Documento" id="input-doc-client" name="documento">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Documento" id="input-doc-client" name="documento">
                                 <div class="text-danger mt-1 fs-6" id="error-input-doc-client"></div>
                             </div>
                             <div class="col-12">

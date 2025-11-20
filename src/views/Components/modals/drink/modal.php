@@ -12,14 +12,14 @@
                         <div class="row g-2 drinks" id="drinks-1">
                             <div class="col-md-4">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-drink-1" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-drink-1" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-drink-1"></div>
                             </div>
                             <div class="col-md-4">
                                 <label for="inputEmail4" class="form-label">Precio</label>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
-                                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-drink-1" name="precio">
+                                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-drink-1" name="precio">
                                     <div class="text-danger mt-1 fs-6" id="error-input-price-drink-1"></div>
                                 </div>
                             </div>
@@ -59,14 +59,14 @@
                         <div class="row g-2 drink" id="drink">
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-drink" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-drink" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-drink"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Precio</label>
                                 <div class="input-group">
                                     <span class="input-group-text">$</span>
-                                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-drink" name="precio">
+                                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-drink" name="precio">
                                     <div class="text-danger mt-1 fs-6" id="error-input-price-drink"></div>
                                 </div>
                             </div>

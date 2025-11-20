@@ -37,7 +37,7 @@
                                 <div class="row g-2 details_entry" id="details-entrys-1">
                                     <div class="col-md-6">
                                         <label for="inputEmail4" class="form-label">Codigo</label>
-                                        <input type="text" class="form-control" placeholder="Codigo" id="input-code-entrys-1" name="codigo">
+                                        <input type="text" maxlength="50" class="form-control" placeholder="Codigo" id="input-code-entrys-1" name="codigo">
                                         <div class="text-danger mt-1 fs-6" id="error-input-code-entrys-1"></div>
                                     </div>
                                     <div class="col-md-6">
@@ -66,7 +66,7 @@
                                         <label for="inputEmail4" class="form-label">Cantidad</label>
                                         <div class="input-group">
                                             <span class="input-group-text type_unit">0</span>
-                                            <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entrys-1" name="cantidad">
+                                            <input type="text" maxlength="50" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entrys-1" name="cantidad">
                                         </div>
                                         <div class="text-danger mt-1 fs-6" id="error-input-quantity-entrys-1"></div>
                                     </div>
@@ -108,13 +108,13 @@
                                         <label for="inputEmail4" class="form-label">Precio de compra</label>
                                         <div class="input-group">
                                             <span class="input-group-text type_payment">$</span>
-                                            <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-entrys-1" name="precio">
+                                            <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-entrys-1" name="precio">
                                         </div>
                                         <div class="text-danger mt-1 fs-6" id="error-input-price-entrys-1"></div>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <label for="inputZip" class="form-label">Referencia</label>
-                                        <input type="text" class="form-control" placeholder="Referencia" id="input-ref-entrys-1" name="referencia">
+                                        <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-ref-entrys-1" name="referencia">
                                         <div class="text-danger mt-1 fs-6" id="error-input-ref-entrys-1"></div>
                                     </div>
                                     <div class="col-12">

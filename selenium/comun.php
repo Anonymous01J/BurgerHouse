@@ -29,7 +29,7 @@ use Facebook\WebDriver\Remote\RemoteWebElement;
             }
         }
         // MODIFICAR A PIE SEGUN TU SYTEM
-        public function login($clave = "Hola123", $usuario = "garnicaluis391@gmail.com"){
+        public function login($clave = "Alejandro202**", $usuario = "garnicaluis391@gmail.com"){
 
             try {
                 $this->driver->wait(5, 500)->until(

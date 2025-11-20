@@ -60,7 +60,7 @@
                                 <label for="inputEmail4" class="form-label">Cantidad</label>
                                 <div class="input-group">
                                     <span class="input-group-text type_unit">0</span>
-                                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-recipe-1" name="cantidad">
+                                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-recipe-1" name="cantidad">
                                 </div>
                                 <div class="text-danger mt-1 fs-6" id="error-input-quantity-recipe-1"></div>
                             </div>
@@ -117,7 +117,7 @@
                                 <label for="inputEmail4" class="form-label">Cantidad</label>
                                 <div class="input-group">
                                     <span class="input-group-text type_unit">0</span>
-                                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-edit-quantity-1" name="cantidad">
+                                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Cantidad" input_price id="input-edit-quantity-1" name="cantidad">
                                 </div>
                                 <div class="text-danger mt-1 fs-6" id="error-input-edit-quantity-1"></div>
                             </div>

@@ -22,12 +22,19 @@ class Router
                 exit;
             }
         }
-        
+
         $controllerName = !empty($url[0]) ? $url[0] : 'Home';
         $methodName = $url[1] ?? 'view';
         if (!isset($_SESSION['id']) && !in_array(strtolower($controllerName), ['login', 'changepass', 'recover_password'])) {
             $controllerName = 'Login';
             $methodName = 'view';
+        }
+
+         if (isset($_SESSION['id']) && 
+            in_array(strtolower($controllerName), ['login', 'changepass', 'recover_password']) && 
+            $methodName === 'view') {
+            header('Location: /BurgerHouse/home');
+            exit;
         }
         $controllerFile = __DIR__ . '/../controllers/' . ucfirst($controllerName) . 'Controller.php';
 

@@ -11,12 +11,12 @@
                     <div class="col-md-12">
                         <div class="mb-3">
                             <label class="form-label text-dark" for="uname">Nombre</label>
-                            <input type="text" class="form-control" id="input-name-permission" placeholder="Nombre" name="nombre">
+                            <input type="text" maxlength="50" class="form-control" id="input-name-permission" placeholder="Nombre" name="nombre">
                             <div class="text-danger mt-1 fs-6" id="error-input-name-permission"></div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-dark" for="uname">Descripcion</label>
-                            <textarea class="form-control" id="input-description-permission" placeholder="Descripcion" rows="4" name="descripcion"></textarea>
+                            <textarea maxlength="50" class="form-control" id="input-description-permission" placeholder="Descripcion" rows="4" name="descripcion"></textarea>
                             <div class="text-danger mt-1 fs-6" id="error-input-description-permission"></div>
                         </div>
                     </div>
@@ -45,12 +45,12 @@
                     <div class="col-md-12">
                         <div class="mb-3">
                             <label class="form-label text-dark" for="uname">Nombre</label>
-                            <input type="text" class="form-control" id="input-name-permission-edit" placeholder="Nombre" name="nombre">
+                            <input type="text" maxlength="50" class="form-control" id="input-name-permission-edit" placeholder="Nombre" name="nombre">
                             <div class="text-danger mt-1 fs-6" id="error-input-name-permission-edit"></div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label text-dark" for="uname">Descripcion</label>
-                            <textarea class="form-control" id="input-description-permission-edit" placeholder="Descripcion" rows="4" name="descripcion"></textarea>
+                            <textarea maxlength="50" class="form-control" id="input-description-permission-edit" placeholder="Descripcion" rows="4" name="descripcion"></textarea>
                             <div class="text-danger mt-1 fs-6" id="error-input-description-permission-edit"></div>
                         </div>
                         <input type="hidden" id="input-id-permission">

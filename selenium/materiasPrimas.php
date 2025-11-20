@@ -20,7 +20,7 @@ class MateriasPrimasSelenium extends ComunSelenium{
         $this->entradasMateriasPrimasEliminar();
         
         sleep(4);
-        $this->closeBrowser();
+        // $this->closeBrowser();
 
 
     }
@@ -72,7 +72,7 @@ class MateriasPrimasSelenium extends ComunSelenium{
             $button = $this->waitElement('div.mb-4 > button[data-bs-toggle="modal"][data-bs-target="#register-entrys"]', 5, 500, 'No se encuentra el botón de entradas');
             $this->print("click al boton de entradas",4);
             $this->scrollTo('#DataTables_Table_1');
-            $row = $this->findRowInTableByText('#DataTables_Table_1', 'Prueba');
+            $row = $this->findRowInTableByText('#DataTables_Table_1', 'Queso Amarillo');
             $row->findElement($this->selector("svg"))->click();
             $aEditar = $row->findElement(WebDriverBy::xpath('.//a[contains(text(), "Editar")]'));
             $aEditar->click();
@@ -112,7 +112,7 @@ class MateriasPrimasSelenium extends ComunSelenium{
             $button = $this->waitElement('div.mb-4 > button[data-bs-toggle="modal"][data-bs-target="#register-entrys"]', 5, 500, 'No se encuentra el botón de entradas');
             $this->print("click al boton de entradas",4);
             $this->scrollTo('#DataTables_Table_1');
-            $row = $this->findRowInTableByText('#DataTables_Table_1', 'Prueba');
+            $row = $this->findRowInTableByText('#DataTables_Table_1', 'Queso Amarillo');
             $row->findElement($this->selector("svg"))->click();
             $aEliminar = $row->findElement(WebDriverBy::xpath('.//a[contains(text(), "Eliminar")]'));
             $aEliminar->click();

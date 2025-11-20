@@ -38,14 +38,14 @@
                                         <div class="row mb-4">
                                             <label for="input-name-user-profile" class="col-sm-5 col-form-label">Nombre</label>
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control" id="input-name-user-profile" name="nombre" placeholder="Nombre">
+                                                <input type="text" maxlength="50" class="form-control" id="input-name-user-profile" name="nombre" placeholder="Nombre">
                                                 <div class="text-danger mt-1 fs-6" id="error-input-name-user-profile"></div>
                                             </div>
                                         </div>
                                         <div class="row mb-4">
                                             <label for="input-lastname-user-profile" class="col-sm-5 col-form-label">Apellido</label>
                                             <div class="col-sm-7">
-                                                <input type="text" class="form-control" id="input-lastname-user-profile" name="apellido" placeholder="Apellido">
+                                                <input type="text" maxlength="50" class="form-control" id="input-lastname-user-profile" name="apellido" placeholder="Apellido">
                                                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-user-profile"></div>
                                             </div>
                                         </div>

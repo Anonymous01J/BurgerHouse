@@ -12,12 +12,12 @@
                         <div class="row g-2 units" id="unit-1">
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-units-1" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-units-1" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-units-1"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Alias</label>
-                                <input type="text" class="form-control" placeholder="Alias" id="input-alias-units-1" name="alias">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Alias" id="input-alias-units-1" name="alias">
                                 <div class="text-danger mt-1 fs-6" id="error-input-alias-units-1"></div>
                             </div>
                         </div>
@@ -50,12 +50,12 @@
                             <input type="hidden" id="input-id-unit" name="id">
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-unit" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-unit" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-unit"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Alias</label>
-                                <input type="text" class="form-control" placeholder="Alias" id="input-alias-unit" name="alias">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Alias" id="input-alias-unit" name="alias">
                                 <div class="text-danger mt-1 fs-6" id="error-input-alias-unit"></div>
                             </div>
                         </div>

@@ -93,13 +93,13 @@
                                                             <label for="inputEmail4" class="form-label">Cantidad</label>
                                                             <div class="input-group">
                                                                 <span class="input-group-text type_payment">N/S</span>
-                                                                <input type="text" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-orderLocalRes-1" name="cantidad">
+                                                                <input type="text" maxlength="50" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-orderLocalRes-1" name="cantidad">
                                                                 <div class="text-danger mt-1 fs-6" id="error-input-quantity-orderLocalRes-1"></div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
                                                             <label for="inputEmail4" class="form-label">Referencia</label>
-                                                            <input type="text" class="form-control" placeholder="Referencia" id="input-reference-orderLocalRes-1" name="referencia">
+                                                            <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-reference-orderLocalRes-1" name="referencia">
                                                             <div class="text-danger mt-1 fs-6" id="error-input-reference-orderLocalRes-1"></div>
                                                         </div>
                                                         <div class="col-12">

@@ -12,7 +12,7 @@
                         <div class="row g-2 payments" id="payments-1">
                             <div class="col-12">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-payments-1" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-payments-1" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-payments-1"></div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             <input type="hidden" id="input-id-payment" name="id">
                             <div class="col-12">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-payment" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-payment" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-payment"></div>
                             </div>
                         </div>

@@ -184,13 +184,13 @@
 															<label for="inputEmail4" class="form-label">Cantidad</label>
 															<div class="input-group">
 																<span class="input-group-text type_payment">N/S</span>
-																<input type="text" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-order-1" name="cantidad">
+																<input type="text" maxlength="50" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-order-1" name="cantidad">
 																<div class="text-danger mt-1 fs-6" id="error-input-quantity-order-1"></div>
 															</div>
 														</div>
 														<div class="col-md-12">
 															<label for="inputEmail4" class="form-label">Referencia</label>
-															<input type="text" class="form-control" placeholder="Referencia" id="input-reference-order-1" name="referencia">
+															<input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-reference-order-1" name="referencia">
 															<div class="text-danger mt-1 fs-6" id="error-input-reference-order-1"></div>
 														</div>
 														<div class="col-12">
@@ -260,7 +260,7 @@
 							<h4>DIRECCION DE ENVIO</h4>
 							<hr>
 							<div class="row">
-								<textarea class="form-control direction_sale" placeholder="Direccion" rows="5"></textarea>
+								<textarea maxlength="50" class="form-control direction_sale" placeholder="Direccion" rows="5"></textarea>
 							</div>
 							<div class="d-flex justify-content-end position-sticky start-100 bottom-0">
 								<button class="btn btn-secondary mt-3 me-2" onclick="stepper.previous()">Anterior</button>

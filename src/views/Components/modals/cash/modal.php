@@ -12,7 +12,7 @@
                         <label for="inputEmail4" class="form-label">Monto Bs</label>
                         <div class="input-group">
                             <span class="input-group-text">Bs</span>
-                            <input type="text" class="form-control w-50" placeholder="Precio" input_price id="input-price-bs-cash" name="precio_bs">
+                            <input type="text" maxlength="50" class="form-control w-50" placeholder="Precio" input_price id="input-price-bs-cash" name="precio_bs">
                             <div class="text-danger mt-1 fs-6" id="error-input-price-bs-cash"></div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                         <label for="inputEmail4" class="form-label">Monto USD</label>
                         <div class="input-group">
                             <span class="input-group-text">$</span>
-                            <input type="text" class="form-control w-50" placeholder="Precio" input_price id="input-price-usd-cash" name="precio_usd">
+                            <input type="text" maxlength="50" class="form-control w-50" placeholder="Precio" input_price id="input-price-usd-cash" name="precio_usd">
                             <div class="text-danger mt-1 fs-6" id="error-input-price-usd-cash"></div>
                         </div>
                     </div>

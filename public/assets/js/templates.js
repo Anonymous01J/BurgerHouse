@@ -620,14 +620,14 @@ export default function Templates() {
 
             <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-combo-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-combo-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-combo-${objet}"></div>
             </div>
             <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Precio</label>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-combo-${objet}" name="precio">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-combo-${objet}" name="precio">
                     <div class="text-danger mt-1 fs-6" id="error-input-price-combo-${objet}"></div>
                 </div>
             </div>
@@ -658,7 +658,7 @@ export default function Templates() {
 
             <div class="col-12">
                 <label for="inputAddress2" class="form-label">Detalles</label>
-                <textarea placeholder="Detalles" class="form-control" id="input-details-combo-${objet}" rows="5" name="detalles"></textarea>
+                <textarea maxlength="50" placeholder="Detalles" class="form-control" id="input-details-combo-${objet}" rows="5" name="detalles"></textarea>
                 <div class="text-danger mt-1 fs-6" id="error-input-details-combo-${objet}"></div>
             </div>
             <div class="col-12">
@@ -683,14 +683,14 @@ export default function Templates() {
 
             <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-combo-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-combo-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-combo-${objet}"></div>
             </div>
             <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Precio</label>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-combo-${objet}" name="precio">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-combo-${objet}" name="precio">
                     <div class="text-danger mt-1 fs-6" id="error-input-price-combo-${objet}"></div>
                 </div>
             </div>
@@ -721,18 +721,18 @@ export default function Templates() {
 
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Stock Min</label>
-                <input type="number" class="form-control" placeholder="Nombre" id="input-min-combo-${objet}" name="min">
+                <input type="number" maxlength="50" class="form-control" placeholder="Nombre" id="input-min-combo-${objet}" name="min">
                 <div class="text-danger mt-1 fs-6" id="error-input-min-combo-1"></div>
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Stock Max</label>
-                <input type="number" class="form-control" placeholder="Nombre" id="input-max-combo-${objet}" name="max">
+                <input type="number" maxlength="50" class="form-control" placeholder="Nombre" id="input-max-combo-${objet}" name="max">
                 <div class="text-danger mt-1 fs-6" id="error-input-max-combo-1"></div>
             </div>
 
             <div class="col-12">
                 <label for="inputAddress2" class="form-label">Detalles</label>
-                <textarea placeholder="Detalles" class="form-control" id="input-details-combo-${objet}" rows="5" name="detalles"></textarea>
+                <textarea maxlength="50" placeholder="Detalles" class="form-control" id="input-details-combo-${objet}" rows="5" name="detalles"></textarea>
                 <div class="text-danger mt-1 fs-6" id="error-input-details-combo-${objet}"></div>
             </div>
             <div class="col-12">
@@ -756,12 +756,12 @@ export default function Templates() {
             </div>
             <div class="col-md-3">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-tables-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-tables-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-tables-${objet}"></div>
             </div>
             <div class="col-md-3">
                 <label for="inputEmail4" class="form-label">Nro de sillas</label>
-                <input type="number" class="form-control" placeholder="Nro de sillas" id="input-chair-tables-${objet}" name="sillas">
+                <input type="number" maxlength="50" class="form-control" placeholder="Nro de sillas" id="input-chair-tables-${objet}" name="sillas">
                 <div class="text-danger mt-1 fs-6" id="error-input-chair-tables-${objet}"></div>
             </div>
             <div class="col-md-1">
@@ -791,12 +791,12 @@ export default function Templates() {
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-units-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-units-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-units-${objet}"></div>
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Alias</label>
-                <input type="text" class="form-control" placeholder="Alias" id="input-alias-units-${objet}" name="alias">
+                <input type="text" maxlength="50" class="form-control" placeholder="Alias" id="input-alias-units-${objet}" name="alias">
                 <div class="text-danger mt-1 fs-6" id="error-input-alias-units-${objet}"></div>
             </div>
         </div>
@@ -813,7 +813,7 @@ export default function Templates() {
             </div>
             <div class="col-12">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-payments-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-payments-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-payments-${objet}"></div>
             </div>
         </div>
@@ -830,14 +830,14 @@ export default function Templates() {
             </div>
             <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-additional-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-additional-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-additional-${objet}"></div>
             </div>
             <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Precio</label>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-additional-${objet}" name="precio">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-additional-${objet}" name="precio">
                     <div class="text-danger mt-1 fs-6" id="error-input-price-additional-${objet}"></div>
                 </div>
             </div>
@@ -861,14 +861,14 @@ export default function Templates() {
             </div>
             <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-drink-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-drink-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-drink-${objet}"></div>
             </div>
             <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Precio</label>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-drink-${objet}" name="precio">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-drink-${objet}" name="precio">
                     <div class="text-danger mt-1 fs-6" id="error-input-price-drink-${objet}"></div>
                 </div>
             </div>
@@ -892,7 +892,7 @@ export default function Templates() {
             </div>
             <div class="col-md-12">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-categoryProduct-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-categoryProduct-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-categoryProduct-${objet}"></div>
             </div>
         </div>
@@ -909,7 +909,7 @@ export default function Templates() {
             </div>
             <div class="col-md-12">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-categoryRawMaterials-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-categoryRawMaterials-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-categoryRawMaterials-${objet}"></div>
             </div>
         </div>
@@ -950,7 +950,7 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Cantidad</label>
                 <div class="input-group">
                     <span class="input-group-text type_unit">${objet2 ? objet2.unidad : '0'} </span>
-                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-recipe-${objet}" name="cantidad" value="${objet2 ? objet2.cantidad : ''}">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-recipe-${objet}" name="cantidad" value="${objet2 ? objet2.cantidad : ''}">
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-quantity-recipe-${objet}"></div>
             </div>
@@ -992,7 +992,7 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Cantidad</label>
                 <div class="input-group">
                     <span class="input-group-text type_unit">${objet2 ? objet2.unidad : '0'}</span>
-                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-edit-quantity-${objet}" name="cantidad" value="${objet2 ? String(objet2.cantidad).replace('.', ',') : ''}">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Cantidad" input_price id="input-edit-quantity-${objet}" name="cantidad" value="${objet2 ? String(objet2.cantidad).replace('.', ',') : ''}">
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-edit-quantity-${objet}"></div>
             </div>
@@ -1010,7 +1010,7 @@ export default function Templates() {
             </div>
             <div class="col-md-2">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-rawMaterial-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-rawMaterial-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-rawMaterial-${objet}"></div>
             </div>
             <div class="col-md-3">
@@ -1059,12 +1059,12 @@ export default function Templates() {
             </div>
             <div class="col-md-2">
                 <label for="inputEmail4" class="form-label">Stock Min</label>
-                <input type="number" class="form-control" placeholder="Nombre" id="input-min-rawMaterial-${objet}" name="min">
+                <input type="number" maxlength="50" class="form-control" placeholder="Nombre" id="input-min-rawMaterial-${objet}" name="min">
                 <div class="text-danger mt-1 fs-6" id="error-input-min-rawMaterial-${objet}"></div>
             </div>
             <div class="col-md-2">
                 <label for="inputEmail4" class="form-label">Stock Max</label>
-                <input type="number" class="form-control" placeholder="Nombre" id="input-max-rawMaterial-${objet}" name="max">
+                <input type="number" maxlength="50" class="form-control" placeholder="Nombre" id="input-max-rawMaterial-${objet}" name="max">
                 <div class="text-danger mt-1 fs-6" id="error-input-max-rawMaterial-${objet}"></div>
             </div>
         </div>
@@ -1081,12 +1081,12 @@ export default function Templates() {
             </div>
             <div class="col-md-3">
                 <label for="inputEmail4" class="form-label">Nombre de acreditado</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-supplier-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-supplier-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-supplier-${objet}"></div>
             </div>
             <div class="col-md-3">
                 <label for="inputEmail4" class="form-label">Razon Social</label>
-                <input type="text" class="form-control" placeholder="Razon Social" id="input-razonSocial-supplier-${objet}" name="razonSocial">
+                <input type="text" maxlength="50" class="form-control" placeholder="Razon Social" id="input-razonSocial-supplier-${objet}" name="razonSocial">
                 <div class="text-danger mt-1 fs-6" id="error-input-razonSocial-supplier-${objet}"></div>
             </div>
             <div class="col-md-3 mb-3">
@@ -1112,7 +1112,7 @@ export default function Templates() {
             </div>
             <div class="col-md-3">
                 <label for="inputEmail4" class="form-label">Nro de documento</label>
-                <input type="text" class="form-control" placeholder="Numero de documento" id="input-rif-supplier-${objet}" name="rif">
+                <input type="text" maxlength="50" class="form-control" placeholder="Numero de documento" id="input-rif-supplier-${objet}" name="rif">
                 <div class="text-danger mt-1 fs-6" id="error-input-rif-supplier-${objet}"></div>
             </div>
             <div class="col-6">
@@ -1127,7 +1127,7 @@ export default function Templates() {
             </div>
             <div class="col-12">
                 <label for="inputEmail4" class="form-label">Direccion</label>
-                <textarea class="form-control" id="input-direction-supplier-${objet}" name="direccion" rows="5"></textarea>
+                <textarea maxlength="50" class="form-control" id="input-direction-supplier-${objet}" name="direccion" rows="5"></textarea>
                 <div class="text-danger mt-1 fs-6" id="error-input-direction-supplier-${objet}"></div>
             </div>
         </div>
@@ -1144,12 +1144,12 @@ export default function Templates() {
             </div>
             <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-client-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-client-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-client-${objet}"></div>
             </div>
             <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Apellido</label>
-                <input type="text" class="form-control" placeholder="Apellido" id="input-lastname-client-${objet}" name="apellido">
+                <input type="text" maxlength="50" class="form-control" placeholder="Apellido" id="input-lastname-client-${objet}" name="apellido">
                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-client-${objet}"></div>
             </div>
             <div class="col-md-4">
@@ -1171,12 +1171,12 @@ export default function Templates() {
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Nombre</label>
-                <input type="text" class="form-control" placeholder="Nombre" id="input-name-user-${objet}" name="nombre">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-user-${objet}" name="nombre">
                 <div class="text-danger mt-1 fs-6" id="error-input-name-user-${objet}"></div>
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Apellido</label>
-                <input type="text" class="form-control" placeholder="Apellido" id="input-lastname-user-${objet}" name="apellido">
+                <input type="text" maxlength="50" class="form-control" placeholder="Apellido" id="input-lastname-user-${objet}" name="apellido">
                 <div class="text-danger mt-1 fs-6" id="error-input-lastname-user-${objet}"></div>
             </div>
             <div class="col-md-6 ">
@@ -1203,12 +1203,12 @@ export default function Templates() {
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Nro de documento</label>
-                <input type="text" class="form-control" placeholder="Nro de documento" id="input-rif-user-${objet}" name="rif">
+                <input type="text" maxlength="50" class="form-control" placeholder="Nro de documento" id="input-rif-user-${objet}" name="rif">
                 <div class="text-danger mt-1 fs-6" id="error-input-rif-user-${objet}"></div>
             </div>
             <div class="col-md-4">
                 <label for="inputEmail4" class="form-label">Correo Electronico</label>
-                <input type="text" class="form-control" placeholder="Correo Electronico" id="input-email-user-${objet}" name="email" autocomplete="off">
+                <input type="text" maxlength="50" class="form-control" placeholder="Correo Electronico" id="input-email-user-${objet}" name="email" autocomplete="off">
                 <div class="text-danger mt-1 fs-6" id="error-input-email-user-${objet}"></div>
             </div>
             <div class="col-md-4">
@@ -1327,13 +1327,13 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Precio de compra</label>
                 <div class="input-group">
                     <span class="input-group-text type_payment">$</span>
-                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-entrys-${objet}" name="precio">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-entrys-${objet}" name="precio">
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-price-entrys-${objet}"></div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="inputZip" class="form-label">Referencia</label>
-                <input type="text" class="form-control" placeholder="Referencia" id="input-ref-entrys-${objet}" name="referencia">
+                <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-ref-entrys-${objet}" name="referencia">
                 <div class="text-danger mt-1 fs-6" id="error-input-ref-entrys-${objet}"></div>
             </div>
             <div class="col-12">
@@ -1353,7 +1353,7 @@ export default function Templates() {
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Codigo</label>
-                <input type="text" class="form-control" placeholder="Codigo" id="input-code-entrys-${objet}" name="codigo">
+                <input type="text" maxlength="50" class="form-control" placeholder="Codigo" id="input-code-entrys-${objet}" name="codigo">
                 <div class="text-danger mt-1 fs-6" id="error-input-code-entrys-${objet}"></div>
             </div>
             <div class="col-md-6">
@@ -1382,7 +1382,7 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Cantidad</label>
                 <div class="input-group">
                     <span class="input-group-text type_unit">0</span>
-                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entrys-${objet}" name="cantidad">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entrys-${objet}" name="cantidad">
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-quantity-entrys-${objet}"></div>
             </div>
@@ -1404,7 +1404,7 @@ export default function Templates() {
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Codigo</label>
-                <input type="text" class="form-control" placeholder="Codigo" id="input-code-entryEdit-${objet}" name="codigo" value="${Objet2.codigo}">
+                <input type="text" maxlength="50" class="form-control" placeholder="Codigo" id="input-code-entryEdit-${objet}" name="codigo" value="${Objet2.codigo}">
                 <div class="text-danger mt-1 fs-6" id="error-input-code-entryEdit-${objet}"></div>
             </div>
             <div class="col-md-6">
@@ -1433,7 +1433,7 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Cantidad</label>
                 <div class="input-group">
                     <span class="input-group-text type_unit type_unit_edit">${Objet2.nombre_unidad}</span>
-                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entryEdit-${objet}" name="cantidad" value="${Objet2.cantidad}">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entryEdit-${objet}" name="cantidad" value="${Objet2.cantidad}">
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-quantity-entryEdit-${objet}"></div>
             </div>
@@ -1453,7 +1453,7 @@ export default function Templates() {
             </div>
             <div class="col-md-6">
                 <label for="inputEmail4" class="form-label">Codigo</label>
-                <input type="text" class="form-control" placeholder="Codigo" id="input-code-entryEdit-${objet}" name="codigo">
+                <input type="text" maxlength="50" class="form-control" placeholder="Codigo" id="input-code-entryEdit-${objet}" name="codigo">
                 <div class="text-danger mt-1 fs-6" id="error-input-code-entryEdit-${objet}"></div>
             </div>
             <div class="col-md-6">
@@ -1482,7 +1482,7 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Cantidad</label>
                 <div class="input-group">
                     <span class="input-group-text type_unit type_unit_edit">0</span>
-                    <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entryEdit-${objet}" name="cantidad">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entryEdit-${objet}" name="cantidad">
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-quantity-entryEdit-${objet}"></div>
             </div>
@@ -1532,13 +1532,13 @@ export default function Templates() {
                     <label for="inputEmail4" class="form-label">Precio de compra</label>
                     <div class="input-group">
                         <span class="input-group-text type_payment">$</span>
-                        <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-entry-${objet}" name="precio" value="${Objet2.precio_compra}">
+                        <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-entry-${objet}" name="precio" value="${Objet2.precio_compra}">
                     </div>
                     <div class="text-danger mt-1 fs-6" id="error-input-price-entry-${objet}"></div>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="inputZip" class="form-label">Referencia</label>
-                    <input type="text" class="form-control" placeholder="Referencia" id="input-ref-entry-${objet}" name="referencia" value="${Objet2.referencia}">
+                    <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-ref-entry-${objet}" name="referencia" value="${Objet2.referencia}">
                     <div class="text-danger mt-1 fs-6" id="error-input-ref-entry-${objet}"></div>
                 </div>
                 <div class="col-12">
@@ -1585,13 +1585,13 @@ export default function Templates() {
                     <label for="inputEmail4" class="form-label">Precio de compra</label>
                     <div class="input-group">
                         <span class="input-group-text type_payment">$</span>
-                        <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-entry-${objet}" name="precio">
+                        <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-entry-${objet}" name="precio">
                     </div>
                     <div class="text-danger mt-1 fs-6" id="error-input-price-entry-${objet}"></div>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="inputZip" class="form-label">Referencia</label>
-                    <input type="text" class="form-control" placeholder="Referencia" id="input-ref-entry-${objet}" name="referencia">
+                    <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-ref-entry-${objet}" name="referencia">
                     <div class="text-danger mt-1 fs-6" id="error-input-ref-entry-${objet}"></div>
                 </div>
                 <div class="col-12">
@@ -1621,7 +1621,7 @@ export default function Templates() {
                 <div class="row g-2 details_entry" id="details-entrys-${objet}">
                     <div class="col-md-4">
                         <label for="inputEmail4" class="form-label">Codigo</label>
-                        <input type="text" class="form-control" placeholder="Codigo" id="input-code-entrys-${objet}" name="codigo">
+                        <input type="text" maxlength="50" class="form-control" placeholder="Codigo" id="input-code-entrys-${objet}" name="codigo">
                         <div class="text-danger mt-1 fs-6" id="error-input-code-entrys-${objet}"></div>
                     </div>
                     <div class="col-md-4">
@@ -1694,7 +1694,7 @@ export default function Templates() {
                         <label for="inputEmail4" class="form-label">Cantidad</label>
                         <div class="input-group">
                             <span class="input-group-text type_unit">0</span>
-                            <input type="text" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entrys-${objet}" name="cantidad">
+                            <input type="text" maxlength="50" class="form-control w-75" placeholder="Cantidad" input_price id="input-quantity-entrys-${objet}" name="cantidad">
                         </div>
                         <div class="text-danger mt-1 fs-6" id="error-input-quantity-entrys-${objet}"></div>
                     </div>
@@ -1748,13 +1748,13 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Precio de compra</label>
                 <div class="input-group">
                     <span class="input-group-text type_payment">$</span>
-                    <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-entrys-${objet}" name="precio">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-entrys-${objet}" name="precio">
                 </div>
                 <div class="text-danger mt-1 fs-6" id="error-input-price-entrys-${objet}"></div>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="inputZip" class="form-label">Referencia</label>
-                <input type="text" class="form-control" placeholder="Referencia" id="input-ref-entrys-${objet}" name="referencia">
+                <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-ref-entrys-${objet}" name="referencia">
                 <div class="text-danger mt-1 fs-6" id="error-input-ref-entrys-${objet}"></div>
             </div>
             <div class="col-12">
@@ -1800,13 +1800,13 @@ export default function Templates() {
                     <label for="inputEmail4" class="form-label">Precio de compra</label>
                     <div class="input-group">
                         <span class="input-group-text type_payment">$</span>
-                        <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-entry-${objet}" name="precio" value="${Objet2.precio_compra}">
+                        <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-entry-${objet}" name="precio" value="${Objet2.precio_compra}">
                     </div>
                     <div class="text-danger mt-1 fs-6" id="error-input-price-entry-${objet}"></div>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="inputZip" class="form-label">Referencia</label>
-                    <input type="text" class="form-control" placeholder="Referencia" id="input-ref-entry-${objet}" name="referencia" value="${Objet2.referencia}">
+                    <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-ref-entry-${objet}" name="referencia" value="${Objet2.referencia}">
                     <div class="text-danger mt-1 fs-6" id="error-input-ref-entry-${objet}"></div>
                 </div>
                 <div class="col-12">
@@ -1853,13 +1853,13 @@ export default function Templates() {
                     <label for="inputEmail4" class="form-label">Precio de compra</label>
                     <div class="input-group">
                         <span class="input-group-text type_payment">$</span>
-                        <input type="text" class="form-control w-75" placeholder="Precio" input_price id="input-price-entry-${objet}" name="precio">
+                        <input type="text" maxlength="50" class="form-control w-75" placeholder="Precio" input_price id="input-price-entry-${objet}" name="precio">
                     </div>
                     <div class="text-danger mt-1 fs-6" id="error-input-price-entry-${objet}"></div>
                 </div>
                 <div class="col-md-4 mb-3">
                     <label for="inputZip" class="form-label">Referencia</label>
-                    <input type="text" class="form-control" placeholder="Referencia" id="input-ref-entry-${objet}" name="referencia">
+                    <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-ref-entry-${objet}" name="referencia">
                     <div class="text-danger mt-1 fs-6" id="error-input-ref-entry-${objet}"></div>
                 </div>
                 <div class="col-12">
@@ -1944,7 +1944,7 @@ export default function Templates() {
                         <button class="btn-round me-2 p-1 minusBtn">
                             <i data-feather="minus"></i>
                         </button>
-                        <input type="text" class="number-input" value="0" readonly>
+                        <input type="text" maxlength="50" class="number-input" value="0" readonly>
                         <button class="btn-round ms-2 p-1 plusBtn">
                             <i data-feather="plus"></i>
                         </button>
@@ -1981,7 +1981,7 @@ export default function Templates() {
                             <img ${src} width="100" height="90" style="object-fit: cover;" alt="">
                             <h5 class="text-truncate w-100 text-center" data-id="${objet.id}">${objet.nombre}</h5>
                             <h4 class="border text-center rounded-pill p-1 fs-6 w-100">Precio: ${objet.precio}$</h4>
-                            <textarea class="form-control details" placeholder="detalles" rows="3"></textarea>
+                            <textarea maxlength="50" class="form-control details" placeholder="detalles" rows="3"></textarea>
                             <div class="counter-container mb-2">
                                 <button class="trigger-btn p-1 plusTrigger">
                                     <i data-feather="plus"></i>
@@ -1990,7 +1990,7 @@ export default function Templates() {
                                     <button class="btn-round me-2 p-1 minusBtn">
                                         <i data-feather="minus"></i>
                                     </button>
-                                    <input type="text" class="number-input" value="1" readonly>
+                                    <input type="text" maxlength="50" class="number-input" value="1" readonly>
                                     <button class="btn-round ms-2 p-1 plusBtn">
                                         <i data-feather="plus"></i>
                                     </button>
@@ -1998,7 +1998,7 @@ export default function Templates() {
                             </div>
                         </div>
                         <div class="col-md-6 col-lg-6 count_additional p-0 border border-2 rounded-3">
-                            <textarea rows="6" class="form-control border-0 " style="box-shadow: none;" name="tags" placeholder="Agregar Adicional" /></textarea>
+                            <textarea maxlength="50" rows="6" class="form-control border-0 " style="box-shadow: none;" name="tags" placeholder="Agregar Adicional" /></textarea>
                         </div>
                     </div>
                 </div>
@@ -2028,7 +2028,7 @@ export default function Templates() {
                                     <button class="btn-round me-2 p-1 minusBtn">
                                         <i data-feather="minus"></i>
                                     </button>
-                                    <input type="text" class="number-input" value="1" readonly>
+                                    <input type="text" maxlength="50" class="number-input" value="1" readonly>
                                     <button class="btn-round ms-2 p-1 plusBtn">
                                         <i data-feather="plus"></i>
                                     </button>
@@ -2097,13 +2097,13 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Cantidad</label>
                 <div class="input-group">
                     <span class="input-group-text type_payment">$</span>
-                    <input type="text" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-order-${objet}" name="cantidad">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-order-${objet}" name="cantidad">
                     <div class="text-danger mt-1 fs-6" id="error-input-quantity-order-${objet}"></div>
                 </div>
             </div>
             <div class="col-md-12">
                 <label for="inputEmail4" class="form-label">Referencia</label>
-                <input type="text" class="form-control" placeholder="Referencia" id="input-reference-order-${objet}" name="referencia">
+                <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-reference-order-${objet}" name="referencia">
                 <div class="text-danger mt-1 fs-6" id="error-input-reference-order-${objet}"></div>
             </div>
             <div class="col-12">
@@ -2150,13 +2150,13 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Cantidad</label>
                 <div class="input-group">
                     <span class="input-group-text type_payment">N/S</span>
-                    <input type="text" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-orderLocal-${objet}" name="cantidad">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-orderLocal-${objet}" name="cantidad">
                     <div class="text-danger mt-1 fs-6" id="error-input-quantity-orderLocal-${objet}"></div>
                 </div>
             </div>
             <div class="col-md-12">
                 <label for="inputEmail4" class="form-label">Referencia</label>
-                <input type="text" class="form-control" placeholder="Referencia" id="input-reference-orderLocal-${objet}" name="referencia">
+                <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-reference-orderLocal-${objet}" name="referencia">
                 <div class="text-danger mt-1 fs-6" id="error-input-reference-orderLocal-${objet}"></div>
             </div>
             <div class="col-12">
@@ -2422,13 +2422,13 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Cantidad</label>
                 <div class="input-group">
                     <span class="input-group-text type_payment">N/S</span>
-                    <input type="text" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-reservation-${objet}" name="cantidad">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-reservation-${objet}" name="cantidad">
                     <div class="text-danger mt-1 fs-6" id="error-input-quantity-reservation-${objet}"></div>
                 </div>
             </div>
             <div class="col-md-12">
                 <label for="inputEmail4" class="form-label">Referencia</label>
-                <input type="text" class="form-control" placeholder="Referencia" id="input-reference-reservation-${objet}" name="referencia">
+                <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-reference-reservation-${objet}" name="referencia">
                 <div class="text-danger mt-1 fs-6" id="error-input-reference-reservation-${objet}"></div>
             </div>
             <div class="col-12">
@@ -2476,13 +2476,13 @@ export default function Templates() {
                     <label for="inputEmail4" class="form-label">Cantidad</label>
                     <div class="input-group">
                         <span class="input-group-text type_payment">N/S</span>
-                        <input type="text" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-reservationEdit-${objet}" name="cantidad">
+                        <input type="text" maxlength="50" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-reservationEdit-${objet}" name="cantidad">
                         <div class="text-danger mt-1 fs-6" id="error-input-quantity-reservationEdit-${objet}"></div>
                     </div>
                 </div>
                 <div class="col-md-12">
                     <label for="inputEmail4" class="form-label">Referencia</label>
-                    <input type="text" class="form-control" placeholder="Referencia" id="input-reference-reservationEdit-${objet}" name="referencia">
+                    <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-reference-reservationEdit-${objet}" name="referencia">
                     <div class="text-danger mt-1 fs-6" id="error-input-reference-reservationEdit-${objet}"></div>
                 </div>
                 <div class="col-12">
@@ -2531,13 +2531,13 @@ export default function Templates() {
                 <label for="inputEmail4" class="form-label">Cantidad</label>
                 <div class="input-group">
                     <span class="input-group-text type_payment">N/S</span>
-                    <input type="text" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-orderLocalRes-${objet}" name="cantidad">
+                    <input type="text" maxlength="50" class="form-control w-75" placeholder="0.00" input_price id="input-quantity-orderLocalRes-${objet}" name="cantidad">
                     <div class="text-danger mt-1 fs-6" id="error-input-quantity-orderLocalRes-${objet}"></div>
                 </div>
             </div>
             <div class="col-md-12">
                 <label for="inputEmail4" class="form-label">Referencia</label>
-                <input type="text" class="form-control" placeholder="Referencia" id="input-reference-orderLocalRes-${objet}" name="referencia">
+                <input type="text" maxlength="50" class="form-control" placeholder="Referencia" id="input-reference-orderLocalRes-${objet}" name="referencia">
                 <div class="text-danger mt-1 fs-6" id="error-input-reference-orderLocalRes-${objet}"></div>
             </div>
             <div class="col-12">

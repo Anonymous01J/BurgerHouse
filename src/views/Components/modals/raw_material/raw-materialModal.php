@@ -12,7 +12,7 @@
                         <div class="rawmaterials row" id="rawmaterials-1">
                             <div class="col-md-2">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-rawMaterial-1" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-rawMaterial-1" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-rawMaterial-1"></div>
                             </div>
                             <div class="col-md-3">
@@ -61,12 +61,12 @@
                             </div>
                             <div class="col-md-2">
                                 <label for="inputEmail4" class="form-label">Stock Min</label>
-                                <input type="number" class="form-control" placeholder="Nombre" id="input-min-rawMaterial-1" name="min">
+                                <input type="number" maxlength="50" class="form-control" placeholder="Nombre" id="input-min-rawMaterial-1" name="min">
                                 <div class="text-danger mt-1 fs-6" id="error-input-min-rawMaterial-1"></div>
                             </div>
                             <div class="col-md-2">
                                 <label for="inputEmail4" class="form-label">Stock Max</label>
-                                <input type="number" class="form-control" placeholder="Nombre" id="input-max-rawMaterial-1" name="max">
+                                <input type="number" maxlength="50" class="form-control" placeholder="Nombre" id="input-max-rawMaterial-1" name="max">
                                 <div class="text-danger mt-1 fs-6" id="error-input-max-rawMaterial-1"></div>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                         <div class="rawmaterial row" id="rawmaterial">
                             <div class="col-md-12">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-rawMaterial" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-rawMaterial" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-rawMaterial"></div>
                             </div>
                             <div class="col-md-6">
@@ -146,12 +146,12 @@
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Stock Min</label>
-                                <input type="number" class="form-control" placeholder="Nombre" id="input-min-rawMaterial" name="min">
+                                <input type="number" maxlength="50" class="form-control" placeholder="Nombre" id="input-min-rawMaterial" name="min">
                                 <div class="text-danger mt-1 fs-6" id="error-input-min-rawMaterial"></div>
                             </div>
                             <div class="col-md-6">
                                 <label for="inputEmail4" class="form-label">Stock Max</label>
-                                <input type="number" class="form-control" placeholder="Nombre" id="input-max-rawMaterial" name="max">
+                                <input type="number" maxlength="50" class="form-control" placeholder="Nombre" id="input-max-rawMaterial" name="max">
                                 <div class="text-danger mt-1 fs-6" id="error-input-max-rawMaterial"></div>
                             </div>
                         </div>

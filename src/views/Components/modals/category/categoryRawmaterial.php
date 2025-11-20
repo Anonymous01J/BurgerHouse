@@ -12,7 +12,7 @@
                         <div class="row g-2 categoryRawMaterials" id="categoryRawMaterials-1">
                             <div class="col-md-12">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-categoryRawMaterials-1" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-categoryRawMaterials-1" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-categoryRawMaterials-1"></div>
                             </div>
                         </div>
@@ -45,7 +45,7 @@
                             <input type="hidden" id="input-id-categoryRawMaterial">
                             <div class="col-md-12">
                                 <label for="inputEmail4" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" placeholder="Nombre" id="input-name-categoryRawMaterial" name="nombre">
+                                <input type="text" maxlength="50" class="form-control" placeholder="Nombre" id="input-name-categoryRawMaterial" name="nombre">
                                 <div class="text-danger mt-1 fs-6" id="error-input-name-categoryRawMaterial"></div>
                             </div>
                         </div>
